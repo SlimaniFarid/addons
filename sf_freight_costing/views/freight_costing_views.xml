@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Carrier form -->
+    <record id="freight_carrier_view_form" model="ir.ui.view">
+        <field name="name">sf.freight.carrier.form</field>
+        <field name="model">sf.freight.carrier</field>
+        <field name="arch" type="xml">
+            <form string="Freight Carrier">
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="code"/>
+                            <field name="partner_id"/>
+                            <field name="active"/>
+                        </group>
+                        <group>
+                            <field name="currency_id"/>
+                        </group>
+                    </group>
+                    <group string="Cost Formula">
+                        <group>
+                            <field name="cost_method"/>
+                            <field name="fixed_price"
+                                   attrs="{'invisible': [('cost_method', '!=', 'fixed')]}"/>
+                            <field name="per_kg"
+                                   attrs="{'invisible': [('cost_method', '!=', 'weight')]}"/>
+                            <field name="per_m3"
+                                   attrs="{'invisible': [('cost_method', '!=', 'volume')]}"/>
+                            <field name="percent_value"
+                                   attrs="{'invisible': [('cost_method', '!=', 'value')]}"/>
+                        </group>
+                        <group>
+                            <field name="min_charge"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="freight_carrier_view_tree" model="ir.ui.view">
+        <field name="name">sf.freight.carrier.tree</field>
+        <field name="model">sf.freight.carrier</field>
+        <field name="arch" type="xml">
+            <tree string="Freight Carriers">
+                <field name="name"/>
+                <field name="code"/>
+                <field name="cost_method"/>
+                <field name="min_charge"/>
+                <field name="currency_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Freight cost -->
+    <record id="freight_cost_view_form" model="ir.ui.view">
+        <field name="name">sf.freight.cost.form</field>
+        <field name="model">sf.freight.cost</field>
+        <field name="arch" type="xml">
+            <form string="Freight Cost">
+                <header>
+                    <button name="action_mark_actual" type="object"
+                            string="Mark Actual" class="btn-primary"
+                            states="estimated"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="carrier_id"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="picking_id"/>
+                            <field name="date"/>
+                        </group>
+                        <group>
+                            <field name="method" readonly="1"/>
+                            <field name="total_cost"/>
+                        </group>
+                    </group>
+                    <group string="Dimensions">
+                        <group>
+                            <field name="weight"/>
+                            <field name="volume"/>
+                        </group>
+                        <group>
+                            <field name="value"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="freight_cost_view_tree" model="ir.ui.view">
+        <field name="name">sf.freight.cost.tree</field>
+        <field name="model">sf.freight.cost</field>
+        <field name="arch" type="xml">
+            <tree string="Freight Costs">
+                <field name="date"/>
+                <field name="picking_id"/>
+                <field name="carrier_id"/>
+                <field name="weight"/>
+                <field name="total_cost"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Inherited picking form -->
+    <record id="freight_picking_view_form_ext" model="ir.ui.view">
+        <field name="name">stock.picking.form.sf</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_id']/ancestor::group[1]"
+                   position="inside">
+                <field name="sf_carrier_id"/>
+            </xpath>
+            <xpath expr="//sheet/notebook" position="inside">
+                <page string="Freight" name="freight">
+                    <group>
+                        <group>
+                            <field name="sf_weight"/>
+                            <field name="sf_volume"/>
+                        </group>
+                        <group>
+                            <field name="sf_estimated_freight"/>
+                        </group>
+                    </group>
+                    <field name="sf_freight_cost_ids">
+                        <tree string="Freight Costs" editable="bottom">
+                            <field name="date"/>
+                            <field name="carrier_id"/>
+                            <field name="weight"/>
+                            <field name="volume"/>
+                            <field name="total_cost"/>
+                            <field name="state"/>
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Actions -->
+    <record id="action_freight_carrier" model="ir.actions.act_window">
+        <field name="name">Carriers</field>
+        <field name="res_model">sf.freight.carrier</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="action_freight_cost" model="ir.actions.act_window">
+        <field name="name">Freight Costs</field>
+        <field name="res_model">sf.freight.cost</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>
