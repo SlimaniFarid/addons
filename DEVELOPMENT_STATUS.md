@@ -18,7 +18,7 @@ Test : validation statique (compile Python, parse XML, cohérence manifest/model
 | 10 | sf_fixed_assets — Fixed Assets Lifecycle | ✅ | ✅ | ✅ | ✅ | ✅ | Done |
 | 11 | sf_cpq_configurator — CPQ for Custom Products | ✅ | ✅ | ✅ | ✅ | ✅ | Done |
 | 12 | sf_safety_stock — Safety Stock Optimizer | ✅ | ✅ | ✅ | ✅ | ✅ | Done |
-| 13 | sf_time_attendance — Time & Attendance System | ⏳ | ⏳ | ⏳ | ⏳ | ⏳ | Pending |
+| 13 | sf_time_attendance — Time & Attendance System | ✅ | ✅ | ✅ | ✅ | ✅ | Done |
 | 14 | sf_traceability — Traceability & Batch Recall | ⏳ | ⏳ | ⏳ | ⏳ | ⏳ | Pending |
 | 15 | sf_service_contracts — Service Contracts & SLA Engine | ⏳ | ⏳ | ⏳ | ⏳ | ⏳ | Pending |
 | 16 | sf_price_matrix — B2B Price & Discount Matrix | ⏳ | ⏳ | ⏳ | ⏳ | ⏳ | Pending |
