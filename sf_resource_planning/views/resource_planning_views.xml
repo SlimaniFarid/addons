@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Resource form -->
+    <record id="resource_view_form" model="ir.ui.view">
+        <field name="name">sf.resource.planning.resource.form</field>
+        <field name="model">sf.resource.planning.resource</field>
+        <field name="arch" type="xml">
+            <form string="Resource">
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="resource_type"/>
+                            <field name="employee_id"/>
+                            <field name="user_id"/>
+                            <field name="team_id"/>
+                        </group>
+                        <group>
+                            <field name="capacity_per_day"/>
+                            <field name="total_allocated"/>
+                            <field name="utilization"/>
+                            <field name="active"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Allocations">
+                            <field name="allocation_ids">
+                                <tree string="Allocations" editable="bottom">
+                                    <field name="date_start"/>
+                                    <field name="date_end"/>
+                                    <field name="task_id"/>
+                                    <field name="project_id"/>
+                                    <field name="hours"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="resource_view_tree" model="ir.ui.view">
+        <field name="name">sf.resource.planning.resource.tree</field>
+        <field name="model">sf.resource.planning.resource</field>
+        <field name="arch" type="xml">
+            <tree string="Resources">
+                <field name="name"/>
+                <field name="resource_type"/>
+                <field name="team_id"/>
+                <field name="capacity_per_day"/>
+                <field name="total_allocated"/>
+                <field name="utilization" widget="progressbar"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="resource_view_search" model="ir.ui.view">
+        <field name="name">sf.resource.planning.resource.search</field>
+        <field name="model">sf.resource.planning.resource</field>
+        <field name="arch" type="xml">
+            <search string="Resources">
+                <field name="name"/>
+                <field name="team_id"/>
+                <filter string="Overloaded" name="overloaded"
+                        domain="[('utilization','&gt;',100)]"/>
+                <filter string="Human" name="human"
+                        domain="[('resource_type','=','human')]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Type" name="type"
+                            context="{'group_by':'resource_type'}"/>
+                    <filter string="Team" name="team"
+                            context="{'group_by':'team_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Allocation form -->
+    <record id="allocation_view_form" model="ir.ui.view">
+        <field name="name">sf.resource.planning.allocation.form</field>
+        <field name="model">sf.resource.planning.allocation</field>
+        <field name="arch" type="xml">
+            <form string="Resource Allocation">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="resource_id"/>
+                            <field name="task_id"/>
+                            <field name="project_id"/>
+                            <field name="company_id"/>
+                        </group>
+                        <group>
+                            <field name="date_start"/>
+                            <field name="date_end"/>
+                            <field name="hours"/>
+                        </group>
+                    </group>
+                    <field name="note" placeholder="Note..."/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="allocation_view_tree" model="ir.ui.view">
+        <field name="name">sf.resource.planning.allocation.tree</field>
+        <field name="model">sf.resource.planning.allocation</field>
+        <field name="arch" type="xml">
+            <tree string="Allocations">
+                <field name="resource_id"/>
+                <field name="project_id"/>
+                <field name="task_id"/>
+                <field name="date_start"/>
+                <field name="date_end"/>
+                <field name="hours"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Actions -->
+    <record id="action_resource" model="ir.actions.act_window">
+        <field name="name">Resources</field>
+        <field name="res_model">sf.resource.planning.resource</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="resource_view_search"/>
+    </record>
+
+    <record id="action_allocation" model="ir.actions.act_window">
+        <field name="name">Allocations</field>
+        <field name="res_model">sf.resource.planning.allocation</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>
