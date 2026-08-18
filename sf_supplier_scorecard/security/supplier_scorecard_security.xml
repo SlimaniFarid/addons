@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="module_category_supplier_scorecard" model="ir.module.category">
+        <field name="name">Supplier Scorecard</field>
+        <field name="sequence">94</field>
+    </record>
+
+    <record id="group_supplier_scorecard_user" model="res.groups">
+        <field name="name">Supplier Scorecard User</field>
+        <field name="category_id" ref="module_category_supplier_scorecard"/>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+
+    <record id="group_supplier_scorecard_manager" model="res.groups">
+        <field name="name">Supplier Scorecard Manager</field>
+        <field name="category_id" ref="module_category_supplier_scorecard"/>
+        <field name="implied_ids" eval="[(4, ref('group_supplier_scorecard_user'))]"/>
+    </record>
+</odoo>

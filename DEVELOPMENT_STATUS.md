@@ -25,7 +25,7 @@ Test : validation statique (compile Python, parse XML, cohérence manifest/model
 | 17 | sf_psa — Professional Services Automation | ✅ | ✅ | ✅ | ✅ | ✅ | Done |
 | 18 | sf_wave_picking — Warehouse Wave Picking | ✅ | ✅ | ✅ | ✅ | ✅ | Done |
 | 19 | sf_freight_costing — Freight & Carrier Costing | ✅ | ✅ | ✅ | ✅ | ✅ | Done |
-| 20 | sf_supplier_scorecard — Supplier Scorecard & Quality | ⏳ | ⏳ | ⏳ | ⏳ | ⏳ | Pending |
+| 20 | sf_supplier_scorecard — Supplier Scorecard & Quality | ✅ | ✅ | ✅ | ✅ | ✅ | Done |
 | 21 | sf_consolidation — Multi-Company Consolidation | ⏳ | ⏳ | ⏳ | ⏳ | ⏳ | Pending |
 | 22 | sf_mes_shop_floor — Shop Floor Execution (MES) | ⏳ | ⏳ | ⏳ | ⏳ | ⏳ | Pending |
 | 23 | sf_project_margin — Project Margin & Budget Control | ⏳ | ⏳ | ⏳ | ⏳ | ⏳ | Pending |
