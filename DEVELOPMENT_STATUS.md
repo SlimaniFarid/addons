@@ -7,7 +7,7 @@ Test : validation statique (compile Python, parse XML, cohérence manifest/model
 | # | Module (technique / commercial) | Odoo 18 | Odoo 19 | Tests | Git 18 | Git 19 | Statut |
 |---|--------------------------------|---------|---------|-------|--------|--------|--------|
 | 1 | sf_construction_boq — Construction BOQ & Subcontractor Billing | ✅ | ✅ | ✅ | ✅ | ✅ | Done |
-| 2 | sf_cash_flow_forecast — Cash Flow & Treasury Manager | ⏳ | ⏳ | ⏳ | ⏳ | ⏳ | Pending |
+| 2 | sf_cash_flow_forecast — Cash Flow & Treasury Manager | ✅ | ✅ | ✅ | ⏳ | ⏳ | Done* |
 | 3 | sf_sales_commission — Sales Commission Engine | ⏳ | ⏳ | ⏳ | ⏳ | ⏳ | Pending |
 | 4 | sf_approval_engine — Universal Approval Engine | ⏳ | ⏳ | ⏳ | ⏳ | ⏳ | Pending |
 | 5 | sf_debt_collection — Credit & Debt Collection | ⏳ | ⏳ | ⏳ | ⏳ | ⏳ | Pending |
