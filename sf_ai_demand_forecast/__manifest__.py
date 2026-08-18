@@ -24,7 +24,7 @@ Technical:
     'author': 'Ethan Miller',
     'support': 'tech5262@gmail.com',
     'license': 'OPL-1',
-    'price': 299.0,
+    'price': 74.75,
     'currency': 'EUR',
     'depends': ['base', 'stock', 'sale'],
     'depends_optional': ['purchase', 'mrp'],

@@ -27,7 +27,7 @@ Integrates with:
     'author': 'Ethan Miller',
     'support': 'tech5262@gmail.com',
     'license': 'OPL-1',
-    'price': 349.0,
+    'price': 87.25,
     'currency': 'EUR',
     'depends': ['base', 'mail', 'account', 'hr', 'helpdesk'],
     'data': [

@@ -27,7 +27,7 @@ Note: This module provides the Odoo backend API. Mobile app template available s
     'author': 'Ethan Miller',
     'support': 'tech5262@gmail.com',
     'license': 'OPL-1',
-    'price': 449.0,
+    'price': 112.25,
     'currency': 'EUR',
     'depends': ['base', 'industry_fsm', 'stock', 'mail'],
     'data': [

@@ -29,7 +29,7 @@ B2B specific:
     'author': 'Ethan Miller',
     'support': 'tech5262@gmail.com',
     'license': 'OPL-1',
-    'price': 299.0,
+    'price': 74.75,
     'currency': 'EUR',
     'depends': ['base', 'website', 'sale', 'account', 'portal', 'payment'],
     'data': [

@@ -7,7 +7,7 @@
     'author': 'Ethan Miller',
     'support': 'tech5262@gmail.com',
     'license': 'OPL-1',
-    'price': 249.0,
+    'price': 62.25,
     'currency': 'EUR',
 
     'images': ['static/description/banner.png'],

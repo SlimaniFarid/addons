@@ -31,7 +31,7 @@ Certification ready: generates evidence package for registrar.""",
     'author': 'Ethan Miller',
     'support': 'tech5262@gmail.com',
     'license': 'OPL-1',
-    'price': 399.0,
+    'price': 99.75,
     'currency': 'EUR',
     'depends': ['base', 'quality', 'maintenance', 'mrp', 'hr', 'documents'],
     'data': [

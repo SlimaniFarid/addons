@@ -27,7 +27,7 @@ Use cases:
     'author': 'Ethan Miller',
     'support': 'tech5262@gmail.com',
     'license': 'OPL-1',
-    'price': 399.0,
+    'price': 99.75,
     'currency': 'EUR',
     'depends': ['base', 'account', 'sale', 'account_asset'],
     'data': [
