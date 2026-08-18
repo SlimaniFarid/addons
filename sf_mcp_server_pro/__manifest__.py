@@ -4,7 +4,7 @@
     'category': 'Productivity',
     'summary': 'Connect AI assistants to your Odoo instance securely',
     'description': "Expose your Odoo data to AI assistants (Claude, ChatGPT, etc.) through a secure Model Context Protocol endpoint.",
-    'author': 'SLIMANI Farid',
+    'author': 'Ethan Miller',
     'support': 'tech5262@gmail.com',
     'license': 'OPL-1',
     'price': 99.0,

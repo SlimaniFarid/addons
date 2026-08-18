@@ -4,7 +4,7 @@
         <field name="name">Expiring Subscriptions</field>
         <field name="res_model">membership.subscription</field>
         <field name="view_mode">list,form</field>
-        <field name="domain">[('state', '=', 'active'), ('end_date', '<=', (context_today() + relativedelta(months=1)).strftime('%%Y-%%m-%%d'))]</field>
+        <field name="domain">[('state', '=', 'active'), ('end_date', '&lt;=', (context_today() + relativedelta(months=1)).strftime('%%Y-%%m-%%d'))]</field>
         <field name="context">{'search_default_group_by_plan_id': 1}</field>
     </record>
     <record id="action_membership_pending" model="ir.actions.act_window">

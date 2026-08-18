@@ -35,10 +35,7 @@ B2B specific:
     'data': [
         'security/ir.model.access.csv',
         'views/portal_menus.xml',
-        'views/portal_config_views.xml',
-        'views/portal_payment_views.xml',
-        'views/portal_ticket_views.xml',
-        'views/portal_document_views.xml',
+
         'data/portal_data.xml',
     ],
     'installable': True,

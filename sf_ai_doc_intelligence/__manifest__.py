@@ -33,9 +33,6 @@ Integrates with:
     'data': [
         'security/ir.model.access.csv',
         'views/docintel_menus.xml',
-        'views/docintel_provider_views.xml',
-        'views/docintel_document_views.xml',
-        'views/docintel_queue_views.xml',
         'data/docintel_data.xml',
     ],
     'installable': True,

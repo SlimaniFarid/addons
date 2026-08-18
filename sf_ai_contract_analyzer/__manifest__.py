@@ -36,10 +36,6 @@ Integrations:
     'data': [
         'security/ir.model.access.csv',
         'views/contract_menus.xml',
-        'views/contract_document_views.xml',
-        'views/contract_obligation_views.xml',
-        'views/contract_alert_views.xml',
-        'data/contract_data.xml',
     ],
     'installable': True,
     'application': True,

@@ -33,9 +33,7 @@ Note: This module provides the Odoo backend API. Mobile app template available s
     'data': [
         'security/ir.model.access.csv',
         'views/fsoffline_menus.xml',
-        'views/fsoffline_tech_views.xml',
-        'views/fsoffline_sync_views.xml',
-        'views/fsoffline_workorder_views.xml',
+
         'data/fsoffline_data.xml',
     ],
     'installable': True,

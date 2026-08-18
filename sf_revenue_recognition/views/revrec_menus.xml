@@ -1,0 +1,300 @@
+<odoo>
+    <record id="action_revrec_contract" model="ir.actions.act_window">
+        <field name="name">Revenue Contracts</field>
+        <field name="res_model">revrec.contract</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{'search_default_group_by_state': 1}</field>
+    </record>
+    <record id="action_revrec_obligation" model="ir.actions.act_window">
+        <field name="name">Performance Obligations</field>
+        <field name="res_model">revrec.obligation</field>
+        <field name="view_mode">list,form</field>
+    </record>
+    <record id="action_revrec_schedule" model="ir.actions.act_window">
+        <field name="name">Recognition Schedules</field>
+        <field name="res_model">revrec.schedule</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{'search_default_group_by_state': 1}</field>
+    </record>
+    <record id="action_revrec_allocation" model="ir.actions.act_window">
+        <field name="name">Price Allocations</field>
+        <field name="res_model">revrec.allocation</field>
+        <field name="view_mode">list,form</field>
+    </record>
+    <record id="action_revrec_journal" model="ir.actions.act_window">
+        <field name="name">Recognition Journal</field>
+        <field name="res_model">revrec.journal</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <record id="view_revrec_contract_form" model="ir.ui.view">
+        <field name="name">revrec.contract.form</field>
+        <field name="model">revrec.contract</field>
+        <field name="arch" type="xml">
+            <form string="Revenue Recognition Contract">
+                <header>
+                    <button name="action_activate" type="object" string="Activate" class="btn-primary" invisible="state != 'draft'"/>
+                    <button name="action_complete" type="object" string="Mark Complete" class="btn-secondary" invisible="state not in ('active','draft')"/>
+                    <button name="action_cancel" type="object" string="Cancel" class="btn-secondary" invisible="state not in ('active','draft')"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,active,completed,cancelled"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="partner_id"/>
+                            <field name="sale_order_id"/>
+                            <field name="start_date"/>
+                            <field name="end_date"/>
+                        </group>
+                        <group>
+                            <field name="total_amount"/>
+                            <field name="recognized_amount" readonly="1"/>
+                            <field name="deferred_amount" readonly="1"/>
+                            <field name="currency_id" invisible="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Performance Obligations" name="obligations">
+                            <field name="obligation_ids" context="{'default_contract_id': id}">
+                                <list editable="bottom">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="name"/>
+                                    <field name="obligation_type"/>
+                                    <field name="recognition_method"/>
+                                    <field name="ssp_method"/>
+                                    <field name="allocated_amount"/>
+                                    <field name="recognized_amount" readonly="1"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Recognition Schedule" name="schedule">
+                            <field name="schedule_ids">
+                                <list>
+                                    <field name="name"/>
+                                    <field name="planned_date"/>
+                                    <field name="planned_amount"/>
+                                    <field name="recognized_amount" readonly="1"/>
+                                    <field name="state"/>
+                                    <field name="journal_entry_id"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Price Allocations" name="allocations">
+                            <field name="allocation_ids">
+                                <list editable="bottom">
+                                    <field name="obligation_id"/>
+                                    <field name="allocation_method"/>
+                                    <field name="ssp_amount"/>
+                                    <field name="allocated_amount"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                    <group invisible="1">
+                        <field name="company_id"/>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="view_revrec_contract_list" model="ir.ui.view">
+        <field name="name">revrec.contract.list</field>
+        <field name="model">revrec.contract</field>
+        <field name="arch" type="xml">
+            <list string="Revenue Contracts">
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="start_date"/>
+                <field name="end_date"/>
+                <field name="total_amount"/>
+                <field name="recognized_amount" optional="hide"/>
+                <field name="deferred_amount" optional="hide"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_revrec_obligation_form" model="ir.ui.view">
+        <field name="name">revrec.obligation.form</field>
+        <field name="model">revrec.obligation</field>
+        <field name="arch" type="xml">
+            <form string="Performance Obligation">
+                <group>
+                    <group>
+                        <field name="contract_id"/>
+                        <field name="sequence"/>
+                        <field name="name"/>
+                        <field name="obligation_type"/>
+                    </group>
+                    <group>
+                        <field name="recognition_method"/>
+                        <field name="ssp_method"/>
+                        <field name="allocated_amount"/>
+                        <field name="recognized_amount" readonly="1"/>
+                    </group>
+                </group>
+                <group string="Links">
+                    <field name="product_id"/>
+                    <field name="sale_order_line_id"/>
+                </group>
+                <group string="Description">
+                    <field name="description"/>
+                </group>
+                <notebook>
+                    <page string="Recognition Schedule" name="schedule">
+                        <field name="schedule_ids" context="{'default_obligation_id': id, 'default_contract_id': contract_id}">
+                            <list>
+                                <field name="name"/>
+                                <field name="planned_date"/>
+                                <field name="planned_amount"/>
+                                <field name="recognized_amount" readonly="1"/>
+                                <field name="state"/>
+                            </list>
+                        </field>
+                    </page>
+                </notebook>
+                <group invisible="1">
+                    <field name="currency_id"/>
+                </group>
+            </form>
+        </field>
+    </record>
+    <record id="view_revrec_obligation_list" model="ir.ui.view">
+        <field name="name">revrec.obligation.list</field>
+        <field name="model">revrec.obligation</field>
+        <field name="arch" type="xml">
+            <list string="Performance Obligations">
+                <field name="contract_id"/>
+                <field name="name"/>
+                <field name="obligation_type"/>
+                <field name="recognition_method"/>
+                <field name="allocated_amount"/>
+                <field name="recognized_amount"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_revrec_schedule_form" model="ir.ui.view">
+        <field name="name">revrec.schedule.form</field>
+        <field name="model">revrec.schedule</field>
+        <field name="arch" type="xml">
+            <form string="Recognition Schedule">
+                <header>
+                    <button name="action_recognize" type="object" string="Recognize Revenue" class="btn-primary" invisible="state != 'pending'"/>
+                    <button name="action_skip" type="object" string="Skip" class="btn-secondary" invisible="state != 'pending'"/>
+                    <field name="state" widget="statusbar" statusbar_visible="pending,recognized,skipped"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="contract_id"/>
+                            <field name="obligation_id"/>
+                            <field name="planned_date"/>
+                        </group>
+                        <group>
+                            <field name="planned_amount"/>
+                            <field name="recognized_amount" readonly="1"/>
+                            <field name="recognized_date" readonly="1"/>
+                            <field name="journal_entry_id" readonly="1"/>
+                        </group>
+                    </group>
+                    <group invisible="1">
+                        <field name="currency_id"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="view_revrec_schedule_list" model="ir.ui.view">
+        <field name="name">revrec.schedule.list</field>
+        <field name="model">revrec.schedule</field>
+        <field name="arch" type="xml">
+            <list string="Recognition Schedules">
+                <field name="contract_id"/>
+                <field name="obligation_id"/>
+                <field name="planned_date"/>
+                <field name="planned_amount"/>
+                <field name="recognized_amount"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_revrec_allocation_form" model="ir.ui.view">
+        <field name="name">revrec.allocation.form</field>
+        <field name="model">revrec.allocation</field>
+        <field name="arch" type="xml">
+            <form string="Price Allocation">
+                <group>
+                    <field name="contract_id"/>
+                    <field name="obligation_id"/>
+                    <field name="allocation_method"/>
+                    <field name="ssp_amount"/>
+                    <field name="allocated_amount"/>
+                </group>
+                <group invisible="1">
+                    <field name="currency_id"/>
+                </group>
+            </form>
+        </field>
+    </record>
+    <record id="view_revrec_allocation_list" model="ir.ui.view">
+        <field name="name">revrec.allocation.list</field>
+        <field name="model">revrec.allocation</field>
+        <field name="arch" type="xml">
+            <list string="Price Allocations">
+                <field name="contract_id"/>
+                <field name="obligation_id"/>
+                <field name="allocation_method"/>
+                <field name="ssp_amount"/>
+                <field name="allocated_amount"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_revrec_journal_form" model="ir.ui.view">
+        <field name="name">revrec.journal.form</field>
+        <field name="model">revrec.journal</field>
+        <field name="arch" type="xml">
+            <form string="Recognition Journal Entry">
+                <group>
+                    <field name="contract_id"/>
+                    <field name="schedule_id"/>
+                    <field name="move_id"/>
+                    <field name="date"/>
+                    <field name="amount"/>
+                </group>
+                <group invisible="1">
+                    <field name="currency_id"/>
+                </group>
+            </form>
+        </field>
+    </record>
+    <record id="view_revrec_journal_list" model="ir.ui.view">
+        <field name="name">revrec.journal.list</field>
+        <field name="model">revrec.journal</field>
+        <field name="arch" type="xml">
+            <list string="Recognition Journal">
+                <field name="date"/>
+                <field name="contract_id"/>
+                <field name="schedule_id"/>
+                <field name="move_id"/>
+                <field name="amount"/>
+            </list>
+        </field>
+    </record>
+
+    <menuitem id="menu_revrec_root" name="Revenue Recognition" sequence="45" web_icon="sf_revenue_recognition,static/description/icon.png"/>
+    <menuitem id="menu_revrec_contracts" name="Revenue Contracts" parent="menu_revrec_root" action="action_revrec_contract" sequence="10"/>
+    <menuitem id="menu_revrec_schedules" name="Recognition Schedules" parent="menu_revrec_root" action="action_revrec_schedule" sequence="20"/>
+    <menuitem id="menu_revrec_obligations" name="Performance Obligations" parent="menu_revrec_root" action="action_revrec_obligation" sequence="30"/>
+    <menuitem id="menu_revrec_allocations" name="Price Allocations" parent="menu_revrec_root" action="action_revrec_allocation" sequence="40"/>
+    <menuitem id="menu_revrec_journal" name="Recognition Journal" parent="menu_revrec_root" action="action_revrec_journal" sequence="50"/>
+</odoo>

@@ -33,10 +33,7 @@ Use cases:
     'data': [
         'security/ir.model.access.csv',
         'views/revrec_menus.xml',
-        'views/revrec_contract_views.xml',
-        'views/revrec_obligation_views.xml',
-        'views/revrec_schedule_views.xml',
-        'views/revrec_journal_views.xml',
+
         'data/revrec_data.xml',
     ],
     'installable': True,

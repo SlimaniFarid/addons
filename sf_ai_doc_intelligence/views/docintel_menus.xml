@@ -1,0 +1,213 @@
+<odoo>
+    <record id="action_docintel_provider" model="ir.actions.act_window">
+        <field name="name">AI Providers</field>
+        <field name="res_model">docintel.provider</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Configure AI document intelligence providers.</p>
+            <p>Connect Mistral, Gemini, Claude or OpenAI to classify documents, extract structured data and route them automatically.</p>
+        </field>
+    </record>
+    <record id="action_docintel_document" model="ir.actions.act_window">
+        <field name="name">Documents</field>
+        <field name="res_model">docintel.document</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{'search_default_group_by_state': 1}</field>
+    </record>
+    <record id="action_docintel_queue" model="ir.actions.act_window">
+        <field name="name">Processing Queue</field>
+        <field name="res_model">docintel.queue</field>
+        <field name="view_mode">list,form</field>
+    </record>
+    <record id="action_docintel_extraction" model="ir.actions.act_window">
+        <field name="name">Extracted Fields</field>
+        <field name="res_model">docintel.extraction</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <record id="view_docintel_provider_form" model="ir.ui.view">
+        <field name="name">docintel.provider.form</field>
+        <field name="model">docintel.provider</field>
+        <field name="arch" type="xml">
+            <form string="AI Provider">
+                <sheet>
+                    <div class="oe_button_box" colspan="2">
+                        <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-power-off">
+                            <field name="active" widget="boolean_toggle" options="{'terminology': {'on': 'Active', 'off': 'Inactive'}}"/>
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="provider_type"/>
+                            <field name="api_key" password="True"/>
+                            <field name="model_name"/>
+                            <field name="timeout"/>
+                            <field name="sequence"/>
+                        </group>
+                        <group string="Capabilities">
+                            <field name="supports_classification"/>
+                            <field name="supports_extraction"/>
+                            <field name="supports_ocr"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Documents" name="documents">
+                            <field name="document_ids" context="{'default_provider_id': id}">
+                                <list>
+                                    <field name="name"/>
+                                    <field name="document_type"/>
+                                    <field name="state"/>
+                                    <field name="confidence"/>
+                                    <field name="create_date"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="view_docintel_provider_list" model="ir.ui.view">
+        <field name="name">docintel.provider.list</field>
+        <field name="model">docintel.provider</field>
+        <field name="arch" type="xml">
+            <list string="AI Providers">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="provider_type"/>
+                <field name="model_name"/>
+                <field name="supports_classification" optional="hide"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_docintel_document_form" model="ir.ui.view">
+        <field name="name">docintel.document.form</field>
+        <field name="model">docintel.document</field>
+        <field name="arch" type="xml">
+            <form string="AI Document">
+                <header>
+                    <button name="action_process" type="object" string="Process" class="btn-primary" invisible="state in ('processing','done')"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,processing,done,error"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="provider_id"/>
+                            <field name="attachment_id"/>
+                            <field name="document_type"/>
+                            <field name="confidence"/>
+                        </group>
+                        <group>
+                            <field name="routing_rule_id"/>
+                            <field name="target_model"/>
+                            <field name="target_record_id"/>
+                            <field name="error_message" invisible="state != 'error'"/>
+                        </group>
+                    </group>
+                    <group string="Extracted Data">
+                        <field name="extracted_data" widget="text" readonly="1"/>
+                    </group>
+                    <notebook>
+                        <page string="Extracted Fields" name="fields">
+                            <field name="extracted_fields">
+                                <list>
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="field_name"/>
+                                    <field name="field_value"/>
+                                    <field name="field_type"/>
+                                    <field name="confidence"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="view_docintel_document_list" model="ir.ui.view">
+        <field name="name">docintel.document.list</field>
+        <field name="model">docintel.document</field>
+        <field name="arch" type="xml">
+            <list string="AI Documents">
+                <field name="name"/>
+                <field name="document_type"/>
+                <field name="state"/>
+                <field name="provider_id"/>
+                <field name="confidence"/>
+                <field name="create_date"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_docintel_queue_form" model="ir.ui.view">
+        <field name="name">docintel.queue.form</field>
+        <field name="model">docintel.queue</field>
+        <field name="arch" type="xml">
+            <form string="Queue Item">
+                <group>
+                    <field name="document_id"/>
+                    <field name="state"/>
+                    <field name="attempts"/>
+                    <field name="error_message" invisible="state != 'failed'"/>
+                </group>
+            </form>
+        </field>
+    </record>
+    <record id="view_docintel_queue_list" model="ir.ui.view">
+        <field name="name">docintel.queue.list</field>
+        <field name="model">docintel.queue</field>
+        <field name="arch" type="xml">
+            <list string="Processing Queue">
+                <field name="create_date"/>
+                <field name="document_id"/>
+                <field name="state"/>
+                <field name="attempts"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_docintel_extraction_form" model="ir.ui.view">
+        <field name="name">docintel.extraction.form</field>
+        <field name="model">docintel.extraction</field>
+        <field name="arch" type="xml">
+            <form string="Extracted Field">
+                <group>
+                    <field name="document_id"/>
+                    <field name="field_name"/>
+                    <field name="field_value"/>
+                    <field name="field_type"/>
+                    <field name="confidence"/>
+                    <field name="bbox"/>
+                </group>
+            </form>
+        </field>
+    </record>
+    <record id="view_docintel_extraction_list" model="ir.ui.view">
+        <field name="name">docintel.extraction.list</field>
+        <field name="model">docintel.extraction</field>
+        <field name="arch" type="xml">
+            <list string="Extracted Fields">
+                <field name="document_id"/>
+                <field name="field_name"/>
+                <field name="field_value"/>
+                <field name="field_type"/>
+                <field name="confidence"/>
+            </list>
+        </field>
+    </record>
+
+    <menuitem id="menu_docintel_root" name="AI Document Intelligence" sequence="70" web_icon="sf_ai_doc_intelligence,static/description/icon.png"/>
+    <menuitem id="menu_docintel_documents" name="Documents" parent="menu_docintel_root" action="action_docintel_document" sequence="10"/>
+    <menuitem id="menu_docintel_queue" name="Processing Queue" parent="menu_docintel_root" action="action_docintel_queue" sequence="20"/>
+    <menuitem id="menu_docintel_providers" name="AI Providers" parent="menu_docintel_root" action="action_docintel_provider" sequence="30"/>
+    <menuitem id="menu_docintel_extractions" name="Extracted Fields" parent="menu_docintel_root" action="action_docintel_extraction" sequence="40"/>
+</odoo>

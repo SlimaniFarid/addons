@@ -30,10 +30,6 @@ Channels supported:
     'data': [
         'security/ir.model.access.csv',
         'views/rma_menus.xml',
-        'views/rma_request_views.xml',
-        'views/rma_rule_views.xml',
-        'views/rma_inspection_views.xml',
-        'views/rma_portal_views.xml',
         'data/rma_data.xml',
     ],
     'installable': True,

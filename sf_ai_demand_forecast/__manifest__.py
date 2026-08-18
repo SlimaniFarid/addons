@@ -31,9 +31,6 @@ Technical:
     'data': [
         'security/ir.model.access.csv',
         'views/forecast_menus.xml',
-        'views/forecast_model_views.xml',
-        'views/forecast_prediction_views.xml',
-        'views/forecast_config_views.xml',
         'data/forecast_data.xml',
     ],
     'installable': True,

@@ -41,11 +41,7 @@ Certifications:
     'data': [
         'security/ir.model.access.csv',
         'views/edi_menus.xml',
-        'views/edi_partner_views.xml',
-        'views/edi_document_views.xml',
-        'views/edi_format_views.xml',
-        'views/edi_transmission_views.xml',
-        'data/edi_data.xml',
+
     ],
     'installable': True,
     'application': True,

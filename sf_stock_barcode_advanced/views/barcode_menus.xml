@@ -16,7 +16,7 @@
         <field name="view_mode">list,form</field>
     </record>
 
-    <menuitem id="menu_barcode_root" name="Barcode & Warehouse" web_icon="sf_stock_barcode_advanced,static/description/icon.png"/>
+    <menuitem id="menu_barcode_root" name="Barcode &amp; Warehouse" web_icon="sf_stock_barcode_advanced,static/description/icon.png"/>
     <menuitem id="menu_barcode_scan" name="Scan Barcode" parent="menu_barcode_root" action="action_barcode_scan" sequence="10"/>
     <menuitem id="menu_barcode_config" name="Configurations" parent="menu_barcode_root" action="action_barcode_config" sequence="20"/>
     <menuitem id="menu_barcode_logs" name="Scan Logs" parent="menu_barcode_root" action="action_barcode_log" sequence="30"/>

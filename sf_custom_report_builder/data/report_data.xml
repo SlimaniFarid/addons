@@ -6,12 +6,12 @@
         <field name="description">Professional invoice with logo, table, and signature</field>
         <field name="block_ids" eval="[
             (0, 0, {'sequence': 10, 'block_type': 'logo', 'name': 'Company Logo'}),
-            (0, 0, {'sequence': 20, 'block_type': 'text', 'name': 'Invoice Title', 'text_content': '<h2 class=\"text-center\">INVOICE</h2>'}),
+            (0, 0, {'sequence': 20, 'block_type': 'text', 'name': 'Invoice Title', 'text_content': '&lt;h2 class=&quot;text-center&quot;&gt;INVOICE&lt;/h2&gt;'}),
             (0, 0, {'sequence': 30, 'block_type': 'field', 'name': 'Invoice Number', 'field_name': 'name', 'field_label': 'Invoice #', 'field_format': 'raw'}),
             (0, 0, {'sequence': 40, 'block_type': 'field', 'name': 'Invoice Date', 'field_name': 'invoice_date', 'field_label': 'Date', 'field_format': 'date'}),
             (0, 0, {'sequence': 50, 'block_type': 'field', 'name': 'Due Date', 'field_name': 'invoice_date_due', 'field_label': 'Due Date', 'field_format': 'date'}),
             (0, 0, {'sequence': 60, 'block_type': 'field', 'name': 'Partner', 'field_name': 'partner_id', 'field_label': 'Bill To', 'field_format': 'raw'}),
-            (0, 0, {'sequence': 70, 'block_type': 'table', 'name': 'Invoice Lines', 'table_model': 'invoice_line_ids', 'table_fields': '[{"name": "product_id", "label": "Product"}, {"name": "quantity", "label": "Qty", "format": "float"}, {"name": "price_unit", "label": "Unit Price", "format": "currency"}, {"name": "price_subtotal", "label": "Subtotal", "format": "currency"}]'}),
+            (0, 0, {'sequence': 70, 'block_type': 'table', 'name': 'Invoice Lines', 'table_model': 'invoice_line_ids', 'table_fields': '[{&quot;name&quot;: &quot;product_id&quot;, &quot;label&quot;: &quot;Product&quot;}, {&quot;name&quot;: &quot;quantity&quot;, &quot;label&quot;: &quot;Qty&quot;, &quot;format&quot;: &quot;float&quot;}, {&quot;name&quot;: &quot;price_unit&quot;, &quot;label&quot;: &quot;Unit Price&quot;, &quot;format&quot;: &quot;currency&quot;}, {&quot;name&quot;: &quot;price_subtotal&quot;, &quot;label&quot;: &quot;Subtotal&quot;, &quot;format&quot;: &quot;currency&quot;}]'}),
             (0, 0, {'sequence': 80, 'block_type': 'field', 'name': 'Total', 'field_name': 'amount_total', 'field_label': 'Total', 'field_format': 'currency'}),
             (0, 0, {'sequence': 90, 'block_type': 'signature', 'name': 'Signature', 'signature_field': 'signature', 'signature_label': 'Authorized Signature'}),
         ]"/>
