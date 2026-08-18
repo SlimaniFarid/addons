@@ -1,4 +1,4 @@
-﻿# -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 {
     'name': 'Cash Flow & Treasury Manager',
     'version': '18.0.1.0.0',
