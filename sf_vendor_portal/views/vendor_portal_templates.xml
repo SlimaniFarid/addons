@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Vendor Portal templates -->
+    <template id="vendor_portal_home" name="Vendor Portal Home">
+        <t t-call="portal.portal_layout">
+            <div class="container py-4">
+                <h2 class="mb-4">Welcome, <span t-esc="user.partner_id.name"/></h2>
+                <div class="row mb-4">
+                    <div class="col-4">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <h3 class="text-primary">
+                                    <span t-esc="len(purchase_orders)"/>
+                                </h3>
+                                <div>Total Documents</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">My Requests for Quotation</div>
+                    <div class="card-body p-0">
+                        <table class="table mb-0">
+                            <thead>
+                                <tr>
+                                    <th>Number</th>
+                                    <th>Date</th>
+                                    <th>Status</th>
+                                    <th>Total</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr t-foreach="purchase_orders" t-as="po">
+                                    <td>
+                                        <a t-attf-href="/my/vendor/rfq/#{po.id}">
+                                            <span t-esc="po.name"/>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <span t-field="po.date_order"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="po.state"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="po.amount_total"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="po.vendor_response"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="vendor_rfq_detail" name="Vendor RFQ Detail">
+        <t t-call="portal.portal_layout">
+            <div class="container py-4">
+                <a t-attf-href="/my/vendor" class="text-muted mb-3 d-block">
+                    &lt; Back to my portal
+                </a>
+                <h3 class="mb-3">
+                    Request for Quotation
+                    <span t-esc="order.name"/>
+                </h3>
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h6>Quotation Lines</h6>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Product</th>
+                                    <th>Qty</th>
+                                    <th>Price</th>
+                                    <th>Subtotal</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr t-foreach="order.order_line" t-as="line">
+                                    <td>
+                                        <span t-field="line.product_id"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="line.product_qty"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="line.price_unit"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="line.price_subtotal"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <h6 class="text-end">
+                            Total:
+                            <span t-field="order.amount_total" class="text-primary"/>
+                        </h6>
+                    </div>
+                </div>
+                <div class="d-flex gap-2">
+                    <button t-attf-data-id="#{order.id}" class="btn btn-success"
+                            onclick="vendorAccept(this)">
+                        Accept
+                    </button>
+                    <button t-attf-data-id="#{order.id}" class="btn btn-danger"
+                            onclick="vendorDecline(this)">
+                        Decline
+                    </button>
+                    <button t-attf-data-id="#{order.id}" class="btn btn-warning"
+                            onclick="vendorCounter(this)">
+                        Propose a counter-offer
+                    </button>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="vendor_portal_assets" name="Vendor Portal JS" inherit_id="web.assets_frontend">
+        <script type="text/javascript"
+                src="/sf_vendor_portal/static/src/js/vendor_portal.js"/>
+    </template>
+
+</odoo>

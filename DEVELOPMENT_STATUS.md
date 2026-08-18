@@ -11,7 +11,7 @@ Test : validation statique (compile Python, parse XML, cohérence manifest/model
 | 3 | sf_sales_commission — Sales Commission Engine | ✅ | ✅ | ✅ | ✅ | ✅ | Done |
 | 4 | sf_approval_engine — Universal Approval Engine | ✅ | ✅ | ✅ | ✅ | ✅ | Done |
 | 5 | sf_debt_collection — Credit & Debt Collection | ✅ | ✅ | ✅ | ✅ | ✅ | Done |
-| 6 | sf_vendor_portal — Vendor Portal & e-Procurement | ⏳ | ⏳ | ⏳ | ⏳ | ⏳ | Pending |
+| 6 | sf_vendor_portal — Vendor Portal & e-Procurement | ✅ | ✅ | ✅ | ✅ | ✅ | Done |
 | 7 | sf_marketplace_hub — Marketplace Hub (multi) | ⏳ | ⏳ | ⏳ | ⏳ | ⏳ | Pending |
 | 8 | sf_resource_planning — Resource Capacity Planning | ⏳ | ⏳ | ⏳ | ⏳ | ⏳ | Pending |
 | 9 | sf_real_estate — Real Estate Property Manager | ⏳ | ⏳ | ⏳ | ⏳ | ⏳ | Pending |

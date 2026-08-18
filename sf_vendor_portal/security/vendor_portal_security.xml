@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="module_category_vendor_portal" model="ir.module.category">
+        <field name="name">Vendor Portal</field>
+        <field name="sequence">90</field>
+    </record>
+
+    <record id="group_vendor_portal_user" model="res.groups">
+        <field name="name">Vendor Portal User</field>
+        <field name="category_id" ref="module_category_vendor_portal"/>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+
+    <record id="group_vendor_portal_manager" model="res.groups">
+        <field name="name">Vendor Portal Manager</field>
+        <field name="category_id" ref="module_category_vendor_portal"/>
+        <field name="implied_ids" eval="[(4, ref('group_vendor_portal_user'))]"/>
+    </record>
+</odoo>
