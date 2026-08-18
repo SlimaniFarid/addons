@@ -33,7 +33,7 @@ Certifications:
 - Peppol Access Point (pending)
 - NF 203 (France Factur-X)""",
     'author': 'Ethan Miller',
-    'support': 'tech@gmail.com',
+    'support': 'tech5262@gmail.com',
     'license': 'OPL-1',
     'price': 499.0,
     'currency': 'EUR',
@@ -52,4 +52,5 @@ Certifications:
     'auto_install': False,
     'images': ['static/description/banner.png'],
 }
+
 

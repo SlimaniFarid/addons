@@ -5,7 +5,7 @@
     'summary': 'Automate quotes, deliveries and invoices with configurable rules',
     'description': "Define rules to automatically confirm sales orders, create deliveries, and generate invoices based on payment method, order type, amount, customer, or custom conditions. Reduce manual steps and accelerate order-to-cash cycle.",
     'author': 'SLIMANI Farid',
-    'support': 'tech@gmail.com',
+    'support': 'tech5262@gmail.com',
     'license': 'OPL-1',
     'price': 49.0,
     'currency': 'EUR',
@@ -24,5 +24,6 @@
     'application': True,
     'auto_install': False,
 }
+
 
 

@@ -22,7 +22,7 @@ Features:
 Channels supported:
 - Odoo eCommerce, Shopify, WooCommerce, Amazon, POS, manual B2B""",
     'author': 'Ethan Miller',
-    'support': 'tech@gmail.com',
+    'support': 'tech5262@gmail.com',
     'license': 'OPL-1',
     'price': 249.0,
     'currency': 'EUR',
@@ -41,4 +41,5 @@ Channels supported:
     'auto_install': False,
     'images': ['static/description/banner.png'],
 }
+
 

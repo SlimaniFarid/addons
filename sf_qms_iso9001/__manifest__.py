@@ -29,7 +29,7 @@ Features:
 
 Certification ready: generates evidence package for registrar.""",
     'author': 'Ethan Miller',
-    'support': 'tech@gmail.com',
+    'support': 'tech5262@gmail.com',
     'license': 'OPL-1',
     'price': 399.0,
     'currency': 'EUR',
@@ -51,4 +51,5 @@ Certification ready: generates evidence package for registrar.""",
     'auto_install': False,
     'images': ['static/description/banner.png'],
 }
+
 

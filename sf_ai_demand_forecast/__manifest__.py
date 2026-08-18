@@ -22,7 +22,7 @@ Technical:
 - Stores predictions in dedicated tables for reporting
 - Compatible with Odoo's native procurement (orderpoint)""",
     'author': 'Ethan Miller',
-    'support': 'tech@gmail.com',
+    'support': 'tech5262@gmail.com',
     'license': 'OPL-1',
     'price': 299.0,
     'currency': 'EUR',
@@ -41,4 +41,5 @@ Technical:
     'auto_install': False,
     'images': ['static/description/banner.png'],
 }
+
 

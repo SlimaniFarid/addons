@@ -38,7 +38,7 @@ Deployment:
 
 No Python knowledge required. Power users can add custom JS/Python snippets.""",
     'author': 'Ethan Miller',
-    'support': 'tech@gmail.com',
+    'support': 'tech5262@gmail.com',
     'license': 'OPL-1',
     'price': 349.0,
     'currency': 'EUR',
@@ -57,4 +57,5 @@ No Python knowledge required. Power users can add custom JS/Python snippets.""",
     'auto_install': False,
     'images': ['static/description/banner.png'],
 }
+
 

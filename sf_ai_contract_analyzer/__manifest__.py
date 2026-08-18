@@ -28,7 +28,7 @@ Integrations:
 - fleet.vehicle.lease (leases)
 - custom models via extension""",
     'author': 'Ethan Miller',
-    'support': 'tech@gmail.com',
+    'support': 'tech5262@gmail.com',
     'license': 'OPL-1',
     'price': 279.0,
     'currency': 'EUR',
@@ -46,4 +46,5 @@ Integrations:
     'auto_install': False,
     'images': ['static/description/banner.png'],
 }
+
 

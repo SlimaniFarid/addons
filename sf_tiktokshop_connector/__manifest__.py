@@ -5,7 +5,7 @@
     'summary': 'Sync products, orders and stock with TikTok Shop',
     'description': "Connect your Odoo instance to TikTok Shop. Synchronize products, inventory, orders, and returns. Supports multiple shops, automated cron sync, webhook handling for real-time updates, and detailed sync logs. Requires TikTok Shop API credentials (App Key, App Secret, Access Token).",
     'author': 'SLIMANI Farid',
-    'support': 'tech@gmail.com',
+    'support': 'tech5262@gmail.com',
     'license': 'OPL-1',
     'price': 249.0,
     'currency': 'EUR',
@@ -26,5 +26,6 @@
     'application': True,
     'auto_install': False,
 }
+
 
 

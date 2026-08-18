@@ -25,7 +25,7 @@ Architecture:
 
 Note: This module provides the Odoo backend API. Mobile app template available separately.""",
     'author': 'Ethan Miller',
-    'support': 'tech@gmail.com',
+    'support': 'tech5262@gmail.com',
     'license': 'OPL-1',
     'price': 449.0,
     'currency': 'EUR',
@@ -43,4 +43,5 @@ Note: This module provides the Odoo backend API. Mobile app template available s
     'auto_install': False,
     'images': ['static/description/banner.png'],
 }
+
 
