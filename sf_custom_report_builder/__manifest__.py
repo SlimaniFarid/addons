@@ -5,7 +5,7 @@
     'summary': 'Design professional PDF reports without code',
     'description': "Create custom PDF reports (quotes, invoices, delivery slips, purchase orders) with a visual drag-and-drop builder. Add logo, text blocks, tables, signatures, dynamic fields, and conditional sections. No Python/XML coding required. Templates can be assigned per document type and company.",
     'author': 'SLIMANI Farid',
-    'support': 'tech5262@gmail.com',
+    'support': 'tech@gmail.com',
     'license': 'OPL-1',
     'price': 79.0,
     'currency': 'EUR',
@@ -25,4 +25,5 @@
     'application': True,
     'auto_install': False,
 }
+
 

@@ -5,7 +5,7 @@
     'summary': 'Granular permissions without developer mode',
     'description': "Manage fine-grained access rights from a user-friendly interface. Restrict menus, hide fields, disable buttons, block exports, and limit reports per user group — all without writing code or enabling developer mode. Perfect for multi-company environments and role-based security.",
     'author': 'SLIMANI Farid',
-    'support': 'tech5262@gmail.com',
+    'support': 'tech@gmail.com',
     'license': 'OPL-1',
     'price': 149.0,
     'currency': 'EUR',
@@ -24,4 +24,5 @@
     'application': True,
     'auto_install': False,
 }
+
 

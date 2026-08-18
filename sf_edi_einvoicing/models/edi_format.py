@@ -1,0 +1,24 @@
+from odoo import api, fields, models
+
+
+class EDIDocumentType(models.Model):
+    _name = 'edi.document.type'
+    _description = 'EDI Document Type'
+
+    name = fields.Char(string='Name', required=True)
+    code = fields.Char(string='Code', required=True)
+    standard = fields.Selection([
+        ('ubl', 'UBL 2.1'),
+        ('cii', 'CII'),
+        ('facturx', 'Factur-X'),
+        ('x12', 'ANSI X12'),
+        ('cfdi', 'CFDI 4.0'),
+        ('ksef', 'KSeF'),
+        ('fatturapa', 'FatturaPA'),
+    ], string='Standard', required=True)
+    direction = fields.Selection([
+        ('inbound', 'Inbound'),
+        ('outbound', 'Outbound'),
+        ('both', 'Both'),
+    ], string='Direction', default='both')
+    description = fields.Text(string='Description')

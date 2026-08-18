@@ -5,7 +5,7 @@
     'summary': 'Scan invoices & expenses with AI OCR (Mistral, Gemini, Claude)',
     'description': "Automate invoice and expense entry using AI vision models. Upload PDF/image attachments and extract vendor, date, amounts, line items, taxes. Create vendor bills or expenses with one click. Supports Mistral, Google Gemini, and Anthropic Claude APIs.",
     'author': 'SLIMANI Farid',
-    'support': 'tech5262@gmail.com',
+    'support': 'tech@gmail.com',
     'license': 'OPL-1',
     'price': 89.0,
     'currency': 'EUR',
@@ -24,4 +24,5 @@
     'application': True,
     'auto_install': False,
 }
+
 

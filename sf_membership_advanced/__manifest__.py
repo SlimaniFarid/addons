@@ -5,7 +5,7 @@
     'summary': 'Manage members, subscriptions & renewals for associations and NGOs',
     'description': "Complete membership management for Odoo 19. Handles member directories, subscription plans, recurring payments, renewals, and donation tracking. Replaces the removed native membership module.",
     'author': 'SLIMANI Farid',
-    'support': 'tech5262@gmail.com',
+    'support': 'tech@gmail.com',
     'license': 'OPL-1',
     'price': 89.0,
     'currency': 'EUR',
@@ -26,4 +26,5 @@
     'application': True,
     'auto_install': False,
 }
+
 
