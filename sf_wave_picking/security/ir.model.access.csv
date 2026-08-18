@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_wave_picking_user,sf.wave.picking.user,model_sf_wave_picking,group_wave_picking_user,1,1,0,0
+access_wave_picking_manager,sf.wave.picking.manager,model_sf_wave_picking,group_wave_picking_manager,1,1,1,1

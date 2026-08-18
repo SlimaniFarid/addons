@@ -23,7 +23,7 @@ Test : validation statique (compile Python, parse XML, cohérence manifest/model
 | 15 | sf_service_contracts — Service Contracts & SLA Engine | ✅ | ✅ | ✅ | ✅ | ✅ | Done |
 | 16 | sf_price_matrix — B2B Price & Discount Matrix | ✅ | ✅ | ✅ | ✅ | ✅ | Done |
 | 17 | sf_psa — Professional Services Automation | ✅ | ✅ | ✅ | ✅ | ✅ | Done |
-| 18 | sf_wave_picking — Warehouse Wave Picking | ⏳ | ⏳ | ⏳ | ⏳ | ⏳ | Pending |
+| 18 | sf_wave_picking — Warehouse Wave Picking | ✅ | ✅ | ✅ | ✅ | ✅ | Done |
 | 19 | sf_freight_costing — Freight & Carrier Costing | ⏳ | ⏳ | ⏳ | ⏳ | ⏳ | Pending |
 | 20 | sf_supplier_scorecard — Supplier Scorecard & Quality | ⏳ | ⏳ | ⏳ | ⏳ | ⏳ | Pending |
 | 21 | sf_consolidation — Multi-Company Consolidation | ⏳ | ⏳ | ⏳ | ⏳ | ⏳ | Pending |
