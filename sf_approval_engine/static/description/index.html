@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Sales Commission Engine — Odoo Apps</title>
+    <title>Universal Approval Engine — Odoo Apps</title>
     <style>
         :root { color-scheme: light; }
         body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; color: #1e293b; line-height: 1.65; margin: 0; padding: 0; }
@@ -41,8 +41,8 @@
 <body>
 
 <div class="hero">
-    <h1>Sales Commission Engine</h1>
-    <p class="sub">Flexible, automatic commission plans that your sales team will actually trust.</p>
+    <h1>Universal Approval Engine</h1>
+    <p class="sub">Reusable multi-step approval workflows for purchase orders, expenses, leave and more.</p>
     <div class="badges">
         <span class="badge">Odoo 18</span>
         <span class="badge">Odoo 19</span>
@@ -53,26 +53,26 @@
 
 <div class="container">
 
-    <p class="lead">Stop calculating commissions in spreadsheets. Define transparent plans — flat, tiered or margin-based — and let Odoo compute them from your confirmed orders, with approval and payment tracking built in.</p>
+    <p class="lead">Formalize internal control without custom code. Define approval templates once — steps, approvers, thresholds — and attach them to any Odoo document. Every sign-off is tracked.</p>
 
     <h2>Why you need it</h2>
     <div class="grid2">
         <div class="panel">
             <h3>The problem</h3>
             <ul class="check">
-                <li>Commission spreadsheets are opaque and disputed</li>
-                <li>No link between a commission and the order that earned it</li>
-                <li>Manual adjustments create errors and resentment</li>
-                <li>No approval or payment trail for managers</li>
+                <li>Purchase orders and expenses approved by email, with no trail</li>
+                <li>No automatic routing to the right manager</li>
+                <li>Approvals lost, duplicated or forgotten</li>
+                <li>No audit trail for auditors or internal control</li>
             </ul>
         </div>
         <div class="panel">
             <h3>The solution</h3>
             <ul class="check">
-                <li>Flat, tiered and margin-based commission plans from the UI</li>
-                <li>Rate overrides per product or product category</li>
-                <li>Automatic commission line from a confirmed sale order</li>
-                <li>Approved → Paid workflow with manual adjustments</li>
+                <li>Approval templates with ordered steps and thresholds</li>
+                <li>Automatic assignment to a specific user, manager or group</li>
+                <li>Amount-based applicability and silent auto-approve</li>
+                <li>Full history of every approval and rejection</li>
             </ul>
         </div>
     </div>
@@ -80,56 +80,56 @@
     <h2>Key features</h2>
     <div class="features">
         <div class="feature">
-            <div class="ic">📐</div>
-            <h3>Flexible plans</h3>
-            <p>Flat rate, percentage of margin, or progressive tiers based on cumulative sales.</p>
+            <div class="ic">🧩</div>
+            <h3>Any model</h3>
+            <p>Attach approvals to purchase orders, expenses, leaves, vendor bills — any model you want.</p>
         </div>
         <div class="feature">
-            <div class="ic">🎯</div>
-            <h3>Category overrides</h3>
-            <p>Boost rates on strategic products or categories with simple rules.</p>
+            <div class="ic">🪜</div>
+            <h3>Multi-step flows</h3>
+            <p>Chain several steps; each step advances only after the previous one approves.</p>
         </div>
         <div class="feature">
-            <div class="ic">🤖</div>
-            <h3>Automatic generation</h3>
-            <p>One click on a confirmed order creates the commission line with the right base and rate.</p>
+            <div class="ic">👤</div>
+            <h3>Smart routing</h3>
+            <p>Assign steps to a specific user, the requester’s manager, or any member of a group.</p>
         </div>
         <div class="feature">
-            <div class="ic">✅</div>
-            <h3>Approval workflow</h3>
-            <p>Manager approves, then payment is tracked: Draft → Approved → Paid.</p>
+            <div class="ic">💰</div>
+            <h3>Thresholds</h3>
+            <p>Steps apply only within amount ranges — small purchases skip the heavy approval.</p>
         </div>
         <div class="feature">
-            <div class="ic">🔧</div>
-            <h3>Adjustments</h3>
-            <p>Prorate, add bonuses or claw back amounts with an explicit adjustment field.</p>
+            <div class="ic">🕓</div>
+            <h3>Audit trail</h3>
+            <p>Every approve/reject is recorded with user, step, date and reason.</p>
         </div>
         <div class="feature">
-            <div class="ic">📊</div>
-            <h3>Clear reporting</h3>
-            <p>Totals per salesperson, per plan and per period, plus a summary on each order.</p>
+            <div class="ic">📥</div>
+            <h3>To-approve inbox</h3>
+            <p>Each user sees exactly the requests waiting for their decision.</p>
         </div>
     </div>
 
     <h2>Who it's for</h2>
     <ul class="check">
-        <li>Sales managers and sales operations teams</li>
-        <li>SMEs replacing spreadsheet commission tracking</li>
-        <li>Companies wanting a transparent incentive scheme</li>
-        <li>Organizations paying on margin, not just revenue</li>
+        <li>Finance and controlling teams</li>
+        <li>Companies formalizing segregation of duties</li>
+        <li>Managers wanting visibility before spend happens</li>
+        <li>Any team needing a sign-off step on records</li>
     </ul>
 
     <h2>How it works</h2>
     <ol class="steps">
-        <li>Create a commission plan with rate, type and optional tiers/rules.</li>
-        <li>On a confirmed quotation, click Generate Commission.</li>
-        <li>A commission line is created with the correct base and rate.</li>
-        <li>Manager approves; accounts mark it paid.</li>
-        <li>Track totals per salesperson in the dedicated menu.</li>
+        <li>Create an approval template and pick the target model.</li>
+        <li>Add steps: name, approver (specific/manager/group), amount range.</li>
+        <li>The mixin creates an approval request when a matching document is created.</li>
+        <li>Approvers approve or reject; the flow advances automatically.</li>
+        <li>Track the full history from the request form.</li>
     </ol>
 
     <div class="cta">
-        <p style="margin:0 0 14px; font-size:16px;"><strong>Get it today — install Sales Commission Engine now.</strong></p>
+        <p style="margin:0 0 14px; font-size:16px;"><strong>Get it today — install Universal Approval Engine now.</strong></p>
         <a href="#">Install on Odoo</a>
         <p class="muted" style="color:#cbd5e1; margin-top:12px;">License OPL-1 · Support: tech5262@gmail.com · Works with native Odoo</p>
     </div>
@@ -137,8 +137,8 @@
     <h2>Technical details</h2>
     <table>
         <tr><th>Item</th><th>Value</th></tr>
-        <tr><td>Technical name</td><td><code>sf_sales_commission</code></td></tr>
-        <tr><td>Models</td><td><code>models: commission_plan, commission_plan_tier, commission_rule, commission_line</code></td></tr>
+        <tr><td>Technical name</td><td><code>sf_approval_engine</code></td></tr>
+        <tr><td>Models</td><td><code>models: approval_template, approval_step, approval_request, approval_history + mixin</code></td></tr>
         <tr><td>Multi-company</td><td>Yes</td></tr>
         <tr><td>Security</td><td>Dedicated user / manager groups</td></tr>
         <tr><td>License</td><td>OPL-1 (proprietary)</td></tr>
@@ -146,14 +146,14 @@
     </table>
 
     <h2>Frequently asked questions</h2>
-    <p><strong>When is a commission earned?</strong> Commission lines are generated on confirmed orders; you control when to approve and pay them.</p>
-    <p><strong>Can I pay on margin instead of revenue?</strong> Yes — choose “percentage of gross margin” in the plan.</p>
-    <p><strong>Can I restrict who earns a plan?</strong> Yes, optionally limit plans to specific user groups.</p>
+    <p><strong>Which models can it approve?</strong> Any model you attach the provided mixin to — out of the box the engine is model-agnostic.</p>
+    <p><strong>What happens when a step is not applicable?</strong> It is skipped automatically (silent auto-approve).</p>
+    <p><strong>Can a request be resubmitted after rejection?</strong> Yes — reset to draft, edit and submit again.</p>
 
 </div>
 
 <footer>
-    Sales Commission Engine · Odoo App · OPL-1 License · Support: tech5262@gmail.com
+    Universal Approval Engine · Odoo App · OPL-1 License · Support: tech5262@gmail.com
 </footer>
 </body>
 </html>

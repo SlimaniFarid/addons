@@ -1,21 +1,160 @@
 <?xml version="1.0" encoding="utf-8"?>
 <html>
-    <head>
-        <meta charset="utf-8"/>
-        <title>Cash Flow &amp; Treasury Manager</title>
-    </head>
-    <body>
-        <h2>Cash Flow &amp; Treasury Manager</h2>
-        <p>Forecast your cash position, track receivables and payables, and avoid liquidity gaps.</p>
-        <h3>Key Features</h3>
-        <ul>
-            <li>Rolling cash position with opening balance</li>
-            <li>Automatic inflow forecast from customer invoices by due date</li>
-            <li>Automatic outflow forecast from vendor bills and purchase orders</li>
-            <li>Manual cash flow lines for planned payments, loans, transfers</li>
-            <li>Configurable horizon (7 to 180 days)</li>
-            <li>Low-balance alerts and projected minimum balance</li>
-        </ul>
-        <p>Works with native Odoo accounting data. Install and open the Cash Flow dashboard.</p>
-    </body>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Cash Flow &amp; Treasury Manager — Odoo Apps</title>
+    <style>
+        :root { color-scheme: light; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; color: #1e293b; line-height: 1.65; margin: 0; padding: 0; }
+        .hero { background: linear-gradient(135deg, #0f172a 0%, #0e7490 60%, #164e63 100%); color: #ffffff; padding: 56px 48px 48px; text-align: center; }
+        .hero h1 { margin: 0 0 8px; font-size: 34px; font-weight: 700; }
+        .hero .sub { font-size: 18px; opacity: .92; margin: 0 auto 18px; max-width: 760px; }
+        .badges { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 18px; }
+        .badge { background: rgba(255,255,255,.16); border: 1px solid rgba(255,255,255,.35); border-radius: 20px; padding: 6px 14px; font-size: 13px; }
+        .container { max-width: 980px; margin: 0 auto; padding: 40px 32px; }
+        .lead { font-size: 17px; background: #f0f9ff; border-left: 4px solid #0e7490; padding: 16px 20px; border-radius: 6px; margin: 0 0 32px; }
+        h2 { font-size: 22px; margin: 40px 0 12px; color: #0f172a; }
+        .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; }
+        .feature { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 16px 18px; }
+        .feature .ic { font-size: 22px; }
+        .feature h3 { margin: 8px 0 6px; font-size: 16px; }
+        .feature p { margin: 0; font-size: 14px; color: #475569; }
+        ul.check { list-style: none; padding-left: 0; }
+        ul.check li { padding: 6px 0 6px 30px; position: relative; }
+        ul.check li::before { content: "\2713"; color: #0e7490; position: absolute; left: 4px; font-weight: 700; }
+        .grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+        .panel { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 20px 22px; box-shadow: 0 1px 3px rgba(0,0,0,.06); }
+        .steps { counter-reset: step; list-style: none; padding-left: 0; }
+        .steps li { counter-increment: step; padding: 8px 0 8px 44px; position: relative; font-size: 15px; }
+        .steps li::before { content: counter(step); position: absolute; left: 0; top: 8px; width: 30px; height: 30px; border-radius: 50%; background: #0e7490; color: #fff; font-weight: 700; text-align: center; line-height: 30px; }
+        .cta { text-align: center; background: linear-gradient(135deg, #0e7490, #164e63); color: #fff; border-radius: 12px; padding: 28px 24px; margin: 36px 0; }
+        .cta a { display: inline-block; background: #fbbf24; color: #1e293b; font-weight: 700; padding: 12px 26px; border-radius: 8px; text-decoration: none; }
+        code { background: #f1f5f9; padding: 2px 6px; border-radius: 4px; font-size: 13px; }
+        table { width: 100%; border-collapse: collapse; margin: 16px 0; }
+        th, td { border: 1px solid #e2e8f0; padding: 10px 12px; text-align: left; font-size: 14px; }
+        th { background: #f8fafc; }
+        .muted { color: #64748b; font-size: 13px; }
+        footer { background: #0f172a; color: #94a3b8; text-align: center; padding: 24px; font-size: 13px; }
+    </style>
+</head>
+<body>
+
+<div class="hero">
+    <h1>Cash Flow &amp; Treasury Manager</h1>
+    <p class="sub">Know every morning whether you can pay your suppliers this month.</p>
+    <div class="badges">
+        <span class="badge">Odoo 18</span>
+        <span class="badge">Odoo 19</span>
+        <span class="badge">99.75&#160;€</span>
+        <span class="badge">OPL-1</span>
+    </div>
+</div>
+
+<div class="container">
+
+    <p class="lead">A liquidity gap can undo months of good sales. This module turns your real Odoo accounting data into a rolling cash forecast — receivables, payables and bank position — with low-balance alerts before the gap becomes critical.</p>
+
+    <h2>Why you need it</h2>
+    <div class="grid2">
+        <div class="panel">
+            <h3>The problem</h3>
+            <ul class="check">
+                <li>You invoice well but cash arrives late — you don’t know when</li>
+                <li>Supplier bills pile up with no payment plan</li>
+                <li>Spreadsheet forecasts are outdated the moment they are shared</li>
+                <li>Overdrafts and emergency loans eat your margin</li>
+            </ul>
+        </div>
+        <div class="panel">
+            <h3>The solution</h3>
+            <ul class="check">
+                <li>Automatic forecast from open invoices, by due date</li>
+                <li>Outflows from vendor bills and confirmed purchase orders</li>
+                <li>Manual lines for planned payments, loans and transfers</li>
+                <li>Low-balance alerts before the gap becomes critical</li>
+            </ul>
+        </div>
+    </div>
+
+    <h2>Key features</h2>
+    <div class="features">
+        <div class="feature">
+            <div class="ic">💼</div>
+            <h3>Rolling cash position</h3>
+            <p>Opening balance plus expected inflows and outflows, across your bank and cash journals.</p>
+        </div>
+        <div class="feature">
+            <div class="ic">📥</div>
+            <h3>Receivables forecast</h3>
+            <p>Open customer invoices pulled automatically with their maturity date.</p>
+        </div>
+        <div class="feature">
+            <div class="ic">📤</div>
+            <h3>Payables forecast</h3>
+            <p>Vendor bills and confirmed purchase orders turned into dated outflows.</p>
+        </div>
+        <div class="feature">
+            <div class="ic">✍️</div>
+            <h3>Manual entries</h3>
+            <p>Planned payments, loan drawdowns, transfers and capex in one click.</p>
+        </div>
+        <div class="feature">
+            <div class="ic">🚨</div>
+            <h3>Low-balance alerts</h3>
+            <p>A threshold flags every day your projected balance falls below it.</p>
+        </div>
+        <div class="feature">
+            <div class="ic">📅</div>
+            <h3>Configurable horizon</h3>
+            <p>Project 7 to 180 days ahead; see the minimum balance and its date.</p>
+        </div>
+    </div>
+
+    <h2>Who it's for</h2>
+    <ul class="check">
+        <li>CFOs and financial controllers</li>
+        <li>Small and medium businesses avoiding overdrafts</li>
+        <li>Growing companies planning investment and hiring</li>
+        <li>Accounting firms delivering forecasts to clients</li>
+    </ul>
+
+    <h2>How it works</h2>
+    <ol class="steps">
+        <li>Install and open Accounting &gt; Cash Flow.</li>
+        <li>Create a forecast: start date, horizon, bank/cash journals.</li>
+        <li>Generate Lines — receivables, payables and POs are pulled automatically.</li>
+        <li>Add manual lines for one-off flows.</li>
+        <li>Set an alert threshold and confirm; alerts flag risky days.</li>
+        <li>Review daily and regenerate whenever data changes.</li>
+    </ol>
+
+    <div class="cta">
+        <p style="margin:0 0 14px; font-size:16px;"><strong>Get it today — install Cash Flow &amp; Treasury Manager now.</strong></p>
+        <a href="#">Install on Odoo</a>
+        <p class="muted" style="color:#cbd5e1; margin-top:12px;">License OPL-1 · Support: tech5262@gmail.com · Works with native Odoo</p>
+    </div>
+
+    <h2>Technical details</h2>
+    <table>
+        <tr><th>Item</th><th>Value</th></tr>
+        <tr><td>Technical name</td><td><code>sf_cash_flow_forecast</code></td></tr>
+        <tr><td>Models</td><td><code>models: sf.cashflow.forecast, sf.cashflow.line, sf.cashflow.alert</code></td></tr>
+        <tr><td>Multi-company</td><td>Yes</td></tr>
+        <tr><td>Security</td><td>Dedicated user / manager groups</td></tr>
+        <tr><td>License</td><td>OPL-1 (proprietary)</td></tr>
+        <tr><td>Support</td><td>tech5262@gmail.com</td></tr>
+    </table>
+
+    <h2>Frequently asked questions</h2>
+    <p><strong>Do I need to configure anything?</strong> No — just select your bank/cash journals; everything else reads your existing data.</p>
+    <p><strong>Is the forecast real-time?</strong> It is a snapshot you refresh with one click.</p>
+    <p><strong>Does it work in multi-currency?</strong> Yes — amounts are in the company currency, with multi-company support.</p>
+
+</div>
+
+<footer>
+    Cash Flow &amp; Treasury Manager · Odoo App · OPL-1 License · Support: tech5262@gmail.com
+</footer>
+</body>
 </html>

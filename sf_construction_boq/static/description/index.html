@@ -1,51 +1,160 @@
-<!DOCTYPE html>
+<?xml version="1.0" encoding="utf-8"?>
 <html>
 <head>
     <meta charset="utf-8"/>
-    <title>Construction BOQ &amp; Subcontractor Billing</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Construction BOQ &amp; Subcontractor Billing — Odoo Apps</title>
+    <style>
+        :root { color-scheme: light; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; color: #1e293b; line-height: 1.65; margin: 0; padding: 0; }
+        .hero { background: linear-gradient(135deg, #0f172a 0%, #0e7490 60%, #164e63 100%); color: #ffffff; padding: 56px 48px 48px; text-align: center; }
+        .hero h1 { margin: 0 0 8px; font-size: 34px; font-weight: 700; }
+        .hero .sub { font-size: 18px; opacity: .92; margin: 0 auto 18px; max-width: 760px; }
+        .badges { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 18px; }
+        .badge { background: rgba(255,255,255,.16); border: 1px solid rgba(255,255,255,.35); border-radius: 20px; padding: 6px 14px; font-size: 13px; }
+        .container { max-width: 980px; margin: 0 auto; padding: 40px 32px; }
+        .lead { font-size: 17px; background: #f0f9ff; border-left: 4px solid #0e7490; padding: 16px 20px; border-radius: 6px; margin: 0 0 32px; }
+        h2 { font-size: 22px; margin: 40px 0 12px; color: #0f172a; }
+        .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; }
+        .feature { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 16px 18px; }
+        .feature .ic { font-size: 22px; }
+        .feature h3 { margin: 8px 0 6px; font-size: 16px; }
+        .feature p { margin: 0; font-size: 14px; color: #475569; }
+        ul.check { list-style: none; padding-left: 0; }
+        ul.check li { padding: 6px 0 6px 30px; position: relative; }
+        ul.check li::before { content: "\2713"; color: #0e7490; position: absolute; left: 4px; font-weight: 700; }
+        .grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+        .panel { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 20px 22px; box-shadow: 0 1px 3px rgba(0,0,0,.06); }
+        .steps { counter-reset: step; list-style: none; padding-left: 0; }
+        .steps li { counter-increment: step; padding: 8px 0 8px 44px; position: relative; font-size: 15px; }
+        .steps li::before { content: counter(step); position: absolute; left: 0; top: 8px; width: 30px; height: 30px; border-radius: 50%; background: #0e7490; color: #fff; font-weight: 700; text-align: center; line-height: 30px; }
+        .cta { text-align: center; background: linear-gradient(135deg, #0e7490, #164e63); color: #fff; border-radius: 12px; padding: 28px 24px; margin: 36px 0; }
+        .cta a { display: inline-block; background: #fbbf24; color: #1e293b; font-weight: 700; padding: 12px 26px; border-radius: 8px; text-decoration: none; }
+        code { background: #f1f5f9; padding: 2px 6px; border-radius: 4px; font-size: 13px; }
+        table { width: 100%; border-collapse: collapse; margin: 16px 0; }
+        th, td { border: 1px solid #e2e8f0; padding: 10px 12px; text-align: left; font-size: 14px; }
+        th { background: #f8fafc; }
+        .muted { color: #64748b; font-size: 13px; }
+        footer { background: #0f172a; color: #94a3b8; text-align: center; padding: 24px; font-size: 13px; }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <div class="row">
-            <div class="col-12 text-center">
-                <img src="banner.png" alt="Construction BOQ &amp; Subcontractor Billing" class="img-fluid" style="max-width: 100%;"/>
-            </div>
+
+<div class="hero">
+    <h1>Construction BOQ &amp; Subcontractor Billing</h1>
+    <p class="sub">Bill of quantities, subcontract management and payment certificates — built for construction.</p>
+    <div class="badges">
+        <span class="badge">Odoo 18</span>
+        <span class="badge">Odoo 19</span>
+        <span class="badge">99.75&#160;€</span>
+        <span class="badge">OPL-1</span>
+    </div>
+</div>
+
+<div class="container">
+
+    <p class="lead">Construction billing is messy: quantities change, subcontractors need tracking, and payment certificates must reflect work actually done. This module gives you a clear BOQ, subcontract management and automated payment certificates computed from certified work.</p>
+
+    <h2>Why you need it</h2>
+    <div class="grid2">
+        <div class="panel">
+            <h3>The problem</h3>
+            <ul class="check">
+                <li>BOQs tracked in spreadsheets with no link to billing</li>
+                <li>Subcontractor commitments and payments hard to follow</li>
+                <li>Payment certificates computed by hand, error-prone</li>
+                <li>No audit trail of certified vs billed amounts</li>
+            </ul>
         </div>
-        <div class="row mt-4">
-            <div class="col-12">
-                <h2>Construction BOQ &amp; Subcontractor Billing</h2>
-                <p class="lead">Bill of Quantities, subcontract management and progress billing (IPC) for construction companies.</p>
-                <p>Stop managing construction estimates and progress certificates in Excel. Build multi-discipline Bills of Quantities, manage subcontracts with retention and advance, and issue interim payment certificates with automatic calculations.</p>
-
-                <h3>Key Features</h3>
-                <ul>
-                    <li><strong>Bill of Quantities</strong> — Multi-discipline itemized estimates with code, description, product, quantity, unit price</li>
-                    <li><strong>BOQ Workflow</strong> — Draft → Confirmed → In Progress → Done / Cancelled</li>
-                    <li><strong>Subcontract Management</strong> — Contractor, contract amount, retention rate, advance, dates</li>
-                    <li><strong>Subcontract Workflow</strong> — Draft → Confirmed → In Progress → Closed / Cancelled</li>
-                    <li><strong>Progress Billing (IPC)</strong> — Period certificates with previous and current quantities</li>
-                    <li><strong>Automatic Calculations</strong> — Previous certified, current amount, retention, net amount, amount to pay</li>
-                    <li><strong>Certificate Workflow</strong> — Draft → Confirmed → Paid / Cancelled</li>
-                    <li><strong>PDF Report</strong> — Printable payment certificate with totals</li>
-                </ul>
-
-                <h3>Workflow</h3>
-                <ol>
-                    <li>Create a Bill of Quantities with itemized lines per discipline</li>
-                    <li>Confirm the BOQ and start the project</li>
-                    <li>Create subcontracts with retention rate and advance</li>
-                    <li>Generate payment certificates from a subcontract</li>
-                    <li>Enter period work done and confirm the certificate</li>
-                    <li>Print the certificate or mark it paid</li>
-                </ol>
-
-                <h3>Compatibility</h3>
-                <p>Odoo 18.0 and 19.0. Works with Project, Product, and Accounting modules.</p>
-
-                <hr/>
-                <p class="text-muted small">Odoo Apps  |  by Ethan Miller  |  support: <a href="mailto:tech5262@gmail.com">tech5262@gmail.com</a></p>
-            </div>
+        <div class="panel">
+            <h3>The solution</h3>
+            <ul class="check">
+                <li>Structured BOQ with lines, quantities, unit prices and totals</li>
+                <li>Subcontracts linked to BOQ lines with commitments</li>
+                <li>Payment certificates with automated net / retention / paid amounts</li>
+                <li>Full workflow: draft, confirmed, in progress, paid, cancelled</li>
+            </ul>
         </div>
     </div>
+
+    <h2>Key features</h2>
+    <div class="features">
+        <div class="feature">
+            <div class="ic">📋</div>
+            <h3>Bill of Quantities</h3>
+            <p>Create detailed BOQs with lines, quantities, unit prices, and automatic totals. Numbered per year.</p>
+        </div>
+        <div class="feature">
+            <div class="ic">🤝</div>
+            <h3>Subcontractors</h3>
+            <p>Track subcontracts, their amounts and statuses, all linked to the BOQ and to certificates.</p>
+        </div>
+        <div class="feature">
+            <div class="ic">🧾</div>
+            <h3>Payment certificates</h3>
+            <p>Generate certificates from subcontracts with certified amounts, retention, nets and amounts to pay.</p>
+        </div>
+        <div class="feature">
+            <div class="ic">🧮</div>
+            <h3>Automatic computation</h3>
+            <p>Retention, previous certified amounts, current totals and net payable computed for you.</p>
+        </div>
+        <div class="feature">
+            <div class="ic">📄</div>
+            <h3>PDF certificate report</h3>
+            <p>A clean, printable payment certificate document for your client and your records.</p>
+        </div>
+        <div class="feature">
+            <div class="ic">🔀</div>
+            <h3>Full workflows</h3>
+            <p>BOQ and subcontract draft-to-done states; certificates draft-to-paid with cancellation.</p>
+        </div>
+    </div>
+
+    <h2>Who it's for</h2>
+    <ul class="check">
+        <li>General and specialist contractors</li>
+        <li>Quantity surveyors and project managers</li>
+        <li>Small construction firms moving off spreadsheets</li>
+        <li>Companies billing clients by certified work</li>
+    </ul>
+
+    <h2>How it works</h2>
+    <ol class="steps">
+        <li>Install the module — a dedicated Construction menu appears.</li>
+        <li>Create a BOQ with lines, quantities and unit prices; confirm it.</li>
+        <li>Add subcontracts linked to the BOQ and confirm them.</li>
+        <li>Generate a payment certificate from a subcontract.</li>
+        <li>Print the certificate PDF and share it with your client.</li>
+        <li>Track certified, retained and paid amounts across the project.</li>
+    </ol>
+
+    <div class="cta">
+        <p style="margin:0 0 14px; font-size:16px;"><strong>Get it today — install Construction BOQ &amp; Subcontractor Billing now.</strong></p>
+        <a href="#">Install on Odoo</a>
+        <p class="muted" style="color:#cbd5e1; margin-top:12px;">License OPL-1 · Support: tech5262@gmail.com · Works with native Odoo</p>
+    </div>
+
+    <h2>Technical details</h2>
+    <table>
+        <tr><th>Item</th><th>Value</th></tr>
+        <tr><td>Technical name</td><td><code>sf_construction_boq</code></td></tr>
+        <tr><td>Models</td><td><code>models: construction_boq, construction_subcontract, construction_certificate</code></td></tr>
+        <tr><td>Multi-company</td><td>Yes</td></tr>
+        <tr><td>Security</td><td>Dedicated user / manager groups</td></tr>
+        <tr><td>License</td><td>OPL-1 (proprietary)</td></tr>
+        <tr><td>Support</td><td>tech5262@gmail.com</td></tr>
+    </table>
+
+    <h2>Frequently asked questions</h2>
+    <p><strong>Does it depend on Odoo Project or Billing?</strong> It depends on base, project, product, account and uom, and uses native accounting amounts.</p>
+    <p><strong>Can I reuse the BOQ for several projects?</strong> Yes — BOQs, subcontracts and certificates are independent records you can duplicate or reuse.</p>
+    <p><strong>Is the certificate PDF branded?</strong> The report uses your company header/footer automatically.</p>
+
+</div>
+
+<footer>
+    Construction BOQ &amp; Subcontractor Billing · Odoo App · OPL-1 License · Support: tech5262@gmail.com
+</footer>
 </body>
 </html>
