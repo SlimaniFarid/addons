@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- ============================ CASE FORM =========================== -->
+    <record id="view_debt_case_form" model="ir.ui.view">
+        <field name="name">sf.debt.collection.case.form</field>
+        <field name="model">sf.debt.collection.case</field>
+        <field name="arch" type="xml">
+            <form string="Collection Case">
+                <header>
+                    <button name="action_set_in_progress" type="object"
+                            string="Start Work" class="btn-primary"
+                            states="open,promise"/>
+                    <button name="action_create_dunning" type="object"
+                            string="Create Dunning" class="btn-secondary"
+                            states="open,in_progress,promise"/>
+                    <button name="action_mark_done" type="object"
+                            string="Mark Resolved" class="btn-primary"
+                            states="open,in_progress,promise"/>
+                    <button name="action_cancel" type="object"
+                            string="Cancel" states="open,in_progress,promise"/>
+                    <button name="action_open" type="object"
+                            string="Reopen" states="done,cancelled"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name"/></h1>
+                        <group>
+                            <field name="state" widget="statusbar"
+                                   statusbar_visible="open,in_progress,promise,done,cancelled"/>
+                        </group>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="partner_id"/>
+                            <field name="collector_id"/>
+                            <field name="date_open"/>
+                        </group>
+                        <group>
+                            <field name="priority" widget="priority"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                            <field name="days_overdue"/>
+                            <field name="next_promise_date"/>
+                        </group>
+                    </group>
+                    <group string="Amounts">
+                        <group>
+                            <field name="total_due" widget="monetary"/>
+                        </group>
+                        <group>
+                            <field name="total_overdue" widget="monetary"
+                                   decoration-danger="total_overdue &gt; 0"/>
+                        </group>
+                    </group>
+                    <field name="note" placeholder="Notes..."/>
+                    <notebook>
+                        <page string="Overdue Invoices" name="invoices">
+                            <field name="invoice_line_ids">
+                                <list string="Invoices">
+                                    <field name="invoice_number"/>
+                                    <field name="date_invoice"/>
+                                    <field name="date_maturity"/>
+                                    <field name="amount_due" widget="monetary" sum="Total"/>
+                                    <field name="overdue" widget="boolean_toggle"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Actions" name="actions">
+                            <field name="action_ids">
+                                <list string="Actions" editable="bottom">
+                                    <field name="date"/>
+                                    <field name="user_id"/>
+                                    <field name="action_type"/>
+                                    <field name="summary"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Promises" name="promises">
+                            <field name="promise_ids">
+                                <list string="Promises" editable="bottom">
+                                    <field name="date"/>
+                                    <field name="amount" widget="monetary"/>
+                                    <field name="state"/>
+                                    <field name="note"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- ============================ CASE TREE =========================== -->
+    <record id="view_debt_case_tree" model="ir.ui.view">
+        <field name="name">sf.debt.collection.case.tree</field>
+        <field name="model">sf.debt.collection.case</field>
+        <field name="arch" type="xml">
+            <tree string="Collection Cases">
+                <field name="priority" widget="priority"/>
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="collector_id"/>
+                <field name="total_due" widget="monetary" sum="Total"/>
+                <field name="total_overdue" widget="monetary"/>
+                <field name="days_overdue"/>
+                <field name="state" widget="badge"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- =========================== CASE SEARCH ========================== -->
+    <record id="view_debt_case_search" model="ir.ui.view">
+        <field name="name">sf.debt.collection.case.search</field>
+        <field name="model">sf.debt.collection.case</field>
+        <field name="arch" type="xml">
+            <search string="Collection Cases">
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="collector_id"/>
+                <filter string="Overdue" name="overdue"
+                        domain="[('total_overdue', '&gt;', 0)]"/>
+                <filter string="Promise Pending" name="promise"
+                        domain="[('state', '=', 'promise')]"/>
+                <filter string="My Cases" name="mine"
+                        domain="[('collector_id', '=', uid)]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Collector" name="group_col"
+                            context="{'group_by': 'collector_id'}"/>
+                    <filter string="Status" name="group_state"
+                            context="{'group_by': 'state'}"/>
+                    <filter string="Priority" name="group_prio"
+                            context="{'group_by': 'priority'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- ========================= DUNNING FORM =========================== -->
+    <record id="view_debt_dunning_form" model="ir.ui.view">
+        <field name="name">sf.debt.dunning.form</field>
+        <field name="model">sf.debt.dunning</field>
+        <field name="arch" type="xml">
+            <form string="Dunning Level">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="sequence"/>
+                            <field name="active"/>
+                        </group>
+                        <group>
+                            <field name="days_after_due"/>
+                        </group>
+                    </group>
+                    <field name="message" placeholder="Message template..."/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- ========================= DUNNING TREE =========================== -->
+    <record id="view_debt_dunning_tree" model="ir.ui.view">
+        <field name="name">sf.debt.dunning.tree</field>
+        <field name="model">sf.debt.dunning</field>
+        <field name="arch" type="xml">
+            <tree string="Dunning Levels" editable="bottom">
+                <field name="sequence"/>
+                <field name="name"/>
+                <field name="days_after_due"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- ========================= RUN FORM =============================== -->
+    <record id="view_debt_dunning_run_form" model="ir.ui.view">
+        <field name="name">sf.debt.dunning.run.form</field>
+        <field name="model">sf.debt.dunning.run</field>
+        <field name="arch" type="xml">
+            <form string="Dunning Run">
+                <header>
+                    <button name="action_sent" type="object" string="Mark Sent"
+                            class="btn-primary" states="draft"/>
+                    <button name="action_done" type="object" string="Done"
+                            states="sent"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="case_id"/>
+                            <field name="partner_id"/>
+                        </group>
+                        <group>
+                            <field name="level_id"/>
+                            <field name="date"/>
+                            <field name="amount_due" widget="monetary"/>
+                            <field name="state" widget="badge"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- ========================= RUN TREE =============================== -->
+    <record id="view_debt_dunning_run_tree" model="ir.ui.view">
+        <field name="name">sf.debt.dunning.run.tree</field>
+        <field name="model">sf.debt.dunning.run</field>
+        <field name="arch" type="xml">
+            <tree string="Dunning Runs">
+                <field name="name"/>
+                <field name="case_id"/>
+                <field name="partner_id"/>
+                <field name="level_id"/>
+                <field name="date"/>
+                <field name="amount_due" widget="monetary" sum="Total"/>
+                <field name="state" widget="badge"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- ========================== ACTIONS ============================== -->
+    <record id="action_debt_case" model="ir.actions.act_window">
+        <field name="name">Collection Cases</field>
+        <field name="res_model">sf.debt.collection.case</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_debt_case_search"/>
+    </record>
+
+    <record id="action_debt_dunning" model="ir.actions.act_window">
+        <field name="name">Dunning Levels</field>
+        <field name="res_model">sf.debt.dunning</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="action_debt_dunning_run" model="ir.actions.act_window">
+        <field name="name">Dunning Runs</field>
+        <field name="res_model">sf.debt.dunning.run</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_debt_root"
+              name="Collections"
+              parent="account.menu_finance"
+              sequence="60"/>
+    <menuitem id="menu_debt_cases"
+              parent="menu_debt_root"
+              action="action_debt_case"
+              sequence="10"/>
+    <menuitem id="menu_debt_dunning"
+              parent="menu_debt_root"
+              action="action_debt_dunning_run"
+              sequence="20"/>
+    <menuitem id="menu_debt_dunning_config"
+              parent="account.menu_finance_configuration"
+              action="action_debt_dunning"
+              sequence="30"/>
+</odoo>
