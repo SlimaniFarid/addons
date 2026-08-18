@@ -14,7 +14,7 @@ Test : validation statique (compile Python, parse XML, cohérence manifest/model
 | 6 | sf_vendor_portal — Vendor Portal & e-Procurement | ✅ | ✅ | ✅ | ✅ | ✅ | Done |
 | 7 | sf_marketplace_hub — Marketplace Hub (multi) | ⏳ | ⏳ | ⏳ | ⏳ | ⏳ | Pending |
 | 8 | sf_resource_planning — Resource Capacity Planning | ✅ | ✅ | ✅ | ✅ | ✅ | Done |
-| 9 | sf_real_estate — Real Estate Property Manager | ⏳ | ⏳ | ⏳ | ⏳ | ⏳ | Pending |
+| 9 | sf_real_estate — Real Estate Property Manager | ✅ | ✅ | ✅ | ✅ | ✅ | Done |
 | 10 | sf_fixed_assets — Fixed Assets Lifecycle | ⏳ | ⏳ | ⏳ | ⏳ | ⏳ | Pending |
 | 11 | sf_cpq_configurator — CPQ for Custom Products | ⏳ | ⏳ | ⏳ | ⏳ | ⏳ | Pending |
 | 12 | sf_safety_stock — Safety Stock Optimizer | ⏳ | ⏳ | ⏳ | ⏳ | ⏳ | Pending |

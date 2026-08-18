@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Property form -->
+    <record id="property_view_form" model="ir.ui.view">
+        <field name="name">sf.realestate.property.form</field>
+        <field name="model">sf.realestate.property</field>
+        <field name="arch" type="xml">
+            <form string="Property">
+                <header>
+                    <button name="action_available" string="Mark Available"
+                            type="object" states="rented,maintenance"/>
+                    <button name="action_maintenance" string="Maintenance"
+                            type="object" states="available,rented"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name"/></h1>
+                        <div class="o_row">
+                            <field name="code"/>
+                            <field name="state" widget="statusbar"/>
+                        </div>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="property_type"/>
+                            <field name="owner_id"/>
+                            <field name="surface"/>
+                            <field name="value"/>
+                        </group>
+                        <group>
+                            <field name="address"/>
+                            <field name="city"/>
+                            <field name="zip"/>
+                            <field name="country_id"/>
+                        </group>
+                    </group>
+                    <group string="Rental">
+                        <group>
+                            <field name="current_lease_id"/>
+                            <field name="monthly_rent"/>
+                            <field name="occupancy" widget="progressbar"/>
+                        </group>
+                    </group>
+                    <field name="description" placeholder="Describe the property..."/>
+                    <notebook>
+                        <page string="Leases">
+                            <field name="lease_ids">
+                                <tree string="Leases">
+                                    <field name="name"/>
+                                    <field name="tenant_id"/>
+                                    <field name="date_start"/>
+                                    <field name="date_end"/>
+                                    <field name="rent"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="property_view_tree" model="ir.ui.view">
+        <field name="name">sf.realestate.property.tree</field>
+        <field name="model">sf.realestate.property</field>
+        <field name="arch" type="xml">
+            <tree string="Properties">
+                <field name="name"/>
+                <field name="property_type"/>
+                <field name="city"/>
+                <field name="surface"/>
+                <field name="value"/>
+                <field name="monthly_rent"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="property_view_search" model="ir.ui.view">
+        <field name="name">sf.realestate.property.search</field>
+        <field name="model">sf.realestate.property</field>
+        <field name="arch" type="xml">
+            <search string="Properties">
+                <field name="name"/>
+                <field name="city"/>
+                <filter string="Available" name="available"
+                        domain="[('state','=','available')]"/>
+                <filter string="Rented" name="rented"
+                        domain="[('state','=','rented')]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Type" name="type"
+                            context="{'group_by':'property_type'}"/>
+                    <filter string="City" name="city"
+                            context="{'group_by':'city'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Lease form -->
+    <record id="lease_view_form" model="ir.ui.view">
+        <field name="name">sf.realestate.lease.form</field>
+        <field name="model">sf.realestate.lease</field>
+        <field name="arch" type="xml">
+            <form string="Lease">
+                <header>
+                    <button name="action_activate" string="Activate"
+                            type="object" states="draft"/>
+                    <button name="action_close" string="Close"
+                            type="object" states="active"/>
+                    <button name="action_generate_invoices" string="Generate Rent Invoices"
+                            type="object" states="active"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="property_id"/>
+                            <field name="tenant_id"/>
+                            <field name="state"/>
+                        </group>
+                        <group>
+                            <field name="date_start"/>
+                            <field name="date_end"/>
+                            <field name="rent"/>
+                            <field name="deposit"/>
+                        </group>
+                    </group>
+                    <group string="Rent Invoices">
+                        <group>
+                            <field name="total_invoiced"/>
+                            <field name="total_paid"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Invoices">
+                            <field name="invoice_ids">
+                                <tree string="Invoices">
+                                    <field name="name"/>
+                                    <field name="date"/>
+                                    <field name="period_label"/>
+                                    <field name="amount"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="lease_view_tree" model="ir.ui.view">
+        <field name="name">sf.realestate.lease.tree</field>
+        <field name="model">sf.realestate.lease</field>
+        <field name="arch" type="xml">
+            <tree string="Leases">
+                <field name="name"/>
+                <field name="property_id"/>
+                <field name="tenant_id"/>
+                <field name="date_start"/>
+                <field name="date_end"/>
+                <field name="rent"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Rent invoice form -->
+    <record id="rent_invoice_view_form" model="ir.ui.view">
+        <field name="name">sf.realestate.rent.invoice.form</field>
+        <field name="model">sf.realestate.rent.invoice</field>
+        <field name="arch" type="xml">
+            <form string="Rent Invoice">
+                <header>
+                    <button name="action_post" string="Post" type="object"
+                            states="draft"/>
+                    <button name="action_paid" string="Mark Paid" type="object"
+                            states="posted"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="date"/>
+                            <field name="lease_id"/>
+                        </group>
+                        <group>
+                            <field name="property_id"/>
+                            <field name="tenant_id"/>
+                            <field name="period_label"/>
+                            <field name="amount"/>
+                            <field name="state"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="rent_invoice_view_tree" model="ir.ui.view">
+        <field name="name">sf.realestate.rent.invoice.tree</field>
+        <field name="model">sf.realestate.rent.invoice</field>
+        <field name="arch" type="xml">
+            <tree string="Rent Invoices">
+                <field name="name"/>
+                <field name="date"/>
+                <field name="property_id"/>
+                <field name="tenant_id"/>
+                <field name="period_label"/>
+                <field name="amount"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Actions -->
+    <record id="action_property" model="ir.actions.act_window">
+        <field name="name">Properties</field>
+        <field name="res_model">sf.realestate.property</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="property_view_search"/>
+    </record>
+
+    <record id="action_lease" model="ir.actions.act_window">
+        <field name="name">Leases</field>
+        <field name="res_model">sf.realestate.lease</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="action_rent_invoice" model="ir.actions.act_window">
+        <field name="name">Rent Invoices</field>
+        <field name="res_model">sf.realestate.rent.invoice</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>
