@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem id="menu_psa_root"
+              name="PSA"
+              parent="project.menu_main_pm"
+              sequence="97"/>
+
+    <menuitem id="menu_psa_engagements"
+              name="Engagements"
+              parent="menu_psa_root"
+              action="action_psa_engagement"
+              sequence="10"/>
+
+    <menuitem id="menu_psa_resources"
+              name="Resources"
+              parent="menu_psa_root"
+              action="action_psa_resource"
+              sequence="20"/>
+
+    <menuitem id="menu_psa_assignments"
+              name="Assignments"
+              parent="menu_psa_root"
+              action="action_psa_assignment"
+              sequence="30"/>
+
+    <menuitem id="menu_psa_time"
+              name="Time Entries"
+              parent="menu_psa_root"
+              action="action_psa_time_entry"
+              sequence="40"/>
+
+</odoo>
