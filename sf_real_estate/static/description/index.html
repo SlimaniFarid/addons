@@ -1,84 +1,326 @@
-<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Real Estate Property Manager — Odoo Apps</title>
+    <meta charset="UTF-8">
 </head>
-<body style="margin:0;padding:0;background:#f1f5f9;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;color:#1e293b;line-height:1.6;">
-    <div class="container-fluid" style="background:linear-gradient(135deg,#0f172a 0%,#0e7490 60%,#164e63 100%);color:#ffffff;padding:48px 24px;text-align:center;">
-        <div class="container">
-            <h1 style="margin:0 0 10px;font-size:36px;font-weight:800;">Real Estate Property Manager</h1>
-            <p style="font-size:18px;opacity:.94;margin:0 auto 20px;max-width:780px;">Properties, leases, tenants and rent invoicing in one place.</p>
-            <div style="margin-top:10px;">
-                <span style="display:inline-block;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.4);border-radius:20px;padding:6px 16px;margin:4px;font-size:13px;">&#10003; Odoo 18</span>
-                <span style="display:inline-block;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.4);border-radius:20px;padding:6px 16px;margin:4px;font-size:13px;">&#10003; Odoo 19</span>
-                <span style="display:inline-block;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.4);border-radius:20px;padding:6px 16px;margin:4px;font-size:13px;">&#10003; 149.75 EUR</span>
-                <span style="display:inline-block;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.4);border-radius:20px;padding:6px 16px;margin:4px;font-size:13px;">&#10003; Support included</span>
-            </div>
-        </div>
+
+<section style="background-color:#1a1a2e; padding:48px 32px; text-align:center; border-radius:0 0 12px 12px; margin-bottom:40px;">
+    <div style="margin-bottom:16px;">
+        <span style="background-color:#2C5F8A; color:#fff; font-size:32px; padding:14px 20px; border-radius:14px; display:inline-block;">&#127968;</span>
+    </div>
+    <h1 style="color:#ffffff; font-size:30px; font-weight:700; margin-bottom:12px;">Real Estate Property Manager</h1>
+    <p style="color:#cccccc; font-size:16px; max-width:560px; margin:0 auto 24px;">
+        Properties, leases, tenants and rent invoicing in one place &amp;mdash; directly from your Odoo ERP.
+    </p>
+    <div><span style="background-color:#27ae60; color:#fff; padding:5px 14px; border-radius:99px; font-size:12px; font-weight:600; margin:4px;">&#10003; Plug &amp; Play</span><span style="background-color:#2C5F8A; color:#fff; padding:5px 14px; border-radius:99px; font-size:12px; font-weight:600; margin:4px;">Odoo 18.0</span><span style="background-color:#2d4059; color:#fff; padding:5px 14px; border-radius:99px; font-size:12px; font-weight:600; margin:4px;">Community &amp; Enterprise</span></div>
+</section>
+
+<section style="margin-bottom:40px;">
+    <div style="background-color:#fef9ec; border:2px solid #f5c518; border-radius:10px; padding:24px 28px;">
+        <table width="100%" cellpadding="0" cellspacing="0">
+            <tr>
+                <td width="48" style="vertical-align:top; padding-top:2px; font-size:28px;">&#9888;&#65039;</td>
+                <td>
+                    <p style="font-size:16px; font-weight:700; color:#7d5a00; margin-bottom:6px;">Properties and leases tracked in spreadsheets, with rent invoiced manually every month.</p>
+                    <p style="font-size:14px; color:#7d6a30; margin:0;">Managing a property portfolio means tracking properties, tenants, leases and rent. Without a structured tool, invoicing is manual, occupancy is a mystery, and income is scattered. Odoo has no native real estate manager &amp;mdash; this module fills that gap.</p>
+                </td>
+            </tr>
+        </table>
+    </div>
+</section>
+
+<section style="margin-bottom:40px;">
+    <h2 style="font-size:22px; font-weight:700; color:#1a1a2e; margin-bottom:6px;">Everything you need</h2>
+    <div style="width:40px; height:3px; background-color:#2C5F8A; border-radius:2px; margin-bottom:28px;"></div>
+    <table width="100%" cellpadding="8" cellspacing="0"><tr>
+            <td width="50%" style="vertical-align:top; padding:8px;">
+                <div style="border:1px solid #e8e8e8; border-radius:10px; padding:20px;">
+                    <div style="background-color:#eaf4fb; border-radius:10px; width:44px; height:44px; text-align:center; font-size:20px; padding:10px; margin-bottom:12px;">&#127968;</div>
+                    <p style="font-size:14px; font-weight:700; color:#1a1a2e; margin-bottom:6px;">Properties</p>
+                    <p style="font-size:13px; color:#636e72; margin:0;">Type, surface, value, location and owner per property.</p>
+                </div>
+            </td>
+            <td width="50%" style="vertical-align:top; padding:8px;">
+                <div style="border:1px solid #e8e8e8; border-radius:10px; padding:20px;">
+                    <div style="background-color:#e9f7ef; border-radius:10px; width:44px; height:44px; text-align:center; font-size:20px; padding:10px; margin-bottom:12px;">&#128196;</div>
+                    <p style="font-size:14px; font-weight:700; color:#1a1a2e; margin-bottom:6px;">Leases</p>
+                    <p style="font-size:13px; color:#636e72; margin:0;">Rent, deposit, dates and tenant per lease.</p>
+                </div>
+            </td></tr><tr>
+            <td width="50%" style="vertical-align:top; padding:8px;">
+                <div style="border:1px solid #e8e8e8; border-radius:10px; padding:20px;">
+                    <div style="background-color:#fef5e7; border-radius:10px; width:44px; height:44px; text-align:center; font-size:20px; padding:10px; margin-bottom:12px;">&#128100;</div>
+                    <p style="font-size:14px; font-weight:700; color:#1a1a2e; margin-bottom:6px;">Tenants</p>
+                    <p style="font-size:13px; color:#636e72; margin:0;">Tenants linked to native partners.</p>
+                </div>
+            </td>
+            <td width="50%" style="vertical-align:top; padding:8px;">
+                <div style="border:1px solid #e8e8e8; border-radius:10px; padding:20px;">
+                    <div style="background-color:#f5eef8; border-radius:10px; width:44px; height:44px; text-align:center; font-size:20px; padding:10px; margin-bottom:12px;">&#128179;</div>
+                    <p style="font-size:14px; font-weight:700; color:#1a1a2e; margin-bottom:6px;">Rent invoicing</p>
+                    <p style="font-size:13px; color:#636e72; margin:0;">Generate rent invoices automatically from active leases.</p>
+                </div>
+            </td></tr><tr>
+            <td width="50%" style="vertical-align:top; padding:8px;">
+                <div style="border:1px solid #e8e8e8; border-radius:10px; padding:20px;">
+                    <div style="background-color:#e8f8f5; border-radius:10px; width:44px; height:44px; text-align:center; font-size:20px; padding:10px; margin-bottom:12px;">&#128200;</div>
+                    <p style="font-size:14px; font-weight:700; color:#1a1a2e; margin-bottom:6px;">Portfolio</p>
+                    <p style="font-size:13px; color:#636e72; margin:0;">Occupancy, monthly rent and status at a glance.</p>
+                </div>
+            </td>
+            <td width="50%" style="vertical-align:top; padding:8px;">
+                <div style="border:1px solid #e8e8e8; border-radius:10px; padding:20px;">
+                    <div style="background-color:#fdeaea; border-radius:10px; width:44px; height:44px; text-align:center; font-size:20px; padding:10px; margin-bottom:12px;">&#128257;</div>
+                    <p style="font-size:14px; font-weight:700; color:#1a1a2e; margin-bottom:6px;">Workflow</p>
+                    <p style="font-size:13px; color:#636e72; margin:0;">Available, rented, maintenance and sold states.</p>
+                </div>
+            </td></tr></table>
+</section>
+
+<section style="margin-bottom:40px;">
+    <h2 style="font-size:22px; font-weight:700; color:#1a1a2e; margin-bottom:6px;">How it works</h2>
+    <div style="width:40px; height:3px; background-color:#2C5F8A; border-radius:2px; margin-bottom:28px;"></div>
+
+    <div style="border:1px solid #e8e8e8; border-radius:10px; padding:20px 24px; margin-bottom:10px;">
+        <table width="100%" cellpadding="0" cellspacing="0">
+            <tr>
+                <td width="40" style="vertical-align:top;">
+                    <div style="background-color:#2C5F8A; color:#fff; width:32px; height:32px; border-radius:50%; text-align:center; font-weight:700; font-size:15px; padding-top:6px;">1</div>
+                </td>
+                <td style="padding-left:16px; vertical-align:top;">
+                    <p style="font-size:15px; font-weight:700; color:#1a1a2e; margin-bottom:4px;">Create properties</p>
+                    <p style="font-size:13px; color:#636e72; margin:0;">Add type, value and location.</p>
+                </td>
+            </tr>
+        </table>
     </div>
 
-    <div class="container" style="padding:36px 16px;">
-        <div style="background:#ffffff;border:1px solid #e2e8f0;border-radius:14px;padding:28px;margin-bottom:28px;box-shadow:0 2px 8px rgba(0,0,0,.05);">
-            <h2 style="margin:0 0 14px;color:#0f172a;font-size:24px;">Why Real Estate Property Manager?</h2>
-            <p style="color:#475569;font-size:16px;margin:0;">Manage your property portfolio and leases in Odoo. Track properties, tenants, leases and rent — and generate rent invoices automatically from active leases.</p>
-        </div>
+    <div style="border:1px solid #e8e8e8; border-radius:10px; padding:20px 24px; margin-bottom:10px;">
+        <table width="100%" cellpadding="0" cellspacing="0">
+            <tr>
+                <td width="40" style="vertical-align:top;">
+                    <div style="background-color:#2C5F8A; color:#fff; width:32px; height:32px; border-radius:50%; text-align:center; font-weight:700; font-size:15px; padding-top:6px;">2</div>
+                </td>
+                <td style="padding-left:16px; vertical-align:top;">
+                    <p style="font-size:15px; font-weight:700; color:#1a1a2e; margin-bottom:4px;">Create a lease</p>
+                    <p style="font-size:13px; color:#636e72; margin:0;">Set tenant, rent and dates.</p>
+                </td>
+            </tr>
+        </table>
+    </div>
 
-        <div class="row" style="margin:0 -8px 28px;">
-            <div class="col-md-6" style="padding:8px;">
-                <div style="background:#ffffff;border:1px solid #e2e8f0;border-radius:14px;padding:22px;box-shadow:0 2px 8px rgba(0,0,0,.05);height:100%;">
-                    <h3 style="color:#b91c1c;font-size:18px;margin:0 0 12px;">&#10007; The Problem</h3>
-                    <div style="color:#b91c1c;padding:10px 0;border-bottom:1px solid #fecaca;">&#10005; Properties and leases tracked in spreadsheets</div><div style="color:#b91c1c;padding:10px 0;border-bottom:1px solid #fecaca;">&#10005; Rent invoiced manually every month</div><div style="color:#b91c1c;padding:10px 0;border-bottom:1px solid #fecaca;">&#10005; No visibility on occupancy or income</div><div style="color:#b91c1c;padding:10px 0;border-bottom:1px solid #fecaca;">&#10005; Tenant and payment history scattered</div>
+    <div style="border:1px solid #e8e8e8; border-radius:10px; padding:20px 24px; margin-bottom:10px;">
+        <table width="100%" cellpadding="0" cellspacing="0">
+            <tr>
+                <td width="40" style="vertical-align:top;">
+                    <div style="background-color:#2C5F8A; color:#fff; width:32px; height:32px; border-radius:50%; text-align:center; font-weight:700; font-size:15px; padding-top:6px;">3</div>
+                </td>
+                <td style="padding-left:16px; vertical-align:top;">
+                    <p style="font-size:15px; font-weight:700; color:#1a1a2e; margin-bottom:4px;">Activate</p>
+                    <p style="font-size:13px; color:#636e72; margin:0;">The property becomes rented.</p>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div style="border:1px solid #e8e8e8; border-radius:10px; padding:20px 24px; ">
+        <table width="100%" cellpadding="0" cellspacing="0">
+            <tr>
+                <td width="40" style="vertical-align:top;">
+                    <div style="background-color:#27ae60; color:#fff; width:32px; height:32px; border-radius:50%; text-align:center; font-weight:700; font-size:15px; padding-top:6px;">4</div>
+                </td>
+                <td style="padding-left:16px; vertical-align:top;">
+                    <p style="font-size:15px; font-weight:700; color:#1a1a2e; margin-bottom:4px;">Generate invoices</p>
+                    <p style="font-size:13px; color:#636e72; margin:0;">Create rent invoices from the lease.</p>
+                </td>
+            </tr>
+        </table>
+    </div>
+</section>
+
+<section style="margin-bottom:40px;">
+    <h2 style="font-size:22px; font-weight:700; color:#1a1a2e; margin-bottom:6px;">Technical specifications</h2>
+    <div style="width:40px; height:3px; background-color:#2C5F8A; border-radius:2px; margin-bottom:28px;"></div>
+    <table width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #e8e8e8; border-radius:10px; overflow:hidden; font-size:14px;">
+        <thead>
+            <tr style="background-color:#2C5F8A; color:#ffffff;">
+                <th style="padding:13px 18px; text-align:left; font-weight:600;">Item</th>
+                <th style="padding:13px 18px; text-align:left; font-weight:600;">Value</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr style="background-color:#ffffff;">
+                <td style="padding:12px 18px; border-top:1px solid #e8e8e8; color:#64748b;"><strong>Technical name</strong></td>
+                <td style="padding:12px 18px; border-top:1px solid #e8e8e8; color:#555;">sf_real_estate</td>
+            </tr>
+            <tr style="background-color:#fafafa;">
+                <td style="padding:12px 18px; border-top:1px solid #e8e8e8; color:#64748b;"><strong>Version</strong></td>
+                <td style="padding:12px 18px; border-top:1px solid #e8e8e8; color:#555;">18.0.1.0.0</td>
+            </tr>
+            <tr style="background-color:#ffffff;">
+                <td style="padding:12px 18px; border-top:1px solid #e8e8e8; color:#64748b;"><strong>License</strong></td>
+                <td style="padding:12px 18px; border-top:1px solid #e8e8e8; color:#555;">OPL-1 (proprietary)</td>
+            </tr>
+            <tr style="background-color:#fafafa;">
+                <td style="padding:12px 18px; border-top:1px solid #e8e8e8; color:#64748b;"><strong>Author</strong></td>
+                <td style="padding:12px 18px; border-top:1px solid #e8e8e8; color:#555;">Ethan Miller</td>
+            </tr>
+            <tr style="background-color:#ffffff;">
+                <td style="padding:12px 18px; border-top:1px solid #e8e8e8; color:#64748b;"><strong>Support</strong></td>
+                <td style="padding:12px 18px; border-top:1px solid #e8e8e8; color:#555;">tech5262@gmail.com</td>
+            </tr>
+            <tr style="background-color:#fafafa;">
+                <td style="padding:12px 18px; border-top:1px solid #e8e8e8; color:#64748b;"><strong>Price</strong></td>
+                <td style="padding:12px 18px; border-top:1px solid #e8e8e8; color:#555;">149.75 EUR</td>
+            </tr>
+            <tr style="background-color:#ffffff;">
+                <td style="padding:12px 18px; border-top:1px solid #e8e8e8; color:#64748b;"><strong>Depends</strong></td>
+                <td style="padding:12px 18px; border-top:1px solid #e8e8e8; color:#555;">base, account, mail</td>
+            </tr>
+            <tr style="background-color:#fafafa;">
+                <td style="padding:12px 18px; border-top:1px solid #e8e8e8; color:#64748b;"><strong>Models</strong></td>
+                <td style="padding:12px 18px; border-top:1px solid #e8e8e8; color:#555;">sf.realestate.property, sf.realestate.lease, sf.realestate.rent.invoice</td>
+            </tr></tbody>
+    </table>
+</section>
+
+<section style="margin-bottom:40px;">
+    <div style="background-color:#f5eef8; border:1px solid #d7bce8; border-radius:10px; padding:28px 32px;">
+        <h3 style="font-size:17px; font-weight:700; color:#6d4864; margin-bottom:16px;">&#128257; What gets tracked in the system</h3>
+        <table width="100%" cellpadding="0" cellspacing="0">
+            <tr>
+                <td width="50%" style="vertical-align:top; padding-bottom:8px;"><p style="font-size:13px; color:#4a235a; margin:4px 0;"><strong style="color:#27ae60;">&#10003;</strong> &nbsp;One portfolio view for all properties</p><p style="font-size:13px; color:#4a235a; margin:4px 0;"><strong style="color:#27ae60;">&#10003;</strong> &nbsp;Leases with rent, deposit and dates</p><p style="font-size:13px; color:#4a235a; margin:4px 0;"><strong style="color:#27ae60;">&#10003;</strong> &nbsp;Automatic rent invoice generation</p><p style="font-size:13px; color:#4a235a; margin:4px 0;"><strong style="color:#27ae60;">&#10003;</strong> &nbsp;Occupancy and income computed live</p></td>
+                <td width="50%" style="vertical-align:top; padding-bottom:8px;"><p style="font-size:13px; color:#4a235a; margin:4px 0;"><strong style="color:#27ae60;">&#10003;</strong> &nbsp;Leases</p><p style="font-size:13px; color:#4a235a; margin:4px 0;"><strong style="color:#27ae60;">&#10003;</strong> &nbsp;Tenants</p><p style="font-size:13px; color:#4a235a; margin:4px 0;"><strong style="color:#27ae60;">&#10003;</strong> &nbsp;Rent invoicing</p><p style="font-size:13px; color:#4a235a; margin:4px 0;"><strong style="color:#27ae60;">&#10003;</strong> &nbsp;Portfolio</p><p style="font-size:13px; color:#4a235a; margin:4px 0;"><strong style="color:#27ae60;">&#10003;</strong> &nbsp;Workflow</p></td>
+            </tr>
+        </table>
+    </div>
+</section>
+
+<section style="margin-bottom:40px;">
+    <div style="background-color:#1a1a2e; border-radius:10px; padding:32px; text-align:center;">
+        <h3 style="color:#ffffff; font-size:20px; font-weight:700; margin-bottom:8px;">&#9889; Plug &amp; Play &mdash; Zero Configuration</h3>
+        <p style="color:#cccccc; font-size:14px; margin-bottom:24px;">Install the module, configure it in minutes, and start working immediately.</p>
+        <table width="100%" cellpadding="0" cellspacing="0">
+            <tr>
+                <td style="text-align:center; padding:8px;">
+                    <div style="background-color:#2C5F8A; color:#fff; width:32px; height:32px; border-radius:50%; font-weight:700; font-size:14px; margin:0 auto 8px; padding-top:7px;">1</div>
+                    <p style="color:#cccccc; font-size:13px; margin:0;">Install</p>
+                </td><td style="text-align:center; color:#555555; font-size:20px; padding-bottom:24px;">&#8594;</td>
+                <td style="text-align:center; padding:8px;">
+                    <div style="background-color:#2C5F8A; color:#fff; width:32px; height:32px; border-radius:50%; font-weight:700; font-size:14px; margin:0 auto 8px; padding-top:7px;">2</div>
+                    <p style="color:#cccccc; font-size:13px; margin:0;">Properties</p>
+                </td><td style="text-align:center; color:#555555; font-size:20px; padding-bottom:24px;">&#8594;</td>
+                <td style="text-align:center; padding:8px;">
+                    <div style="background-color:#2C5F8A; color:#fff; width:32px; height:32px; border-radius:50%; font-weight:700; font-size:14px; margin:0 auto 8px; padding-top:7px;">3</div>
+                    <p style="color:#cccccc; font-size:13px; margin:0;">Leases</p>
+                </td><td style="text-align:center; color:#555555; font-size:20px; padding-bottom:24px;">&#8594;</td>
+                <td style="text-align:center; padding:8px;">
+                    <div style="background-color:#27ae60; color:#fff; width:32px; height:32px; border-radius:50%; font-weight:700; font-size:14px; margin:0 auto 8px; padding-top:7px;">4</div>
+                    <p style="color:#cccccc; font-size:13px; margin:0;">Invoice</p>
+                </td></tr>
+        </table>
+    </div>
+</section>
+
+<section style="margin-bottom:40px;">
+    <h2 style="font-size:22px; font-weight:700; color:#1a1a2e; margin-bottom:6px;">Compatibility</h2>
+    <div style="width:40px; height:3px; background-color:#2C5F8A; border-radius:2px; margin-bottom:28px;"></div>
+    <table width="100%" cellpadding="8" cellspacing="0"><tr>
+            <td width="16%" style="padding:8px;">
+                <div style="border:1px solid #e8e8e8; border-radius:10px; padding:16px; text-align:center;">
+                    <p style="font-size:22px; margin-bottom:6px;">&#128309;</p>
+                    <p style="font-size:13px; font-weight:600; color:#1a1a2e; margin-bottom:2px;">Odoo 18.0</p>
+                    <p style="font-size:11px; color:#95a5a6; margin:0;">Fully tested</p>
                 </div>
-            </div>
-            <div class="col-md-6" style="padding:8px;">
-                <div style="background:#ffffff;border:1px solid #e2e8f0;border-radius:14px;padding:22px;box-shadow:0 2px 8px rgba(0,0,0,.05);height:100%;">
-                    <h3 style="color:#065f46;font-size:18px;margin:0 0 12px;">&#10003; The Solution</h3>
-                    <div style="color:#065f46;padding:10px 0;border-bottom:1px solid #a7f3d0;">&#10003; One portfolio view for all your properties</div><div style="color:#065f46;padding:10px 0;border-bottom:1px solid #a7f3d0;">&#10003; Leases with rent, deposit and dates</div><div style="color:#065f46;padding:10px 0;border-bottom:1px solid #a7f3d0;">&#10003; Automatic rent invoice generation</div><div style="color:#065f46;padding:10px 0;border-bottom:1px solid #a7f3d0;">&#10003; Occupancy and income computed live</div>
+            </td>
+            <td width="16%" style="padding:8px;">
+                <div style="border:1px solid #e8e8e8; border-radius:10px; padding:16px; text-align:center;">
+                    <p style="font-size:22px; margin-bottom:6px;">&#128309;</p>
+                    <p style="font-size:13px; font-weight:600; color:#1a1a2e; margin-bottom:2px;">Odoo 19.0</p>
+                    <p style="font-size:11px; color:#95a5a6; margin:0;">Fully tested</p>
                 </div>
-            </div>
+            </td>
+            <td width="16%" style="padding:8px;">
+                <div style="border:1px solid #e8e8e8; border-radius:10px; padding:16px; text-align:center;">
+                    <p style="font-size:22px; margin-bottom:6px;">&#127970;</p>
+                    <p style="font-size:13px; font-weight:600; color:#1a1a2e; margin-bottom:2px;">Enterprise</p>
+                    <p style="font-size:11px; color:#95a5a6; margin:0;">Compatible</p>
+                </div>
+            </td>
+            <td width="16%" style="padding:8px;">
+                <div style="border:1px solid #e8e8e8; border-radius:10px; padding:16px; text-align:center;">
+                    <p style="font-size:22px; margin-bottom:6px;">&#127760;</p>
+                    <p style="font-size:13px; font-weight:600; color:#1a1a2e; margin-bottom:2px;">Community</p>
+                    <p style="font-size:11px; color:#95a5a6; margin:0;">Compatible</p>
+                </div>
+            </td>
+            <td width="16%" style="padding:8px;">
+                <div style="border:1px solid #e8e8e8; border-radius:10px; padding:16px; text-align:center;">
+                    <p style="font-size:22px; margin-bottom:6px;">&#127468;&#127463;</p>
+                    <p style="font-size:13px; font-weight:600; color:#1a1a2e; margin-bottom:2px;">English</p>
+                    <p style="font-size:11px; color:#95a5a6; margin:0;">Built-in</p>
+                </div>
+            </td>
+            <td width="16%" style="padding:8px;">
+                <div style="border:1px solid #e8e8e8; border-radius:10px; padding:16px; text-align:center;">
+                    <p style="font-size:22px; margin-bottom:6px;">&#128230;</p>
+                    <p style="font-size:13px; font-weight:600; color:#1a1a2e; margin-bottom:2px;">No extras</p>
+                    <p style="font-size:11px; color:#95a5a6; margin:0;">base, account, mail</p>
+                </div>
+            </td></tr></table>
+</section>
+
+<section style="margin-bottom:40px;">
+    <h2 style="font-size:22px; font-weight:700; color:#1a1a2e; margin-bottom:6px;">Changelog</h2>
+    <div style="width:40px; height:3px; background-color:#2C5F8A; border-radius:2px; margin-bottom:28px;"></div>
+    <div style="border:1px solid #e8e8e8; border-radius:10px; overflow:hidden;">
+        <div style="background-color:#f8f9fa; padding:14px 20px; border-bottom:1px solid #e8e8e8;">
+            <span style="background-color:#2C5F8A; color:#fff; padding:2px 10px; border-radius:99px; font-size:12px; font-weight:600; margin-right:10px;">v18.0.1.0.0</span>
+            <span style="font-size:14px; font-weight:600; color:#1a1a2e;">Initial Release &mdash; 2026</span>
         </div>
+        <div style="padding:16px 20px;"><p style="font-size:13px; color:#495057; margin:5px 0;"><strong style="color:#2C5F8A;">&#8594;</strong> &nbsp;Properties — Type, surface, value, location and owner per property.</p><p style="font-size:13px; color:#495057; margin:5px 0;"><strong style="color:#2C5F8A;">&#8594;</strong> &nbsp;Leases — Rent, deposit, dates and tenant per lease.</p><p style="font-size:13px; color:#495057; margin:5px 0;"><strong style="color:#2C5F8A;">&#8594;</strong> &nbsp;Tenants — Tenants linked to native partners.</p><p style="font-size:13px; color:#495057; margin:5px 0;"><strong style="color:#2C5F8A;">&#8594;</strong> &nbsp;Rent invoicing — Generate rent invoices automatically from active leases.</p><p style="font-size:13px; color:#495057; margin:5px 0;"><strong style="color:#2C5F8A;">&#8594;</strong> &nbsp;Portfolio — Occupancy, monthly rent and status at a glance.</p><p style="font-size:13px; color:#495057; margin:5px 0;"><strong style="color:#2C5F8A;">&#8594;</strong> &nbsp;Workflow — Available, rented, maintenance and sold states.</p><p style="font-size:13px; color:#495057; margin:5px 0;"><strong style="color:#2C5F8A;">&#8594;</strong> &nbsp;Built for Odoo 18.0 with native Odoo conventions</p></div>
+    </div>
+</section>
 
-        <h2 style="color:#0f172a;font-size:24px;margin:0 0 18px;">Key Features</h2>
-        <div class="row" style="margin:0 -8px;">
-            <div class="col-md-6 col-lg-4" style="padding:16px;margin-bottom:16px;border:1px solid #e2e8f0;border-radius:12px;background:#ffffff;box-shadow:0 1px 3px rgba(0,0,0,.06);"><div style="font-size:22px;margin-bottom:6px;">🏠</div><div style="font-weight:600;color:#0f172a;margin-bottom:4px;">Properties</div><div style="color:#475569;font-size:14px;">Type, surface, value, location and owner per property.</div></div><div class="col-md-6 col-lg-4" style="padding:16px;margin-bottom:16px;border:1px solid #e2e8f0;border-radius:12px;background:#ffffff;box-shadow:0 1px 3px rgba(0,0,0,.06);"><div style="font-size:22px;margin-bottom:6px;">📋</div><div style="font-weight:600;color:#0f172a;margin-bottom:4px;">Leases</div><div style="color:#475569;font-size:14px;">Rent, deposit, dates and tenant per lease.</div></div><div class="col-md-6 col-lg-4" style="padding:16px;margin-bottom:16px;border:1px solid #e2e8f0;border-radius:12px;background:#ffffff;box-shadow:0 1px 3px rgba(0,0,0,.06);"><div style="font-size:22px;margin-bottom:6px;">👤</div><div style="font-weight:600;color:#0f172a;margin-bottom:4px;">Tenants</div><div style="color:#475569;font-size:14px;">Tenants linked to native partners.</div></div><div class="col-md-6 col-lg-4" style="padding:16px;margin-bottom:16px;border:1px solid #e2e8f0;border-radius:12px;background:#ffffff;box-shadow:0 1px 3px rgba(0,0,0,.06);"><div style="font-size:22px;margin-bottom:6px;">💳</div><div style="font-weight:600;color:#0f172a;margin-bottom:4px;">Rent invoicing</div><div style="color:#475569;font-size:14px;">Generate rent invoices automatically from active leases.</div></div><div class="col-md-6 col-lg-4" style="padding:16px;margin-bottom:16px;border:1px solid #e2e8f0;border-radius:12px;background:#ffffff;box-shadow:0 1px 3px rgba(0,0,0,.06);"><div style="font-size:22px;margin-bottom:6px;">📊</div><div style="font-weight:600;color:#0f172a;margin-bottom:4px;">Portfolio</div><div style="color:#475569;font-size:14px;">Occupancy, monthly rent and status at a glance.</div></div><div class="col-md-6 col-lg-4" style="padding:16px;margin-bottom:16px;border:1px solid #e2e8f0;border-radius:12px;background:#ffffff;box-shadow:0 1px 3px rgba(0,0,0,.06);"><div style="font-size:22px;margin-bottom:6px;">🔁</div><div style="font-weight:600;color:#0f172a;margin-bottom:4px;">Workflow</div><div style="color:#475569;font-size:14px;">Available, rented, maintenance and sold states.</div></div>
+<section style="margin-bottom:40px;">
+    <div style="background-color:#1a1a2e; border-radius:10px; padding:36px 32px; text-align:center;">
+        <p style="font-size:28px; margin-bottom:12px;">&#128172;</p>
+        <h2 style="color:#ffffff; font-size:22px; font-weight:700; margin-bottom:8px;">Support &amp; Contact</h2>
+        <p style="color:#aaaaaa; font-size:14px; margin-bottom:28px;">
+            Have a question, found a bug, or need a custom feature?<br/>
+            We typically respond within <strong style="color:#ffffff;">24 hours</strong>.
+        </p>
+        <div style="margin-bottom:24px;">
+            <a href="mailto:tech5262@gmail.com"
+               style="background-color:#2C5F8A; color:#ffffff; font-size:15px; font-weight:700; padding:14px 32px; border-radius:8px; text-decoration:none; display:inline-block;">
+                &#9993; &nbsp;tech5262@gmail.com
+            </a>
         </div>
-
-        <h2 style="color:#0f172a;font-size:24px;margin:34px 0 18px;">Who Is It For?</h2>
-        <div style="margin-bottom:28px;"><div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:8px 12px;margin:4px;display:inline-block;font-size:14px;color:#334155;">Property managers and landlords</div><div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:8px 12px;margin:4px;display:inline-block;font-size:14px;color:#334155;">Real estate agencies</div><div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:8px 12px;margin:4px;display:inline-block;font-size:14px;color:#334155;">Facility managers tracking spaces</div><div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:8px 12px;margin:4px;display:inline-block;font-size:14px;color:#334155;">Investors monitoring portfolio income</div></div>
-
-        <h2 style="color:#0f172a;font-size:24px;margin:34px 0 18px;">How It Works</h2>
-        <div style="background:#ffffff;border:1px solid #e2e8f0;border-radius:14px;padding:24px;box-shadow:0 2px 8px rgba(0,0,0,.05);margin-bottom:28px;">
-            <div style="display:flex;align-items:flex-start;margin-bottom:14px;"><div style="flex:0 0 34px;height:34px;border-radius:50%;background:#0f172a;color:#ffffff;text-align:center;line-height:34px;font-weight:700;margin-right:14px;">1</div><div style="flex:1;color:#334155;padding-top:6px;">Create your properties.</div></div><div style="display:flex;align-items:flex-start;margin-bottom:14px;"><div style="flex:0 0 34px;height:34px;border-radius:50%;background:#0f172a;color:#ffffff;text-align:center;line-height:34px;font-weight:700;margin-right:14px;">2</div><div style="flex:1;color:#334155;padding-top:6px;">Add a lease with tenant, rent and dates.</div></div><div style="display:flex;align-items:flex-start;margin-bottom:14px;"><div style="flex:0 0 34px;height:34px;border-radius:50%;background:#0f172a;color:#ffffff;text-align:center;line-height:34px;font-weight:700;margin-right:14px;">3</div><div style="flex:1;color:#334155;padding-top:6px;">Activate the lease; the property becomes rented.</div></div><div style="display:flex;align-items:flex-start;margin-bottom:14px;"><div style="flex:0 0 34px;height:34px;border-radius:50%;background:#0f172a;color:#ffffff;text-align:center;line-height:34px;font-weight:700;margin-right:14px;">4</div><div style="flex:1;color:#334155;padding-top:6px;">Generate and post rent invoices.</div></div><div style="display:flex;align-items:flex-start;margin-bottom:14px;"><div style="flex:0 0 34px;height:34px;border-radius:50%;background:#0f172a;color:#ffffff;text-align:center;line-height:34px;font-weight:700;margin-right:14px;">5</div><div style="flex:1;color:#334155;padding-top:6px;">Track income and occupancy.</div></div>
-        </div>
-
-        <h2 style="color:#0f172a;font-size:24px;margin:34px 0 18px;">Frequently Asked Questions</h2>
-        <div style="background:#ffffff;border:1px solid #e2e8f0;border-radius:14px;padding:24px;box-shadow:0 2px 8px rgba(0,0,0,.05);margin-bottom:28px;">
-            <div style="margin-bottom:14px;"><div style="font-weight:600;color:#0f172a;">&#63; Can I auto-generate rent invoices?</div><div style="color:#475569;padding-left:18px;">Yes — from any active lease, in bulk.</div></div><div style="margin-bottom:14px;"><div style="font-weight:600;color:#0f172a;">&#63; How is occupancy computed?</div><div style="color:#475569;padding-left:18px;">From the active lease on each property.</div></div><div style="margin-bottom:14px;"><div style="font-weight:600;color:#0f172a;">&#63; Does it use native invoicing?</div><div style="color:#475569;padding-left:18px;">It works alongside native Odoo invoicing.</div></div>
-        </div>
-
-        <div style="background:#0f172a;border-radius:14px;padding:30px;text-align:center;color:#ffffff;margin-bottom:28px;">
-            <h3 style="margin:0 0 8px;font-size:22px;">Ready to get started?</h3>
-            <p style="margin:0 0 18px;opacity:.9;">Install now and transform the way you work with Odoo.</p>
-            <span style="display:inline-block;background:#0e7490;color:#ffffff;border-radius:24px;padding:12px 34px;font-weight:700;">Install now &#62;</span>
-        </div>
-
-        <div style="background:#ffffff;border:1px solid #e2e8f0;border-radius:14px;padding:22px;box-shadow:0 2px 8px rgba(0,0,0,.05);">
-            <h3 style="color:#0f172a;font-size:18px;margin:0 0 10px;">Technical Details</h3>
-            <table style="width:100%;border-collapse:collapse;font-size:14px;color:#334155;">
-                <tr><td style="padding:8px;border-bottom:1px solid #e2e8f0;color:#64748b;width:160px;">Technical name</td><td style="padding:8px;border-bottom:1px solid #e2e8f0;">sf_real_estate</td></tr>
-                <tr><td style="padding:8px;border-bottom:1px solid #e2e8f0;color:#64748b;">License</td><td style="padding:8px;border-bottom:1px solid #e2e8f0;">OPL-1 (proprietary)</td></tr>
-                <tr><td style="padding:8px;border-bottom:1px solid #e2e8f0;color:#64748b;">Author</td><td style="padding:8px;border-bottom:1px solid #e2e8f0;">Ethan Miller</td></tr>
-                <tr><td style="padding:8px;border-bottom:1px solid #e2e8f0;color:#64748b;">Support</td><td style="padding:8px;border-bottom:1px solid #e2e8f0;"><a href="mailto:tech5262@gmail.com" style="color:#0e7490;">tech5262@gmail.com</a></td></tr>
-                <tr><td style="padding:8px;border-bottom:1px solid #e2e8f0;color:#64748b;">Models</td><td style="padding:8px;border-bottom:1px solid #e2e8f0;">models: sf.realestate.property, sf.realestate.lease, sf.realestate.rent.invoice</td></tr>
-            </table>
-        </div>
-
-        <p style="text-align:center;color:#94a3b8;font-size:12px;margin-top:28px;">
-            &#169; 2026 by Ethan Miller &#183; Odoo Apps &#183; support:
-            <a href="mailto:tech5262@gmail.com" style="color:#64748b;">tech5262@gmail.com</a>
+        <table width="100%%" cellpadding="0" cellspacing="0">
+            <tr>
+                <td width="33%%" style="text-align:center; padding:8px;">
+                    <div style="background-color:#2d1b3d; border-radius:8px; padding:14px 10px;">
+                        <p style="font-size:20px; margin-bottom:6px;">&#128027;</p>
+                        <p style="color:#cccccc; font-size:12px; font-weight:600; margin:0;">Bug Reports</p>
+                    </div>
+                </td>
+                <td width="33%%" style="text-align:center; padding:8px;">
+                    <div style="background-color:#2d1b3d; border-radius:8px; padding:14px 10px;">
+                        <p style="font-size:20px; margin-bottom:6px;">&#128640;</p>
+                        <p style="color:#cccccc; font-size:12px; font-weight:600; margin:0;">Feature Requests</p>
+                    </div>
+                </td>
+                <td width="33%%" style="text-align:center; padding:8px;">
+                    <div style="background-color:#2d1b3d; border-radius:8px; padding:14px 10px;">
+                        <p style="font-size:20px; margin-bottom:6px;">&#9881;</p>
+                        <p style="color:#cccccc; font-size:12px; font-weight:600; margin:0;">Custom Development</p>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <p style="color:#ffffff; font-size:12px; margin-top:20px; margin-bottom:0;">
+            You can also leave a review on the Odoo Apps Store &mdash; it helps us improve!
         </p>
     </div>
-</body>
+</section>
 </html>
