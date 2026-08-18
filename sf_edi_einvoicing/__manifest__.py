@@ -37,7 +37,7 @@ Certifications:
     'license': 'OPL-1',
     'price': 499.0,
     'currency': 'EUR',
-    'depends': ['base', 'account', 'account_invoice', 'mail'],
+    'depends': ['base', 'account', 'account', 'mail'],
     'data': [
         'security/ir.model.access.csv',
         'views/edi_menus.xml',
@@ -52,5 +52,6 @@ Certifications:
     'auto_install': False,
     'images': ['static/description/banner.png'],
 }
+
 
 
