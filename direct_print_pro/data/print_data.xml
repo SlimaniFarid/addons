@@ -1,0 +1,9 @@
+<odoo>
+    <record id="seq_print_job" model="ir.sequence">
+        <field name="name">Print Job</field>
+        <field name="code">print.job</field>
+        <field name="prefix">PRJ-</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+</odoo>

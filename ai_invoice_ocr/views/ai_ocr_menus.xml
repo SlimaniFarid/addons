@@ -1,0 +1,129 @@
+<odoo>
+    <record id="action_ai_provider" model="ir.actions.act_window">
+        <field name="name">AI Providers</field>
+        <field name="res_model">ai.ocr.provider</field>
+        <field name="view_mode">list,form</field>
+    </record>
+    <record id="action_ai_ocr_request" model="ir.actions.act_window">
+        <field name="name">OCR Requests</field>
+        <field name="res_model">ai.ocr.request</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem id="menu_ai_ocr_root" name="AI Invoice Scanner" web_icon="ai_invoice_ocr,static/description/icon.png"/>
+    <menuitem id="menu_ai_ocr_providers" name="AI Providers" parent="menu_ai_ocr_root" action="action_ai_provider" sequence="10"/>
+    <menuitem id="menu_ai_ocr_requests" name="OCR Requests" parent="menu_ai_ocr_root" action="action_ai_ocr_request" sequence="20"/>
+
+    <record id="view_ai_provider_form" model="ir.ui.view">
+        <field name="name">ai.ocr.provider.form</field>
+        <field name="model">ai.ocr.provider</field>
+        <field name="arch" type="xml">
+            <form string="AI OCR Provider">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="provider_type"/>
+                        <field name="active"/>
+                        <field name="sequence"/>
+                    </group>
+                    <group string="API Configuration">
+                        <field name="api_key" password="True" groups="base.group_system"/>
+                        <field name="model_name"/>
+                        <field name="base_url"/>
+                        <field name="timeout"/>
+                        <field name="max_tokens"/>
+                        <field name="temperature"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_ai_provider_list" model="ir.ui.view">
+        <field name="name">ai.ocr.provider.list</field>
+        <field name="model">ai.ocr.provider</field>
+        <field name="arch" type="xml">
+            <list string="AI OCR Providers">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="provider_type"/>
+                <field name="model_name"/>
+                <field name="active" widget="boolean"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_ai_ocr_request_form" model="ir.ui.view">
+        <field name="name">ai.ocr.request.form</field>
+        <field name="model">ai.ocr.request</field>
+        <field name="arch" type="xml">
+            <form string="OCR Request">
+                <header>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,processing,done,error"/>
+                    <button name="action_process" string="Process with AI" type="object" class="btn-primary" invisible="state!='draft'"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="provider_id" options="{'no_create': True}"/>
+                        <field name="attachment_id" options="{'no_create': True}"/>
+                        <field name="state"/>
+                        <field name="confidence" widget="progressbar" options="{'current_value': 'confidence', 'max_value': 1}"/>
+                    </group>
+                    <group string="Extracted Data">
+                        <field name="vendor_name"/>
+                        <field name="vendor_vat"/>
+                        <field name="invoice_number"/>
+                        <field name="invoice_date"/>
+                        <field name="due_date"/>
+                        <field name="currency"/>
+                        <field name="total_amount"/>
+                        <field name="subtotal"/>
+                        <field name="tax_amount"/>
+                        <field name="payment_method"/>
+                    </group>
+                    <group string="Vendor Address">
+                        <field name="vendor_address" placeholder="Extracted address"/>
+                    </group>
+                    <group string="Actions">
+                        <field name="create_bill"/>
+                        <field name="create_expense"/>
+                    </group>
+                    <notebook>
+                        <page string="Line Items">
+                            <field name="line_ids">
+                                <list editable="bottom">
+                                    <field name="description"/>
+                                    <field name="quantity"/>
+                                    <field name="unit_price"/>
+                                    <field name="tax_rate"/>
+                                    <field name="total"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Created Records">
+                            <field name="created_bill_id" widget="many2one" options="{'no_create': True}"/>
+                            <field name="created_expense_id" widget="many2one" options="{'no_create': True}"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_ai_ocr_request_list" model="ir.ui.view">
+        <field name="name">ai.ocr.request.list</field>
+        <field name="model">ai.ocr.request</field>
+        <field name="arch" type="xml">
+            <list string="OCR Requests">
+                <field name="name"/>
+                <field name="provider_id"/>
+                <field name="attachment_id"/>
+                <field name="state" widget="badge" decoration-success="state=='done'" decoration-warning="state=='processing'" decoration-danger="state=='error'"/>
+                <field name="vendor_name"/>
+                <field name="invoice_number"/>
+                <field name="total_amount"/>
+                <field name="confidence" widget="progressbar" options="{'current_value': 'confidence', 'max_value': 1}"/>
+            </list>
+        </field>
+    </record>
+</odoo>

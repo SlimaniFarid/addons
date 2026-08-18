@@ -1,0 +1,31 @@
+<odoo>
+    <record id="seq_ai_ocr_request" model="ir.sequence">
+        <field name="name">OCR Request</field>
+        <field name="code">ai.ocr.request</field>
+        <field name="prefix">OCR-</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+    <record id="ai_provider_mistral" model="ai.ocr.provider">
+        <field name="name">Mistral AI (Pixtral)</field>
+        <field name="provider_type">mistral</field>
+        <field name="model_name">pixtral-12b</field>
+        <field name="api_key">YOUR_MISTRAL_API_KEY</field>
+        <field name="active">False</field>
+    </record>
+    <record id="ai_provider_gemini" model="ai.ocr.provider">
+        <field name="name">Google Gemini Pro Vision</field>
+        <field name="provider_type">gemini</field>
+        <field name="model_name">gemini-1.5-pro</field>
+        <field name="api_key">YOUR_GEMINI_API_KEY</field>
+        <field name="active">False</field>
+    </record>
+    <record id="ai_provider_claude" model="ai.ocr.provider">
+        <field name="name">Anthropic Claude 3 Sonnet</field>
+        <field name="provider_type">claude</field>
+        <field name="model_name">claude-3-sonnet-20240229</field>
+        <field name="api_key">YOUR_CLAUDE_API_KEY</field>
+        <field name="active">False</field>
+    </record>
+</odoo>

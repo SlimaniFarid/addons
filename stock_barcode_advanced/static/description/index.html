@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>Barcode & Warehouse</title>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <img src="banner.png" alt="Barcode & Warehouse" class="img-fluid" style="max-width: 100%;"/>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-12">
+                <h2>Barcode & Warehouse</h2>
+                <p class="lead">Advanced barcode scanning for receipts, deliveries, and inventory adjustments.</p>
+                <p>Native barcode scanning in Odoo is limited. This module brings a mobile-friendly scanning wizard with support for EAN13, UPC, QR, Code128, GS1, and custom formats. Automatically parse GS1 codes, create lots/serials/packages on the fly, and log every scan.</p>
+
+                <h3>Key Features</h3>
+                <ul>
+                    <li><strong>Multi-Format Support</strong> — EAN13, UPC-A/E, Code128, QR, GS1 (AI 01, 10, 21, 30, etc.)</li>
+                    <li><strong>Smart Parsing</strong> — Auto-detect barcode type and extract GTIN, lot, serial, quantity</li>
+                    <li><strong>GS1 Application Identifiers</strong> — Parse (01) GTIN, (10) Lot, (21) Serial, (30) Qty, (15) Best Before, (17) Expiry</li>
+                    <li><strong>Auto-Create Entities</strong> — Automatically create lots, serial numbers, packages when scanning unknown codes</li>
+                    <li><strong>Mobile-Friendly Wizard</strong> — Full-screen scan form works on tablets and phones</li>
+                    <li><strong>Picking Integration</strong> — Add move lines directly from scan results</li>
+                    <li><strong>Scan Logging</strong> — Complete audit trail with user, time, parsed data, success/error</li>
+                    <li><strong>Configurable Patterns</strong> — Custom regex per company for your barcode formats</li>
+                </ul>
+
+                <h3>Supported Operations</h3>
+                <ul>
+                    <li>Receipts (incoming shipments)</li>
+                    <li>Deliveries (outgoing shipments)</li>
+                    <li>Internal Transfers</li>
+                    <li>Inventory Adjustments</li>
+                </ul>
+
+                <h3>Workflow</h3>
+                <ol>
+                    <li>Open "Scan Barcode" from menu or add button to picking form</li>
+                    <li>Select picking and configuration</li>
+                    <li>Scan barcode with device camera or handheld scanner</li>
+                    <li>System auto-detects type and parses data</li>
+                    <li>Review and confirm — move line added to picking</li>
+                    <li>Continue scanning or click Done</li>
+                </ol>
+
+                <h3>GS1 Example</h3>
+                <p>Scan: <code>(01)01234567890128(10)LOT123(30)50</code></p>
+                <ul>
+                    <li>Product: GTIN 01234567890128 → matched to product with that barcode</li>
+                    <li>Lot: LOT123 → auto-created or linked</li>
+                    <li>Quantity: 50 → pre-filled</li>
+                </ul>
+
+                <h3>Compatibility</h3>
+                <p>Odoo 18.0 and 19.0. Works with standard Inventory (stock) and Product modules. Compatible with handheld Bluetooth scanners and mobile device cameras.</p>
+
+                <hr/>
+                <p class="text-muted small">Odoo Apps  |  by SLIMANI Farid  |  support: <a href="mailto:tech5262@gmail.com">tech5262@gmail.com</a></p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

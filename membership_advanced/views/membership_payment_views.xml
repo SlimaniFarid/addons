@@ -1,0 +1,47 @@
+<odoo>
+    <record id="view_membership_payment_form" model="ir.ui.view">
+        <field name="name">membership.payment.form</field>
+        <field name="model">membership.payment</field>
+        <field name="arch" type="xml">
+            <form string="Payment">
+                <header>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,paid,failed,refunded"/>
+                    <button name="action_confirm" string="Confirm" type="object" class="btn-primary" invisible="state!='draft'"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="member_id" options="{'no_create': True}"/>
+                        <field name="subscription_id" options="{'no_create': True}"/>
+                        <field name="name"/>
+                        <field name="date"/>
+                        <field name="amount"/>
+                        <field name="currency_id"/>
+                        <field name="method"/>
+                        <field name="state"/>
+                        <field name="reference"/>
+                    </group>
+                    <group string="Notes">
+                        <field name="notes"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_membership_payment_list" model="ir.ui.view">
+        <field name="name">membership.payment.list</field>
+        <field name="model">membership.payment</field>
+        <field name="arch" type="xml">
+            <list string="Payments">
+                <field name="name"/>
+                <field name="member_id"/>
+                <field name="subscription_id"/>
+                <field name="date"/>
+                <field name="amount"/>
+                <field name="currency_id"/>
+                <field name="method"/>
+                <field name="state" widget="badge" decoration-success="state=='paid'" decoration-danger="state in ('failed','refunded')" decoration-muted="state=='draft'"/>
+            </list>
+        </field>
+    </record>
+</odoo>

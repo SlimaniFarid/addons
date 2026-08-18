@@ -1,0 +1,157 @@
+<odoo>
+    <record id="action_print_printer" model="ir.actions.act_window">
+        <field name="name">Printers</field>
+        <field name="res_model">print.printer</field>
+        <field name="view_mode">list,form</field>
+    </record>
+    <record id="action_print_profile" model="ir.actions.act_window">
+        <field name="name">Print Profiles</field>
+        <field name="res_model">print.profile</field>
+        <field name="view_mode">list,form</field>
+    </record>
+    <record id="action_print_job" model="ir.actions.act_window">
+        <field name="name">Print Jobs</field>
+        <field name="res_model">print.job</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem id="menu_print_root" name="Direct Print PRO" web_icon="direct_print_pro,static/description/icon.png"/>
+    <menuitem id="menu_print_printers" name="Printers" parent="menu_print_root" action="action_print_printer" sequence="10"/>
+    <menuitem id="menu_print_profiles" name="Profiles" parent="menu_print_root" action="action_print_profile" sequence="20"/>
+    <menuitem id="menu_print_jobs" name="Print Jobs" parent="menu_print_root" action="action_print_job" sequence="30"/>
+
+    <record id="view_print_printer_form" model="ir.ui.view">
+        <field name="name">print.printer.form</field>
+        <field name="model">print.printer</field>
+        <field name="arch" type="xml">
+            <form string="Printer">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="printer_type"/>
+                        <field name="active"/>
+                    </group>
+                    <group string="Network" invisible="printer_type != 'network'">
+                        <field name="host"/>
+                        <field name="port"/>
+                        <field name="timeout"/>
+                    </group>
+                    <group string="PrintNode" invisible="printer_type != 'cloud'">
+                        <field name="printnode_printer_id"/>
+                        <field name="printnode_api_key" password="True" groups="base.group_system"/>
+                    </group>
+                    <group string="Capabilities">
+                        <field name="supports_zpl"/>
+                        <field name="supports_pdf"/>
+                        <field name="supports_raw"/>
+                        <field name="paper_width_mm"/>
+                        <field name="paper_height_mm"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="test_connection" string="Test Connection" type="object" class="btn-primary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_print_printer_list" model="ir.ui.view">
+        <field name="name">print.printer.list</field>
+        <field name="model">print.printer</field>
+        <field name="arch" type="xml">
+            <list string="Printers">
+                <field name="name"/>
+                <field name="printer_type"/>
+                <field name="host"/>
+                <field name="port"/>
+                <field name="active" widget="boolean"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_print_profile_form" model="ir.ui.view">
+        <field name="name">print.profile.form</field>
+        <field name="model">print.profile</field>
+        <field name="arch" type="xml">
+            <form string="Print Profile">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="printer_id" options="{'no_create': True}"/>
+                        <field name="report_id" options="{'no_create': True}"/>
+                        <field name="format"/>
+                        <field name="copies"/>
+                        <field name="active"/>
+                    </group>
+                    <group string="Auto Print Trigger" invisible="not auto_print">
+                        <field name="auto_print"/>
+                        <field name="trigger_model"/>
+                        <field name="trigger_field"/>
+                        <field name="trigger_value"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_print_profile_list" model="ir.ui.view">
+        <field name="name">print.profile.list</field>
+        <field name="model">print.profile</field>
+        <field name="arch" type="xml">
+            <list string="Print Profiles">
+                <field name="name"/>
+                <field name="printer_id"/>
+                <field name="report_id"/>
+                <field name="format"/>
+                <field name="copies"/>
+                <field name="auto_print"/>
+                <field name="active" widget="boolean"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_print_job_form" model="ir.ui.view">
+        <field name="name">print.job.form</field>
+        <field name="model">print.job</field>
+        <field name="arch" type="xml">
+            <form string="Print Job" create="false">
+                <header>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,queued,printing,done,error"/>
+                    <button name="action_print" string="Print" type="object" class="btn-primary" invisible="state not in ('draft','error')"/>
+                    <button name="action_retry" string="Retry" type="object" class="btn-secondary" invisible="state!='error'"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="printer_id" readonly="1"/>
+                        <field name="profile_id" readonly="1"/>
+                        <field name="model" readonly="1"/>
+                        <field name="res_id" readonly="1"/>
+                        <field name="format" readonly="1"/>
+                        <field name="copies" readonly="1"/>
+                        <field name="state" readonly="1"/>
+                    </group>
+                    <group string="Error" invisible="state != 'error'">
+                        <field name="error_message" readonly="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_print_job_list" model="ir.ui.view">
+        <field name="name">print.job.list</field>
+        <field name="model">print.job</field>
+        <field name="arch" type="xml">
+            <list string="Print Jobs">
+                <field name="name"/>
+                <field name="printer_id"/>
+                <field name="model"/>
+                <field name="res_id"/>
+                <field name="format"/>
+                <field name="copies"/>
+                <field name="state" widget="badge" decoration-success="state=='done'" decoration-danger="state=='error'" decoration-warning="state=='printing'"/>
+                <field name="create_date"/>
+            </list>
+        </field>
+    </record>
+</odoo>

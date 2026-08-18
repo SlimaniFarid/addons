@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_tiktokshop_store_user,tiktokshop.store.user,model_tiktokshop_store,base.group_user,1,0,0,0
+access_tiktokshop_store_mgr,tiktokshop.store.mgr,model_tiktokshop_store,base.group_system,1,1,1,1
+access_tiktokshop_product_user,tiktokshop.product.user,model_tiktokshop_product,base.group_user,1,0,0,0
+access_tiktokshop_product_mgr,tiktokshop.product.mgr,model_tiktokshop_product,base.group_system,1,1,1,1
+access_tiktokshop_order_user,tiktokshop.order.user,model_tiktokshop_order,base.group_user,1,0,0,0
+access_tiktokshop_order_mgr,tiktokshop.order.mgr,model_tiktokshop_order,base.group_system,1,1,1,1
+access_tiktokshop_log_user,tiktokshop.sync.log.user,model_tiktokshop_sync_log,base.group_user,1,0,0,0
+access_tiktokshop_log_mgr,tiktokshop.sync.log.mgr,model_tiktokshop_sync_log,base.group_system,1,1,1,1

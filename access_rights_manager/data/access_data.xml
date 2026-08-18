@@ -1,0 +1,9 @@
+<odoo>
+    <record id="seq_access_policy" model="ir.sequence">
+        <field name="name">Access Policy</field>
+        <field name="code">access.policy</field>
+        <field name="prefix">POL-</field>
+        <field name="padding">4</field>
+        <field name="company_id" eval="False"/>
+    </record>
+</odoo>

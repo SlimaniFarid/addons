@@ -1,0 +1,21 @@
+<odoo>
+    <record id="sale_auto_rule_cash" model="sale.auto.rule">
+        <field name="name">Cash Orders - Full Auto</field>
+        <field name="sequence">10</field>
+        <field name="condition_type">all</field>
+        <field name="payment_method_ids" eval="[(6, 0, [ref('account.account_payment_method_manual_in')])]"/>
+        <field name="action_confirm">True</field>
+        <field name="action_create_delivery">True</field>
+        <field name="action_validate_delivery">True</field>
+        <field name="action_create_invoice">True</field>
+        <field name="action_post_invoice">True</field>
+    </record>
+    <record id="sale_auto_rule_online" model="sale.auto.rule">
+        <field name="name">Online Payment - Auto Invoice</field>
+        <field name="sequence">20</field>
+        <field name="condition_type">all</field>
+        <field name="payment_method_ids" eval="[(6, 0, [ref('payment.payment_method_electronic_in')])]"/>
+        <field name="action_confirm">True</field>
+        <field name="action_create_invoice">True</field>
+    </record>
+</odoo>
