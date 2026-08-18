@@ -20,7 +20,7 @@ Test : validation statique (compile Python, parse XML, cohérence manifest/model
 | 12 | sf_safety_stock — Safety Stock Optimizer | ✅ | ✅ | ✅ | ✅ | ✅ | Done |
 | 13 | sf_time_attendance — Time & Attendance System | ✅ | ✅ | ✅ | ✅ | ✅ | Done |
 | 14 | sf_traceability — Traceability & Batch Recall | ✅ | ✅ | ✅ | ✅ | ✅ | Done |
-| 15 | sf_service_contracts — Service Contracts & SLA Engine | ⏳ | ⏳ | ⏳ | ⏳ | ⏳ | Pending |
+| 15 | sf_service_contracts — Service Contracts & SLA Engine | ✅ | ✅ | ✅ | ✅ | ✅ | Done |
 | 16 | sf_price_matrix — B2B Price & Discount Matrix | ⏳ | ⏳ | ⏳ | ⏳ | ⏳ | Pending |
 | 17 | sf_psa — Professional Services Automation | ⏳ | ⏳ | ⏳ | ⏳ | ⏳ | Pending |
 | 18 | sf_wave_picking — Warehouse Wave Picking | ⏳ | ⏳ | ⏳ | ⏳ | ⏳ | Pending |
