@@ -16,7 +16,7 @@ Test : validation statique (compile Python, parse XML, cohérence manifest/model
 | 8 | sf_resource_planning — Resource Capacity Planning | ✅ | ✅ | ✅ | ✅ | ✅ | Done |
 | 9 | sf_real_estate — Real Estate Property Manager | ✅ | ✅ | ✅ | ✅ | ✅ | Done |
 | 10 | sf_fixed_assets — Fixed Assets Lifecycle | ✅ | ✅ | ✅ | ✅ | ✅ | Done |
-| 11 | sf_cpq_configurator — CPQ for Custom Products | ⏳ | ⏳ | ⏳ | ⏳ | ⏳ | Pending |
+| 11 | sf_cpq_configurator — CPQ for Custom Products | ✅ | ✅ | ✅ | ✅ | ✅ | Done |
 | 12 | sf_safety_stock — Safety Stock Optimizer | ⏳ | ⏳ | ⏳ | ⏳ | ⏳ | Pending |
 | 13 | sf_time_attendance — Time & Attendance System | ⏳ | ⏳ | ⏳ | ⏳ | ⏳ | Pending |
 | 14 | sf_traceability — Traceability & Batch Recall | ⏳ | ⏳ | ⏳ | ⏳ | ⏳ | Pending |

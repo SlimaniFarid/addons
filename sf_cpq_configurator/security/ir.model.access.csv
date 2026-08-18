@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_cpq_attribute_user,sf.cpq.attribute.user,model_sf_cpq_attribute,group_cpq_user,1,1,0,0
+access_cpq_attribute_manager,sf.cpq.attribute.manager,model_sf_cpq_attribute,group_cpq_manager,1,1,1,1
+access_cpq_option_user,sf.cpq.option.user,model_sf_cpq_option,group_cpq_user,1,1,0,0
+access_cpq_option_manager,sf.cpq.option.manager,model_sf_cpq_option,group_cpq_manager,1,1,1,1
+access_cpq_configurator_user,sf.cpq.configurator.user,model_sf_cpq_configurator,group_cpq_user,1,1,0,0
+access_cpq_configurator_manager,sf.cpq.configurator.manager,model_sf_cpq_configurator,group_cpq_manager,1,1,1,1
+access_cpq_configuration_user,sf.cpq.configuration.user,model_sf_cpq_configuration,group_cpq_user,1,1,1,0
+access_cpq_configuration_manager,sf.cpq.configuration.manager,model_sf_cpq_configuration,group_cpq_manager,1,1,1,1
