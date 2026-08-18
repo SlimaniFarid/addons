@@ -28,7 +28,7 @@ Test : validation statique (compile Python, parse XML, cohérence manifest/model
 | 20 | sf_supplier_scorecard — Supplier Scorecard & Quality | ✅ | ✅ | ✅ | ✅ | ✅ | Done |
 | 21 | sf_consolidation — Multi-Company Consolidation | ✅ | ✅ | ✅ | ✅ | ✅ | Done |
 | 22 | sf_mes_shop_floor — Shop Floor Execution (MES) | ✅ | ✅ | ✅ | ✅ | ✅ | Done |
-| 23 | sf_project_margin — Project Margin & Budget Control | ⏳ | ⏳ | ⏳ | ⏳ | ⏳ | Pending |
+| 23 | sf_project_margin — Project Margin & Budget Control | ✅ | ✅ | ✅ | ✅ | ✅ | Done |
 | 24 | sf_oee — OEE & Downtime Analytics | ⏳ | ⏳ | ⏳ | ⏳ | ⏳ | Pending |
 | 25 | sf_contract_renewals — Contract Lifecycle & Renewals | ⏳ | ⏳ | ⏳ | ⏳ | ⏳ | Pending |
 | 26 | sf_abandoned_cart — Abandoned Cart & Remarketing | ⏳ | ⏳ | ⏳ | ⏳ | ⏳ | Pending |
