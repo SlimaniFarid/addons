@@ -1,4 +1,4 @@
-{
+﻿{
     'name': 'Credit & Debt Collection',
     'version': '18.0.1.0.0',
     'category': 'Accounting/Accounting',
@@ -31,7 +31,7 @@ Install, open the Collections menu, and start recovering your cash.
     'author': 'Ethan Miller',
     'support': 'tech5262@gmail.com',
     'license': 'OPL-1',
-    'price': 99.75,
+    'price': 149.75,
     'currency': 'EUR',
 
     'images': ['static/description/banner.png'],

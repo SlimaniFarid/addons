@@ -1,4 +1,4 @@
-{
+﻿{
     'name': 'Vendor Portal & e-Procurement',
     'version': '18.0.1.0.0',
     'category': 'Purchasing',
@@ -30,7 +30,7 @@ Works with native Odoo purchase and portal modules.
     'author': 'Ethan Miller',
     'support': 'tech5262@gmail.com',
     'license': 'OPL-1',
-    'price': 99.75,
+    'price': 199.75,
     'currency': 'EUR',
 
     'images': ['static/description/banner.png'],

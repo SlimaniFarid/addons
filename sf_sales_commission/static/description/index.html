@@ -4,156 +4,81 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Sales Commission Engine — Odoo Apps</title>
-    <style>
-        :root { color-scheme: light; }
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; color: #1e293b; line-height: 1.65; margin: 0; padding: 0; }
-        .hero { background: linear-gradient(135deg, #0f172a 0%, #0e7490 60%, #164e63 100%); color: #ffffff; padding: 56px 48px 48px; text-align: center; }
-        .hero h1 { margin: 0 0 8px; font-size: 34px; font-weight: 700; }
-        .hero .sub { font-size: 18px; opacity: .92; margin: 0 auto 18px; max-width: 760px; }
-        .badges { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 18px; }
-        .badge { background: rgba(255,255,255,.16); border: 1px solid rgba(255,255,255,.35); border-radius: 20px; padding: 6px 14px; font-size: 13px; }
-        .container { max-width: 980px; margin: 0 auto; padding: 40px 32px; }
-        .lead { font-size: 17px; background: #f0f9ff; border-left: 4px solid #0e7490; padding: 16px 20px; border-radius: 6px; margin: 0 0 32px; }
-        h2 { font-size: 22px; margin: 40px 0 12px; color: #0f172a; }
-        .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; }
-        .feature { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 16px 18px; }
-        .feature .ic { font-size: 22px; }
-        .feature h3 { margin: 8px 0 6px; font-size: 16px; }
-        .feature p { margin: 0; font-size: 14px; color: #475569; }
-        ul.check { list-style: none; padding-left: 0; }
-        ul.check li { padding: 6px 0 6px 30px; position: relative; }
-        ul.check li::before { content: "\2713"; color: #0e7490; position: absolute; left: 4px; font-weight: 700; }
-        .grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
-        .panel { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 20px 22px; box-shadow: 0 1px 3px rgba(0,0,0,.06); }
-        .steps { counter-reset: step; list-style: none; padding-left: 0; }
-        .steps li { counter-increment: step; padding: 8px 0 8px 44px; position: relative; font-size: 15px; }
-        .steps li::before { content: counter(step); position: absolute; left: 0; top: 8px; width: 30px; height: 30px; border-radius: 50%; background: #0e7490; color: #fff; font-weight: 700; text-align: center; line-height: 30px; }
-        .cta { text-align: center; background: linear-gradient(135deg, #0e7490, #164e63); color: #fff; border-radius: 12px; padding: 28px 24px; margin: 36px 0; }
-        .cta a { display: inline-block; background: #fbbf24; color: #1e293b; font-weight: 700; padding: 12px 26px; border-radius: 8px; text-decoration: none; }
-        code { background: #f1f5f9; padding: 2px 6px; border-radius: 4px; font-size: 13px; }
-        table { width: 100%; border-collapse: collapse; margin: 16px 0; }
-        th, td { border: 1px solid #e2e8f0; padding: 10px 12px; text-align: left; font-size: 14px; }
-        th { background: #f8fafc; }
-        .muted { color: #64748b; font-size: 13px; }
-        footer { background: #0f172a; color: #94a3b8; text-align: center; padding: 24px; font-size: 13px; }
-    </style>
 </head>
-<body>
-
-<div class="hero">
-    <h1>Sales Commission Engine</h1>
-    <p class="sub">Flexible, automatic commission plans that your sales team will actually trust.</p>
-    <div class="badges">
-        <span class="badge">Odoo 18</span>
-        <span class="badge">Odoo 19</span>
-        <span class="badge">99.75&#160;€</span>
-        <span class="badge">OPL-1</span>
-    </div>
-</div>
-
-<div class="container">
-
-    <p class="lead">Stop calculating commissions in spreadsheets. Define transparent plans — flat, tiered or margin-based — and let Odoo compute them from your confirmed orders, with approval and payment tracking built in.</p>
-
-    <h2>Why you need it</h2>
-    <div class="grid2">
-        <div class="panel">
-            <h3>The problem</h3>
-            <ul class="check">
-                <li>Commission spreadsheets are opaque and disputed</li>
-                <li>No link between a commission and the order that earned it</li>
-                <li>Manual adjustments create errors and resentment</li>
-                <li>No approval or payment trail for managers</li>
-            </ul>
-        </div>
-        <div class="panel">
-            <h3>The solution</h3>
-            <ul class="check">
-                <li>Flat, tiered and margin-based commission plans from the UI</li>
-                <li>Rate overrides per product or product category</li>
-                <li>Automatic commission line from a confirmed sale order</li>
-                <li>Approved → Paid workflow with manual adjustments</li>
-            </ul>
+<body style="margin:0;padding:0;background:#f1f5f9;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;color:#1e293b;line-height:1.6;">
+    <div class="container-fluid" style="background:linear-gradient(135deg,#0f172a 0%,#0e7490 60%,#164e63 100%);color:#ffffff;padding:48px 24px;text-align:center;">
+        <div class="container">
+            <h1 style="margin:0 0 10px;font-size:36px;font-weight:800;">Sales Commission Engine</h1>
+            <p style="font-size:18px;opacity:.94;margin:0 auto 20px;max-width:780px;">Plans, tiers, rules and automatic commission on every sale.</p>
+            <div style="margin-top:10px;">
+                <span style="display:inline-block;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.4);border-radius:20px;padding:6px 16px;margin:4px;font-size:13px;">&#10003; Odoo 18</span>
+                <span style="display:inline-block;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.4);border-radius:20px;padding:6px 16px;margin:4px;font-size:13px;">&#10003; Odoo 19</span>
+                <span style="display:inline-block;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.4);border-radius:20px;padding:6px 16px;margin:4px;font-size:13px;">&#10003; 149.75 EUR</span>
+                <span style="display:inline-block;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.4);border-radius:20px;padding:6px 16px;margin:4px;font-size:13px;">&#10003; Support included</span>
+            </div>
         </div>
     </div>
 
-    <h2>Key features</h2>
-    <div class="features">
-        <div class="feature">
-            <div class="ic">📐</div>
-            <h3>Flexible plans</h3>
-            <p>Flat rate, percentage of margin, or progressive tiers based on cumulative sales.</p>
+    <div class="container" style="padding:36px 16px;">
+        <div style="background:#ffffff;border:1px solid #e2e8f0;border-radius:14px;padding:28px;margin-bottom:28px;box-shadow:0 2px 8px rgba(0,0,0,.05);">
+            <h2 style="margin:0 0 14px;color:#0f172a;font-size:24px;">Why Sales Commission Engine?</h2>
+            <p style="color:#475569;font-size:16px;margin:0;">Stop calculating commissions in spreadsheets. Define commission plans with tiers and rules, then let Odoo compute every salesperson's commission automatically.</p>
         </div>
-        <div class="feature">
-            <div class="ic">🎯</div>
-            <h3>Category overrides</h3>
-            <p>Boost rates on strategic products or categories with simple rules.</p>
+
+        <div class="row" style="margin:0 -8px 28px;">
+            <div class="col-md-6" style="padding:8px;">
+                <div style="background:#ffffff;border:1px solid #e2e8f0;border-radius:14px;padding:22px;box-shadow:0 2px 8px rgba(0,0,0,.05);height:100%;">
+                    <h3 style="color:#b91c1c;font-size:18px;margin:0 0 12px;">&#10007; The Problem</h3>
+                    <div style="color:#b91c1c;padding:10px 0;border-bottom:1px solid #fecaca;">&#10005; Commission computed by hand every month</div><div style="color:#b91c1c;padding:10px 0;border-bottom:1px solid #fecaca;">&#10005; No visibility on team earnings</div><div style="color:#b91c1c;padding:10px 0;border-bottom:1px solid #fecaca;">&#10005; Complex rules hard to manage</div><div style="color:#b91c1c;padding:10px 0;border-bottom:1px solid #fecaca;">&#10005; Approvals and payments tracked in email</div>
+                </div>
+            </div>
+            <div class="col-md-6" style="padding:8px;">
+                <div style="background:#ffffff;border:1px solid #e2e8f0;border-radius:14px;padding:22px;box-shadow:0 2px 8px rgba(0,0,0,.05);height:100%;">
+                    <h3 style="color:#065f46;font-size:18px;margin:0 0 12px;">&#10003; The Solution</h3>
+                    <div style="color:#065f46;padding:10px 0;border-bottom:1px solid #a7f3d0;">&#10003; Commission plans with rate or tiered calculation</div><div style="color:#065f46;padding:10px 0;border-bottom:1px solid #a7f3d0;">&#10003; Automatic commission on every confirmed sale</div><div style="color:#065f46;padding:10px 0;border-bottom:1px solid #a7f3d0;">&#10003; Approval and payment workflow</div><div style="color:#065f46;padding:10px 0;border-bottom:1px solid #a7f3d0;">&#10003; Full transparency for the sales team</div>
+                </div>
+            </div>
         </div>
-        <div class="feature">
-            <div class="ic">🤖</div>
-            <h3>Automatic generation</h3>
-            <p>One click on a confirmed order creates the commission line with the right base and rate.</p>
+
+        <h2 style="color:#0f172a;font-size:24px;margin:0 0 18px;">Key Features</h2>
+        <div class="row" style="margin:0 -8px;">
+            <div class="col-md-6 col-lg-4" style="padding:16px;margin-bottom:16px;border:1px solid #e2e8f0;border-radius:12px;background:#ffffff;box-shadow:0 1px 3px rgba(0,0,0,.06);"><div style="font-size:22px;margin-bottom:6px;">📋</div><div style="font-weight:600;color:#0f172a;margin-bottom:4px;">Commission Plans</div><div style="color:#475569;font-size:14px;">Multiple plans per company with rate or tiered calculation.</div></div><div class="col-md-6 col-lg-4" style="padding:16px;margin-bottom:16px;border:1px solid #e2e8f0;border-radius:12px;background:#ffffff;box-shadow:0 1px 3px rgba(0,0,0,.06);"><div style="font-size:22px;margin-bottom:6px;">📊</div><div style="font-weight:600;color:#0f172a;margin-bottom:4px;">Tiers</div><div style="color:#475569;font-size:14px;">Tiered rates for extra earnings on high performance.</div></div><div class="col-md-6 col-lg-4" style="padding:16px;margin-bottom:16px;border:1px solid #e2e8f0;border-radius:12px;background:#ffffff;box-shadow:0 1px 3px rgba(0,0,0,.06);"><div style="font-size:22px;margin-bottom:6px;">⚖️</div><div style="font-weight:600;color:#0f172a;margin-bottom:4px;">Rules</div><div style="color:#475569;font-size:14px;">Gross or margin-based commission with minimums.</div></div><div class="col-md-6 col-lg-4" style="padding:16px;margin-bottom:16px;border:1px solid #e2e8f0;border-radius:12px;background:#ffffff;box-shadow:0 1px 3px rgba(0,0,0,.06);"><div style="font-size:22px;margin-bottom:6px;">🤖</div><div style="font-weight:600;color:#0f172a;margin-bottom:4px;">Automatic</div><div style="color:#475569;font-size:14px;">Commission generated automatically on confirmed sales.</div></div><div class="col-md-6 col-lg-4" style="padding:16px;margin-bottom:16px;border:1px solid #e2e8f0;border-radius:12px;background:#ffffff;box-shadow:0 1px 3px rgba(0,0,0,.06);"><div style="font-size:22px;margin-bottom:6px;">✅</div><div style="font-weight:600;color:#0f172a;margin-bottom:4px;">Workflow</div><div style="color:#475569;font-size:14px;">Draft → approved → paid, fully tracked.</div></div><div class="col-md-6 col-lg-4" style="padding:16px;margin-bottom:16px;border:1px solid #e2e8f0;border-radius:12px;background:#ffffff;box-shadow:0 1px 3px rgba(0,0,0,.06);"><div style="font-size:22px;margin-bottom:6px;">👥</div><div style="font-weight:600;color:#0f172a;margin-bottom:4px;">Transparency</div><div style="color:#475569;font-size:14px;">Each salesperson sees their earnings in the order.</div></div>
         </div>
-        <div class="feature">
-            <div class="ic">✅</div>
-            <h3>Approval workflow</h3>
-            <p>Manager approves, then payment is tracked: Draft → Approved → Paid.</p>
+
+        <h2 style="color:#0f172a;font-size:24px;margin:34px 0 18px;">Who Is It For?</h2>
+        <div style="margin-bottom:28px;"><div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:8px 12px;margin:4px;display:inline-block;font-size:14px;color:#334155;">Sales managers running commission schemes</div><div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:8px 12px;margin:4px;display:inline-block;font-size:14px;color:#334155;">Finance teams paying sales incentives</div><div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:8px 12px;margin:4px;display:inline-block;font-size:14px;color:#334155;">SMEs with tiered or team-based commissions</div><div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:8px 12px;margin:4px;display:inline-block;font-size:14px;color:#334155;">Companies wanting transparent remuneration</div></div>
+
+        <h2 style="color:#0f172a;font-size:24px;margin:34px 0 18px;">How It Works</h2>
+        <div style="background:#ffffff;border:1px solid #e2e8f0;border-radius:14px;padding:24px;box-shadow:0 2px 8px rgba(0,0,0,.05);margin-bottom:28px;">
+            <div style="display:flex;align-items:flex-start;margin-bottom:14px;"><div style="flex:0 0 34px;height:34px;border-radius:50%;background:#0f172a;color:#ffffff;text-align:center;line-height:34px;font-weight:700;margin-right:14px;">1</div><div style="flex:1;color:#334155;padding-top:6px;">Define your commission plans and tiers.</div></div><div style="display:flex;align-items:flex-start;margin-bottom:14px;"><div style="flex:0 0 34px;height:34px;border-radius:50%;background:#0f172a;color:#ffffff;text-align:center;line-height:34px;font-weight:700;margin-right:14px;">2</div><div style="flex:1;color:#334155;padding-top:6px;">Attach salespeople to plans.</div></div><div style="display:flex;align-items:flex-start;margin-bottom:14px;"><div style="flex:0 0 34px;height:34px;border-radius:50%;background:#0f172a;color:#ffffff;text-align:center;line-height:34px;font-weight:700;margin-right:14px;">3</div><div style="flex:1;color:#334155;padding-top:6px;">Confirm sales; commission computes automatically.</div></div><div style="display:flex;align-items:flex-start;margin-bottom:14px;"><div style="flex:0 0 34px;height:34px;border-radius:50%;background:#0f172a;color:#ffffff;text-align:center;line-height:34px;font-weight:700;margin-right:14px;">4</div><div style="flex:1;color:#334155;padding-top:6px;">Approve and pay commissions.</div></div><div style="display:flex;align-items:flex-start;margin-bottom:14px;"><div style="flex:0 0 34px;height:34px;border-radius:50%;background:#0f172a;color:#ffffff;text-align:center;line-height:34px;font-weight:700;margin-right:14px;">5</div><div style="flex:1;color:#334155;padding-top:6px;">Track everything in the order chatter.</div></div>
         </div>
-        <div class="feature">
-            <div class="ic">🔧</div>
-            <h3>Adjustments</h3>
-            <p>Prorate, add bonuses or claw back amounts with an explicit adjustment field.</p>
+
+        <h2 style="color:#0f172a;font-size:24px;margin:34px 0 18px;">Frequently Asked Questions</h2>
+        <div style="background:#ffffff;border:1px solid #e2e8f0;border-radius:14px;padding:24px;box-shadow:0 2px 8px rgba(0,0,0,.05);margin-bottom:28px;">
+            <div style="margin-bottom:14px;"><div style="font-weight:600;color:#0f172a;">&#63; Can commission be tiered?</div><div style="color:#475569;padding-left:18px;">Yes — tiered rates are fully supported.</div></div><div style="margin-bottom:14px;"><div style="font-weight:600;color:#0f172a;">&#63; On what basis?</div><div style="color:#475569;padding-left:18px;">Gross amount or margin, per your rule.</div></div><div style="margin-bottom:14px;"><div style="font-weight:600;color:#0f172a;">&#63; Is there a workflow?</div><div style="color:#475569;padding-left:18px;">Yes: draft, approved and paid.</div></div>
         </div>
-        <div class="feature">
-            <div class="ic">📊</div>
-            <h3>Clear reporting</h3>
-            <p>Totals per salesperson, per plan and per period, plus a summary on each order.</p>
+
+        <div style="background:#0f172a;border-radius:14px;padding:30px;text-align:center;color:#ffffff;margin-bottom:28px;">
+            <h3 style="margin:0 0 8px;font-size:22px;">Ready to get started?</h3>
+            <p style="margin:0 0 18px;opacity:.9;">Install now and transform the way you work with Odoo.</p>
+            <span style="display:inline-block;background:#0e7490;color:#ffffff;border-radius:24px;padding:12px 34px;font-weight:700;">Install now &#62;</span>
         </div>
+
+        <div style="background:#ffffff;border:1px solid #e2e8f0;border-radius:14px;padding:22px;box-shadow:0 2px 8px rgba(0,0,0,.05);">
+            <h3 style="color:#0f172a;font-size:18px;margin:0 0 10px;">Technical Details</h3>
+            <table style="width:100%;border-collapse:collapse;font-size:14px;color:#334155;">
+                <tr><td style="padding:8px;border-bottom:1px solid #e2e8f0;color:#64748b;width:160px;">Technical name</td><td style="padding:8px;border-bottom:1px solid #e2e8f0;">sf_sales_commission</td></tr>
+                <tr><td style="padding:8px;border-bottom:1px solid #e2e8f0;color:#64748b;">License</td><td style="padding:8px;border-bottom:1px solid #e2e8f0;">OPL-1 (proprietary)</td></tr>
+                <tr><td style="padding:8px;border-bottom:1px solid #e2e8f0;color:#64748b;">Author</td><td style="padding:8px;border-bottom:1px solid #e2e8f0;">Ethan Miller</td></tr>
+                <tr><td style="padding:8px;border-bottom:1px solid #e2e8f0;color:#64748b;">Support</td><td style="padding:8px;border-bottom:1px solid #e2e8f0;"><a href="mailto:tech5262@gmail.com" style="color:#0e7490;">tech5262@gmail.com</a></td></tr>
+                <tr><td style="padding:8px;border-bottom:1px solid #e2e8f0;color:#64748b;">Models</td><td style="padding:8px;border-bottom:1px solid #e2e8f0;">models: sf.commission.plan, sf.commission.plan.tier, sf.commission.rule, sf.commission.line</td></tr>
+            </table>
+        </div>
+
+        <p style="text-align:center;color:#94a3b8;font-size:12px;margin-top:28px;">
+            &#169; 2026 by Ethan Miller &#183; Odoo Apps &#183; support:
+            <a href="mailto:tech5262@gmail.com" style="color:#64748b;">tech5262@gmail.com</a>
+        </p>
     </div>
-
-    <h2>Who it's for</h2>
-    <ul class="check">
-        <li>Sales managers and sales operations teams</li>
-        <li>SMEs replacing spreadsheet commission tracking</li>
-        <li>Companies wanting a transparent incentive scheme</li>
-        <li>Organizations paying on margin, not just revenue</li>
-    </ul>
-
-    <h2>How it works</h2>
-    <ol class="steps">
-        <li>Create a commission plan with rate, type and optional tiers/rules.</li>
-        <li>On a confirmed quotation, click Generate Commission.</li>
-        <li>A commission line is created with the correct base and rate.</li>
-        <li>Manager approves; accounts mark it paid.</li>
-        <li>Track totals per salesperson in the dedicated menu.</li>
-    </ol>
-
-    <div class="cta">
-        <p style="margin:0 0 14px; font-size:16px;"><strong>Get it today — install Sales Commission Engine now.</strong></p>
-        <a href="#">Install on Odoo</a>
-        <p class="muted" style="color:#cbd5e1; margin-top:12px;">License OPL-1 · Support: tech5262@gmail.com · Works with native Odoo</p>
-    </div>
-
-    <h2>Technical details</h2>
-    <table>
-        <tr><th>Item</th><th>Value</th></tr>
-        <tr><td>Technical name</td><td><code>sf_sales_commission</code></td></tr>
-        <tr><td>Models</td><td><code>models: commission_plan, commission_plan_tier, commission_rule, commission_line</code></td></tr>
-        <tr><td>Multi-company</td><td>Yes</td></tr>
-        <tr><td>Security</td><td>Dedicated user / manager groups</td></tr>
-        <tr><td>License</td><td>OPL-1 (proprietary)</td></tr>
-        <tr><td>Support</td><td>tech5262@gmail.com</td></tr>
-    </table>
-
-    <h2>Frequently asked questions</h2>
-    <p><strong>When is a commission earned?</strong> Commission lines are generated on confirmed orders; you control when to approve and pay them.</p>
-    <p><strong>Can I pay on margin instead of revenue?</strong> Yes — choose “percentage of gross margin” in the plan.</p>
-    <p><strong>Can I restrict who earns a plan?</strong> Yes, optionally limit plans to specific user groups.</p>
-
-</div>
-
-<footer>
-    Sales Commission Engine · Odoo App · OPL-1 License · Support: tech5262@gmail.com
-</footer>
 </body>
 </html>

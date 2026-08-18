@@ -1,4 +1,4 @@
-{
+﻿{
     'name': 'Universal Approval Engine',
     'version': '18.0.1.0.0',
     'category': 'Operations',
@@ -33,7 +33,7 @@ Install once, define templates from the UI, attach to any model.
     'author': 'Ethan Miller',
     'support': 'tech5262@gmail.com',
     'license': 'OPL-1',
-    'price': 99.75,
+    'price': 199.75,
     'currency': 'EUR',
 
     'images': ['static/description/banner.png'],

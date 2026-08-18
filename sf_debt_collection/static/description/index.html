@@ -4,166 +4,81 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Credit &amp; Debt Collection — Odoo Apps</title>
-    <style>
-        :root { color-scheme: light; }
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; color: #1e293b; line-height: 1.65; margin: 0; padding: 0; }
-        .hero { background: linear-gradient(135deg, #0f172a 0%, #0e7490 60%, #164e63 100%); color: #ffffff; padding: 56px 48px 48px; text-align: center; }
-        .hero h1 { margin: 0 0 8px; font-size: 34px; font-weight: 700; }
-        .hero .sub { font-size: 18px; opacity: .92; margin: 0 auto 18px; max-width: 760px; }
-        .badges { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 18px; }
-        .badge { background: rgba(255,255,255,.16); border: 1px solid rgba(255,255,255,.35); border-radius: 20px; padding: 6px 14px; font-size: 13px; }
-        .container { max-width: 980px; margin: 0 auto; padding: 40px 32px; }
-        .lead { font-size: 17px; background: #f0f9ff; border-left: 4px solid #0e7490; padding: 16px 20px; border-radius: 6px; margin: 0 0 32px; }
-        h2 { font-size: 22px; margin: 40px 0 12px; color: #0f172a; }
-        .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; }
-        .feature { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 16px 18px; }
-        .feature .ic { font-size: 22px; }
-        .feature h3 { margin: 8px 0 6px; font-size: 16px; }
-        .feature p { margin: 0; font-size: 14px; color: #475569; }
-        ul.check { list-style: none; padding-left: 0; }
-        ul.check li { padding: 6px 0 6px 30px; position: relative; }
-        ul.check li::before { content: "\2713"; color: #0e7490; position: absolute; left: 4px; font-weight: 700; }
-        .grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
-        .panel { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 20px 22px; box-shadow: 0 1px 3px rgba(0,0,0,.06); }
-        .steps { counter-reset: step; list-style: none; padding-left: 0; }
-        .steps li { counter-increment: step; padding: 8px 0 8px 44px; position: relative; font-size: 15px; }
-        .steps li::before { content: counter(step); position: absolute; left: 0; top: 8px; width: 30px; height: 30px; border-radius: 50%; background: #0e7490; color: #fff; font-weight: 700; text-align: center; line-height: 30px; }
-        .cta { text-align: center; background: linear-gradient(135deg, #0e7490, #164e63); color: #fff; border-radius: 12px; padding: 28px 24px; margin: 36px 0; }
-        .cta a { display: inline-block; background: #fbbf24; color: #1e293b; font-weight: 700; padding: 12px 26px; border-radius: 8px; text-decoration: none; }
-        code { background: #f1f5f9; padding: 2px 6px; border-radius: 4px; font-size: 13px; }
-        table { width: 100%; border-collapse: collapse; margin: 16px 0; }
-        th, td { border: 1px solid #e2e8f0; padding: 10px 12px; text-align: left; font-size: 14px; }
-        th { background: #f8fafc; }
-        .muted { color: #64748b; font-size: 13px; }
-        footer { background: #0f172a; color: #94a3b8; text-align: center; padding: 24px; font-size: 13px; }
-    </style>
 </head>
-<body>
-
-<div class="hero">
-    <h1>Credit &amp; Debt Collection</h1>
-    <p class="sub">Aging analysis, collection cases, dunning plans and payment promises.</p>
-    <div class="badges">
-        <span class="badge">Odoo 18</span>
-        <span class="badge">Odoo 19</span>
-        <span class="badge">99.75&#160;€</span>
-        <span class="badge">OPL-1</span>
-    </div>
-</div>
-
-<div class="container">
-
-    <p class="lead">Recover what you are owed, politely and systematically. This module gives your finance team structured collection cases, automatic aging from real accounting data, dunning escalation and payment promises — all in native Odoo.</p>
-
-    <h2>Why you need it</h2>
-    <div class="grid2">
-        <div class="panel">
-            <h3>The problem</h3>
-            <ul class="check">
-                <li>Overdue invoices tracked in spreadsheets and emails</li>
-                <li>No aging visibility: who owes what, and for how long</li>
-                <li>Dunning reminders sent manually, inconsistently</li>
-                <li>Promises made on the phone and forgotten</li>
-            </ul>
-        </div>
-        <div class="panel">
-            <h3>The solution</h3>
-            <ul class="check">
-                <li>Collection cases per customer with collector and priority</li>
-                <li>Automatic aging (total due / overdue) from accounting data</li>
-                <li>Dunning plans with escalation levels and due dates</li>
-                <li>Payment promises with follow-up dates and status</li>
-            </ul>
+<body style="margin:0;padding:0;background:#f1f5f9;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;color:#1e293b;line-height:1.6;">
+    <div class="container-fluid" style="background:linear-gradient(135deg,#0f172a 0%,#0e7490 60%,#164e63 100%);color:#ffffff;padding:48px 24px;text-align:center;">
+        <div class="container">
+            <h1 style="margin:0 0 10px;font-size:36px;font-weight:800;">Credit &amp; Debt Collection</h1>
+            <p style="font-size:18px;opacity:.94;margin:0 auto 20px;max-width:780px;">Aging analysis, collection cases, dunning plans and payment promises.</p>
+            <div style="margin-top:10px;">
+                <span style="display:inline-block;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.4);border-radius:20px;padding:6px 16px;margin:4px;font-size:13px;">&#10003; Odoo 18</span>
+                <span style="display:inline-block;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.4);border-radius:20px;padding:6px 16px;margin:4px;font-size:13px;">&#10003; Odoo 19</span>
+                <span style="display:inline-block;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.4);border-radius:20px;padding:6px 16px;margin:4px;font-size:13px;">&#10003; 149.75 EUR</span>
+                <span style="display:inline-block;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.4);border-radius:20px;padding:6px 16px;margin:4px;font-size:13px;">&#10003; Support included</span>
+            </div>
         </div>
     </div>
 
-    <h2>Key features</h2>
-    <div class="features">
-        <div class="feature">
-            <div class="ic">📊</div>
-            <h3>Aging analysis</h3>
-            <p>Total due and total overdue per case, plus days overdue, computed automatically from your accounting data.</p>
+    <div class="container" style="padding:36px 16px;">
+        <div style="background:#ffffff;border:1px solid #e2e8f0;border-radius:14px;padding:28px;margin-bottom:28px;box-shadow:0 2px 8px rgba(0,0,0,.05);">
+            <h2 style="margin:0 0 14px;color:#0f172a;font-size:24px;">Why Credit &amp; Debt Collection?</h2>
+            <p style="color:#475569;font-size:16px;margin:0;">Recover what you are owed, politely and systematically. This module gives your finance team structured collection cases, automatic aging from real accounting data, dunning escalation and payment promises — all in native Odoo.</p>
         </div>
-        <div class="feature">
-            <div class="ic">📁</div>
-            <h3>Collection cases</h3>
-            <p>One case per customer, with collector, priority and a clear open → resolved workflow.</p>
+
+        <div class="row" style="margin:0 -8px 28px;">
+            <div class="col-md-6" style="padding:8px;">
+                <div style="background:#ffffff;border:1px solid #e2e8f0;border-radius:14px;padding:22px;box-shadow:0 2px 8px rgba(0,0,0,.05);height:100%;">
+                    <h3 style="color:#b91c1c;font-size:18px;margin:0 0 12px;">&#10007; The Problem</h3>
+                    <div style="color:#b91c1c;padding:10px 0;border-bottom:1px solid #fecaca;">&#10005; Overdue invoices tracked in spreadsheets and emails</div><div style="color:#b91c1c;padding:10px 0;border-bottom:1px solid #fecaca;">&#10005; No aging visibility: who owes what, and for how long</div><div style="color:#b91c1c;padding:10px 0;border-bottom:1px solid #fecaca;">&#10005; Dunning reminders sent manually, inconsistently</div><div style="color:#b91c1c;padding:10px 0;border-bottom:1px solid #fecaca;">&#10005; Promises made on the phone and forgotten</div>
+                </div>
+            </div>
+            <div class="col-md-6" style="padding:8px;">
+                <div style="background:#ffffff;border:1px solid #e2e8f0;border-radius:14px;padding:22px;box-shadow:0 2px 8px rgba(0,0,0,.05);height:100%;">
+                    <h3 style="color:#065f46;font-size:18px;margin:0 0 12px;">&#10003; The Solution</h3>
+                    <div style="color:#065f46;padding:10px 0;border-bottom:1px solid #a7f3d0;">&#10003; Collection cases per customer with collector and priority</div><div style="color:#065f46;padding:10px 0;border-bottom:1px solid #a7f3d0;">&#10003; Automatic aging (total due / overdue) from accounting data</div><div style="color:#065f46;padding:10px 0;border-bottom:1px solid #a7f3d0;">&#10003; Dunning plans with escalation levels and due dates</div><div style="color:#065f46;padding:10px 0;border-bottom:1px solid #a7f3d0;">&#10003; Payment promises with follow-up dates and status</div>
+                </div>
+            </div>
         </div>
-        <div class="feature">
-            <div class="ic">🔔</div>
-            <h3>Dunning plans</h3>
-            <p>Escalation levels (reminder, first notice, final notice) each with days-after-due.</p>
+
+        <h2 style="color:#0f172a;font-size:24px;margin:0 0 18px;">Key Features</h2>
+        <div class="row" style="margin:0 -8px;">
+            <div class="col-md-6 col-lg-4" style="padding:16px;margin-bottom:16px;border:1px solid #e2e8f0;border-radius:12px;background:#ffffff;box-shadow:0 1px 3px rgba(0,0,0,.06);"><div style="font-size:22px;margin-bottom:6px;">📊</div><div style="font-weight:600;color:#0f172a;margin-bottom:4px;">Aging analysis</div><div style="color:#475569;font-size:14px;">Total due and total overdue per case, plus days overdue, computed automatically from your accounting data.</div></div><div class="col-md-6 col-lg-4" style="padding:16px;margin-bottom:16px;border:1px solid #e2e8f0;border-radius:12px;background:#ffffff;box-shadow:0 1px 3px rgba(0,0,0,.06);"><div style="font-size:22px;margin-bottom:6px;">📁</div><div style="font-weight:600;color:#0f172a;margin-bottom:4px;">Collection cases</div><div style="color:#475569;font-size:14px;">One case per customer, with collector, priority and a clear open → resolved workflow.</div></div><div class="col-md-6 col-lg-4" style="padding:16px;margin-bottom:16px;border:1px solid #e2e8f0;border-radius:12px;background:#ffffff;box-shadow:0 1px 3px rgba(0,0,0,.06);"><div style="font-size:22px;margin-bottom:6px;">🔔</div><div style="font-weight:600;color:#0f172a;margin-bottom:4px;">Dunning plans</div><div style="color:#475569;font-size:14px;">Escalation levels (reminder, first notice, final notice) each with days-after-due.</div></div><div class="col-md-6 col-lg-4" style="padding:16px;margin-bottom:16px;border:1px solid #e2e8f0;border-radius:12px;background:#ffffff;box-shadow:0 1px 3px rgba(0,0,0,.06);"><div style="font-size:22px;margin-bottom:6px;">📬</div><div style="font-weight:600;color:#0f172a;margin-bottom:4px;">Dunning runs</div><div style="color:#475569;font-size:14px;">Generate a dunning run per level and track draft → sent → done.</div></div><div class="col-md-6 col-lg-4" style="padding:16px;margin-bottom:16px;border:1px solid #e2e8f0;border-radius:12px;background:#ffffff;box-shadow:0 1px 3px rgba(0,0,0,.06);"><div style="font-size:22px;margin-bottom:6px;">🤝</div><div style="font-weight:600;color:#0f172a;margin-bottom:4px;">Payment promises</div><div style="color:#475569;font-size:14px;">Record promises with dates and amounts; track kept vs broken.</div></div><div class="col-md-6 col-lg-4" style="padding:16px;margin-bottom:16px;border:1px solid #e2e8f0;border-radius:12px;background:#ffffff;box-shadow:0 1px 3px rgba(0,0,0,.06);"><div style="font-size:22px;margin-bottom:6px;">📞</div><div style="font-weight:600;color:#0f172a;margin-bottom:4px;">Action log</div><div style="color:#475569;font-size:14px;">Calls, emails, letters and meetings logged on each case with full history.</div></div><div class="col-md-6 col-lg-4" style="padding:16px;margin-bottom:16px;border:1px solid #e2e8f0;border-radius:12px;background:#ffffff;box-shadow:0 1px 3px rgba(0,0,0,.06);"><div style="font-size:22px;margin-bottom:6px;">💳</div><div style="font-weight:600;color:#0f172a;margin-bottom:4px;">Credit limits</div><div style="color:#475569;font-size:14px;">Partner credit usage and available credit computed live.</div></div><div class="col-md-6 col-lg-4" style="padding:16px;margin-bottom:16px;border:1px solid #e2e8f0;border-radius:12px;background:#ffffff;box-shadow:0 1px 3px rgba(0,0,0,.06);"><div style="font-size:22px;margin-bottom:6px;">🗓️</div><div style="font-weight:600;color:#0f172a;margin-bottom:4px;">Next follow-up</div><div style="color:#475569;font-size:14px;">Next promise date computed and shown on every case.</div></div>
         </div>
-        <div class="feature">
-            <div class="ic">📬</div>
-            <h3>Dunning runs</h3>
-            <p>Generate a dunning run per level and track draft → sent → done.</p>
+
+        <h2 style="color:#0f172a;font-size:24px;margin:34px 0 18px;">Who Is It For?</h2>
+        <div style="margin-bottom:28px;"><div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:8px 12px;margin:4px;display:inline-block;font-size:14px;color:#334155;">Finance and credit management teams</div><div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:8px 12px;margin:4px;display:inline-block;font-size:14px;color:#334155;">SMEs selling on credit who want to reduce late payments</div><div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:8px 12px;margin:4px;display:inline-block;font-size:14px;color:#334155;">Companies wanting a professional dunning process</div><div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:8px 12px;margin:4px;display:inline-block;font-size:14px;color:#334155;">Accountants tracking customer risk</div></div>
+
+        <h2 style="color:#0f172a;font-size:24px;margin:34px 0 18px;">How It Works</h2>
+        <div style="background:#ffffff;border:1px solid #e2e8f0;border-radius:14px;padding:24px;box-shadow:0 2px 8px rgba(0,0,0,.05);margin-bottom:28px;">
+            <div style="display:flex;align-items:flex-start;margin-bottom:14px;"><div style="flex:0 0 34px;height:34px;border-radius:50%;background:#0f172a;color:#ffffff;text-align:center;line-height:34px;font-weight:700;margin-right:14px;">1</div><div style="flex:1;color:#334155;padding-top:6px;">Create a collection case for a customer.</div></div><div style="display:flex;align-items:flex-start;margin-bottom:14px;"><div style="flex:0 0 34px;height:34px;border-radius:50%;background:#0f172a;color:#ffffff;text-align:center;line-height:34px;font-weight:700;margin-right:14px;">2</div><div style="flex:1;color:#334155;padding-top:6px;">Press Refresh Invoices to pull overdue invoices.</div></div><div style="display:flex;align-items:flex-start;margin-bottom:14px;"><div style="flex:0 0 34px;height:34px;border-radius:50%;background:#0f172a;color:#ffffff;text-align:center;line-height:34px;font-weight:700;margin-right:14px;">3</div><div style="flex:1;color:#334155;padding-top:6px;">Log actions and record payment promises.</div></div><div style="display:flex;align-items:flex-start;margin-bottom:14px;"><div style="flex:0 0 34px;height:34px;border-radius:50%;background:#0f172a;color:#ffffff;text-align:center;line-height:34px;font-weight:700;margin-right:14px;">4</div><div style="flex:1;color:#334155;padding-top:6px;">Press Create Dunning to generate the next level.</div></div><div style="display:flex;align-items:flex-start;margin-bottom:14px;"><div style="flex:0 0 34px;height:34px;border-radius:50%;background:#0f172a;color:#ffffff;text-align:center;line-height:34px;font-weight:700;margin-right:14px;">5</div><div style="flex:1;color:#334155;padding-top:6px;">Work the case to resolution and track everything.</div></div>
         </div>
-        <div class="feature">
-            <div class="ic">🤝</div>
-            <h3>Payment promises</h3>
-            <p>Record promises with dates and amounts; track kept vs broken.</p>
+
+        <h2 style="color:#0f172a;font-size:24px;margin:34px 0 18px;">Frequently Asked Questions</h2>
+        <div style="background:#ffffff;border:1px solid #e2e8f0;border-radius:14px;padding:24px;box-shadow:0 2px 8px rgba(0,0,0,.05);margin-bottom:28px;">
+            <div style="margin-bottom:14px;"><div style="font-weight:600;color:#0f172a;">&#63; Does it read real accounting data?</div><div style="color:#475569;padding-left:18px;">Yes — overdue invoice lines are pulled from open receivables.</div></div><div style="margin-bottom:14px;"><div style="font-weight:600;color:#0f172a;">&#63; Can I configure dunning levels?</div><div style="color:#475569;padding-left:18px;">Yes, freely: levels, order and days-after-due from the UI.</div></div><div style="margin-bottom:14px;"><div style="font-weight:600;color:#0f172a;">&#63; Who sees the cases?</div><div style="color:#475569;padding-left:18px;">Dedicated user and manager groups; each collector sees their workload.</div></div>
         </div>
-        <div class="feature">
-            <div class="ic">📞</div>
-            <h3>Action log</h3>
-            <p>Calls, emails, letters and meetings logged on each case with full history.</p>
+
+        <div style="background:#0f172a;border-radius:14px;padding:30px;text-align:center;color:#ffffff;margin-bottom:28px;">
+            <h3 style="margin:0 0 8px;font-size:22px;">Ready to get started?</h3>
+            <p style="margin:0 0 18px;opacity:.9;">Install now and transform the way you work with Odoo.</p>
+            <span style="display:inline-block;background:#0e7490;color:#ffffff;border-radius:24px;padding:12px 34px;font-weight:700;">Install now &#62;</span>
         </div>
-        <div class="feature">
-            <div class="ic">💳</div>
-            <h3>Credit limits</h3>
-            <p>Partner credit usage and available credit computed live.</p>
+
+        <div style="background:#ffffff;border:1px solid #e2e8f0;border-radius:14px;padding:22px;box-shadow:0 2px 8px rgba(0,0,0,.05);">
+            <h3 style="color:#0f172a;font-size:18px;margin:0 0 10px;">Technical Details</h3>
+            <table style="width:100%;border-collapse:collapse;font-size:14px;color:#334155;">
+                <tr><td style="padding:8px;border-bottom:1px solid #e2e8f0;color:#64748b;width:160px;">Technical name</td><td style="padding:8px;border-bottom:1px solid #e2e8f0;">sf_debt_collection</td></tr>
+                <tr><td style="padding:8px;border-bottom:1px solid #e2e8f0;color:#64748b;">License</td><td style="padding:8px;border-bottom:1px solid #e2e8f0;">OPL-1 (proprietary)</td></tr>
+                <tr><td style="padding:8px;border-bottom:1px solid #e2e8f0;color:#64748b;">Author</td><td style="padding:8px;border-bottom:1px solid #e2e8f0;">Ethan Miller</td></tr>
+                <tr><td style="padding:8px;border-bottom:1px solid #e2e8f0;color:#64748b;">Support</td><td style="padding:8px;border-bottom:1px solid #e2e8f0;"><a href="mailto:tech5262@gmail.com" style="color:#0e7490;">tech5262@gmail.com</a></td></tr>
+                <tr><td style="padding:8px;border-bottom:1px solid #e2e8f0;color:#64748b;">Models</td><td style="padding:8px;border-bottom:1px solid #e2e8f0;">models: debt_collection_case, debt_invoice_line, debt_action, debt_promise, debt_dunning, debt_dunning_run</td></tr>
+            </table>
         </div>
-        <div class="feature">
-            <div class="ic">🗓️</div>
-            <h3>Next follow-up</h3>
-            <p>Next promise date computed and shown on every case.</p>
-        </div>
+
+        <p style="text-align:center;color:#94a3b8;font-size:12px;margin-top:28px;">
+            &#169; 2026 by Ethan Miller &#183; Odoo Apps &#183; support:
+            <a href="mailto:tech5262@gmail.com" style="color:#64748b;">tech5262@gmail.com</a>
+        </p>
     </div>
-
-    <h2>Who it's for</h2>
-    <ul class="check">
-        <li>Finance and credit management teams</li>
-        <li>SMEs selling on credit who want to reduce late payments</li>
-        <li>Companies wanting a professional dunning process</li>
-        <li>Accountants tracking customer risk</li>
-    </ul>
-
-    <h2>How it works</h2>
-    <ol class="steps">
-        <li>Create a collection case for a customer.</li>
-        <li>Press Refresh Invoices to pull overdue invoices.</li>
-        <li>Log actions and record payment promises.</li>
-        <li>Press Create Dunning to generate the next level.</li>
-        <li>Work the case to resolution and track everything.</li>
-    </ol>
-
-    <div class="cta">
-        <p style="margin:0 0 14px; font-size:16px;"><strong>Get it today — install Credit &amp; Debt Collection now.</strong></p>
-        <a href="#">Install on Odoo</a>
-        <p class="muted" style="color:#cbd5e1; margin-top:12px;">License OPL-1 · Support: tech5262@gmail.com · Works with native Odoo</p>
-    </div>
-
-    <h2>Technical details</h2>
-    <table>
-        <tr><th>Item</th><th>Value</th></tr>
-        <tr><td>Technical name</td><td><code>sf_debt_collection</code></td></tr>
-        <tr><td>Models</td><td><code>models: debt_collection_case, debt_invoice_line, debt_action, debt_promise, debt_dunning, debt_dunning_run</code></td></tr>
-        <tr><td>Multi-company</td><td>Yes</td></tr>
-        <tr><td>Security</td><td>Dedicated user / manager groups</td></tr>
-        <tr><td>License</td><td>OPL-1 (proprietary)</td></tr>
-        <tr><td>Support</td><td>tech5262@gmail.com</td></tr>
-    </table>
-
-    <h2>Frequently asked questions</h2>
-    <p><strong>Does it read real accounting data?</strong> Yes — overdue invoice lines are pulled from open receivables.</p>
-    <p><strong>Can I configure dunning levels?</strong> Yes, freely: levels, order and days-after-due from the UI.</p>
-    <p><strong>Who sees the cases?</strong> Dedicated user and manager groups; each collector sees their workload.</p>
-
-</div>
-
-<footer>
-    Credit &amp; Debt Collection · Odoo App · OPL-1 License · Support: tech5262@gmail.com
-</footer>
 </body>
 </html>

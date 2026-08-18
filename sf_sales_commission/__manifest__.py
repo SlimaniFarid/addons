@@ -1,4 +1,4 @@
-{
+﻿{
     'name': 'Sales Commission Engine',
     'version': '18.0.1.0.0',
     'category': 'Sales',
@@ -33,7 +33,7 @@ No code required: define plans and rates from the UI, then let Odoo compute.
     'author': 'Ethan Miller',
     'support': 'tech5262@gmail.com',
     'license': 'OPL-1',
-    'price': 99.75,
+    'price': 149.75,
     'currency': 'EUR',
 
     'images': ['static/description/banner.png'],

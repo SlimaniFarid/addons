@@ -1,4 +1,4 @@
-{
+﻿{
     'name': 'Construction BOQ & Subcontractor Billing',
     'version': '18.0.1.0.0',
     'category': 'Operations/Project',
@@ -30,7 +30,7 @@ Features per BOQ line: item code, discipline, description, product link, unit of
     'author': 'Ethan Miller',
     'support': 'tech5262@gmail.com',
     'license': 'OPL-1',
-    'price': 99.75,
+    'price': 199.75,
     'currency': 'EUR',
 
     'images': ['static/description/banner.png'],

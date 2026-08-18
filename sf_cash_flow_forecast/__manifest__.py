@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+﻿# -*- coding: utf-8 -*-
 {
     'name': 'Cash Flow & Treasury Manager',
     'version': '18.0.1.0.0',
@@ -32,7 +32,7 @@ Works with native Odoo accounting data. Install and open the Cash Flow dashboard
     'author': 'Ethan Miller',
     'support': 'tech5262@gmail.com',
     'license': 'OPL-1',
-    'price': 99.75,
+    'price': 149.75,
     'currency': 'EUR',
 
     'images': ['static/description/banner.png'],
