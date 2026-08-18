@@ -9,6 +9,8 @@
     'license': 'OPL-1',
     'price': 79.0,
     'currency': 'EUR',
+
+    'images': ['static/description/banner.png'],
     'depends': ['base', 'sale', 'account', 'stock', 'purchase'],
     'data': [
         'security/ir.model.access.csv',
