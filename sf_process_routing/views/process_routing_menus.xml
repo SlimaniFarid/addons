@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_process_routing_root"
+              name="Dynamic Process Routing"
+              parent="mrp.menu_mrp_root"
+              sequence="94"/>
+
+    <menuitem id="menu_process_routings"
+              name="Routings"
+              parent="menu_process_routing_root"
+              action="action_process_routing"
+              sequence="10"/>
+
+    <menuitem id="menu_process_routes"
+              name="Routes"
+              parent="menu_process_routing_root"
+              action="action_process_route"
+              sequence="20"/>
+
+    <menuitem id="menu_routing_conditions"
+              name="Conditions"
+              parent="menu_process_routing_root"
+              action="action_routing_condition"
+              sequence="30"/>
+
+    <menuitem id="menu_routing_logs"
+              name="Selection Logs"
+              parent="menu_process_routing_root"
+              action="action_routing_selection_log"
+              sequence="40"/>
+</odoo>
