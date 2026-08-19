@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="module_category_tool_management" model="ir.module.category">
+        <field name="name">Tool Management</field>
+        <field name="sequence">99</field>
+    </record>
+
+    <record id="group_tool_user" model="res.groups">
+        <field name="name">Tool User</field>
+        <field name="category_id" ref="module_category_tool_management"/>
+        <field name="implied_ids" eval="[(4, ref('mrp.group_mrp_user'))]"/>
+    </record>
+
+    <record id="group_tool_manager" model="res.groups">
+        <field name="name">Tool Manager</field>
+        <field name="category_id" ref="module_category_tool_management"/>
+        <field name="implied_ids" eval="[(4, ref('group_tool_user'))]"/>
+    </record>
+
+    <record id="group_tool_custodian" model="res.groups">
+        <field name="name">Tool Custodian</field>
+        <field name="category_id" ref="module_category_tool_management"/>
+        <field name="implied_ids" eval="[(4, ref('group_tool_user'))]"/>
+    </record>
+</odoo>
