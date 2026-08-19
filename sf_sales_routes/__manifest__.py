@@ -34,7 +34,7 @@ Ideal for:
     'currency': 'EUR',
 
     'images': ['static/description/banner.png'],
-    'depends': ['base', 'sales', 'crm'],
+    'depends': ['base', 'sale', 'crm'],
     'data': [
         'security/routes_security.xml',
         'security/ir.model.access.csv',
