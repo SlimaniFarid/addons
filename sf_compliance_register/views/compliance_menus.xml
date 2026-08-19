@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem id="menu_compliance_root" name="Compliance Register" sequence="93"/>
+
+    <menuitem id="menu_compliance_documents" name="Documents"
+              parent="menu_compliance_root"
+              action="action_compliance_document"
+              sequence="10"/>
+
+    <menuitem id="menu_compliance_types" name="Document Types"
+              parent="menu_compliance_root"
+              action="action_compliance_type"
+              sequence="20"/>
+
+    <menuitem id="menu_compliance_history" name="History"
+              parent="menu_compliance_root"
+              action="action_compliance_history"
+              sequence="30"/>
+
+</odoo>
