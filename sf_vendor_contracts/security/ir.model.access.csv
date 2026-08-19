@@ -1,0 +1,11 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_vendor_contract_user,sf.vendor.contract.user,model_sf_vendor_contract,group_vendor_contracts_user,1,1,1,0
+access_vendor_contract_manager,sf.vendor.contract.manager,model_sf_vendor_contract,group_vendor_contracts_manager,1,1,1,1
+access_vendor_contract_clause_user,sf.vendor.contract.clause.user,model_sf_vendor_contract_clause,group_vendor_contracts_user,1,0,0,0
+access_vendor_contract_clause_manager,sf.vendor.contract.clause.manager,model_sf_vendor_contract_clause,group_vendor_contracts_manager,1,1,1,1
+access_vendor_contract_line_user,sf.vendor.contract.line.user,model_sf_vendor_contract_line,group_vendor_contracts_user,1,1,1,0
+access_vendor_contract_line_manager,sf.vendor.contract.line.manager,model_sf_vendor_contract_line,group_vendor_contracts_manager,1,1,1,1
+access_vendor_contract_version_user,sf.vendor.contract.version.user,model_sf_vendor_contract_version,group_vendor_contracts_user,1,1,1,0
+access_vendor_contract_version_manager,sf.vendor.contract.version.manager,model_sf_vendor_contract_version,group_vendor_contracts_manager,1,1,1,1
+access_vendor_contract_renew_wizard,sf.vendor.contract.renew.wizard,model_sf_vendor_contract_renew_wizard,group_vendor_contracts_manager,1,1,1,1
+access_vendor_contract_cancel_wizard,sf.vendor.contract.cancel.wizard,model_sf_vendor_contract_cancel_wizard,group_vendor_contracts_manager,1,1,1,1

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="it_asset_category_computer" model="sf.it.asset.category">
+            <field name="name">Computers</field>
+            <field name="code">COM</field>
+        </record>
+        <record id="it_asset_category_laptop" model="sf.it.asset.category">
+            <field name="name">Laptops</field>
+            <field name="code">LAP</field>
+        </record>
+        <record id="it_asset_category_printer" model="sf.it.asset.category">
+            <field name="name">Printers</field>
+            <field name="code">PRI</field>
+        </record>
+        <record id="it_asset_category_phone" model="sf.it.asset.category">
+            <field name="name">Phones</field>
+            <field name="code">PHO</field>
+        </record>
+        <record id="it_asset_category_network" model="sf.it.asset.category">
+            <field name="name">Network Equipment</field>
+            <field name="code">NET</field>
+        </record>
+        <record id="it_asset_category_other" model="sf.it.asset.category">
+            <field name="name">Other</field>
+            <field name="code">OTH</field>
+        </record>
+    </data>
+</odoo>
