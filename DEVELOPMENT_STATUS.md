@@ -57,7 +57,7 @@ Test : validation statique (compile Python, parse XML, cohérence manifest/model
 | 49 | sf_smart_search — Smart Search & Saved Views | ⏳ | ⏳ | ⏳ | ⏳ | ⏳ | Pending |
 | 50 | sf_scrap_yield — Scrap & Yield Control | ⏳ | ⏳ | ⏳ | ⏳ | ⏳ | Pending |
 | 51 | sf_mes_andons — Andon & Alert System | ✅ | ✅ | ✅ | ✅ | ✅ | Done |
-| 52 | sf_first_article_inspection — First Article Inspection (FAI) | ⏳ | ⏳ | ⏳ | ⏳ | ⏳ | Pending |
+| 52 | sf_first_article_inspection — First Article Inspection (FAI) | ✅ | ✅ | ✅ | ✅ | ✅ | Done |
 | 53 | sf_process_routing — Dynamic Process Routing | ⏳ | ⏳ | ⏳ | ⏳ | ⏳ | Pending |
 | 54 | sf_tool_management — Tool & Gauge Management | ⏳ | ⏳ | ⏳ | ⏳ | ⏳ | Pending |
 | 55 | sf_nesting_optimizer — Nesting & Cutting Optimizer | ⏳ | ⏳ | ⏳ | ⏳ | ⏳ | Pending |

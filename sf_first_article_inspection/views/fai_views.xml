@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- FAI Report Form -->
+    <record id="fai_report_view_form" model="ir.ui.view">
+        <field name="name">sf.fai.report.form</field>
+        <field name="model">sf.fai.report</field>
+        <field name="arch" type="xml">
+            <form string="FAI Report">
+                <header>
+                    <button name="action_start" type="object" string="Start" class="btn-primary" states="draft"/>
+                    <button name="action_submit" type="object" string="Submit for Approval" class="btn-primary" states="in_progress"/>
+                    <button name="action_approve" type="object" string="Approve" class="btn-primary" states="submitted" groups="sf_first_article_inspection.group_fai_manager"/>
+                    <button name="action_reject" type="object" string="Reject" class="btn-secondary" states="submitted" groups="sf_first_article_inspection.group_fai_manager"/>
+                    <button name="action_close" type="object" string="Close" class="btn-secondary" states="approved"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,in_progress,submitted,approved,rejected,closed"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="display_name"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="part_id"/>
+                            <field name="part_revision"/>
+                            <field name="drawing_number"/>
+                            <field name="drawing_revision"/>
+                        </group>
+                        <group>
+                            <field name="supplier_id"/>
+                            <field name="customer_id"/>
+                            <field name="po_number"/>
+                            <field name="fai_type"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="reason_partial" attrs="{'invisible': [('fai_type', '=', 'full')]}"/>
+                    </group>
+                    <group>
+                        <field name="date"/>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="total_characteristics"/>
+                            <field name="passed_characteristics"/>
+                        </group>
+                        <group>
+                            <field name="failed_characteristics"/>
+                            <field name="accountability_pct" widget="progressbar"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="balloon_drawing" widget="image" class="oe_avatar" options="{'preview_image': 'balloon_drawing'}"/>
+                        <field name="balloon_filename" invisible="1"/>
+                    </group>
+                    <notebook>
+                        <page string="Characteristics (Form 3)">
+                            <field name="characteristic_ids">
+                                <tree string="Characteristics" editable="bottom">
+                                    <field name="sequence"/>
+                                    <field name="characteristic_number"/>
+                                    <field name="balloon_number"/>
+                                    <field name="characteristic_name"/>
+                                    <field name="specification"/>
+                                    <field name="nominal"/>
+                                    <field name="tolerance_plus"/>
+                                    <field name="tolerance_minus"/>
+                                    <field name="inspection_method"/>
+                                    <field name="result"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Non-conformances">
+                            <field name="nonconformance_ids">
+                                <tree string="Non-conformances" editable="bottom">
+                                    <field name="nc_number"/>
+                                    <field name="characteristic_id"/>
+                                    <field name="severity"/>
+                                    <field name="disposition"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Approvals">
+                            <field name="approval_ids">
+                                <tree string="Approvals" editable="bottom">
+                                    <field name="sequence"/>
+                                    <field name="role"/>
+                                    <field name="user_id"/>
+                                    <field name="status"/>
+                                    <field name="date"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Notes">
+                            <field name="notes"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="fai_report_view_tree" model="ir.ui.view">
+        <field name="name">sf.fai.report.tree</field>
+        <field name="model">sf.fai.report</field>
+        <field name="arch" type="xml">
+            <tree string="FAI Reports" decoration-info="state=='draft'" decoration-warning="state=='in_progress'" decoration-muted="state=='rejected'" decoration-success="state=='approved'">
+                <field name="display_name"/>
+                <field name="part_id"/>
+                <field name="drawing_number"/>
+                <field name="fai_type"/>
+                <field name="supplier_id"/>
+                <field name="state"/>
+                <field name="accountability_pct" widget="progressbar"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Characteristic -->
+    <record id="fai_characteristic_view_form" model="ir.ui.view">
+        <field name="name">sf.fai.characteristic.form</field>
+        <field name="model">sf.fai.characteristic</field>
+        <field name="arch" type="xml">
+            <form string="FAI Characteristic">
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="characteristic_number"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="report_id"/>
+                            <field name="sequence"/>
+                            <field name="balloon_number"/>
+                            <field name="characteristic_name"/>
+                        </group>
+                        <group>
+                            <field name="specification"/>
+                            <field name="nominal"/>
+                            <field name="tolerance_plus"/>
+                            <field name="tolerance_minus"/>
+                            <field name="uom_id"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="inspection_method"/>
+                        <field name="equipment_id"/>
+                        <field name="sample_size"/>
+                    </group>
+                    <group>
+                        <field name="measured_values" widget="text"/>
+                    </group>
+                    <group>
+                        <field name="result" widget="radio"/>
+                        <field name="nonconformance_id"/>
+                    </group>
+                    <group>
+                        <field name="notes"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="fai_characteristic_view_tree" model="ir.ui.view">
+        <field name="name">sf.fai.characteristic.tree</field>
+        <field name="model">sf.fai.characteristic</field>
+        <field name="arch" type="xml">
+            <tree string="FAI Characteristics">
+                <field name="characteristic_number"/>
+                <field name="balloon_number"/>
+                <field name="characteristic_name"/>
+                <field name="specification"/>
+                <field name="nominal"/>
+                <field name="result"/>
+                <field name="inspection_method"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Non-conformance -->
+    <record id="fai_nonconformance_view_form" model="ir.ui.view">
+        <field name="name">sf.fai.nonconformance.form</field>
+        <field name="model">sf.fai.nonconformance</field>
+        <field name="arch" type="xml">
+            <form string="Non-conformance">
+                <header>
+                    <button name="action_disposition" type="object" string="Set Disposition" class="btn-primary" states="open"/>
+                    <button name="action_close" type="object" string="Close" class="btn-primary" states="dispositioned"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="nc_number"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="report_id"/>
+                            <field name="characteristic_id"/>
+                            <field name="date"/>
+                        </group>
+                        <group>
+                            <field name="severity"/>
+                            <field name="state"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="description"/>
+                    </group>
+                    <group string="Disposition" attrs="{'invisible': [('state', '=', 'open')]}">
+                        <group>
+                            <field name="disposition"/>
+                            <field name="disposition_rationale"/>
+                        </group>
+                        <group>
+                            <field name="corrective_action"/>
+                            <field name="preventive_action"/>
+                        </group>
+                        <group>
+                            <field name="responsible_id"/>
+                            <field name="target_date"/>
+                            <field name="closed_date"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="fai_nonconformance_view_tree" model="ir.ui.view">
+        <field name="name">sf.fai.nonconformance.tree</field>
+        <field name="model">sf.fai.nonconformance</field>
+        <field name="arch" type="xml">
+            <tree string="Non-conformances">
+                <field name="nc_number"/>
+                <field name="report_id"/>
+                <field name="characteristic_id"/>
+                <field name="severity"/>
+                <field name="disposition"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Approval -->
+    <record id="fai_approval_view_form" model="ir.ui.view">
+        <field name="name">sf.fai.approval.form</field>
+        <field name="model">sf.fai.approval</field>
+        <field name="arch" type="xml">
+            <form string="FAI Approval">
+                <header>
+                    <button name="action_approve" type="object" string="Approve" class="btn-primary" states="pending"/>
+                    <button name="action_reject" type="object" string="Reject" class="btn-danger" states="pending"/>
+                    <field name="status" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="role"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="report_id"/>
+                            <field name="sequence"/>
+                            <field name="user_id"/>
+                            <field name="group_id"/>
+                        </group>
+                        <group>
+                            <field name="status"/>
+                            <field name="date" readonly="1"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="comments"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="fai_approval_view_tree" model="ir.ui.view">
+        <field name="name">sf.fai.approval.tree</field>
+        <field name="model">sf.fai.approval</field>
+        <field name="arch" type="xml">
+            <tree string="FAI Approvals">
+                <field name="report_id"/>
+                <field name="role"/>
+                <field name="user_id"/>
+                <field name="status"/>
+                <field name="date"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Actions -->
+    <record id="action_fai_report" model="ir.actions.act_window">
+        <field name="name">FAI Reports</field>
+        <field name="res_model">sf.fai.report</field>
+        <field name="view_mode">tree,form,kanban,pivot,graph</field>
+    </record>
+
+    <record id="action_fai_nonconformance" model="ir.actions.act_window">
+        <field name="name">Non-conformances</field>
+        <field name="res_model">sf.fai.nonconformance</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="action_fai_approval" model="ir.actions.act_window">
+        <field name="name">Approvals</field>
+        <field name="res_model">sf.fai.approval</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

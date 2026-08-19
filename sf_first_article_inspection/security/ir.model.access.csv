@@ -1,0 +1,10 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_fai_report_inspector,sf.fai.report.inspector,model_sf_fai_report,group_fai_inspector,1,1,1,0
+access_fai_report_engineer,sf.fai.report.engineer,model_sf_fai_report,group_fai_engineer,1,1,1,1
+access_fai_report_manager,sf.fai.report.manager,model_sf_fai_report,group_fai_manager,1,1,1,1
+access_fai_char_inspector,sf.fai.characteristic.inspector,model_sf_fai_characteristic,group_fai_inspector,1,1,1,0
+access_fai_char_engineer,sf.fai.characteristic.engineer,model_sf_fai_characteristic,group_fai_engineer,1,1,1,1
+access_fai_nc_inspector,sf.fai.nonconformance.inspector,model_sf_fai_nonconformance,group_fai_inspector,1,1,1,0
+access_fai_nc_engineer,sf.fai.nonconformance.engineer,model_sf_fai_nonconformance,group_fai_engineer,1,1,1,1
+access_fai_approval_inspector,sf.fai.approval.inspector,model_sf_fai_approval,group_fai_inspector,1,1,0,0
+access_fai_approval_engineer,sf.fai.approval.engineer,model_sf_fai_approval,group_fai_engineer,1,1,1,1
