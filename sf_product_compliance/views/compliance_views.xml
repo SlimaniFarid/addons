@@ -1,0 +1,514 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ============ REGULATION ============ -->
+    <record id="view_compliance_regulation_tree" model="ir.ui.view">
+        <field name="name">sf.product.regulation.tree</field>
+        <field name="model">sf.product.regulation</field>
+        <field name="arch" type="xml">
+            <tree string="Regulations">
+                <field name="name"/>
+                <field name="code"/>
+                <field name="market"/>
+                <field name="mandatory"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_compliance_regulation_form" model="ir.ui.view">
+        <field name="name">sf.product.regulation.form</field>
+        <field name="model">sf.product.regulation</field>
+        <field name="arch" type="xml">
+            <form string="Regulation">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="code"/>
+                            <field name="market"/>
+                        </group>
+                        <group>
+                            <field name="mandatory"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <field name="description"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_compliance_regulation_search" model="ir.ui.view">
+        <field name="name">sf.product.regulation.search</field>
+        <field name="model">sf.product.regulation</field>
+        <field name="arch" type="xml">
+            <search string="Regulations">
+                <field name="code"/>
+                <field name="market"/>
+                <filter string="Mandatory" name="mandatory"
+                        domain="[('mandatory', '=', True)]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Market" name="market_group"
+                            context="{'group_by': 'market'}"/>
+                    <filter string="Mandatory" name="mandatory_group"
+                            context="{'group_by': 'mandatory'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_compliance_regulation_kanban" model="ir.ui.view">
+        <field name="name">sf.product.regulation.kanban</field>
+        <field name="model">sf.product.regulation</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="market">
+                <field name="code"/>
+                <field name="market"/>
+                <field name="mandatory"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="o_kanban_record_title">
+                                <field name="code"/>
+                            </div>
+                            <div class="o_kanban_record_subtitle">
+                                <field name="market"/>
+                            </div>
+                            <div class="o_kanban_record_bottom">
+                                <field name="name"/>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="action_compliance_regulation" model="ir.actions.act_window">
+        <field name="name">Regulations</field>
+        <field name="res_model">sf.product.regulation</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="search_view_id" ref="view_compliance_regulation_search"/>
+    </record>
+
+    <!-- ============ REQUIREMENT ============ -->
+    <record id="view_compliance_requirement_tree" model="ir.ui.view">
+        <field name="name">sf.product.compliance.requirement.tree</field>
+        <field name="model">sf.product.compliance.requirement</field>
+        <field name="arch" type="xml">
+            <tree string="Requirements">
+                <field name="name"/>
+                <field name="product_id"/>
+                <field name="regulation_id"/>
+                <field name="requirement"/>
+                <field name="state"/>
+                <field name="compliance_date"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_compliance_requirement_form" model="ir.ui.view">
+        <field name="name">sf.product.compliance.requirement.form</field>
+        <field name="model">sf.product.compliance.requirement</field>
+        <field name="arch" type="xml">
+            <form string="Requirement">
+                <header>
+                    <button name="action_mark_satisfied" type="object"
+                            string="Mark Satisfied" class="btn-success"
+                            invisible="state != 'pending'"/>
+                    <button name="action_mark_not_satisfied" type="object"
+                            string="Mark Not Satisfied"
+                            invisible="state != 'pending'"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="product_id"/>
+                            <field name="regulation_id"/>
+                        </group>
+                        <group>
+                            <field name="evidence"/>
+                            <field name="compliance_date"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <field name="requirement"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_compliance_requirement_search" model="ir.ui.view">
+        <field name="name">sf.product.compliance.requirement.search</field>
+        <field name="model">sf.product.compliance.requirement</field>
+        <field name="arch" type="xml">
+            <search string="Requirements">
+                <field name="product_id"/>
+                <field name="regulation_id"/>
+                <filter string="Pending" name="pending"
+                        domain="[('state', '=', 'pending')]"/>
+                <filter string="Satisfied" name="satisfied"
+                        domain="[('state', '=', 'satisfied')]"/>
+                <filter string="Not Satisfied" name="not_satisfied"
+                        domain="[('state', '=', 'not_satisfied')]"/>
+                <group expand="0" string="Group By">
+                    <filter string="State" name="state_group"
+                            context="{'group_by': 'state'}"/>
+                    <filter string="Product" name="product_group"
+                            context="{'group_by': 'product_id'}"/>
+                    <filter string="Regulation" name="regulation_group"
+                            context="{'group_by': 'regulation_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_compliance_requirement_kanban" model="ir.ui.view">
+        <field name="name">sf.product.compliance.requirement.kanban</field>
+        <field name="model">sf.product.compliance.requirement</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state">
+                <field name="product_id"/>
+                <field name="regulation_id"/>
+                <field name="requirement"/>
+                <field name="state"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="o_kanban_record_title">
+                                <field name="name"/>
+                            </div>
+                            <div class="o_kanban_record_subtitle">
+                                <field name="product_id"/>
+                            </div>
+                            <div class="o_kanban_record_bottom">
+                                <field name="regulation_id"/>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="action_compliance_requirement" model="ir.actions.act_window">
+        <field name="name">Requirements</field>
+        <field name="res_model">sf.product.compliance.requirement</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="search_view_id" ref="view_compliance_requirement_search"/>
+    </record>
+
+    <!-- ============ DOSSIER ============ -->
+    <record id="view_compliance_dossier_tree" model="ir.ui.view">
+        <field name="name">sf.product.compliance.dossier.tree</field>
+        <field name="model">sf.product.compliance.dossier</field>
+        <field name="arch" type="xml">
+            <tree string="Dossiers">
+                <field name="name"/>
+                <field name="product_id"/>
+                <field name="regulation_id"/>
+                <field name="version"/>
+                <field name="state"/>
+                <field name="validated_date"/>
+                <field name="validated_by"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_compliance_dossier_form" model="ir.ui.view">
+        <field name="name">sf.product.compliance.dossier.form</field>
+        <field name="model">sf.product.compliance.dossier</field>
+        <field name="arch" type="xml">
+            <form string="Compliance Dossier">
+                <header>
+                    <button name="action_validate" type="object"
+                            string="Send to Review" class="btn-primary"
+                            invisible="state != 'draft'"/>
+                    <button name="action_mark_compliant" type="object"
+                            string="Mark Compliant" class="btn-success"
+                            invisible="state != 'in_review'"/>
+                    <button name="action_mark_non_compliant" type="object"
+                            string="Mark Non Compliant"
+                            invisible="state != 'in_review'"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="product_id"/>
+                            <field name="regulation_id"/>
+                        </group>
+                        <group>
+                            <field name="version"/>
+                            <field name="validated_date"/>
+                            <field name="validated_by"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <field name="summary"/>
+                    <field name="attachment_ids" widget="many2many_tags"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_compliance_dossier_search" model="ir.ui.view">
+        <field name="name">sf.product.compliance.dossier.search</field>
+        <field name="model">sf.product.compliance.dossier</field>
+        <field name="arch" type="xml">
+            <search string="Dossiers">
+                <field name="product_id"/>
+                <field name="regulation_id"/>
+                <filter string="Draft" name="draft"
+                        domain="[('state', '=', 'draft')]"/>
+                <filter string="In Review" name="in_review"
+                        domain="[('state', '=', 'in_review')]"/>
+                <filter string="Compliant" name="compliant"
+                        domain="[('state', '=', 'compliant')]"/>
+                <filter string="Non Compliant" name="non_compliant"
+                        domain="[('state', '=', 'non_compliant')]"/>
+                <group expand="0" string="Group By">
+                    <filter string="State" name="state_group"
+                            context="{'group_by': 'state'}"/>
+                    <filter string="Product" name="product_group"
+                            context="{'group_by': 'product_id'}"/>
+                    <filter string="Regulation" name="regulation_group"
+                            context="{'group_by': 'regulation_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_compliance_dossier_kanban" model="ir.ui.view">
+        <field name="name">sf.product.compliance.dossier.kanban</field>
+        <field name="model">sf.product.compliance.dossier</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state">
+                <field name="product_id"/>
+                <field name="regulation_id"/>
+                <field name="version"/>
+                <field name="state"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="o_kanban_record_title">
+                                <field name="name"/>
+                            </div>
+                            <div class="o_kanban_record_subtitle">
+                                <field name="product_id"/>
+                            </div>
+                            <div class="o_kanban_record_bottom">
+                                <field name="regulation_id"/>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="action_compliance_dossier" model="ir.actions.act_window">
+        <field name="name">Compliance Dossiers</field>
+        <field name="res_model">sf.product.compliance.dossier</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="search_view_id" ref="view_compliance_dossier_search"/>
+    </record>
+
+    <!-- ============ CERTIFICATE ============ -->
+    <record id="view_compliance_certificate_tree" model="ir.ui.view">
+        <field name="name">sf.product.compliance.certificate.tree</field>
+        <field name="model">sf.product.compliance.certificate</field>
+        <field name="arch" type="xml">
+            <tree string="Certificates">
+                <field name="name"/>
+                <field name="certificate_number"/>
+                <field name="product_id"/>
+                <field name="issuer"/>
+                <field name="issue_date"/>
+                <field name="expiry_date"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_compliance_certificate_form" model="ir.ui.view">
+        <field name="name">sf.product.compliance.certificate.form</field>
+        <field name="model">sf.product.compliance.certificate</field>
+        <field name="arch" type="xml">
+            <form string="Certificate">
+                <header>
+                    <button name="action_expire" type="object"
+                            string="Mark Expired"
+                            invisible="state != 'active'"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="certificate_number"/>
+                            <field name="product_id"/>
+                            <field name="issuer"/>
+                        </group>
+                        <group>
+                            <field name="issue_date"/>
+                            <field name="expiry_date"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <field name="attachment"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_compliance_certificate_search" model="ir.ui.view">
+        <field name="name">sf.product.compliance.certificate.search</field>
+        <field name="model">sf.product.compliance.certificate</field>
+        <field name="arch" type="xml">
+            <search string="Certificates">
+                <field name="certificate_number"/>
+                <field name="product_id"/>
+                <field name="issuer"/>
+                <filter string="Active" name="active"
+                        domain="[('state', '=', 'active')]"/>
+                <filter string="Expired" name="expired"
+                        domain="[('state', '=', 'expired')]"/>
+                <group expand="0" string="Group By">
+                    <filter string="State" name="state_group"
+                            context="{'group_by': 'state'}"/>
+                    <filter string="Product" name="product_group"
+                            context="{'group_by': 'product_id'}"/>
+                    <filter string="Issuer" name="issuer_group"
+                            context="{'group_by': 'issuer'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_compliance_certificate_kanban" model="ir.ui.view">
+        <field name="name">sf.product.compliance.certificate.kanban</field>
+        <field name="model">sf.product.compliance.certificate</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state">
+                <field name="certificate_number"/>
+                <field name="product_id"/>
+                <field name="issuer"/>
+                <field name="expiry_date"/>
+                <field name="state"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="o_kanban_record_title">
+                                <field name="certificate_number"/>
+                            </div>
+                            <div class="o_kanban_record_subtitle">
+                                <field name="product_id"/>
+                            </div>
+                            <div class="o_kanban_record_bottom">
+                                Expiry: <field name="expiry_date"/>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="action_compliance_certificate" model="ir.actions.act_window">
+        <field name="name">Certificates</field>
+        <field name="res_model">sf.product.compliance.certificate</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="search_view_id" ref="view_compliance_certificate_search"/>
+    </record>
+
+    <!-- ============ DASHBOARD ============ -->
+    <record id="view_compliance_dashboard_pivot" model="ir.ui.view">
+        <field name="name">sf.product.compliance.dossier.dashboard.pivot</field>
+        <field name="model">sf.product.compliance.dossier</field>
+        <field name="arch" type="xml">
+            <pivot string="Dossiers by State and Regulation">
+                <field name="state" type="row"/>
+                <field name="regulation_id" type="col"/>
+                <field name="id" type="measure" string="Dossiers"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="action_compliance_dashboard" model="ir.actions.act_window">
+        <field name="name">Compliance Dashboard</field>
+        <field name="res_model">sf.product.compliance.dossier</field>
+        <field name="view_mode">pivot</field>
+        <field name="view_id" ref="view_compliance_dashboard_pivot"/>
+        <field name="search_view_id" ref="view_compliance_dossier_search"/>
+    </record>
+
+    <!-- ============ PRODUCT ============ -->
+    <record id="view_product_compliance_form" model="ir.ui.view">
+        <field name="name">product.product.compliance.form</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form/sheet/notebook" position="inside">
+                <page string="Compliance" name="compliance">
+                    <group>
+                        <field name="sf_compliance_state"/>
+                    </group>
+                    <field name="sf_compliance_requirement_ids" readonly="1">
+                        <tree string="Requirements">
+                            <field name="name"/>
+                            <field name="regulation_id"/>
+                            <field name="requirement"/>
+                            <field name="state"/>
+                            <field name="compliance_date"/>
+                        </tree>
+                    </field>
+                    <field name="sf_compliance_dossier_ids" readonly="1">
+                        <tree string="Dossiers">
+                            <field name="name"/>
+                            <field name="regulation_id"/>
+                            <field name="version"/>
+                            <field name="state"/>
+                        </tree>
+                    </field>
+                    <field name="sf_compliance_certificate_ids" readonly="1">
+                        <tree string="Certificates">
+                            <field name="name"/>
+                            <field name="certificate_number"/>
+                            <field name="issuer"/>
+                            <field name="expiry_date"/>
+                            <field name="state"/>
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_product_compliance_template_form" model="ir.ui.view">
+        <field name="name">product.template.compliance.form</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form/sheet/notebook" position="inside">
+                <page string="Compliance" name="compliance">
+                    <group>
+                        <field name="sf_compliance_state"/>
+                    </group>
+                    <field name="sf_compliance_dossier_ids" readonly="1">
+                        <tree string="Dossiers">
+                            <field name="name"/>
+                            <field name="regulation_id"/>
+                            <field name="version"/>
+                            <field name="state"/>
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

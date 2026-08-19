@@ -1,0 +1,11 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_privacy_treatment_user,sf.privacy.treatment.user,model_sf_privacy_treatment,group_privacy_user,1,1,1,0
+access_privacy_treatment_manager,sf.privacy.treatment.manager,model_sf_privacy_treatment,group_privacy_manager,1,1,1,1
+access_privacy_processor_user,sf.privacy.processor.user,model_sf_privacy_processor,group_privacy_user,1,1,1,0
+access_privacy_processor_manager,sf.privacy.processor.manager,model_sf_privacy_processor,group_privacy_manager,1,1,1,1
+access_privacy_impact_assessment_user,sf.privacy.impact.assessment.user,model_sf_privacy_impact_assessment,group_privacy_user,1,1,1,0
+access_privacy_impact_assessment_manager,sf.privacy.impact.assessment.manager,model_sf_privacy_impact_assessment,group_privacy_manager,1,1,1,1
+access_privacy_breach_user,sf.privacy.breach.user,model_sf_privacy_breach,group_privacy_user,1,1,1,0
+access_privacy_breach_manager,sf.privacy.breach.manager,model_sf_privacy_breach,group_privacy_manager,1,1,1,1
+access_privacy_request_user,sf.privacy.request.user,model_sf_privacy_request,group_privacy_user,1,1,1,0
+access_privacy_request_manager,sf.privacy.request.manager,model_sf_privacy_request,group_privacy_manager,1,1,1,1

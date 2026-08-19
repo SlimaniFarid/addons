@@ -1,0 +1,465 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ============ CASE ============ -->
+    <record id="view_litigation_case_tree" model="ir.ui.view">
+        <field name="name">sf.litigation.case.tree</field>
+        <field name="model">sf.litigation.case</field>
+        <field name="arch" type="xml">
+            <tree string="Litigation Cases">
+                <field name="name"/>
+                <field name="title"/>
+                <field name="case_type"/>
+                <field name="plaintiff_id"/>
+                <field name="defendant_id"/>
+                <field name="claim_amount"/>
+                <field name="state"/>
+                <field name="opened_date"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_litigation_case_form" model="ir.ui.view">
+        <field name="name">sf.litigation.case.form</field>
+        <field name="model">sf.litigation.case</field>
+        <field name="arch" type="xml">
+            <form string="Litigation Case">
+                <header>
+                    <button name="action_open" type="object"
+                            string="Open Case" class="btn-primary"
+                            invisible="state != 'draft'"/>
+                    <button name="action_pending" type="object"
+                            string="Mark Pending" class="btn-primary"
+                            invisible="state != 'opened'"/>
+                    <button name="action_close" type="object"
+                            string="Close Case" class="btn-success"
+                            groups="sf_litigation.group_litigation_manager"
+                            invisible="state != 'pending'"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,opened,pending,closed"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="title"/>
+                            <field name="case_type"/>
+                            <field name="court"/>
+                            <field name="jurisdiction"/>
+                        </group>
+                        <group>
+                            <field name="claim_amount"/>
+                            <field name="opened_date"/>
+                            <field name="closed_date"/>
+                            <field name="closed_reason"
+                                   invisible="state not in ('pending', 'closed')"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <group string="Parties">
+                        <group>
+                            <field name="plaintiff_id"/>
+                            <field name="defendant_id"/>
+                        </group>
+                        <group>
+                            <field name="lawyer_id"/>
+                            <field name="third_party_ids" widget="many2many_tags"/>
+                        </group>
+                    </group>
+                    <field name="description"/>
+                    <group string="Financial summary">
+                        <field name="total_fees"/>
+                    </group>
+                    <notebook>
+                        <page string="Deadlines">
+                            <field name="deadline_ids">
+                                <tree string="Procedural Deadlines" editable="bottom">
+                                    <field name="name"/>
+                                    <field name="deadline_type"/>
+                                    <field name="due_date"/>
+                                    <field name="state"/>
+                                    <field name="met_date"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Fees">
+                            <field name="fee_ids">
+                                <tree string="Fees &amp; Honoraries" editable="bottom">
+                                    <field name="name"/>
+                                    <field name="fee_type"/>
+                                    <field name="amount"/>
+                                    <field name="date"/>
+                                    <field name="paid"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Decisions">
+                            <field name="decision_ids">
+                                <tree string="Decisions">
+                                    <field name="name"/>
+                                    <field name="decision_date"/>
+                                    <field name="outcome"/>
+                                    <field name="amount_awarded"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_litigation_case_search" model="ir.ui.view">
+        <field name="name">sf.litigation.case.search</field>
+        <field name="model">sf.litigation.case</field>
+        <field name="arch" type="xml">
+            <search string="Litigation Cases">
+                <field name="name"/>
+                <field name="title"/>
+                <field name="plaintiff_id"/>
+                <field name="defendant_id"/>
+                <field name="lawyer_id"/>
+                <filter string="Opened" name="opened"
+                        domain="[('state', '=', 'opened')]"/>
+                <filter string="Pending" name="pending"
+                        domain="[('state', '=', 'pending')]"/>
+                <filter string="Closed" name="closed"
+                        domain="[('state', '=', 'closed')]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Domain" name="domain_group"
+                            context="{'group_by': 'case_type'}"/>
+                    <filter string="Status" name="state_group"
+                            context="{'group_by': 'state'}"/>
+                    <filter string="Court" name="court_group"
+                            context="{'group_by': 'court'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_litigation_case_kanban" model="ir.ui.view">
+        <field name="name">sf.litigation.case.kanban</field>
+        <field name="model">sf.litigation.case</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state">
+                <field name="title"/>
+                <field name="case_type"/>
+                <field name="plaintiff_id"/>
+                <field name="defendant_id"/>
+                <field name="claim_amount"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="o_kanban_record_title">
+                                <field name="title"/>
+                            </div>
+                            <div class="o_kanban_record_subtitle">
+                                <field name="case_type"/>
+                            </div>
+                            <div class="o_kanban_record_bottom">
+                                <field name="plaintiff_id"/>
+                                <span> vs </span>
+                                <field name="defendant_id"/>
+                            </div>
+                            <div class="o_kanban_record_bottom">
+                                Claim: <field name="claim_amount"/>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="action_litigation_case" model="ir.actions.act_window">
+        <field name="name">Cases</field>
+        <field name="res_model">sf.litigation.case</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="search_view_id" ref="view_litigation_case_search"/>
+    </record>
+
+    <!-- ============ DEADLINE ============ -->
+    <record id="view_litigation_deadline_tree" model="ir.ui.view">
+        <field name="name">sf.litigation.deadline.tree</field>
+        <field name="model">sf.litigation.deadline</field>
+        <field name="arch" type="xml">
+            <tree string="Procedural Deadlines">
+                <field name="name"/>
+                <field name="case_id"/>
+                <field name="deadline_type"/>
+                <field name="due_date"/>
+                <field name="state"/>
+                <field name="met_date"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_litigation_deadline_form" model="ir.ui.view">
+        <field name="name">sf.litigation.deadline.form</field>
+        <field name="model">sf.litigation.deadline</field>
+        <field name="arch" type="xml">
+            <form string="Procedural Deadline">
+                <header>
+                    <button name="action_mark_met" type="object"
+                            string="Mark Met" class="btn-success"
+                            invisible="state != 'active'"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="active,met,missed"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="case_id"/>
+                            <field name="deadline_type"/>
+                        </group>
+                        <group>
+                            <field name="due_date"/>
+                            <field name="alert_days"/>
+                            <field name="met_date"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <field name="description"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_litigation_deadline_search" model="ir.ui.view">
+        <field name="name">sf.litigation.deadline.search</field>
+        <field name="model">sf.litigation.deadline</field>
+        <field name="arch" type="xml">
+            <search string="Procedural Deadlines">
+                <field name="name"/>
+                <field name="case_id"/>
+                <field name="deadline_type"/>
+                <filter string="Active" name="active"
+                        domain="[('state', '=', 'active')]"/>
+                <filter string="Met" name="met"
+                        domain="[('state', '=', 'met')]"/>
+                <filter string="Missed" name="missed"
+                        domain="[('state', '=', 'missed')]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Type" name="type_group"
+                            context="{'group_by': 'deadline_type'}"/>
+                    <filter string="Status" name="state_group"
+                            context="{'group_by': 'state'}"/>
+                    <filter string="Due date" name="due_group"
+                            context="{'group_by': 'due_date'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_litigation_deadline_kanban" model="ir.ui.view">
+        <field name="name">sf.litigation.deadline.kanban</field>
+        <field name="model">sf.litigation.deadline</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state">
+                <field name="case_id"/>
+                <field name="deadline_type"/>
+                <field name="due_date"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="o_kanban_record_title">
+                                <field name="name"/>
+                            </div>
+                            <div class="o_kanban_record_subtitle">
+                                <field name="case_id"/>
+                            </div>
+                            <div class="o_kanban_record_bottom">
+                                <field name="deadline_type"/>
+                                <span> - </span>
+                                <field name="due_date"/>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="action_litigation_deadline" model="ir.actions.act_window">
+        <field name="name">Deadlines</field>
+        <field name="res_model">sf.litigation.deadline</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="search_view_id" ref="view_litigation_deadline_search"/>
+    </record>
+
+    <!-- ============ FEE ============ -->
+    <record id="view_litigation_fee_tree" model="ir.ui.view">
+        <field name="name">sf.litigation.fee.tree</field>
+        <field name="model">sf.litigation.fee</field>
+        <field name="arch" type="xml">
+            <tree string="Fees &amp; Honoraries">
+                <field name="name"/>
+                <field name="case_id"/>
+                <field name="fee_type"/>
+                <field name="amount"/>
+                <field name="date"/>
+                <field name="paid"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_litigation_fee_form" model="ir.ui.view">
+        <field name="name">sf.litigation.fee.form</field>
+        <field name="model">sf.litigation.fee</field>
+        <field name="arch" type="xml">
+            <form string="Litigation Fee">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="case_id"/>
+                            <field name="fee_type"/>
+                        </group>
+                        <group>
+                            <field name="amount"/>
+                            <field name="date"/>
+                            <field name="paid"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <field name="note"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_litigation_fee_search" model="ir.ui.view">
+        <field name="name">sf.litigation.fee.search</field>
+        <field name="model">sf.litigation.fee</field>
+        <field name="arch" type="xml">
+            <search string="Fees &amp; Honoraries">
+                <field name="name"/>
+                <field name="case_id"/>
+                <field name="fee_type"/>
+                <filter string="Unpaid" name="unpaid"
+                        domain="[('paid', '=', False)]"/>
+                <filter string="Paid" name="paid"
+                        domain="[('paid', '=', True)]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Type" name="type_group"
+                            context="{'group_by': 'fee_type'}"/>
+                    <filter string="Case" name="case_group"
+                            context="{'group_by': 'case_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_litigation_fee" model="ir.actions.act_window">
+        <field name="name">Fees</field>
+        <field name="res_model">sf.litigation.fee</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_litigation_fee_search"/>
+    </record>
+
+    <!-- ============ DECISION ============ -->
+    <record id="view_litigation_decision_tree" model="ir.ui.view">
+        <field name="name">sf.litigation.decision.tree</field>
+        <field name="model">sf.litigation.decision</field>
+        <field name="arch" type="xml">
+            <tree string="Decisions">
+                <field name="name"/>
+                <field name="case_id"/>
+                <field name="decision_date"/>
+                <field name="outcome"/>
+                <field name="amount_awarded"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_litigation_decision_form" model="ir.ui.view">
+        <field name="name">sf.litigation.decision.form</field>
+        <field name="model">sf.litigation.decision</field>
+        <field name="arch" type="xml">
+            <form string="Litigation Decision">
+                <header>
+                    <button name="action_record" type="object"
+                            string="Record" class="btn-primary"
+                            invisible="state != 'draft'"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,recorded"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="case_id"/>
+                            <field name="decision_date"/>
+                        </group>
+                        <group>
+                            <field name="outcome"/>
+                            <field name="amount_awarded"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <field name="summary"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_litigation_decision_search" model="ir.ui.view">
+        <field name="name">sf.litigation.decision.search</field>
+        <field name="model">sf.litigation.decision</field>
+        <field name="arch" type="xml">
+            <search string="Decisions">
+                <field name="name"/>
+                <field name="case_id"/>
+                <field name="outcome"/>
+                <group expand="0" string="Group By">
+                    <filter string="Outcome" name="outcome_group"
+                            context="{'group_by': 'outcome'}"/>
+                    <filter string="Case" name="case_group"
+                            context="{'group_by': 'case_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_litigation_decision" model="ir.actions.act_window">
+        <field name="name">Decisions</field>
+        <field name="res_model">sf.litigation.decision</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_litigation_decision_search"/>
+    </record>
+
+    <!-- ============ DASHBOARD ============ -->
+    <record id="view_litigation_dashboard_graph" model="ir.ui.view">
+        <field name="name">sf.litigation.case.dashboard.graph</field>
+        <field name="model">sf.litigation.case</field>
+        <field name="arch" type="xml">
+            <graph string="Cases by Legal Domain">
+                <field name="case_type"/>
+                <field name="__count" type="measure" string="Cases"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="view_litigation_dashboard_pivot" model="ir.ui.view">
+        <field name="name">sf.litigation.case.dashboard.pivot</field>
+        <field name="model">sf.litigation.case</field>
+        <field name="arch" type="xml">
+            <pivot string="Cases by Domain and Status">
+                <field name="case_type" type="row"/>
+                <field name="state" type="col"/>
+                <field name="__count" type="measure" string="Cases"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="action_litigation_dashboard" model="ir.actions.act_window">
+        <field name="name">Litigation Dashboard</field>
+        <field name="res_model">sf.litigation.case</field>
+        <field name="view_mode">graph,pivot</field>
+        <field name="view_ids" eval="[(5, 0), (0, 0, {'view_mode': 'graph', 'view_id': ref('view_litigation_dashboard_graph')}), (0, 0, {'view_mode': 'pivot', 'view_id': ref('view_litigation_dashboard_pivot')})]"/>
+    </record>
+
+</odoo>

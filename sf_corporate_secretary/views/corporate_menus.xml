@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem id="menu_corporate_root" name="Corporate Secretary" sequence="87" web_icon="sf_corporate_secretary,static/description/icon.png"/>
+
+    <menuitem id="menu_corporate_orgs" name="Organ Bodies"
+              parent="menu_corporate_root"
+              action="action_corporate_org"
+              sequence="10"/>
+
+    <menuitem id="menu_corporate_meetings" name="Meetings"
+              parent="menu_corporate_root"
+              action="action_corporate_meeting"
+              sequence="20"/>
+
+    <menuitem id="menu_corporate_resolutions" name="Resolutions"
+              parent="menu_corporate_root"
+              action="action_corporate_resolution"
+              sequence="30"/>
+
+    <menuitem id="menu_corporate_decisions" name="Legal Decisions"
+              parent="menu_corporate_root"
+              action="action_corporate_legal_decision"
+              sequence="40"/>
+
+    <menuitem id="menu_corporate_formalities" name="Formalities"
+              parent="menu_corporate_root"
+              action="action_corporate_formality"
+              sequence="50"/>
+
+    <menuitem id="menu_corporate_dashboard" name="Dashboard"
+              parent="menu_corporate_root"
+              action="action_corporate_dashboard"
+              sequence="60"/>
+
+</odoo>

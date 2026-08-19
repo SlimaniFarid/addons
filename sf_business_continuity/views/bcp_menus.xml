@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem id="menu_bcp_root" name="Business Continuity" sequence="88" groups="sf_business_continuity.group_bcp_user" web_icon="sf_business_continuity,static/description/icon.png"/>
+
+    <menuitem id="menu_bcp_processes" name="Processes &amp; BIA"
+              parent="menu_bcp_root"
+              action="action_bcp_process"
+              sequence="10"/>
+
+    <menuitem id="menu_bcp_strategies" name="Strategies"
+              parent="menu_bcp_root"
+              action="action_bcp_strategy"
+              sequence="20"/>
+
+    <menuitem id="menu_bcp_plans" name="Recovery Plans"
+              parent="menu_bcp_root"
+              action="action_bcp_plan"
+              sequence="30"/>
+
+    <menuitem id="menu_bcp_exercises" name="Exercises &amp; Tests"
+              parent="menu_bcp_root"
+              action="action_bcp_exercise"
+              sequence="40"/>
+
+    <menuitem id="menu_bcp_dashboard" name="Dashboard"
+              parent="menu_bcp_root"
+              action="action_bcp_dashboard"
+              sequence="50"/>
+
+</odoo>

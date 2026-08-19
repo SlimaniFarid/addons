@@ -1,0 +1,667 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ============ LOAN ============ -->
+    <record id="view_loan_tree" model="ir.ui.view">
+        <field name="name">sf.loan.tree</field>
+        <field name="model">sf.loan</field>
+        <field name="arch" type="xml">
+            <tree string="Bank Loans">
+                <field name="name"/>
+                <field name="bank_id"/>
+                <field name="loan_type"/>
+                <field name="amount" sum="Total"/>
+                <field name="rate"/>
+                <field name="term_months"/>
+                <field name="amortization"/>
+                <field name="start_date"/>
+                <field name="remaining_balance" sum="Total"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_loan_form" model="ir.ui.view">
+        <field name="name">sf.loan.form</field>
+        <field name="model">sf.loan</field>
+        <field name="arch" type="xml">
+            <form string="Bank Loan">
+                <header>
+                    <button name="action_generate_schedule" type="object"
+                            string="Generate Schedule" class="btn-primary"/>
+                    <button name="action_offer" type="object"
+                            string="Offer" class="btn-secondary"
+                            invisible="state != 'draft'"/>
+                    <button name="action_disburse" type="object"
+                            string="Disburse" class="btn-success"
+                            invisible="state not in ('draft', 'offered')"/>
+                    <button name="action_close" type="object"
+                            string="Close Loan" class="btn-danger"
+                            groups="sf_bank_loans.group_loan_manager"
+                            invisible="state not in ('disbursing', 'active')"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="bank_id"/>
+                            <field name="loan_type"/>
+                            <field name="amount"/>
+                        </group>
+                        <group>
+                            <field name="rate"/>
+                            <field name="term_months"/>
+                            <field name="amortization"/>
+                            <field name="start_date"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="disbursed_amount"/>
+                            <field name="paid_amount"/>
+                            <field name="repayment_total"/>
+                            <field name="remaining_balance"/>
+                        </group>
+                    </group>
+                    <field name="notes"/>
+                    <notebook>
+                        <page string="Amortization Schedule">
+                            <field name="schedule_line_ids">
+                                <tree string="Schedule">
+                                    <field name="line_number"/>
+                                    <field name="due_date"/>
+                                    <field name="principal"/>
+                                    <field name="interest"/>
+                                    <field name="total"/>
+                                    <field name="paid"/>
+                                    <field name="paid_date"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Drawdowns">
+                            <field name="disbursement_ids">
+                                <tree string="Drawdowns">
+                                    <field name="name"/>
+                                    <field name="date"/>
+                                    <field name="amount"/>
+                                    <field name="reference"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Early Repayments">
+                            <field name="repayment_ids">
+                                <tree string="Early Repayments">
+                                    <field name="name"/>
+                                    <field name="date"/>
+                                    <field name="amount"/>
+                                    <field name="reason"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Covenants">
+                            <field name="covenant_ids">
+                                <tree string="Covenants">
+                                    <field name="name"/>
+                                    <field name="covenant_name"/>
+                                    <field name="metric"/>
+                                    <field name="current_value"/>
+                                    <field name="target_min"/>
+                                    <field name="target_max"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_loan_search" model="ir.ui.view">
+        <field name="name">sf.loan.search</field>
+        <field name="model">sf.loan</field>
+        <field name="arch" type="xml">
+            <search string="Bank Loans">
+                <field name="name"/>
+                <field name="bank_id"/>
+                <field name="loan_type"/>
+                <filter string="Draft" name="draft"
+                        domain="[('state', '=', 'draft')]"/>
+                <filter string="Disbursing" name="disbursing"
+                        domain="[('state', '=', 'disbursing')]"/>
+                <filter string="Active" name="active"
+                        domain="[('state', '=', 'active')]"/>
+                <filter string="Closed" name="closed"
+                        domain="[('state', '=', 'closed')]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Status" name="state_group"
+                            context="{'group_by': 'state'}"/>
+                    <filter string="Bank" name="bank_group"
+                            context="{'group_by': 'bank_id'}"/>
+                    <filter string="Loan type" name="type_group"
+                            context="{'group_by': 'loan_type'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_loan_kanban" model="ir.ui.view">
+        <field name="name">sf.loan.kanban</field>
+        <field name="model">sf.loan</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state">
+                <field name="name"/>
+                <field name="bank_id"/>
+                <field name="amount"/>
+                <field name="remaining_balance"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="o_kanban_record_title">
+                                <field name="name"/>
+                            </div>
+                            <div class="o_kanban_record_subtitle">
+                                <field name="bank_id"/>
+                            </div>
+                            <div class="o_kanban_record_bottom">
+                                <span>Amount: <field name="amount"/></span>
+                            </div>
+                            <div class="o_kanban_record_bottom">
+                                <span>Remaining: <field name="remaining_balance"/></span>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="action_loan" model="ir.actions.act_window">
+        <field name="name">Loans</field>
+        <field name="res_model">sf.loan</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="search_view_id" ref="view_loan_search"/>
+    </record>
+
+    <!-- ============ LOAN BANK ============ -->
+    <record id="view_loan_bank_tree" model="ir.ui.view">
+        <field name="name">sf.loan.bank.tree</field>
+        <field name="model">sf.loan.bank</field>
+        <field name="arch" type="xml">
+            <tree string="Loan Banks">
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="contact"/>
+                <field name="phone"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_loan_bank_form" model="ir.ui.view">
+        <field name="name">sf.loan.bank.form</field>
+        <field name="model">sf.loan.bank</field>
+        <field name="arch" type="xml">
+            <form string="Loan Bank">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="partner_id"/>
+                        </group>
+                        <group>
+                            <field name="contact"/>
+                            <field name="phone"/>
+                            <field name="active"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_loan_bank_search" model="ir.ui.view">
+        <field name="name">sf.loan.bank.search</field>
+        <field name="model">sf.loan.bank</field>
+        <field name="arch" type="xml">
+            <search string="Loan Banks">
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="contact"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_loan_bank_kanban" model="ir.ui.view">
+        <field name="name">sf.loan.bank.kanban</field>
+        <field name="model">sf.loan.bank</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="contact"/>
+                <field name="phone"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="o_kanban_record_title">
+                                <field name="name"/>
+                            </div>
+                            <div class="o_kanban_record_subtitle">
+                                <field name="partner_id"/>
+                            </div>
+                            <div class="o_kanban_record_bottom">
+                                <span>Contact: <field name="contact"/></span>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="action_loan_bank" model="ir.actions.act_window">
+        <field name="name">Banks</field>
+        <field name="res_model">sf.loan.bank</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="search_view_id" ref="view_loan_bank_search"/>
+    </record>
+
+    <!-- ============ SCHEDULE LINE ============ -->
+    <record id="view_loan_schedule_tree" model="ir.ui.view">
+        <field name="name">sf.loan.schedule.line.tree</field>
+        <field name="model">sf.loan.schedule.line</field>
+        <field name="arch" type="xml">
+            <tree string="Amortization Schedule">
+                <field name="loan_id"/>
+                <field name="line_number"/>
+                <field name="due_date"/>
+                <field name="principal" sum="Total"/>
+                <field name="interest" sum="Total"/>
+                <field name="total" sum="Total"/>
+                <field name="paid"/>
+                <field name="paid_date"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_loan_schedule_form" model="ir.ui.view">
+        <field name="name">sf.loan.schedule.line.form</field>
+        <field name="model">sf.loan.schedule.line</field>
+        <field name="arch" type="xml">
+            <form string="Schedule Line">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="loan_id"/>
+                            <field name="line_number"/>
+                            <field name="due_date"/>
+                        </group>
+                        <group>
+                            <field name="principal"/>
+                            <field name="interest"/>
+                            <field name="total"/>
+                            <field name="paid"/>
+                            <field name="paid_date"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_loan_schedule" model="ir.actions.act_window">
+        <field name="name">Amortization Schedule</field>
+        <field name="res_model">sf.loan.schedule.line</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- ============ DISBURSEMENT ============ -->
+    <record id="view_loan_disbursement_tree" model="ir.ui.view">
+        <field name="name">sf.loan.disbursement.tree</field>
+        <field name="model">sf.loan.disbursement</field>
+        <field name="arch" type="xml">
+            <tree string="Drawdowns">
+                <field name="name"/>
+                <field name="loan_id"/>
+                <field name="date"/>
+                <field name="amount" sum="Total"/>
+                <field name="reference"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_loan_disbursement_form" model="ir.ui.view">
+        <field name="name">sf.loan.disbursement.form</field>
+        <field name="model">sf.loan.disbursement</field>
+        <field name="arch" type="xml">
+            <form string="Drawdown">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="loan_id"/>
+                            <field name="amount"/>
+                        </group>
+                        <group>
+                            <field name="date"/>
+                            <field name="reference"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_loan_disbursement_search" model="ir.ui.view">
+        <field name="name">sf.loan.disbursement.search</field>
+        <field name="model">sf.loan.disbursement</field>
+        <field name="arch" type="xml">
+            <search string="Drawdowns">
+                <field name="name"/>
+                <field name="loan_id"/>
+                <field name="date"/>
+                <field name="reference"/>
+                <group expand="0" string="Group By">
+                    <filter string="Loan" name="loan_group"
+                            context="{'group_by': 'loan_id'}"/>
+                    <filter string="Date" name="date_group"
+                            context="{'group_by': 'date'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_loan_disbursement_kanban" model="ir.ui.view">
+        <field name="name">sf.loan.disbursement.kanban</field>
+        <field name="model">sf.loan.disbursement</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <field name="name"/>
+                <field name="loan_id"/>
+                <field name="amount"/>
+                <field name="date"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="o_kanban_record_title">
+                                <field name="name"/>
+                            </div>
+                            <div class="o_kanban_record_subtitle">
+                                <field name="loan_id"/>
+                            </div>
+                            <div class="o_kanban_record_bottom">
+                                <span>Amount: <field name="amount"/></span>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="action_loan_disbursement" model="ir.actions.act_window">
+        <field name="name">Drawdowns</field>
+        <field name="res_model">sf.loan.disbursement</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="search_view_id" ref="view_loan_disbursement_search"/>
+    </record>
+
+    <!-- ============ REPAYMENT ============ -->
+    <record id="view_loan_repayment_tree" model="ir.ui.view">
+        <field name="name">sf.loan.repayment.tree</field>
+        <field name="model">sf.loan.repayment</field>
+        <field name="arch" type="xml">
+            <tree string="Early Repayments">
+                <field name="name"/>
+                <field name="loan_id"/>
+                <field name="date"/>
+                <field name="amount" sum="Total"/>
+                <field name="reason"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_loan_repayment_form" model="ir.ui.view">
+        <field name="name">sf.loan.repayment.form</field>
+        <field name="model">sf.loan.repayment</field>
+        <field name="arch" type="xml">
+            <form string="Early Repayment">
+                <header>
+                    <button name="action_confirm" type="object"
+                            string="Confirm" class="btn-primary"
+                            groups="sf_bank_loans.group_loan_manager"
+                            invisible="state != 'draft'"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="loan_id"/>
+                            <field name="amount"/>
+                        </group>
+                        <group>
+                            <field name="date"/>
+                            <field name="reason"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_loan_repayment_search" model="ir.ui.view">
+        <field name="name">sf.loan.repayment.search</field>
+        <field name="model">sf.loan.repayment</field>
+        <field name="arch" type="xml">
+            <search string="Early Repayments">
+                <field name="name"/>
+                <field name="loan_id"/>
+                <field name="date"/>
+                <field name="reason"/>
+                <group expand="0" string="Group By">
+                    <filter string="Loan" name="loan_group"
+                            context="{'group_by': 'loan_id'}"/>
+                    <filter string="Status" name="state_group"
+                            context="{'group_by': 'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_loan_repayment_kanban" model="ir.ui.view">
+        <field name="name">sf.loan.repayment.kanban</field>
+        <field name="model">sf.loan.repayment</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state">
+                <field name="name"/>
+                <field name="loan_id"/>
+                <field name="amount"/>
+                <field name="date"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="o_kanban_record_title">
+                                <field name="name"/>
+                            </div>
+                            <div class="o_kanban_record_subtitle">
+                                <field name="loan_id"/>
+                            </div>
+                            <div class="o_kanban_record_bottom">
+                                <span>Amount: <field name="amount"/></span>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="action_loan_repayment" model="ir.actions.act_window">
+        <field name="name">Early Repayments</field>
+        <field name="res_model">sf.loan.repayment</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="search_view_id" ref="view_loan_repayment_search"/>
+    </record>
+
+    <!-- ============ COVENANT ============ -->
+    <record id="view_loan_covenant_tree" model="ir.ui.view">
+        <field name="name">sf.loan.covenant.tree</field>
+        <field name="model">sf.loan.covenant</field>
+        <field name="arch" type="xml">
+            <tree string="Covenants">
+                <field name="name"/>
+                <field name="loan_id"/>
+                <field name="covenant_name"/>
+                <field name="metric"/>
+                <field name="current_value"/>
+                <field name="target_min"/>
+                <field name="target_max"/>
+                <field name="evaluation_date"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_loan_covenant_form" model="ir.ui.view">
+        <field name="name">sf.loan.covenant.form</field>
+        <field name="model">sf.loan.covenant</field>
+        <field name="arch" type="xml">
+            <form string="Covenant">
+                <header>
+                    <button name="action_check_breach" type="object"
+                            string="Check Breach" class="btn-secondary"/>
+                    <button name="action_review" type="object"
+                            string="Review" class="btn-primary"
+                            invisible="state != 'breached'"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="loan_id"/>
+                            <field name="covenant_name"/>
+                            <field name="metric"/>
+                        </group>
+                        <group>
+                            <field name="formula"/>
+                            <field name="evaluation_date"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="target_min"/>
+                            <field name="target_max"/>
+                        </group>
+                        <group>
+                            <field name="current_value"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_loan_covenant_search" model="ir.ui.view">
+        <field name="name">sf.loan.covenant.search</field>
+        <field name="model">sf.loan.covenant</field>
+        <field name="arch" type="xml">
+            <search string="Covenants">
+                <field name="name"/>
+                <field name="loan_id"/>
+                <field name="covenant_name"/>
+                <field name="metric"/>
+                <filter string="Breached" name="breached"
+                        domain="[('state', '=', 'breached')]"/>
+                <filter string="Active" name="active"
+                        domain="[('state', '=', 'active')]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Loan" name="loan_group"
+                            context="{'group_by': 'loan_id'}"/>
+                    <filter string="Status" name="state_group"
+                            context="{'group_by': 'state'}"/>
+                    <filter string="Metric" name="metric_group"
+                            context="{'group_by': 'metric'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_loan_covenant_kanban" model="ir.ui.view">
+        <field name="name">sf.loan.covenant.kanban</field>
+        <field name="model">sf.loan.covenant</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state">
+                <field name="name"/>
+                <field name="loan_id"/>
+                <field name="covenant_name"/>
+                <field name="current_value"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="o_kanban_record_title">
+                                <field name="covenant_name"/>
+                            </div>
+                            <div class="o_kanban_record_subtitle">
+                                <field name="loan_id"/>
+                            </div>
+                            <div class="o_kanban_record_bottom">
+                                <span>Value: <field name="current_value"/></span>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="action_loan_covenant" model="ir.actions.act_window">
+        <field name="name">Covenants</field>
+        <field name="res_model">sf.loan.covenant</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="search_view_id" ref="view_loan_covenant_search"/>
+    </record>
+
+    <!-- ============ DASHBOARD ============ -->
+    <record id="view_loan_dashboard_graph" model="ir.ui.view">
+        <field name="name">sf.loan.dashboard.graph</field>
+        <field name="model">sf.loan</field>
+        <field name="arch" type="xml">
+            <graph string="Loans by Bank">
+                <field name="bank_id"/>
+                <field name="amount" type="measure" string="Amount"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="view_loan_dashboard_pivot" model="ir.ui.view">
+        <field name="name">sf.loan.dashboard.pivot</field>
+        <field name="model">sf.loan</field>
+        <field name="arch" type="xml">
+            <pivot string="Loans by State and Bank">
+                <field name="state" type="row"/>
+                <field name="bank_id" type="col"/>
+                <field name="amount" type="measure" string="Amount"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="action_loan_dashboard" model="ir.actions.act_window">
+        <field name="name">Debt Dashboard</field>
+        <field name="res_model">sf.loan</field>
+        <field name="view_mode">graph,pivot</field>
+        <field name="view_ids" eval="[(5, 0), (0, 0, {'view_mode': 'graph', 'view_id': ref('view_loan_dashboard_graph')}), (0, 0, {'view_mode': 'pivot', 'view_id': ref('view_loan_dashboard_pivot')})]"/>
+    </record>
+
+</odoo>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form_insurance" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.insurance</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="50"/>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="inside">
+                <app data-string="Insurance Management" string="Insurance Management" name="insurance_management">
+                    <block title="Reminders" id="insurance_reminders">
+                        <setting id="insurance_remind_days" help="Number of days before a policy end date to raise a renewal reminder.">
+                            <field name="sf_insurance_remind_days"/>
+                        </setting>
+                    </block>
+                </app>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,508 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ============ INSURANCE COMPANY ============ -->
+    <record id="view_insurance_company_tree" model="ir.ui.view">
+        <field name="name">sf.insurance.company.tree</field>
+        <field name="model">sf.insurance.company</field>
+        <field name="arch" type="xml">
+            <tree string="Insurers">
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="reference"/>
+                <field name="rating"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_insurance_company_form" model="ir.ui.view">
+        <field name="name">sf.insurance.company.form</field>
+        <field name="model">sf.insurance.company</field>
+        <field name="arch" type="xml">
+            <form string="Insurer">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="partner_id"/>
+                            <field name="reference"/>
+                        </group>
+                        <group>
+                            <field name="rating"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                            <field name="active"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Policies">
+                            <field name="policy_ids" readonly="1">
+                                <tree string="Policies">
+                                    <field name="name"/>
+                                    <field name="policy_number"/>
+                                    <field name="policy_type"/>
+                                    <field name="start_date"/>
+                                    <field name="end_date"/>
+                                    <field name="premium_amount"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_insurance_company_search" model="ir.ui.view">
+        <field name="name">sf.insurance.company.search</field>
+        <field name="model">sf.insurance.company</field>
+        <field name="arch" type="xml">
+            <search string="Insurers">
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="reference"/>
+                <field name="rating"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_insurance_company_kanban" model="ir.ui.view">
+        <field name="name">sf.insurance.company.kanban</field>
+        <field name="model">sf.insurance.company</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="rating"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="o_kanban_record_title">
+                                <field name="name"/>
+                            </div>
+                            <div class="o_kanban_record_subtitle">
+                                <field name="partner_id"/>
+                            </div>
+                            <div class="o_kanban_record_bottom">
+                                Rating: <field name="rating"/>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="action_insurance_company" model="ir.actions.act_window">
+        <field name="name">Insurers</field>
+        <field name="res_model">sf.insurance.company</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="search_view_id" ref="view_insurance_company_search"/>
+    </record>
+
+    <!-- ============ POLICY ============ -->
+    <record id="view_insurance_policy_tree" model="ir.ui.view">
+        <field name="name">sf.insurance.policy.tree</field>
+        <field name="model">sf.insurance.policy</field>
+        <field name="arch" type="xml">
+            <tree string="Policies">
+                <field name="name"/>
+                <field name="policy_number"/>
+                <field name="insurer_id"/>
+                <field name="policy_type"/>
+                <field name="start_date"/>
+                <field name="end_date"/>
+                <field name="premium_amount"/>
+                <field name="premium_frequency"/>
+                <field name="auto_renew"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_insurance_policy_form" model="ir.ui.view">
+        <field name="name">sf.insurance.policy.form</field>
+        <field name="model">sf.insurance.policy</field>
+        <field name="arch" type="xml">
+            <form string="Policy">
+                <header>
+                    <button name="action_activate" type="object"
+                            string="Activate" class="btn-primary"
+                            invisible="state != 'draft'"/>
+                    <button name="action_under_review" type="object"
+                            string="Under Review" class="btn-warning"
+                            invisible="state != 'active'"/>
+                    <button name="action_expire" type="object"
+                            string="Expire" class="btn-secondary"
+                            invisible="state not in ('active', 'under_review')"/>
+                    <button name="action_cancel" type="object"
+                            string="Cancel" class="btn-danger"
+                            invisible="state not in ('draft', 'active', 'under_review')"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="policy_number"/>
+                            <field name="insurer_id"/>
+                            <field name="policy_type"/>
+                            <field name="auto_renew"/>
+                        </group>
+                        <group>
+                            <field name="start_date"/>
+                            <field name="end_date"/>
+                            <field name="premium_amount"/>
+                            <field name="premium_frequency"/>
+                            <field name="currency_id"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <field name="coverage"/>
+                    <notebook>
+                        <page string="Guarantees">
+                            <field name="guarantee_ids">
+                                <tree string="Guarantees" editable="bottom">
+                                    <field name="name"/>
+                                    <field name="guarantee_type"/>
+                                    <field name="coverage_amount"/>
+                                    <field name="deductible"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Claims">
+                            <field name="claim_ids" readonly="1">
+                                <tree string="Claims">
+                                    <field name="name"/>
+                                    <field name="claim_number"/>
+                                    <field name="date_occurred"/>
+                                    <field name="estimated_amount"/>
+                                    <field name="settlement_amount"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                    <field name="notes"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_insurance_policy_search" model="ir.ui.view">
+        <field name="name">sf.insurance.policy.search</field>
+        <field name="model">sf.insurance.policy</field>
+        <field name="arch" type="xml">
+            <search string="Policies">
+                <field name="name"/>
+                <field name="policy_number"/>
+                <field name="insurer_id"/>
+                <field name="policy_type"/>
+                <filter string="Active" name="active_pol"
+                        domain="[('state', '=', 'active')]"/>
+                <filter string="Expiring" name="expiring"
+                        domain="[('state', '=', 'active'), ('end_date', '!=', False)]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Status" name="state_group"
+                            context="{'group_by': 'state'}"/>
+                    <filter string="Type" name="type_group"
+                            context="{'group_by': 'policy_type'}"/>
+                    <filter string="Insurer" name="insurer_group"
+                            context="{'group_by': 'insurer_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_insurance_policy_kanban" model="ir.ui.view">
+        <field name="name">sf.insurance.policy.kanban</field>
+        <field name="model">sf.insurance.policy</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state">
+                <field name="name"/>
+                <field name="policy_number"/>
+                <field name="insurer_id"/>
+                <field name="policy_type"/>
+                <field name="end_date"/>
+                <field name="premium_amount"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="o_kanban_record_title">
+                                <field name="name"/>
+                            </div>
+                            <div class="o_kanban_record_subtitle">
+                                <field name="insurer_id"/>
+                                <field name="policy_type"/>
+                            </div>
+                            <div class="o_kanban_record_bottom">
+                                <field name="policy_number"/>
+                                &#8212; End: <field name="end_date"/>
+                                &#8212; Premium: <field name="premium_amount"/>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="action_insurance_policy" model="ir.actions.act_window">
+        <field name="name">Policies</field>
+        <field name="res_model">sf.insurance.policy</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="search_view_id" ref="view_insurance_policy_search"/>
+    </record>
+
+    <!-- ============ GUARANTEE ============ -->
+    <record id="view_insurance_guarantee_tree" model="ir.ui.view">
+        <field name="name">sf.insurance.guarantee.tree</field>
+        <field name="model">sf.insurance.guarantee</field>
+        <field name="arch" type="xml">
+            <tree string="Guarantees">
+                <field name="name"/>
+                <field name="policy_id"/>
+                <field name="guarantee_type"/>
+                <field name="coverage_amount"/>
+                <field name="deductible"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_insurance_guarantee_form" model="ir.ui.view">
+        <field name="name">sf.insurance.guarantee.form</field>
+        <field name="model">sf.insurance.guarantee</field>
+        <field name="arch" type="xml">
+            <form string="Guarantee">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="policy_id"/>
+                            <field name="guarantee_type"/>
+                        </group>
+                        <group>
+                            <field name="coverage_amount"/>
+                            <field name="deductible"/>
+                        </group>
+                    </group>
+                    <field name="description"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_insurance_guarantee_search" model="ir.ui.view">
+        <field name="name">sf.insurance.guarantee.search</field>
+        <field name="model">sf.insurance.guarantee</field>
+        <field name="arch" type="xml">
+            <search string="Guarantees">
+                <field name="name"/>
+                <field name="policy_id"/>
+                <field name="guarantee_type"/>
+                <group expand="0" string="Group By">
+                    <filter string="Policy" name="policy_group"
+                            context="{'group_by': 'policy_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_insurance_guarantee_kanban" model="ir.ui.view">
+        <field name="name">sf.insurance.guarantee.kanban</field>
+        <field name="model">sf.insurance.guarantee</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <field name="name"/>
+                <field name="policy_id"/>
+                <field name="guarantee_type"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="o_kanban_record_title">
+                                <field name="name"/>
+                            </div>
+                            <div class="o_kanban_record_subtitle">
+                                <field name="policy_id"/>
+                            </div>
+                            <div class="o_kanban_record_bottom">
+                                <field name="guarantee_type"/>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="action_insurance_guarantee" model="ir.actions.act_window">
+        <field name="name">Guarantees</field>
+        <field name="res_model">sf.insurance.guarantee</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="search_view_id" ref="view_insurance_guarantee_search"/>
+    </record>
+
+    <!-- ============ CLAIM ============ -->
+    <record id="view_insurance_claim_tree" model="ir.ui.view">
+        <field name="name">sf.insurance.claim.tree</field>
+        <field name="model">sf.insurance.claim</field>
+        <field name="arch" type="xml">
+            <tree string="Claims">
+                <field name="name"/>
+                <field name="claim_number"/>
+                <field name="policy_id"/>
+                <field name="date_occurred"/>
+                <field name="date_notified"/>
+                <field name="estimated_amount"/>
+                <field name="settlement_amount"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_insurance_claim_form" model="ir.ui.view">
+        <field name="name">sf.insurance.claim.form</field>
+        <field name="model">sf.insurance.claim</field>
+        <field name="arch" type="xml">
+            <form string="Claim">
+                <header>
+                    <button name="action_declare" type="object"
+                            string="Declare" class="btn-primary"
+                            invisible="state != 'draft'"/>
+                    <button name="action_review" type="object"
+                            string="Under Review" class="btn-warning"
+                            invisible="state != 'declared'"/>
+                    <button name="action_estimate" type="object"
+                            string="Estimate" class="btn-primary"
+                            invisible="state != 'under_review'"/>
+                    <button name="action_settle" type="object"
+                            string="Settle" class="btn-success"
+                            groups="sf_insurance_management.group_insurance_manager"
+                            invisible="state != 'estimated'"/>
+                    <button name="action_reject" type="object"
+                            string="Reject" class="btn-danger"
+                            groups="sf_insurance_management.group_insurance_manager"
+                            invisible="state not in ('declared', 'under_review', 'estimated')"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="claim_number"/>
+                            <field name="policy_id"/>
+                        </group>
+                        <group>
+                            <field name="date_occurred"/>
+                            <field name="date_notified"/>
+                            <field name="closed_date"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <field name="description"/>
+                    <group>
+                        <group>
+                            <field name="estimated_amount"/>
+                            <field name="settlement_amount"/>
+                        </group>
+                        <group>
+                            <field name="notes"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_insurance_claim_search" model="ir.ui.view">
+        <field name="name">sf.insurance.claim.search</field>
+        <field name="model">sf.insurance.claim</field>
+        <field name="arch" type="xml">
+            <search string="Claims">
+                <field name="name"/>
+                <field name="claim_number"/>
+                <field name="policy_id"/>
+                <filter string="Settled" name="settled"
+                        domain="[('state', '=', 'settled')]"/>
+                <filter string="Open" name="open"
+                        domain="[('state', 'in', ('draft', 'declared', 'under_review', 'estimated'))]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Status" name="state_group"
+                            context="{'group_by': 'state'}"/>
+                    <filter string="Policy" name="policy_group"
+                            context="{'group_by': 'policy_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_insurance_claim_kanban" model="ir.ui.view">
+        <field name="name">sf.insurance.claim.kanban</field>
+        <field name="model">sf.insurance.claim</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state">
+                <field name="name"/>
+                <field name="claim_number"/>
+                <field name="policy_id"/>
+                <field name="date_occurred"/>
+                <field name="estimated_amount"/>
+                <field name="settlement_amount"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="o_kanban_record_title">
+                                <field name="name"/>
+                            </div>
+                            <div class="o_kanban_record_subtitle">
+                                <field name="policy_id"/>
+                            </div>
+                            <div class="o_kanban_record_bottom">
+                                <field name="claim_number"/>
+                                &#8212; Occurred: <field name="date_occurred"/>
+                                &#8212; Estimated: <field name="estimated_amount"/>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="action_insurance_claim" model="ir.actions.act_window">
+        <field name="name">Claims</field>
+        <field name="res_model">sf.insurance.claim</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="search_view_id" ref="view_insurance_claim_search"/>
+    </record>
+
+    <!-- ============ DASHBOARD ============ -->
+    <record id="view_insurance_dashboard_pivot_type" model="ir.ui.view">
+        <field name="name">sf.insurance.policy.dashboard.pivot.type</field>
+        <field name="model">sf.insurance.policy</field>
+        <field name="arch" type="xml">
+            <pivot string="Policies by Type">
+                <field name="policy_type" type="row"/>
+                <field name="id" type="measure" string="Policies"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="view_insurance_dashboard_pivot_state" model="ir.ui.view">
+        <field name="name">sf.insurance.policy.dashboard.pivot.state</field>
+        <field name="model">sf.insurance.policy</field>
+        <field name="arch" type="xml">
+            <pivot string="Policies by Status">
+                <field name="state" type="row"/>
+                <field name="id" type="measure" string="Policies"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="action_insurance_dashboard" model="ir.actions.act_window">
+        <field name="name">Insurance Dashboard</field>
+        <field name="res_model">sf.insurance.policy</field>
+        <field name="view_mode">pivot</field>
+        <field name="view_ids" eval="[(5, 0), (0, 0, {'view_mode': 'pivot', 'view_id': ref('view_insurance_dashboard_pivot_type')}), (0, 0, {'view_mode': 'pivot', 'view_id': ref('view_insurance_dashboard_pivot_state')})]"/>
+    </record>
+
+</odoo>
