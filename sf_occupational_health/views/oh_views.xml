@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ============ MEDICAL FILE ============ -->
+    <record id="view_oh_file_tree" model="ir.ui.view">
+        <field name="name">sf.oh.medical.file.tree</field>
+        <field name="model">sf.oh.medical.file</field>
+        <field name="arch" type="xml">
+            <tree string="Medical Files">
+                <field name="employee_id"/>
+                <field name="state"/>
+                <field name="last_aptitude"/>
+                <field name="last_visit_date"/>
+                <field name="next_due_date"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_oh_file_form" model="ir.ui.view">
+        <field name="name">sf.oh.medical.file.form</field>
+        <field name="model">sf.oh.medical.file</field>
+        <field name="arch" type="xml">
+            <form string="Occupational Health File">
+                <header>
+                    <button name="action_reactivate" type="object"
+                            string="Reactivate"
+                            invisible="state != 'suspended'"/>
+                    <button name="action_suspend" type="object"
+                            string="Suspend"
+                            invisible="state != 'active'"/>
+                    <button name="action_close" type="object"
+                            string="Close File" class="btn-danger"
+                            invisible="state != 'active'"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="employee_id"/>
+                            <field name="exposure_ids" widget="many2many_tags"/>
+                        </group>
+                        <group>
+                            <field name="last_aptitude"/>
+                            <field name="last_visit_date"/>
+                            <field name="next_due_date"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Visits">
+                            <field name="visit_ids">
+                                <tree string="Visits" create="1">
+                                    <field name="visit_type"/>
+                                    <field name="state"/>
+                                    <field name="doctor_id"/>
+                                    <field name="planned_date"/>
+                                    <field name="done_date"/>
+                                    <field name="result"/>
+                                    <field name="validity_to"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Restrictions"
+                              groups="sf_occupational_health.group_oh_manager">
+                            <field name="restriction_ids">
+                                <tree string="Restrictions" editable="bottom">
+                                    <field name="name"/>
+                                    <field name="effective_from"/>
+                                    <field name="effective_to"/>
+                                    <field name="incompatible_work"/>
+                                    <field name="active"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Vaccinations"
+                              groups="sf_occupational_health.group_oh_manager">
+                            <field name="vaccination_ids">
+                                <tree string="Vaccinations" editable="bottom">
+                                    <field name="name"/>
+                                    <field name="dose"/>
+                                    <field name="administered_on"/>
+                                    <field name="next_due"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_oh_file_search" model="ir.ui.view">
+        <field name="name">sf.oh.medical.file.search</field>
+        <field name="model">sf.oh.medical.file</field>
+        <field name="arch" type="xml">
+            <search string="Medical Files">
+                <field name="employee_id"/>
+                <field name="state"/>
+                <filter string="Active" name="active_files"
+                        domain="[('state', '=', 'active')]"/>
+                <filter string="Due Soon" name="due_soon"
+                        domain="[('next_due_date', '!=', False)]"/>
+                <filter string="Unfit" name="unfit"
+                        domain="[('last_aptitude', '=', 'inapt')]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Status" name="state_group"
+                            context="{'group_by': 'state'}"/>
+                    <filter string="Aptitude" name="aptitude_group"
+                            context="{'group_by': 'last_aptitude'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_oh_file" model="ir.actions.act_window">
+        <field name="name">Medical Files</field>
+        <field name="res_model">sf.oh.medical.file</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_oh_file_search"/>
+    </record>
+
+    <!-- ============ VISIT ============ -->
+    <record id="view_oh_visit_tree" model="ir.ui.view">
+        <field name="name">sf.oh.visit.tree</field>
+        <field name="model">sf.oh.visit</field>
+        <field name="arch" type="xml">
+            <tree string="Medical Visits">
+                <field name="medical_file_id"/>
+                <field name="visit_type"/>
+                <field name="state"/>
+                <field name="doctor_id"/>
+                <field name="planned_date"/>
+                <field name="done_date"/>
+                <field name="result"/>
+                <field name="validity_to"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_oh_visit_form" model="ir.ui.view">
+        <field name="name">sf.oh.visit.form</field>
+        <field name="model">sf.oh.visit</field>
+        <field name="arch" type="xml">
+            <form string="Medical Visit">
+                <header>
+                    <button name="action_plan" type="object"
+                            string="Plan" invisible="state != 'draft'"/>
+                    <button name="action_schedule" type="object"
+                            string="Schedule" invisible="state != 'planned'"/>
+                    <button name="action_record_result" type="object"
+                            string="Record Result" class="btn-primary"
+                            invisible="state not in ('planned', 'scheduled')"/>
+                    <button name="action_close" type="object"
+                            string="Close" invisible="state != 'done'"/>
+                    <button name="action_cancel" type="object"
+                            string="Cancel" class="btn-danger"
+                            invisible="state in ('done', 'closed', 'cancelled')"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="medical_file_id"/>
+                            <field name="visit_type"/>
+                            <field name="doctor_id"/>
+                        </group>
+                        <group>
+                            <field name="planned_date"/>
+                            <field name="done_date"/>
+                            <field name="result"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="validity_from"/>
+                            <field name="validity_to"/>
+                        </group>
+                        <group>
+                            <field name="restriction_note"/>
+                        </group>
+                    </group>
+                    <field name="notes"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_oh_visit_calendar" model="ir.ui.view">
+        <field name="name">sf.oh.visit.calendar</field>
+        <field name="model">sf.oh.visit</field>
+        <field name="arch" type="xml">
+            <calendar string="Medical Visits" date_start="planned_date"
+                      color="visit_type">
+                <field name="medical_file_id"/>
+                <field name="visit_type"/>
+            </calendar>
+        </field>
+    </record>
+
+    <record id="view_oh_visit_search" model="ir.ui.view">
+        <field name="name">sf.oh.visit.search</field>
+        <field name="model">sf.oh.visit</field>
+        <field name="arch" type="xml">
+            <search string="Medical Visits">
+                <field name="medical_file_id"/>
+                <field name="visit_type"/>
+                <field name="state"/>
+                <field name="doctor_id"/>
+                <filter string="Done" name="done"
+                        domain="[('state', '=', 'done')]"/>
+                <filter string="Planned / Scheduled" name="planned"
+                        domain="[('state', 'in', ('planned', 'scheduled'))]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Type" name="type_group"
+                            context="{'group_by': 'visit_type'}"/>
+                    <filter string="Status" name="state_group"
+                            context="{'group_by': 'state'}"/>
+                    <filter string="Month" name="month_group"
+                            context="{'group_by': 'planned_date'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_oh_visit" model="ir.actions.act_window">
+        <field name="name">Medical Visits</field>
+        <field name="res_model">sf.oh.visit</field>
+        <field name="view_mode">tree,form,calendar</field>
+        <field name="search_view_id" ref="view_oh_visit_search"/>
+    </record>
+
+    <!-- ============ DOCTOR ============ -->
+    <record id="view_oh_doctor_tree" model="ir.ui.view">
+        <field name="name">sf.oh.doctor.tree</field>
+        <field name="model">sf.oh.doctor</field>
+        <field name="arch" type="xml">
+            <tree string="Doctors">
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="license_number"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_oh_doctor_form" model="ir.ui.view">
+        <field name="name">sf.oh.doctor.form</field>
+        <field name="model">sf.oh.doctor</field>
+        <field name="arch" type="xml">
+            <form string="Doctor">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="license_number"/>
+                        </group>
+                        <group>
+                            <field name="partner_id"/>
+                            <field name="active"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_oh_doctor" model="ir.actions.act_window">
+        <field name="name">Doctors</field>
+        <field name="res_model">sf.oh.doctor</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- ============ EXPOSURE ============ -->
+    <record id="view_oh_exposure_tree" model="ir.ui.view">
+        <field name="name">sf.oh.exposure.tree</field>
+        <field name="model">sf.oh.exposure</field>
+        <field name="arch" type="xml">
+            <tree string="Exposures">
+                <field name="name"/>
+                <field name="code"/>
+                <field name="standard_interval_months"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_oh_exposure_form" model="ir.ui.view">
+        <field name="name">sf.oh.exposure.form</field>
+        <field name="model">sf.oh.exposure</field>
+        <field name="arch" type="xml">
+            <form string="Exposure">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="code"/>
+                        </group>
+                        <group>
+                            <field name="standard_interval_months"/>
+                            <field name="active"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_oh_exposure" model="ir.actions.act_window">
+        <field name="name">Exposures</field>
+        <field name="res_model">sf.oh.exposure</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- ============ DASHBOARD ============ -->
+    <record id="view_oh_dashboard_graph" model="ir.ui.view">
+        <field name="name">sf.oh.dashboard.graph</field>
+        <field name="model">sf.oh.visit</field>
+        <field name="arch" type="xml">
+            <graph string="Visits by State">
+                <field name="state"/>
+                <field name="id" type="measure" string="Visits"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="view_oh_dashboard_pivot" model="ir.ui.view">
+        <field name="name">sf.oh.dashboard.pivot</field>
+        <field name="model">sf.oh.visit</field>
+        <field name="arch" type="xml">
+            <pivot string="Visits by Type / Result">
+                <field name="visit_type" type="row"/>
+                <field name="result" type="col"/>
+                <field name="id" type="measure" string="Visits"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="action_oh_dashboard" model="ir.actions.act_window">
+        <field name="name">Health Dashboard</field>
+        <field name="res_model">sf.oh.visit</field>
+        <field name="view_mode">graph,pivot</field>
+        <field name="view_ids" eval="[(5, 0), (0, 0, {'view_mode': 'graph', 'view_id': ref('view_oh_dashboard_graph')}), (0, 0, {'view_mode': 'pivot', 'view_id': ref('view_oh_dashboard_pivot')})]"/>
+    </record>
+
+    <!-- ============ WIZARDS ============ -->
+    <record id="view_oh_schedule_wizard" model="ir.ui.view">
+        <field name="name">sf.oh.schedule.wizard.form</field>
+        <field name="model">sf.oh.schedule.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Schedule Visit">
+                <group>
+                    <field name="visit_id" readonly="1"/>
+                    <field name="doctor_id"/>
+                    <field name="planned_date"/>
+                </group>
+                <footer>
+                    <button name="action_confirm" type="object"
+                            string="Schedule" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary"
+                            special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_oh_result_wizard" model="ir.ui.view">
+        <field name="name">sf.oh.visit.result.wizard.form</field>
+        <field name="model">sf.oh.visit.result.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Record Visit Result">
+                <group>
+                    <field name="visit_id" readonly="1"/>
+                    <field name="result"/>
+                    <field name="validity_from"/>
+                    <field name="validity_to"/>
+                    <field name="restriction_note"/>
+                    <field name="create_restriction"/>
+                    <field name="restriction_name"
+                           invisible="not create_restriction"/>
+                </group>
+                <footer>
+                    <button name="action_confirm" type="object"
+                            string="Confirm" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary"
+                            special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+</odoo>

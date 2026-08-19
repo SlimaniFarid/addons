@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ============ ACCOUNT MOVE FORM: 3-WAY MATCH TAB ============ -->
+    <record id="view_account_move_form_match" model="ir.ui.view">
+        <field name="name">account.move.form.match</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form/sheet/notebook" position="inside">
+                <page string="3-Way Match" name="three_way_match">
+                    <group>
+                        <group>
+                            <field name="sf_match_state"/>
+                            <field name="sf_match_score" widget="progressbar"/>
+                            <field name="sf_match_date"/>
+                            <field name="sf_has_major_discrepancy"/>
+                        </group>
+                        <group>
+                            <button name="action_run_match" type="object"
+                                    string="Run 3-Way Match" icon="fa-play"
+                                    class="btn-primary"
+                                    invisible="move_type not in ('in_invoice', 'in_refund')"/>
+                            <button name="action_recheck" type="object"
+                                    string="Recheck" icon="fa-refresh"
+                                    invisible="move_type not in ('in_invoice', 'in_refund')"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Comparison Lines">
+                            <field name="sf_match_line_ids" readonly="1">
+                                <tree string="Comparison Lines">
+                                    <field name="product_id"/>
+                                    <field name="qty_ordered"/>
+                                    <field name="qty_received"/>
+                                    <field name="qty_invoice"/>
+                                    <field name="qty_diff"/>
+                                    <field name="price_ordered"/>
+                                    <field name="price_invoice"/>
+                                    <field name="price_diff_pct"/>
+                                    <field name="status"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Exceptions">
+                            <field name="sf_match_exception_ids">
+                                <tree string="Exceptions">
+                                    <field name="state"/>
+                                    <field name="severity"/>
+                                    <field name="description"/>
+                                    <field name="responsible_id"/>
+                                    <field name="decision"/>
+                                    <field name="decision_date"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="History">
+                            <field name="sf_match_log_ids" readonly="1">
+                                <tree string="Match History">
+                                    <field name="run_date"/>
+                                    <field name="user_id"/>
+                                    <field name="result"/>
+                                    <field name="details"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- ============ ACCOUNT MOVE SEARCH ============ -->
+    <record id="view_account_move_search_match" model="ir.ui.view">
+        <field name="name">account.move.search.match</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_account_move_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//search" position="inside">
+                <filter string="3-Way Pending" name="sf_pending"
+                        domain="[('sf_match_state', '=', 'pending')]"/>
+                <filter string="3-Way In Review" name="sf_in_review"
+                        domain="[('sf_match_state', '=', 'in_review')]"/>
+                <filter string="3-Way Matched" name="sf_matched"
+                        domain="[('sf_match_state', '=', 'matched')]"/>
+                <filter string="3-Way Exception" name="sf_exception"
+                        domain="[('sf_match_state', 'in', ('exception', 'payment_blocked'))]"/>
+                <filter string="3-Way Resolved" name="sf_resolved"
+                        domain="[('sf_match_state', '=', 'resolved')]"/>
+            </xpath>
+            <xpath expr="//search/group" position="inside">
+                <filter string="3-Way Status" name="sf_state_group"
+                        context="{'group_by': 'sf_match_state'}"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- ============ MATCHING INBOX ACTION ============ -->
+    <record id="action_match_inbox" model="ir.actions.act_window">
+        <field name="name">Invoices to Control</field>
+        <field name="res_model">account.move</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_account_move_search_match"/>
+        <field name="domain">[('move_type', 'in', ('in_invoice', 'in_refund')), ('sf_match_state', 'in', ('pending', 'in_review'))]</field>
+    </record>
+
+</odoo>

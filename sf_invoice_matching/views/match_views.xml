@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ============ EXCEPTIONS ============ -->
+    <record id="view_match_exception_tree" model="ir.ui.view">
+        <field name="name">sf.invoice.exception.tree</field>
+        <field name="model">sf.invoice.exception</field>
+        <field name="arch" type="xml">
+            <tree string="Exceptions">
+                <field name="move_id"/>
+                <field name="state"/>
+                <field name="severity"/>
+                <field name="description"/>
+                <field name="responsible_id"/>
+                <field name="decision"/>
+                <field name="decision_date"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_match_exception_form" model="ir.ui.view">
+        <field name="name">sf.invoice.exception.form</field>
+        <field name="model">sf.invoice.exception</field>
+        <field name="arch" type="xml">
+            <form string="Exception">
+                <header>
+                    <button name="action_arbitrate" type="object"
+                            string="Arbitrate" class="btn-primary"
+                            invisible="state != 'open'"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="move_id"/>
+                            <field name="severity"/>
+                            <field name="responsible_id"/>
+                        </group>
+                        <group>
+                            <field name="decision"/>
+                            <field name="decision_date"/>
+                        </group>
+                    </group>
+                    <field name="description"/>
+                    <field name="decision_note"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_match_exception_search" model="ir.ui.view">
+        <field name="name">sf.invoice.exception.search</field>
+        <field name="model">sf.invoice.exception</field>
+        <field name="arch" type="xml">
+            <search string="Exceptions">
+                <field name="move_id"/>
+                <field name="responsible_id"/>
+                <filter string="Open" name="open"
+                        domain="[('state', '=', 'open')]"/>
+                <filter string="Major" name="major"
+                        domain="[('severity', '=', 'major')]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Status" name="state_group"
+                            context="{'group_by': 'state'}"/>
+                    <filter string="Severity" name="severity_group"
+                            context="{'group_by': 'severity'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_match_exception" model="ir.actions.act_window">
+        <field name="name">Exceptions</field>
+        <field name="res_model">sf.invoice.exception</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_match_exception_search"/>
+    </record>
+
+    <!-- ============ MATCH HISTORY ============ -->
+    <record id="view_match_log_tree" model="ir.ui.view">
+        <field name="name">sf.invoice.match.log.tree</field>
+        <field name="model">sf.invoice.match.log</field>
+        <field name="arch" type="xml">
+            <tree string="Match History">
+                <field name="run_date"/>
+                <field name="move_id"/>
+                <field name="user_id"/>
+                <field name="result"/>
+                <field name="details"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_match_log" model="ir.actions.act_window">
+        <field name="name">Match History</field>
+        <field name="res_model">sf.invoice.match.log</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+    <!-- ============ DASHBOARD ============ -->
+    <record id="view_match_dashboard_graph" model="ir.ui.view">
+        <field name="name">account.move.match.dashboard.graph</field>
+        <field name="model">account.move</field>
+        <field name="arch" type="xml">
+            <graph string="Invoices by 3-Way Status">
+                <field name="sf_match_state"/>
+                <field name="id" type="measure" string="Invoices"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="view_match_dashboard_pivot" model="ir.ui.view">
+        <field name="name">account.move.match.dashboard.pivot</field>
+        <field name="model">account.move</field>
+        <field name="arch" type="xml">
+            <pivot string="Invoices by Partner / Status">
+                <field name="partner_id" type="row"/>
+                <field name="sf_match_state" type="col"/>
+                <field name="id" type="measure" string="Invoices"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="action_match_dashboard" model="ir.actions.act_window">
+        <field name="name">Match Dashboard</field>
+        <field name="res_model">account.move</field>
+        <field name="view_mode">graph,pivot</field>
+        <field name="view_ids" eval="[(5, 0), (0, 0, {'view_mode': 'graph', 'view_id': ref('view_match_dashboard_graph')}), (0, 0, {'view_mode': 'pivot', 'view_id': ref('view_match_dashboard_pivot')})]"/>
+        <field name="domain">[('move_type', 'in', ('in_invoice', 'in_refund'))]</field>
+    </record>
+
+    <!-- ============ WIZARDS ============ -->
+    <record id="view_match_run_wizard" model="ir.ui.view">
+        <field name="name">sf.invoice.run.match.wizard.form</field>
+        <field name="model">sf.invoice.run.match.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Run 3-Way Match">
+                <group>
+                    <field name="move_ids"/>
+                </group>
+                <footer>
+                    <button name="action_run" type="object"
+                            string="Run Match" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary"
+                            special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_match_exception_wizard" model="ir.ui.view">
+        <field name="name">sf.invoice.exception.wizard.form</field>
+        <field name="model">sf.invoice.exception.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Arbitrate Exception">
+                <group>
+                    <field name="exception_id" readonly="1"/>
+                    <field name="decision"/>
+                    <field name="responsible_id"/>
+                    <field name="decision_note"/>
+                </group>
+                <footer>
+                    <button name="action_confirm" type="object"
+                            string="Confirm" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary"
+                            special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+</odoo>

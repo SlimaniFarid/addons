@@ -1,0 +1,17 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_pim_category_user,sf.pim.category.user,model_sf_pim_category,group_pim_user,1,1,0,0
+access_pim_category_manager,sf.pim.category.manager,model_sf_pim_category,group_pim_manager,1,1,1,1
+access_pim_attribute_user,sf.pim.attribute.user,model_sf_pim_attribute,group_pim_user,1,0,0,0
+access_pim_attribute_manager,sf.pim.attribute.manager,model_sf_pim_attribute,group_pim_manager,1,1,1,1
+access_pim_channel_user,sf.pim.channel.user,model_sf_pim_channel,group_pim_user,1,0,0,0
+access_pim_channel_manager,sf.pim.channel.manager,model_sf_pim_channel,group_pim_manager,1,1,1,1
+access_pim_publication_user,sf.pim.publication.user,model_sf_pim_publication,group_pim_user,1,0,0,0
+access_pim_publication_manager,sf.pim.publication.manager,model_sf_pim_publication,group_pim_manager,1,1,1,1
+access_pim_review_user,sf.pim.review.user,model_sf_pim_review,group_pim_user,1,0,0,0
+access_pim_review_manager,sf.pim.review.manager,model_sf_pim_review,group_pim_manager,1,1,1,1
+access_pim_product_attr_user,sf.pim.product.attribute.user,model_sf_pim_product_attribute,group_pim_user,1,1,0,0
+access_pim_product_attr_manager,sf.pim.product.attribute.manager,model_sf_pim_product_attribute,group_pim_manager,1,1,1,1
+access_pim_publish_wizard_user,sf.pim.publish.wizard.user,model_sf_pim_publish_wizard,group_pim_user,1,1,1,0
+access_pim_publish_wizard_manager,sf.pim.publish.wizard.manager,model_sf_pim_publish_wizard,group_pim_manager,1,1,1,1
+access_pim_reject_wizard_user,sf.pim.reject.wizard.user,model_sf_pim_reject_wizard,group_pim_user,1,1,1,0
+access_pim_reject_wizard_manager,sf.pim.reject.wizard.manager,model_sf_pim_reject_wizard,group_pim_manager,1,1,1,1
