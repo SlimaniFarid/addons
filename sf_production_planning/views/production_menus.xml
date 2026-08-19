@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem id="menu_production_root" name="Production Planning" sequence="88" web_icon="sf_production_planning,static/description/icon.png"/>
+
+    <menuitem id="menu_production_plans" name="Master Production Schedules"
+              parent="menu_production_root"
+              action="action_mps"
+              sequence="10"/>
+
+    <menuitem id="menu_production_gantt" name="Scheduling (Gantt)"
+              parent="menu_production_root"
+              action="action_mps_line_gantt"
+              sequence="20"/>
+
+    <menuitem id="menu_production_load" name="Load by Work Center"
+              parent="menu_production_root"
+              action="action_mps_load"
+              sequence="30"/>
+
+    <menuitem id="menu_production_lines" name="All Plan Lines"
+              parent="menu_production_root"
+              action="action_mps_line_tree"
+              sequence="40"/>
+
+    <menuitem id="menu_production_dashboard" name="Dashboard"
+              parent="menu_production_root"
+              action="action_mps_dashboard"
+              sequence="50"/>
+
+</odoo>

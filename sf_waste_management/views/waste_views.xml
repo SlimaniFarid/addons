@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ============ BSD ============ -->
+    <record id="view_waste_bsd_tree" model="ir.ui.view">
+        <field name="name">sf.waste.bsd.tree</field>
+        <field name="model">sf.waste.bsd</field>
+        <field name="arch" type="xml">
+            <tree string="Waste Tracking Slips (BSD)">
+                <field name="name"/>
+                <field name="site_id"/>
+                <field name="waste_code_id"/>
+                <field name="quantity_kg"/>
+                <field name="collector_id"/>
+                <field name="expected_reception_date"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_waste_bsd_form" model="ir.ui.view">
+        <field name="name">sf.waste.bsd.form</field>
+        <field name="model">sf.waste.bsd</field>
+        <field name="arch" type="xml">
+            <form string="Waste Tracking Slip (BSD)">
+                <header>
+                    <button name="action_emit" type="object"
+                            string="Emit" class="btn-primary"
+                            invisible="state != 'draft'"/>
+                    <button name="action_transfer" type="object"
+                            string="Transfer"
+                            invisible="state != 'emitted'"/>
+                    <button name="action_receive" type="object"
+                            string="Confirm Reception" class="btn-success"
+                            invisible="state != 'transferred'"/>
+                    <button name="action_archive" type="object"
+                            string="Archive"
+                            invisible="state != 'received'"/>
+                    <button name="action_cancel" type="object"
+                            string="Cancel"
+                            invisible="state != 'draft'"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="site_id"/>
+                            <field name="waste_code_id"/>
+                        </group>
+                        <group>
+                            <field name="quantity_kg"/>
+                            <field name="collector_id"/>
+                            <field name="destination_id"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="emit_date"/>
+                            <field name="expected_reception_date"/>
+                        </group>
+                        <group>
+                            <field name="reception_date"/>
+                        </group>
+                    </group>
+                    <field name="notes"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_waste_bsd_search" model="ir.ui.view">
+        <field name="name">sf.waste.bsd.search</field>
+        <field name="model">sf.waste.bsd</field>
+        <field name="arch" type="xml">
+            <search string="Waste Tracking Slips (BSD)">
+                <field name="site_id"/>
+                <field name="waste_code_id"/>
+                <field name="collector_id"/>
+                <filter string="Pending Reception" name="pending_reception"
+                        domain="[('state', 'in', ('emitted', 'transferred')), ('reception_date', '=', False)]"/>
+                <filter string="Hazardous" name="hazardous"
+                        domain="[('waste_code_id.hazardous', '=', True)]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Status" name="state_group"
+                            context="{'group_by': 'state'}"/>
+                    <filter string="Site" name="site_group"
+                            context="{'group_by': 'site_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_waste_bsd_kanban" model="ir.ui.view">
+        <field name="name">sf.waste.bsd.kanban</field>
+        <field name="model">sf.waste.bsd</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state">
+                <field name="site_id"/>
+                <field name="waste_code_id"/>
+                <field name="quantity_kg"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="o_kanban_record_title">
+                                <field name="name"/>
+                            </div>
+                            <div class="o_kanban_record_subtitle">
+                                <field name="site_id"/> - <field name="waste_code_id"/>
+                            </div>
+                            <div class="o_kanban_record_bottom">
+                                <field name="quantity_kg"/> kg
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="action_waste_bsd" model="ir.actions.act_window">
+        <field name="name">Waste Tracking Slips (BSD)</field>
+        <field name="res_model">sf.waste.bsd</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="search_view_id" ref="view_waste_bsd_search"/>
+    </record>
+
+    <!-- ============ SITES ============ -->
+    <record id="view_waste_site_tree" model="ir.ui.view">
+        <field name="name">sf.waste.site.tree</field>
+        <field name="model">sf.waste.site</field>
+        <field name="arch" type="xml">
+            <tree string="Waste Sites">
+                <field name="name"/>
+                <field name="site_code"/>
+                <field name="manager_id"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_waste_site_form" model="ir.ui.view">
+        <field name="name">sf.waste.site.form</field>
+        <field name="model">sf.waste.site</field>
+        <field name="arch" type="xml">
+            <form string="Waste Site">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="site_code"/>
+                        </group>
+                        <group>
+                            <field name="manager_id"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <field name="address"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_waste_site" model="ir.actions.act_window">
+        <field name="name">Waste Sites</field>
+        <field name="res_model">sf.waste.site</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- ============ WASTE CODES ============ -->
+    <record id="view_waste_code_tree" model="ir.ui.view">
+        <field name="name">sf.waste.code.tree</field>
+        <field name="model">sf.waste.code</field>
+        <field name="arch" type="xml">
+            <tree string="Waste Codes">
+                <field name="name"/>
+                <field name="description"/>
+                <field name="category"/>
+                <field name="hazardous"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_waste_code_form" model="ir.ui.view">
+        <field name="name">sf.waste.code.form</field>
+        <field name="model">sf.waste.code</field>
+        <field name="arch" type="xml">
+            <form string="Waste Code">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="description"/>
+                            <field name="category"/>
+                        </group>
+                        <group>
+                            <field name="hazardous"/>
+                            <field name="active"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_waste_code" model="ir.actions.act_window">
+        <field name="name">Waste Codes</field>
+        <field name="res_model">sf.waste.code</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- ============ DASHBOARD ============ -->
+    <record id="view_waste_dashboard_graph" model="ir.ui.view">
+        <field name="name">sf.waste.bsd.dashboard.graph</field>
+        <field name="model">sf.waste.bsd</field>
+        <field name="arch" type="xml">
+            <graph string="Quantity by Waste Code">
+                <field name="waste_code_id"/>
+                <field name="quantity_kg" type="measure" string="kg"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="view_waste_dashboard_pivot" model="ir.ui.view">
+        <field name="name">sf.waste.bsd.dashboard.pivot</field>
+        <field name="model">sf.waste.bsd</field>
+        <field name="arch" type="xml">
+            <pivot string="Quantities by Site and Waste Code">
+                <field name="site_id" type="row"/>
+                <field name="waste_code_id" type="col"/>
+                <field name="quantity_kg" type="measure" string="kg"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="action_waste_dashboard" model="ir.actions.act_window">
+        <field name="name">Waste Dashboard</field>
+        <field name="res_model">sf.waste.bsd</field>
+        <field name="view_mode">graph,pivot</field>
+        <field name="view_ids" eval="[(5, 0), (0, 0, {'view_mode': 'graph', 'view_id': ref('view_waste_dashboard_graph')}), (0, 0, {'view_mode': 'pivot', 'view_id': ref('view_waste_dashboard_pivot')})]"/>
+    </record>
+
+</odoo>
