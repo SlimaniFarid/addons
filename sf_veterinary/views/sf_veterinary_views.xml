@@ -93,7 +93,7 @@
                 <filter string="Vaccinations up to date"
                         name="vaccinations_ok_patient"
                         domain="[('vaccinations_ok', '=', True)]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="Species" name="species_group"
                             context="{'group_by': 'species'}"/>
                     <filter string="Status" name="state_group"
@@ -193,7 +193,7 @@
                         domain="[('state', '=', 'confirm')]"/>
                 <filter string="Done" name="done_appointment"
                         domain="[('state', '=', 'done')]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="Status" name="state_group"
                             context="{'group_by': 'state'}"/>
                     <filter string="Reason" name="motif_group"
@@ -287,7 +287,7 @@
                         domain="[('state', '=', 'overdue')]"/>
                 <filter string="Due soon" name="due_vaccination"
                         domain="[('next_due_date', '&lt;=', context_today().add(days=30))]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="Status" name="state_group"
                             context="{'group_by': 'state'}"/>
                     <filter string="Patient" name="patient_group"
@@ -377,7 +377,7 @@
                         domain="[('state', '=', 'in_progress')]"/>
                 <filter string="Discharged" name="discharged_hospitalization"
                         domain="[('state', '=', 'discharged')]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="Status" name="state_group"
                             context="{'group_by': 'state'}"/>
                     <filter string="Patient" name="patient_group"

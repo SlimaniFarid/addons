@@ -92,7 +92,7 @@
                         domain="[('state', '=', 'assessed')]"/>
                 <filter string="Validated" name="validated"
                         domain="[('state', '=', 'validated')]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="Criticality" name="criticality_group"
                             context="{'group_by': 'criticality'}"/>
                     <filter string="Status" name="state_group"
@@ -114,7 +114,7 @@
                 <field name="rpo"/>
                 <field name="state"/>
                 <templates>
-                    <t t-name="kanban-box">
+                    <t t-name="card">
                         <div class="oe_kanban_global_click">
                             <div class="o_kanban_record_title">
                                 <field name="name"/>
@@ -186,7 +186,7 @@
                 <field name="name"/>
                 <field name="process_id"/>
                 <field name="strategy_type"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="Type" name="type_group"
                             context="{'group_by': 'strategy_type'}"/>
                     <filter string="Process" name="process_group"
@@ -206,7 +206,7 @@
                 <field name="strategy_type"/>
                 <field name="cost"/>
                 <templates>
-                    <t t-name="kanban-box">
+                    <t t-name="card">
                         <div class="oe_kanban_global_click">
                             <div class="o_kanban_record_title">
                                 <field name="name"/>
@@ -320,7 +320,7 @@
                         domain="[('state', '!=', 'draft'), ('next_review_date', '!=', False), ('next_review_date', '&lt;=', '__date_today__')]"/>
                 <filter string="Published" name="published"
                         domain="[('state', '=', 'published')]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="Status" name="state_group"
                             context="{'group_by': 'state'}"/>
                     <filter string="Process" name="process_group"
@@ -341,7 +341,7 @@
                 <field name="next_review_date"/>
                 <field name="state"/>
                 <templates>
-                    <t t-name="kanban-box">
+                    <t t-name="card">
                         <div class="oe_kanban_global_click">
                             <div class="o_kanban_record_title">
                                 <field name="name"/>
@@ -428,7 +428,7 @@
                         domain="[('state', '=', 'done')]"/>
                 <filter string="Open" name="open"
                         domain="[('state', 'in', ('planned', 'executed'))]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="Status" name="state_group"
                             context="{'group_by': 'state'}"/>
                     <filter string="Plan" name="plan_group"
@@ -448,7 +448,7 @@
                 <field name="exercise_date"/>
                 <field name="participants"/>
                 <templates>
-                    <t t-name="kanban-box">
+                    <t t-name="card">
                         <div class="oe_kanban_global_click">
                             <div class="o_kanban_record_title">
                                 <field name="name"/>

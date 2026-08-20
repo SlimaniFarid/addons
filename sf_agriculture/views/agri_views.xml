@@ -71,7 +71,7 @@
                 <field name="manager_id"/>
                 <filter string="Archived" name="archived"
                         domain="[('active', '=', False)]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="Manager" name="manager_group"
                             context="{'group_by': 'manager_id'}"/>
                     <filter string="Company" name="company_group"
@@ -90,7 +90,7 @@
                 <field name="address"/>
                 <field name="manager_id"/>
                 <templates>
-                    <t t-name="kanban-box">
+                    <t t-name="card">
                         <div class="oe_kanban_global_click">
                             <div class="o_kanban_record_title">
                                 <field name="name"/>
@@ -175,7 +175,7 @@
                 <field name="farm_id"/>
                 <field name="soil_type"/>
                 <field name="irrigation"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="Farm" name="farm_group"
                             context="{'group_by': 'farm_id'}"/>
                     <filter string="Soil Type" name="soil_group"
@@ -195,7 +195,7 @@
                 <field name="area_ha"/>
                 <field name="soil_type"/>
                 <templates>
-                    <t t-name="kanban-box">
+                    <t t-name="card">
                         <div class="oe_kanban_global_click">
                             <div class="o_kanban_record_title">
                                 <field name="name"/>
@@ -298,7 +298,7 @@
                         domain="[('state', '=', 'open')]"/>
                 <filter string="Closed" name="closed"
                         domain="[('state', '=', 'closed')]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="Farm" name="farm_group"
                             context="{'group_by': 'farm_id'}"/>
                     <filter string="Year" name="year_group"
@@ -320,7 +320,7 @@
                 <field name="year"/>
                 <field name="state"/>
                 <templates>
-                    <t t-name="kanban-box">
+                    <t t-name="card">
                         <div class="oe_kanban_global_click">
                             <div class="o_kanban_record_title">
                                 <field name="name"/>
@@ -458,7 +458,7 @@
                         domain="[('state', '=', 'growing')]"/>
                 <filter string="Harvested" name="harvested"
                         domain="[('state', '=', 'harvested')]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="Campaign" name="campaign_group"
                             context="{'group_by': 'campaign_id'}"/>
                     <filter string="Plot" name="plot_group"
@@ -481,7 +481,7 @@
                 <field name="crop"/>
                 <field name="state"/>
                 <templates>
-                    <t t-name="kanban-box">
+                    <t t-name="card">
                         <div class="oe_kanban_global_click">
                             <div class="o_kanban_record_title">
                                 <field name="name"/>
@@ -555,7 +555,7 @@
                 <field name="culture_id"/>
                 <field name="name"/>
                 <field name="operation_type"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="Culture" name="culture_group"
                             context="{'group_by': 'culture_id'}"/>
                     <filter string="Type" name="type_group"
@@ -575,7 +575,7 @@
                 <field name="operation_type"/>
                 <field name="planned_date"/>
                 <templates>
-                    <t t-name="kanban-box">
+                    <t t-name="card">
                         <div class="oe_kanban_global_click">
                             <div class="o_kanban_record_title">
                                 <field name="name"/>
@@ -678,7 +678,7 @@
                         domain="[('state', '=', 'planned')]"/>
                 <filter string="Applied" name="applied"
                         domain="[('state', '=', 'applied')]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="Culture" name="culture_group"
                             context="{'group_by': 'culture_id'}"/>
                     <filter string="Type" name="type_group"
@@ -701,7 +701,7 @@
                 <field name="product"/>
                 <field name="state"/>
                 <templates>
-                    <t t-name="kanban-box">
+                    <t t-name="card">
                         <div class="oe_kanban_global_click">
                             <div class="o_kanban_record_title">
                                 <field name="name"/>
@@ -794,7 +794,7 @@
                 <field name="quality"/>
                 <filter string="Recorded" name="recorded"
                         domain="[('state', '=', 'recorded')]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="Culture" name="culture_group"
                             context="{'group_by': 'culture_id'}"/>
                     <filter string="Plot" name="plot_group"
@@ -817,7 +817,7 @@
                 <field name="yield_t_ha"/>
                 <field name="state"/>
                 <templates>
-                    <t t-name="kanban-box">
+                    <t t-name="card">
                         <div class="oe_kanban_global_click">
                             <div class="o_kanban_record_title">
                                 <field name="name"/>

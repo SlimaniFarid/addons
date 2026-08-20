@@ -10,18 +10,18 @@
                     <button name="action_generate_lines" type="object"
                             string="Generate Lines"
                             class="btn-primary"
-                            states="draft,confirmed"
+                            invisible="[('state', 'not in', ('draft', 'confirmed'))]"
                             confirm="Regenerate the projection from accounting data? Manual lines will be kept."/>
                     <button name="action_confirm" type="object"
                             string="Confirm"
                             class="btn-primary"
-                            states="draft"/>
+                            invisible="[('state', 'not in', ('draft',))]"/>
                     <button name="action_draft" type="object"
                             string="Set to Draft"
-                            states="cancelled"/>
+                            invisible="[('state', 'not in', ('cancelled',))]"/>
                     <button name="action_cancel" type="object"
                             string="Cancel"
-                            states="draft,confirmed"/>
+                            invisible="[('state', 'not in', ('draft', 'confirmed'))]"/>
                 </header>
                 <sheet>
                     <div class="oe_title">
@@ -147,7 +147,7 @@
                         domain="[('state', '=', 'confirmed')]"/>
                 <filter string="Low Balance" name="low_balance"
                         domain="[('minimum_balance', '&lt;', 0)]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="Company" name="group_company"
                             context="{'group_by': 'company_id'}"/>
                     <filter string="Status" name="group_state"

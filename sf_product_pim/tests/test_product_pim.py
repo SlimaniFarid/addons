@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 from odoo.exceptions import AccessError, UserError
-from odoo.tests import TransactionalCase, tagged
+from odoo.tests import TransactionCase, tagged
 
 
 @tagged('post_install', '-at_install')
-class TestProductPim(TransactionalCase):
+class TestProductPim(TransactionCase):
 
     def setUp(self):
         super().setUp()

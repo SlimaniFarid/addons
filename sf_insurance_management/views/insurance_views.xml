@@ -75,7 +75,7 @@
                 <field name="partner_id"/>
                 <field name="rating"/>
                 <templates>
-                    <t t-name="kanban-box">
+                    <t t-name="card">
                         <div class="oe_kanban_global_click">
                             <div class="o_kanban_record_title">
                                 <field name="name"/>
@@ -202,7 +202,7 @@
                         domain="[('state', '=', 'active')]"/>
                 <filter string="Expiring" name="expiring"
                         domain="[('state', '=', 'active'), ('end_date', '!=', False)]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="Status" name="state_group"
                             context="{'group_by': 'state'}"/>
                     <filter string="Type" name="type_group"
@@ -226,7 +226,7 @@
                 <field name="end_date"/>
                 <field name="premium_amount"/>
                 <templates>
-                    <t t-name="kanban-box">
+                    <t t-name="card">
                         <div class="oe_kanban_global_click">
                             <div class="o_kanban_record_title">
                                 <field name="name"/>
@@ -300,7 +300,7 @@
                 <field name="name"/>
                 <field name="policy_id"/>
                 <field name="guarantee_type"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="Policy" name="policy_group"
                             context="{'group_by': 'policy_id'}"/>
                 </group>
@@ -317,7 +317,7 @@
                 <field name="policy_id"/>
                 <field name="guarantee_type"/>
                 <templates>
-                    <t t-name="kanban-box">
+                    <t t-name="card">
                         <div class="oe_kanban_global_click">
                             <div class="o_kanban_record_title">
                                 <field name="name"/>
@@ -426,7 +426,7 @@
                         domain="[('state', '=', 'settled')]"/>
                 <filter string="Open" name="open"
                         domain="[('state', 'in', ('draft', 'declared', 'under_review', 'estimated'))]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="Status" name="state_group"
                             context="{'group_by': 'state'}"/>
                     <filter string="Policy" name="policy_group"
@@ -448,7 +448,7 @@
                 <field name="estimated_amount"/>
                 <field name="settlement_amount"/>
                 <templates>
-                    <t t-name="kanban-box">
+                    <t t-name="card">
                         <div class="oe_kanban_global_click">
                             <div class="o_kanban_record_title">
                                 <field name="name"/>

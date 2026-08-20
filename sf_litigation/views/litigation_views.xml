@@ -126,7 +126,7 @@
                         domain="[('state', '=', 'pending')]"/>
                 <filter string="Closed" name="closed"
                         domain="[('state', '=', 'closed')]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="Domain" name="domain_group"
                             context="{'group_by': 'case_type'}"/>
                     <filter string="Status" name="state_group"
@@ -149,7 +149,7 @@
                 <field name="defendant_id"/>
                 <field name="claim_amount"/>
                 <templates>
-                    <t t-name="kanban-box">
+                    <t t-name="card">
                         <div class="oe_kanban_global_click">
                             <div class="o_kanban_record_title">
                                 <field name="title"/>
@@ -241,7 +241,7 @@
                         domain="[('state', '=', 'met')]"/>
                 <filter string="Missed" name="missed"
                         domain="[('state', '=', 'missed')]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="Type" name="type_group"
                             context="{'group_by': 'deadline_type'}"/>
                     <filter string="Status" name="state_group"
@@ -262,7 +262,7 @@
                 <field name="deadline_type"/>
                 <field name="due_date"/>
                 <templates>
-                    <t t-name="kanban-box">
+                    <t t-name="card">
                         <div class="oe_kanban_global_click">
                             <div class="o_kanban_record_title">
                                 <field name="name"/>
@@ -342,7 +342,7 @@
                         domain="[('paid', '=', False)]"/>
                 <filter string="Paid" name="paid"
                         domain="[('paid', '=', True)]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="Type" name="type_group"
                             context="{'group_by': 'fee_type'}"/>
                     <filter string="Case" name="case_group"
@@ -414,7 +414,7 @@
                 <field name="name"/>
                 <field name="case_id"/>
                 <field name="outcome"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="Outcome" name="outcome_group"
                             context="{'group_by': 'outcome'}"/>
                     <filter string="Case" name="case_group"

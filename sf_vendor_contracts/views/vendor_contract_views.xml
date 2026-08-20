@@ -10,11 +10,11 @@
                 <header>
                     <button name="action_activate" type="object"
                             string="Activate" class="btn-primary"
-                            states="draft"/>
+                            invisible="[('state', 'not in', ('draft',))]"/>
                     <button name="action_renew" type="object"
-                            string="Renew" states="active,expiring,expired"/>
+                            string="Renew" invisible="[('state', 'not in', ('active', 'expiring', 'expired'))]"/>
                     <button name="action_cancel" type="object"
-                            string="Cancel" states="active,expiring"/>
+                            string="Cancel" invisible="[('state', 'not in', ('active', 'expiring'))]"/>
                     <field name="state" widget="statusbar"/>
                 </header>
                 <sheet>
@@ -110,7 +110,7 @@
                 <field name="amount_total"/>
                 <field name="state"/>
                 <templates>
-                    <t t-name="kanban-box">
+                    <t t-name="card">
                         <div class="oe_kanban_global_click">
                             <div class="o_kanban_record_title">
                                 <span class="o_kanban_record_headings">
@@ -148,7 +148,7 @@
                         domain="[('state', '=', 'expiring')]"/>
                 <filter name="expired" string="Expired"
                         domain="[('state', '=', 'expired')]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter name="group_state" string="Status"
                             context="{'group_by': 'state'}"/>
                     <filter name="group_partner" string="Supplier"

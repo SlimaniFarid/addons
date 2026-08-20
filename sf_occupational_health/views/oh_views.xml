@@ -102,7 +102,7 @@
                         domain="[('next_due_date', '!=', False)]"/>
                 <filter string="Unfit" name="unfit"
                         domain="[('last_aptitude', '=', 'inapt')]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="Status" name="state_group"
                             context="{'group_by': 'state'}"/>
                     <filter string="Aptitude" name="aptitude_group"
@@ -210,7 +210,7 @@
                         domain="[('state', '=', 'done')]"/>
                 <filter string="Planned / Scheduled" name="planned"
                         domain="[('state', 'in', ('planned', 'scheduled'))]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="Type" name="type_group"
                             context="{'group_by': 'visit_type'}"/>
                     <filter string="Status" name="state_group"

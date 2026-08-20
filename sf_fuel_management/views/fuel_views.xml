@@ -68,7 +68,7 @@
                 <field name="card_id"/>
                 <filter string="Electric" name="electric"
                         domain="[('fuel_type', '=', 'electric')]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="Fuel type" name="fuel_type_group"
                             context="{'group_by': 'fuel_type'}"/>
                     <filter string="Brand" name="brand_group"
@@ -90,7 +90,7 @@
                 <field name="fuel_type"/>
                 <field name="card_id"/>
                 <templates>
-                    <t t-name="kanban-box">
+                    <t t-name="card">
                         <div class="oe_kanban_global_click">
                             <div class="o_kanban_record_title">
                                 <field name="name"/>
@@ -185,7 +185,7 @@
                         domain="[('state', '=', 'blocked')]"/>
                 <filter string="Expired" name="expired_filter"
                         domain="[('state', '=', 'expired')]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="Status" name="state_group"
                             context="{'group_by': 'state'}"/>
                     <filter string="Vehicle" name="vehicle_group"
@@ -206,7 +206,7 @@
                 <field name="state"/>
                 <field name="expiry_date"/>
                 <templates>
-                    <t t-name="kanban-box">
+                    <t t-name="card">
                         <div class="oe_kanban_global_click">
                             <div class="o_kanban_record_title">
                                 <field name="name"/>
@@ -308,7 +308,7 @@
                         domain="[('state', '=', 'recorded')]"/>
                 <filter string="Done" name="done"
                         domain="[('state', '=', 'done')]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="Vehicle" name="vehicle_group"
                             context="{'group_by': 'vehicle_id'}"/>
                     <filter string="Status" name="state_group"
@@ -332,7 +332,7 @@
                 <field name="total"/>
                 <field name="consumption"/>
                 <templates>
-                    <t t-name="kanban-box">
+                    <t t-name="card">
                         <div class="oe_kanban_global_click">
                             <div class="o_kanban_record_title">
                                 <field name="name"/>
@@ -422,7 +422,7 @@
             <search string="Tanks">
                 <field name="site"/>
                 <field name="fuel_type"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="Site" name="site_group"
                             context="{'group_by': 'site'}"/>
                     <filter string="Fuel type" name="fuel_type_group"
@@ -443,7 +443,7 @@
                 <field name="capacity"/>
                 <field name="current_level"/>
                 <templates>
-                    <t t-name="kanban-box">
+                    <t t-name="card">
                         <div class="oe_kanban_global_click">
                             <div class="o_kanban_record_title">
                                 <field name="name"/>
@@ -521,7 +521,7 @@
                 <field name="tank_id"/>
                 <field name="supplier"/>
                 <field name="receipt_date"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="Tank" name="tank_group"
                             context="{'group_by': 'tank_id'}"/>
                     <filter string="Month" name="month_group"

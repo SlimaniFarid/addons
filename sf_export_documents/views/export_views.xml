@@ -101,7 +101,7 @@
                         domain="[('state', '=', 'in_preparation')]"/>
                 <filter string="Complete" name="complete"
                         domain="[('completeness', '=', 4)]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="Status" name="state_group"
                             context="{'group_by': 'state'}"/>
                     <filter string="Destination" name="destination_group"
@@ -121,7 +121,7 @@
                 <field name="incoterm_id"/>
                 <field name="completeness"/>
                 <templates>
-                    <t t-name="kanban-box">
+                    <t t-name="card">
                         <div class="oe_kanban_global_click">
                             <div class="o_kanban_record_title">
                                 <field name="name"/>

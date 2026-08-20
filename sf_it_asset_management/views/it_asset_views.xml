@@ -9,23 +9,23 @@
             <form string="IT Asset">
                 <header>
                     <button name="action_to_stock" type="object"
-                            string="Mark In Stock" states="draft"/>
+                            string="Mark In Stock" invisible="[('state', 'not in', ('draft',))]"/>
                     <button name="action_assign" type="object"
                             string="Assign" class="btn-primary"
-                            states="in_stock"/>
+                            invisible="[('state', 'not in', ('in_stock',))]"/>
                     <button name="action_unassign" type="object"
-                            string="Unassign" states="assigned"/>
+                            string="Unassign" invisible="[('state', 'not in', ('assigned',))]"/>
                     <button name="action_to_maintenance" type="object"
                             string="To Maintenance"
-                            states="assigned"/>
+                            invisible="[('state', 'not in', ('assigned',))]"/>
                     <button name="action_from_maintenance" type="object"
                             string="Back In Stock"
-                            states="maintenance"/>
+                            invisible="[('state', 'not in', ('maintenance',))]"/>
                     <button name="action_retire" type="object"
-                            string="Retire" states="in_stock,maintenance"/>
+                            string="Retire" invisible="[('state', 'not in', ('in_stock', 'maintenance'))]"/>
                     <button name="action_report_lost" type="object"
                             string="Report Lost"
-                            states="in_stock,assigned,maintenance"/>
+                            invisible="[('state', 'not in', ('in_stock', 'assigned', 'maintenance'))]"/>
                     <field name="state" widget="statusbar"/>
                 </header>
                 <sheet>
@@ -47,7 +47,7 @@
                             <field name="company_id" groups="base.group_multi_company"/>
                         </group>
                     </group>
-                    <group string="Assignment" attrs="{'invisible': [('state', '!=', 'assigned')]}">
+                    <group string="Assignment" invisible="[('state', '!=', 'assigned')]">
                         <group>
                             <field name="assignee_id"/>
                             <field name="assignment_date"/>
@@ -95,7 +95,7 @@
                 <field name="category_id"/>
                 <field name="state"/>
                 <templates>
-                    <t t-name="kanban-box">
+                    <t t-name="card">
                         <div class="oe_kanban_global_click">
                             <div class="o_kanban_record_title">
                                 <span class="o_kanban_record_headings">
@@ -130,7 +130,7 @@
                         domain="[('state', '=', 'in_stock')]"/>
                 <filter name="warranty_soon" string="Warranty expiring"
                         domain="[('warranty_expiration', '!=', False), ('warranty_expiration', '&lt;=', 'relative', 30)]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter name="group_state" string="Status"
                             context="{'group_by': 'state'}"/>
                     <filter name="group_category" string="Category"
@@ -177,9 +177,9 @@
                 <header>
                     <button name="action_activate" type="object"
                             string="Activate" class="btn-primary"
-                            states="draft"/>
+                            invisible="[('state', 'not in', ('draft',))]"/>
                     <button name="action_renew" type="object"
-                            string="Renew" states="active,expiring"/>
+                            string="Renew" invisible="[('state', 'not in', ('active', 'expiring'))]"/>
                     <field name="state" widget="statusbar"/>
                 </header>
                 <sheet>

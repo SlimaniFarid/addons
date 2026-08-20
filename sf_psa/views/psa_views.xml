@@ -10,10 +10,10 @@
                 <header>
                     <button name="action_start" type="object"
                             string="Start" class="btn-primary"
-                            states="draft"/>
+                            invisible="[('state', 'not in', ('draft',))]"/>
                     <button name="action_close" type="object"
                             string="Close" class="btn-secondary"
-                            states="active"/>
+                            invisible="[('state', 'not in', ('active',))]"/>
                     <field name="state" widget="statusbar"/>
                 </header>
                 <sheet>

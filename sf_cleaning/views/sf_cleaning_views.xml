@@ -109,7 +109,7 @@
                         domain="[('state', '=', 'suspended')]"/>
                 <filter string="Overdue quality checks" name="overdue_contract"
                         domain="[('overdue_quality_check_count', '&gt;', 0)]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="Status" name="state_group"
                             context="{'group_by': 'state'}"/>
                     <filter string="Contract type" name="type_group"
@@ -194,7 +194,7 @@
                 <field name="name"/>
                 <field name="partner_id"/>
                 <field name="manager_id"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="Manager" name="manager_group"
                             context="{'group_by': 'manager_id'}"/>
                     <filter string="Client" name="partner_group"
@@ -308,7 +308,7 @@
                         domain="[('state', '=', 'invoiced')]"/>
                 <filter string="Unassigned agent" name="unassigned_schedule"
                         domain="[('agent_id', '=', False)]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="Status" name="state_group"
                             context="{'group_by': 'state'}"/>
                     <filter string="Site" name="site_group"
@@ -394,7 +394,7 @@
                         domain="[('state', '=', 'done')]"/>
                 <filter string="Redo required" name="redo_check"
                         domain="[('redo_required', '=', True)]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="Status" name="state_group"
                             context="{'group_by': 'state'}"/>
                     <filter string="Checker" name="checker_group"

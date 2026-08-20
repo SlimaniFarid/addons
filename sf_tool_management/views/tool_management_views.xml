@@ -8,10 +8,10 @@
         <field name="arch" type="xml">
             <form string="Tool">
                 <header>
-                    <button name="action_assign" type="object" string="Assign" class="btn-primary" states="available" groups="sf_tool_management.group_tool_custodian,sf_tool_management.group_tool_manager"/>
-                    <button name="action_return" type="object" string="Return" class="btn-secondary" states="assigned" groups="sf_tool_management.group_tool_custodian,sf_tool_management.group_tool_manager"/>
-                    <button name="action_send_calibration" type="object" string="Send to Calibration" class="btn-secondary" states="available,assigned"/>
-                    <button name="action_receive_calibration" type="object" string="Receive from Calibration" class="btn-primary" states="calibration" groups="sf_tool_management.group_tool_custodian,sf_tool_management.group_tool_manager"/>
+                    <button name="action_assign" type="object" string="Assign" class="btn-primary" invisible="[('state', 'not in', ('available',))]" groups="sf_tool_management.group_tool_custodian,sf_tool_management.group_tool_manager"/>
+                    <button name="action_return" type="object" string="Return" class="btn-secondary" invisible="[('state', 'not in', ('assigned',))]" groups="sf_tool_management.group_tool_custodian,sf_tool_management.group_tool_manager"/>
+                    <button name="action_send_calibration" type="object" string="Send to Calibration" class="btn-secondary" invisible="[('state', 'not in', ('available', 'assigned'))]"/>
+                    <button name="action_receive_calibration" type="object" string="Receive from Calibration" class="btn-primary" invisible="[('state', 'not in', ('calibration',))]" groups="sf_tool_management.group_tool_custodian,sf_tool_management.group_tool_manager"/>
                     <field name="state" widget="statusbar" statusbar_visible="available,assigned,calibration,maintenance,retired,lost"/>
                 </header>
                 <sheet>
@@ -39,7 +39,7 @@
                         <field name="specifications"/>
                     </group>
                     <notebook>
-                        <page string="Calibration" attrs="{'invisible': [('calibration_required', '=', False)]}">
+                        <page string="Calibration" invisible="[('calibration_required', '=', False)]">
                             <group>
                                 <group>
                                     <field name="calibration_required"/>
@@ -153,7 +153,7 @@
                 <field name="wear_status"/>
                 <field name="current_holder_id"/>
                 <templates>
-                    <t t-name="kanban-box">
+                    <t t-name="card">
                         <div class="oe_kanban_card">
                             <div class="oe_kanban_content">
                                 <div class="d-flex justify-content-between">
@@ -299,7 +299,7 @@
         <field name="arch" type="xml">
             <form string="Tool Assignment">
                 <header>
-                    <button name="action_return" type="object" string="Return" class="btn-primary" states="assigned"/>
+                    <button name="action_return" type="object" string="Return" class="btn-primary" invisible="[('state', 'not in', ('assigned',))]"/>
                     <field name="state" widget="statusbar"/>
                 </header>
                 <sheet>

@@ -91,7 +91,7 @@
                         domain="[('state', '=', 'active')]"/>
                 <filter string="Closed" name="closed_campaign"
                         domain="[('state', '=', 'closed')]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="Status" name="state_group"
                             context="{'group_by': 'state'}"/>
                 </group>
@@ -188,7 +188,7 @@
                         domain="[('state', '=', 'pending')]"/>
                 <filter string="Paid" name="paid_promise"
                         domain="[('state', '=', 'paid')]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="Status" name="state_group"
                             context="{'group_by': 'state'}"/>
                     <filter string="Campaign" name="campaign_group"
@@ -266,7 +266,7 @@
                 <field name="name"/>
                 <filter string="Received" name="received_payment"
                         domain="[('state', '=', 'received')]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="Status" name="state_group"
                             context="{'group_by': 'state'}"/>
                     <filter string="Method" name="method_group"
@@ -341,7 +341,7 @@
                 <field name="fiscal_ref"/>
                 <filter string="Issued" name="issued_receipt"
                         domain="[('state', '=', 'issued')]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="Status" name="state_group"
                             context="{'group_by': 'state'}"/>
                 </group>

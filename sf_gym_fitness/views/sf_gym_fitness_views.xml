@@ -255,7 +255,7 @@
                         domain="[('state', '=', 'expired')]"/>
                 <filter string="Paid" name="paid_subscription"
                         domain="[('paid', '=', True)]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="Status" name="state_group"
                             context="{'group_by': 'state'}"/>
                     <filter string="Plan" name="plan_group"
@@ -357,7 +357,7 @@
                         domain="[('state', '=', 'in_progress')]"/>
                 <filter string="Done" name="done_session"
                         domain="[('state', '=', 'done')]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="Status" name="state_group"
                             context="{'group_by': 'state'}"/>
                     <filter string="Lesson" name="lesson_group"
@@ -419,7 +419,7 @@
                 <field name="name"/>
                 <field name="session_id"/>
                 <field name="member_id"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="Session" name="session_group"
                             context="{'group_by': 'session_id'}"/>
                     <filter string="Member" name="member_group"
@@ -493,7 +493,7 @@
                 <field name="partner_id"/>
                 <filter string="Done" name="done_payment"
                         domain="[('state', '=', 'done')]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="Status" name="state_group"
                             context="{'group_by': 'state'}"/>
                     <filter string="Method" name="method_group"

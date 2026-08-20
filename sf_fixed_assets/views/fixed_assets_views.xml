@@ -49,13 +49,13 @@
                 <header>
                     <button name="action_generate_depreciation"
                             string="Generate Depreciation Plan" type="object"
-                            states="draft,in_use"/>
+                            invisible="[('state', 'not in', ('draft', 'in_use'))]"/>
                     <button name="action_in_use" string="In Use" type="object"
-                            states="draft"/>
+                            invisible="[('state', 'not in', ('draft',))]"/>
                     <button name="action_dispose" string="Dispose" type="object"
-                            states="in_use"/>
+                            invisible="[('state', 'not in', ('in_use',))]"/>
                     <button name="action_sold" string="Mark Sold" type="object"
-                            states="in_use"/>
+                            invisible="[('state', 'not in', ('in_use',))]"/>
                 </header>
                 <sheet>
                     <div class="oe_title">
@@ -134,7 +134,7 @@
                         domain="[('state','=','in_use')]"/>
                 <filter string="Fully Depreciated" name="fully"
                         domain="[('book_value','&lt;=','residual_value')]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="Category" name="category"
                             context="{'group_by':'category_id'}"/>
                     <filter string="Status" name="state"

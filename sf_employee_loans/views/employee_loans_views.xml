@@ -10,19 +10,19 @@
                 <header>
                     <button name="action_submit" type="object"
                             string="Submit" class="btn-primary"
-                            states="draft"/>
+                            invisible="[('state', 'not in', ('draft',))]"/>
                     <button name="action_approve" type="object"
                             string="Approve" class="btn-primary"
-                            states="submitted"/>
+                            invisible="[('state', 'not in', ('submitted',))]"/>
                     <button name="action_reject" type="object"
-                            string="Reject" states="submitted"/>
+                            string="Reject" invisible="[('state', 'not in', ('submitted',))]"/>
                     <button name="action_validate" type="object"
                             string="Activate Loan" class="btn-primary"
-                            states="approved"/>
+                            invisible="[('state', 'not in', ('approved',))]"/>
                     <button name="action_close" type="object"
-                            string="Close" states="active"/>
+                            string="Close" invisible="[('state', 'not in', ('active',))]"/>
                     <button name="action_cancel" type="object"
-                            string="Cancel" states="submitted,approved"/>
+                            string="Cancel" invisible="[('state', 'not in', ('submitted', 'approved'))]"/>
                     <field name="state" widget="statusbar"/>
                 </header>
                 <sheet>
@@ -110,7 +110,7 @@
                         domain="[('state', '=', 'active')]"/>
                 <filter name="draft" string="Draft"
                         domain="[('state', '=', 'draft')]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter name="group_state" string="Status"
                             context="{'group_by': 'state'}"/>
                     <filter name="group_employee" string="Employee"

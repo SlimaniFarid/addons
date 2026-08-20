@@ -10,15 +10,15 @@
                 <header>
                     <button name="action_plan" type="object"
                             string="Plan" class="btn-primary"
-                            states="draft"/>
+                            invisible="[('state', 'not in', ('draft',))]"/>
                     <button name="action_start" type="object"
                             string="Start Tour" class="btn-primary"
-                            states="planned"/>
+                            invisible="[('state', 'not in', ('planned',))]"/>
                     <button name="action_complete" type="object"
                             string="Complete" class="btn-primary"
-                            states="in_progress"/>
+                            invisible="[('state', 'not in', ('in_progress',))]"/>
                     <button name="action_cancel" type="object"
-                            string="Cancel" states="draft,planned"/>
+                            string="Cancel" invisible="[('state', 'not in', ('draft', 'planned'))]"/>
                     <field name="state" widget="statusbar"/>
                 </header>
                 <sheet>
@@ -88,7 +88,7 @@
                 <field name="salesperson_id"/>
                 <field name="state"/>
                 <templates>
-                    <t t-name="kanban-box">
+                    <t t-name="card">
                         <div class="oe_kanban_global_click">
                             <div class="o_kanban_record_title">
                                 <field name="name"/>
@@ -129,7 +129,7 @@
                         domain="[('state', '=', 'planned')]"/>
                 <filter name="in_progress" string="In Progress"
                         domain="[('state', '=', 'in_progress')]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter name="group_state" string="Status"
                             context="{'group_by': 'state'}"/>
                     <filter name="group_salesperson" string="Salesperson"
@@ -166,20 +166,20 @@
                 <header>
                     <button name="action_check_in" type="object"
                             string="Check-In" class="btn-primary"
-                            states="planned"/>
+                            invisible="[('state', 'not in', ('planned',))]"/>
                     <button name="action_check_out" type="object"
                             string="Check-Out" class="btn-primary"
-                            states="in_progress"/>
+                            invisible="[('state', 'not in', ('in_progress',))]"/>
                     <button name="action_create_order" type="object"
                             string="Create Order" class="btn-primary"
-                            states="done"/>
+                            invisible="[('state', 'not in', ('done',))]"/>
                     <button name="action_create_opportunity" type="object"
                             string="Create Opportunity" class="btn-primary"
-                            states="done"/>
+                            invisible="[('state', 'not in', ('done',))]"/>
                     <button name="action_mark_missed" type="object"
-                            string="Mark Missed" states="planned"/>
+                            string="Mark Missed" invisible="[('state', 'not in', ('planned',))]"/>
                     <button name="action_cancel_visit" type="object"
-                            string="Cancel" states="planned"/>
+                            string="Cancel" invisible="[('state', 'not in', ('planned',))]"/>
                     <field name="state" widget="statusbar"/>
                 </header>
                 <sheet>
@@ -230,7 +230,7 @@
                         domain="[('state', '=', 'done')]"/>
                 <filter name="missed" string="Missed"
                         domain="[('state', '=', 'missed')]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter name="group_state" string="Status"
                             context="{'group_by': 'state'}"/>
                     <filter name="group_result" string="Result"

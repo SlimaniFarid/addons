@@ -10,19 +10,19 @@
                 <header>
                     <button name="action_report" type="object"
                             string="Report" class="btn-primary"
-                            states="draft"/>
+                            invisible="[('state', 'not in', ('draft',))]"/>
                     <button name="action_start_investigation"
                             type="object" string="Start Investigation"
-                            class="btn-primary" states="reported"/>
+                            class="btn-primary" invisible="[('state', 'not in', ('reported',))]"/>
                     <button name="action_resolve" type="object"
                             string="Resolve" class="btn-primary"
-                            states="under_investigation"/>
+                            invisible="[('state', 'not in', ('under_investigation',))]"/>
                     <button name="action_reject" type="object"
                             string="Reject"
-                            states="reported,under_investigation"/>
+                            invisible="[('state', 'not in', ('reported', 'under_investigation'))]"/>
                     <button name="action_close" type="object"
                             string="Close"
-                            states="resolved,rejected"/>
+                            invisible="[('state', 'not in', ('resolved', 'rejected'))]"/>
                     <field name="state" widget="statusbar"/>
                 </header>
                 <sheet>
@@ -107,7 +107,7 @@
                 <field name="severity"/>
                 <field name="incident_date"/>
                 <templates>
-                    <t t-name="kanban-box">
+                    <t t-name="card">
                         <div class="oe_kanban_global_click">
                             <div class="o_kanban_record_title">
                                 <field name="name"/>
@@ -138,7 +138,7 @@
                         domain="[('severity', '=', 'critical')]"/>
                 <filter name="open" string="Open"
                         domain="[('state', 'not in', ('closed', 'rejected'))]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter name="group_state" string="Status"
                             context="{'group_by': 'state'}"/>
                     <filter name="group_type" string="Type"
@@ -172,9 +172,9 @@
                 <header>
                     <button name="action_do" type="object"
                             string="Complete" class="btn-primary"
-                            states="draft"/>
+                            invisible="[('state', 'not in', ('draft',))]"/>
                     <button name="action_close" type="object"
-                            string="Close" states="done"/>
+                            string="Close" invisible="[('state', 'not in', ('done',))]"/>
                     <field name="state" widget="statusbar"/>
                 </header>
                 <sheet>
@@ -367,7 +367,7 @@
                 <field name="risk_level"/>
                 <field name="risk_class"/>
                 <templates>
-                    <t t-name="kanban-box">
+                    <t t-name="card">
                         <div class="oe_kanban_global_click">
                             <div class="o_kanban_record_title">
                                 <field name="name"/>
@@ -394,7 +394,7 @@
                         domain="[('risk_class', '=', 'extreme')]"/>
                 <filter name="high" string="High"
                         domain="[('risk_class', '=', 'high')]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter name="group_class" string="Risk Class"
                             context="{'group_by': 'risk_class'}"/>
                     <filter name="group_category" string="Category"
@@ -413,18 +413,18 @@
                 <header>
                     <button name="action_submit" type="object"
                             string="Submit" class="btn-primary"
-                            states="draft"/>
+                            invisible="[('state', 'not in', ('draft',))]"/>
                     <button name="action_approve" type="object"
                             string="Approve" class="btn-primary"
-                            states="submitted"/>
+                            invisible="[('state', 'not in', ('submitted',))]"/>
                     <button name="action_start" type="object"
                             string="Start Work" class="btn-primary"
-                            states="approved"/>
+                            invisible="[('state', 'not in', ('approved',))]"/>
                     <button name="action_reject" type="object"
-                            string="Reject" states="submitted"/>
+                            string="Reject" invisible="[('state', 'not in', ('submitted',))]"/>
                     <button name="action_close" type="object"
                             string="Close"
-                            states="in_progress,approved"/>
+                            invisible="[('state', 'not in', ('in_progress', 'approved'))]"/>
                     <field name="state" widget="statusbar"/>
                 </header>
                 <sheet>
@@ -486,7 +486,7 @@
                 <field name="permit_type"/>
                 <filter name="active_permits" string="Active"
                         domain="[('state', '=', 'in_progress')]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter name="group_state" string="Status"
                             context="{'group_by': 'state'}"/>
                     <filter name="group_type" string="Type"

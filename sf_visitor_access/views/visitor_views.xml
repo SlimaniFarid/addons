@@ -101,7 +101,7 @@
                         domain="[('check_in', '!=', False), ('check_out', '=', False)]"/>
                 <filter string="Checked Out" name="checked_out"
                         domain="[('state', '=', 'checked_out')]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="Status" name="state_group"
                             context="{'group_by': 'state'}"/>
                     <filter string="Type" name="type_group"
@@ -124,7 +124,7 @@
                 <field name="gate_id"/>
                 <field name="badge_number"/>
                 <templates>
-                    <t t-name="kanban-box">
+                    <t t-name="card">
                         <div class="oe_kanban_global_click">
                             <div class="o_kanban_record_title">
                                 <field name="person_id"/>

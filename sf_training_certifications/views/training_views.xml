@@ -51,7 +51,7 @@
                 <field name="category_id"/>
                 <field name="mandatory"/>
                 <templates>
-                    <t t-name="kanban-box">
+                    <t t-name="card">
                         <div class="oe_kanban_global_click">
                             <div class="o_kanban_record_title">
                                 <span class="o_kanban_record_headings">
@@ -81,7 +81,7 @@
                         domain="[('mandatory', '=', True)]"/>
                 <filter name="inactive" string="Inactive"
                         domain="[('active', '=', False)]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter name="group_category" string="Category"
                             context="{'group_by': 'category_id'}"/>
                 </group>
@@ -124,14 +124,14 @@
             <form string="Training Session">
                 <header>
                     <button name="action_plan" type="object"
-                            string="Plan" states="draft"/>
+                            string="Plan" invisible="[('state', 'not in', ('draft',))]"/>
                     <button name="action_issue_certificates" type="object"
                             string="Issue Certificates" class="btn-primary"
-                            states="done"/>
+                            invisible="[('state', 'not in', ('done',))]"/>
                     <button name="action_done" type="object"
-                            string="Mark Done" states="planned"/>
+                            string="Mark Done" invisible="[('state', 'not in', ('planned',))]"/>
                     <button name="action_cancel" type="object"
-                            string="Cancel" states="draft,planned"/>
+                            string="Cancel" invisible="[('state', 'not in', ('draft', 'planned'))]"/>
                     <field name="state" widget="statusbar"/>
                 </header>
                 <sheet>
@@ -194,7 +194,7 @@
                 <field name="attendee_count"/>
                 <field name="state"/>
                 <templates>
-                    <t t-name="kanban-box">
+                    <t t-name="card">
                         <div class="oe_kanban_global_click">
                             <div class="o_kanban_record_title">
                                 <span class="o_kanban_record_headings">
@@ -228,7 +228,7 @@
                         domain="[('state', '=', 'planned')]"/>
                 <filter name="done" string="Done"
                         domain="[('state', '=', 'done')]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter name="group_training" string="Training"
                             context="{'group_by': 'training_id'}"/>
                     <filter name="group_state" string="Status"
@@ -246,9 +246,9 @@
             <form string="Certification">
                 <header>
                     <button name="action_issue" type="object"
-                            string="Issue" class="btn-primary" states="draft"/>
+                            string="Issue" class="btn-primary" invisible="[('state', 'not in', ('draft',))]"/>
                     <button name="action_renew" type="object"
-                            string="Renew" states="active,expiring"/>
+                            string="Renew" invisible="[('state', 'not in', ('active', 'expiring'))]"/>
                     <field name="state" widget="statusbar"/>
                 </header>
                 <sheet>
@@ -309,7 +309,7 @@
                         domain="[('state', '=', 'expiring')]"/>
                 <filter name="expired" string="Expired"
                         domain="[('state', '=', 'expired')]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter name="group_state" string="Status"
                             context="{'group_by': 'state'}"/>
                     <filter name="group_training" string="Training"

@@ -49,7 +49,7 @@
                 <field name="name"/>
                 <field name="chairperson_id"/>
                 <filter string="Active" name="active" domain="[('active', '=', True)]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="Type" name="type_group"
                             context="{'group_by': 'org_type'}"/>
                 </group>
@@ -67,7 +67,7 @@
                 <field name="chairperson_id"/>
                 <field name="notice_days"/>
                 <templates>
-                    <t t-name="kanban-box">
+                    <t t-name="card">
                         <div class="oe_kanban_global_click">
                             <div class="o_kanban_record_title">
                                 <field name="name"/>
@@ -190,7 +190,7 @@
                         domain="[('state', '=', 'in_progress')]"/>
                 <filter string="Done" name="done"
                         domain="[('state', '=', 'done')]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="Status" name="state_group"
                             context="{'group_by': 'state'}"/>
                     <filter string="Convocation" name="convocation_group"
@@ -213,7 +213,7 @@
                 <field name="notice_date"/>
                 <field name="convocation_state"/>
                 <templates>
-                    <t t-name="kanban-box">
+                    <t t-name="card">
                         <div class="oe_kanban_global_click">
                             <div class="o_kanban_record_title">
                                 <field name="name"/>
@@ -303,7 +303,7 @@
                 <field name="subject"/>
                 <filter string="Adopted" name="adopted"
                         domain="[('adopted', '=', True)]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="Meeting" name="meeting_group"
                             context="{'group_by': 'meeting_id'}"/>
                 </group>
@@ -321,7 +321,7 @@
                 <field name="subject"/>
                 <field name="adopted"/>
                 <templates>
-                    <t t-name="kanban-box">
+                    <t t-name="card">
                         <div class="oe_kanban_global_click">
                             <div class="o_kanban_record_title">
                                 No. <field name="number"/>
@@ -413,7 +413,7 @@
                         domain="[('state', '=', 'signed')]"/>
                 <filter string="Filed" name="filed"
                         domain="[('state', '=', 'filed')]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="Status" name="state_group"
                             context="{'group_by': 'state'}"/>
                 </group>
@@ -431,7 +431,7 @@
                 <field name="decision_date"/>
                 <field name="signatory_id"/>
                 <templates>
-                    <t t-name="kanban-box">
+                    <t t-name="card">
                         <div class="oe_kanban_global_click">
                             <div class="o_kanban_record_title">
                                 <field name="name"/>
@@ -513,7 +513,7 @@
                         domain="[('done', '=', False)]"/>
                 <filter string="Done" name="done"
                         domain="[('done', '=', True)]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="Type" name="type_group"
                             context="{'group_by': 'formality_type'}"/>
                     <filter string="Due Date" name="due_group"
@@ -534,7 +534,7 @@
                 <field name="reminder_days"/>
                 <field name="done"/>
                 <templates>
-                    <t t-name="kanban-box">
+                    <t t-name="card">
                         <div class="oe_kanban_global_click">
                             <div class="o_kanban_record_title">
                                 <field name="name"/>

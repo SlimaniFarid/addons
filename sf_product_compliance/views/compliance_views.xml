@@ -47,7 +47,7 @@
                 <field name="market"/>
                 <filter string="Mandatory" name="mandatory"
                         domain="[('mandatory', '=', True)]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="Market" name="market_group"
                             context="{'group_by': 'market'}"/>
                     <filter string="Mandatory" name="mandatory_group"
@@ -66,7 +66,7 @@
                 <field name="market"/>
                 <field name="mandatory"/>
                 <templates>
-                    <t t-name="kanban-box">
+                    <t t-name="card">
                         <div class="oe_kanban_global_click">
                             <div class="o_kanban_record_title">
                                 <field name="code"/>
@@ -153,7 +153,7 @@
                         domain="[('state', '=', 'satisfied')]"/>
                 <filter string="Not Satisfied" name="not_satisfied"
                         domain="[('state', '=', 'not_satisfied')]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="State" name="state_group"
                             context="{'group_by': 'state'}"/>
                     <filter string="Product" name="product_group"
@@ -175,7 +175,7 @@
                 <field name="requirement"/>
                 <field name="state"/>
                 <templates>
-                    <t t-name="kanban-box">
+                    <t t-name="card">
                         <div class="oe_kanban_global_click">
                             <div class="o_kanban_record_title">
                                 <field name="name"/>
@@ -270,7 +270,7 @@
                         domain="[('state', '=', 'compliant')]"/>
                 <filter string="Non Compliant" name="non_compliant"
                         domain="[('state', '=', 'non_compliant')]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="State" name="state_group"
                             context="{'group_by': 'state'}"/>
                     <filter string="Product" name="product_group"
@@ -292,7 +292,7 @@
                 <field name="version"/>
                 <field name="state"/>
                 <templates>
-                    <t t-name="kanban-box">
+                    <t t-name="card">
                         <div class="oe_kanban_global_click">
                             <div class="o_kanban_record_title">
                                 <field name="name"/>
@@ -377,7 +377,7 @@
                         domain="[('state', '=', 'active')]"/>
                 <filter string="Expired" name="expired"
                         domain="[('state', '=', 'expired')]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="State" name="state_group"
                             context="{'group_by': 'state'}"/>
                     <filter string="Product" name="product_group"
@@ -400,7 +400,7 @@
                 <field name="expiry_date"/>
                 <field name="state"/>
                 <templates>
-                    <t t-name="kanban-box">
+                    <t t-name="card">
                         <div class="oe_kanban_global_click">
                             <div class="o_kanban_record_title">
                                 <field name="certificate_number"/>

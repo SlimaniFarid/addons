@@ -3,11 +3,11 @@ from datetime import timedelta
 
 from odoo import fields
 from odoo.exceptions import UserError, ValidationError
-from odoo.tests import TransactionalCase, tagged
+from odoo.tests import TransactionCase, tagged
 
 
 @tagged('post_install', '-at_install')
-class TestProductionPlanning(TransactionalCase):
+class TestProductionPlanning(TransactionCase):
 
     def setUp(self):
         super().setUp()

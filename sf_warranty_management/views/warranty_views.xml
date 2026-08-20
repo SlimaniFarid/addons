@@ -45,7 +45,7 @@
         <field name="arch" type="xml">
             <search string="Warranties">
                 <field name="product_tmpl_id"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="Coverage" name="coverage_group"
                             context="{'group_by': 'coverage'}"/>
                 </group>
@@ -153,7 +153,7 @@
                         domain="[('eligible', '=', False)]"/>
                 <filter string="Open" name="open"
                         domain="[('state', '=', 'open')]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="Status" name="state_group"
                             context="{'group_by': 'state'}"/>
                     <filter string="Decision" name="decision_group"
@@ -173,7 +173,7 @@
                 <field name="serial_number"/>
                 <field name="eligible"/>
                 <templates>
-                    <t t-name="kanban-box">
+                    <t t-name="card">
                         <div class="oe_kanban_global_click">
                             <div class="o_kanban_record_title">
                                 <field name="name"/> - <field name="product_id"/>

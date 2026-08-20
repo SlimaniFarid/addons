@@ -63,7 +63,7 @@
                 <field name="license_plate"/>
                 <field name="brand"/>
                 <field name="owner"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="Brand" name="brand_group"
                             context="{'group_by': 'brand'}"/>
                 </group>
@@ -143,7 +143,7 @@
                         domain="[('state', '=', 'draft')]"/>
                 <filter string="Urgent" name="urgent"
                         domain="[('priority', '=', 'urgent')]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="Priority" name="priority_group"
                             context="{'group_by': 'priority'}"/>
                     <filter string="Status" name="state_group"
@@ -259,7 +259,7 @@
                         domain="[('state', '=', 'in_progress')]"/>
                 <filter string="Overdue" name="overdue"
                         domain="[('planned_end', '!=', False), ('state', 'not in', ['done', 'closed'])]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="Status" name="state_group"
                             context="{'group_by': 'state'}"/>
                     <filter string="Vehicle" name="vehicle_group"

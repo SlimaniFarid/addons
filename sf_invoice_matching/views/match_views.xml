@@ -59,7 +59,7 @@
                         domain="[('state', '=', 'open')]"/>
                 <filter string="Major" name="major"
                         domain="[('severity', '=', 'major')]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="Status" name="state_group"
                             context="{'group_by': 'state'}"/>
                     <filter string="Severity" name="severity_group"

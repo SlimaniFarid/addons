@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 from odoo.exceptions import AccessError, UserError, ValidationError
-from odoo.tests import TransactionalCase, tagged
+from odoo.tests import TransactionCase, tagged
 from odoo import fields
 
 
 @tagged('post_install', '-at_install')
-class TestOccupationalHealth(TransactionalCase):
+class TestOccupationalHealth(TransactionCase):
 
     def setUp(self):
         super().setUp()

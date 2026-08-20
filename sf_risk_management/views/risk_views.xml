@@ -10,18 +10,18 @@
                 <header>
                     <button name="action_assess" type="object"
                             string="Assess" class="btn-primary"
-                            states="identified"/>
+                            invisible="[('state', 'not in', ('identified',))]"/>
                     <button name="action_plan_treatment" type="object"
                             string="Plan Treatment" class="btn-primary"
-                            states="assessed"/>
+                            invisible="[('state', 'not in', ('assessed',))]"/>
                     <button name="action_monitor" type="object"
                             string="Monitor" class="btn-primary"
-                            states="treatment_planned"/>
+                            invisible="[('state', 'not in', ('treatment_planned',))]"/>
                     <button name="action_close" type="object"
-                            string="Close" states="monitored,archived"/>
+                            string="Close" invisible="[('state', 'not in', ('monitored', 'archived'))]"/>
                     <button name="action_archive" type="object"
                             string="Archive"
-                            states="identified,assessed,treatment_planned,monitored"/>
+                            invisible="[('state', 'not in', ('identified', 'assessed', 'treatment_planned', 'monitored'))]"/>
                     <field name="state" widget="statusbar"/>
                 </header>
                 <sheet>
@@ -116,7 +116,7 @@
                 <field name="risk_score"/>
                 <field name="category"/>
                 <templates>
-                    <t t-name="kanban-box">
+                    <t t-name="card">
                         <div class="oe_kanban_global_click">
                             <div class="o_kanban_record_title">
                                 <field name="name"/>
@@ -147,7 +147,7 @@
                         domain="[('risk_class', '=', 'extreme')]"/>
                 <filter name="high" string="High"
                         domain="[('risk_class', '=', 'high')]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter name="group_class" string="Risk Class"
                             context="{'group_by': 'risk_class'}"/>
                     <filter name="group_category" string="Category"

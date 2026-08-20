@@ -125,7 +125,7 @@
                 <field name="author"/>
                 <field name="reference"/>
                 <field name="category_id"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="Media type" name="media_type_group"
                             context="{'group_by': 'media_type'}"/>
                     <filter string="Category" name="category_group"
@@ -215,7 +215,7 @@
                         domain="[('status', '=', 'active')]"/>
                 <filter string="Blocked" name="blocked_member"
                         domain="[('status', '=', 'blocked')]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="Status" name="status_group"
                             context="{'group_by': 'status'}"/>
                 </group>
@@ -302,7 +302,7 @@
                         domain="[('state', '=', 'returned')]"/>
                 <filter string="Late" name="late_loan"
                         domain="[('late_days', '>', 0)]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="Status" name="state_group"
                             context="{'group_by': 'state'}"/>
                     <filter string="Item" name="item_group"
@@ -385,7 +385,7 @@
                         domain="[('status', '=', 'waiting')]"/>
                 <filter string="Ready" name="ready_reservation"
                         domain="[('status', '=', 'ready')]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="Status" name="status_group"
                             context="{'group_by': 'status'}"/>
                     <filter string="Item" name="item_group"

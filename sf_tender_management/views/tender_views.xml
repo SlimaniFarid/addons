@@ -109,7 +109,7 @@
                         domain="[('state', '=', 'in_evaluation')]"/>
                 <filter string="Awarded" name="awarded"
                         domain="[('state', '=', 'awarded')]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="Status" name="state_group"
                             context="{'group_by': 'state'}"/>
                     <filter string="Type" name="type_group"
@@ -129,7 +129,7 @@
                 <field name="deadline"/>
                 <field name="buyer_id"/>
                 <templates>
-                    <t t-name="kanban-box">
+                    <t t-name="card">
                         <div class="oe_kanban_global_click">
                             <div class="o_kanban_record_title">
                                 <field name="name"/> - <field name="title"/>
@@ -221,7 +221,7 @@
             <search string="Offers">
                 <field name="partner_id"/>
                 <field name="tender_id"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="Status" name="state_group"
                             context="{'group_by': 'state'}"/>
                     <filter string="Supplier" name="partner_group"

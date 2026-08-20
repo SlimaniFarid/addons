@@ -72,7 +72,7 @@
                         domain="[('status', '=', 'occupied')]"/>
                 <filter string="Reserved" name="reserved"
                         domain="[('status', '=', 'reserved')]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="Status" name="status_group"
                             context="{'group_by': 'status'}"/>
                     <filter string="Type" name="type_group"
@@ -185,7 +185,7 @@
                         domain="[('status', '=', 'checked_in')]"/>
                 <filter string="Departing today" name="departing_today"
                         domain="[('check_out', '=', context_today()), ('status', '=', 'confirmed')]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="Status" name="status_group"
                             context="{'group_by': 'status'}"/>
                     <filter string="Check-in" name="checkin_group"

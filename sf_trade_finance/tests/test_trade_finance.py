@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 from odoo import fields
 from odoo.exceptions import UserError, ValidationError
-from odoo.tests import TransactionalCase, tagged
+from odoo.tests import TransactionCase, tagged
 
 
 @tagged('post_install', '-at_install')
-class TestTradeFinance(TransactionalCase):
+class TestTradeFinance(TransactionCase):
 
     def setUp(self):
         super().setUp()

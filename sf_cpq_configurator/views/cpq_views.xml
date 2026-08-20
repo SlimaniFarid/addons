@@ -144,7 +144,7 @@
             <form string="CPQ Configuration">
                 <header>
                     <button name="action_quote" string="Generate Quote"
-                            type="object" states="draft"/>
+                            type="object" invisible="[('state', 'not in', ('draft',))]"/>
                 </header>
                 <sheet>
                     <div class="oe_title">

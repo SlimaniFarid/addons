@@ -56,7 +56,7 @@
                         domain="[('state', '=', 'active')]"/>
                 <filter string="Closed" name="closed_filter"
                         domain="[('state', '=', 'closed')]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="Status" name="state_group"
                             context="{'group_by': 'state'}"/>
                 </group>
@@ -73,7 +73,7 @@
                 <field name="date_from"/>
                 <field name="date_to"/>
                 <templates>
-                    <t t-name="kanban-box">
+                    <t t-name="card">
                         <div class="oe_kanban_global_click">
                             <div class="o_kanban_record_title">
                                 <field name="name"/>
@@ -141,7 +141,7 @@
                 <field name="name"/>
                 <field name="year_id"/>
                 <field name="supervisor_id"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="Year" name="year_group"
                             context="{'group_by': 'year_id'}"/>
                     <filter string="Level" name="level_group"
@@ -160,7 +160,7 @@
                 <field name="year_id"/>
                 <field name="level"/>
                 <templates>
-                    <t t-name="kanban-box">
+                    <t t-name="card">
                         <div class="oe_kanban_global_click">
                             <div class="o_kanban_record_title">
                                 <field name="name"/>
@@ -231,7 +231,7 @@
             <search string="Teachers">
                 <field name="name"/>
                 <field name="email"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="Employee" name="employee_group"
                             context="{'group_by': 'employee_id'}"/>
                 </group>
@@ -249,7 +249,7 @@
                 <field name="phone"/>
                 <field name="employee_id"/>
                 <templates>
-                    <t t-name="kanban-box">
+                    <t t-name="card">
                         <div class="oe_kanban_global_click">
                             <div class="o_kanban_record_title">
                                 <field name="name"/>
@@ -339,7 +339,7 @@
                         domain="[('state', '=', 'active')]"/>
                 <filter string="Inactive" name="inactive_filter"
                         domain="[('state', '=', 'inactive')]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="Status" name="state_group"
                             context="{'group_by': 'state'}"/>
                     <filter string="Group" name="group_group"
@@ -359,7 +359,7 @@
                 <field name="email"/>
                 <field name="state"/>
                 <templates>
-                    <t t-name="kanban-box">
+                    <t t-name="card">
                         <div class="oe_kanban_global_click">
                             <div class="o_kanban_record_title">
                                 <field name="name"/>
@@ -429,7 +429,7 @@
                 <field name="name"/>
                 <field name="subject"/>
                 <field name="teacher_id"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="Teacher" name="teacher_group"
                             context="{'group_by': 'teacher_id'}"/>
                     <filter string="Subject" name="subject_group"
@@ -448,7 +448,7 @@
                 <field name="subject"/>
                 <field name="teacher_id"/>
                 <templates>
-                    <t t-name="kanban-box">
+                    <t t-name="card">
                         <div class="oe_kanban_global_click">
                             <div class="o_kanban_record_title">
                                 <field name="name"/>
@@ -517,7 +517,7 @@
                 <field name="student_id"/>
                 <field name="course_id"/>
                 <field name="year_id"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="Student" name="student_group"
                             context="{'group_by': 'student_id'}"/>
                     <filter string="Course" name="course_group"
@@ -540,7 +540,7 @@
                 <field name="year_id"/>
                 <field name="date"/>
                 <templates>
-                    <t t-name="kanban-box">
+                    <t t-name="card">
                         <div class="oe_kanban_global_click">
                             <div class="o_kanban_record_title">
                                 <field name="student_id"/>
@@ -624,7 +624,7 @@
                         domain="[('state', '=', 'draft')]"/>
                 <filter string="Confirmed" name="confirmed_filter"
                         domain="[('state', '=', 'confirmed')]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="Status" name="state_group"
                             context="{'group_by': 'state'}"/>
                     <filter string="Course" name="course_group"
@@ -646,7 +646,7 @@
                 <field name="coefficient"/>
                 <field name="period"/>
                 <templates>
-                    <t t-name="kanban-box">
+                    <t t-name="card">
                         <div class="oe_kanban_global_click">
                             <div class="o_kanban_record_title">
                                 <field name="student_id"/>
@@ -734,7 +734,7 @@
                         domain="[('justified', '=', True)]"/>
                 <filter string="Unjustified" name="unjustified_filter"
                         domain="[('justified', '=', False)]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="Status" name="state_group"
                             context="{'group_by': 'state'}"/>
                     <filter string="Reason" name="reason_group"
@@ -757,7 +757,7 @@
                 <field name="date"/>
                 <field name="reason"/>
                 <templates>
-                    <t t-name="kanban-box">
+                    <t t-name="card">
                         <div class="oe_kanban_global_click">
                             <div class="o_kanban_record_title">
                                 <field name="student_id"/>
@@ -849,7 +849,7 @@
                         domain="[('state', '=', 'partial')]"/>
                 <filter string="Paid" name="paid_filter"
                         domain="[('state', '=', 'paid')]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="Status" name="state_group"
                             context="{'group_by': 'state'}"/>
                     <filter string="Student" name="student_group"
@@ -875,7 +875,7 @@
                 <field name="state"/>
                 <field name="year_id"/>
                 <templates>
-                    <t t-name="kanban-box">
+                    <t t-name="card">
                         <div class="oe_kanban_global_click">
                             <div class="o_kanban_record_title">
                                 <field name="student_id"/>

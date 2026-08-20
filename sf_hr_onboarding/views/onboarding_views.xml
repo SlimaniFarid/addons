@@ -10,14 +10,14 @@
                 <header>
                     <button name="action_start" type="object"
                             string="Start" class="btn-primary"
-                            states="draft"/>
+                            invisible="[('state', 'not in', ('draft',))]"/>
                     <button name="action_complete" type="object"
                             string="Complete" class="btn-primary"
-                            states="in_progress"/>
+                            invisible="[('state', 'not in', ('in_progress',))]"/>
                     <button name="action_close" type="object"
-                            string="Close" states="completed"/>
+                            string="Close" invisible="[('state', 'not in', ('completed',))]"/>
                     <button name="action_cancel" type="object"
-                            string="Cancel" states="draft,in_progress"/>
+                            string="Cancel" invisible="[('state', 'not in', ('draft', 'in_progress'))]"/>
                     <field name="state" widget="statusbar"/>
                 </header>
                 <sheet>
@@ -73,7 +73,7 @@
                 <field name="key_date"/>
                 <field name="progress"/>
                 <templates>
-                    <t t-name="kanban-box">
+                    <t t-name="card">
                         <div class="oe_kanban_global_click">
                             <div class="o_kanban_record_title">
                                 <field name="employee_id"/>
@@ -124,7 +124,7 @@
                         domain="[('program_type', '=', 'onboarding')]"/>
                 <filter name="offboarding" string="Offboarding"
                         domain="[('program_type', '=', 'offboarding')]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter name="group_state" string="Status"
                             context="{'group_by': 'state'}"/>
                     <filter name="group_type" string="Type"
@@ -160,16 +160,16 @@
                 <header>
                     <button name="action_start_task" type="object"
                             string="Start" class="btn-primary"
-                            states="open"/>
+                            invisible="[('state', 'not in', ('open',))]"/>
                     <button name="action_mark_done" type="object"
                             string="Done" class="btn-primary"
-                            states="open,in_progress"/>
+                            invisible="[('state', 'not in', ('open', 'in_progress'))]"/>
                     <button name="action_skip" type="object"
-                            string="Skip" states="open"/>
+                            string="Skip" invisible="[('state', 'not in', ('open',))]"/>
                     <button name="action_mark_prepared" type="object"
-                            string="Mark Prepared" states="open,in_progress"/>
+                            string="Mark Prepared" invisible="[('state', 'not in', ('open', 'in_progress'))]"/>
                     <button name="action_mark_returned" type="object"
-                            string="Mark Returned" states="open,in_progress"/>
+                            string="Mark Returned" invisible="[('state', 'not in', ('open', 'in_progress'))]"/>
                 </header>
                 <sheet>
                     <div class="oe_title">
@@ -217,7 +217,7 @@
                         domain="[('state', '=', 'open')]"/>
                 <filter name="late" string="Late"
                         domain="[('due_date', '&lt;', context_today().strftime('%Y-%m-%d')), ('state', 'in', ('open', 'in_progress'))]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter name="group_state" string="Status"
                             context="{'group_by': 'state'}"/>
                     <filter name="group_responsible" string="Responsible"

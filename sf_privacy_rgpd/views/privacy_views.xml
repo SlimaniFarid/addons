@@ -93,7 +93,7 @@
                         domain="[('state', '!=', 'closed')]"/>
                 <filter string="Review due" name="review_due"
                         domain="[('next_review_date', '!=', False), ('next_review_date', '&lt;=', context_today())]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="Status" name="state_group"
                             context="{'group_by': 'state'}"/>
                     <filter string="Legal Basis" name="legal_basis_group"
@@ -115,7 +115,7 @@
                 <field name="legal_basis"/>
                 <field name="next_review_date"/>
                 <templates>
-                    <t t-name="kanban-box">
+                    <t t-name="card">
                         <div class="oe_kanban_global_click">
                             <div class="o_kanban_record_title">
                                 <field name="title"/>
@@ -190,7 +190,7 @@
                 <field name="name"/>
                 <field name="partner_id"/>
                 <field name="contract_ref"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="Country" name="country_group"
                             context="{'group_by': 'country'}"/>
                 </group>
@@ -207,7 +207,7 @@
                 <field name="partner_id"/>
                 <field name="contract_ref"/>
                 <templates>
-                    <t t-name="kanban-box">
+                    <t t-name="card">
                         <div class="oe_kanban_global_click">
                             <div class="o_kanban_record_title">
                                 <field name="name"/>
@@ -299,7 +299,7 @@
                         domain="[('state', '=', 'in_review')]"/>
                 <filter string="Approved" name="approved_filter"
                         domain="[('state', '=', 'approved')]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="Status" name="state_group"
                             context="{'group_by': 'state'}"/>
                     <filter string="Treatment" name="treatment_group"
@@ -319,7 +319,7 @@
                 <field name="likelihood"/>
                 <field name="severity"/>
                 <templates>
-                    <t t-name="kanban-box">
+                    <t t-name="card">
                         <div class="oe_kanban_global_click">
                             <div class="o_kanban_record_title">
                                 <field name="name"/>
@@ -413,7 +413,7 @@
                         domain="[('notification_status', '!=', 'reported')]"/>
                 <filter string="Open" name="open_filter"
                         domain="[('state', '!=', 'closed')]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="Status" name="state_group"
                             context="{'group_by': 'state'}"/>
                     <filter string="Risk" name="risk_group"
@@ -434,7 +434,7 @@
                 <field name="risk"/>
                 <field name="categories"/>
                 <templates>
-                    <t t-name="kanban-box">
+                    <t t-name="card">
                         <div class="oe_kanban_global_click">
                             <div class="o_kanban_record_title">
                                 <field name="name"/>
@@ -523,7 +523,7 @@
                 <field name="person_name"/>
                 <field name="request_type"/>
                 <field name="treatment_id"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="Status" name="state_group"
                             context="{'group_by': 'state'}"/>
                     <filter string="Request Type" name="type_group"
@@ -542,7 +542,7 @@
                 <field name="request_type"/>
                 <field name="deadline"/>
                 <templates>
-                    <t t-name="kanban-box">
+                    <t t-name="card">
                         <div class="oe_kanban_global_click">
                             <div class="o_kanban_record_title">
                                 <field name="person_name"/>

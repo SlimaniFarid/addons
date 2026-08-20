@@ -80,7 +80,7 @@
                 <field name="generic_name"/>
                 <field name="atc_code"/>
                 <filter string="Active" name="active" domain="[('active', '=', True)]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="Company" name="group_by_company" domain="[]" context="{'group_by': 'company_id'}"/>
                     <filter string="Form" name="group_by_form" domain="[]" context="{'group_by': 'form'}"/>
                 </group>
@@ -106,7 +106,7 @@
                 <field name="qty_available"/>
                 <field name="status"/>
                 <templates>
-                    <t t-name="kanban-box">
+                    <t t-name="card">
                         <div class="oe_kanban_global_click">
                             <div class="o_kanban_record_title">
                                 <strong><field name="name"/></strong>
@@ -213,7 +213,7 @@
                 <filter string="Expired" name="expired" domain="[('status', '=', 'expired')]"/>
                 <filter string="Withdrawn" name="withdrawn" domain="[('status', '=', 'withdrawn')]"/>
                 <filter string="Recalled" name="recalled" domain="[('status', '=', 'recalled')]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="Status" name="group_by_status" domain="[]" context="{'group_by': 'status'}"/>
                     <filter string="Product" name="group_by_product" domain="[]" context="{'group_by': 'product_id'}"/>
                     <filter string="Company" name="group_by_company" domain="[]" context="{'group_by': 'company_id'}"/>
@@ -382,7 +382,7 @@
                 <field name="dispensed_by"/>
                 <filter string="Done" name="done" domain="[('state', '=', 'done')]"/>
                 <filter string="Drafts" name="draft" domain="[('state', '=', 'draft')]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="Product" name="group_by_product" domain="[]" context="{'group_by': 'product_id'}"/>
                     <filter string="Date" name="group_by_date" domain="[]" context="{'group_by': 'dispensed_at'}"/>
                 </group>
@@ -449,7 +449,7 @@
                 <filter string="In" name="in" domain="[('movement_type', '=', 'in')]"/>
                 <filter string="Out" name="out" domain="[('movement_type', '=', 'out')]"/>
                 <filter string="Adjustments" name="adjustment" domain="[('movement_type', '=', 'adjustment')]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="Type" name="group_by_type" domain="[]" context="{'group_by': 'movement_type'}"/>
                     <filter string="Batch" name="group_by_batch" domain="[]" context="{'group_by': 'batch_id'}"/>
                 </group>

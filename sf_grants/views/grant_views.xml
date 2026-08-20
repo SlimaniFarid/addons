@@ -60,7 +60,7 @@
                         domain="[('funder_type', '=', 'european')]"/>
                 <filter string="State" name="funder_state"
                         domain="[('funder_type', '=', 'state')]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="Funder Type" name="funder_type_group"
                             context="{'group_by': 'funder_type'}"/>
                 </group>
@@ -76,7 +76,7 @@
                 <field name="funder"/>
                 <field name="funder_type"/>
                 <templates>
-                    <t t-name="kanban-box">
+                    <t t-name="card">
                         <div class="oe_kanban_global_click">
                             <div class="o_kanban_record_title">
                                 <field name="name"/> - <field name="funder"/>
@@ -172,7 +172,7 @@
                 <field name="title"/>
                 <filter string="Open" name="open"
                         domain="[('state', '=', 'open')]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="Status" name="state_group"
                             context="{'group_by': 'state'}"/>
                     <filter string="Program" name="program_group"
@@ -191,7 +191,7 @@
                 <field name="title"/>
                 <field name="deadline_date"/>
                 <templates>
-                    <t t-name="kanban-box">
+                    <t t-name="card">
                         <div class="oe_kanban_global_click">
                             <div class="o_kanban_record_title">
                                 <field name="name"/> - <field name="title"/>
@@ -312,7 +312,7 @@
                         domain="[('state', '=', 'approved')]"/>
                 <filter string="Pending" name="pending"
                         domain="[('state', 'in', ('draft', 'submitted'))]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="Status" name="state_group"
                             context="{'group_by': 'state'}"/>
                     <filter string="Program" name="program_group"
@@ -335,7 +335,7 @@
                 <field name="requested_amount"/>
                 <field name="granted_amount"/>
                 <templates>
-                    <t t-name="kanban-box">
+                    <t t-name="card">
                         <div class="oe_kanban_global_click">
                             <div class="o_kanban_record_title">
                                 <field name="name"/> - <field name="title"/>
@@ -425,7 +425,7 @@
                         domain="[('state', '=', 'claimed')]"/>
                 <filter string="Validated" name="validated"
                         domain="[('state', '=', 'validated')]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="Status" name="state_group"
                             context="{'group_by': 'state'}"/>
                     <filter string="Category" name="category_group"
@@ -444,7 +444,7 @@
                 <field name="category"/>
                 <field name="amount"/>
                 <templates>
-                    <t t-name="kanban-box">
+                    <t t-name="card">
                         <div class="oe_kanban_global_click">
                             <div class="o_kanban_record_title">
                                 <field name="name"/> - <field name="category"/>

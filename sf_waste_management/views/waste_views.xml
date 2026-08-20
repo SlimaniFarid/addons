@@ -82,7 +82,7 @@
                         domain="[('state', 'in', ('emitted', 'transferred')), ('reception_date', '=', False)]"/>
                 <filter string="Hazardous" name="hazardous"
                         domain="[('waste_code_id.hazardous', '=', True)]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="Status" name="state_group"
                             context="{'group_by': 'state'}"/>
                     <filter string="Site" name="site_group"
@@ -101,7 +101,7 @@
                 <field name="waste_code_id"/>
                 <field name="quantity_kg"/>
                 <templates>
-                    <t t-name="kanban-box">
+                    <t t-name="card">
                         <div class="oe_kanban_global_click">
                             <div class="o_kanban_record_title">
                                 <field name="name"/>

@@ -2,11 +2,11 @@
 from datetime import timedelta
 
 from odoo.exceptions import UserError, ValidationError
-from odoo.tests import TransactionalCase, tagged
+from odoo.tests import TransactionCase, tagged
 
 
 @tagged('post_install', '-at_install')
-class TestWasteManagement(TransactionalCase):
+class TestWasteManagement(TransactionCase):
 
     def setUp(self):
         super().setUp()

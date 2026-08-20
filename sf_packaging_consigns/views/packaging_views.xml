@@ -78,7 +78,7 @@
                 <field name="product_name"/>
                 <field name="deposit_amount"/>
                 <templates>
-                    <t t-name="kanban-box">
+                    <t t-name="card">
                         <div class="oe_kanban_global_click">
                             <div class="o_kanban_record_title">
                                 <field name="name"/>
@@ -159,7 +159,7 @@
                 <field name="name"/>
                 <field name="address"/>
                 <templates>
-                    <t t-name="kanban-box">
+                    <t t-name="card">
                         <div class="oe_kanban_global_click">
                             <div class="o_kanban_record_title">
                                 <field name="name"/>
@@ -231,7 +231,7 @@
                 <field name="site_id"/>
                 <filter string="Under minimum stock" name="low_stock"
                         domain="[('low_stock', '=', True)]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="Packaging Type" name="type_group"
                             context="{'group_by': 'packaging_type_id'}"/>
                     <filter string="Site" name="site_group"
@@ -251,7 +251,7 @@
                 <field name="site_id"/>
                 <field name="available_quantity"/>
                 <templates>
-                    <t t-name="kanban-box">
+                    <t t-name="card">
                         <div class="oe_kanban_global_click">
                             <div class="o_kanban_record_title">
                                 <field name="packaging_type_id"/>
@@ -344,7 +344,7 @@
                         domain="[('state', '=', 'done')]"/>
                 <filter string="Closed" name="closed"
                         domain="[('state', '=', 'closed')]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="Status" name="state_group"
                             context="{'group_by': 'state'}"/>
                     <filter string="Packaging Type" name="type_group"
@@ -369,7 +369,7 @@
                 <field name="deposit_total"/>
                 <field name="state"/>
                 <templates>
-                    <t t-name="kanban-box">
+                    <t t-name="card">
                         <div class="oe_kanban_global_click">
                             <div class="o_kanban_record_title">
                                 <field name="name"/>
@@ -463,7 +463,7 @@
                         domain="[('state', '=', 'received')]"/>
                 <filter string="Checked" name="checked"
                         domain="[('state', '=', 'checked')]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="Status" name="state_group"
                             context="{'group_by': 'state'}"/>
                     <filter string="Packaging Type" name="type_group"
@@ -486,7 +486,7 @@
                 <field name="deposit_total"/>
                 <field name="state"/>
                 <templates>
-                    <t t-name="kanban-box">
+                    <t t-name="card">
                         <div class="oe_kanban_global_click">
                             <div class="o_kanban_record_title">
                                 <field name="name"/>

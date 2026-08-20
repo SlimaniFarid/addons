@@ -136,7 +136,7 @@
                         domain="[('state', '=', 'active')]"/>
                 <filter string="Closed" name="closed"
                         domain="[('state', '=', 'closed')]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="Status" name="state_group"
                             context="{'group_by': 'state'}"/>
                     <filter string="Bank" name="bank_group"
@@ -158,7 +158,7 @@
                 <field name="amount"/>
                 <field name="remaining_balance"/>
                 <templates>
-                    <t t-name="kanban-box">
+                    <t t-name="card">
                         <div class="oe_kanban_global_click">
                             <div class="o_kanban_record_title">
                                 <field name="name"/>
@@ -246,7 +246,7 @@
                 <field name="contact"/>
                 <field name="phone"/>
                 <templates>
-                    <t t-name="kanban-box">
+                    <t t-name="card">
                         <div class="oe_kanban_global_click">
                             <div class="o_kanban_record_title">
                                 <field name="name"/>
@@ -368,7 +368,7 @@
                 <field name="loan_id"/>
                 <field name="date"/>
                 <field name="reference"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="Loan" name="loan_group"
                             context="{'group_by': 'loan_id'}"/>
                     <filter string="Date" name="date_group"
@@ -388,7 +388,7 @@
                 <field name="amount"/>
                 <field name="date"/>
                 <templates>
-                    <t t-name="kanban-box">
+                    <t t-name="card">
                         <div class="oe_kanban_global_click">
                             <div class="o_kanban_record_title">
                                 <field name="name"/>
@@ -468,7 +468,7 @@
                 <field name="loan_id"/>
                 <field name="date"/>
                 <field name="reason"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="Loan" name="loan_group"
                             context="{'group_by': 'loan_id'}"/>
                     <filter string="Status" name="state_group"
@@ -488,7 +488,7 @@
                 <field name="amount"/>
                 <field name="date"/>
                 <templates>
-                    <t t-name="kanban-box">
+                    <t t-name="card">
                         <div class="oe_kanban_global_click">
                             <div class="o_kanban_record_title">
                                 <field name="name"/>
@@ -586,7 +586,7 @@
                         domain="[('state', '=', 'breached')]"/>
                 <filter string="Active" name="active"
                         domain="[('state', '=', 'active')]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="Loan" name="loan_group"
                             context="{'group_by': 'loan_id'}"/>
                     <filter string="Status" name="state_group"
@@ -608,7 +608,7 @@
                 <field name="covenant_name"/>
                 <field name="current_value"/>
                 <templates>
-                    <t t-name="kanban-box">
+                    <t t-name="card">
                         <div class="oe_kanban_global_click">
                             <div class="o_kanban_record_title">
                                 <field name="covenant_name"/>
