@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem id="menu_sf_hotel_root" name="Hotel PMS" sequence="88" web_icon="sf_hotel_pms,static/description/icon.png"/>
+
+    <menuitem id="menu_sf_hotel_rooms" name="Rooms"
+              parent="menu_sf_hotel_root"
+              action="action_sf_hotel_room"
+              sequence="10"/>
+
+    <menuitem id="menu_sf_hotel_reservations" name="Reservations"
+              parent="menu_sf_hotel_root"
+              action="action_sf_hotel_reservation"
+              sequence="20"/>
+
+    <menuitem id="menu_sf_hotel_extras" name="Extras"
+              parent="menu_sf_hotel_root"
+              action="action_sf_hotel_extra"
+              sequence="30"/>
+
+    <menuitem id="menu_sf_hotel_housekeeping" name="Housekeeping"
+              parent="menu_sf_hotel_root"
+              action="action_sf_hotel_housekeeping"
+              sequence="40"/>
+
+</odoo>

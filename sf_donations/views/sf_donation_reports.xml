@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="report_sf_donation_campaign" model="ir.actions.report">
+        <field name="name">Donation Campaign</field>
+        <field name="model">sf.donation.campaign</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">sf_donations.sf_donation_campaign_template</field>
+        <field name="report_file">sf_donations.sf_donation_campaign_template</field>
+        <field name="binding_model_id" ref="model_sf_donation_campaign"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="sf_donation_campaign_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2>Donation Campaign</h2>
+                        <table class="table table-sm">
+                            <tr><td><strong>Number</strong></td><td><t t-esc="o.name"/></td></tr>
+                            <tr><td><strong>Title</strong></td><td><t t-esc="o.title"/></td></tr>
+                            <tr><td><strong>Target amount</strong></td><td><t t-esc="o.target_amount"/></td></tr>
+                            <tr><td><strong>Collected amount</strong></td><td><t t-esc="o.collected_amount"/></td></tr>
+                            <tr><td><strong>Start date</strong></td><td><t t-esc="o.start_date or ''"/></td></tr>
+                            <tr><td><strong>End date</strong></td><td><t t-esc="o.end_date or ''"/></td></tr>
+                            <tr><td><strong>Status</strong></td><td><t t-esc="o.state"/></td></tr>
+                        </table>
+                        <h4>Promises</h4>
+                        <table class="table table-sm">
+                            <thead>
+                                <tr>
+                                    <th>Number</th>
+                                    <th>Donor</th>
+                                    <th>Amount</th>
+                                    <th>Paid</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <t t-foreach="o.promise_ids" t-as="promise">
+                                <tr>
+                                    <td><t t-esc="promise.name"/></td>
+                                    <td><t t-esc="promise.donor or ''"/></td>
+                                    <td><t t-esc="promise.amount"/></td>
+                                    <td><t t-esc="promise.paid_amount"/></td>
+                                    <td><t t-esc="promise.state"/></td>
+                                </tr>
+                            </t>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <record id="report_sf_donation_receipt_register" model="ir.actions.report">
+        <field name="name">Receipt Register</field>
+        <field name="model">sf.donation.receipt</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">sf_donations.sf_donation_receipt_register_template</field>
+        <field name="report_file">sf_donations.sf_donation_receipt_register_template</field>
+        <field name="binding_model_id" ref="model_sf_donation_receipt"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="sf_donation_receipt_register_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2>Receipt Register</h2>
+                        <table class="table table-sm">
+                            <thead>
+                                <tr>
+                                    <th>Number</th>
+                                    <th>Donor</th>
+                                    <th>Date</th>
+                                    <th>Amount</th>
+                                    <th>Fiscal reference</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <t t-foreach="docs" t-as="receipt">
+                                <tr>
+                                    <td><t t-esc="receipt.name"/></td>
+                                    <td><t t-esc="receipt.donor or ''"/></td>
+                                    <td><t t-esc="receipt.receipt_date or ''"/></td>
+                                    <td><t t-esc="receipt.amount"/></td>
+                                    <td><t t-esc="receipt.fiscal_ref or ''"/></td>
+                                    <td><t t-esc="receipt.state"/></td>
+                                </tr>
+                            </t>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

@@ -1,0 +1,11 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_workshop_vehicle_user,sf.workshop.vehicle.user,model_sf_workshop_vehicle,group_sf_workshop_user,1,1,1,0
+access_workshop_vehicle_manager,sf.workshop.vehicle.manager,model_sf_workshop_vehicle,group_sf_workshop_manager,1,1,1,1
+access_workshop_request_user,sf.workshop.request.user,model_sf_workshop_request,group_sf_workshop_user,1,1,1,0
+access_workshop_request_manager,sf.workshop.request.manager,model_sf_workshop_request,group_sf_workshop_manager,1,1,1,1
+access_workshop_order_user,sf.workshop.order.user,model_sf_workshop_order,group_sf_workshop_user,1,1,1,0
+access_workshop_order_manager,sf.workshop.order.manager,model_sf_workshop_order,group_sf_workshop_manager,1,1,1,1
+access_workshop_operation_user,sf.workshop.operation.user,model_sf_workshop_operation,group_sf_workshop_user,1,1,1,0
+access_workshop_operation_manager,sf.workshop.operation.manager,model_sf_workshop_operation,group_sf_workshop_manager,1,1,1,1
+access_workshop_part_user,sf.workshop.part.user,model_sf_workshop_part,group_sf_workshop_user,1,1,1,0
+access_workshop_part_manager,sf.workshop.part.manager,model_sf_workshop_part,group_sf_workshop_manager,1,1,1,1

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="sf_donation_config_settings" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.sf.donation</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="inside">
+                <app data-string="Donations &amp; Charity"
+                     string="Donations &amp; Charity"
+                     name="sf_donations">
+                    <block title="Pledge Reminders">
+                        <setting string="Pledge Reminder Days"
+                                 help="Number of days after the pledge date before an unpaid pledge is automatically reminded by the daily cron.">
+                            <field name="sf_donation_reminder_days"/>
+                        </setting>
+                    </block>
+                </app>
+            </xpath>
+        </field>
+    </record>
+</odoo>

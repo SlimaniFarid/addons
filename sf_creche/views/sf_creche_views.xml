@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_creche_child_tree" model="ir.ui.view">
+        <field name="name">sf.creche.child.tree</field>
+        <field name="model">sf.creche.child</field>
+        <field name="arch" type="xml">
+            <tree string="Children">
+                <field name="name"/>
+                <field name="firstname"/>
+                <field name="lastname"/>
+                <field name="dob"/>
+                <field name="parents"/>
+                <field name="emergency_phone"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_creche_child_form" model="ir.ui.view">
+        <field name="name">sf.creche.child.form</field>
+        <field name="model">sf.creche.child</field>
+        <field name="arch" type="xml">
+            <form string="Child">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="firstname"/>
+                            <field name="lastname"/>
+                            <field name="dob"/>
+                        </group>
+                        <group>
+                            <field name="parents"/>
+                            <field name="emergency_phone"/>
+                            <field name="active"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <field name="allergies"/>
+                    <notebook>
+                        <page string="Enrollments">
+                            <field name="enrollment_ids" readonly="1">
+                                <tree string="Enrollments">
+                                    <field name="name"/>
+                                    <field name="room_id"/>
+                                    <field name="enrollment_date"/>
+                                    <field name="end_date"/>
+                                    <field name="schedule"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Attendances">
+                            <field name="attendance_ids" readonly="1">
+                                <tree string="Attendances">
+                                    <field name="name"/>
+                                    <field name="date"/>
+                                    <field name="arrival_time"/>
+                                    <field name="departure_time"/>
+                                    <field name="hours"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_creche_child" model="ir.actions.act_window">
+        <field name="name">Children</field>
+        <field name="res_model">sf.creche.child</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="view_creche_room_tree" model="ir.ui.view">
+        <field name="name">sf.creche.room.tree</field>
+        <field name="model">sf.creche.room</field>
+        <field name="arch" type="xml">
+            <tree string="Rooms">
+                <field name="name"/>
+                <field name="capacity"/>
+                <field name="educator_ids" widget="many2many_tags"/>
+                <field name="state"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_creche_room_form" model="ir.ui.view">
+        <field name="name">sf.creche.room.form</field>
+        <field name="model">sf.creche.room</field>
+        <field name="arch" type="xml">
+            <form string="Room">
+                <header>
+                    <button name="action_done" type="object"
+                            string="Confirm Room" class="btn-primary"
+                            invisible="state != 'draft'"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="capacity"/>
+                        </group>
+                        <group>
+                            <field name="active"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <field name="educator_ids" widget="many2many_tags"/>
+                    <notebook>
+                        <page string="Enrollments">
+                            <field name="enrollment_ids" readonly="1">
+                                <tree string="Enrollments">
+                                    <field name="name"/>
+                                    <field name="child_id"/>
+                                    <field name="schedule"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_creche_room" model="ir.actions.act_window">
+        <field name="name">Rooms</field>
+        <field name="res_model">sf.creche.room</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="view_creche_enrollment_tree" model="ir.ui.view">
+        <field name="name">sf.creche.enrollment.tree</field>
+        <field name="model">sf.creche.enrollment</field>
+        <field name="arch" type="xml">
+            <tree string="Enrollments">
+                <field name="name"/>
+                <field name="child_id"/>
+                <field name="room_id"/>
+                <field name="enrollment_date"/>
+                <field name="end_date"/>
+                <field name="monthly_fee"/>
+                <field name="schedule"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_creche_enrollment_form" model="ir.ui.view">
+        <field name="name">sf.creche.enrollment.form</field>
+        <field name="model">sf.creche.enrollment</field>
+        <field name="arch" type="xml">
+            <form string="Enrollment">
+                <header>
+                    <button name="action_activate" type="object"
+                            string="Activate" class="btn-primary"
+                            invisible="state != 'draft'"/>
+                    <button name="action_end" type="object"
+                            string="End" class="btn-danger"
+                            invisible="state != 'active'"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="child_id"/>
+                            <field name="room_id"/>
+                        </group>
+                        <group>
+                            <field name="enrollment_date"/>
+                            <field name="end_date"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="schedule"/>
+                            <field name="monthly_fee"/>
+                        </group>
+                        <group>
+                            <field name="hourly_rate"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_creche_enrollment" model="ir.actions.act_window">
+        <field name="name">Enrollments</field>
+        <field name="res_model">sf.creche.enrollment</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="view_creche_attendance_tree" model="ir.ui.view">
+        <field name="name">sf.creche.attendance.tree</field>
+        <field name="model">sf.creche.attendance</field>
+        <field name="arch" type="xml">
+            <tree string="Attendances">
+                <field name="name"/>
+                <field name="child_id"/>
+                <field name="date"/>
+                <field name="arrival_time"/>
+                <field name="departure_time"/>
+                <field name="hours"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_creche_attendance_form" model="ir.ui.view">
+        <field name="name">sf.creche.attendance.form</field>
+        <field name="model">sf.creche.attendance</field>
+        <field name="arch" type="xml">
+            <form string="Attendance">
+                <header>
+                    <button name="action_done" type="object"
+                            string="Confirm" class="btn-primary"
+                            invisible="state != 'draft'"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="child_id"/>
+                            <field name="date"/>
+                        </group>
+                        <group>
+                            <field name="arrival_time"/>
+                            <field name="departure_time"/>
+                            <field name="hours"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_creche_attendance" model="ir.actions.act_window">
+        <field name="name">Attendances</field>
+        <field name="res_model">sf.creche.attendance</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="view_creche_billing_tree" model="ir.ui.view">
+        <field name="name">sf.creche.billing.tree</field>
+        <field name="model">sf.creche.billing</field>
+        <field name="arch" type="xml">
+            <tree string="Billings">
+                <field name="name"/>
+                <field name="child_id"/>
+                <field name="month"/>
+                <field name="hours"/>
+                <field name="hourly_rate"/>
+                <field name="amount"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_creche_billing_form" model="ir.ui.view">
+        <field name="name">sf.creche.billing.form</field>
+        <field name="model">sf.creche.billing</field>
+        <field name="arch" type="xml">
+            <form string="Billing">
+                <header>
+                    <button name="action_issue" type="object"
+                            string="Issue Invoice" class="btn-primary"
+                            invisible="state != 'draft'"/>
+                    <button name="action_pay" type="object"
+                            string="Mark Paid" class="btn-success"
+                            invisible="state != 'issued'"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="child_id"/>
+                            <field name="month"/>
+                        </group>
+                        <group>
+                            <field name="hours"/>
+                            <field name="hourly_rate"/>
+                            <field name="amount"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_creche_billing" model="ir.actions.act_window">
+        <field name="name">Billings</field>
+        <field name="res_model">sf.creche.billing</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

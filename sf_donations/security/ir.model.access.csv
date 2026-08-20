@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sf_donation_campaign_user,sf.donation.campaign.user,model_sf_donation_campaign,group_sf_donation_user,1,1,1,0
+access_sf_donation_campaign_manager,sf.donation.campaign.manager,model_sf_donation_campaign,group_sf_donation_manager,1,1,1,1
+access_sf_donation_promise_user,sf.donation.promise.user,model_sf_donation_promise,group_sf_donation_user,1,1,1,0
+access_sf_donation_promise_manager,sf.donation.promise.manager,model_sf_donation_promise,group_sf_donation_manager,1,1,1,1
+access_sf_donation_payment_user,sf.donation.payment.user,model_sf_donation_payment,group_sf_donation_user,1,1,1,0
+access_sf_donation_payment_manager,sf.donation.payment.manager,model_sf_donation_payment,group_sf_donation_manager,1,1,1,1
+access_sf_donation_receipt_user,sf.donation.receipt.user,model_sf_donation_receipt,group_sf_donation_user,1,1,1,0
+access_sf_donation_receipt_manager,sf.donation.receipt.manager,model_sf_donation_receipt,group_sf_donation_manager,1,1,1,1

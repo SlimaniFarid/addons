@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="report_repair_order" model="ir.actions.report">
+        <field name="name">Repair Order</field>
+        <field name="model">sf.workshop.order</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">sf_vehicle_workshop.repair_order_template</field>
+        <field name="report_file">sf_vehicle_workshop.repair_order_template</field>
+        <field name="binding_model_id" ref="model_sf_workshop_order"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="repair_order_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2>Repair Order <t t-esc="o.name"/></h2>
+                        <table class="table table-sm">
+                            <tr><td><strong>Vehicle</strong></td><td><t t-esc="o.vehicle_id.name"/></td></tr>
+                            <tr><td><strong>Request</strong></td><td><t t-esc="o.request_id.name or ''"/></td></tr>
+                            <tr><td><strong>Status</strong></td><td><t t-esc="o.state"/></td></tr>
+                            <tr><td><strong>Planned end</strong></td><td><t t-esc="o.planned_end or ''"/></td></tr>
+                            <tr><td><strong>Mechanics</strong></td><td><t t-esc="', '.join(o.mechanic_ids.mapped('name'))"/></td></tr>
+                        </table>
+                        <h4>Operations</h4>
+                        <table class="table table-sm">
+                            <tr><th>Type</th><th>Description</th><th>Hours</th></tr>
+                            <t t-foreach="o.operation_ids" t-as="op">
+                                <tr>
+                                    <td><t t-esc="op.operation_type"/></td>
+                                    <td><t t-esc="op.description or ''"/></td>
+                                    <td><t t-esc="op.hours"/></td>
+                                </tr>
+                            </t>
+                        </table>
+                        <h4>Parts</h4>
+                        <table class="table table-sm">
+                            <tr><th>Part</th><th>Quantity</th><th>Unit price</th><th>Total</th></tr>
+                            <t t-foreach="o.part_ids" t-as="part">
+                                <tr>
+                                    <td><t t-esc="part.part_name"/></td>
+                                    <td><t t-esc="part.quantity"/></td>
+                                    <td><t t-esc="part.unit_price"/></td>
+                                    <td><t t-esc="part.total"/></td>
+                                </tr>
+                            </t>
+                        </table>
+                        <table class="table table-sm">
+                            <tr><td><strong>Parts total</strong></td><td><t t-esc="o.parts_total"/></td></tr>
+                            <tr><td><strong>Labor total</strong></td><td><t t-esc="o.labor_total"/></td></tr>
+                            <tr><td><strong>Total cost</strong></td><td><t t-esc="o.total_cost"/></td></tr>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <record id="report_vehicle_cost" model="ir.actions.report">
+        <field name="name">Vehicle Cost</field>
+        <field name="model">sf.workshop.vehicle</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">sf_vehicle_workshop.vehicle_cost_template</field>
+        <field name="report_file">sf_vehicle_workshop.vehicle_cost_template</field>
+        <field name="binding_model_id" ref="model_sf_workshop_vehicle"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="vehicle_cost_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2>Vehicle Cost</h2>
+                        <table class="table table-sm">
+                            <tr><td><strong>Vehicle</strong></td><td><t t-esc="o.name"/></td></tr>
+                            <tr><td><strong>License plate</strong></td><td><t t-esc="o.license_plate or ''"/></td></tr>
+                            <tr><td><strong>Brand / Model</strong></td><td><t t-esc="o.brand or ''"/> <t t-esc="o.model or ''"/></td></tr>
+                        </table>
+                        <h4>Repair Orders</h4>
+                        <table class="table table-sm">
+                            <tr><th>Order</th><th>Status</th><th>Parts total</th><th>Labor total</th><th>Total cost</th></tr>
+                            <t t-foreach="o.order_ids" t-as="order">
+                                <tr>
+                                    <td><t t-esc="order.name"/></td>
+                                    <td><t t-esc="order.state"/></td>
+                                    <td><t t-esc="order.parts_total"/></td>
+                                    <td><t t-esc="order.labor_total"/></td>
+                                    <td><t t-esc="order.total_cost"/></td>
+                                </tr>
+                            </t>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+</odoo>
