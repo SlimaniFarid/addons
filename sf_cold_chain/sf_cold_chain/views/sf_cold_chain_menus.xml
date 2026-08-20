@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_sf_cold_chain_root"
+              name="Cold Chain"
+              sequence="34"
+              groups="sf_cold_chain.group_sf_cold_chain_user"
+              web_icon="sf_cold_chain,static/description/icon.png"/>
+    <menuitem id="menu_sf_cold_chain_readings"
+              name="Readings"
+              parent="menu_sf_cold_chain_root"
+              groups="sf_cold_chain.group_sf_cold_chain_user"
+              action="action_sf_cold_reading"
+              sequence="10"/>
+    <menuitem id="menu_sf_cold_chain_excursions"
+              name="Excursions"
+              parent="menu_sf_cold_chain_root"
+              groups="sf_cold_chain.group_sf_cold_chain_user"
+              action="action_sf_cold_excursion"
+              sequence="20"/>
+    <menuitem id="menu_sf_cold_chain_trips"
+              name="Trips"
+              parent="menu_sf_cold_chain_root"
+              groups="sf_cold_chain.group_sf_cold_chain_user"
+              action="action_sf_cold_trip"
+              sequence="30"/>
+    <menuitem id="menu_sf_cold_chain_sites"
+              name="Cold Storage Sites"
+              parent="menu_sf_cold_chain_root"
+              groups="sf_cold_chain.group_sf_cold_chain_user"
+              action="action_sf_cold_site"
+              sequence="40"/>
+</odoo>

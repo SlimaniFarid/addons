@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_sf_batch_records_root"
+              name="Batch Records"
+              sequence="25"
+              groups="sf_batch_records.group_sf_batch_records_user"
+              web_icon="sf_batch_records,static/description/icon.png"/>
+    <menuitem id="menu_sf_batch_records_records"
+              name="Batch Records"
+              parent="menu_sf_batch_records_root"
+              groups="sf_batch_records.group_sf_batch_records_user"
+              action="action_sf_batch_record"
+              sequence="10"/>
+</odoo>

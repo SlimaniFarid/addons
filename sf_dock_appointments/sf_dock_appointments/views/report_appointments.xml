@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_appointments">
+        <t t-call="web.html_container">
+            <t t-set="company" t-value="docs[0].company_id if docs else res_company"/>
+            <t t-call="web.external_layout">
+                <div class="page">
+                    <h2>Dock Appointment Schedule</h2>
+                    <t t-set="docks" t-value="docs.mapped('dock_id')"/>
+                    <t t-foreach="docks" t-as="dock">
+                        <h3><span t-field="dock.name"/></h3>
+                        <t t-set="dock_appointments" t-value="docs.filtered(lambda a: a.dock_id == dock)"/>
+                        <t t-set="dates" t-value="dock_appointments.mapped(lambda a: a.appointment_datetime.date())"/>
+                        <t t-foreach="dates" t-as="appt_date">
+                            <h4><span t-esc="appt_date"/></h4>
+                            <t t-set="day_appointments" t-value="dock_appointments.filtered(lambda a: a.appointment_datetime.date() == appt_date)"/>
+                            <table class="table table-sm">
+                                <tr><th>Appointment</th><th>Carrier</th><th>Direction</th><th>Window</th><th>Arrival</th><th>Departure</th><th>Delay</th><th>Status</th></tr>
+                                <tr t-foreach="day_appointments" t-as="a">
+                                    <td><span t-field="a.name"/></td>
+                                    <td><span t-field="a.partner_id"/></td>
+                                    <td><span t-field="a.direction"/></td>
+                                    <td><span t-field="a.appointment_datetime"/></td>
+                                    <td><span t-field="a.actual_arrival_datetime"/></td>
+                                    <td><span t-field="a.actual_departure_datetime"/></td>
+                                    <td><span t-field="a.delay_minutes"/></td>
+                                    <td><span t-field="a.state"/></td>
+                                </tr>
+                            </table>
+                        </t>
+                    </t>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

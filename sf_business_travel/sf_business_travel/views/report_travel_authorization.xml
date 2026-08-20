@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_travel_authorization">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-set="company" t-value="o.company_id or res_company"/>
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2>Travel Authorization</h2>
+                        <table class="table table-sm">
+                            <tr><th>Name</th><td><span t-field="o.name"/></td></tr>
+                            <tr><th>Employee</th><td><span t-field="o.employee_id"/></td></tr>
+                            <tr><th>Purpose</th><td><span t-field="o.purpose"/></td></tr>
+                            <tr><th>Destination</th><td><span t-field="o.destination"/></td></tr>
+                            <tr><th>Departure</th><td><span t-field="o.departure_date"/></td></tr>
+                            <tr><th>Return</th><td><span t-field="o.return_date"/></td></tr>
+                            <tr><th>Budget</th><td><span t-field="o.budget"/></td></tr>
+                            <tr><th>Estimated Cost</th><td><span t-field="o.estimated_cost"/></td></tr>
+                            <tr><th>Status</th><td><span t-field="o.state"/></td></tr>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form_cold_chain" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.cold.chain</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="inside">
+                <app data-string="Cold Chain" string="Cold Chain" name="sf_cold_chain">
+                    <block title="Cold Chain Settings">
+                        <setting string="Unresolved Excursion Alert After (Hours)">
+                            <field name="sf_cold_chain_alert_hours"/>
+                        </setting>
+                    </block>
+                </app>
+            </xpath>
+        </field>
+    </record>
+</odoo>

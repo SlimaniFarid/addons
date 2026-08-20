@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sf_business_travel_user,sf.business.travel.user,model_sf_business_travel,sf_business_travel.group_sf_business_travel_user,1,1,1,0
+access_sf_business_travel_manager,sf.business.travel.manager,model_sf_business_travel,sf_business_travel.group_sf_business_travel_manager,1,1,1,1
+access_sf_business_travel_line_user,sf.business.travel.line.user,model_sf_business_travel_line,sf_business_travel.group_sf_business_travel_user,1,1,1,0
+access_sf_business_travel_line_manager,sf.business.travel.line.manager,model_sf_business_travel_line,sf_business_travel.group_sf_business_travel_manager,1,1,1,1

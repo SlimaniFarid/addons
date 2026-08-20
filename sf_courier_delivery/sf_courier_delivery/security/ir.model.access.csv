@@ -1,0 +1,11 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sf_courier_order_user,sf.courier.order.user,model_sf_courier_order,sf_courier_delivery.group_sf_courier_user,1,1,1,0
+access_sf_courier_delivery_user,sf.courier.delivery.user,model_sf_courier_delivery,sf_courier_delivery.group_sf_courier_user,1,1,1,0
+access_sf_courier_route_user,sf.courier.route.user,model_sf_courier_route,sf_courier_delivery.group_sf_courier_user,1,1,1,0
+access_sf_courier_attempt_user,sf.courier.delivery.attempt.user,model_sf_courier_delivery_attempt,sf_courier_delivery.group_sf_courier_user,1,1,1,0
+access_sf_courier_order_manager,sf.courier.order.manager,model_sf_courier_order,sf_courier_delivery.group_sf_courier_manager,1,1,1,1
+access_sf_courier_delivery_manager,sf.courier.delivery.manager,model_sf_courier_delivery,sf_courier_delivery.group_sf_courier_manager,1,1,1,1
+access_sf_courier_route_manager,sf.courier.route.manager,model_sf_courier_route,sf_courier_delivery.group_sf_courier_manager,1,1,1,1
+access_sf_courier_attempt_manager,sf.courier.delivery.attempt.manager,model_sf_courier_delivery_attempt,sf_courier_delivery.group_sf_courier_manager,1,1,1,1
+access_sf_courier_mail_activity,sf.courier.mail.activity.user,mail.activity,sf_courier_delivery.group_sf_courier_user,1,1,1,0
+access_sf_courier_activity_mixin,sf.courier.activity.mixin.user,model_sf_courier_activity_mixin,sf_courier_delivery.group_sf_courier_user,1,1,1,0

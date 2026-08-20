@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_cold_log">
+        <t t-call="web.html_container">
+            <t t-set="company" t-value="res_company"/>
+            <t t-call="web.external_layout">
+                <div class="page">
+                    <h2>Cold Chain Log</h2>
+                    <table class="table table-sm">
+                        <tr><th>Reading</th><th>Time</th><th>Temperature</th><th>Range</th><th>Within Range</th><th>Deviation</th><th>Source</th></tr>
+                        <tr t-foreach="docs" t-as="r">
+                            <td><span t-field="r.name"/></td>
+                            <td><span t-field="r.recorded_at"/></td>
+                            <td><span t-field="r.temperature"/></td>
+                            <td><span t-field="r.temperature_min"/> .. <span t-field="r.temperature_max"/></td>
+                            <td><span t-field="r.within_range"/></td>
+                            <td><span t-field="r.deviation"/></td>
+                            <td><span t-field="r.source"/></td>
+                        </tr>
+                    </table>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

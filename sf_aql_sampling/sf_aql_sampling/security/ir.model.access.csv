@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sf_aql_plan_user,sf.aql.plan.user,model_sf_aql_plan,sf_aql_sampling.group_sf_aql_sampling_user,1,1,1,0
+access_sf_aql_inspection_user,sf.aql.inspection.user,model_sf_aql_inspection,sf_aql_sampling.group_sf_aql_sampling_user,1,1,1,0
+access_sf_aql_defect_user,sf.aql.defect.user,model_sf_aql_defect,sf_aql_sampling.group_sf_aql_sampling_user,1,1,1,0
+access_sf_aql_plan_manager,sf.aql.plan.manager,model_sf_aql_plan,sf_aql_sampling.group_sf_aql_sampling_manager,1,1,1,1
+access_sf_aql_inspection_manager,sf.aql.inspection.manager,model_sf_aql_inspection,sf_aql_sampling.group_sf_aql_sampling_manager,1,1,1,1
+access_sf_aql_defect_manager,sf.aql.defect.manager,model_sf_aql_defect,sf_aql_sampling.group_sf_aql_sampling_manager,1,1,1,1

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form_product_reviews" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.product.reviews</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="inside">
+                <app data-string="Product Reviews" string="Product Reviews" name="sf_product_reviews">
+                    <block title="Product Review Settings">
+                        <setting string="Moderation Required">
+                            <field name="sf_product_reviews_moderation_required"/>
+                        </setting>
+                        <setting string="Approval Threshold (rating)">
+                            <field name="sf_product_reviews_approval_threshold"/>
+                        </setting>
+                    </block>
+                </app>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,31 @@
+import sys
+content = """<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_gift_register">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-set="company" t-value="o.company_id or res_company"/>
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2>Gifts & Hospitality Register</h2>
+                        <table class="table table-sm">
+                            <tr><th>Name</th><th>Employee</th><th>Direction</th><th>Date</th><th>Category</th><th>Value</th><th>Status</th></tr>
+                            <tr>
+                                <td><span t-field="o.name"/></td>
+                                <td><span t-field="o.employee_id"/></td>
+                                <td><span t-field="o.direction"/></td>
+                                <td><span t-field="o.date"/></td>
+                                <td><span t-field="o.category"/></td>
+                                <td><span t-field="o.estimated_value"/></td>
+                                <td><span t-field="o.state"/></td>
+                            </tr>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>"""
+with open(r'D:\AI Addons\18\sf_gifts_hospitality\views\report_gift_register.xml', 'w', encoding='utf-8') as f:
+    f.write(content)
+print('Written')

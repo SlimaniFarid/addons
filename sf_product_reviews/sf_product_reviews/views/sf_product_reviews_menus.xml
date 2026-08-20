@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_sf_product_reviews_root"
+              name="Product Reviews"
+              sequence="62"
+              groups="sf_product_reviews.group_sf_product_reviews_user"
+              web_icon="sf_product_reviews,static/description/icon.png"/>
+    <menuitem id="menu_sf_product_reviews_reviews"
+              name="Reviews"
+              parent="menu_sf_product_reviews_root"
+              groups="sf_product_reviews.group_sf_product_reviews_user"
+              action="action_sf_product_review"
+              sequence="10"/>
+</odoo>

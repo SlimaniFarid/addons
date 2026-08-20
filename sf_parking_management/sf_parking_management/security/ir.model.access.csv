@@ -1,0 +1,14 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sf_parking_site_user,sf.parking.site.user,model_sf_parking_site,sf_parking_management.group_sf_parking_user,1,1,1,0
+access_sf_parking_zone_user,sf.parking.zone.user,model_sf_parking_zone,sf_parking_management.group_sf_parking_user,1,1,1,0
+access_sf_parking_place_user,sf.parking.place.user,model_sf_parking_place,sf_parking_management.group_sf_parking_user,1,1,1,0
+access_sf_parking_ticket_user,sf.parking.ticket.user,model_sf_parking_ticket,sf_parking_management.group_sf_parking_user,1,1,1,0
+access_sf_parking_subscription_user,sf.parking.subscription.user,model_sf_parking_subscription,sf_parking_management.group_sf_parking_user,1,1,1,0
+access_sf_parking_site_manager,sf.parking.site.manager,model_sf_parking_site,sf_parking_management.group_sf_parking_manager,1,1,1,1
+access_sf_parking_zone_manager,sf.parking.zone.manager,model_sf_parking_zone,sf_parking_management.group_sf_parking_manager,1,1,1,1
+access_sf_parking_place_manager,sf.parking.place.manager,model_sf_parking_place,sf_parking_management.group_sf_parking_manager,1,1,1,1
+access_sf_parking_ticket_manager,sf.parking.ticket.manager,model_sf_parking_ticket,sf_parking_management.group_sf_parking_manager,1,1,1,1
+access_sf_parking_subscription_manager,sf.parking.subscription.manager,model_sf_parking_subscription,sf_parking_management.group_sf_parking_manager,1,1,1,1
+access_sf_parking_mail_activity,sf.parking.mail.activity.user,mail.activity,sf_parking_management.group_sf_parking_user,1,1,1,0
+access_sf_parking_activity_mixin,sf.parking.activity.mixin.user,model_sf_parking_activity_mixin,sf_parking_management.group_sf_parking_user,1,1,1,0
+access_sf_parking_report_wizard_user,sf.parking.report.wizard.user,model_sf_parking_report_wizard,sf_parking_management.group_sf_parking_user,1,1,1,0

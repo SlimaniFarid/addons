@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_correspondence_sheet">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-set="company" t-value="o.company_id or res_company"/>
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2>Correspondence Sheet</h2>
+                        <table class="table table-sm">
+                            <tr><th>Name</th><td><span t-field="o.name"/></td></tr>
+                            <tr><th>Direction</th><td><span t-field="o.direction"/></td></tr>
+                            <tr><th>Date</th><td><span t-field="o.correspondence_date"/></td></tr>
+                            <tr><th>Correspondent</th><td><span t-field="o.partner_id"/></td></tr>
+                            <tr><th>Subject</th><td><span t-field="o.subject"/></td></tr>
+                            <tr><th>Reference</th><td><span t-field="o.reference"/></td></tr>
+                            <tr><th>Department</th><td><span t-field="o.department_id"/></td></tr>
+                            <tr><th>Registered Mail</th><td><span t-field="o.registered_mail"/></td></tr>
+                            <tr><th>Response Due Date</th><td><span t-field="o.response_due_date"/></td></tr>
+                            <tr><th>Response Date</th><td><span t-field="o.response_date"/></td></tr>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

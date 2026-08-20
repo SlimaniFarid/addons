@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_policy_acknowledgment">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div class="page">
+                    <h2>Policy Acknowledgment Register</h2>
+                    <table class="table table-sm">
+                        <tr>
+                            <th>Policy</th>
+                            <th>Employee</th>
+                            <th>Status</th>
+                            <th>Acknowledged On</th>
+                            <th>Acknowledged By</th>
+                        </tr>
+                        <tr t-foreach="docs" t-as="o">
+                            <td><span t-field="o.policy_id"/></td>
+                            <td><span t-field="o.employee_id"/></td>
+                            <td><span t-field="o.state"/></td>
+                            <td><span t-field="o.acknowledged_date"/></td>
+                            <td><span t-field="o.acknowledged_by"/></td>
+                        </tr>
+                    </table>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

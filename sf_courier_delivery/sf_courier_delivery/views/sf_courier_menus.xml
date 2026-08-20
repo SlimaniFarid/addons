@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_sf_courier_root"
+              name="Courier"
+              sequence="21"
+              web_icon="sf_courier_delivery,static/description/icon.png"/>
+    <menuitem id="menu_sf_courier_orders"
+              name="Requests"
+              parent="menu_sf_courier_root"
+              groups="sf_courier_delivery.group_sf_courier_user"
+              action="action_sf_courier_order"
+              sequence="10"/>
+    <menuitem id="menu_sf_courier_deliveries"
+              name="Deliveries"
+              parent="menu_sf_courier_root"
+              groups="sf_courier_delivery.group_sf_courier_user"
+              action="action_sf_courier_delivery"
+              sequence="20"/>
+    <menuitem id="menu_sf_courier_routes"
+              name="Routes"
+              parent="menu_sf_courier_root"
+              groups="sf_courier_delivery.group_sf_courier_user"
+              action="action_sf_courier_route"
+              sequence="30"/>
+</odoo>

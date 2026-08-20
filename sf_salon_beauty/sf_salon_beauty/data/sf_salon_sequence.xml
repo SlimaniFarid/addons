@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="seq_sf_salon_appointment" model="ir.sequence">
+            <field name="name">Salon Appointment</field>
+            <field name="code">sf.salon.appointment</field>
+            <field name="prefix">RDV-</field>
+            <field name="padding">5</field>
+        </record>
+        <record id="seq_sf_salon_staff" model="ir.sequence">
+            <field name="name">Salon Staff</field>
+            <field name="code">sf.salon.staff</field>
+            <field name="prefix">EMP-</field>
+            <field name="padding">4</field>
+        </record>
+        <record id="seq_sf_salon_service" model="ir.sequence">
+            <field name="name">Salon Service</field>
+            <field name="code">sf.salon.service</field>
+            <field name="prefix">SRV-</field>
+            <field name="padding">4</field>
+        </record>
+        <record id="seq_sf_salon_package" model="ir.sequence">
+            <field name="name">Salon Package</field>
+            <field name="code">sf.salon.package</field>
+            <field name="prefix">FRF-</field>
+            <field name="padding">5</field>
+        </record>
+        <record id="seq_sf_salon_commission" model="ir.sequence">
+            <field name="name">Salon Commission</field>
+            <field name="code">sf.salon.commission</field>
+            <field name="prefix">CMS-</field>
+            <field name="padding">5</field>
+        </record>
+    </data>
+</odoo>

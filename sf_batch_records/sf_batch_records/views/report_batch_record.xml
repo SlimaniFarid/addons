@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_batch_record">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-set="company" t-value="o.company_id or res_company"/>
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2>Batch Production Record</h2>
+                        <table class="table table-sm">
+                            <tr><th>Record</th><td><span t-field="o.name"/></td></tr>
+                            <tr><th>Product</th><td><span t-field="o.product_id"/></td></tr>
+                            <tr><th>Output Lot</th><td><span t-field="o.product_lot_id"/></td></tr>
+                            <tr><th>Quantity</th><td><span t-field="o.quantity"/> <span t-field="o.uom_name"/></td></tr>
+                            <tr><th>Production Date</th><td><span t-field="o.production_date"/></td></tr>
+                            <tr><th>Status</th><td><span t-field="o.state"/></td></tr>
+                        </table>
+                        <h3>Materials</h3>
+                        <table class="table table-sm">
+                            <tr><th>Product</th><th>Lot</th><th>Quantity</th><th>Unit</th></tr>
+                            <tr t-foreach="o.material_ids" t-as="m">
+                                <td><span t-field="m.product_id"/></td>
+                                <td><span t-field="m.lot_id"/></td>
+                                <td><span t-field="m.quantity"/></td>
+                                <td><span t-field="m.uom_name"/></td>
+                            </tr>
+                        </table>
+                        <h3>Steps and Parameters</h3>
+                        <table class="table table-sm">
+                            <tr><th>Step</th><th>Operator</th><th>Parameter</th><th>Unit</th><th>Expected</th><th>Min</th><th>Max</th><th>Actual</th><th>Status</th></tr>
+                            <tr t-foreach="o.parameter_ids" t-as="p">
+                                <td><span t-field="p.step_id"/></td>
+                                <td><span t-field="p.step_id.operator_id"/></td>
+                                <td><span t-field="p.name"/></td>
+                                <td><span t-field="p.unit"/></td>
+                                <td><span t-field="p.expected_value"/></td>
+                                <td><span t-field="p.min_value"/></td>
+                                <td><span t-field="p.max_value"/></td>
+                                <td><span t-field="p.actual_value"/></td>
+                                <td><span t-field="p.status"/></td>
+                            </tr>
+                        </table>
+                        <h3>Deviations</h3>
+                        <table class="table table-sm">
+                            <tr><th>Ref</th><th>Description</th><th>Category</th><th>Severity</th><th>Corrective Action</th><th>Status</th></tr>
+                            <tr t-foreach="o.deviation_ids" t-as="d">
+                                <td><span t-field="d.display_name"/></td>
+                                <td><span t-field="d.description"/></td>
+                                <td><span t-field="d.category"/></td>
+                                <td><span t-field="d.severity"/></td>
+                                <td><span t-field="d.corrective_action"/></td>
+                                <td><span t-field="d.state"/></td>
+                            </tr>
+                        </table>
+                        <table class="table table-sm">
+                            <tr><th>Reviewed By</th><td><span t-field="o.reviewed_by"/></td><th>Released By</th><td><span t-field="o.released_by"/></td></tr>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="seq_sf_cold_site" model="ir.sequence">
+            <field name="name">Cold Storage Site</field>
+            <field name="code">sf.cold.site</field>
+            <field name="prefix">CCS-</field>
+            <field name="padding">4</field>
+        </record>
+        <record id="seq_sf_cold_trip" model="ir.sequence">
+            <field name="name">Cold Transport Trip</field>
+            <field name="code">sf.cold.trip</field>
+            <field name="prefix">CPT-</field>
+            <field name="padding">6</field>
+        </record>
+        <record id="seq_sf_cold_excursion" model="ir.sequence">
+            <field name="name">Cold Chain Excursion</field>
+            <field name="code">sf.cold.excursion</field>
+            <field name="prefix">SFX-</field>
+            <field name="padding">6</field>
+        </record>
+    </data>
+</odoo>

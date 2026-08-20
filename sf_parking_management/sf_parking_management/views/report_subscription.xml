@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_subscription">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-set="company" t-value="o.company_id or res_company"/>
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2>Subscription Contract</h2>
+                        <table class="table table-sm">
+                            <tr><th>Subscription</th><td><span t-field="o.name"/></td></tr>
+                            <tr><th>Customer</th><td><span t-field="o.partner_id"/></td></tr>
+                            <tr><th>Site</th><td><span t-field="o.site_id"/></td></tr>
+                            <tr><th>Place</th><td><span t-field="o.place_id"/></td></tr>
+                            <tr><th>Period</th><td><span t-field="o.billing_period"/></td></tr>
+                            <tr><th>Amount</th><td><span t-field="o.amount"/></td></tr>
+                            <tr><th>Start</th><td><span t-field="o.start_date"/></td></tr>
+                            <tr><th>End</th><td><span t-field="o.end_date"/></td></tr>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

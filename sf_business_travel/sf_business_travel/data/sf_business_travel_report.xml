@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="action_report_travel_authorization" model="ir.actions.report">
+            <field name="name">Travel Authorization</field>
+            <field name="model">sf.business.travel</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">sf_business_travel.report_travel_authorization</field>
+            <field name="report_file">sf_business_travel.report_travel_authorization</field>
+            <field name="binding_model_id" ref="model_sf_business_travel"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <record id="action_report_travel_itinerary" model="ir.actions.report">
+            <field name="name">Travel Itinerary</field>
+            <field name="model">sf.business.travel</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">sf_business_travel.report_travel_itinerary</field>
+            <field name="report_file">sf_business_travel.report_travel_itinerary</field>
+            <field name="binding_model_id" ref="model_sf_business_travel"/>
+            <field name="binding_type">report</field>
+        </record>
+    </data>
+</odoo>

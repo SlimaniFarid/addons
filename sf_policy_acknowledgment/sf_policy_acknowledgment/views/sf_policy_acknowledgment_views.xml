@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="sf_policy_acknowledgment_view_list" model="ir.ui.view">
+        <field name="name">sf.policy.acknowledgment.list</field>
+        <field name="model">sf.policy.acknowledgment</field>
+        <field name="arch" type="xml">
+            <list string="Policy Acknowledgment Register">
+                <field name="name"/>
+                <field name="policy_id"/>
+                <field name="employee_id"/>
+                <field name="state" widget="badge"/>
+                <field name="acknowledged_date"/>
+                <field name="acknowledged_by"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="sf_policy_acknowledgment_view_form" model="ir.ui.view">
+        <field name="name">sf.policy.acknowledgment.form</field>
+        <field name="model">sf.policy.acknowledgment</field>
+        <field name="arch" type="xml">
+            <form string="Policy Acknowledgment">
+                <header>
+                    <button name="action_acknowledge" string="Acknowledge" type="object" class="btn-primary" invisible="[('state', '!=', 'pending')]"/>
+                    <field name="state" widget="statusbar" readonly="1"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="policy_id"/>
+                            <field name="employee_id"/>
+                        </group>
+                        <group>
+                            <field name="acknowledged_date"/>
+                            <field name="acknowledged_by"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="sf_policy_acknowledgment_view_search" model="ir.ui.view">
+        <field name="name">sf.policy.acknowledgment.search</field>
+        <field name="model">sf.policy.acknowledgment</field>
+        <field name="arch" type="xml">
+            <search string="Policy Acknowledgment Register">
+                <field name="name"/>
+                <field name="policy_id"/>
+                <field name="employee_id"/>
+                <filter name="ack_pending" string="Pending" domain="[('state', '=', 'pending')]"/>
+                <filter name="ack_acknowledged" string="Acknowledged" domain="[('state', '=', 'acknowledged')]"/>
+                <group>
+                    <filter name="group_ack_state" string="Status" context="{'group_by': 'state'}"/>
+                    <filter name="group_ack_policy" string="Policy" context="{'group_by': 'policy_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_sf_policy_acknowledgment" model="ir.actions.act_window">
+        <field name="name">Acknowledgment Register</field>
+        <field name="res_model">sf.policy.acknowledgment</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="sf_policy_acknowledgment_view_search"/>
+    </record>
+</odoo>

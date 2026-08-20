@@ -1,0 +1,12 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sf_batch_record_user,sf.batch.record.user,model_sf_batch_record,sf_batch_records.group_sf_batch_records_user,1,1,1,0
+access_sf_batch_record_material_user,sf.batch.record.material.user,model_sf_batch_record_material,sf_batch_records.group_sf_batch_records_user,1,1,1,0
+access_sf_batch_record_step_user,sf.batch.record.step.user,model_sf_batch_record_step,sf_batch_records.group_sf_batch_records_user,1,1,1,0
+access_sf_batch_record_parameter_user,sf.batch.record.parameter.user,model_sf_batch_record_parameter,sf_batch_records.group_sf_batch_records_user,1,1,1,0
+access_sf_batch_record_deviation_user,sf.batch.record.deviation.user,model_sf_batch_record_deviation,sf_batch_records.group_sf_batch_records_user,1,1,1,0
+access_sf_batch_record_manager,sf.batch.record.manager,model_sf_batch_record,sf_batch_records.group_sf_batch_records_manager,1,1,1,1
+access_sf_batch_record_material_manager,sf.batch.record.material.manager,model_sf_batch_record_material,sf_batch_records.group_sf_batch_records_manager,1,1,1,1
+access_sf_batch_record_step_manager,sf.batch.record.step.manager,model_sf_batch_record_step,sf_batch_records.group_sf_batch_records_manager,1,1,1,1
+access_sf_batch_record_parameter_manager,sf.batch.record.parameter.manager,model_sf_batch_record_parameter,sf_batch_records.group_sf_batch_records_manager,1,1,1,1
+access_sf_batch_record_deviation_manager,sf.batch.record.deviation.manager,model_sf_batch_record_deviation,sf_batch_records.group_sf_batch_records_manager,1,1,1,1
+access_sf_batch_records_mail_activity,sf.batch.records.mail.activity.user,mail.activity,sf_batch_records.group_sf_batch_records_user,1,1,1,0

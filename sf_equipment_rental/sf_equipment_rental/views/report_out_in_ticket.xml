@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_out_in_ticket">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-set="company" t-value="o.company_id or res_company"/>
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2>Out / In Ticket</h2>
+                        <table class="table table-sm">
+                            <tr><th>Inspection</th><td><span t-field="o.name"/></td></tr>
+                            <tr><th>Contract</th><td><span t-field="o.contract_id"/></td></tr>
+                            <tr><th>Direction</th><td><span t-field="o.direction"/></td></tr>
+                            <tr><th>Date</th><td><span t-field="o.date"/></td></tr>
+                            <tr><th>Condition</th><td><span t-field="o.condition"/></td></tr>
+                        </table>
+                        <h3>Damages</h3>
+                        <table class="table table-sm">
+                            <tr><th>Description</th><th>Penalty</th></tr>
+                            <tr t-foreach="o.damage_ids" t-as="d">
+                                <td><span t-field="d.description"/></td>
+                                <td><span t-field="d.penalty_amount"/></td>
+                            </tr>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>
