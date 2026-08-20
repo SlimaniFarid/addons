@@ -1,4 +1,4 @@
-# Prestations de Nettoyage & Contrats
+# Cleaning Services & Contracts
 
 Management of recurring cleaning service contracts: site tracking,
 intervention frequencies, agent schedules, quality checks and
@@ -23,7 +23,7 @@ missed frequencies or unassigned agents.
 ## Installation
 
 Copy the module to your addons path, update the app list and
-install **Prestations de Nettoyage & Contrats**.
+install **Cleaning Services & Contracts**.
 
 ## Configuration
 

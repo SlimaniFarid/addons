@@ -1,4 +1,4 @@
-# Salle de Sport & Fitness
+# Gym & Fitness Management
 
 Sports subscriptions with plans and prices, group classes with
 planning and coaches, member attendances, membership payments and
@@ -19,7 +19,7 @@ cron alerts for expiring subscriptions and under-filled sessions.
 ## Installation
 
 Copy the module to your addons path, update the app list and
-install **Salle de Sport & Fitness**.
+install **Gym & Fitness Management**.
 
 ## Configuration
 

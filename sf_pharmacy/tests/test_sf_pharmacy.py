@@ -59,7 +59,7 @@ class TestSfPharmacy(TransactionCase):
             'prescriber': prescriber,
         })
 
-    def _create_dispensation(self, prescription, product, batch, qty=5.0, posology='1 boîte x 2/j'):
+    def _create_dispensation(self, prescription, product, batch, qty=5.0, posology='1 box x 2/day'):
         return self.env['sf.pharmacy.dispensation'].with_user(self.manager).create({
             'prescription_id': prescription.id,
             'product_id': product.id,

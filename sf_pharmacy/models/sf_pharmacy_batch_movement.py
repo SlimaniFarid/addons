@@ -5,24 +5,24 @@ from odoo.exceptions import AccessError, UserError
 
 class PharmacyBatchMovement(models.Model):
     _name = 'sf.pharmacy.batch_movement'
-    _description = 'Mouvement de lot'
+    _description = 'Batch movement'
     _order = 'move_date desc, id desc'
 
-    name = fields.Char(string='Mouvement', readonly=True)
-    batch_id = fields.Many2one('sf.pharmacy.batch', string='Lot', required=True, ondelete='cascade', index=True)
+    name = fields.Char(string='Movement', readonly=True)
+    batch_id = fields.Many2one('sf.pharmacy.batch', string='Batch', required=True, ondelete='cascade', index=True)
     movement_type = fields.Selection([
-        ('in', 'Entrée'),
-        ('out', 'Sortie'),
-        ('withdrawal', 'Retrait'),
-        ('adjustment', 'Ajustement'),
-        ('recall', 'Rappel'),
-    ], string='Type de mouvement', required=True)
-    qty = fields.Float(string='Quantité', required=True)
-    unit_price = fields.Monetary(string='Prix unitaire', currency_field='currency_id')
+        ('in', 'In'),
+        ('out', 'Out'),
+        ('withdrawal', 'Withdrawal'),
+        ('adjustment', 'Adjustment'),
+        ('recall', 'Recall'),
+    ], string='Movement type', required=True)
+    qty = fields.Float(string='Quantity', required=True)
+    unit_price = fields.Monetary(string='Unit price', currency_field='currency_id')
     move_date = fields.Datetime(string='Date', default=fields.Datetime.now, index=True)
-    reference = fields.Char(string='Référence')
-    currency_id = fields.Many2one('res.currency', string='Devise', default=lambda self: self.env.company.currency_id)
-    company_id = fields.Many2one('res.company', string='Société', default=lambda self: self.env.company, ondelete='cascade')
+    reference = fields.Char(string='Reference')
+    currency_id = fields.Many2one('res.currency', string='Currency', default=lambda self: self.env.company.currency_id)
+    company_id = fields.Many2one('res.company', string='Company', default=lambda self: self.env.company, ondelete='cascade')
 
     @api.model
     def create(self, vals):
@@ -35,20 +35,20 @@ class PharmacyBatchMovement(models.Model):
             batch.write({'qty_received': batch.qty_received + qty})
         elif mtype == 'out':
             if batch.status in ('expired', 'withdrawn', 'recalled'):
-                raise UserError(_('Délivrance interdite sur un lot périmé, retiré ou rappelé.'))
+                raise UserError(_('Dispensation forbidden on an expired, withdrawn or recalled batch.'))
             if qty > batch.qty_available:
-                raise UserError(_('Quantité insuffisante en stock pour le lot.'))
+                raise UserError(_('Insufficient stock quantity for the batch.'))
         elif mtype == 'withdrawal':
             if qty > batch.qty_available:
-                raise UserError(_('Quantité insuffisante en stock pour le lot.'))
+                raise UserError(_('Insufficient stock quantity for the batch.'))
         elif mtype == 'recall':
             if qty > batch.qty_available:
-                raise UserError(_('Quantité insuffisante en stock pour le lot.'))
+                raise UserError(_('Insufficient stock quantity for the batch.'))
         elif mtype == 'adjustment':
             new_received = batch.qty_received + qty
             new_available = new_received - batch.qty_dispensed - batch.qty_reserved - batch.qty_withdrawn
             if new_available < 0:
-                raise UserError(_('Stock négatif impossible.'))
+                raise UserError(_('Negative stock is not allowed.'))
             batch.write({'qty_received': new_received})
         if not vals.get('name'):
             vals['name'] = self.env['ir.sequence'].next_by_code('sf.pharmacy.batch_movement')
@@ -56,4 +56,4 @@ class PharmacyBatchMovement(models.Model):
 
     def _check_manager(self):
         if not self.env.user.has_group('sf_pharmacy.group_sf_pharmacy_manager'):
-            raise AccessError(_('Action réservée au groupe manager.'))
+            raise AccessError(_('Action reserved for the manager group.'))

@@ -7,27 +7,27 @@ from odoo.exceptions import AccessError, UserError
 
 class PharmacyBatch(models.Model):
     _name = 'sf.pharmacy.batch'
-    _description = 'Lot pharmaceutique'
+    _description = 'Pharmaceutical batch'
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _order = 'expiry_date, id'
 
-    name = fields.Char(string='Lot', readonly=True)
-    product_id = fields.Many2one('sf.pharmacy.product', string='Produit', required=True, ondelete='cascade', index=True)
-    lot_ref = fields.Char(string='Référence fournisseur')
-    expiry_date = fields.Date(string='Date de péremption', required=True)
-    qty_received = fields.Float(string='Quantité reçue', default=0.0)
-    qty_dispensed = fields.Float(string='Quantité délivrée', compute='_compute_quantities', store=True)
-    qty_reserved = fields.Float(string='Quantité réservée', default=0.0)
-    qty_withdrawn = fields.Float(string='Quantité retirée', compute='_compute_quantities', store=True)
-    qty_available = fields.Float(string='Quantité disponible', compute='_compute_quantities', store=True)
+    name = fields.Char(string='Batch', readonly=True)
+    product_id = fields.Many2one('sf.pharmacy.product', string='Product', required=True, ondelete='cascade', index=True)
+    lot_ref = fields.Char(string='Supplier reference')
+    expiry_date = fields.Date(string='Expiry date', required=True)
+    qty_received = fields.Float(string='Received quantity', default=0.0)
+    qty_dispensed = fields.Float(string='Dispensed quantity', compute='_compute_quantities', store=True)
+    qty_reserved = fields.Float(string='Reserved quantity', default=0.0)
+    qty_withdrawn = fields.Float(string='Withdrawn quantity', compute='_compute_quantities', store=True)
+    qty_available = fields.Float(string='Available quantity', compute='_compute_quantities', store=True)
     status = fields.Selection([
-        ('available', 'Disponible'),
-        ('expired', 'Périmé'),
-        ('recalled', 'Rappelé'),
-        ('withdrawn', 'Retiré'),
-    ], string='Statut', compute='_compute_quantities', store=True)
-    company_id = fields.Many2one('res.company', string='Société', default=lambda self: self.env.company, ondelete='cascade')
-    movement_ids = fields.One2many('sf.pharmacy.batch_movement', 'batch_id', string='Mouvements')
+        ('available', 'Available'),
+        ('expired', 'Expired'),
+        ('recalled', 'Recalled'),
+        ('withdrawn', 'Withdrawn'),
+    ], string='Status', compute='_compute_quantities', store=True)
+    company_id = fields.Many2one('res.company', string='Company', default=lambda self: self.env.company, ondelete='cascade')
+    movement_ids = fields.One2many('sf.pharmacy.batch_movement', 'batch_id', string='Movements')
 
     @api.depends('qty_received', 'qty_reserved', 'expiry_date',
                  'movement_ids.movement_type', 'movement_ids.qty')
@@ -77,7 +77,7 @@ class PharmacyBatch(models.Model):
         res = super(PharmacyBatch, self).write(vals)
         for rec in self:
             if rec.qty_available < 0:
-                raise UserError(_('Stock négatif impossible.'))
+                raise UserError(_('Negative stock is not allowed.'))
         return res
 
     def unlink(self):
@@ -87,7 +87,7 @@ class PharmacyBatch(models.Model):
 
     def _check_manager(self):
         if not self.env.user.has_group('sf_pharmacy.group_sf_pharmacy_manager'):
-            raise AccessError(_('Action réservée au groupe manager.'))
+            raise AccessError(_('Action reserved for the manager group.'))
 
     @api.model
     def _get_fifo_batch(self, product_id, qty=0.0, company_id=None):
@@ -108,7 +108,7 @@ class PharmacyBatch(models.Model):
                     'batch_id': batch.id,
                     'movement_type': 'withdrawal',
                     'qty': batch.qty_available,
-                    'reference': 'Retrait péremption %s' % batch.name,
+                    'reference': 'Expiry withdrawal %s' % batch.name,
                     'company_id': batch.company_id.id,
                 })
         return True
@@ -122,7 +122,7 @@ class PharmacyBatch(models.Model):
                     'batch_id': batch.id,
                     'movement_type': 'recall',
                     'qty': batch.qty_available,
-                    'reference': 'Rappel de lot %s' % batch.name,
+                    'reference': 'Batch recall %s' % batch.name,
                     'company_id': batch.company_id.id,
                 })
             dispensations = self.env['sf.pharmacy.dispensation'].search([
@@ -131,7 +131,7 @@ class PharmacyBatch(models.Model):
             ])
             for disp in dispensations:
                 user_id = disp.dispensed_by.id or disp.prescription_id.create_uid.id or self.env.uid
-                subject = 'Rappel de lot %s - patient %s' % (batch.name, disp.prescription_id.patient_name)
+                subject = 'Batch recall %s - patient %s' % (batch.name, disp.prescription_id.patient_name)
                 existing = self.env['mail.activity'].search([
                     ('activity_type_id', '=', act_type.id),
                     ('res_model', '=', batch._name),
@@ -143,7 +143,7 @@ class PharmacyBatch(models.Model):
                     batch.activity_schedule(
                         'mail.mail_activity_data_todo',
                         summary=subject,
-                        note='Rappel de lot %s pour la délivrance %s' % (batch.name, disp.name),
+                        note='Batch recall %s for dispensation %s' % (batch.name, disp.name),
                         user_id=user_id,
                     )
         return True
@@ -184,9 +184,9 @@ class PharmacyBatch(models.Model):
                 if batch.status == 'withdrawn':
                     continue
                 if batch.expiry_date and batch.expiry_date <= alert_date:
-                    subject = 'Péremption proche ou atteinte : %s' % batch.name
+                    subject = 'Expiry near or reached: %s' % batch.name
                     self._schedule_todo(batch, subject)
                 if batch.qty_available <= low_stock:
-                    subject = 'Stock bas : %s' % batch.name
+                    subject = 'Low stock: %s' % batch.name
                     self._schedule_todo(batch, subject)
         return True

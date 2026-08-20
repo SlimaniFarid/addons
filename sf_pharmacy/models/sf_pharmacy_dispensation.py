@@ -5,24 +5,24 @@ from odoo.exceptions import UserError
 
 class PharmacyDispensation(models.Model):
     _name = 'sf.pharmacy.dispensation'
-    _description = 'Délivrance'
+    _description = 'Dispensation'
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _order = 'dispensed_at desc, id desc'
 
-    name = fields.Char(string='Délivrance', readonly=True)
-    prescription_id = fields.Many2one('sf.pharmacy.prescription', string='Ordonnance', required=True, ondelete='cascade')
-    product_id = fields.Many2one('sf.pharmacy.product', string='Produit', required=True, ondelete='restrict', index=True)
-    batch_id = fields.Many2one('sf.pharmacy.batch', string='Lot', required=True, ondelete='restrict', index=True)
-    qty = fields.Float(string='Quantité', required=True)
-    posology = fields.Text(string='Posologie')
-    dispensed_by = fields.Many2one('res.users', string='Délivré par', readonly=True)
-    dispensed_at = fields.Datetime(string='Délivré le', readonly=True)
+    name = fields.Char(string='Dispensation', readonly=True)
+    prescription_id = fields.Many2one('sf.pharmacy.prescription', string='Prescription', required=True, ondelete='cascade')
+    product_id = fields.Many2one('sf.pharmacy.product', string='Product', required=True, ondelete='restrict', index=True)
+    batch_id = fields.Many2one('sf.pharmacy.batch', string='Batch', required=True, ondelete='restrict', index=True)
+    qty = fields.Float(string='Quantity', required=True)
+    posology = fields.Text(string='Posology')
+    dispensed_by = fields.Many2one('res.users', string='Dispensed by', readonly=True)
+    dispensed_at = fields.Datetime(string='Dispensed on', readonly=True)
     state = fields.Selection([
-        ('draft', 'Brouillon'),
-        ('done', 'Terminée'),
-        ('cancelled', 'Annulée'),
-    ], string='Statut', default='draft')
-    company_id = fields.Many2one('res.company', string='Société', default=lambda self: self.env.company, ondelete='cascade')
+        ('draft', 'Draft'),
+        ('done', 'Done'),
+        ('cancelled', 'Cancelled'),
+    ], string='Status', default='draft')
+    company_id = fields.Many2one('res.company', string='Company', default=lambda self: self.env.company, ondelete='cascade')
 
     @api.onchange('product_id')
     def _onchange_product_id(self):
@@ -40,9 +40,9 @@ class PharmacyDispensation(models.Model):
         batch = self.env['sf.pharmacy.batch'].browse(vals.get('batch_id'))
         if batch:
             if batch.status in ('expired', 'withdrawn', 'recalled'):
-                raise UserError(_('Délivrance interdite sur un lot périmé, retiré ou rappelé.'))
+                raise UserError(_('Dispensation forbidden on an expired, withdrawn or recalled batch.'))
             if vals.get('qty', 0.0) > batch.qty_available:
-                raise UserError(_('Quantité insuffisante en stock pour le lot.'))
+                raise UserError(_('Insufficient stock quantity for the batch.'))
         if not vals.get('name'):
             vals['name'] = self.env['ir.sequence'].next_by_code('sf.pharmacy.dispensation')
         return super(PharmacyDispensation, self).create(vals)
@@ -58,11 +58,11 @@ class PharmacyDispensation(models.Model):
             if line.state == 'done':
                 continue
             if line.state == 'cancelled':
-                raise UserError(_('Une délivrance annulée ne peut être terminée.'))
+                raise UserError(_('A cancelled dispensation cannot be marked as done.'))
             if line.batch_id.status in ('expired', 'withdrawn', 'recalled'):
-                raise UserError(_('Délivrance interdite sur un lot périmé, retiré ou rappelé.'))
+                raise UserError(_('Dispensation forbidden on an expired, withdrawn or recalled batch.'))
             if line.qty > line.batch_id.qty_available:
-                raise UserError(_('Quantité insuffisante en stock pour le lot.'))
+                raise UserError(_('Insufficient stock quantity for the batch.'))
             self.env['sf.pharmacy.batch_movement'].create({
                 'batch_id': line.batch_id.id,
                 'movement_type': 'out',
@@ -81,6 +81,6 @@ class PharmacyDispensation(models.Model):
     def action_cancel(self):
         for line in self:
             if line.state == 'done':
-                raise UserError(_('Une délivrance terminée ne peut être annulée.'))
+                raise UserError(_('A done dispensation cannot be cancelled.'))
             line.state = 'cancelled'
         return True

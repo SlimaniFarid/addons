@@ -1,4 +1,4 @@
-# Gestion de Bibliothèque & Médiathèque
+# Library & Media Center Management
 
 Structured catalogue of items and media (books, DVDs, CDs, games,
 press), members, dated loans and returns with availability
@@ -19,7 +19,7 @@ availability lifting and cron alerts.
 ## Installation
 
 Copy the module to your addons path, update the app list and
-install **Gestion de Bibliothèque & Médiathèque**.
+install **Library & Media Center Management**.
 
 ## Configuration
 
@@ -35,7 +35,7 @@ Company settings (Settings > Library):
 ## Usage
 
 1. Build the catalogue with items and categories.
-2. Register members (usagers).
+2. Register members (patrons).
 3. Record a loan if an available copy exists.
 4. Return a document; late days and fees are computed.
 5. Reserve unavailable items; reservations are lifted on

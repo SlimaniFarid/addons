@@ -3,7 +3,7 @@
     <data>
         <record id="module_category_sf_pharmacy" model="ir.module.category">
             <field name="name">sf_pharmacy</field>
-            <field name="description">Gestion de pharmacie et dÃ©livrance</field>
+            <field name="description">Pharmacy and dispensation management</field>
             <field name="sequence">10</field>
         </record>
 
@@ -20,7 +20,7 @@
         </record>
 
         <record id="sf_pharmacy_product_company_rule" model="ir.rule">
-            <field name="name">sf.pharmacy.product : sociÃ©tÃ© utilisateur</field>
+            <field name="name">sf.pharmacy.product : user company</field>
             <field name="model_id" ref="model_sf_pharmacy_product"/>
             <field name="global" eval="False"/>
             <field name="groups" eval="[(4, ref('sf_pharmacy.group_sf_pharmacy_user'))]"/>
@@ -28,7 +28,7 @@
         </record>
 
         <record id="sf_pharmacy_batch_company_rule" model="ir.rule">
-            <field name="name">sf.pharmacy.batch : sociÃ©tÃ© utilisateur</field>
+            <field name="name">sf.pharmacy.batch : user company</field>
             <field name="model_id" ref="model_sf_pharmacy_batch"/>
             <field name="global" eval="False"/>
             <field name="groups" eval="[(4, ref('sf_pharmacy.group_sf_pharmacy_user'))]"/>
@@ -36,7 +36,7 @@
         </record>
 
         <record id="sf_pharmacy_prescription_company_rule" model="ir.rule">
-            <field name="name">sf.pharmacy.prescription : sociÃ©tÃ© utilisateur</field>
+            <field name="name">sf.pharmacy.prescription : user company</field>
             <field name="model_id" ref="model_sf_pharmacy_prescription"/>
             <field name="global" eval="False"/>
             <field name="groups" eval="[(4, ref('sf_pharmacy.group_sf_pharmacy_user'))]"/>
@@ -44,7 +44,7 @@
         </record>
 
         <record id="sf_pharmacy_dispensation_company_rule" model="ir.rule">
-            <field name="name">sf.pharmacy.dispensation : sociÃ©tÃ© utilisateur</field>
+            <field name="name">sf.pharmacy.dispensation : user company</field>
             <field name="model_id" ref="model_sf_pharmacy_dispensation"/>
             <field name="global" eval="False"/>
             <field name="groups" eval="[(4, ref('sf_pharmacy.group_sf_pharmacy_user'))]"/>
@@ -52,7 +52,7 @@
         </record>
 
         <record id="sf_pharmacy_batch_movement_company_rule" model="ir.rule">
-            <field name="name">sf.pharmacy.batch_movement : sociÃ©tÃ© utilisateur</field>
+            <field name="name">sf.pharmacy.batch_movement : user company</field>
             <field name="model_id" ref="model_sf_pharmacy_batch_movement"/>
             <field name="global" eval="False"/>
             <field name="groups" eval="[(4, ref('sf_pharmacy.group_sf_pharmacy_user'))]"/>
@@ -60,7 +60,7 @@
         </record>
 
         <record id="sf_pharmacy_product_manager_all_rule" model="ir.rule">
-            <field name="name">sf.pharmacy.product : manager toutes sociÃ©tÃ©s</field>
+            <field name="name">sf.pharmacy.product : manager all companies</field>
             <field name="model_id" ref="model_sf_pharmacy_product"/>
             <field name="global" eval="False"/>
             <field name="groups" eval="[(4, ref('sf_pharmacy.group_sf_pharmacy_manager'))]"/>
@@ -68,7 +68,7 @@
         </record>
 
         <record id="sf_pharmacy_batch_manager_all_rule" model="ir.rule">
-            <field name="name">sf.pharmacy.batch : manager toutes sociÃ©tÃ©s</field>
+            <field name="name">sf.pharmacy.batch : manager all companies</field>
             <field name="model_id" ref="model_sf_pharmacy_batch"/>
             <field name="global" eval="False"/>
             <field name="groups" eval="[(4, ref('sf_pharmacy.group_sf_pharmacy_manager'))]"/>
@@ -76,7 +76,7 @@
         </record>
 
         <record id="sf_pharmacy_prescription_manager_all_rule" model="ir.rule">
-            <field name="name">sf.pharmacy.prescription : manager toutes sociÃ©tÃ©s</field>
+            <field name="name">sf.pharmacy.prescription : manager all companies</field>
             <field name="model_id" ref="model_sf_pharmacy_prescription"/>
             <field name="global" eval="False"/>
             <field name="groups" eval="[(4, ref('sf_pharmacy.group_sf_pharmacy_manager'))]"/>
@@ -84,7 +84,7 @@
         </record>
 
         <record id="sf_pharmacy_dispensation_manager_all_rule" model="ir.rule">
-            <field name="name">sf.pharmacy.dispensation : manager toutes sociÃ©tÃ©s</field>
+            <field name="name">sf.pharmacy.dispensation : manager all companies</field>
             <field name="model_id" ref="model_sf_pharmacy_dispensation"/>
             <field name="global" eval="False"/>
             <field name="groups" eval="[(4, ref('sf_pharmacy.group_sf_pharmacy_manager'))]"/>
@@ -92,7 +92,7 @@
         </record>
 
         <record id="sf_pharmacy_batch_movement_manager_all_rule" model="ir.rule">
-            <field name="name">sf.pharmacy.batch_movement : manager toutes sociÃ©tÃ©s</field>
+            <field name="name">sf.pharmacy.batch_movement : manager all companies</field>
             <field name="model_id" ref="model_sf_pharmacy_batch_movement"/>
             <field name="global" eval="False"/>
             <field name="groups" eval="[(4, ref('sf_pharmacy.group_sf_pharmacy_manager'))]"/>

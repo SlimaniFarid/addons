@@ -5,22 +5,22 @@ from odoo.exceptions import AccessError, UserError
 
 class PharmacyPrescription(models.Model):
     _name = 'sf.pharmacy.prescription'
-    _description = 'Ordonnance'
+    _description = 'Prescription'
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _order = 'prescription_date desc, id desc'
 
-    name = fields.Char(string='Ordonnance', readonly=True)
+    name = fields.Char(string='Prescription', readonly=True)
     patient_name = fields.Char(string='Patient')
-    prescriber = fields.Char(string='Prescripteur')
-    prescription_date = fields.Date(string='Date de prescription', default=fields.Date.context_today)
-    dispensation_ids = fields.One2many('sf.pharmacy.dispensation', 'prescription_id', string='Délivrances')
+    prescriber = fields.Char(string='Prescriber')
+    prescription_date = fields.Date(string='Prescription date', default=fields.Date.context_today)
+    dispensation_ids = fields.One2many('sf.pharmacy.dispensation', 'prescription_id', string='Dispensations')
     state = fields.Selection([
-        ('draft', 'Brouillon'),
-        ('confirmed', 'Confirmée'),
-        ('done', 'Terminée'),
-        ('cancelled', 'Annulée'),
-    ], string='Statut', default='draft')
-    company_id = fields.Many2one('res.company', string='Société', default=lambda self: self.env.company, ondelete='cascade')
+        ('draft', 'Draft'),
+        ('confirmed', 'Confirmed'),
+        ('done', 'Done'),
+        ('cancelled', 'Cancelled'),
+    ], string='Status', default='draft')
+    company_id = fields.Many2one('res.company', string='Company', default=lambda self: self.env.company, ondelete='cascade')
 
     @api.model
     def create(self, vals):
@@ -35,30 +35,30 @@ class PharmacyPrescription(models.Model):
 
     def _check_manager(self):
         if not self.env.user.has_group('sf_pharmacy.group_sf_pharmacy_manager'):
-            raise AccessError(_('Action réservée au groupe manager.'))
+            raise AccessError(_('Action reserved for the manager group.'))
 
     def action_confirm(self):
         for rec in self:
             if rec.state != 'draft':
-                raise UserError(_('Seule une ordonnance brouillon peut être confirmée.'))
+                raise UserError(_('Only a draft prescription can be confirmed.'))
             for line in rec.dispensation_ids:
                 if line.state != 'draft':
                     continue
                 if not line.qty or line.qty <= 0:
-                    raise UserError(_('Toute délivrance non soldée est bloquée à la confirmation.'))
+                    raise UserError(_('Any unsold dispensation blocks the confirmation.'))
                 if not line.batch_id:
-                    raise UserError(_('Un lot doit être sélectionné pour chaque délivrance.'))
+                    raise UserError(_('A batch must be selected for each dispensation.'))
                 if line.batch_id.status in ('expired', 'withdrawn', 'recalled'):
-                    raise UserError(_('Délivrance interdite sur un lot périmé, retiré ou rappelé.'))
+                    raise UserError(_('Dispensation forbidden on an expired, withdrawn or recalled batch.'))
                 if line.qty > line.batch_id.qty_available:
-                    raise UserError(_('Quantité insuffisante en stock pour le lot.'))
+                    raise UserError(_('Insufficient stock quantity for the batch.'))
             rec.state = 'confirmed'
         return True
 
     def action_done(self):
         for rec in self:
             if rec.state != 'confirmed':
-                raise UserError(_('L\'ordonnance doit être confirmée avant d\'être terminée.'))
+                raise UserError(_('The prescription must be confirmed before being marked as done.'))
             for line in rec.dispensation_ids:
                 if line.state in ('done', 'cancelled'):
                     continue

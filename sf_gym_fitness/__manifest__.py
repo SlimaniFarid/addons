@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 {
-    'name': 'Salle de Sport & Fitness',
+    'name': 'Gym & Fitness Management',
     'summary': 'Gym memberships, plans, group classes, sessions, attendances and payments with automatic alerts',
     'description': """
-Salle de Sport & Fitness
+Gym & Fitness Management
 ========================
 
 Manage gym members and their sports subscriptions, membership plans

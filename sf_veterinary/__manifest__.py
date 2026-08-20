@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 {
-    'name': 'Clinique Vétérinaire & Animaux',
+    'name': 'Veterinary Clinic & Animals',
     'summary': 'Veterinary clinic management: animal patients, appointments, vaccinations and hospitalizations',
     'description': """
-Clinique Vétérinaire & Animaux
-===============================
+Veterinary Clinic & Animals
+===========================
 
 Manage veterinary clinic operations: complete animal patient records
 (species, breed, age, weight, sterilization, allergies), calendar

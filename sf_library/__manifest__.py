@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 {
-    'name': 'Gestion de Bibliothèque & Médiathèque',
+    'name': 'Library & Media Center Management',
     'summary': 'Catalogue, members, loans, returns, late fees and reservations with cron alerts',
     'description': """
-Gestion de Bibliothèque & Médiathèque
-======================================
+Library & Media Center Management
+=================================
 
 Structured catalogue of items and media (books, DVDs, CDs,
 games, press), library members, dated loans and returns with

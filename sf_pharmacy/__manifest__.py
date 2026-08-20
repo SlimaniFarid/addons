@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 {
-    'name': 'Gestion de Pharmacie & Délivrance',
+    'name': 'Pharmacy & Dispensation Management',
     'version': '18.0.1.0.0',
     'category': 'Sales',
-    'summary': 'Gestion de pharmacie : produits, lots, péremptions et délivrances sur ordonnance',
-    'description': 'Module de gestion d officine : produits pharmaceutiques, stocks par lot avec dates de péremption, alertes de rupture et de péremption, délivrances tracées sur ordonnance, rappels de lot et mouvements de stock.',
+    'summary': 'Pharmacy management: products, batches, expiries and prescription dispensations',
+    'description': 'Pharmacy management module: pharmaceutical products, batch stock with expiry dates, stock-out and expiry alerts, traced prescription dispensations, batch recalls and stock movements.',
     'author': 'Ethan Miller',
     'support': 'tech5262@gmail.com',
     'website': 'https://www.smartersaas.com',

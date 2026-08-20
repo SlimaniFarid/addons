@@ -7,11 +7,11 @@
         <field name="arch" type="xml">
             <xpath expr="//form" position="inside">
                 <app data-string="sf_pharmacy" string="sf_pharmacy" data-key="sf_pharmacy">
-                    <block title="Seuils d alerte" string="Seuils d alerte">
-                        <setting string="Délai d alerte péremption (jours)" help="Nombre de jours avant péremption déclenchant une alerte cron.">
+                    <block title="Alert thresholds" string="Alert thresholds">
+                        <setting string="Expiry alert delay (days)" help="Number of days before expiry triggering a cron alert.">
                             <field name="sf_pharmacy_expiry_days"/>
                         </setting>
-                        <setting string="Seuil de stock bas" help="Quantité disponible en dessous de laquelle le lot est considéré en rupture d alerte.">
+                        <setting string="Low stock threshold" help="Available quantity below which the batch is considered in an out-of-stock alert.">
                             <field name="sf_pharmacy_low_stock_threshold"/>
                         </setting>
                     </block>

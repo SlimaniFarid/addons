@@ -1,4 +1,4 @@
-# Clinique Vétérinaire & Animaux
+# Veterinary Clinic & Animals
 
 Veterinary clinic management: animal patients (complete record by
 species, breed, age), calendar appointments, vaccination plans
@@ -19,7 +19,7 @@ from admission to discharge.
 ## Installation
 
 Copy the module to your addons path, update the app list and
-install **Clinique Vétérinaire & Animaux**.
+install **Veterinary Clinic & Animals**.
 
 ## Configuration
 

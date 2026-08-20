@@ -1,4 +1,4 @@
-# Gestion de Pharmacie & Délivrance
+# Pharmacy & Dispensation Management
 
 Retail pharmacy management: pharmaceutical products, batch stock with
 expiry dates, stock-out and expiry alerts, and traced prescription
@@ -20,7 +20,7 @@ pharmacists, dispensers and stock managers.
 ## Installation
 
 Copy the module to your addons path, update the app list and
-install **Gestion de Pharmacie & Délivrance**.
+install **Pharmacy & Dispensation Management**.
 
 ## Configuration
 

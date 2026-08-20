@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <record id="sf_pharmacy_action_report_inventory" model="ir.actions.report">
-        <field name="name">Inventaire des lots</field>
+        <field name="name">Batch inventory</field>
         <field name="model">sf.pharmacy.batch</field>
         <field name="report_type">qweb-pdf</field>
         <field name="report_name">sf_pharmacy.sf_pharmacy_report_inventory</field>
@@ -11,7 +11,7 @@
     </record>
 
     <record id="sf_pharmacy_action_report_deliveries" model="ir.actions.report">
-        <field name="name">Délivrances</field>
+        <field name="name">Dispensations</field>
         <field name="model">sf.pharmacy.dispensation</field>
         <field name="report_type">qweb-pdf</field>
         <field name="report_name">sf_pharmacy.sf_pharmacy_report_deliveries</field>
@@ -21,7 +21,7 @@
     </record>
 
     <record id="sf_pharmacy_action_report_stock_value" model="ir.actions.report">
-        <field name="name">Valorisation du stock</field>
+        <field name="name">Stock valuation</field>
         <field name="model">sf.pharmacy.product</field>
         <field name="report_type">qweb-pdf</field>
         <field name="report_name">sf_pharmacy.sf_pharmacy_report_stock_value</field>
@@ -34,20 +34,20 @@
         <t t-call="web.html_container">
             <t t-foreach="docs" t-as="o">
                 <div class="page">
-                    <h2>Inventaire des lots</h2>
+                    <h2>Batch inventory</h2>
                     <p t-esc="o.company_id.name or ''"/>
                     <table class="table table-sm table-bordered">
                         <thead>
                             <tr>
-                                <th>Lot</th>
-                                <th>Produit</th>
-                                <th>Péremption</th>
-                                <th>Reçu</th>
-                                <th>Délivré</th>
-                                <th>Réservé</th>
-                                <th>Retiré</th>
-                                <th>Disponible</th>
-                                <th>Statut</th>
+                                <th>Batch</th>
+                                <th>Product</th>
+                                <th>Expiry</th>
+                                <th>Received</th>
+                                <th>Dispensed</th>
+                                <th>Reserved</th>
+                                <th>Withdrawn</th>
+                                <th>Available</th>
+                                <th>Status</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -75,18 +75,18 @@
         <t t-call="web.html_container">
             <t t-foreach="docs" t-as="o">
                 <div class="page">
-                    <h2>Rapport de délivrances</h2>
+                    <h2>Dispensations report</h2>
                     <p t-esc="o.company_id.name or ''"/>
                     <table class="table table-sm table-bordered">
                         <thead>
                             <tr>
-                                <th>Délivrance</th>
-                                <th>Ordonnance</th>
+                                <th>Dispensation</th>
+                                <th>Prescription</th>
                                 <th>Patient</th>
-                                <th>Produit</th>
-                                <th>Lot</th>
-                                <th>Quantité</th>
-                                <th>Posologie</th>
+                                <th>Product</th>
+                                <th>Batch</th>
+                                <th>Quantity</th>
+                                <th>Posology</th>
                                 <th>Date</th>
                             </tr>
                         </thead>
@@ -114,16 +114,16 @@
         <t t-call="web.html_container">
             <t t-foreach="docs" t-as="o">
                 <div class="page">
-                    <h2>Valorisation du stock</h2>
+                    <h2>Stock valuation</h2>
                     <p t-esc="o.company_id.name or ''"/>
                     <table class="table table-sm table-bordered">
                         <thead>
                             <tr>
-                                <th>Produit</th>
-                                <th>Lot</th>
-                                <th>Quantité disponible</th>
-                                <th>Coût unitaire</th>
-                                <th>Valeur</th>
+                                <th>Product</th>
+                                <th>Batch</th>
+                                <th>Available quantity</th>
+                                <th>Unit cost</th>
+                                <th>Value</th>
                             </tr>
                         </thead>
                         <tbody>

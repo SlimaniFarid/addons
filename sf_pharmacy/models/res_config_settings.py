@@ -5,8 +5,8 @@ from odoo import api, fields, models
 class ResConfigSettings(models.TransientModel):
     _inherit = 'res.config.settings'
 
-    sf_pharmacy_expiry_days = fields.Integer(string='Délai d alerte péremption (jours)', default=90)
-    sf_pharmacy_low_stock_threshold = fields.Float(string='Seuil de stock bas', default=5.0)
+    sf_pharmacy_expiry_days = fields.Integer(string='Expiry alert delay (days)', default=90)
+    sf_pharmacy_low_stock_threshold = fields.Float(string='Low stock threshold', default=5.0)
 
     def get_values(self):
         res = super(ResConfigSettings, self).get_values()

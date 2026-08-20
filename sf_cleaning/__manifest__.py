@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 {
-    'name': 'Prestations de Nettoyage & Contrats',
+    'name': 'Cleaning Services & Contracts',
     'summary': 'Cleaning service contracts, schedules, interventions, quality checks and invoicing',
     'description': """
-Prestations de Nettoyage & Contrats
-===================================
+Cleaning Services & Contracts
+=============================
 
 Manage recurring cleaning service contracts: sites, intervention
 frequencies, agent schedules, quality checks and service invoicing.

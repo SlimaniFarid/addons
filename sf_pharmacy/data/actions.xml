@@ -47,7 +47,7 @@
         </record>
 
         <record id="cron_sf_pharmacy_alerts" model="ir.cron">
-            <field name="name">sf_pharmacy : alertes péremption et rupture de stock</field>
+            <field name="name">sf_pharmacy : expiry and stock-out alerts</field>
             <field name="model_id" ref="model_sf_pharmacy_batch"/>
             <field name="state">code</field>
             <field name="code">model._cron_stock_alerts()</field>
