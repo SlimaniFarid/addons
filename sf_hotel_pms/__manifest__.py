@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Hotel PMS',
-    'summary': 'Hôtellerie & Réservations (PMS léger)',
+    'summary': 'Hospitality & Reservations (light PMS)',
     'description': """
-Hôtellerie & Réservations (PMS léger)
+Hospitality & Reservations (light PMS)
 =====================================
 
 Rooms and types with rates, multi-night reservations without

@@ -1,4 +1,4 @@
-# Gestion des Dons & Bienfaisance
+# Donations & Charity Management
 
 Manage donation campaigns (target and collected amounts), pledges
 (one-time or monthly), received payments and fiscal receipts, with
@@ -18,7 +18,7 @@ automatic reminders for unpaid pledges.
 ## Installation
 
 Copy the module to your addons path, update the app list and
-install **Gestion des Dons & Bienfaisance**.
+install **Donations & Charity Management**.
 
 ## Configuration
 

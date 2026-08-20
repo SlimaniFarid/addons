@@ -6,7 +6,7 @@
         <field name="inherit_id" ref="base.res_config_settings_view_form"/>
         <field name="arch" type="xml">
             <xpath expr="//form" position="inside">
-                <app data-string="Atelier &amp; Maintenance Véhicules" string="Atelier &amp; Maintenance Véhicules" name="vehicle_workshop">
+                <app data-string="Workshop &amp; Vehicle Maintenance" string="Workshop &amp; Vehicle Maintenance" name="vehicle_workshop">
                     <block>
                         <setting string="Unassigned request alert"
                                  help="Number of days after which a high or urgent priority request that is still unassigned triggers an alert.">

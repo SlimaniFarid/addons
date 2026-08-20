@@ -1,4 +1,4 @@
-# Atelier & Maintenance Véhicules
+# Workshop &amp; Vehicle Maintenance
 
 Manage a vehicle fleet and its maintenance workshop: vehicles with
 history, prioritized intervention requests, repair orders with
@@ -21,7 +21,7 @@ vehicle, and cron alerts on urgent unassigned requests.
 ## Installation
 
 Copy the module to your addons path, update the app list and
-install **Atelier & Maintenance Véhicules**.
+install **Workshop &amp; Vehicle Maintenance**.
 
 ## Configuration
 

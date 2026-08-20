@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 {
-    'name': 'Atelier & Maintenance Véhicules',
+    'name': 'Workshop & Vehicle Maintenance',
     'version': '18.0.1.0.0',
     'category': 'Other/Others',
     'summary': 'Vehicles, intervention requests, repair orders with operations and parts, full cost per vehicle and urgency alerts',
     'description': """
-Atelier & Maintenance Véhicules
-===============================
+Workshop & Vehicle Maintenance
+==============================
 
 Manage a vehicle fleet and its maintenance workshop: vehicles with
 full history, prioritized intervention requests, repair orders with

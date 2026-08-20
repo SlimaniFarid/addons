@@ -1,8 +1,8 @@
 # DEVELOPMENT STATUS — 50 Odoo Modules (18.0 / 19.0)
 
-Suivi de développement des 50 modules du plan. Source de vérité : plan validé en session.
-Conventions : préfixe `sf_`, licence `OPL-1`, auteur Ethan Miller, support tech5262@gmail.com, devise EUR.
-Test : validation statique (compile Python, parse XML, cohérence manifest/models/views/security) — pas d'instance Odoo locale.
+Development tracking for the 50 modules of the plan. Source of truth: plan validated in session.
+Conventions: `sf_` prefix, `OPL-1` license, author Ethan Miller, support tech5262@gmail.com, EUR currency.
+Testing: static validation (Python compile, XML parse, manifest/models/views/security coherence) - no local Odoo instance.
 
 | # | Module (technique / commercial) | Odoo 18 | Odoo 19 | Tests | Git 18 | Git 19 | Statut |
 |---|--------------------------------|---------|---------|-------|--------|--------|--------|
@@ -157,6 +157,6 @@ Test : validation statique (compile Python, parse XML, cohérence manifest/model
 | 149 | sf_data_catalog — Data Catalog & Lineage | ⏳ | ⏳ | ⏳ | ⏳ | ⏳ | Pending |
 | 150 | sf_collaboration_spaces — Team Collaboration Spaces | ⏳ | ⏳ | ⏳ | ⏳ | ⏳ | Pending |
 
-## Légende
-- ✅ Done · 🔄 In progress · ⏳ Pending
-- 1 module = 1 commit Odoo 18 + 1 commit Odoo 19 (branches 18.0 / 19.0)
+## Legend
+- ✅ Done - 🔄 In progress - ⏳ Pending
+- 1 module = 1 Odoo 18 commit + 1 Odoo 19 commit (branches 18.0 / 19.0)

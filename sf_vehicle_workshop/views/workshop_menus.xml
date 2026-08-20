@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-    <menuitem id="menu_workshop_root" name="Atelier &amp; Maintenance Véhicules" sequence="88"/>
+    <menuitem id="menu_workshop_root" name="Workshop &amp; Vehicle Maintenance" sequence="88"/>
 
     <menuitem id="menu_workshop_vehicles" name="Vehicles"
               parent="menu_workshop_root"

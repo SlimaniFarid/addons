@@ -2,7 +2,7 @@
 <odoo>
 
     <record id="report_reservation_confirmation" model="ir.actions.report">
-        <field name="name">Confirmation de réservation</field>
+        <field name="name">Reservation Confirmation</field>
         <field name="model">sf.hotel.reservation</field>
         <field name="report_type">qweb-pdf</field>
         <field name="report_name">sf_hotel_pms.report_reservation_confirmation_template</field>
@@ -16,14 +16,14 @@
             <t t-foreach="docs" t-as="o">
                 <t t-call="web.external_layout">
                     <div class="page">
-                        <h2>Confirmation de réservation</h2>
+                        <h2>Reservation Confirmation</h2>
                         <table class="table table-sm">
-                            <tr><td><strong>Réservation</strong></td><td><t t-esc="o.name"/></td></tr>
-                            <tr><td><strong>Client</strong></td><td><t t-esc="o.guest_name or (o.guest_id.name if o.guest_id else '')"/></td></tr>
-                            <tr><td><strong>Arrivée</strong></td><td><t t-esc="o.check_in or ''"/></td></tr>
-                            <tr><td><strong>Départ</strong></td><td><t t-esc="o.check_out or ''"/></td></tr>
-                            <tr><td><strong>Nuits</strong></td><td><t t-esc="o.nights"/></td></tr>
-                            <tr><td><strong>Chambres</strong></td><td><t t-esc="', '.join(o.room_ids.mapped('name'))"/></td></tr>
+                            <tr><td><strong>Reservation</strong></td><td><t t-esc="o.name"/></td></tr>
+                            <tr><td><strong>Customer</strong></td><td><t t-esc="o.guest_name or (o.guest_id.name if o.guest_id else '')"/></td></tr>
+                            <tr><td><strong>Arrival</strong></td><td><t t-esc="o.check_in or ''"/></td></tr>
+                            <tr><td><strong>Departure</strong></td><td><t t-esc="o.check_out or ''"/></td></tr>
+                            <tr><td><strong>Nights</strong></td><td><t t-esc="o.nights"/></td></tr>
+                            <tr><td><strong>Rooms</strong></td><td><t t-esc="', '.join(o.room_ids.mapped('name'))"/></td></tr>
                             <tr><td><strong>Total</strong></td><td><t t-esc="o.total"/></td></tr>
                         </table>
                     </div>
@@ -49,10 +49,10 @@
                     <div class="page">
                         <h2>Occupation / Housekeeping</h2>
                         <table class="table table-sm">
-                            <tr><td><strong>Chambre</strong></td><td><t t-esc="o.name"/></td></tr>
+                            <tr><td><strong>Room</strong></td><td><t t-esc="o.name"/></td></tr>
                             <tr><td><strong>Type</strong></td><td><t t-esc="o.room_type"/></td></tr>
-                            <tr><td><strong>Statut</strong></td><td><t t-esc="o.status"/></td></tr>
-                            <tr><td><strong>Tarif</strong></td><td><t t-esc="o.base_price"/></td></tr>
+                            <tr><td><strong>Status</strong></td><td><t t-esc="o.status"/></td></tr>
+                            <tr><td><strong>Rate</strong></td><td><t t-esc="o.base_price"/></td></tr>
                         </table>
                         <t t-if="o.housekeeping_ids">
                             <h4>Housekeeping</h4>
@@ -60,8 +60,8 @@
                                 <tr>
                                     <td><strong>Date</strong></td>
                                     <td><strong>Type</strong></td>
-                                    <td><strong>Assigné à</strong></td>
-                                    <td><strong>Statut</strong></td>
+                                    <td><strong>Assigned To</strong></td>
+                                    <td><strong>Status</strong></td>
                                 </tr>
                                 <t t-foreach="o.housekeeping_ids" t-as="task">
                                     <tr>

@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 {
-    'name': 'Gestion des Dons & Bienfaisance',
+    'name': 'Donations & Charity Management',
     'summary': 'Donation campaigns, pledges, payments and fiscal receipts with automatic reminders',
     'description': """
-Gestion des Dons & Bienfaisance
+Donations & Charity Management
 ===============================
 
 Manage donation campaigns (target and collected amounts), pledges
