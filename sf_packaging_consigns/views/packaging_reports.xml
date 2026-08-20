@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="report_packaging_followup" model="ir.actions.report">
+        <field name="name">Consignment Follow-up</field>
+        <field name="model">sf.packaging.type</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">sf_packaging_consigns.report_followup_template</field>
+        <field name="report_file">sf_packaging_consigns.report_followup_template</field>
+        <field name="binding_model_id" ref="model_sf_packaging_type"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <record id="report_packaging_parks_status" model="ir.actions.report">
+        <field name="name">Parks Status</field>
+        <field name="model">sf.packaging.park</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">sf_packaging_consigns.report_parks_template</field>
+        <field name="report_file">sf_packaging_consigns.report_parks_template</field>
+        <field name="binding_model_id" ref="model_sf_packaging_park"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="report_followup_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2>Consignment Follow-up</h2>
+                        <table class="table table-sm">
+                            <tr><td><strong>Packaging type</strong></td><td><t t-esc="o.name"/></td></tr>
+                            <tr><td><strong>Product</strong></td><td><t t-esc="o.product_name or ''"/></td></tr>
+                            <tr><td><strong>Units per lot</strong></td><td><t t-esc="o.condition or ''"/></td></tr>
+                            <tr><td><strong>Deposit amount</strong></td><td><t t-esc="o.deposit_amount"/></td></tr>
+                            <tr><td><strong>Minimum stock</strong></td><td><t t-esc="o.min_stock"/></td></tr>
+                        </table>
+                        <t t-if="o.park_ids">
+                            <h4>Parks</h4>
+                            <table class="table table-sm">
+                                <tr><th>Park</th><th>Site</th><th>Quantity</th><th>Emissions</th><th>Returns</th><th>Available</th><th>Return rate</th></tr>
+                                <tr t-foreach="o.park_ids" t-as="p">
+                                    <td><t t-esc="p.name"/></td>
+                                    <td><t t-esc="p.site_id.name"/></td>
+                                    <td><t t-esc="p.quantity"/></td>
+                                    <td><t t-esc="p.move_done_qty"/></td>
+                                    <td><t t-esc="p.return_received_qty"/></td>
+                                    <td><t t-esc="p.available_quantity"/></td>
+                                    <td><t t-esc="p.return_rate"/>%</td>
+                                </tr>
+                            </table>
+                        </t>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <template id="report_parks_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2>Parks Status</h2>
+                        <table class="table table-sm">
+                            <tr><td><strong>Park</strong></td><td><t t-esc="o.name"/></td></tr>
+                            <tr><td><strong>Packaging type</strong></td><td><t t-esc="o.packaging_type_id.name"/></td></tr>
+                            <tr><td><strong>Site</strong></td><td><t t-esc="o.site_id.name"/></td></tr>
+                            <tr><td><strong>Quantity</strong></td><td><t t-esc="o.quantity"/></td></tr>
+                            <tr><td><strong>Emissions done</strong></td><td><t t-esc="o.move_done_qty"/></td></tr>
+                            <tr><td><strong>Returns received</strong></td><td><t t-esc="o.return_received_qty"/></td></tr>
+                            <tr><td><strong>Available quantity</strong></td><td><t t-esc="o.available_quantity"/></td></tr>
+                            <tr><td><strong>Return rate</strong></td><td><t t-esc="o.return_rate"/>%</td></tr>
+                            <tr><td><strong>Minimum stock</strong></td><td><t t-esc="o.packaging_type_id.min_stock"/></td></tr>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+</odoo>

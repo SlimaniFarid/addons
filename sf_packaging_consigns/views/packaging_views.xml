@@ -1,0 +1,548 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ============ PACKAGING TYPE ============ -->
+    <record id="view_packaging_type_tree" model="ir.ui.view">
+        <field name="name">sf.packaging.type.tree</field>
+        <field name="model">sf.packaging.type</field>
+        <field name="arch" type="xml">
+            <tree string="Packaging Types">
+                <field name="name"/>
+                <field name="product_name"/>
+                <field name="condition"/>
+                <field name="deposit_amount"/>
+                <field name="min_stock"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_packaging_type_form" model="ir.ui.view">
+        <field name="name">sf.packaging.type.form</field>
+        <field name="model">sf.packaging.type</field>
+        <field name="arch" type="xml">
+            <form string="Packaging Type">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="product_name"/>
+                            <field name="condition"/>
+                        </group>
+                        <group>
+                            <field name="deposit_amount"/>
+                            <field name="min_stock"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                            <field name="active"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Parks">
+                            <field name="park_ids" readonly="1">
+                                <tree string="Parks">
+                                    <field name="name"/>
+                                    <field name="site_id"/>
+                                    <field name="quantity"/>
+                                    <field name="available_quantity"/>
+                                    <field name="return_rate"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_packaging_type_search" model="ir.ui.view">
+        <field name="name">sf.packaging.type.search</field>
+        <field name="model">sf.packaging.type</field>
+        <field name="arch" type="xml">
+            <search string="Packaging Types">
+                <field name="name"/>
+                <field name="product_name"/>
+                <filter string="Active" name="active"
+                        domain="[('active', '=', True)]"/>
+                <filter string="Archived" name="archived"
+                        domain="[('active', '=', False)]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_packaging_type_kanban" model="ir.ui.view">
+        <field name="name">sf.packaging.type.kanban</field>
+        <field name="model">sf.packaging.type</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <field name="name"/>
+                <field name="product_name"/>
+                <field name="deposit_amount"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="o_kanban_record_title">
+                                <field name="name"/>
+                            </div>
+                            <div class="o_kanban_record_subtitle">
+                                <field name="product_name"/>
+                            </div>
+                            <div class="o_kanban_record_bottom">
+                                Deposit: <field name="deposit_amount"/>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="action_packaging_type" model="ir.actions.act_window">
+        <field name="name">Packaging Types</field>
+        <field name="res_model">sf.packaging.type</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="search_view_id" ref="view_packaging_type_search"/>
+    </record>
+
+    <!-- ============ SITE ============ -->
+    <record id="view_packaging_site_tree" model="ir.ui.view">
+        <field name="name">sf.packaging.site.tree</field>
+        <field name="model">sf.packaging.site</field>
+        <field name="arch" type="xml">
+            <tree string="Sites">
+                <field name="name"/>
+                <field name="address"/>
+                <field name="manager_id"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_packaging_site_form" model="ir.ui.view">
+        <field name="name">sf.packaging.site.form</field>
+        <field name="model">sf.packaging.site</field>
+        <field name="arch" type="xml">
+            <form string="Site">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="address"/>
+                        </group>
+                        <group>
+                            <field name="manager_id"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                            <field name="active"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_packaging_site_search" model="ir.ui.view">
+        <field name="name">sf.packaging.site.search</field>
+        <field name="model">sf.packaging.site</field>
+        <field name="arch" type="xml">
+            <search string="Sites">
+                <field name="name"/>
+                <field name="address"/>
+                <field name="manager_id"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_packaging_site_kanban" model="ir.ui.view">
+        <field name="name">sf.packaging.site.kanban</field>
+        <field name="model">sf.packaging.site</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <field name="name"/>
+                <field name="address"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="o_kanban_record_title">
+                                <field name="name"/>
+                            </div>
+                            <div class="o_kanban_record_subtitle">
+                                <field name="address"/>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="action_packaging_site" model="ir.actions.act_window">
+        <field name="name">Sites</field>
+        <field name="res_model">sf.packaging.site</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="search_view_id" ref="view_packaging_site_search"/>
+    </record>
+
+    <!-- ============ PARK ============ -->
+    <record id="view_packaging_park_tree" model="ir.ui.view">
+        <field name="name">sf.packaging.park.tree</field>
+        <field name="model">sf.packaging.park</field>
+        <field name="arch" type="xml">
+            <tree string="Parks">
+                <field name="name"/>
+                <field name="packaging_type_id"/>
+                <field name="site_id"/>
+                <field name="quantity"/>
+                <field name="available_quantity"/>
+                <field name="return_rate"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_packaging_park_form" model="ir.ui.view">
+        <field name="name">sf.packaging.park.form</field>
+        <field name="model">sf.packaging.park</field>
+        <field name="arch" type="xml">
+            <form string="Park">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="packaging_type_id"/>
+                            <field name="site_id"/>
+                            <field name="quantity"/>
+                        </group>
+                        <group>
+                            <field name="move_done_qty" readonly="1"/>
+                            <field name="return_received_qty" readonly="1"/>
+                            <field name="available_quantity" readonly="1"/>
+                            <field name="return_rate" readonly="1"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_packaging_park_search" model="ir.ui.view">
+        <field name="name">sf.packaging.park.search</field>
+        <field name="model">sf.packaging.park</field>
+        <field name="arch" type="xml">
+            <search string="Parks">
+                <field name="packaging_type_id"/>
+                <field name="site_id"/>
+                <filter string="Under minimum stock" name="low_stock"
+                        domain="[('low_stock', '=', True)]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Packaging Type" name="type_group"
+                            context="{'group_by': 'packaging_type_id'}"/>
+                    <filter string="Site" name="site_group"
+                            context="{'group_by': 'site_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_packaging_park_kanban" model="ir.ui.view">
+        <field name="name">sf.packaging.park.kanban</field>
+        <field name="model">sf.packaging.park</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <field name="name"/>
+                <field name="packaging_type_id"/>
+                <field name="site_id"/>
+                <field name="available_quantity"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="o_kanban_record_title">
+                                <field name="packaging_type_id"/>
+                            </div>
+                            <div class="o_kanban_record_subtitle">
+                                <field name="site_id"/>
+                            </div>
+                            <div class="o_kanban_record_bottom">
+                                Available: <field name="available_quantity"/>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="action_packaging_park" model="ir.actions.act_window">
+        <field name="name">Parks</field>
+        <field name="res_model">sf.packaging.park</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="search_view_id" ref="view_packaging_park_search"/>
+    </record>
+
+    <!-- ============ MOVE ============ -->
+    <record id="view_packaging_move_tree" model="ir.ui.view">
+        <field name="name">sf.packaging.move.tree</field>
+        <field name="model">sf.packaging.move</field>
+        <field name="arch" type="xml">
+            <tree string="Emissions">
+                <field name="name"/>
+                <field name="packaging_type_id"/>
+                <field name="site_id"/>
+                <field name="partner_id"/>
+                <field name="quantity"/>
+                <field name="date"/>
+                <field name="deposit_total"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_packaging_move_form" model="ir.ui.view">
+        <field name="name">sf.packaging.move.form</field>
+        <field name="model">sf.packaging.move</field>
+        <field name="arch" type="xml">
+            <form string="Emission">
+                <header>
+                    <button name="action_done" type="object"
+                            string="Mark Done" class="btn-primary"
+                            invisible="state != 'draft'"/>
+                    <button name="action_close" type="object"
+                            string="Close" class="btn-success"
+                            invisible="state != 'done'"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="packaging_type_id"/>
+                            <field name="site_id"/>
+                            <field name="partner_id"/>
+                        </group>
+                        <group>
+                            <field name="quantity"/>
+                            <field name="date"/>
+                            <field name="reference"/>
+                            <field name="deposit_total" readonly="1"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_packaging_move_search" model="ir.ui.view">
+        <field name="name">sf.packaging.move.search</field>
+        <field name="model">sf.packaging.move</field>
+        <field name="arch" type="xml">
+            <search string="Emissions">
+                <field name="partner_id"/>
+                <field name="packaging_type_id"/>
+                <field name="site_id"/>
+                <field name="reference"/>
+                <filter string="Draft" name="draft"
+                        domain="[('state', '=', 'draft')]"/>
+                <filter string="Done" name="done"
+                        domain="[('state', '=', 'done')]"/>
+                <filter string="Closed" name="closed"
+                        domain="[('state', '=', 'closed')]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Status" name="state_group"
+                            context="{'group_by': 'state'}"/>
+                    <filter string="Packaging Type" name="type_group"
+                            context="{'group_by': 'packaging_type_id'}"/>
+                    <filter string="Site" name="site_group"
+                            context="{'group_by': 'site_id'}"/>
+                    <filter string="Partner" name="partner_group"
+                            context="{'group_by': 'partner_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_packaging_move_kanban" model="ir.ui.view">
+        <field name="name">sf.packaging.move.kanban</field>
+        <field name="model">sf.packaging.move</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state">
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="quantity"/>
+                <field name="deposit_total"/>
+                <field name="state"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="o_kanban_record_title">
+                                <field name="name"/>
+                            </div>
+                            <div class="o_kanban_record_subtitle">
+                                <field name="partner_id"/>
+                            </div>
+                            <div class="o_kanban_record_bottom">
+                                <field name="quantity"/> units,
+                                <field name="deposit_total"/>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="action_packaging_move" model="ir.actions.act_window">
+        <field name="name">Emissions</field>
+        <field name="res_model">sf.packaging.move</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="search_view_id" ref="view_packaging_move_search"/>
+    </record>
+
+    <!-- ============ RETURN ============ -->
+    <record id="view_packaging_return_tree" model="ir.ui.view">
+        <field name="name">sf.packaging.return.tree</field>
+        <field name="model">sf.packaging.return</field>
+        <field name="arch" type="xml">
+            <tree string="Returns">
+                <field name="name"/>
+                <field name="packaging_type_id"/>
+                <field name="site_id"/>
+                <field name="partner_id"/>
+                <field name="quantity"/>
+                <field name="received_ok"/>
+                <field name="date"/>
+                <field name="deposit_total"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_packaging_return_form" model="ir.ui.view">
+        <field name="name">sf.packaging.return.form</field>
+        <field name="model">sf.packaging.return</field>
+        <field name="arch" type="xml">
+            <form string="Return">
+                <header>
+                    <button name="action_received" type="object"
+                            string="Mark Received" class="btn-primary"
+                            invisible="state != 'draft'"/>
+                    <button name="action_checked" type="object"
+                            string="Check" class="btn-success"
+                            invisible="state != 'received'"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="packaging_type_id"/>
+                            <field name="site_id"/>
+                            <field name="partner_id"/>
+                        </group>
+                        <group>
+                            <field name="quantity"/>
+                            <field name="received_ok"/>
+                            <field name="date"/>
+                            <field name="deposit_total" readonly="1"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_packaging_return_search" model="ir.ui.view">
+        <field name="name">sf.packaging.return.search</field>
+        <field name="model">sf.packaging.return</field>
+        <field name="arch" type="xml">
+            <search string="Returns">
+                <field name="partner_id"/>
+                <field name="packaging_type_id"/>
+                <field name="site_id"/>
+                <filter string="Draft" name="draft"
+                        domain="[('state', '=', 'draft')]"/>
+                <filter string="Received" name="received"
+                        domain="[('state', '=', 'received')]"/>
+                <filter string="Checked" name="checked"
+                        domain="[('state', '=', 'checked')]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Status" name="state_group"
+                            context="{'group_by': 'state'}"/>
+                    <filter string="Packaging Type" name="type_group"
+                            context="{'group_by': 'packaging_type_id'}"/>
+                    <filter string="Site" name="site_group"
+                            context="{'group_by': 'site_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_packaging_return_kanban" model="ir.ui.view">
+        <field name="name">sf.packaging.return.kanban</field>
+        <field name="model">sf.packaging.return</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state">
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="quantity"/>
+                <field name="deposit_total"/>
+                <field name="state"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="o_kanban_record_title">
+                                <field name="name"/>
+                            </div>
+                            <div class="o_kanban_record_subtitle">
+                                <field name="partner_id"/>
+                            </div>
+                            <div class="o_kanban_record_bottom">
+                                <field name="quantity"/> units,
+                                <field name="deposit_total"/>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="action_packaging_return" model="ir.actions.act_window">
+        <field name="name">Returns</field>
+        <field name="res_model">sf.packaging.return</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="search_view_id" ref="view_packaging_return_search"/>
+    </record>
+
+    <!-- ============ DASHBOARD ============ -->
+    <record id="view_packaging_dashboard_graph" model="ir.ui.view">
+        <field name="name">sf.packaging.move.dashboard.graph</field>
+        <field name="model">sf.packaging.move</field>
+        <field name="arch" type="xml">
+            <graph string="Deposit Total by Packaging Type">
+                <field name="packaging_type_id"/>
+                <field name="deposit_total" type="measure"
+                       string="Deposit total"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="view_packaging_dashboard_pivot" model="ir.ui.view">
+        <field name="name">sf.packaging.move.dashboard.pivot</field>
+        <field name="model">sf.packaging.move</field>
+        <field name="arch" type="xml">
+            <pivot string="Emissions by Packaging Type">
+                <field name="packaging_type_id" type="row"/>
+                <field name="state" type="col"/>
+                <field name="deposit_total" type="measure"
+                       string="Deposit total"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="action_packaging_dashboard" model="ir.actions.act_window">
+        <field name="name">Packaging Dashboard</field>
+        <field name="res_model">sf.packaging.move</field>
+        <field name="view_mode">graph,pivot</field>
+        <field name="view_ids" eval="[(5, 0), (0, 0, {'view_mode': 'graph', 'view_id': ref('view_packaging_dashboard_graph')}), (0, 0, {'view_mode': 'pivot', 'view_id': ref('view_packaging_dashboard_pivot')})]"/>
+    </record>
+
+</odoo>

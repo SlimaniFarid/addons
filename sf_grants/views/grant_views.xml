@@ -1,0 +1,506 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ============ PROGRAM ============ -->
+    <record id="view_grant_program_tree" model="ir.ui.view">
+        <field name="name">sf.grant.program.tree</field>
+        <field name="model">sf.grant.program</field>
+        <field name="arch" type="xml">
+            <tree string="Programs">
+                <field name="name"/>
+                <field name="funder"/>
+                <field name="funder_type"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_grant_program_form" model="ir.ui.view">
+        <field name="name">sf.grant.program.form</field>
+        <field name="model">sf.grant.program</field>
+        <field name="arch" type="xml">
+            <form string="Grant Program">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="funder"/>
+                        </group>
+                        <group>
+                            <field name="funder_type"/>
+                            <field name="active"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <field name="description"/>
+                    <notebook>
+                        <page string="Calls for Projects">
+                            <field name="call_ids" readonly="1">
+                                <tree string="Calls">
+                                    <field name="name"/>
+                                    <field name="title"/>
+                                    <field name="budget"/>
+                                    <field name="deadline_date"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_grant_program_search" model="ir.ui.view">
+        <field name="name">sf.grant.program.search</field>
+        <field name="model">sf.grant.program</field>
+        <field name="arch" type="xml">
+            <search string="Programs">
+                <field name="funder"/>
+                <filter string="European" name="funder_european"
+                        domain="[('funder_type', '=', 'european')]"/>
+                <filter string="State" name="funder_state"
+                        domain="[('funder_type', '=', 'state')]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Funder Type" name="funder_type_group"
+                            context="{'group_by': 'funder_type'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_grant_program_kanban" model="ir.ui.view">
+        <field name="name">sf.grant.program.kanban</field>
+        <field name="model">sf.grant.program</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="funder_type">
+                <field name="funder"/>
+                <field name="funder_type"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="o_kanban_record_title">
+                                <field name="name"/> - <field name="funder"/>
+                            </div>
+                            <div class="o_kanban_record_subtitle">
+                                <field name="funder_type"/>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="action_grant_program" model="ir.actions.act_window">
+        <field name="name">Programs</field>
+        <field name="res_model">sf.grant.program</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="search_view_id" ref="view_grant_program_search"/>
+    </record>
+
+    <!-- ============ CALL ============ -->
+    <record id="view_grant_call_tree" model="ir.ui.view">
+        <field name="name">sf.grant.call.tree</field>
+        <field name="model">sf.grant.call</field>
+        <field name="arch" type="xml">
+            <tree string="Calls for Projects">
+                <field name="name"/>
+                <field name="program_id"/>
+                <field name="title"/>
+                <field name="budget"/>
+                <field name="open_date"/>
+                <field name="deadline_date"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_grant_call_form" model="ir.ui.view">
+        <field name="name">sf.grant.call.form</field>
+        <field name="model">sf.grant.call</field>
+        <field name="arch" type="xml">
+            <form string="Call for Projects">
+                <header>
+                    <button name="action_open" type="object"
+                            string="Open Call" class="btn-primary"
+                            invisible="state != 'draft'"/>
+                    <button name="action_close_call" type="object"
+                            string="Close Call" class="btn-secondary"
+                            invisible="state != 'open'"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="program_id"/>
+                            <field name="title"/>
+                        </group>
+                        <group>
+                            <field name="budget"/>
+                            <field name="max_amount"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="open_date"/>
+                        <field name="deadline_date"/>
+                    </group>
+                    <notebook>
+                        <page string="Applications">
+                            <field name="application_ids" readonly="1">
+                                <tree string="Applications">
+                                    <field name="name"/>
+                                    <field name="applicant"/>
+                                    <field name="requested_amount"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_grant_call_search" model="ir.ui.view">
+        <field name="name">sf.grant.call.search</field>
+        <field name="model">sf.grant.call</field>
+        <field name="arch" type="xml">
+            <search string="Calls for Projects">
+                <field name="program_id"/>
+                <field name="title"/>
+                <filter string="Open" name="open"
+                        domain="[('state', '=', 'open')]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Status" name="state_group"
+                            context="{'group_by': 'state'}"/>
+                    <filter string="Program" name="program_group"
+                            context="{'group_by': 'program_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_grant_call_kanban" model="ir.ui.view">
+        <field name="name">sf.grant.call.kanban</field>
+        <field name="model">sf.grant.call</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state">
+                <field name="program_id"/>
+                <field name="title"/>
+                <field name="deadline_date"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="o_kanban_record_title">
+                                <field name="name"/> - <field name="title"/>
+                            </div>
+                            <div class="o_kanban_record_subtitle">
+                                <field name="program_id"/>
+                            </div>
+                            <div class="o_kanban_record_bottom">
+                                Deadline: <field name="deadline_date"/>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="action_grant_call" model="ir.actions.act_window">
+        <field name="name">Calls for Projects</field>
+        <field name="res_model">sf.grant.call</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="search_view_id" ref="view_grant_call_search"/>
+    </record>
+
+    <!-- ============ APPLICATION ============ -->
+    <record id="view_grant_application_tree" model="ir.ui.view">
+        <field name="name">sf.grant.application.tree</field>
+        <field name="model">sf.grant.application</field>
+        <field name="arch" type="xml">
+            <tree string="Applications">
+                <field name="name"/>
+                <field name="call_id"/>
+                <field name="title"/>
+                <field name="applicant"/>
+                <field name="requested_amount"/>
+                <field name="granted_amount"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_grant_application_form" model="ir.ui.view">
+        <field name="name">sf.grant.application.form</field>
+        <field name="model">sf.grant.application</field>
+        <field name="arch" type="xml">
+            <form string="Grant Application">
+                <header>
+                    <button name="action_submit" type="object"
+                            string="Submit" class="btn-primary"
+                            invisible="state != 'draft'"/>
+                    <button name="action_approve" type="object"
+                            string="Approve" class="btn-success"
+                            groups="sf_grants.group_grant_manager"
+                            invisible="state != 'submitted'"/>
+                    <button name="action_pay" type="object"
+                            string="Pay" class="btn-warning"
+                            groups="sf_grants.group_grant_manager"
+                            invisible="state != 'approved'"/>
+                    <button name="action_close" type="object"
+                            string="Close" class="btn-secondary"
+                            groups="sf_grants.group_grant_manager"
+                            invisible="state != 'paid'"/>
+                    <button name="action_reject" type="object"
+                            string="Reject" class="btn-danger"
+                            groups="sf_grants.group_grant_manager"
+                            invisible="state != 'submitted'"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="call_id"/>
+                            <field name="program_id"/>
+                            <field name="title"/>
+                        </group>
+                        <group>
+                            <field name="applicant"/>
+                            <field name="requested_amount"/>
+                            <field name="granted_amount"/>
+                            <field name="currency"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="submission_date"/>
+                        <field name="decision_date"/>
+                        <field name="total_validated_amount" readonly="1"/>
+                    </group>
+                    <notebook>
+                        <page string="Expenses">
+                            <field name="expense_ids">
+                                <tree string="Expenses">
+                                    <field name="name"/>
+                                    <field name="expense_date"/>
+                                    <field name="category"/>
+                                    <field name="amount"/>
+                                    <field name="justification"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_grant_application_search" model="ir.ui.view">
+        <field name="name">sf.grant.application.search</field>
+        <field name="model">sf.grant.application</field>
+        <field name="arch" type="xml">
+            <search string="Applications">
+                <field name="call_id"/>
+                <field name="applicant"/>
+                <field name="title"/>
+                <filter string="Approved" name="approved"
+                        domain="[('state', '=', 'approved')]"/>
+                <filter string="Pending" name="pending"
+                        domain="[('state', 'in', ('draft', 'submitted'))]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Status" name="state_group"
+                            context="{'group_by': 'state'}"/>
+                    <filter string="Program" name="program_group"
+                            context="{'group_by': 'program_id'}"/>
+                    <filter string="Funder Type" name="funder_type_group"
+                            context="{'group_by': 'funder_type'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_grant_application_kanban" model="ir.ui.view">
+        <field name="name">sf.grant.application.kanban</field>
+        <field name="model">sf.grant.application</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state">
+                <field name="call_id"/>
+                <field name="title"/>
+                <field name="applicant"/>
+                <field name="requested_amount"/>
+                <field name="granted_amount"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="o_kanban_record_title">
+                                <field name="name"/> - <field name="title"/>
+                            </div>
+                            <div class="o_kanban_record_subtitle">
+                                <field name="call_id"/>
+                            </div>
+                            <div class="o_kanban_record_bottom">
+                                Applicant: <field name="applicant"/>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="action_grant_application" model="ir.actions.act_window">
+        <field name="name">Applications</field>
+        <field name="res_model">sf.grant.application</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="search_view_id" ref="view_grant_application_search"/>
+    </record>
+
+    <!-- ============ EXPENSE ============ -->
+    <record id="view_grant_expense_tree" model="ir.ui.view">
+        <field name="name">sf.grant.expense.tree</field>
+        <field name="model">sf.grant.expense</field>
+        <field name="arch" type="xml">
+            <tree string="Expenses">
+                <field name="name"/>
+                <field name="application_id"/>
+                <field name="expense_date"/>
+                <field name="category"/>
+                <field name="amount"/>
+                <field name="justification"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_grant_expense_form" model="ir.ui.view">
+        <field name="name">sf.grant.expense.form</field>
+        <field name="model">sf.grant.expense</field>
+        <field name="arch" type="xml">
+            <form string="Grant Expense">
+                <header>
+                    <button name="action_claim" type="object"
+                            string="Claim" class="btn-primary"
+                            invisible="state != 'draft'"/>
+                    <button name="action_validate" type="object"
+                            string="Validate" class="btn-success"
+                            groups="sf_grants.group_grant_manager"
+                            invisible="state != 'claimed'"/>
+                    <button name="action_reject" type="object"
+                            string="Reject" class="btn-danger"
+                            groups="sf_grants.group_grant_manager"
+                            invisible="state != 'claimed'"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="application_id"/>
+                            <field name="expense_date"/>
+                        </group>
+                        <group>
+                            <field name="category"/>
+                            <field name="amount"/>
+                            <field name="justification"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_grant_expense_search" model="ir.ui.view">
+        <field name="name">sf.grant.expense.search</field>
+        <field name="model">sf.grant.expense</field>
+        <field name="arch" type="xml">
+            <search string="Expenses">
+                <field name="application_id"/>
+                <filter string="To validate" name="claimed"
+                        domain="[('state', '=', 'claimed')]"/>
+                <filter string="Validated" name="validated"
+                        domain="[('state', '=', 'validated')]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Status" name="state_group"
+                            context="{'group_by': 'state'}"/>
+                    <filter string="Category" name="category_group"
+                            context="{'group_by': 'category'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_grant_expense_kanban" model="ir.ui.view">
+        <field name="name">sf.grant.expense.kanban</field>
+        <field name="model">sf.grant.expense</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state">
+                <field name="application_id"/>
+                <field name="category"/>
+                <field name="amount"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="o_kanban_record_title">
+                                <field name="name"/> - <field name="category"/>
+                            </div>
+                            <div class="o_kanban_record_subtitle">
+                                <field name="application_id"/>
+                            </div>
+                            <div class="o_kanban_record_bottom">
+                                Amount: <field name="amount"/>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="action_grant_expense" model="ir.actions.act_window">
+        <field name="name">Expenses</field>
+        <field name="res_model">sf.grant.expense</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="search_view_id" ref="view_grant_expense_search"/>
+    </record>
+
+    <!-- ============ DASHBOARD ============ -->
+    <record id="view_grant_dashboard_graph" model="ir.ui.view">
+        <field name="name">sf.grant.application.dashboard.graph</field>
+        <field name="model">sf.grant.application</field>
+        <field name="arch" type="xml">
+            <graph string="Applications by State">
+                <field name="state"/>
+                <field name="id" type="measure" string="Applications"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="view_grant_dashboard_pivot" model="ir.ui.view">
+        <field name="name">sf.grant.application.dashboard.pivot</field>
+        <field name="model">sf.grant.application</field>
+        <field name="arch" type="xml">
+            <pivot string="Applications by Funder Type">
+                <field name="funder_type" type="row"/>
+                <field name="state" type="col"/>
+                <field name="requested_amount" type="measure"
+                       string="Requested"/>
+                <field name="granted_amount" type="measure"
+                       string="Granted"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="action_grant_dashboard" model="ir.actions.act_window">
+        <field name="name">Grant Dashboard</field>
+        <field name="res_model">sf.grant.application</field>
+        <field name="view_mode">graph,pivot</field>
+        <field name="view_ids" eval="[(5, 0), (0, 0, {'view_mode': 'graph', 'view_id': ref('view_grant_dashboard_graph')}), (0, 0, {'view_mode': 'pivot', 'view_id': ref('view_grant_dashboard_pivot')})]"/>
+    </record>
+
+</odoo>

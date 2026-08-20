@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="report_fuel_monthly_consumption" model="ir.actions.report">
+        <field name="name">Monthly Fuel Consumption</field>
+        <field name="model">sf.fuel.vehicle</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">sf_fuel_management.report_monthly_consumption_template</field>
+        <field name="report_file">sf_fuel_management.report_monthly_consumption_template</field>
+        <field name="binding_model_id" ref="model_sf_fuel_vehicle"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="report_monthly_consumption_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2>Monthly Fuel Consumption</h2>
+                        <h3><t t-esc="o.license_plate or o.name"/> — <t t-esc="o.brand or ''"/> <t t-esc="o.model or ''"/></h3>
+                        <table class="table table-sm">
+                            <tr>
+                                <th>Fill</th>
+                                <th>Date</th>
+                                <th>Odometer (km)</th>
+                                <th>Liters</th>
+                                <th>Price</th>
+                                <th>Total</th>
+                                <th>L/100km</th>
+                            </tr>
+                            <t t-foreach="o.fill_ids" t-as="fill">
+                                <tr>
+                                    <td><t t-esc="fill.name"/></td>
+                                    <td><t t-esc="fill.fill_date or ''"/></td>
+                                    <td><t t-esc="fill.odometer"/></td>
+                                    <td><t t-esc="fill.liters"/></td>
+                                    <td><t t-esc="fill.price_per_liter"/></td>
+                                    <td><t t-esc="fill.total"/></td>
+                                    <td><t t-esc="fill.consumption"/></td>
+                                </tr>
+                            </t>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <record id="report_fuel_tank_monitoring" model="ir.actions.report">
+        <field name="name">Tank Monitoring</field>
+        <field name="model">sf.fuel.tank</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">sf_fuel_management.report_tank_monitoring_template</field>
+        <field name="report_file">sf_fuel_management.report_tank_monitoring_template</field>
+        <field name="binding_model_id" ref="model_sf_fuel_tank"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="report_tank_monitoring_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2>Tank Monitoring</h2>
+                        <table class="table table-sm">
+                            <tr><td><strong>Tank</strong></td><td><t t-esc="o.name"/></td></tr>
+                            <tr><td><strong>Site</strong></td><td><t t-esc="o.site"/></td></tr>
+                            <tr><td><strong>Fuel type</strong></td><td><t t-esc="o.fuel_type"/></td></tr>
+                            <tr><td><strong>Capacity (liters)</strong></td><td><t t-esc="o.capacity"/></td></tr>
+                            <tr><td><strong>Current level (liters)</strong></td><td><t t-esc="o.current_level"/></td></tr>
+                            <tr><td><strong>Last gauge date</strong></td><td><t t-esc="o.last_gauge_date or ''"/></td></tr>
+                        </table>
+                        <t t-if="o.receipt_ids">
+                            <h4>Receipts</h4>
+                            <table class="table table-sm">
+                                <tr>
+                                    <th>Receipt</th>
+                                    <th>Date</th>
+                                    <th>Liters</th>
+                                    <th>Supplier</th>
+                                    <th>Unit price</th>
+                                    <th>Total</th>
+                                </tr>
+                                <t t-foreach="o.receipt_ids" t-as="r">
+                                    <tr>
+                                        <td><t t-esc="r.name"/></td>
+                                        <td><t t-esc="r.receipt_date or ''"/></td>
+                                        <td><t t-esc="r.liters"/></td>
+                                        <td><t t-esc="r.supplier or ''"/></td>
+                                        <td><t t-esc="r.unit_price"/></td>
+                                        <td><t t-esc="r.total"/></td>
+                                    </tr>
+                                </t>
+                            </table>
+                        </t>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+</odoo>
