@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_appointments">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-set="company" t-value="o.company_id or res_company"/>
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2>Dock Appointment Schedule</h2>
+                        <table class="table table-sm">
+                            <tr><th>Appointment</th><th>Dock</th><th>Carrier</th><th>Direction</th><th>Window</th><th>Arrival</th><th>Departure</th><th>Delay</th><th>Status</th></tr>
+                            <tr t-foreach="o" t-as="a">
+                                <td><span t-field="a.name"/></td>
+                                <td><span t-field="a.dock_id"/></td>
+                                <td><span t-field="a.partner_id"/></td>
+                                <td><span t-field="a.direction"/></td>
+                                <td><span t-field="a.appointment_datetime"/></td>
+                                <td><span t-field="a.actual_arrival_datetime"/></td>
+                                <td><span t-field="a.actual_departure_datetime"/></td>
+                                <td><span t-field="a.delay_minutes"/></td>
+                                <td><span t-field="a.state"/></td>
+                            </tr>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

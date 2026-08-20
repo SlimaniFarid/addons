@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ============ VISIT ============ -->
+    <record id="view_visitor_visit_tree" model="ir.ui.view">
+        <field name="name">sf.visitor.visit.tree</field>
+        <field name="model">sf.visitor.visit</field>
+        <field name="arch" type="xml">
+            <tree string="Visits">
+                <field name="name"/>
+                <field name="person_id"/>
+                <field name="full_name"/>
+                <field name="visiting_company_id"/>
+                <field name="visit_type"/>
+                <field name="gate_id"/>
+                <field name="state"/>
+                <field name="check_in"/>
+                <field name="check_out"/>
+                <field name="badge_number"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_visitor_visit_form" model="ir.ui.view">
+        <field name="name">sf.visitor.visit.form</field>
+        <field name="model">sf.visitor.visit</field>
+        <field name="arch" type="xml">
+            <form string="Visit">
+                <header>
+                    <button name="action_check_in" type="object"
+                            string="Check In" class="btn-primary"
+                            invisible="state != 'draft' or visit_type in ('client', 'supplier')"/>
+                    <button name="action_checkin_wizard" type="object"
+                            string="Check In" class="btn-primary"
+                            invisible="state != 'draft' or visit_type not in ('client', 'supplier')"/>
+                    <button name="action_check_out" type="object"
+                            string="Check Out" class="btn-success"
+                            invisible="state != 'checked_in'"/>
+                    <button name="action_no_show" type="object"
+                            string="No Show" invisible="state != 'draft'"/>
+                    <button name="action_archive" type="object"
+                            string="Archive" invisible="state != 'checked_out'"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="person_id"/>
+                            <field name="full_name"
+                                   invisible="person_id != False"/>
+                            <field name="visiting_company_id"/>
+                            <field name="visit_type"/>
+                        </group>
+                        <group>
+                            <field name="gate_id"/>
+                            <field name="host_id"/>
+                            <field name="planned_date"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <field name="purpose"/>
+                    <notebook>
+                        <page string="Check-in Details">
+                            <group>
+                                <group>
+                                    <field name="check_in"/>
+                                    <field name="badge_number"/>
+                                    <field name="zone"/>
+                                </group>
+                                <group>
+                                    <field name="authorized_duration_hours"/>
+                                    <field name="safety_rule_ok"/>
+                                    <field name="rule_version"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Check-out">
+                            <group>
+                                <field name="check_out"/>
+                            </group>
+                        </page>
+                    </notebook>
+                    <field name="notes"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_visitor_visit_search" model="ir.ui.view">
+        <field name="name">sf.visitor.visit.search</field>
+        <field name="model">sf.visitor.visit</field>
+        <field name="arch" type="xml">
+            <search string="Visits">
+                <field name="person_id"/>
+                <field name="full_name"/>
+                <field name="visiting_company_id"/>
+                <field name="gate_id"/>
+                <field name="badge_number"/>
+                <filter string="Present on site" name="present"
+                        domain="[('check_in', '!=', False), ('check_out', '=', False)]"/>
+                <filter string="Checked Out" name="checked_out"
+                        domain="[('state', '=', 'checked_out')]"/>
+                <group>
+                    <filter string="Status" name="state_group"
+                            context="{'group_by': 'state'}"/>
+                    <filter string="Type" name="type_group"
+                            context="{'group_by': 'visit_type'}"/>
+                    <filter string="Gate" name="gate_group"
+                            context="{'group_by': 'gate_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_visitor_visit_kanban" model="ir.ui.view">
+        <field name="name">sf.visitor.visit.kanban</field>
+        <field name="model">sf.visitor.visit</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state">
+                <field name="person_id"/>
+                <field name="full_name"/>
+                <field name="visit_type"/>
+                <field name="gate_id"/>
+                <field name="badge_number"/>
+                <templates>
+                    <t t-name="card">
+                        <div class="oe_kanban_global_click">
+                            <div class="o_kanban_record_title">
+                                <field name="person_id"/>
+                                <field name="full_name"/>
+                            </div>
+                            <div class="o_kanban_record_subtitle">
+                                <field name="visit_type"/>
+                                <field name="gate_id"/>
+                            </div>
+                            <div class="o_kanban_record_bottom">
+                                Badge: <field name="badge_number"/>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="action_visitor_visit" model="ir.actions.act_window">
+        <field name="name">Visits</field>
+        <field name="res_model">sf.visitor.visit</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="search_view_id" ref="view_visitor_visit_search"/>
+    </record>
+
+    <record id="action_visitor_present" model="ir.actions.act_window">
+        <field name="name">Present on Site</field>
+        <field name="res_model">sf.visitor.visit</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_visitor_visit_tree"/>
+        <field name="search_view_id" ref="view_visitor_visit_search"/>
+        <field name="domain">[('check_in', '!=', False), ('check_out', '=', False)]</field>
+    </record>
+
+    <!-- ============ GATE ============ -->
+    <record id="view_visitor_gate_tree" model="ir.ui.view">
+        <field name="name">sf.visitor.gate.tree</field>
+        <field name="model">sf.visitor.gate</field>
+        <field name="arch" type="xml">
+            <tree string="Sites / Access Points">
+                <field name="name"/>
+                <field name="site_code"/>
+                <field name="address"/>
+                <field name="manager_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_visitor_gate_form" model="ir.ui.view">
+        <field name="name">sf.visitor.gate.form</field>
+        <field name="model">sf.visitor.gate</field>
+        <field name="arch" type="xml">
+            <form string="Site / Access Point">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="site_code"/>
+                            <field name="address"/>
+                        </group>
+                        <group>
+                            <field name="manager_id"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                            <field name="active"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Safety Rules">
+                            <field name="rule_ids">
+                                <tree string="Safety Rules" editable="bottom">
+                                    <field name="version"/>
+                                    <field name="name"/>
+                                    <field name="active"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_visitor_gate" model="ir.actions.act_window">
+        <field name="name">Sites &amp; Access Points</field>
+        <field name="res_model">sf.visitor.gate</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- ============ RULE ============ -->
+    <record id="view_visitor_rule_tree" model="ir.ui.view">
+        <field name="name">sf.visitor.rule.tree</field>
+        <field name="model">sf.visitor.rule</field>
+        <field name="arch" type="xml">
+            <tree string="Safety Rules">
+                <field name="gate_id"/>
+                <field name="version"/>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_visitor_rule_form" model="ir.ui.view">
+        <field name="name">sf.visitor.rule.form</field>
+        <field name="model">sf.visitor.rule</field>
+        <field name="arch" type="xml">
+            <form string="Safety Rule">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="gate_id"/>
+                            <field name="version"/>
+                        </group>
+                        <group>
+                            <field name="active"/>
+                        </group>
+                    </group>
+                    <field name="name"/>
+                    <field name="body"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_visitor_rule" model="ir.actions.act_window">
+        <field name="name">Safety Rules</field>
+        <field name="res_model">sf.visitor.rule</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- ============ PERSON ============ -->
+    <record id="view_visitor_person_tree" model="ir.ui.view">
+        <field name="name">sf.visitor.person.tree</field>
+        <field name="model">sf.visitor.person</field>
+        <field name="arch" type="xml">
+            <tree string="Known Visitors">
+                <field name="name"/>
+                <field name="visiting_company_id"/>
+                <field name="phone"/>
+                <field name="email"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_visitor_person_form" model="ir.ui.view">
+        <field name="name">sf.visitor.person.form</field>
+        <field name="model">sf.visitor.person</field>
+        <field name="arch" type="xml">
+            <form string="Known Visitor">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="visiting_company_id"/>
+                        </group>
+                        <group>
+                            <field name="phone"/>
+                            <field name="email"/>
+                            <field name="known"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Visits">
+                            <field name="visit_ids" readonly="1">
+                                <tree string="Visits">
+                                    <field name="name"/>
+                                    <field name="gate_id"/>
+                                    <field name="state"/>
+                                    <field name="check_in"/>
+                                    <field name="check_out"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_visitor_person" model="ir.actions.act_window">
+        <field name="name">Known Visitors</field>
+        <field name="res_model">sf.visitor.person</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- ============ DASHBOARD ============ -->
+    <record id="view_visitor_dashboard_graph" model="ir.ui.view">
+        <field name="name">sf.visitor.visit.dashboard.graph</field>
+        <field name="model">sf.visitor.visit</field>
+        <field name="arch" type="xml">
+            <graph string="Visits by Type">
+                <field name="visit_type"/>
+                <field name="id" type="measure" string="Visits"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="view_visitor_dashboard_pivot" model="ir.ui.view">
+        <field name="name">sf.visitor.visit.dashboard.pivot</field>
+        <field name="model">sf.visitor.visit</field>
+        <field name="arch" type="xml">
+            <pivot string="Visits by Type and Gate">
+                <field name="visit_type" type="row"/>
+                <field name="gate_id" type="col"/>
+                <field name="id" type="measure" string="Visits"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="action_visitor_dashboard" model="ir.actions.act_window">
+        <field name="name">Visitor Dashboard</field>
+        <field name="res_model">sf.visitor.visit</field>
+        <field name="view_mode">graph,pivot</field>
+        <field name="view_ids" eval="[(5, 0), (0, 0, {'view_mode': 'graph', 'view_id': ref('view_visitor_dashboard_graph')}), (0, 0, {'view_mode': 'pivot', 'view_id': ref('view_visitor_dashboard_pivot')})]"/>
+    </record>
+
+    <!-- ============ WIZARD ============ -->
+    <record id="view_visitor_checkin_wizard" model="ir.ui.view">
+        <field name="name">sf.visitor.checkin.wizard.form</field>
+        <field name="model">sf.visitor.checkin.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Check In Visitor">
+                <group>
+                    <field name="visit_id" readonly="1"/>
+                    <field name="gate_id"/>
+                    <field name="zone"/>
+                    <field name="authorized_duration_hours"/>
+                    <field name="safety_rule_ok"/>
+                </group>
+                <footer>
+                    <button name="action_check_in" type="object"
+                            string="Check In" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary"
+                            special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+</odoo>

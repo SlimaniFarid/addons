@@ -1,0 +1,11 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_match_line_user,sf.invoice.match.line.user,model_sf_invoice_match_line,group_invoice_matching_user,1,0,0,0
+access_match_line_manager,sf.invoice.match.line.manager,model_sf_invoice_match_line,group_invoice_matching_manager,1,1,1,1
+access_match_log_user,sf.invoice.match.log.user,model_sf_invoice_match_log,group_invoice_matching_user,1,0,0,0
+access_match_log_manager,sf.invoice.match.log.manager,model_sf_invoice_match_log,group_invoice_matching_manager,1,1,1,1
+access_match_exception_user,sf.invoice.exception.user,model_sf_invoice_exception,group_invoice_matching_user,1,1,0,0
+access_match_exception_manager,sf.invoice.exception.manager,model_sf_invoice_exception,group_invoice_matching_manager,1,1,1,1
+access_run_match_wizard_user,sf.invoice.run.match.wizard.user,model_sf_invoice_run_match_wizard,group_invoice_matching_user,1,1,1,0
+access_run_match_wizard_manager,sf.invoice.run.match.wizard.manager,model_sf_invoice_run_match_wizard,group_invoice_matching_manager,1,1,1,1
+access_exception_wizard_user,sf.invoice.exception.wizard.user,model_sf_invoice_exception_wizard,group_invoice_matching_user,1,1,1,0
+access_exception_wizard_manager,sf.invoice.exception.wizard.manager,model_sf_invoice_exception_wizard,group_invoice_matching_manager,1,1,1,1

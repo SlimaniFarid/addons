@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sf_policy_user,sf.policy.user,model_sf_policy,sf_policy_acknowledgment.group_sf_policy_user,1,1,1,0
+access_sf_policy_manager,sf.policy.manager,model_sf_policy,sf_policy_acknowledgment.group_sf_policy_manager,1,1,1,1
+access_sf_policy_acknowledgment_user,sf.policy.acknowledgment.user,model_sf_policy_acknowledgment,sf_policy_acknowledgment.group_sf_policy_user,1,1,1,0
+access_sf_policy_acknowledgment_manager,sf.policy.acknowledgment.manager,model_sf_policy_acknowledgment,sf_policy_acknowledgment.group_sf_policy_manager,1,1,1,1
+access_sf_policy_acknowledgment_mail_activity,sf.policy.mail.activity.user,mail.activity,sf_policy_acknowledgment.group_sf_policy_user,1,1,1,0
+access_sf_policy_activity_mixin,sf.policy.activity.mixin.user,model_sf_policy_activity_mixin,sf_policy_acknowledgment.group_sf_policy_user,1,1,1,0

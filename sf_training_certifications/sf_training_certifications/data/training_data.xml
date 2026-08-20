@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="training_category_hse" model="sf.training.category">
+            <field name="name">HSE</field>
+            <field name="code">HSE</field>
+        </record>
+        <record id="training_category_technical" model="sf.training.category">
+            <field name="name">Technical</field>
+            <field name="code">TEC</field>
+        </record>
+        <record id="training_category_management" model="sf.training.category">
+            <field name="name">Management</field>
+            <field name="code">MGT</field>
+        </record>
+        <record id="training_category_regulatory" model="sf.training.category">
+            <field name="name">Regulatory</field>
+            <field name="code">REG</field>
+        </record>
+    </data>
+</odoo>

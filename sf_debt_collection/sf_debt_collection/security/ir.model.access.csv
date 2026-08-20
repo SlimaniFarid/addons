@@ -1,0 +1,13 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sf_debt_collection_case_user,sf.debt.collection.case.user,model_sf_debt_collection_case,sf_debt_collection.group_debt_user,1,1,1,0
+access_sf_debt_collection_case_manager,sf.debt.collection.case.manager,model_sf_debt_collection_case,sf_debt_collection.group_debt_manager,1,1,1,1
+access_sf_debt_invoice_line_user,sf.debt.invoice.line.user,model_sf_debt_invoice_line,sf_debt_collection.group_debt_user,1,0,0,0
+access_sf_debt_invoice_line_manager,sf.debt.invoice.line.manager,model_sf_debt_invoice_line,sf_debt_collection.group_debt_manager,1,1,1,1
+access_sf_debt_action_user,sf.debt.action.user,model_sf_debt_action,sf_debt_collection.group_debt_user,1,1,1,0
+access_sf_debt_action_manager,sf.debt.action.manager,model_sf_debt_action,sf_debt_collection.group_debt_manager,1,1,1,1
+access_sf_debt_promise_user,sf.debt.promise.user,model_sf_debt_promise,sf_debt_collection.group_debt_user,1,1,1,0
+access_sf_debt_promise_manager,sf.debt.promise.manager,model_sf_debt_promise,sf_debt_collection.group_debt_manager,1,1,1,1
+access_sf_debt_dunning_user,sf.debt.dunning.user,model_sf_debt_dunning,sf_debt_collection.group_debt_user,1,0,0,0
+access_sf_debt_dunning_manager,sf.debt.dunning.manager,model_sf_debt_dunning,sf_debt_collection.group_debt_manager,1,1,1,1
+access_sf_debt_dunning_run_user,sf.debt.dunning.run.user,model_sf_debt_dunning_run,sf_debt_collection.group_debt_user,1,1,1,0
+access_sf_debt_dunning_run_manager,sf.debt.dunning.run.manager,model_sf_debt_dunning_run,sf_debt_collection.group_debt_manager,1,1,1,1

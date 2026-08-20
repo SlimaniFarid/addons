@@ -1,0 +1,380 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Tool Form -->
+    <record id="tool_view_form" model="ir.ui.view">
+        <field name="name">sf.tool.form</field>
+        <field name="model">sf.tool</field>
+        <field name="arch" type="xml">
+            <form string="Tool">
+                <header>
+                    <button name="action_assign" type="object" string="Assign" class="btn-primary" invisible="[('state', 'not in', ('available',))]" groups="sf_tool_management.group_tool_custodian,sf_tool_management.group_tool_manager"/>
+                    <button name="action_return" type="object" string="Return" class="btn-secondary" invisible="[('state', 'not in', ('assigned',))]" groups="sf_tool_management.group_tool_custodian,sf_tool_management.group_tool_manager"/>
+                    <button name="action_send_calibration" type="object" string="Send to Calibration" class="btn-secondary" invisible="[('state', 'not in', ('available', 'assigned'))]"/>
+                    <button name="action_receive_calibration" type="object" string="Receive from Calibration" class="btn-primary" invisible="[('state', 'not in', ('calibration',))]" groups="sf_tool_management.group_tool_custodian,sf_tool_management.group_tool_manager"/>
+                    <field name="state" widget="statusbar" statusbar_visible="available,assigned,calibration,maintenance,retired,lost"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="code"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="tool_type"/>
+                            <field name="category_id"/>
+                            <field name="manufacturer"/>
+                            <field name="model"/>
+                            <field name="serial_number"/>
+                        </group>
+                        <group>
+                            <field name="state"/>
+                            <field name="location_id"/>
+                            <field name="workcenter_id"/>
+                            <field name="current_holder_id"/>
+                            <field name="uom_id"/>
+                        </group>
+                    </group>
+                    <group string="Specifications">
+                        <field name="specifications"/>
+                    </group>
+                    <notebook>
+                        <page string="Calibration" invisible="[('calibration_required', '=', False)]">
+                            <group>
+                                <group>
+                                    <field name="calibration_required"/>
+                                    <field name="calibration_frequency"/>
+                                    <field name="last_calibration_date"/>
+                                    <field name="next_calibration_date" readonly="1"/>
+                                </group>
+                                <group>
+                                    <field name="calibration_status" readonly="1" widget="badge"/>
+                                    <field name="calibration_certificate" widget="image" class="oe_avatar" options="{'preview_image': 'calibration_certificate'}"/>
+                                    <field name="calibration_cert_filename" invisible="1"/>
+                                </group>
+                            </group>
+                            <field name="calibration_ids">
+                                <tree string="Calibration History">
+                                    <field name="calibration_date"/>
+                                    <field name="performed_by"/>
+                                    <field name="lab_name"/>
+                                    <field name="result"/>
+                                    <field name="next_due_date"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Wear &amp; Life">
+                            <group>
+                                <group>
+                                    <field name="max_wear"/>
+                                    <field name="current_wear"/>
+                                    <field name="wear_unit"/>
+                                    <field name="wear_alert_threshold"/>
+                                </group>
+                                <group>
+                                    <field name="wear_status" readonly="1" widget="badge"/>
+                                </group>
+                            </group>
+                            <field name="wear_log_ids">
+                                <tree string="Wear Logs" editable="bottom">
+                                    <field name="date"/>
+                                    <field name="wear_increment"/>
+                                    <field name="total_wear"/>
+                                    <field name="unit"/>
+                                    <field name="logged_by"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Cost &amp; Depreciation">
+                            <group>
+                                <group>
+                                    <field name="purchase_cost"/>
+                                    <field name="purchase_date"/>
+                                </group>
+                                <group>
+                                    <field name="depreciation_method"/>
+                                    <field name="useful_life_years"/>
+                                    <field name="residual_value"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Assignments">
+                            <field name="assignment_ids">
+                                <tree string="Assignments">
+                                    <field name="user_id"/>
+                                    <field name="assignment_date"/>
+                                    <field name="return_date"/>
+                                    <field name="state"/>
+                                    <field name="workcenter_id"/>
+                                    <field name="mo_id"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Maintenance">
+                            <field name="maintenance_ids">
+                                <tree string="Maintenance Requests">
+                                    <field name="name"/>
+                                    <field name="request_date"/>
+                                    <field name="stage_id"/>
+                                    <field name="priority"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="tool_view_tree" model="ir.ui.view">
+        <field name="name">sf.tool.tree</field>
+        <field name="model">sf.tool</field>
+        <field name="arch" type="xml">
+            <tree string="Tools" decoration-danger="wear_status=='critical'" decoration-warning="wear_status=='warning' or calibration_status=='overdue'" decoration-muted="state in ('retired','lost')">
+                <field name="code"/>
+                <field name="name"/>
+                <field name="tool_type"/>
+                <field name="category_id"/>
+                <field name="state"/>
+                <field name="calibration_status"/>
+                <field name="wear_status"/>
+                <field name="current_holder_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="tool_view_kanban" model="ir.ui.view">
+        <field name="name">sf.tool.kanban</field>
+        <field name="model">sf.tool</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state">
+                <field name="tool_type"/>
+                <field name="calibration_status"/>
+                <field name="wear_status"/>
+                <field name="current_holder_id"/>
+                <templates>
+                    <t t-name="card">
+                        <div class="oe_kanban_card">
+                            <div class="oe_kanban_content">
+                                <div class="d-flex justify-content-between">
+                                    <strong><field name="code"/></strong>
+                                    <span t-attf-class="badge badge-{{'danger' if record.wear_status.raw_value == 'critical' else 'warning' if record.wear_status.raw_value == 'warning' else 'success' if record.calibration_status.raw_value == 'valid' else 'secondary'}}">
+                                        <field name="tool_type"/>
+                                    </span>
+                                </div>
+                                <div><field name="name"/></div>
+                                <div class="text-muted small">
+                                    <field name="current_holder_id"/>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- Category -->
+    <record id="tool_category_view_form" model="ir.ui.view">
+        <field name="name">sf.tool.category.form</field>
+        <field name="model">sf.tool.category</field>
+        <field name="arch" type="xml">
+            <form string="Tool Category">
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name"/></h1>
+                    </div>
+                    <group>
+                        <field name="description"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="tool_category_view_tree" model="ir.ui.view">
+        <field name="name">sf.tool.category.tree</field>
+        <field name="model">sf.tool.category</field>
+        <field name="arch" type="xml">
+            <tree string="Tool Categories">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Calibration -->
+    <record id="tool_calibration_view_form" model="ir.ui.view">
+        <field name="name">sf.tool.calibration.form</field>
+        <field name="model">sf.tool.calibration</field>
+        <field name="arch" type="xml">
+            <form string="Tool Calibration">
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="tool_id"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="calibration_date"/>
+                            <field name="performed_by"/>
+                            <field name="lab_name"/>
+                        </group>
+                        <group>
+                            <field name="result" widget="radio"/>
+                            <field name="next_due_date"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="certificate" widget="image" class="oe_avatar" options="{'preview_image': 'certificate'}"/>
+                        <field name="cert_filename" invisible="1"/>
+                    </group>
+                    <group>
+                        <field name="notes"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="tool_calibration_view_tree" model="ir.ui.view">
+        <field name="name">sf.tool.calibration.tree</field>
+        <field name="model">sf.tool.calibration</field>
+        <field name="arch" type="xml">
+            <tree string="Calibrations">
+                <field name="tool_id"/>
+                <field name="calibration_date"/>
+                <field name="result"/>
+                <field name="performed_by"/>
+                <field name="next_due_date"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Wear Log -->
+    <record id="tool_wear_log_view_form" model="ir.ui.view">
+        <field name="name">sf.tool.wear.log.form</field>
+        <field name="model">sf.tool.wear.log</field>
+        <field name="arch" type="xml">
+            <form string="Tool Wear Log">
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="tool_id"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="date"/>
+                            <field name="wear_increment"/>
+                            <field name="total_wear"/>
+                        </group>
+                        <group>
+                            <field name="unit"/>
+                            <field name="logged_by"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="notes"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="tool_wear_log_view_tree" model="ir.ui.view">
+        <field name="name">sf.tool.wear.log.tree</field>
+        <field name="model">sf.tool.wear.log</field>
+        <field name="arch" type="xml">
+            <tree string="Wear Logs">
+                <field name="tool_id"/>
+                <field name="date"/>
+                <field name="wear_increment"/>
+                <field name="total_wear"/>
+                <field name="unit"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Assignment -->
+    <record id="tool_assignment_view_form" model="ir.ui.view">
+        <field name="name">sf.tool.assignment.form</field>
+        <field name="model">sf.tool.assignment</field>
+        <field name="arch" type="xml">
+            <form string="Tool Assignment">
+                <header>
+                    <button name="action_return" type="object" string="Return" class="btn-primary" invisible="[('state', 'not in', ('assigned',))]"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="tool_id"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="user_id"/>
+                            <field name="assigned_by"/>
+                            <field name="assignment_date"/>
+                        </group>
+                        <group>
+                            <field name="expected_return_date"/>
+                            <field name="return_date"/>
+                            <field name="state"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="location_id"/>
+                        <field name="workcenter_id"/>
+                        <field name="mo_id"/>
+                    </group>
+                    <group>
+                        <field name="notes"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="tool_assignment_view_tree" model="ir.ui.view">
+        <field name="name">sf.tool.assignment.tree</field>
+        <field name="model">sf.tool.assignment</field>
+        <field name="arch" type="xml">
+            <tree string="Tool Assignments">
+                <field name="tool_id"/>
+                <field name="user_id"/>
+                <field name="assignment_date"/>
+                <field name="return_date"/>
+                <field name="state"/>
+                <field name="workcenter_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Actions -->
+    <record id="action_tool" model="ir.actions.act_window">
+        <field name="name">Tools &amp; Gauges</field>
+        <field name="res_model">sf.tool</field>
+        <field name="view_mode">tree,kanban,form</field>
+    </record>
+
+    <record id="action_tool_category" model="ir.actions.act_window">
+        <field name="name">Categories</field>
+        <field name="res_model">sf.tool.category</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="action_tool_calibration" model="ir.actions.act_window">
+        <field name="name">Calibrations</field>
+        <field name="res_model">sf.tool.calibration</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="action_tool_wear_log" model="ir.actions.act_window">
+        <field name="name">Wear Logs</field>
+        <field name="res_model">sf.tool.wear.log</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="action_tool_assignment" model="ir.actions.act_window">
+        <field name="name">Assignments</field>
+        <field name="res_model">sf.tool.assignment</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

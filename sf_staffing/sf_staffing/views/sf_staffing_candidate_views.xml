@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="sf_staffing_candidate_view_tree" model="ir.ui.view">
+        <field name="name">sf.staffing.candidate.list</field>
+        <field name="model">sf.staffing.candidate</field>
+        <field name="arch" type="xml">
+            <list string="Candidates">
+                <field name="name"/>
+                <field name="desired_job"/>
+                <field name="availability"/>
+                <field name="email"/>
+                <field name="phone"/>
+                <field name="state" widget="badge"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="sf_staffing_candidate_view_form" model="ir.ui.view">
+        <field name="name">sf.staffing.candidate.form</field>
+        <field name="model">sf.staffing.candidate</field>
+        <field name="arch" type="xml">
+            <form string="Candidate">
+                <header>
+                    <button name="action_available" type="object" string="Make Available" invisible="[('state', 'not in', ('draft', 'unavailable'))]" class="btn-primary"/>
+                    <button name="action_assigned" type="object" string="Assign" invisible="[('state', 'not in', ('available',))]"/>
+                    <button name="action_on_mission" type="object" string="Set On Mission" invisible="[('state', 'not in', ('assigned',))]"/>
+                    <button name="action_unavailable" type="object" string="Make Unavailable" invisible="[('state', 'not in', ('draft', 'available', 'assigned'))]"/>
+                    <button name="action_draft" type="object" string="Reset To Draft" invisible="[('state', 'not in', ('available', 'assigned', 'on_mission', 'unavailable'))]"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,available,assigned,on_mission,unavailable"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="partner_id"/>
+                            <field name="email"/>
+                            <field name="phone"/>
+                        </group>
+                        <group>
+                            <field name="desired_job"/>
+                            <field name="availability"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Skills">
+                            <field name="skills" widget="text"/>
+                        </page>
+                        <page string="Missions">
+                            <field name="mission_ids">
+                                <list string="Missions">
+                                    <field name="name"/>
+                                    <field name="client_id"/>
+                                    <field name="start_date"/>
+                                    <field name="end_date"/>
+                                    <field name="state" widget="badge"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="sf_staffing_candidate_view_kanban" model="ir.ui.view">
+        <field name="name">sf.staffing.candidate.kanban</field>
+        <field name="model">sf.staffing.candidate</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state">
+                <field name="name"/>
+                <field name="desired_job"/>
+                <field name="availability"/>
+                <field name="state"/>
+                <templates>
+                    <t t-name="card">
+                        <div class="oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <strong><field name="name"/></strong>
+                                <div><field name="desired_job"/></div>
+                                <div><field name="availability"/></div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="sf_staffing_candidate_view_search" model="ir.ui.view">
+        <field name="name">sf.staffing.candidate.search</field>
+        <field name="model">sf.staffing.candidate</field>
+        <field name="arch" type="xml">
+            <search string="Candidates">
+                <field name="name"/>
+                <field name="desired_job"/>
+                <field name="skills"/>
+                <filter name="candidate_available" string="Available" domain="[('state', '=', 'available')]"/>
+                <filter name="candidate_on_mission" string="On Mission" domain="[('state', '=', 'on_mission')]"/>
+                <group>
+                    <filter name="group_candidate_state" string="Status" context="{'group_by': 'state'}"/>
+                    <filter name="group_candidate_availability" string="Availability" context="{'group_by': 'availability'}"/>
+                    <filter name="group_candidate_company" string="Company" context="{'group_by': 'company_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_sf_staffing_candidate" model="ir.actions.act_window">
+        <field name="name">Candidates</field>
+        <field name="res_model">sf.staffing.candidate</field>
+        <field name="view_mode">list,kanban,form</field>
+        <field name="search_view_id" ref="sf_staffing_candidate_view_search"/>
+    </record>
+</odoo>

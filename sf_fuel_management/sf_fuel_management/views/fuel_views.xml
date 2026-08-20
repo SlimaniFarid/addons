@@ -1,0 +1,574 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ============ VEHICLE ============ -->
+    <record id="view_fuel_vehicle_tree" model="ir.ui.view">
+        <field name="name">sf.fuel.vehicle.tree</field>
+        <field name="model">sf.fuel.vehicle</field>
+        <field name="arch" type="xml">
+            <tree string="Vehicles">
+                <field name="name"/>
+                <field name="license_plate"/>
+                <field name="brand"/>
+                <field name="model"/>
+                <field name="fuel_type"/>
+                <field name="card_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_fuel_vehicle_form" model="ir.ui.view">
+        <field name="name">sf.fuel.vehicle.form</field>
+        <field name="model">sf.fuel.vehicle</field>
+        <field name="arch" type="xml">
+            <form string="Vehicle">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="license_plate"/>
+                            <field name="brand"/>
+                            <field name="model"/>
+                        </group>
+                        <group>
+                            <field name="fuel_type"/>
+                            <field name="card_id"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                            <field name="active"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Fills">
+                            <field name="fill_ids" readonly="1">
+                                <tree string="Fills">
+                                    <field name="name"/>
+                                    <field name="fill_date"/>
+                                    <field name="odometer"/>
+                                    <field name="liters"/>
+                                    <field name="total"/>
+                                    <field name="consumption"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_fuel_vehicle_search" model="ir.ui.view">
+        <field name="name">sf.fuel.vehicle.search</field>
+        <field name="model">sf.fuel.vehicle</field>
+        <field name="arch" type="xml">
+            <search string="Vehicles">
+                <field name="license_plate"/>
+                <field name="brand"/>
+                <field name="model"/>
+                <field name="card_id"/>
+                <filter string="Electric" name="electric"
+                        domain="[('fuel_type', '=', 'electric')]"/>
+                <group>
+                    <filter string="Fuel type" name="fuel_type_group"
+                            context="{'group_by': 'fuel_type'}"/>
+                    <filter string="Brand" name="brand_group"
+                            context="{'group_by': 'brand'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_fuel_vehicle_kanban" model="ir.ui.view">
+        <field name="name">sf.fuel.vehicle.kanban</field>
+        <field name="model">sf.fuel.vehicle</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <field name="name"/>
+                <field name="license_plate"/>
+                <field name="brand"/>
+                <field name="model"/>
+                <field name="fuel_type"/>
+                <field name="card_id"/>
+                <templates>
+                    <t t-name="card">
+                        <div class="oe_kanban_global_click">
+                            <div class="o_kanban_record_title">
+                                <field name="name"/>
+                            </div>
+                            <div class="o_kanban_record_subtitle">
+                                <field name="license_plate"/>
+                            </div>
+                            <div class="o_kanban_record_bottom">
+                                <field name="brand"/>
+                                <field name="model"/>
+                                <field name="fuel_type"/>
+                                Card: <field name="card_id"/>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="action_fuel_vehicle" model="ir.actions.act_window">
+        <field name="name">Vehicles</field>
+        <field name="res_model">sf.fuel.vehicle</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="search_view_id" ref="view_fuel_vehicle_search"/>
+    </record>
+
+    <!-- ============ CARD ============ -->
+    <record id="view_fuel_card_tree" model="ir.ui.view">
+        <field name="name">sf.fuel.card.tree</field>
+        <field name="model">sf.fuel.card</field>
+        <field name="arch" type="xml">
+            <tree string="Cards">
+                <field name="name"/>
+                <field name="card_number"/>
+                <field name="vehicle_id"/>
+                <field name="limit_amount"/>
+                <field name="state"/>
+                <field name="expiry_date"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_fuel_card_form" model="ir.ui.view">
+        <field name="name">sf.fuel.card.form</field>
+        <field name="model">sf.fuel.card</field>
+        <field name="arch" type="xml">
+            <form string="Fuel Card">
+                <header>
+                    <button name="action_block" type="object"
+                            string="Block" class="btn-warning"
+                            invisible="state != 'active'"
+                            groups="sf_fuel_management.group_fuel_manager"/>
+                    <button name="action_expire" type="object"
+                            string="Expire" class="btn-danger"
+                            invisible="state != 'active'"
+                            groups="sf_fuel_management.group_fuel_manager"/>
+                    <button name="action_activate" type="object"
+                            string="Activate" class="btn-success"
+                            invisible="state == 'active'"
+                            groups="sf_fuel_management.group_fuel_manager"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="card_number"/>
+                            <field name="vehicle_id"/>
+                        </group>
+                        <group>
+                            <field name="limit_amount"/>
+                            <field name="expiry_date"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_fuel_card_search" model="ir.ui.view">
+        <field name="name">sf.fuel.card.search</field>
+        <field name="model">sf.fuel.card</field>
+        <field name="arch" type="xml">
+            <search string="Cards">
+                <field name="card_number"/>
+                <field name="vehicle_id"/>
+                <filter string="Active" name="active_filter"
+                        domain="[('state', '=', 'active')]"/>
+                <filter string="Blocked" name="blocked_filter"
+                        domain="[('state', '=', 'blocked')]"/>
+                <filter string="Expired" name="expired_filter"
+                        domain="[('state', '=', 'expired')]"/>
+                <group>
+                    <filter string="Status" name="state_group"
+                            context="{'group_by': 'state'}"/>
+                    <filter string="Vehicle" name="vehicle_group"
+                            context="{'group_by': 'vehicle_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_fuel_card_kanban" model="ir.ui.view">
+        <field name="name">sf.fuel.card.kanban</field>
+        <field name="model">sf.fuel.card</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state">
+                <field name="name"/>
+                <field name="card_number"/>
+                <field name="vehicle_id"/>
+                <field name="state"/>
+                <field name="expiry_date"/>
+                <templates>
+                    <t t-name="card">
+                        <div class="oe_kanban_global_click">
+                            <div class="o_kanban_record_title">
+                                <field name="name"/>
+                            </div>
+                            <div class="o_kanban_record_subtitle">
+                                <field name="card_number"/>
+                            </div>
+                            <div class="o_kanban_record_bottom">
+                                Vehicle: <field name="vehicle_id"/>
+                                Expiry: <field name="expiry_date"/>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="action_fuel_card" model="ir.actions.act_window">
+        <field name="name">Cards</field>
+        <field name="res_model">sf.fuel.card</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="search_view_id" ref="view_fuel_card_search"/>
+    </record>
+
+    <!-- ============ FILL ============ -->
+    <record id="view_fuel_fill_tree" model="ir.ui.view">
+        <field name="name">sf.fuel.fill.tree</field>
+        <field name="model">sf.fuel.fill</field>
+        <field name="arch" type="xml">
+            <tree string="Fills">
+                <field name="name"/>
+                <field name="vehicle_id"/>
+                <field name="card_id"/>
+                <field name="fill_date"/>
+                <field name="odometer"/>
+                <field name="liters"/>
+                <field name="price_per_liter"/>
+                <field name="total" sum="1"/>
+                <field name="consumption"/>
+                <field name="supplier"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_fuel_fill_form" model="ir.ui.view">
+        <field name="name">sf.fuel.fill.form</field>
+        <field name="model">sf.fuel.fill</field>
+        <field name="arch" type="xml">
+            <form string="Fuel Fill">
+                <header>
+                    <button name="action_record" type="object"
+                            string="Record" class="btn-primary"
+                            invisible="state != 'draft'"
+                            groups="sf_fuel_management.group_fuel_manager"/>
+                    <button name="action_done" type="object"
+                            string="Mark Done" class="btn-success"
+                            invisible="state != 'recorded'"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="vehicle_id"/>
+                            <field name="card_id"/>
+                            <field name="fill_date"/>
+                        </group>
+                        <group>
+                            <field name="odometer"/>
+                            <field name="previous_odometer" readonly="1"/>
+                            <field name="liters"/>
+                            <field name="price_per_liter"/>
+                            <field name="total" readonly="1"/>
+                            <field name="consumption" readonly="1"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <field name="supplier"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_fuel_fill_search" model="ir.ui.view">
+        <field name="name">sf.fuel.fill.search</field>
+        <field name="model">sf.fuel.fill</field>
+        <field name="arch" type="xml">
+            <search string="Fills">
+                <field name="vehicle_id"/>
+                <field name="card_id"/>
+                <field name="fill_date"/>
+                <filter string="Abnormal" name="abnormal"
+                        domain="[('consumption', '>', 12.0)]"/>
+                <filter string="Draft" name="draft"
+                        domain="[('state', '=', 'draft')]"/>
+                <filter string="Recorded" name="recorded"
+                        domain="[('state', '=', 'recorded')]"/>
+                <filter string="Done" name="done"
+                        domain="[('state', '=', 'done')]"/>
+                <group>
+                    <filter string="Vehicle" name="vehicle_group"
+                            context="{'group_by': 'vehicle_id'}"/>
+                    <filter string="Status" name="state_group"
+                            context="{'group_by': 'state'}"/>
+                    <filter string="Month" name="month_group"
+                            context="{'group_by': 'fill_date'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_fuel_fill_kanban" model="ir.ui.view">
+        <field name="name">sf.fuel.fill.kanban</field>
+        <field name="model">sf.fuel.fill</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state">
+                <field name="name"/>
+                <field name="vehicle_id"/>
+                <field name="fill_date"/>
+                <field name="liters"/>
+                <field name="total"/>
+                <field name="consumption"/>
+                <templates>
+                    <t t-name="card">
+                        <div class="oe_kanban_global_click">
+                            <div class="o_kanban_record_title">
+                                <field name="name"/>
+                                <field name="vehicle_id"/>
+                            </div>
+                            <div class="o_kanban_record_subtitle">
+                                <field name="fill_date"/>
+                            </div>
+                            <div class="o_kanban_record_bottom">
+                                <field name="liters"/>
+                                L / <field name="total"/>
+                                <field name="consumption"/>
+                                L/100km
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="action_fuel_fill" model="ir.actions.act_window">
+        <field name="name">Fills</field>
+        <field name="res_model">sf.fuel.fill</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="search_view_id" ref="view_fuel_fill_search"/>
+    </record>
+
+    <!-- ============ TANK ============ -->
+    <record id="view_fuel_tank_tree" model="ir.ui.view">
+        <field name="name">sf.fuel.tank.tree</field>
+        <field name="model">sf.fuel.tank</field>
+        <field name="arch" type="xml">
+            <tree string="Tanks">
+                <field name="name"/>
+                <field name="site"/>
+                <field name="fuel_type"/>
+                <field name="capacity"/>
+                <field name="current_level"/>
+                <field name="last_gauge_date"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_fuel_tank_form" model="ir.ui.view">
+        <field name="name">sf.fuel.tank.form</field>
+        <field name="model">sf.fuel.tank</field>
+        <field name="arch" type="xml">
+            <form string="Fuel Tank">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="site"/>
+                            <field name="fuel_type"/>
+                        </group>
+                        <group>
+                            <field name="capacity"/>
+                            <field name="current_level"/>
+                            <field name="last_gauge_date"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Receipts">
+                            <field name="receipt_ids" readonly="1">
+                                <tree string="Receipts">
+                                    <field name="name"/>
+                                    <field name="receipt_date"/>
+                                    <field name="liters"/>
+                                    <field name="supplier"/>
+                                    <field name="unit_price"/>
+                                    <field name="total"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_fuel_tank_search" model="ir.ui.view">
+        <field name="name">sf.fuel.tank.search</field>
+        <field name="model">sf.fuel.tank</field>
+        <field name="arch" type="xml">
+            <search string="Tanks">
+                <field name="site"/>
+                <field name="fuel_type"/>
+                <group>
+                    <filter string="Site" name="site_group"
+                            context="{'group_by': 'site'}"/>
+                    <filter string="Fuel type" name="fuel_type_group"
+                            context="{'group_by': 'fuel_type'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_fuel_tank_kanban" model="ir.ui.view">
+        <field name="name">sf.fuel.tank.kanban</field>
+        <field name="model">sf.fuel.tank</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <field name="name"/>
+                <field name="site"/>
+                <field name="fuel_type"/>
+                <field name="capacity"/>
+                <field name="current_level"/>
+                <templates>
+                    <t t-name="card">
+                        <div class="oe_kanban_global_click">
+                            <div class="o_kanban_record_title">
+                                <field name="name"/>
+                            </div>
+                            <div class="o_kanban_record_subtitle">
+                                <field name="site"/>
+                                <field name="fuel_type"/>
+                            </div>
+                            <div class="o_kanban_record_bottom">
+                                Level: <field name="current_level"/>
+                                / <field name="capacity"/>
+                                L
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="action_fuel_tank" model="ir.actions.act_window">
+        <field name="name">Tanks</field>
+        <field name="res_model">sf.fuel.tank</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="search_view_id" ref="view_fuel_tank_search"/>
+    </record>
+
+    <!-- ============ TANK RECEIPT ============ -->
+    <record id="view_fuel_tank_receipt_tree" model="ir.ui.view">
+        <field name="name">sf.fuel.tank.receipt.tree</field>
+        <field name="model">sf.fuel.tank.receipt</field>
+        <field name="arch" type="xml">
+            <tree string="Tank Receipts">
+                <field name="name"/>
+                <field name="tank_id"/>
+                <field name="receipt_date"/>
+                <field name="liters"/>
+                <field name="supplier"/>
+                <field name="unit_price"/>
+                <field name="total" sum="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_fuel_tank_receipt_form" model="ir.ui.view">
+        <field name="name">sf.fuel.tank.receipt.form</field>
+        <field name="model">sf.fuel.tank.receipt</field>
+        <field name="arch" type="xml">
+            <form string="Tank Receipt">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="tank_id"/>
+                            <field name="receipt_date"/>
+                        </group>
+                        <group>
+                            <field name="liters"/>
+                            <field name="supplier"/>
+                            <field name="unit_price"/>
+                            <field name="total" readonly="1"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_fuel_tank_receipt_search" model="ir.ui.view">
+        <field name="name">sf.fuel.tank.receipt.search</field>
+        <field name="model">sf.fuel.tank.receipt</field>
+        <field name="arch" type="xml">
+            <search string="Tank Receipts">
+                <field name="tank_id"/>
+                <field name="supplier"/>
+                <field name="receipt_date"/>
+                <group>
+                    <filter string="Tank" name="tank_group"
+                            context="{'group_by': 'tank_id'}"/>
+                    <filter string="Month" name="month_group"
+                            context="{'group_by': 'receipt_date'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_fuel_tank_receipt" model="ir.actions.act_window">
+        <field name="name">Tank Receipts</field>
+        <field name="res_model">sf.fuel.tank.receipt</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_fuel_tank_receipt_search"/>
+    </record>
+
+    <!-- ============ DASHBOARD ============ -->
+    <record id="view_fuel_dashboard_graph" model="ir.ui.view">
+        <field name="name">sf.fuel.fill.dashboard.graph</field>
+        <field name="model">sf.fuel.fill</field>
+        <field name="arch" type="xml">
+            <graph string="Fills by Vehicle">
+                <field name="vehicle_id"/>
+                <field name="liters" type="measure" string="Liters"/>
+                <field name="total" type="measure" string="Total"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="view_fuel_dashboard_pivot" model="ir.ui.view">
+        <field name="name">sf.fuel.fill.dashboard.pivot</field>
+        <field name="model">sf.fuel.fill</field>
+        <field name="arch" type="xml">
+            <pivot string="Fuel Consumption by Vehicle">
+                <field name="vehicle_id" type="row"/>
+                <field name="fill_date" type="col"/>
+                <field name="liters" type="measure" string="Liters"/>
+                <field name="total" type="measure" string="Total"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="action_fuel_dashboard" model="ir.actions.act_window">
+        <field name="name">Fuel Dashboard</field>
+        <field name="res_model">sf.fuel.fill</field>
+        <field name="view_mode">graph,pivot</field>
+        <field name="view_ids" eval="[(5, 0), (0, 0, {'view_mode': 'graph', 'view_id': ref('view_fuel_dashboard_graph')}), (0, 0, {'view_mode': 'pivot', 'view_id': ref('view_fuel_dashboard_pivot')})]"/>
+    </record>
+
+</odoo>

@@ -1,0 +1,11 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_onboarding_template_user,sf.onboarding.template.user,model_sf_onboarding_template,group_onboarding_user,1,0,0,0
+access_onboarding_template_manager,sf.onboarding.template.manager,model_sf_onboarding_template,group_onboarding_manager,1,1,1,1
+access_onboarding_template_task_user,sf.onboarding.template.task.user,model_sf_onboarding_template_task,group_onboarding_user,1,0,0,0
+access_onboarding_template_task_manager,sf.onboarding.template.task.manager,model_sf_onboarding_template_task,group_onboarding_manager,1,1,1,1
+access_onboarding_program_user,sf.onboarding.program.user,model_sf_onboarding_program,group_onboarding_user,1,0,0,0
+access_onboarding_program_manager,sf.onboarding.program.manager,model_sf_onboarding_program,group_onboarding_manager,1,1,1,1
+access_onboarding_task_user,sf.onboarding.task.user,model_sf_onboarding_task,group_onboarding_user,1,1,0,0
+access_onboarding_task_manager,sf.onboarding.task.manager,model_sf_onboarding_task,group_onboarding_manager,1,1,1,1
+access_onboarding_generate_wizard_user,sf.onboarding.generate.wizard.user,model_sf_onboarding_generate_wizard,group_onboarding_user,1,1,1,0
+access_onboarding_generate_wizard_manager,sf.onboarding.generate.wizard.manager,model_sf_onboarding_generate_wizard,group_onboarding_manager,1,1,1,1

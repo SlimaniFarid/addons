@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="sf_dock_view_list" model="ir.ui.view">
+        <field name="name">sf.dock.list</field>
+        <field name="model">sf.dock</field>
+        <field name="arch" type="xml">
+            <list string="Docks">
+                <field name="name"/>
+                <field name="dock_type"/>
+                <field name="location_note"/>
+                <field name="is_active"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="sf_dock_view_form" model="ir.ui.view">
+        <field name="name">sf.dock.form</field>
+        <field name="model">sf.dock</field>
+        <field name="arch" type="xml">
+            <form string="Dock">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="dock_type"/>
+                            <field name="location_note"/>
+                            <field name="is_active"/>
+                        </group>
+                        <group>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Appointments">
+                            <field name="appointment_ids">
+                                <list string="Appointments">
+                                    <field name="name"/>
+                                    <field name="partner_id"/>
+                                    <field name="direction"/>
+                                    <field name="appointment_datetime"/>
+                                    <field name="state" widget="badge"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="sf_dock_view_search" model="ir.ui.view">
+        <field name="name">sf.dock.search</field>
+        <field name="model">sf.dock</field>
+        <field name="arch" type="xml">
+            <search string="Docks">
+                <field name="name"/>
+                <field name="dock_type"/>
+                <group>
+                    <filter name="group_dock_type" string="Type" context="{'group_by': 'dock_type'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_sf_dock" model="ir.actions.act_window">
+        <field name="name">Docks</field>
+        <field name="res_model">sf.dock</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="sf_dock_view_search"/>
+    </record>
+</odoo>

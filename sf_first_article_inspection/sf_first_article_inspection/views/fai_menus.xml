@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_fai_root"
+              name="First Article Inspection"
+              parent="quality.menu_quality_root"
+              sequence="95"/>
+
+    <menuitem id="menu_fai_reports"
+              name="FAI Reports"
+              parent="menu_fai_root"
+              action="action_fai_report"
+              sequence="10"/>
+
+    <menuitem id="menu_fai_nonconformances"
+              name="Non-conformances"
+              parent="menu_fai_root"
+              action="action_fai_nonconformance"
+              sequence="20"/>
+
+    <menuitem id="menu_fai_approvals"
+              name="Approvals"
+              parent="menu_fai_root"
+              action="action_fai_approval"
+              sequence="30"/>
+</odoo>

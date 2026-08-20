@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form_utility" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.utility</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="inside">
+                <app data-string="Utilities" string="Utilities" name="sf_utility_billing">
+                    <block title="Utility Settings">
+                        <setting string="Abnormal Consumption Threshold">
+                            <field name="sf_utility_anomaly_threshold"/>
+                        </setting>
+                        <setting string="Default Revenue Account">
+                            <field name="sf_utility_default_revenue_account"/>
+                        </setting>
+                    </block>
+                </app>
+            </xpath>
+        </field>
+    </record>
+</odoo>

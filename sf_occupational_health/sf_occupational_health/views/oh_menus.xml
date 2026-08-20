@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem id="menu_oh_root" name="Occupational Health" sequence="91" web_icon="sf_occupational_health,static/description/icon.png"/>
+
+    <menuitem id="menu_oh_files" name="Medical Files"
+              parent="menu_oh_root"
+              action="action_oh_file"
+              sequence="10"/>
+
+    <menuitem id="menu_oh_visits" name="Medical Visits"
+              parent="menu_oh_root"
+              action="action_oh_visit"
+              sequence="20"/>
+
+    <menuitem id="menu_oh_doctors" name="Doctors"
+              parent="menu_oh_root"
+              action="action_oh_doctor"
+              sequence="30"/>
+
+    <menuitem id="menu_oh_exposures" name="Exposures"
+              parent="menu_oh_root"
+              action="action_oh_exposure"
+              sequence="40"/>
+
+    <menuitem id="menu_oh_dashboard" name="Dashboard"
+              parent="menu_oh_root"
+              action="action_oh_dashboard"
+              sequence="50"/>
+
+</odoo>

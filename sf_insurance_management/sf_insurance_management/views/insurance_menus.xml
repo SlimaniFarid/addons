@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem id="menu_insurance_root" name="Insurance Management" sequence="88" groups="sf_insurance_management.group_insurance_user" web_icon="sf_insurance_management,static/description/icon.png"/>
+
+    <menuitem id="menu_insurance_company" name="Insurers"
+              parent="menu_insurance_root"
+              action="action_insurance_company"
+              sequence="10"/>
+
+    <menuitem id="menu_insurance_policy" name="Policies"
+              parent="menu_insurance_root"
+              action="action_insurance_policy"
+              sequence="20"/>
+
+    <menuitem id="menu_insurance_guarantee" name="Guarantees"
+              parent="menu_insurance_root"
+              action="action_insurance_guarantee"
+              sequence="30"/>
+
+    <menuitem id="menu_insurance_claim" name="Claims"
+              parent="menu_insurance_root"
+              action="action_insurance_claim"
+              sequence="40"/>
+
+    <menuitem id="menu_insurance_dashboard" name="Dashboard"
+              parent="menu_insurance_root"
+              action="action_insurance_dashboard"
+              sequence="50"/>
+
+</odoo>

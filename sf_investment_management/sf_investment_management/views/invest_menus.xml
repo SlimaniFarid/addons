@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem id="menu_invest_root" name="Investments" sequence="88" web_icon="sf_investment_management,static/description/icon.png" groups="sf_investment_management.group_invest_user"/>
+
+    <menuitem id="menu_invest_portfolios" name="Portfolios"
+              parent="menu_invest_root"
+              action="action_invest_portfolio"
+              sequence="10"/>
+
+    <menuitem id="menu_invest_lines" name="Investments"
+              parent="menu_invest_root"
+              action="action_invest_line"
+              sequence="20"/>
+
+    <menuitem id="menu_invest_valuations" name="Valuations"
+              parent="menu_invest_root"
+              action="action_invest_valuation"
+              sequence="30"/>
+
+    <menuitem id="menu_invest_incomes" name="Incomes"
+              parent="menu_invest_root"
+              action="action_invest_income"
+              sequence="40"/>
+
+    <menuitem id="menu_invest_dashboard" name="Dashboard"
+              parent="menu_invest_root"
+              action="action_invest_dashboard"
+              sequence="50"/>
+
+</odoo>

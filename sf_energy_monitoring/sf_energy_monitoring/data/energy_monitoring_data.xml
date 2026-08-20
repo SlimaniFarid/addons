@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="energy_site_default" model="sf.energy.site">
+            <field name="name">Headquarters</field>
+            <field name="address">1 Main Street</field>
+            <field name="company_id" ref="base.main_company"/>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem id="menu_agri_root" name="Agriculture" sequence="88" web_icon="sf_agriculture,static/description/icon.png" groups="sf_agriculture.group_agri_user"/>
+
+    <menuitem id="menu_agri_farms" name="Farms"
+              parent="menu_agri_root"
+              action="action_agri_farm"
+              sequence="10"/>
+
+    <menuitem id="menu_agri_plots" name="Plots"
+              parent="menu_agri_root"
+              action="action_agri_plot"
+              sequence="20"/>
+
+    <menuitem id="menu_agri_campaigns" name="Campaigns"
+              parent="menu_agri_root"
+              action="action_agri_campaign"
+              sequence="30"/>
+
+    <menuitem id="menu_agri_cultures" name="Cultures"
+              parent="menu_agri_root"
+              action="action_agri_culture"
+              sequence="40"/>
+
+    <menuitem id="menu_agri_treatments" name="Treatments"
+              parent="menu_agri_root"
+              action="action_agri_treatment"
+              sequence="50"/>
+
+    <menuitem id="menu_agri_harvests" name="Harvests"
+              parent="menu_agri_root"
+              action="action_agri_harvest"
+              sequence="60"/>
+
+    <menuitem id="menu_agri_dashboard" name="Dashboard"
+              parent="menu_agri_root"
+              action="action_agri_dashboard"
+              sequence="70"/>
+
+</odoo>

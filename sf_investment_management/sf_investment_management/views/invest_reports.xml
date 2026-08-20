@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="report_invest_performance" model="ir.actions.report">
+        <field name="name">Investment Performance Report</field>
+        <field name="model">sf.invest.portfolio</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">sf_investment_management.report_performance_template</field>
+        <field name="report_file">sf_investment_management.report_performance_template</field>
+        <field name="binding_model_id" ref="model_sf_invest_portfolio"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="report_performance_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2>Investment Performance Report</h2>
+                        <table class="table table-sm">
+                            <tr><td><strong>Portfolio</strong></td><td><t t-esc="o.name"/></td></tr>
+                            <tr><td><strong>Company account</strong></td><td><t t-esc="o.company_account or ''"/></td></tr>
+                            <tr><td><strong>Bank</strong></td><td><t t-esc="o.bank or ''"/></td></tr>
+                            <tr><td><strong>Currency</strong></td><td><t t-esc="o.currency or ''"/></td></tr>
+                            <tr><td><strong>Responsible</strong></td><td><t t-esc="o.responsible_id.name or ''"/></td></tr>
+                            <tr><td><strong>Status</strong></td><td><t t-esc="o.state"/></td></tr>
+                        </table>
+                        <h4>Investment Lines</h4>
+                        <table class="table table-sm">
+                            <thead>
+                                <tr>
+                                    <th>Security</th>
+                                    <th>Type</th>
+                                    <th>ISIN</th>
+                                    <th>Quantity</th>
+                                    <th>Cost</th>
+                                    <th>Price</th>
+                                    <th>Value</th>
+                                    <th>Latent Gain</th>
+                                    <th>Maturity</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="o.line_ids" t-as="line">
+                                    <tr>
+                                        <td><t t-esc="line.security_name"/></td>
+                                        <td><t t-esc="line.security_type"/></td>
+                                        <td><t t-esc="line.isin or ''"/></td>
+                                        <td><t t-esc="line.quantity"/></td>
+                                        <td><t t-esc="line.cost_price"/></td>
+                                        <td><t t-esc="line.current_price"/></td>
+                                        <td><t t-esc="line.value"/></td>
+                                        <td><t t-esc="line.latent_gain"/></td>
+                                        <td><t t-esc="line.maturity_date or ''"/></td>
+                                        <td><t t-esc="line.state"/></td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td><strong>Total</strong></td>
+                                    <td colspan="5"></td>
+                                    <td><strong><t t-esc="sum(o.line_ids.mapped('value'))"/></strong></td>
+                                    <td><strong><t t-esc="sum(o.line_ids.mapped('latent_gain'))"/></strong></td>
+                                    <td colspan="2"></td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                        <h4>Incomes</h4>
+                        <table class="table table-sm">
+                            <thead>
+                                <tr>
+                                    <th>Number</th>
+                                    <th>Security</th>
+                                    <th>Type</th>
+                                    <th>Amount</th>
+                                    <th>Date</th>
+                                    <th>Reference</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="o.line_ids.mapped('income_ids')" t-as="inc">
+                                    <tr>
+                                        <td><t t-esc="inc.name"/></td>
+                                        <td><t t-esc="inc.line_id.security_name"/></td>
+                                        <td><t t-esc="inc.income_type"/></td>
+                                        <td><t t-esc="inc.amount"/></td>
+                                        <td><t t-esc="inc.date"/></td>
+                                        <td><t t-esc="inc.reference or ''"/></td>
+                                        <td><t t-esc="inc.state"/></td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="3"><strong>Total incomes</strong></td>
+                                    <td><strong><t t-esc="sum(o.line_ids.mapped('income_ids').mapped('amount'))"/></strong></td>
+                                    <td colspan="3"></td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <record id="report_invest_maturities" model="ir.actions.report">
+        <field name="name">Investment Maturities List</field>
+        <field name="model">sf.invest.line</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">sf_investment_management.report_maturities_template</field>
+        <field name="report_file">sf_investment_management.report_maturities_template</field>
+        <field name="binding_model_id" ref="model_sf_invest_line"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="report_maturities_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2>Investment Maturities List</h2>
+                        <table class="table table-sm">
+                            <thead>
+                                <tr>
+                                    <th>Number</th>
+                                    <th>Security</th>
+                                    <th>Portfolio</th>
+                                    <th>Type</th>
+                                    <th>Quantity</th>
+                                    <th>Maturity date</th>
+                                    <th>Value</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><t t-esc="o.name"/></td>
+                                    <td><t t-esc="o.security_name"/></td>
+                                    <td><t t-esc="o.portfolio_id.name"/></td>
+                                    <td><t t-esc="o.security_type"/></td>
+                                    <td><t t-esc="o.quantity"/></td>
+                                    <td><t t-esc="o.maturity_date or ''"/></td>
+                                    <td><t t-esc="o.value"/></td>
+                                    <td><t t-esc="o.state"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+</odoo>

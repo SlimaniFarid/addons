@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form_policy" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.policy</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="inside">
+                <app data-string="Policy Acknowledgment" string="Policy Acknowledgment" name="sf_policy_acknowledgment">
+                    <block title="Policy Acknowledgment Settings">
+                        <setting string="Expiry Reminder (days before expiry)">
+                            <field name="sf_policy_expiry_reminder_days"/>
+                        </setting>
+                    </block>
+                </app>
+            </xpath>
+        </field>
+    </record>
+</odoo>

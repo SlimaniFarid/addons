@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>TikTok Shop Connector</title>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <img src="banner.png" alt="TikTok Shop Connector" class="img-fluid" style="max-width: 100%;"/>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-12">
+                <h2>TikTok Shop Connector</h2>
+                <p class="lead">Synchronize products, inventory, orders, and returns between Odoo and TikTok Shop.</p>
+                <p>TikTok Shop is one of the fastest-growing social commerce platforms. This connector uses the official TikTok Shop Open API to keep your Odoo catalog and orders in sync.</p>
+
+                <h3>Key Features</h3>
+                <ul>
+                    <li><strong>Bidirectional Sync</strong> — Pull products/orders from TikTok, push inventory updates</li>
+                    <li><strong>Multi-Shop Support</strong> — Connect multiple TikTok Shop accounts</li>
+                    <li><strong>Product Mapping</strong> — Link TikTok products to Odoo products (auto-create or manual)</li>
+                    <li><strong>Order Import</strong> — Import orders with buyer details, shipping info, line items</li>
+                    <li><strong>Inventory Sync</strong> — Push Odoo stock quantities to TikTok Shop</li>
+                    <li><strong>Automated Cron</strong> — Schedule periodic sync for products, inventory, orders</li>
+                    <li><strong>Sync Logs</strong> — Full audit trail with error details</li>
+                    <li><strong>Webhook Ready</strong> — Handle real-time notifications (order created, status changed)</li>
+                </ul>
+
+                <h3>Supported Regions</h3>
+                <p>US, UK, Indonesia, Malaysia, Philippines, Singapore, Thailand, Vietnam, Saudi Arabia</p>
+
+                <h3>Operations</h3>
+                <table class="table table-sm">
+                    <thead><tr><th>Operation</th><th>Direction</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td>Products</td><td>Pull</td><td>Import product catalog with images, SKUs, categories</td></tr>
+                        <tr><td>Inventory</td><td>Push</td><td>Update stock quantities from Odoo to TikTok</td></tr>
+                        <tr><td>Orders</td><td>Pull</td><td>Import orders with buyer, shipping, line items</td></tr>
+                        <tr><td>Returns</td><td>Pull</td><td>Import return/refund requests</td></tr>
+                    </tbody>
+                </table>
+
+                <h3>Setup</h3>
+                <ol>
+                    <li>Register a TikTok Shop Developer App at <code>https://partner.tiktokshop.com</code></li>
+                    <li>Get App Key and App Secret</li>
+                    <li>Authorize the app for your shop to get Access Token</li>
+                    <li>Create a TikTok Shop record in Odoo with credentials</li>
+                    <li>Click "Test Connection" then "Sync Products"</li>
+                    <li>Configure cron jobs for automated sync</li>
+                </ol>
+
+                <h3>Compatibility</h3>
+                <p>Odoo 18.0 and 19.0. Requires Sales, Inventory, and Accounting modules.</p>
+
+                <hr/>
+                <p class="text-muted small">Odoo Apps  |  by SLIMANI Farid  |  support: <a href="mailto:tech5262@gmail.com">tech5262@gmail.com</a></p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

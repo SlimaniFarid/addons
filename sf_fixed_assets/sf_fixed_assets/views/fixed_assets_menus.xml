@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem id="menu_fixed_assets_root"
+              name="Fixed Assets"
+              parent="account.menu_finance"
+              sequence="90"/>
+
+    <menuitem id="menu_fixed_assets_main"
+              name="Fixed Assets"
+              parent="menu_fixed_assets_root"
+              action="action_asset"
+              sequence="10"/>
+
+    <menuitem id="menu_fixed_assets_categories"
+              name="Categories"
+              parent="menu_fixed_assets_root"
+              action="action_asset_category"
+              sequence="20"/>
+
+</odoo>

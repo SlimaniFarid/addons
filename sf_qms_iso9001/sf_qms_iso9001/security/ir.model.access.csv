@@ -1,0 +1,17 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_qms_document_user,qms.iso9001.qms_document.user,model_qms_document,base.group_user,1,0,0,0
+access_qms_document_mgr,qms.iso9001.qms_document.mgr,model_qms_document,base.group_system,1,1,1,1
+access_qms_nc_user,qms.iso9001.qms_nc.user,model_qms_nc,base.group_user,1,0,0,0
+access_qms_nc_mgr,qms.iso9001.qms_nc.mgr,model_qms_nc,base.group_system,1,1,1,1
+access_qms_capa_user,qms.iso9001.qms_capa.user,model_qms_capa,base.group_user,1,0,0,0
+access_qms_capa_mgr,qms.iso9001.qms_capa.mgr,model_qms_capa,base.group_system,1,1,1,1
+access_qms_audit_user,qms.iso9001.qms_audit.user,model_qms_audit,base.group_user,1,0,0,0
+access_qms_audit_mgr,qms.iso9001.qms_audit.mgr,model_qms_audit,base.group_system,1,1,1,1
+access_qms_fmea_user,qms.iso9001.qms_fmea.user,model_qms_fmea,base.group_user,1,0,0,0
+access_qms_fmea_mgr,qms.iso9001.qms_fmea.mgr,model_qms_fmea,base.group_system,1,1,1,1
+access_qms_training_user,qms.iso9001.qms_training.user,model_qms_training,base.group_user,1,0,0,0
+access_qms_training_mgr,qms.iso9001.qms_training.mgr,model_qms_training,base.group_system,1,1,1,1
+access_qms_calibration_user,qms.iso9001.qms_calibration.user,model_qms_calibration,base.group_user,1,0,0,0
+access_qms_calibration_mgr,qms.iso9001.qms_calibration.mgr,model_qms_calibration,base.group_system,1,1,1,1
+access_qms_review_user,qms.iso9001.qms_review.user,model_qms_review,base.group_user,1,0,0,0
+access_qms_review_mgr,qms.iso9001.qms_review.mgr,model_qms_review,base.group_system,1,1,1,1

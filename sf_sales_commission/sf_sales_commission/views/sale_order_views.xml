@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_sale_order_commission" model="ir.ui.view">
+        <field name="name">sale.order.commission</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button name="action_generate_commission" type="object"
+                        string="Generate Commission"
+                        class="btn-primary"
+                        confirm="Create a commission line for this order?"
+                        groups="sf_sales_commission.group_commission_manager"/>
+            </xpath>
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <div class="oe_button_box" name="commission_box">
+                    <button type="object" class="oe_stat_button"
+                            name="action_view_commission_lines"
+                            icon="fa-percent"
+                            help="Commission lines generated for this order">
+                        <field name="total_commission" widget="monetary"/>
+                    </button>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

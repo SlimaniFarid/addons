@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Shift form -->
+    <record id="time_attendance_shift_view_form" model="ir.ui.view">
+        <field name="name">sf.time.attendance.shift.form</field>
+        <field name="model">sf.time.attendance.shift</field>
+        <field name="arch" type="xml">
+            <form string="Shift Pattern">
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="employee_id"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="day_of_week"/>
+                            <field name="start_time"/>
+                            <field name="end_time"/>
+                        </group>
+                        <group>
+                            <field name="lunch_break_hours"/>
+                            <field name="active"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="time_attendance_shift_view_tree" model="ir.ui.view">
+        <field name="name">sf.time.attendance.shift.tree</field>
+        <field name="model">sf.time.attendance.shift</field>
+        <field name="arch" type="xml">
+            <tree string="Shift Patterns">
+                <field name="employee_id"/>
+                <field name="day_of_week"/>
+                <field name="start_time"/>
+                <field name="end_time"/>
+                <field name="lunch_break_hours"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Monthly summary -->
+    <record id="time_attendance_monthly_view_form" model="ir.ui.view">
+        <field name="name">sf.time.attendance.monthly.form</field>
+        <field name="model">sf.time.attendance.monthly</field>
+        <field name="arch" type="xml">
+            <form string="Monthly Summary">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="employee_id"/>
+                            <field name="month"/>
+                        </group>
+                        <group>
+                            <field name="worked_hours"/>
+                            <field name="expected_shift_hours"/>
+                            <field name="overtime_hours"/>
+                            <field name="late_days"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="time_attendance_monthly_view_tree" model="ir.ui.view">
+        <field name="name">sf.time.attendance.monthly.tree</field>
+        <field name="model">sf.time.attendance.monthly</field>
+        <field name="arch" type="xml">
+            <tree string="Monthly Summaries">
+                <field name="employee_id"/>
+                <field name="month"/>
+                <field name="worked_hours"/>
+                <field name="expected_shift_hours"/>
+                <field name="overtime_hours"/>
+                <field name="late_days"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="time_attendance_monthly_view_search" model="ir.ui.view">
+        <field name="name">sf.time.attendance.monthly.search</field>
+        <field name="model">sf.time.attendance.monthly</field>
+        <field name="arch" type="xml">
+            <search string="Monthly Summaries">
+                <field name="employee_id"/>
+                <filter string="Overtime" name="overtime"
+                        domain="[('overtime_hours','&gt;',0)]"/>
+                <filter string="Late Days" name="late"
+                        domain="[('late_days','&gt;',0)]"/>
+                <group>
+                    <filter string="Employee" name="employee"
+                            context="{'group_by':'employee_id'}"/>
+                    <filter string="Month" name="month"
+                            context="{'group_by':'month'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Inherited attendance view: show computed fields -->
+    <record id="attendance_view_form_ext" model="ir.ui.view">
+        <field name="name">hr.attendance.form.sf</field>
+        <field name="model">hr.attendance</field>
+        <field name="inherit_id" ref="hr_attendance.hr_attendance_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="inside">
+                <group string="Shift Analysis" col="4">
+                    <field name="expected_shift_hours"/>
+                    <field name="shift_overtime"/>
+                    <field name="late_minutes"/>
+                    <field name="is_late"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Actions -->
+    <record id="action_time_attendance_shift" model="ir.actions.act_window">
+        <field name="name">Shift Patterns</field>
+        <field name="res_model">sf.time.attendance.shift</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="action_time_attendance_monthly" model="ir.actions.act_window">
+        <field name="name">Monthly Summaries</field>
+        <field name="res_model">sf.time.attendance.monthly</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="time_attendance_monthly_view_search"/>
+    </record>
+
+    <record id="action_attendance_overview" model="ir.actions.act_window">
+        <field name="name">Attendance Overview</field>
+        <field name="res_model">hr.attendance</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

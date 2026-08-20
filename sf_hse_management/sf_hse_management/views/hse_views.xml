@@ -1,0 +1,638 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Incident form -->
+    <record id="hse_incident_view_form" model="ir.ui.view">
+        <field name="name">sf.hse.incident.form</field>
+        <field name="model">sf.hse.incident</field>
+        <field name="arch" type="xml">
+            <form string="Incident">
+                <header>
+                    <button name="action_report" type="object"
+                            string="Report" class="btn-primary"
+                            invisible="[('state', 'not in', ('draft',))]"/>
+                    <button name="action_start_investigation"
+                            type="object" string="Start Investigation"
+                            class="btn-primary" invisible="[('state', 'not in', ('reported',))]"/>
+                    <button name="action_resolve" type="object"
+                            string="Resolve" class="btn-primary"
+                            invisible="[('state', 'not in', ('under_investigation',))]"/>
+                    <button name="action_reject" type="object"
+                            string="Reject"
+                            invisible="[('state', 'not in', ('reported', 'under_investigation'))]"/>
+                    <button name="action_close" type="object"
+                            string="Close"
+                            invisible="[('state', 'not in', ('resolved', 'rejected'))]"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="incident_type"/>
+                            <field name="incident_date"/>
+                            <field name="severity"/>
+                            <field name="location"/>
+                        </group>
+                        <group>
+                            <field name="employee_id"/>
+                            <field name="reported_by"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <group string="Description">
+                        <field name="description" colspan="2"/>
+                    </group>
+                    <notebook>
+                        <page string="Investigation">
+                            <group>
+                                <group>
+                                    <field name="root_cause"/>
+                                </group>
+                                <group>
+                                    <field name="investigation_report" widget="html"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Corrective Actions">
+                            <field name="actions" context="{'tree_view_ref': 'hse_incident_action_view_tree'}">
+                                <tree string="Actions" editable="bottom">
+                                    <field name="action_type"/>
+                                    <field name="description"/>
+                                    <field name="responsible_id"/>
+                                    <field name="due_date"/>
+                                    <field name="state"/>
+                                    <field name="completion_note"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Attachments">
+                            <field name="attachment_ids" widget="many2many_binary"/>
+                        </page>
+                        <page string="Messages">
+                            <field name="message_ids"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Incident tree -->
+    <record id="hse_incident_view_tree" model="ir.ui.view">
+        <field name="name">sf.hse.incident.tree</field>
+        <field name="model">sf.hse.incident</field>
+        <field name="arch" type="xml">
+            <tree string="Incidents">
+                <field name="name"/>
+                <field name="incident_type"/>
+                <field name="incident_date"/>
+                <field name="severity"/>
+                <field name="employee_id"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Incident kanban -->
+    <record id="hse_incident_view_kanban" model="ir.ui.view">
+        <field name="name">sf.hse.incident.kanban</field>
+        <field name="model">sf.hse.incident</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_mobile">
+                <field name="name"/>
+                <field name="incident_type"/>
+                <field name="severity"/>
+                <field name="incident_date"/>
+                <templates>
+                    <t t-name="card">
+                        <div class="oe_kanban_global_click">
+                            <div class="o_kanban_record_title">
+                                <field name="name"/>
+                            </div>
+                            <div class="oe_kanban_details">
+                                <div><field name="incident_type"/></div>
+                                <div><field name="severity"/></div>
+                                <div><field name="incident_date"/></div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- Incident search -->
+    <record id="hse_incident_view_search" model="ir.ui.view">
+        <field name="name">sf.hse.incident.search</field>
+        <field name="model">sf.hse.incident</field>
+        <field name="arch" type="xml">
+            <search string="Incidents">
+                <field name="name"/>
+                <field name="employee_id"/>
+                <field name="state"/>
+                <field name="incident_type"/>
+                <filter name="critical" string="Critical"
+                        domain="[('severity', '=', 'critical')]"/>
+                <filter name="open" string="Open"
+                        domain="[('state', 'not in', ('closed', 'rejected'))]"/>
+                <group>
+                    <filter name="group_state" string="Status"
+                            context="{'group_by': 'state'}"/>
+                    <filter name="group_type" string="Type"
+                            context="{'group_by': 'incident_type'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Incident action tree -->
+    <record id="hse_incident_action_view_tree" model="ir.ui.view">
+        <field name="name">sf.hse.incident.action.tree</field>
+        <field name="model">sf.hse.incident.action</field>
+        <field name="arch" type="xml">
+            <tree string="Actions">
+                <field name="action_type"/>
+                <field name="description"/>
+                <field name="responsible_id"/>
+                <field name="due_date"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Inspection form -->
+    <record id="hse_inspection_view_form" model="ir.ui.view">
+        <field name="name">sf.hse.inspection.form</field>
+        <field name="model">sf.hse.inspection</field>
+        <field name="arch" type="xml">
+            <form string="Inspection">
+                <header>
+                    <button name="action_do" type="object"
+                            string="Complete" class="btn-primary"
+                            invisible="[('state', 'not in', ('draft',))]"/>
+                    <button name="action_close" type="object"
+                            string="Close" invisible="[('state', 'not in', ('done',))]"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="inspection_date"/>
+                            <field name="checklist_id"/>
+                            <field name="location"/>
+                        </group>
+                        <group>
+                            <field name="inspector_id"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Checklist">
+                            <field name="items" context="{'tree_view_ref': 'hse_inspection_item_view_tree'}">
+                                <tree string="Inspection Items" editable="bottom">
+                                    <field name="question"/>
+                                    <field name="result"/>
+                                    <field name="observation"/>
+                                    <field name="is_nonconformity"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Findings">
+                            <field name="findings"/>
+                        </page>
+                        <page string="Messages">
+                            <field name="message_ids"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Inspection item tree -->
+    <record id="hse_inspection_item_view_tree" model="ir.ui.view">
+        <field name="name">sf.hse.inspection.item.tree</field>
+        <field name="model">sf.hse.inspection.item</field>
+        <field name="arch" type="xml">
+            <tree string="Inspection Items">
+                <field name="question"/>
+                <field name="result"/>
+                <field name="observation"/>
+                <field name="is_nonconformity"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Inspection tree -->
+    <record id="hse_inspection_view_tree" model="ir.ui.view">
+        <field name="name">sf.hse.inspection.tree</field>
+        <field name="model">sf.hse.inspection</field>
+        <field name="arch" type="xml">
+            <tree string="Inspections">
+                <field name="name"/>
+                <field name="inspection_date"/>
+                <field name="checklist_id"/>
+                <field name="location"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Checklist form -->
+    <record id="hse_checklist_view_form" model="ir.ui.view">
+        <field name="name">sf.hse.inspection.checklist.form</field>
+        <field name="model">sf.hse.inspection.checklist</field>
+        <field name="arch" type="xml">
+            <form string="Inspection Checklist">
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="category"/>
+                            <field name="active"/>
+                        </group>
+                    </group>
+                    <field name="item_ids" context="{'tree_view_ref': 'hse_checklist_item_view_tree'}">
+                        <tree string="Checklist Items" editable="bottom">
+                            <field name="sequence"/>
+                            <field name="name"/>
+                            <field name="expected_answer"/>
+                        </tree>
+                    </field>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Checklist item tree -->
+    <record id="hse_checklist_item_view_tree" model="ir.ui.view">
+        <field name="name">sf.hse.inspection.checklist.item.tree</field>
+        <field name="model">sf.hse.inspection.checklist.item</field>
+        <field name="arch" type="xml">
+            <tree string="Checklist Items">
+                <field name="sequence"/>
+                <field name="name"/>
+                <field name="expected_answer"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Checklist tree -->
+    <record id="hse_checklist_view_tree" model="ir.ui.view">
+        <field name="name">sf.hse.inspection.checklist.tree</field>
+        <field name="model">sf.hse.inspection.checklist</field>
+        <field name="arch" type="xml">
+            <tree string="Inspection Checklists">
+                <field name="name"/>
+                <field name="category"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Risk form -->
+    <record id="hse_risk_view_form" model="ir.ui.view">
+        <field name="name">sf.hse.risk.form</field>
+        <field name="model">sf.hse.risk</field>
+        <field name="arch" type="xml">
+            <form string="Risk">
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="category"/>
+                            <field name="location"/>
+                        </group>
+                        <group>
+                            <field name="responsible_id"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <group string="Risk Matrix">
+                        <group>
+                            <field name="probability" widget="integer"/>
+                            <field name="severity" widget="integer"/>
+                        </group>
+                        <group>
+                            <field name="risk_level"/>
+                            <field name="risk_class"/>
+                        </group>
+                    </group>
+                    <group string="Mitigation">
+                        <field name="mitigation" colspan="2"/>
+                    </group>
+                    <notebook>
+                        <page string="Messages">
+                            <field name="message_ids"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Risk tree -->
+    <record id="hse_risk_view_tree" model="ir.ui.view">
+        <field name="name">sf.hse.risk.tree</field>
+        <field name="model">sf.hse.risk</field>
+        <field name="arch" type="xml">
+            <tree string="Risks">
+                <field name="name"/>
+                <field name="category"/>
+                <field name="probability"/>
+                <field name="severity"/>
+                <field name="risk_level"/>
+                <field name="risk_class"/>
+                <field name="responsible_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Risk heatmap kanban -->
+    <record id="hse_risk_view_kanban" model="ir.ui.view">
+        <field name="name">sf.hse.risk.kanban</field>
+        <field name="model">sf.hse.risk</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="risk_class">
+                <field name="name"/>
+                <field name="risk_level"/>
+                <field name="risk_class"/>
+                <templates>
+                    <t t-name="card">
+                        <div class="oe_kanban_global_click">
+                            <div class="o_kanban_record_title">
+                                <field name="name"/>
+                            </div>
+                            <div class="oe_kanban_details">
+                                <div>Risk level: <field name="risk_level"/></div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- Risk search -->
+    <record id="hse_risk_view_search" model="ir.ui.view">
+        <field name="name">sf.hse.risk.search</field>
+        <field name="model">sf.hse.risk</field>
+        <field name="arch" type="xml">
+            <search string="Risks">
+                <field name="name"/>
+                <field name="category"/>
+                <filter name="extreme" string="Extreme"
+                        domain="[('risk_class', '=', 'extreme')]"/>
+                <filter name="high" string="High"
+                        domain="[('risk_class', '=', 'high')]"/>
+                <group>
+                    <filter name="group_class" string="Risk Class"
+                            context="{'group_by': 'risk_class'}"/>
+                    <filter name="group_category" string="Category"
+                            context="{'group_by': 'category'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Permit form -->
+    <record id="hse_permit_view_form" model="ir.ui.view">
+        <field name="name">sf.hse.permit.form</field>
+        <field name="model">sf.hse.permit</field>
+        <field name="arch" type="xml">
+            <form string="Work Permit">
+                <header>
+                    <button name="action_submit" type="object"
+                            string="Submit" class="btn-primary"
+                            invisible="[('state', 'not in', ('draft',))]"/>
+                    <button name="action_approve" type="object"
+                            string="Approve" class="btn-primary"
+                            invisible="[('state', 'not in', ('submitted',))]"/>
+                    <button name="action_start" type="object"
+                            string="Start Work" class="btn-primary"
+                            invisible="[('state', 'not in', ('approved',))]"/>
+                    <button name="action_reject" type="object"
+                            string="Reject" invisible="[('state', 'not in', ('submitted',))]"/>
+                    <button name="action_close" type="object"
+                            string="Close"
+                            invisible="[('state', 'not in', ('in_progress', 'approved'))]"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="permit_type"/>
+                            <field name="employee_id"/>
+                            <field name="location"/>
+                        </group>
+                        <group>
+                            <field name="start_date"/>
+                            <field name="end_date"/>
+                            <field name="approved_by"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <group string="Description">
+                        <field name="description" colspan="2"/>
+                    </group>
+                    <notebook>
+                        <page string="Messages">
+                            <field name="message_ids"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Permit tree -->
+    <record id="hse_permit_view_tree" model="ir.ui.view">
+        <field name="name">sf.hse.permit.tree</field>
+        <field name="model">sf.hse.permit</field>
+        <field name="arch" type="xml">
+            <tree string="Work Permits">
+                <field name="name"/>
+                <field name="permit_type"/>
+                <field name="employee_id"/>
+                <field name="location"/>
+                <field name="start_date"/>
+                <field name="end_date"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Permit search -->
+    <record id="hse_permit_view_search" model="ir.ui.view">
+        <field name="name">sf.hse.permit.search</field>
+        <field name="model">sf.hse.permit</field>
+        <field name="arch" type="xml">
+            <search string="Work Permits">
+                <field name="name"/>
+                <field name="employee_id"/>
+                <field name="state"/>
+                <field name="permit_type"/>
+                <filter name="active_permits" string="Active"
+                        domain="[('state', '=', 'in_progress')]"/>
+                <group>
+                    <filter name="group_state" string="Status"
+                            context="{'group_by': 'state'}"/>
+                    <filter name="group_type" string="Type"
+                            context="{'group_by': 'permit_type'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- PPE tree -->
+    <record id="hse_ppe_view_tree" model="ir.ui.view">
+        <field name="name">sf.hse.ppe.tree</field>
+        <field name="model">sf.hse.ppe</field>
+        <field name="arch" type="xml">
+            <tree string="PPE &amp; Equipment">
+                <field name="name"/>
+                <field name="ppe_type"/>
+                <field name="serial_number"/>
+                <field name="employee_id"/>
+                <field name="assignment_date"/>
+                <field name="expiry_date"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- PPE form -->
+    <record id="hse_ppe_view_form" model="ir.ui.view">
+        <field name="name">sf.hse.ppe.form</field>
+        <field name="model">sf.hse.ppe</field>
+        <field name="arch" type="xml">
+            <form string="PPE">
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="ppe_type"/>
+                            <field name="serial_number"/>
+                        </group>
+                        <group>
+                            <field name="employee_id"/>
+                            <field name="assignment_date"/>
+                            <field name="expiry_date"/>
+                            <field name="state"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- PPE search -->
+    <record id="hse_ppe_view_search" model="ir.ui.view">
+        <field name="name">sf.hse.ppe.search</field>
+        <field name="model">sf.hse.ppe</field>
+        <field name="arch" type="xml">
+            <search string="PPE &amp; Equipment">
+                <field name="name"/>
+                <field name="ppe_type"/>
+                <field name="employee_id"/>
+                <filter name="expired" string="Expired"
+                        domain="[('state', '=', 'expired')]"/>
+                <filter name="assigned" string="Assigned"
+                        domain="[('state', '=', 'assigned')]"/>
+            </search>
+        </field>
+    </record>
+
+    <!-- Inherited hr.employee form -->
+    <record id="hse_hr_employee_form" model="ir.ui.view">
+        <field name="name">hr.employee.form.hse</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="inside">
+                <notebook position="inside">
+                    <page string="HSE" name="hse">
+                        <group string="Incidents">
+                            <field name="sf_hse_incident_ids" context="{'tree_view_ref': 'hse_incident_view_tree'}">
+                                <tree string="Incidents">
+                                    <field name="name"/>
+                                    <field name="incident_type"/>
+                                    <field name="incident_date"/>
+                                    <field name="severity"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </group>
+                        <group string="PPE Equipment">
+                            <field name="sf_hse_ppe_ids" context="{'tree_view_ref': 'hse_ppe_view_tree'}">
+                                <tree string="PPE">
+                                    <field name="name"/>
+                                    <field name="ppe_type"/>
+                                    <field name="expiry_date"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </page>
+                </notebook>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Actions -->
+    <record id="action_hse_incident" model="ir.actions.act_window">
+        <field name="name">Incidents</field>
+        <field name="res_model">sf.hse.incident</field>
+        <field name="view_mode">tree,form,kanban</field>
+        <field name="search_view_id" ref="hse_incident_view_search"/>
+    </record>
+
+    <record id="action_hse_inspection" model="ir.actions.act_window">
+        <field name="name">Inspections</field>
+        <field name="res_model">sf.hse.inspection</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="action_hse_checklist" model="ir.actions.act_window">
+        <field name="name">Inspection Checklists</field>
+        <field name="res_model">sf.hse.inspection.checklist</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="action_hse_risk" model="ir.actions.act_window">
+        <field name="name">Risks</field>
+        <field name="res_model">sf.hse.risk</field>
+        <field name="view_mode">tree,form,kanban</field>
+        <field name="search_view_id" ref="hse_risk_view_search"/>
+    </record>
+
+    <record id="action_hse_permit" model="ir.actions.act_window">
+        <field name="name">Work Permits</field>
+        <field name="res_model">sf.hse.permit</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="hse_permit_view_search"/>
+    </record>
+
+    <record id="action_hse_ppe" model="ir.actions.act_window">
+        <field name="name">PPE &amp; Equipment</field>
+        <field name="res_model">sf.hse.ppe</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="hse_ppe_view_search"/>
+    </record>
+
+</odoo>

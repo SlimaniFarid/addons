@@ -1,0 +1,387 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Tour form -->
+    <record id="route_tour_view_form" model="ir.ui.view">
+        <field name="name">sf.route.tour.form</field>
+        <field name="model">sf.route.tour</field>
+        <field name="arch" type="xml">
+            <form string="Tour">
+                <header>
+                    <button name="action_plan" type="object"
+                            string="Plan" class="btn-primary"
+                            invisible="[('state', 'not in', ('draft',))]"/>
+                    <button name="action_start" type="object"
+                            string="Start Tour" class="btn-primary"
+                            invisible="[('state', 'not in', ('planned',))]"/>
+                    <button name="action_complete" type="object"
+                            string="Complete" class="btn-primary"
+                            invisible="[('state', 'not in', ('in_progress',))]"/>
+                    <button name="action_cancel" type="object"
+                            string="Cancel" invisible="[('state', 'not in', ('draft', 'planned'))]"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="date"/>
+                            <field name="salesperson_id"/>
+                            <field name="territory_id"/>
+                        </group>
+                        <group>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Visits">
+                            <field name="visit_ids" context="{'tree_view_ref': 'route_visit_view_tree'}">
+                                <tree string="Visits" editable="bottom">
+                                    <field name="sequence"/>
+                                    <field name="partner_id"/>
+                                    <field name="planned_time"/>
+                                    <field name="check_in"/>
+                                    <field name="check_out"/>
+                                    <field name="state"/>
+                                    <field name="result"/>
+                                    <field name="comment"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Notes">
+                            <field name="notes"/>
+                        </page>
+                        <page string="Messages">
+                            <field name="message_ids"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Tour tree -->
+    <record id="route_tour_view_tree" model="ir.ui.view">
+        <field name="name">sf.route.tour.tree</field>
+        <field name="model">sf.route.tour</field>
+        <field name="arch" type="xml">
+            <tree string="Tours">
+                <field name="name"/>
+                <field name="date"/>
+                <field name="salesperson_id"/>
+                <field name="territory_id"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Tour kanban -->
+    <record id="route_tour_view_kanban" model="ir.ui.view">
+        <field name="name">sf.route.tour.kanban</field>
+        <field name="model">sf.route.tour</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state" class="o_kanban_mobile">
+                <field name="name"/>
+                <field name="date"/>
+                <field name="salesperson_id"/>
+                <field name="state"/>
+                <templates>
+                    <t t-name="card">
+                        <div class="oe_kanban_global_click">
+                            <div class="o_kanban_record_title">
+                                <field name="name"/>
+                            </div>
+                            <div class="oe_kanban_details">
+                                <div><field name="date"/></div>
+                                <div><field name="salesperson_id"/></div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- Tour calendar -->
+    <record id="route_tour_view_calendar" model="ir.ui.view">
+        <field name="name">sf.route.tour.calendar</field>
+        <field name="model">sf.route.tour</field>
+        <field name="arch" type="xml">
+            <calendar string="Tours" date_start="date" color="salesperson_id">
+                <field name="salesperson_id"/>
+            </calendar>
+        </field>
+    </record>
+
+    <!-- Tour search -->
+    <record id="route_tour_view_search" model="ir.ui.view">
+        <field name="name">sf.route.tour.search</field>
+        <field name="model">sf.route.tour</field>
+        <field name="arch" type="xml">
+            <search string="Tours">
+                <field name="name"/>
+                <field name="salesperson_id"/>
+                <field name="territory_id"/>
+                <field name="state"/>
+                <filter name="planned" string="Planned"
+                        domain="[('state', '=', 'planned')]"/>
+                <filter name="in_progress" string="In Progress"
+                        domain="[('state', '=', 'in_progress')]"/>
+                <group>
+                    <filter name="group_state" string="Status"
+                            context="{'group_by': 'state'}"/>
+                    <filter name="group_salesperson" string="Salesperson"
+                            context="{'group_by': 'salesperson_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Visit tree -->
+    <record id="route_visit_view_tree" model="ir.ui.view">
+        <field name="name">sf.route.visit.tree</field>
+        <field name="model">sf.route.visit</field>
+        <field name="arch" type="xml">
+            <tree string="Visits">
+                <field name="sequence"/>
+                <field name="partner_id"/>
+                <field name="tour_id"/>
+                <field name="planned_time"/>
+                <field name="check_in"/>
+                <field name="check_out"/>
+                <field name="state"/>
+                <field name="result"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Visit form -->
+    <record id="route_visit_view_form" model="ir.ui.view">
+        <field name="name">sf.route.visit.form</field>
+        <field name="model">sf.route.visit</field>
+        <field name="arch" type="xml">
+            <form string="Visit">
+                <header>
+                    <button name="action_check_in" type="object"
+                            string="Check-In" class="btn-primary"
+                            invisible="[('state', 'not in', ('planned',))]"/>
+                    <button name="action_check_out" type="object"
+                            string="Check-Out" class="btn-primary"
+                            invisible="[('state', 'not in', ('in_progress',))]"/>
+                    <button name="action_create_order" type="object"
+                            string="Create Order" class="btn-primary"
+                            invisible="[('state', 'not in', ('done',))]"/>
+                    <button name="action_create_opportunity" type="object"
+                            string="Create Opportunity" class="btn-primary"
+                            invisible="[('state', 'not in', ('done',))]"/>
+                    <button name="action_mark_missed" type="object"
+                            string="Mark Missed" invisible="[('state', 'not in', ('planned',))]"/>
+                    <button name="action_cancel_visit" type="object"
+                            string="Cancel" invisible="[('state', 'not in', ('planned',))]"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="partner_id"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="tour_id"/>
+                            <field name="sequence"/>
+                            <field name="planned_time"/>
+                        </group>
+                        <group>
+                            <field name="check_in"/>
+                            <field name="check_out"/>
+                            <field name="result"/>
+                        </group>
+                    </group>
+                    <group string="Linked Records">
+                        <group>
+                            <field name="sale_order_id"/>
+                        </group>
+                        <group>
+                            <field name="opportunity_id"/>
+                        </group>
+                    </group>
+                    <group string="Comment">
+                        <field name="comment" colspan="2"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Visit search -->
+    <record id="route_visit_view_search" model="ir.ui.view">
+        <field name="name">sf.route.visit.search</field>
+        <field name="model">sf.route.visit</field>
+        <field name="arch" type="xml">
+            <search string="Visits">
+                <field name="partner_id"/>
+                <field name="tour_id"/>
+                <field name="state"/>
+                <field name="result"/>
+                <filter name="planned" string="Planned"
+                        domain="[('state', '=', 'planned')]"/>
+                <filter name="done" string="Done"
+                        domain="[('state', '=', 'done')]"/>
+                <filter name="missed" string="Missed"
+                        domain="[('state', '=', 'missed')]"/>
+                <group>
+                    <filter name="group_state" string="Status"
+                            context="{'group_by': 'state'}"/>
+                    <filter name="group_result" string="Result"
+                            context="{'group_by': 'result'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Visit calendar -->
+    <record id="route_visit_view_calendar" model="ir.ui.view">
+        <field name="name">sf.route.visit.calendar</field>
+        <field name="model">sf.route.visit</field>
+        <field name="arch" type="xml">
+            <calendar string="Visits" date_start="planned_time" color="tour_id">
+                <field name="partner_id"/>
+            </calendar>
+        </field>
+    </record>
+
+    <!-- Territory form -->
+    <record id="route_territory_view_form" model="ir.ui.view">
+        <field name="name">sf.route.territory.form</field>
+        <field name="model">sf.route.territory</field>
+        <field name="arch" type="xml">
+            <form string="Territory">
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="region"/>
+                            <field name="salesperson_id"/>
+                        </group>
+                        <group>
+                            <field name="active"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <group string="Notes">
+                        <field name="notes" colspan="2"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Territory tree -->
+    <record id="route_territory_view_tree" model="ir.ui.view">
+        <field name="name">sf.route.territory.tree</field>
+        <field name="model">sf.route.territory</field>
+        <field name="arch" type="xml">
+            <tree string="Territories">
+                <field name="name"/>
+                <field name="region"/>
+                <field name="salesperson_id"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Objective form -->
+    <record id="route_objective_view_form" model="ir.ui.view">
+        <field name="name">sf.route.objective.form</field>
+        <field name="model">sf.route.objective</field>
+        <field name="arch" type="xml">
+            <form string="Objective">
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="territory_id"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="period_start"/>
+                            <field name="period_end"/>
+                        </group>
+                        <group>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <group string="Targets">
+                        <group>
+                            <field name="target_visits"/>
+                            <field name="target_orders"/>
+                        </group>
+                        <group>
+                            <field name="target_revenue"/>
+                            <field name="currency_id" groups="base.group_multi_currency"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Objective tree -->
+    <record id="route_objective_view_tree" model="ir.ui.view">
+        <field name="name">sf.route.objective.tree</field>
+        <field name="model">sf.route.objective</field>
+        <field name="arch" type="xml">
+            <tree string="Objectives">
+                <field name="territory_id"/>
+                <field name="period_start"/>
+                <field name="period_end"/>
+                <field name="target_visits"/>
+                <field name="target_orders"/>
+                <field name="target_revenue"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Inherited res.partner form -->
+    <record id="route_res_partner_form" model="ir.ui.view">
+        <field name="name">res.partner.form.routes</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="inside">
+                <group string="Sales Territory" position="inside">
+                    <field name="sf_territory_id" placeholder="Territory"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Actions -->
+    <record id="action_route_tour" model="ir.actions.act_window">
+        <field name="name">Sales Tours</field>
+        <field name="res_model">sf.route.tour</field>
+        <field name="view_mode">kanban,tree,form,calendar</field>
+        <field name="search_view_id" ref="route_tour_view_search"/>
+    </record>
+
+    <record id="action_route_visit" model="ir.actions.act_window">
+        <field name="name">Visits</field>
+        <field name="res_model">sf.route.visit</field>
+        <field name="view_mode">tree,form,calendar</field>
+        <field name="search_view_id" ref="route_visit_view_search"/>
+    </record>
+
+    <record id="action_route_territory" model="ir.actions.act_window">
+        <field name="name">Territories</field>
+        <field name="res_model">sf.route.territory</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="action_route_objective" model="ir.actions.act_window">
+        <field name="name">Objectives</field>
+        <field name="res_model">sf.route.objective</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

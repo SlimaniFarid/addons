@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="report_privacy_treatment" model="ir.actions.report">
+        <field name="name">Treatment Register</field>
+        <field name="model">sf.privacy.treatment</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">sf_privacy_rgpd.privacy_treatment_report_template</field>
+        <field name="report_file">sf_privacy_rgpd.privacy_treatment_report_template</field>
+        <field name="binding_model_id" ref="model_sf_privacy_treatment"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="privacy_treatment_report_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2>Treatment Register</h2>
+                        <table class="table table-sm">
+                            <tr><td><strong>Number</strong></td><td><t t-esc="o.name"/></td></tr>
+                            <tr><td><strong>Title</strong></td><td><t t-esc="o.title"/></td></tr>
+                            <tr><td><strong>Controller</strong></td><td><t t-esc="o.controller_id.name or ''"/></td></tr>
+                            <tr><td><strong>Purpose</strong></td><td><t t-esc="o.purpose or ''"/></td></tr>
+                            <tr><td><strong>Legal basis</strong></td><td><t t-esc="o.legal_basis"/></td></tr>
+                            <tr><td><strong>Data categories</strong></td><td><t t-esc="o.data_categories or ''"/></td></tr>
+                            <tr><td><strong>Retention (days)</strong></td><td><t t-esc="o.retention_days or ''"/></td></tr>
+                            <tr><td><strong>Recipients</strong></td><td><t t-esc="o.recipients or ''"/></td></tr>
+                            <tr><td><strong>Risk level</strong></td><td><t t-esc="o.risk_level"/></td></tr>
+                            <tr><td><strong>Last review</strong></td><td><t t-esc="o.last_review_date or ''"/></td></tr>
+                            <tr><td><strong>Next review</strong></td><td><t t-esc="o.next_review_date or ''"/></td></tr>
+                            <tr><td><strong>Status</strong></td><td><t t-esc="o.state"/></td></tr>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <record id="report_privacy_breach" model="ir.actions.report">
+        <field name="name">Breach Register</field>
+        <field name="model">sf.privacy.breach</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">sf_privacy_rgpd.privacy_breach_report_template</field>
+        <field name="report_file">sf_privacy_rgpd.privacy_breach_report_template</field>
+        <field name="binding_model_id" ref="model_sf_privacy_breach"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="privacy_breach_report_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2>Breach Register</h2>
+                        <table class="table table-sm">
+                            <tr><td><strong>Number</strong></td><td><t t-esc="o.name"/></td></tr>
+                            <tr><td><strong>Date detected</strong></td><td><t t-esc="o.date_detected or ''"/></td></tr>
+                            <tr><td><strong>Description</strong></td><td><t t-esc="o.description or ''"/></td></tr>
+                            <tr><td><strong>Affected people</strong></td><td><t t-esc="o.affected_people or ''"/></td></tr>
+                            <tr><td><strong>Data categories</strong></td><td><t t-esc="o.categories or ''"/></td></tr>
+                            <tr><td><strong>Risk</strong></td><td><t t-esc="o.risk"/></td></tr>
+                            <tr><td><strong>Notification status</strong></td><td><t t-esc="o.notification_status"/></td></tr>
+                            <tr><td><strong>Notification date</strong></td><td><t t-esc="o.notification_date or ''"/></td></tr>
+                            <tr><td><strong>Regulator notified</strong></td><td><t t-esc="o.regulator_notified"/></td></tr>
+                            <tr><td><strong>Measures</strong></td><td><t t-esc="o.measures or ''"/></td></tr>
+                            <tr><td><strong>Status</strong></td><td><t t-esc="o.state"/></td></tr>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+</odoo>

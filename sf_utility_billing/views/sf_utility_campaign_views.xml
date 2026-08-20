@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="sf_utility_campaign_view_list" model="ir.ui.view">
+        <field name="name">sf.utility.campaign.list</field>
+        <field name="model">sf.utility.campaign</field>
+        <field name="arch" type="xml">
+            <list string="Campaigns">
+                <field name="name"/>
+                <field name="period_start"/>
+                <field name="period_end"/>
+                <field name="state" widget="badge"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="sf_utility_campaign_view_form" model="ir.ui.view">
+        <field name="name">sf.utility.campaign.form</field>
+        <field name="model">sf.utility.campaign</field>
+        <field name="arch" type="xml">
+            <form string="Campaign">
+                <header>
+                    <button name="action_open" string="Open" type="object" class="btn-primary" invisible="[('state', '!=', 'draft')]"/>
+                    <button name="action_close" string="Close" type="object" class="btn-primary" invisible="[('state', '!=', 'open')]"/>
+                    <button name="%(action_sf_utility_import)d" string="Import CSV" type="action" class="btn-secondary" context="{'default_campaign_id': id}" invisible="[('state', '!=', 'open')]"/>
+                    <button name="action_cancel" string="Cancel" type="object" invisible="[('state', 'in', ('closed', 'cancelled'))]"/>
+                    <field name="state" widget="statusbar" readonly="1"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="period_start"/>
+                            <field name="period_end"/>
+                        </group>
+                        <group>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Meters">
+                            <field name="meter_ids">
+                                <list string="Meters">
+                                    <field name="name"/>
+                                    <field name="partner_id"/>
+                                    <field name="utility_type"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Readings">
+                            <field name="reading_ids">
+                                <list string="Readings">
+                                    <field name="name"/>
+                                    <field name="meter_id"/>
+                                    <field name="reading_date"/>
+                                    <field name="index"/>
+                                    <field name="consumption"/>
+                                    <field name="state" widget="badge"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="sf_utility_campaign_view_search" model="ir.ui.view">
+        <field name="name">sf.utility.campaign.search</field>
+        <field name="model">sf.utility.campaign</field>
+        <field name="arch" type="xml">
+            <search string="Campaigns">
+                <field name="name"/>
+                <filter name="campaign_open" string="Open" domain="[('state', '=', 'open')]"/>
+                <filter name="campaign_closed" string="Closed" domain="[('state', '=', 'closed')]"/>
+                <group>
+                    <filter name="group_campaign_state" string="Status" context="{'group_by': 'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_sf_utility_campaign" model="ir.actions.act_window">
+        <field name="name">Campaigns</field>
+        <field name="res_model">sf.utility.campaign</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="sf_utility_campaign_view_search"/>
+    </record>
+</odoo>

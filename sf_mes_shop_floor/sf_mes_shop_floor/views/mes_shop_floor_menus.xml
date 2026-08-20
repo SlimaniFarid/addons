@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem id="menu_mes_shop_floor_root"
+              name="Shop Floor"
+              parent="mrp.menu_mrp_root"
+              sequence="96"/>
+
+    <menuitem id="menu_mes_stations"
+              name="Stations"
+              parent="menu_mes_shop_floor_root"
+              action="action_mes_station"
+              sequence="10"/>
+
+    <menuitem id="menu_mes_work_orders"
+              name="Work Orders"
+              parent="menu_mes_shop_floor_root"
+              action="action_mes_work_order"
+              sequence="20"/>
+
+    <menuitem id="menu_mes_downtime"
+              name="Downtime"
+              parent="menu_mes_shop_floor_root"
+              action="action_mes_downtime"
+              sequence="30"/>
+
+    <menuitem id="menu_mes_quality"
+              name="Quality Checks"
+              parent="menu_mes_shop_floor_root"
+              action="action_mes_quality_check"
+              sequence="40"/>
+
+</odoo>

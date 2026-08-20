@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_mission_contract">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-set="company" t-value="o.company_id or res_company"/>
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2>Mission Contract</h2>
+                        <table class="table table-sm">
+                            <tr><th>Contract</th><td><span t-field="o.name"/></td></tr>
+                            <tr><th>Client</th><td><span t-field="o.client_id.name"/></td></tr>
+                            <tr><th>Candidate</th><td><span t-field="o.candidate_id.name"/></td></tr>
+                            <tr><th>Mission</th><td><span t-field="o.mission_id.name"/></td></tr>
+                            <tr><th>Period</th><td><span t-field="o.start_date"/> to <span t-field="o.end_date"/></td></tr>
+                            <tr><th>Hourly Rate</th><td><span t-field="o.hourly_rate" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/></td></tr>
+                            <tr><th>Status</th><td><span t-field="o.state"/></td></tr>
+                        </table>
+                        <h3>Conditions</h3>
+                        <ul>
+                            <li>The candidate is assigned to the client for the agreed period.</li>
+                            <li>Timesheets must be validated by the mission manager before invoicing.</li>
+                            <li>Invoicing is based on the validated hours multiplied by the hourly rate.</li>
+                            <li>Any modification of the contractual rates requires a manager approval.</li>
+                        </ul>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

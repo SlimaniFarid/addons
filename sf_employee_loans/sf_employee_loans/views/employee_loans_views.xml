@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Loan form -->
+    <record id="employee_loan_view_form" model="ir.ui.view">
+        <field name="name">sf.employee.loan.form</field>
+        <field name="model">sf.employee.loan</field>
+        <field name="arch" type="xml">
+            <form string="Employee Loan">
+                <header>
+                    <button name="action_submit" type="object"
+                            string="Submit" class="btn-primary"
+                            invisible="[('state', 'not in', ('draft',))]"/>
+                    <button name="action_approve" type="object"
+                            string="Approve" class="btn-primary"
+                            invisible="[('state', 'not in', ('submitted',))]"/>
+                    <button name="action_reject" type="object"
+                            string="Reject" invisible="[('state', 'not in', ('submitted',))]"/>
+                    <button name="action_validate" type="object"
+                            string="Activate Loan" class="btn-primary"
+                            invisible="[('state', 'not in', ('approved',))]"/>
+                    <button name="action_close" type="object"
+                            string="Close" invisible="[('state', 'not in', ('active',))]"/>
+                    <button name="action_cancel" type="object"
+                            string="Cancel" invisible="[('state', 'not in', ('submitted', 'approved'))]"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="employee_id"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="loan_type"/>
+                            <field name="amount"/>
+                            <field name="currency_id" groups="base.group_multi_currency"/>
+                            <field name="interest_rate"/>
+                            <field name="duration_months"/>
+                        </group>
+                        <group>
+                            <field name="total_amount"/>
+                            <field name="total_interest"/>
+                            <field name="monthly_amount"/>
+                            <field name="paid_amount"/>
+                            <field name="balance_due"/>
+                            <field name="overdue_lines"/>
+                        </group>
+                    </group>
+                    <group string="Approval" groups="sf_employee_loans.group_employee_loans_manager">
+                        <group>
+                            <field name="approved_by"/>
+                            <field name="approval_date"/>
+                        </group>
+                        <group>
+                            <field name="start_date"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Repayment Schedule">
+                            <field name="lines" context="{'tree_view_ref': 'employee_loan_line_view_tree'}">
+                                <tree string="Repayment Lines" editable="bottom">
+                                    <field name="sequence"/>
+                                    <field name="due_date"/>
+                                    <field name="amount"/>
+                                    <field name="state"/>
+                                    <field name="paid_date"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Notes">
+                            <field name="notes"/>
+                        </page>
+                        <page string="Messages">
+                            <field name="message_ids"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Loan tree -->
+    <record id="employee_loan_view_tree" model="ir.ui.view">
+        <field name="name">sf.employee.loan.tree</field>
+        <field name="model">sf.employee.loan</field>
+        <field name="arch" type="xml">
+            <tree string="Employee Loans">
+                <field name="employee_id"/>
+                <field name="loan_type"/>
+                <field name="amount"/>
+                <field name="duration_months"/>
+                <field name="monthly_amount"/>
+                <field name="balance_due"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Loan search -->
+    <record id="employee_loan_view_search" model="ir.ui.view">
+        <field name="name">sf.employee.loan.search</field>
+        <field name="model">sf.employee.loan</field>
+        <field name="arch" type="xml">
+            <search string="Employee Loans">
+                <field name="employee_id"/>
+                <field name="state"/>
+                <field name="loan_type"/>
+                <filter name="active_loans" string="Active"
+                        domain="[('state', '=', 'active')]"/>
+                <filter name="draft" string="Draft"
+                        domain="[('state', '=', 'draft')]"/>
+                <group>
+                    <filter name="group_state" string="Status"
+                            context="{'group_by': 'state'}"/>
+                    <filter name="group_employee" string="Employee"
+                            context="{'group_by': 'employee_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Repayment line tree -->
+    <record id="employee_loan_line_view_tree" model="ir.ui.view">
+        <field name="name">sf.employee.loan.line.tree</field>
+        <field name="model">sf.employee.loan.line</field>
+        <field name="arch" type="xml">
+            <tree string="Repayment Lines">
+                <field name="due_date"/>
+                <field name="amount"/>
+                <field name="state"/>
+                <field name="paid_date"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Repayment line global tree -->
+    <record id="employee_loan_line_view_global_tree" model="ir.ui.view">
+        <field name="name">sf.employee.loan.line.global.tree</field>
+        <field name="model">sf.employee.loan.line</field>
+        <field name="arch" type="xml">
+            <tree string="Repayment Schedule">
+                <field name="loan_id"/>
+                <field name="due_date"/>
+                <field name="amount"/>
+                <field name="state"/>
+                <field name="paid_date"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Inherited hr.employee form -->
+    <record id="employee_loan_hr_employee_form" model="ir.ui.view">
+        <field name="name">hr.employee.form.employee_loans</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="inside">
+                <notebook position="inside">
+                    <page string="Loans" name="employee_loans">
+                        <field name="sf_loan_ids" context="{'tree_view_ref': 'employee_loan_view_tree'}">
+                            <tree string="Loans">
+                                <field name="loan_type"/>
+                                <field name="amount"/>
+                                <field name="duration_months"/>
+                                <field name="balance_due"/>
+                                <field name="state"/>
+                            </tree>
+                        </field>
+                    </page>
+                </notebook>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Actions -->
+    <record id="action_employee_loan" model="ir.actions.act_window">
+        <field name="name">Employee Loans</field>
+        <field name="res_model">sf.employee.loan</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="employee_loan_view_search"/>
+    </record>
+
+    <record id="action_employee_loan_line" model="ir.actions.act_window">
+        <field name="name">Repayment Schedule</field>
+        <field name="res_model">sf.employee.loan.line</field>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="employee_loan_line_view_global_tree"/>
+    </record>
+
+</odoo>

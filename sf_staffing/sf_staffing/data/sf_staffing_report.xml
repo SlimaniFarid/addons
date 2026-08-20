@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="report_sf_staffing_contract" model="ir.actions.report">
+            <field name="name">Mission Contract</field>
+            <field name="model">sf.staffing.contract</field>
+            <field name="report_type">qweb-html</field>
+            <field name="report_name">sf_staffing.report_mission_contract</field>
+            <field name="report_file">sf_staffing.report_mission_contract</field>
+            <field name="binding_model_id" ref="model_sf_staffing_contract"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <record id="report_sf_staffing_candidate" model="ir.actions.report">
+            <field name="name">Candidate Sheet</field>
+            <field name="model">sf.staffing.candidate</field>
+            <field name="report_type">qweb-html</field>
+            <field name="report_name">sf_staffing.report_candidate</field>
+            <field name="report_file">sf_staffing.report_candidate</field>
+            <field name="binding_model_id" ref="model_sf_staffing_candidate"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <record id="report_sf_staffing_mission_invoice" model="ir.actions.report">
+            <field name="name">Mission Invoice</field>
+            <field name="model">sf.staffing.mission</field>
+            <field name="report_type">qweb-html</field>
+            <field name="report_name">sf_staffing.report_mission_invoice</field>
+            <field name="report_file">sf_staffing.report_mission_invoice</field>
+            <field name="binding_model_id" ref="model_sf_staffing_mission"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <record id="report_sf_staffing_activity" model="ir.actions.report">
+            <field name="name">Activity Report</field>
+            <field name="model">sf.staffing.mission</field>
+            <field name="report_type">qweb-html</field>
+            <field name="report_name">sf_staffing.report_activity</field>
+            <field name="report_file">sf_staffing.report_activity</field>
+            <field name="binding_model_id" ref="model_sf_staffing_mission"/>
+            <field name="binding_type">report</field>
+        </record>
+    </data>
+</odoo>

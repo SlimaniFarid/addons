@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="sf_cold_reading_view_list" model="ir.ui.view">
+        <field name="name">sf.cold.reading.list</field>
+        <field name="model">sf.cold.reading</field>
+        <field name="arch" type="xml">
+            <list string="Cold Chain Readings">
+                <field name="name"/>
+                <field name="trip_id"/>
+                <field name="site_id"/>
+                <field name="reading_datetime"/>
+                <field name="temperature"/>
+                <field name="temperature_min"/>
+                <field name="temperature_max"/>
+                <field name="within_range" widget="boolean_toggle"/>
+                <field name="recorded_by"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="sf_cold_reading_view_form" model="ir.ui.view">
+        <field name="name">sf.cold.reading.form</field>
+        <field name="model">sf.cold.reading</field>
+        <field name="arch" type="xml">
+            <form string="Cold Chain Reading">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="trip_id"/>
+                            <field name="site_id"/>
+                            <field name="reading_datetime"/>
+                            <field name="temperature"/>
+                        </group>
+                        <group>
+                            <field name="temperature_min"/>
+                            <field name="temperature_max"/>
+                            <field name="within_range" widget="boolean_toggle"/>
+                            <field name="deviation"/>
+                            <field name="excursion_id"/>
+                            <field name="recorded_by"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="notes"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="sf_cold_reading_view_search" model="ir.ui.view">
+        <field name="name">sf.cold.reading.search</field>
+        <field name="model">sf.cold.reading</field>
+        <field name="arch" type="xml">
+            <search string="Cold Chain Readings">
+                <field name="name"/>
+                <field name="trip_id"/>
+                <field name="site_id"/>
+                <filter name="reading_out_of_range" string="Out of Range" domain="[('within_range', '=', False)]"/>
+                <filter name="reading_in_range" string="Within Range" domain="[('within_range', '=', True)]"/>
+                <group>
+                    <filter name="group_reading_trip" string="Trip" context="{'group_by': 'trip_id'}"/>
+                    <filter name="group_reading_site" string="Site" context="{'group_by': 'site_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_sf_cold_reading" model="ir.actions.act_window">
+        <field name="name">Readings</field>
+        <field name="res_model">sf.cold.reading</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="sf_cold_reading_view_search"/>
+    </record>
+</odoo>

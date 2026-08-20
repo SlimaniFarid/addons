@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Risk form -->
+    <record id="risk_view_form" model="ir.ui.view">
+        <field name="name">sf.risk.form</field>
+        <field name="model">sf.risk</field>
+        <field name="arch" type="xml">
+            <form string="Risk">
+                <header>
+                    <button name="action_assess" type="object"
+                            string="Assess" class="btn-primary"
+                            invisible="[('state', 'not in', ('identified',))]"/>
+                    <button name="action_plan_treatment" type="object"
+                            string="Plan Treatment" class="btn-primary"
+                            invisible="[('state', 'not in', ('assessed',))]"/>
+                    <button name="action_monitor" type="object"
+                            string="Monitor" class="btn-primary"
+                            invisible="[('state', 'not in', ('treatment_planned',))]"/>
+                    <button name="action_close" type="object"
+                            string="Close" invisible="[('state', 'not in', ('monitored', 'archived'))]"/>
+                    <button name="action_archive" type="object"
+                            string="Archive"
+                            invisible="[('state', 'not in', ('identified', 'assessed', 'treatment_planned', 'monitored'))]"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="ref"/>
+                            <field name="category"/>
+                            <field name="source"/>
+                        </group>
+                        <group>
+                            <field name="risk_owner_id"/>
+                            <field name="department_id"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <group string="Description">
+                        <field name="description" colspan="2"/>
+                    </group>
+                    <group string="Risk Assessment">
+                        <group string="Initial">
+                            <field name="probability" widget="integer"/>
+                            <field name="impact" widget="integer"/>
+                            <field name="risk_score"/>
+                            <field name="risk_class"/>
+                        </group>
+                        <group string="Residual">
+                            <field name="residual_probability" widget="integer"/>
+                            <field name="residual_impact" widget="integer"/>
+                            <field name="residual_score"/>
+                            <field name="residual_class"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Treatment Actions">
+                            <field name="actions" context="{'tree_view_ref': 'risk_action_view_tree'}">
+                                <tree string="Treatment Actions" editable="bottom">
+                                    <field name="name"/>
+                                    <field name="action_type"/>
+                                    <field name="responsible_id"/>
+                                    <field name="due_date"/>
+                                    <field name="state"/>
+                                    <field name="evidence"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Controls">
+                            <field name="controls"/>
+                        </page>
+                        <page string="Requirements">
+                            <field name="requirement_ids"/>
+                        </page>
+                        <page string="Notes">
+                            <field name="notes"/>
+                        </page>
+                        <page string="Messages">
+                            <field name="message_ids"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Risk tree -->
+    <record id="risk_view_tree" model="ir.ui.view">
+        <field name="name">sf.risk.tree</field>
+        <field name="model">sf.risk</field>
+        <field name="arch" type="xml">
+            <tree string="Risk Register">
+                <field name="ref"/>
+                <field name="name"/>
+                <field name="category"/>
+                <field name="risk_owner_id"/>
+                <field name="risk_score"/>
+                <field name="risk_class"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Risk kanban heatmap -->
+    <record id="risk_view_kanban" model="ir.ui.view">
+        <field name="name">sf.risk.kanban</field>
+        <field name="model">sf.risk</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="risk_class" class="o_kanban_mobile">
+                <field name="name"/>
+                <field name="risk_class"/>
+                <field name="risk_score"/>
+                <field name="category"/>
+                <templates>
+                    <t t-name="card">
+                        <div class="oe_kanban_global_click">
+                            <div class="o_kanban_record_title">
+                                <field name="name"/>
+                            </div>
+                            <div class="oe_kanban_details">
+                                <div>Score: <field name="risk_score"/></div>
+                                <div><field name="category"/></div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- Risk search -->
+    <record id="risk_view_search" model="ir.ui.view">
+        <field name="name">sf.risk.search</field>
+        <field name="model">sf.risk</field>
+        <field name="arch" type="xml">
+            <search string="Risk Register">
+                <field name="name"/>
+                <field name="ref"/>
+                <field name="category"/>
+                <field name="risk_owner_id"/>
+                <field name="state"/>
+                <filter name="extreme" string="Extreme"
+                        domain="[('risk_class', '=', 'extreme')]"/>
+                <filter name="high" string="High"
+                        domain="[('risk_class', '=', 'high')]"/>
+                <group>
+                    <filter name="group_class" string="Risk Class"
+                            context="{'group_by': 'risk_class'}"/>
+                    <filter name="group_category" string="Category"
+                            context="{'group_by': 'category'}"/>
+                    <filter name="group_state" string="Status"
+                            context="{'group_by': 'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Risk action tree -->
+    <record id="risk_action_view_tree" model="ir.ui.view">
+        <field name="name">sf.risk.action.tree</field>
+        <field name="model">sf.risk.action</field>
+        <field name="arch" type="xml">
+            <tree string="Treatment Actions">
+                <field name="name"/>
+                <field name="action_type"/>
+                <field name="responsible_id"/>
+                <field name="due_date"/>
+                <field name="state"/>
+                <field name="evidence"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Risk action global tree -->
+    <record id="risk_action_view_global_tree" model="ir.ui.view">
+        <field name="name">sf.risk.action.global.tree</field>
+        <field name="model">sf.risk.action</field>
+        <field name="arch" type="xml">
+            <tree string="Treatment Actions">
+                <field name="risk_id"/>
+                <field name="name"/>
+                <field name="action_type"/>
+                <field name="responsible_id"/>
+                <field name="due_date"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Control form -->
+    <record id="risk_control_view_form" model="ir.ui.view">
+        <field name="name">sf.risk.control.form</field>
+        <field name="model">sf.risk.control</field>
+        <field name="arch" type="xml">
+            <form string="Control">
+                <header>
+                    <button name="action_run_test" type="object"
+                            string="Run Test" class="btn-primary"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="ref"/>
+                            <field name="category"/>
+                            <field name="frequency"/>
+                        </group>
+                        <group>
+                            <field name="responsible_id"/>
+                            <field name="last_test_date"/>
+                            <field name="last_test_result"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Linked Risks">
+                            <field name="risk_ids"/>
+                        </page>
+                        <page string="Test History">
+                            <field name="tests" context="{'tree_view_ref': 'risk_control_test_view_tree'}">
+                                <tree string="Test History">
+                                    <field name="test_date"/>
+                                    <field name="tested_by"/>
+                                    <field name="result"/>
+                                    <field name="notes"/>
+                                    <field name="action_id"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Messages">
+                            <field name="message_ids"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Control tree -->
+    <record id="risk_control_view_tree" model="ir.ui.view">
+        <field name="name">sf.risk.control.tree</field>
+        <field name="model">sf.risk.control</field>
+        <field name="arch" type="xml">
+            <tree string="Controls">
+                <field name="name"/>
+                <field name="ref"/>
+                <field name="category"/>
+                <field name="frequency"/>
+                <field name="responsible_id"/>
+                <field name="last_test_date"/>
+                <field name="last_test_result"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Control search -->
+    <record id="risk_control_view_search" model="ir.ui.view">
+        <field name="name">sf.risk.control.search</field>
+        <field name="model">sf.risk.control</field>
+        <field name="arch" type="xml">
+            <search string="Controls">
+                <field name="name"/>
+                <field name="ref"/>
+                <field name="responsible_id"/>
+                <filter name="failed" string="Failed"
+                        domain="[('last_test_result', '=', 'failed')]"/>
+                <filter name="not_tested" string="Not Tested"
+                        domain="[('last_test_result', '=', 'not_tested')]"/>
+            </search>
+        </field>
+    </record>
+
+    <!-- Control test form -->
+    <record id="risk_control_test_view_form" model="ir.ui.view">
+        <field name="name">sf.risk.control.test.form</field>
+        <field name="model">sf.risk.control.test</field>
+        <field name="arch" type="xml">
+            <form string="Run Test">
+                <group>
+                    <group>
+                        <field name="control_id"/>
+                        <field name="test_date"/>
+                        <field name="tested_by"/>
+                    </group>
+                    <group>
+                        <field name="result"/>
+                        <field name="action_id"/>
+                    </group>
+                </group>
+                <group string="Notes">
+                    <field name="notes" colspan="2"/>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <!-- Control test tree -->
+    <record id="risk_control_test_view_tree" model="ir.ui.view">
+        <field name="name">sf.risk.control.test.tree</field>
+        <field name="model">sf.risk.control.test</field>
+        <field name="arch" type="xml">
+            <tree string="Test History">
+                <field name="test_date"/>
+                <field name="tested_by"/>
+                <field name="result"/>
+                <field name="notes"/>
+                <field name="action_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Requirement form -->
+    <record id="risk_requirement_view_form" model="ir.ui.view">
+        <field name="name">sf.risk.requirement.form</field>
+        <field name="model">sf.risk.requirement</field>
+        <field name="arch" type="xml">
+            <form string="Requirement">
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="code"/>
+                            <field name="regulation"/>
+                        </group>
+                        <group>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <group string="Description">
+                        <field name="description" colspan="2"/>
+                    </group>
+                    <notebook>
+                        <page string="Linked Risks">
+                            <field name="risk_ids"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Requirement tree -->
+    <record id="risk_requirement_view_tree" model="ir.ui.view">
+        <field name="name">sf.risk.requirement.tree</field>
+        <field name="model">sf.risk.requirement</field>
+        <field name="arch" type="xml">
+            <tree string="Regulatory Requirements">
+                <field name="code"/>
+                <field name="name"/>
+                <field name="regulation"/>
+                <field name="description"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Actions -->
+    <record id="action_risk" model="ir.actions.act_window">
+        <field name="name">Risk Register</field>
+        <field name="res_model">sf.risk</field>
+        <field name="view_mode">tree,form,kanban</field>
+        <field name="search_view_id" ref="risk_view_search"/>
+    </record>
+
+    <record id="action_risk_heatmap" model="ir.actions.act_window">
+        <field name="name">Risk Heatmap</field>
+        <field name="res_model">sf.risk</field>
+        <field name="view_mode">kanban</field>
+        <field name="view_id" ref="risk_view_kanban"/>
+        <field name="search_view_id" ref="risk_view_search"/>
+    </record>
+
+    <record id="action_risk_action" model="ir.actions.act_window">
+        <field name="name">Treatment Actions</field>
+        <field name="res_model">sf.risk.action</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="risk_action_view_global_tree"/>
+    </record>
+
+    <record id="action_risk_control" model="ir.actions.act_window">
+        <field name="name">Controls</field>
+        <field name="res_model">sf.risk.control</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="risk_control_view_search"/>
+    </record>
+
+    <record id="action_risk_requirement" model="ir.actions.act_window">
+        <field name="name">Regulatory Requirements</field>
+        <field name="res_model">sf.risk.requirement</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

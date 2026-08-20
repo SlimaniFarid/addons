@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form_workshop" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.workshop</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="inside">
+                <app data-string="Workshop &amp; Vehicle Maintenance" string="Workshop &amp; Vehicle Maintenance" name="vehicle_workshop">
+                    <block>
+                        <setting string="Unassigned request alert"
+                                 help="Number of days after which a high or urgent priority request that is still unassigned triggers an alert.">
+                            <div class="content-group">
+                                <div class="row">
+                                    <label string="Alert delay (days)" for="sf_workshop_alert_days"/>
+                                    <div class="text-muted">
+                                        Number of days after which a high or
+                                        urgent priority request that is still
+                                        unassigned triggers an alert.
+                                    </div>
+                                    <field name="sf_workshop_alert_days"/>
+                                </div>
+                            </div>
+                        </setting>
+                        <setting string="Workshop hourly rate"
+                                 help="Hourly rate used to compute the labor cost of repair order operations.">
+                            <div class="content-group">
+                                <div class="row">
+                                    <label string="Hourly rate" for="sf_workshop_hourly_rate"/>
+                                    <div class="text-muted">
+                                        Hourly rate used to compute the labor
+                                        cost of repair order operations.
+                                    </div>
+                                    <field name="sf_workshop_hourly_rate"/>
+                                </div>
+                            </div>
+                        </setting>
+                    </block>
+                </app>
+            </xpath>
+        </field>
+    </record>
+</odoo>

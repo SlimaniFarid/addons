@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="sf_business_travel_view_list" model="ir.ui.view">
+        <field name="name">sf.business.travel.list</field>
+        <field name="model">sf.business.travel</field>
+        <field name="arch" type="xml">
+            <list string="Business Travel">
+                <field name="name"/>
+                <field name="employee_id"/>
+                <field name="destination"/>
+                <field name="departure_date"/>
+                <field name="return_date"/>
+                <field name="budget"/>
+                <field name="estimated_cost"/>
+                <field name="state" widget="badge"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="sf_business_travel_view_form" model="ir.ui.view">
+        <field name="name">sf.business.travel.form</field>
+        <field name="model">sf.business.travel</field>
+        <field name="arch" type="xml">
+            <form string="Business Travel">
+                <header>
+                    <button name="action_submit" string="Submit" type="object" class="btn-primary" invisible="[('state', '!=', 'draft')]"/>
+                    <button name="action_approve" string="Approve" type="object" class="btn-primary" invisible="[('state', '!=', 'submitted')]"/>
+                    <button name="action_reject" string="Reject" type="object" invisible="[('state', '!=', 'submitted')]"/>
+                    <button name="action_start" string="Start" type="object" class="btn-primary" invisible="[('state', '!=', 'approved')]"/>
+                    <button name="action_complete" string="Complete" type="object" class="btn-primary" invisible="[('state', '!=', 'in_progress')]"/>
+                    <button name="action_cancel" string="Cancel" type="object" invisible="[('state', 'in', ('completed', 'cancelled'))]"/>
+                    <field name="state" widget="statusbar" readonly="1"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="employee_id"/>
+                            <field name="purpose"/>
+                            <field name="destination"/>
+                        </group>
+                        <group>
+                            <field name="departure_date"/>
+                            <field name="return_date"/>
+                            <field name="budget"/>
+                            <field name="estimated_cost"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <group string="Details">
+                        <field name="justification"/>
+                    </group>
+                    <notebook>
+                        <page string="Itinerary">
+                            <field name="line_ids">
+                                <list string="Itinerary">
+                                    <field name="name"/>
+                                    <field name="line_date"/>
+                                    <field name="line_type"/>
+                                    <field name="description"/>
+                                    <field name="amount"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="sf_business_travel_view_search" model="ir.ui.view">
+        <field name="name">sf.business.travel.search</field>
+        <field name="model">sf.business.travel</field>
+        <field name="arch" type="xml">
+            <search string="Business Travel">
+                <field name="name"/>
+                <field name="employee_id"/>
+                <field name="destination"/>
+                <filter name="travel_submitted" string="Submitted" domain="[('state', '=', 'submitted')]"/>
+                <filter name="travel_approved" string="Approved" domain="[('state', '=', 'approved')]"/>
+                <filter name="travel_in_progress" string="In Progress" domain="[('state', '=', 'in_progress')]"/>
+                <group>
+                    <filter name="group_travel_state" string="Status" context="{'group_by': 'state'}"/>
+                    <filter name="group_travel_employee" string="Employee" context="{'group_by': 'employee_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_sf_business_travel" model="ir.actions.act_window">
+        <field name="name">Business Travel</field>
+        <field name="res_model">sf.business.travel</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="sf_business_travel_view_search"/>
+    </record>
+</odoo>

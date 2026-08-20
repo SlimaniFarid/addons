@@ -1,0 +1,47 @@
+<odoo>
+    <record id="view_tiktokshop_order_form" model="ir.ui.view">
+        <field name="name">tiktokshop.order.form</field>
+        <field name="model">tiktokshop.order</field>
+        <field name="arch" type="xml">
+            <form string="TikTok Order">
+                <sheet>
+                    <group>
+                        <field name="store_id" options="{'no_create': True}"/>
+                        <field name="tiktok_order_id"/>
+                        <field name="order_status" widget="badge" decoration-success="order_status=='delivered'" decoration-danger="order_status in ('cancelled','returned')" decoration-warning="order_status in ('pending','awaiting_shipment','shipped')"/>
+                        <field name="total_amount"/>
+                        <field name="currency"/>
+                        <field name="create_time"/>
+                        <field name="update_time"/>
+                        <field name="odoo_order_id" options="{'no_create': True}"/>
+                    </group>
+                    <group string="Buyer">
+                        <field name="buyer_info" widget="text"/>
+                    </group>
+                    <group string="Shipping">
+                        <field name="shipping_info" widget="text"/>
+                    </group>
+                    <group string="Items">
+                        <field name="line_items" widget="text"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_tiktokshop_order_list" model="ir.ui.view">
+        <field name="name">tiktokshop.order.list</field>
+        <field name="model">tiktokshop.order</field>
+        <field name="arch" type="xml">
+            <list string="TikTok Orders">
+                <field name="store_id"/>
+                <field name="tiktok_order_id"/>
+                <field name="order_status" widget="badge" decoration-success="order_status=='delivered'" decoration-danger="order_status in ('cancelled','returned')" decoration-warning="order_status in ('pending','awaiting_shipment','shipped')"/>
+                <field name="total_amount"/>
+                <field name="currency"/>
+                <field name="create_time"/>
+                <field name="update_time"/>
+            </list>
+        </field>
+    </record>
+</odoo>

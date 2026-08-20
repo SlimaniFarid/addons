@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sf_travel_package_user,sf.travel.package.user,model_sf_travel_package,group_sf_travel_agency_user,1,1,1,0
+access_sf_travel_package_manager,sf.travel.package.manager,model_sf_travel_package,group_sf_travel_agency_manager,1,1,1,1
+access_sf_travel_provider_user,sf.travel.provider.user,model_sf_travel_provider,group_sf_travel_agency_user,1,1,1,0
+access_sf_travel_provider_manager,sf.travel.provider.manager,model_sf_travel_provider,group_sf_travel_agency_manager,1,1,1,1
+access_sf_travel_reservation_user,sf.travel.reservation.user,model_sf_travel_reservation,group_sf_travel_agency_user,1,1,1,0
+access_sf_travel_reservation_manager,sf.travel.reservation.manager,model_sf_travel_reservation,group_sf_travel_agency_manager,1,1,1,1
+access_sf_travel_provider_cost_user,sf.travel.provider.cost.user,model_sf_travel_provider_cost,group_sf_travel_agency_user,1,1,1,0
+access_sf_travel_provider_cost_manager,sf.travel.provider.cost.manager,model_sf_travel_provider_cost,group_sf_travel_agency_manager,1,1,1,1

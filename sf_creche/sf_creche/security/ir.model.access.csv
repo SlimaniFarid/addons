@@ -1,0 +1,11 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sf_creche_child_user,sf.creche.child.user,model_sf_creche_child,group_sf_creche_user,1,1,1,0
+access_sf_creche_child_manager,sf.creche.child.manager,model_sf_creche_child,group_sf_creche_manager,1,1,1,1
+access_sf_creche_enrollment_user,sf.creche.enrollment.user,model_sf_creche_enrollment,group_sf_creche_user,1,1,1,0
+access_sf_creche_enrollment_manager,sf.creche.enrollment.manager,model_sf_creche_enrollment,group_sf_creche_manager,1,1,1,1
+access_sf_creche_attendance_user,sf.creche.attendance.user,model_sf_creche_attendance,group_sf_creche_user,1,1,1,0
+access_sf_creche_attendance_manager,sf.creche.attendance.manager,model_sf_creche_attendance,group_sf_creche_manager,1,1,1,1
+access_sf_creche_room_user,sf.creche.room.user,model_sf_creche_room,group_sf_creche_user,1,1,1,0
+access_sf_creche_room_manager,sf.creche.room.manager,model_sf_creche_room,group_sf_creche_manager,1,1,1,1
+access_sf_creche_billing_user,sf.creche.billing.user,model_sf_creche_billing,group_sf_creche_user,1,1,1,0
+access_sf_creche_billing_manager,sf.creche.billing.manager,model_sf_creche_billing,group_sf_creche_manager,1,1,1,1

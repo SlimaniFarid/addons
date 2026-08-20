@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_gift_declaration">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-set="company" t-value="o.company_id or res_company"/>
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2>Annual Declaration</h2>
+                        <t t-foreach="docs._declaration_lines()" t-as="group">
+                            <h3>Employee: <span t-esc="group['employee']"/> - Year: <span t-esc="group['year']"/></h3>
+                            <table class="table table-sm">
+                                <tr><th>Date</th><th>Direction</th><th>Category</th><th>Value</th><th>Status</th></tr>
+                                <tr t-foreach="group['records']" t-as="d">
+                                    <td><span t-field="d.date"/></td>
+                                    <td><span t-field="d.direction"/></td>
+                                    <td><span t-field="d.category"/></td>
+                                    <td><span t-field="d.estimated_value"/></td>
+                                    <td><span t-field="d.state"/></td>
+                                </tr>
+                            </table>
+                            <p><strong>Total:</strong> <span t-esc="group['total']"/></p>
+                        </t>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

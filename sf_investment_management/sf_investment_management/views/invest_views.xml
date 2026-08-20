@@ -1,0 +1,523 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ============ PORTFOLIO ============ -->
+    <record id="view_invest_portfolio_tree" model="ir.ui.view">
+        <field name="name">sf.invest.portfolio.tree</field>
+        <field name="model">sf.invest.portfolio</field>
+        <field name="arch" type="xml">
+            <tree string="Portfolios">
+                <field name="name"/>
+                <field name="company_account"/>
+                <field name="bank"/>
+                <field name="currency"/>
+                <field name="responsible_id"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_invest_portfolio_form" model="ir.ui.view">
+        <field name="name">sf.invest.portfolio.form</field>
+        <field name="model">sf.invest.portfolio</field>
+        <field name="arch" type="xml">
+            <form string="Portfolio">
+                <header>
+                    <button name="action_open" type="object"
+                            string="Open" class="btn-primary"
+                            invisible="state != 'draft'"/>
+                    <button name="action_close" type="object"
+                            string="Close Portfolio" class="btn-danger"
+                            invisible="state != 'open'"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="company_account"/>
+                            <field name="bank"/>
+                        </group>
+                        <group>
+                            <field name="currency"/>
+                            <field name="responsible_id"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Investment Lines">
+                            <field name="line_ids">
+                                <tree string="Investment Lines" editable="bottom">
+                                    <field name="name"/>
+                                    <field name="security_type"/>
+                                    <field name="security_name"/>
+                                    <field name="quantity"/>
+                                    <field name="cost_price"/>
+                                    <field name="current_price"/>
+                                    <field name="value"/>
+                                    <field name="latent_gain"/>
+                                    <field name="maturity_date"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_invest_portfolio_search" model="ir.ui.view">
+        <field name="name">sf.invest.portfolio.search</field>
+        <field name="model">sf.invest.portfolio</field>
+        <field name="arch" type="xml">
+            <search string="Portfolios">
+                <field name="name"/>
+                <field name="company_account"/>
+                <field name="bank"/>
+                <field name="responsible_id"/>
+                <filter string="Open" name="open"
+                        domain="[('state', '=', 'open')]"/>
+                <filter string="Closed" name="closed"
+                        domain="[('state', '=', 'closed')]"/>
+                <group>
+                    <filter string="Status" name="state_group"
+                            context="{'group_by': 'state'}"/>
+                    <filter string="Responsible" name="responsible_group"
+                            context="{'group_by': 'responsible_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_invest_portfolio_kanban" model="ir.ui.view">
+        <field name="name">sf.invest.portfolio.kanban</field>
+        <field name="model">sf.invest.portfolio</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state">
+                <field name="name"/>
+                <field name="bank"/>
+                <field name="currency"/>
+                <field name="responsible_id"/>
+                <templates>
+                    <t t-name="card">
+                        <div class="oe_kanban_global_click">
+                            <div class="o_kanban_record_title">
+                                <field name="name"/>
+                            </div>
+                            <div class="o_kanban_record_subtitle">
+                                <field name="bank"/>
+                                <field name="currency"/>
+                            </div>
+                            <div class="o_kanban_record_bottom">
+                                Responsible: <field name="responsible_id"/>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="action_invest_portfolio" model="ir.actions.act_window">
+        <field name="name">Portfolios</field>
+        <field name="res_model">sf.invest.portfolio</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="search_view_id" ref="view_invest_portfolio_search"/>
+    </record>
+
+    <!-- ============ LINE ============ -->
+    <record id="view_invest_line_tree" model="ir.ui.view">
+        <field name="name">sf.invest.line.tree</field>
+        <field name="model">sf.invest.line</field>
+        <field name="arch" type="xml">
+            <tree string="Investment Lines">
+                <field name="name"/>
+                <field name="portfolio_id"/>
+                <field name="security_type"/>
+                <field name="security_name"/>
+                <field name="isin"/>
+                <field name="quantity"/>
+                <field name="cost_price"/>
+                <field name="current_price"/>
+                <field name="value"/>
+                <field name="latent_gain"/>
+                <field name="maturity_date"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_invest_line_form" model="ir.ui.view">
+        <field name="name">sf.invest.line.form</field>
+        <field name="model">sf.invest.line</field>
+        <field name="arch" type="xml">
+            <form string="Investment Line">
+                <header>
+                    <button name="action_open" type="object"
+                            string="Open" class="btn-primary"
+                            invisible="state != 'draft'"/>
+                    <button name="action_mark_matured" type="object"
+                            string="Mark Matured" class="btn-warning"
+                            invisible="state not in ('open', 'draft')"/>
+                    <button name="action_close" type="object"
+                            string="Close" class="btn-danger"
+                            invisible="state not in ('open', 'matured')"/>
+                    <button name="action_generate_coupon_income"
+                            type="object" string="Generate Coupon"
+                            class="btn-secondary"
+                            invisible="security_type != 'bond' or state == 'closed'"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="portfolio_id"/>
+                            <field name="security_type"/>
+                            <field name="security_name"/>
+                            <field name="isin"/>
+                        </group>
+                        <group>
+                            <field name="quantity"/>
+                            <field name="cost_price"/>
+                            <field name="current_price"/>
+                            <field name="value" readonly="1"/>
+                            <field name="latent_gain" readonly="1"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <group string="Bond / Deposit Details"
+                           invisible="security_type not in ('bond', 'term_deposit')">
+                        <group>
+                            <field name="maturity_date"/>
+                            <field name="coupon_rate"/>
+                        </group>
+                        <group>
+                            <field name="coupon_expected" readonly="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Valuations">
+                            <field name="valuation_ids">
+                                <tree string="Valuations" editable="bottom">
+                                    <field name="name"/>
+                                    <field name="date"/>
+                                    <field name="price"/>
+                                    <field name="computed_value"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Incomes">
+                            <field name="income_ids">
+                                <tree string="Incomes" editable="bottom">
+                                    <field name="name"/>
+                                    <field name="income_type"/>
+                                    <field name="amount"/>
+                                    <field name="date"/>
+                                    <field name="reference"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_invest_line_search" model="ir.ui.view">
+        <field name="name">sf.invest.line.search</field>
+        <field name="model">sf.invest.line</field>
+        <field name="arch" type="xml">
+            <search string="Investment Lines">
+                <field name="security_name"/>
+                <field name="isin"/>
+                <field name="portfolio_id"/>
+                <field name="security_type"/>
+                <filter string="Open" name="open"
+                        domain="[('state', '=', 'open')]"/>
+                <filter string="Bonds" name="bonds"
+                        domain="[('security_type', '=', 'bond')]"/>
+                <filter string="Matured" name="matured"
+                        domain="[('state', '=', 'matured')]"/>
+                <group>
+                    <filter string="Type" name="type_group"
+                            context="{'group_by': 'security_type'}"/>
+                    <filter string="Status" name="state_group"
+                            context="{'group_by': 'state'}"/>
+                    <filter string="Portfolio" name="portfolio_group"
+                            context="{'group_by': 'portfolio_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_invest_line_kanban" model="ir.ui.view">
+        <field name="name">sf.invest.line.kanban</field>
+        <field name="model">sf.invest.line</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="security_type">
+                <field name="security_name"/>
+                <field name="portfolio_id"/>
+                <field name="quantity"/>
+                <field name="value"/>
+                <field name="state"/>
+                <templates>
+                    <t t-name="card">
+                        <div class="oe_kanban_global_click">
+                            <div class="o_kanban_record_title">
+                                <field name="security_name"/>
+                            </div>
+                            <div class="o_kanban_record_subtitle">
+                                <field name="portfolio_id"/>
+                                <field name="state"/>
+                            </div>
+                            <div class="o_kanban_record_bottom">
+                                Value: <field name="value"/>
+                                Qty: <field name="quantity"/>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="action_invest_line" model="ir.actions.act_window">
+        <field name="name">Investments</field>
+        <field name="res_model">sf.invest.line</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="search_view_id" ref="view_invest_line_search"/>
+    </record>
+
+    <!-- ============ VALUATION ============ -->
+    <record id="view_invest_valuation_tree" model="ir.ui.view">
+        <field name="name">sf.invest.valuation.tree</field>
+        <field name="model">sf.invest.valuation</field>
+        <field name="arch" type="xml">
+            <tree string="Valuations">
+                <field name="name"/>
+                <field name="line_id"/>
+                <field name="date"/>
+                <field name="price"/>
+                <field name="computed_value"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_invest_valuation_form" model="ir.ui.view">
+        <field name="name">sf.invest.valuation.form</field>
+        <field name="model">sf.invest.valuation</field>
+        <field name="arch" type="xml">
+            <form string="Valuation">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="line_id"/>
+                            <field name="date"/>
+                        </group>
+                        <group>
+                            <field name="price"/>
+                            <field name="computed_value" readonly="1"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_invest_valuation_search" model="ir.ui.view">
+        <field name="name">sf.invest.valuation.search</field>
+        <field name="model">sf.invest.valuation</field>
+        <field name="arch" type="xml">
+            <search string="Valuations">
+                <field name="line_id"/>
+                <field name="date"/>
+                <group>
+                    <filter string="Line" name="line_group"
+                            context="{'group_by': 'line_id'}"/>
+                    <filter string="Date" name="date_group"
+                            context="{'group_by': 'date'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_invest_valuation_kanban" model="ir.ui.view">
+        <field name="name">sf.invest.valuation.kanban</field>
+        <field name="model">sf.invest.valuation</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="line_id">
+                <field name="name"/>
+                <field name="line_id"/>
+                <field name="date"/>
+                <field name="price"/>
+                <templates>
+                    <t t-name="card">
+                        <div class="oe_kanban_global_click">
+                            <div class="o_kanban_record_title">
+                                <field name="line_id"/>
+                            </div>
+                            <div class="o_kanban_record_subtitle">
+                                <field name="date"/>
+                            </div>
+                            <div class="o_kanban_record_bottom">
+                                Price: <field name="price"/>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="action_invest_valuation" model="ir.actions.act_window">
+        <field name="name">Valuations</field>
+        <field name="res_model">sf.invest.valuation</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="search_view_id" ref="view_invest_valuation_search"/>
+    </record>
+
+    <!-- ============ INCOME ============ -->
+    <record id="view_invest_income_tree" model="ir.ui.view">
+        <field name="name">sf.invest.income.tree</field>
+        <field name="model">sf.invest.income</field>
+        <field name="arch" type="xml">
+            <tree string="Incomes">
+                <field name="name"/>
+                <field name="line_id"/>
+                <field name="income_type"/>
+                <field name="amount"/>
+                <field name="date"/>
+                <field name="reference"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_invest_income_form" model="ir.ui.view">
+        <field name="name">sf.invest.income.form</field>
+        <field name="model">sf.invest.income</field>
+        <field name="arch" type="xml">
+            <form string="Income">
+                <header>
+                    <button name="action_received" type="object"
+                            string="Mark Received" class="btn-primary"
+                            invisible="state != 'draft'"/>
+                    <button name="action_close" type="object"
+                            string="Close" class="btn-danger"
+                            invisible="state != 'received'"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="line_id"/>
+                            <field name="income_type"/>
+                        </group>
+                        <group>
+                            <field name="amount"/>
+                            <field name="date"/>
+                            <field name="reference"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_invest_income_search" model="ir.ui.view">
+        <field name="name">sf.invest.income.search</field>
+        <field name="model">sf.invest.income</field>
+        <field name="arch" type="xml">
+            <search string="Incomes">
+                <field name="line_id"/>
+                <field name="reference"/>
+                <field name="income_type"/>
+                <filter string="Received" name="received"
+                        domain="[('state', '=', 'received')]"/>
+                <group>
+                    <filter string="Type" name="type_group"
+                            context="{'group_by': 'income_type'}"/>
+                    <filter string="Status" name="state_group"
+                            context="{'group_by': 'state'}"/>
+                    <filter string="Date" name="date_group"
+                            context="{'group_by': 'date'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_invest_income_kanban" model="ir.ui.view">
+        <field name="name">sf.invest.income.kanban</field>
+        <field name="model">sf.invest.income</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="income_type">
+                <field name="name"/>
+                <field name="line_id"/>
+                <field name="amount"/>
+                <field name="state"/>
+                <templates>
+                    <t t-name="card">
+                        <div class="oe_kanban_global_click">
+                            <div class="o_kanban_record_title">
+                                <field name="line_id"/>
+                            </div>
+                            <div class="o_kanban_record_subtitle">
+                                <field name="income_type"/>
+                                <field name="state"/>
+                            </div>
+                            <div class="o_kanban_record_bottom">
+                                Amount: <field name="amount"/>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="action_invest_income" model="ir.actions.act_window">
+        <field name="name">Incomes</field>
+        <field name="res_model">sf.invest.income</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="search_view_id" ref="view_invest_income_search"/>
+    </record>
+
+    <!-- ============ DASHBOARD ============ -->
+    <record id="view_invest_dashboard_graph" model="ir.ui.view">
+        <field name="name">sf.invest.line.dashboard.graph</field>
+        <field name="model">sf.invest.line</field>
+        <field name="arch" type="xml">
+            <graph string="Value by Security Type">
+                <field name="security_type"/>
+                <field name="value" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="view_invest_dashboard_pivot" model="ir.ui.view">
+        <field name="name">sf.invest.line.dashboard.pivot</field>
+        <field name="model">sf.invest.line</field>
+        <field name="arch" type="xml">
+            <pivot string="Value by Security Type and Portfolio">
+                <field name="security_type" type="row"/>
+                <field name="portfolio_id" type="col"/>
+                <field name="value" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="action_invest_dashboard" model="ir.actions.act_window">
+        <field name="name">Investment Dashboard</field>
+        <field name="res_model">sf.invest.line</field>
+        <field name="view_mode">graph,pivot</field>
+        <field name="view_ids" eval="[(5, 0), (0, 0, {'view_mode': 'graph', 'view_id': ref('view_invest_dashboard_graph')}), (0, 0, {'view_mode': 'pivot', 'view_id': ref('view_invest_dashboard_pivot')})]"/>
+    </record>
+
+</odoo>

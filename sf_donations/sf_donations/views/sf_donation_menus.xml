@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_sf_donation_root" name="Donations &amp; Charity"
+              sequence="90" web_icon="sf_donations,static/description/icon.png"/>
+
+    <menuitem id="menu_sf_donation_campaigns" name="Campaigns"
+              parent="menu_sf_donation_root"
+              action="action_sf_donation_campaign"
+              sequence="10"/>
+
+    <menuitem id="menu_sf_donation_promises" name="Promises"
+              parent="menu_sf_donation_root"
+              action="action_sf_donation_promise"
+              sequence="20"/>
+
+    <menuitem id="menu_sf_donation_payments" name="Payments"
+              parent="menu_sf_donation_root"
+              action="action_sf_donation_payment"
+              sequence="30"/>
+
+    <menuitem id="menu_sf_donation_receipts" name="Fiscal Receipts"
+              parent="menu_sf_donation_root"
+              action="action_sf_donation_receipt"
+              sequence="40"/>
+</odoo>

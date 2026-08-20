@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_fsoffline_technician_user,field.service.offline.fsoffline_technician.user,model_fsoffline_technician,base.group_user,1,0,0,0
+access_fsoffline_technician_mgr,field.service.offline.fsoffline_technician.mgr,model_fsoffline_technician,base.group_system,1,1,1,1
+access_fsoffline_sync_log_user,field.service.offline.fsoffline_sync_log.user,model_fsoffline_sync_log,base.group_user,1,0,0,0
+access_fsoffline_sync_log_mgr,field.service.offline.fsoffline_sync_log.mgr,model_fsoffline_sync_log,base.group_system,1,1,1,1
+access_fsoffline_workorder_cache_user,field.service.offline.fsoffline_workorder_cache.user,model_fsoffline_workorder_cache,base.group_user,1,0,0,0
+access_fsoffline_workorder_cache_mgr,field.service.offline.fsoffline_workorder_cache.mgr,model_fsoffline_workorder_cache,base.group_system,1,1,1,1

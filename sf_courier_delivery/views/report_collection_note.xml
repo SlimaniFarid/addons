@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_collection_note">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-set="company" t-value="o.company_id or res_company"/>
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2>Collection Note</h2>
+                        <table class="table table-sm">
+                            <tr><th>Request</th><td><span t-field="o.name"/></td></tr>
+                            <tr><th>Customer</th><td><span t-field="o.partner_id"/></td></tr>
+                            <tr><th>Scheduled</th><td><span t-field="o.scheduled_from"/> - <span t-field="o.scheduled_to"/></td></tr>
+                            <tr><th>Pickup Address</th><td><span t-field="o.pickup_address"/></td></tr>
+                            <tr><th>Delivery Address</th><td><span t-field="o.delivery_address"/></td></tr>
+                        </table>
+                        <h3>Deliveries</h3>
+                        <table class="table table-sm">
+                            <tr><th>Delivery</th><th>Courier</th><th>Parcel</th><th>Status</th></tr>
+                            <tr t-foreach="o.delivery_ids" t-as="d">
+                                <td><span t-field="d.name"/></td>
+                                <td><span t-field="d.courier_id"/></td>
+                                <td><span t-field="d.parcel_description"/></td>
+                                <td><span t-field="d.state"/></td>
+                            </tr>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

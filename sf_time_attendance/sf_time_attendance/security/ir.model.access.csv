@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_time_attendance_shift_user,sf.time.attendance.shift.user,model_sf_time_attendance_shift,group_time_attendance_user,1,1,0,0
+access_time_attendance_shift_manager,sf.time.attendance.shift.manager,model_sf_time_attendance_shift,group_time_attendance_manager,1,1,1,1
+access_time_attendance_monthly_user,sf.time.attendance.monthly.user,model_sf_time_attendance_monthly,group_time_attendance_user,1,0,0,0
+access_time_attendance_monthly_manager,sf.time.attendance.monthly.manager,model_sf_time_attendance_monthly,group_time_attendance_manager,1,1,1,1

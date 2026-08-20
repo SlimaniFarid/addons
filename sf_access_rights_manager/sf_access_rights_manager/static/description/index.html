@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>Access Rights Manager</title>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <img src="banner.png" alt="Access Rights Manager" class="img-fluid" style="max-width: 100%;"/>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-12">
+                <h2>Access Rights Manager</h2>
+                <p class="lead">Granular permission control without developer mode.</p>
+                <p>Odoo's native access control requires developer mode and technical knowledge. This module provides a user-friendly interface to configure fine-grained permissions for any user group.</p>
+
+                <h3>Key Features</h3>
+                <ul>
+                    <li><strong>Menu Control</strong> — Hide or show specific menus for selected groups</li>
+                    <li><strong>Field-Level Security</strong> — Make fields read-only, invisible, or required per group</li>
+                    <li><strong>Action/Report Restrictions</strong> — Deny or allow access to specific actions and reports</li>
+                    <li><strong>Export Control</strong> — Block or limit data exports per model and group</li>
+                    <li><strong>Multi-Company</strong> — Policies can be scoped to specific companies</li>
+                    <li><strong>Policy Management</strong> — Multiple policies with priority ordering</li>
+                    <li><strong>Audit Trail</strong> — Track policy changes via chatter</li>
+                    <li><strong>No Code Required</strong> — Configure entirely from the UI</li>
+                </ul>
+
+                <h3>Rule Types</h3>
+                <ul>
+                    <li><strong>Menu Rules</strong> — Hide navigation items from specific roles (e.g., hide Accounting from Sales team)</li>
+                    <li><strong>Field Rules</strong> — Make sensitive fields read-only for junior staff, invisible for external users</li>
+                    <li><strong>Action Rules</strong> — Restrict access to specific reports, wizards, or server actions</li>
+                    <li><strong>Export Rules</strong> — Prevent data exports for certain models or limit to specific fields</li>
+                </ul>
+
+                <h3>How It Works</h3>
+                <ol>
+                    <li>Create an Access Policy with a name and code</li>
+                    <li>Select target user groups (e.g., "Sales / User", "Accountant")</li>
+                    <li>Optionally limit to specific companies</li>
+                    <li>Add rules: Menu, Field, Action, or Export</li>
+                    <li>Click "Apply Policy" to activate</li>
+                    <li>Rules take effect immediately for users in target groups</li>
+                </ol>
+
+                <h3>Use Cases</h3>
+                <ul>
+                    <li>Hide Accounting menu from non-finance users</li>
+                    <li>Make "Cost Price" field invisible for sales team</li>
+                    <li>Block "Export All" for customer data (GDPR)</li>
+                    <li>Restrict "Delete" action on validated invoices</li>
+                    <li>Multi-company: different permissions per entity</li>
+                </ul>
+
+                <h3>Compatibility</h3>
+                <p>Odoo 18.0 and 19.0. Works alongside native ir.model.access and record rules.</p>
+
+                <hr/>
+                <p class="text-muted small">Odoo Apps  |  by SLIMANI Farid  |  support: <a href="mailto:tech5262@gmail.com">tech5262@gmail.com</a></p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

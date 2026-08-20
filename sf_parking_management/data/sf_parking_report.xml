@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="action_report_ticket" model="ir.actions.report">
+            <field name="name">Parking Ticket</field>
+            <field name="model">sf.parking.ticket</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">sf_parking_management.report_ticket</field>
+            <field name="report_file">sf_parking_management.report_ticket</field>
+            <field name="binding_model_id" ref="model_sf_parking_ticket"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <record id="action_report_subscription" model="ir.actions.report">
+            <field name="name">Subscription Contract</field>
+            <field name="model">sf.parking.subscription</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">sf_parking_management.report_subscription</field>
+            <field name="report_file">sf_parking_management.report_subscription</field>
+            <field name="binding_model_id" ref="model_sf_parking_subscription"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <record id="action_report_revenue" model="ir.actions.report">
+            <field name="name">Revenue Report</field>
+            <field name="model">sf.parking.ticket</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">sf_parking_management.report_revenue</field>
+            <field name="report_file">sf_parking_management.report_revenue</field>
+            <field name="binding_model_id" ref="model_sf_parking_ticket"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <record id="action_report_occupancy" model="ir.actions.report">
+            <field name="name">Occupancy Report</field>
+            <field name="model">sf.parking.site</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">sf_parking_management.report_occupancy</field>
+            <field name="report_file">sf_parking_management.report_occupancy</field>
+            <field name="binding_model_id" ref="model_sf_parking_site"/>
+            <field name="binding_type">report</field>
+        </record>
+    </data>
+</odoo>

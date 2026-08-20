@@ -1,0 +1,451 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Training form -->
+    <record id="training_view_form" model="ir.ui.view">
+        <field name="name">sf.training.form</field>
+        <field name="model">sf.training</field>
+        <field name="arch" type="xml">
+            <form string="Training">
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="category_id"/>
+                            <field name="duration_hours"/>
+                            <field name="mandatory"/>
+                            <field name="active"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                        <group>
+                            <field name="description"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="training_view_tree" model="ir.ui.view">
+        <field name="name">sf.training.tree</field>
+        <field name="model">sf.training</field>
+        <field name="arch" type="xml">
+            <tree string="Trainings">
+                <field name="name"/>
+                <field name="category_id"/>
+                <field name="duration_hours"/>
+                <field name="mandatory"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="training_view_kanban" model="ir.ui.view">
+        <field name="name">sf.training.kanban</field>
+        <field name="model">sf.training</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_mobile">
+                <field name="name"/>
+                <field name="category_id"/>
+                <field name="mandatory"/>
+                <templates>
+                    <t t-name="card">
+                        <div class="oe_kanban_global_click">
+                            <div class="o_kanban_record_title">
+                                <span class="o_kanban_record_headings">
+                                    <strong><field name="name"/></strong>
+                                </span>
+                            </div>
+                            <div class="o_kanban_record_body">
+                                <field name="category_id"/>
+                                <span t-if="record.mandatory.raw_value"
+                                      class="badge text-bg-warning">Mandatory</span>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="training_view_search" model="ir.ui.view">
+        <field name="name">sf.training.search</field>
+        <field name="model">sf.training</field>
+        <field name="arch" type="xml">
+            <search string="Trainings">
+                <field name="name"/>
+                <field name="category_id"/>
+                <filter name="mandatory" string="Mandatory"
+                        domain="[('mandatory', '=', True)]"/>
+                <filter name="inactive" string="Inactive"
+                        domain="[('active', '=', False)]"/>
+                <group>
+                    <filter name="group_category" string="Category"
+                            context="{'group_by': 'category_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Category form -->
+    <record id="training_category_view_form" model="ir.ui.view">
+        <field name="name">sf.training.category.form</field>
+        <field name="model">sf.training.category</field>
+        <field name="arch" type="xml">
+            <form string="Category">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="code"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="training_category_view_tree" model="ir.ui.view">
+        <field name="name">sf.training.category.tree</field>
+        <field name="model">sf.training.category</field>
+        <field name="arch" type="xml">
+            <tree string="Categories">
+                <field name="name"/>
+                <field name="code"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Session form -->
+    <record id="training_session_view_form" model="ir.ui.view">
+        <field name="name">sf.training.session.form</field>
+        <field name="model">sf.training.session</field>
+        <field name="arch" type="xml">
+            <form string="Training Session">
+                <header>
+                    <button name="action_plan" type="object"
+                            string="Plan" invisible="[('state', 'not in', ('draft',))]"/>
+                    <button name="action_issue_certificates" type="object"
+                            string="Issue Certificates" class="btn-primary"
+                            invisible="[('state', 'not in', ('done',))]"/>
+                    <button name="action_done" type="object"
+                            string="Mark Done" invisible="[('state', 'not in', ('planned',))]"/>
+                    <button name="action_cancel" type="object"
+                            string="Cancel" invisible="[('state', 'not in', ('draft', 'planned'))]"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="training_id"/>
+                            <field name="trainer_id"/>
+                            <field name="location"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                        <group>
+                            <field name="date_start"/>
+                            <field name="date_end"/>
+                            <field name="attendee_count"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Registrations">
+                            <field name="registration_ids">
+                                <tree string="Registrations" editable="bottom">
+                                    <field name="employee_id"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Messages">
+                            <field name="message_ids"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="training_session_view_tree" model="ir.ui.view">
+        <field name="name">sf.training.session.tree</field>
+        <field name="model">sf.training.session</field>
+        <field name="arch" type="xml">
+            <tree string="Sessions">
+                <field name="name"/>
+                <field name="training_id"/>
+                <field name="date_start"/>
+                <field name="trainer_id"/>
+                <field name="attendee_count"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="training_session_view_kanban" model="ir.ui.view">
+        <field name="name">sf.training.session.kanban</field>
+        <field name="model">sf.training.session</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_mobile">
+                <field name="name"/>
+                <field name="training_id"/>
+                <field name="attendee_count"/>
+                <field name="state"/>
+                <templates>
+                    <t t-name="card">
+                        <div class="oe_kanban_global_click">
+                            <div class="o_kanban_record_title">
+                                <span class="o_kanban_record_headings">
+                                    <strong><field name="name"/></strong>
+                                </span>
+                            </div>
+                            <div class="o_kanban_record_body">
+                                <field name="training_id"/>
+                                <field name="state" widget="badge"/>
+                                <div>
+                                    <i class="fa fa-users"/>
+                                    <field name="attendee_count"/>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="training_session_view_search" model="ir.ui.view">
+        <field name="name">sf.training.session.search</field>
+        <field name="model">sf.training.session</field>
+        <field name="arch" type="xml">
+            <search string="Sessions">
+                <field name="name"/>
+                <field name="training_id"/>
+                <field name="trainer_id"/>
+                <filter name="planned" string="Planned"
+                        domain="[('state', '=', 'planned')]"/>
+                <filter name="done" string="Done"
+                        domain="[('state', '=', 'done')]"/>
+                <group>
+                    <filter name="group_training" string="Training"
+                            context="{'group_by': 'training_id'}"/>
+                    <filter name="group_state" string="Status"
+                            context="{'group_by': 'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Certification form -->
+    <record id="employee_certification_view_form" model="ir.ui.view">
+        <field name="name">sf.employee.certification.form</field>
+        <field name="model">sf.employee.certification</field>
+        <field name="arch" type="xml">
+            <form string="Certification">
+                <header>
+                    <button name="action_issue" type="object"
+                            string="Issue" class="btn-primary" invisible="[('state', 'not in', ('draft',))]"/>
+                    <button name="action_renew" type="object"
+                            string="Renew" invisible="[('state', 'not in', ('active', 'expiring'))]"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="certificate_number"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="employee_id"/>
+                            <field name="training_id"/>
+                            <field name="registration_id"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                        <group>
+                            <field name="issue_date"/>
+                            <field name="expiration_date"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Notes">
+                            <field name="notes"/>
+                        </page>
+                        <page string="Messages">
+                            <field name="message_ids"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="employee_certification_view_tree" model="ir.ui.view">
+        <field name="name">sf.employee.certification.tree</field>
+        <field name="model">sf.employee.certification</field>
+        <field name="arch" type="xml">
+            <tree string="Certifications">
+                <field name="employee_id"/>
+                <field name="training_id"/>
+                <field name="certificate_number"/>
+                <field name="issue_date"/>
+                <field name="expiration_date"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="employee_certification_view_search" model="ir.ui.view">
+        <field name="name">sf.employee.certification.search</field>
+        <field name="model">sf.employee.certification</field>
+        <field name="arch" type="xml">
+            <search string="Certifications">
+                <field name="employee_id"/>
+                <field name="training_id"/>
+                <field name="certificate_number"/>
+                <filter name="active" string="Active"
+                        domain="[('state', '=', 'active')]"/>
+                <filter name="expiring" string="Expiring"
+                        domain="[('state', '=', 'expiring')]"/>
+                <filter name="expired" string="Expired"
+                        domain="[('state', '=', 'expired')]"/>
+                <group>
+                    <filter name="group_state" string="Status"
+                            context="{'group_by': 'state'}"/>
+                    <filter name="group_training" string="Training"
+                            context="{'group_by': 'training_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Compliance matrix view -->
+    <record id="compliance_matrix_view_tree" model="ir.ui.view">
+        <field name="name">sf.compliance.matrix.tree</field>
+        <field name="model">sf.compliance.matrix</field>
+        <field name="arch" type="xml">
+            <tree string="Compliance Matrix">
+                <header>
+                    <button name="_refresh_matrix" type="object"
+                            string="Refresh Matrix" icon="fa-refresh"
+                            class="btn-primary"/>
+                </header>
+                <field name="employee_id"/>
+                <field name="training_id"/>
+                <field name="category_id"/>
+                <field name="cert_state"/>
+                <field name="compliant" widget="boolean_favorite"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Issue certificates wizard form -->
+    <record id="certification_issue_wizard_form" model="ir.ui.view">
+        <field name="name">sf.certification.issue.wizard.form</field>
+        <field name="model">sf.certification.issue.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Issue Certificates">
+                <group>
+                    <field name="session_id"/>
+                    <field name="issue_date"/>
+                    <field name="expiration_date"/>
+                </group>
+                <footer>
+                    <button name="action_issue" type="object"
+                            string="Issue" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary"
+                            special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!-- Renew certification wizard form -->
+    <record id="certification_renew_wizard_form" model="ir.ui.view">
+        <field name="name">sf.certification.renew.wizard.form</field>
+        <field name="model">sf.certification.renew.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Renew Certification">
+                <group>
+                    <field name="certification_id"/>
+                    <field name="new_issue_date"/>
+                    <field name="new_expiration_date"/>
+                </group>
+                <footer>
+                    <button name="action_renew" type="object"
+                            string="Renew" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary"
+                            special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!-- Inherited hr.employee form -->
+    <record id="training_hr_employee_form" model="ir.ui.view">
+        <field name="name">hr.employee.form.training</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="inside">
+                <notebook position="inside">
+                    <page string="Trainings" name="trainings">
+                        <field name="sf_training_registration_ids" readonly="1">
+                            <tree string="Registrations">
+                                <field name="session_id"/>
+                                <field name="state"/>
+                            </tree>
+                        </field>
+                    </page>
+                    <page string="Certifications" name="certifications">
+                        <field name="sf_certification_ids" readonly="1">
+                            <tree string="Certifications">
+                                <field name="training_id"/>
+                                <field name="certificate_number"/>
+                                <field name="issue_date"/>
+                                <field name="expiration_date"/>
+                                <field name="state"/>
+                            </tree>
+                        </field>
+                    </page>
+                </notebook>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Actions -->
+    <record id="action_training" model="ir.actions.act_window">
+        <field name="name">Trainings</field>
+        <field name="res_model">sf.training</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="search_view_id" ref="training_view_search"/>
+    </record>
+
+    <record id="action_training_session" model="ir.actions.act_window">
+        <field name="name">Sessions</field>
+        <field name="res_model">sf.training.session</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="search_view_id" ref="training_session_view_search"/>
+    </record>
+
+    <record id="action_employee_certification" model="ir.actions.act_window">
+        <field name="name">Certifications</field>
+        <field name="res_model">sf.employee.certification</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="employee_certification_view_search"/>
+    </record>
+
+    <record id="action_compliance_matrix" model="ir.actions.act_window">
+        <field name="name">Compliance Matrix</field>
+        <field name="res_model">sf.compliance.matrix</field>
+        <field name="view_mode">tree</field>
+        <field name="groups" eval="[(4, ref('group_training_manager'))]"/>
+    </record>
+
+    <record id="action_training_category" model="ir.actions.act_window">
+        <field name="name">Categories</field>
+        <field name="res_model">sf.training.category</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

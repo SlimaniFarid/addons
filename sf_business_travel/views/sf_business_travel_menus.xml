@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_sf_business_travel_root"
+              name="Business Travel"
+              sequence="30"
+              groups="sf_business_travel.group_sf_business_travel_user"
+              web_icon="sf_business_travel,static/description/icon.png"/>
+    <menuitem id="menu_sf_business_travel_requests"
+              name="Travel Requests"
+              parent="menu_sf_business_travel_root"
+              groups="sf_business_travel.group_sf_business_travel_user"
+              action="action_sf_business_travel"
+              sequence="10"/>
+</odoo>

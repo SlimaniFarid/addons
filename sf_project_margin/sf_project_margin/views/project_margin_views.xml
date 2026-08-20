@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Budget item -->
+    <record id="project_budget_item_view_form" model="ir.ui.view">
+        <field name="name">sf.project.budget.item.form</field>
+        <field name="model">sf.project.budget.item</field>
+        <field name="arch" type="xml">
+            <form string="Budget Item">
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="category"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="project_id"/>
+                            <field name="type"/>
+                        </group>
+                        <group>
+                            <field name="amount"/>
+                            <field name="currency_id"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="note"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="project_budget_item_view_tree" model="ir.ui.view">
+        <field name="name">sf.project.budget.item.tree</field>
+        <field name="model">sf.project.budget.item</field>
+        <field name="arch" type="xml">
+            <tree string="Budget Items">
+                <field name="project_id"/>
+                <field name="type"/>
+                <field name="category"/>
+                <field name="amount"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Inherited project form -->
+    <record id="project_margin_budget_section" model="ir.ui.view">
+        <field name="name">project.project.sf.budget</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.edit_project"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet/notebook" position="inside">
+                <page string="Margin &amp; Budget" name="sf_margin">
+                    <group>
+                        <group>
+                            <field name="sf_budget_revenue"/>
+                            <field name="sf_budget_cost"/>
+                        </group>
+                        <group>
+                            <field name="sf_margin"/>
+                            <field name="sf_margin_pct"/>
+                            <field name="sf_margin_status"/>
+                            <field name="sf_warning_threshold"/>
+                        </group>
+                    </group>
+                    <field name="sf_budget_item_ids">
+                        <tree string="Budget Items" editable="bottom">
+                            <field name="type"/>
+                            <field name="category"/>
+                            <field name="amount"/>
+                            <field name="note"/>
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_project_budget_item" model="ir.actions.act_window">
+        <field name="name">Budget Items</field>
+        <field name="res_model">sf.project.budget.item</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

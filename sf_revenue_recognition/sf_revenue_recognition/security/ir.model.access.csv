@@ -1,0 +1,11 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_revrec_contract_user,revenue.recognition.revrec_contract.user,model_revrec_contract,base.group_user,1,0,0,0
+access_revrec_contract_mgr,revenue.recognition.revrec_contract.mgr,model_revrec_contract,base.group_system,1,1,1,1
+access_revrec_obligation_user,revenue.recognition.revrec_obligation.user,model_revrec_obligation,base.group_user,1,0,0,0
+access_revrec_obligation_mgr,revenue.recognition.revrec_obligation.mgr,model_revrec_obligation,base.group_system,1,1,1,1
+access_revrec_schedule_user,revenue.recognition.revrec_schedule.user,model_revrec_schedule,base.group_user,1,0,0,0
+access_revrec_schedule_mgr,revenue.recognition.revrec_schedule.mgr,model_revrec_schedule,base.group_system,1,1,1,1
+access_revrec_allocation_user,revenue.recognition.revrec_allocation.user,model_revrec_allocation,base.group_user,1,0,0,0
+access_revrec_allocation_mgr,revenue.recognition.revrec_allocation.mgr,model_revrec_allocation,base.group_system,1,1,1,1
+access_revrec_journal_user,revenue.recognition.revrec_journal.user,model_revrec_journal,base.group_user,1,0,0,0
+access_revrec_journal_mgr,revenue.recognition.revrec_journal.mgr,model_revrec_journal,base.group_system,1,1,1,1

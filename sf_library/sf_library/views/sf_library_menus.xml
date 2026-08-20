@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_sf_library_root" name="Library &amp; Media"
+              sequence="90" web_icon="sf_library,static/description/icon.png"/>
+
+    <menuitem id="menu_sf_library_items" name="Catalogue"
+              parent="menu_sf_library_root"
+              action="action_sf_library_item"
+              sequence="10"/>
+
+    <menuitem id="menu_sf_library_categories" name="Categories"
+              parent="menu_sf_library_root"
+              action="action_sf_library_category"
+              sequence="20"/>
+
+    <menuitem id="menu_sf_library_members" name="Members"
+              parent="menu_sf_library_root"
+              action="action_sf_library_member"
+              sequence="30"/>
+
+    <menuitem id="menu_sf_library_loans" name="Loans"
+              parent="menu_sf_library_root"
+              action="action_sf_library_loan"
+              sequence="40"/>
+
+    <menuitem id="menu_sf_library_reservations" name="Reservations"
+              parent="menu_sf_library_root"
+              action="action_sf_library_reservation"
+              sequence="50"/>
+</odoo>

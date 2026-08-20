@@ -1,0 +1,12 @@
+<odoo>
+    <record id="tiktokshop_store_example" model="tiktokshop.store">
+        <field name="name">My TikTok Shop</field>
+        <field name="shop_id">1234567890</field>
+        <field name="shop_cipher">abc123cipher</field>
+        <field name="region">US</field>
+        <field name="app_key">YOUR_APP_KEY</field>
+        <field name="app_secret">YOUR_APP_SECRET</field>
+        <field name="access_token">YOUR_ACCESS_TOKEN</field>
+        <field name="active">False</field>
+    </record>
+</odoo>

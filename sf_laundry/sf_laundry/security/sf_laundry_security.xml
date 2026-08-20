@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="module_category_sf_laundry" model="ir.module.category">
+            <field name="name">Laundry</field>
+            <field name="description">Laundry &amp; Dry Cleaning Management.</field>
+            <field name="sequence">10</field>
+        </record>
+
+        <record id="group_sf_laundry_user" model="res.groups">
+            <field name="name">Laundry / User</field>
+            <field name="category_id" ref="module_category_sf_laundry"/>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        </record>
+
+        <record id="group_sf_laundry_manager" model="res.groups">
+            <field name="name">Laundry / Manager</field>
+            <field name="category_id" ref="module_category_sf_laundry"/>
+            <field name="implied_ids" eval="[(4, ref('sf_laundry.group_sf_laundry_user'))]"/>
+        </record>
+
+        <record id="rule_sf_laundry_order_company" model="ir.rule">
+            <field name="name">Laundry Order: user sees own company</field>
+            <field name="model_id" ref="model_sf_laundry_order"/>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+            <field name="groups" eval="[(4, ref('sf_laundry.group_sf_laundry_user'))]"/>
+        </record>
+        <record id="rule_sf_laundry_order_manager_all" model="ir.rule">
+            <field name="name">Laundry Order: manager sees all companies</field>
+            <field name="model_id" ref="model_sf_laundry_order"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('sf_laundry.group_sf_laundry_manager'))]"/>
+        </record>
+
+        <record id="rule_sf_laundry_item_company" model="ir.rule">
+            <field name="name">Laundry Item: user sees own company</field>
+            <field name="model_id" ref="model_sf_laundry_item"/>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+            <field name="groups" eval="[(4, ref('sf_laundry.group_sf_laundry_user'))]"/>
+        </record>
+        <record id="rule_sf_laundry_item_manager_all" model="ir.rule">
+            <field name="name">Laundry Item: manager sees all companies</field>
+            <field name="model_id" ref="model_sf_laundry_item"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('sf_laundry.group_sf_laundry_manager'))]"/>
+        </record>
+
+        <record id="rule_sf_laundry_item_type_company" model="ir.rule">
+            <field name="name">Laundry Item Type: user sees own company</field>
+            <field name="model_id" ref="model_sf_laundry_item_type"/>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+            <field name="groups" eval="[(4, ref('sf_laundry.group_sf_laundry_user'))]"/>
+        </record>
+        <record id="rule_sf_laundry_item_type_manager_all" model="ir.rule">
+            <field name="name">Laundry Item Type: manager sees all companies</field>
+            <field name="model_id" ref="model_sf_laundry_item_type"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('sf_laundry.group_sf_laundry_manager'))]"/>
+        </record>
+    </data>
+</odoo>

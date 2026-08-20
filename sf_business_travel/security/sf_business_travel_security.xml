@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="module_category_sf_business_travel" model="ir.module.category">
+            <field name="name">Business Travel</field>
+            <field name="description">Corporate Business Travel Management.</field>
+            <field name="sequence">10</field>
+        </record>
+
+        <record id="group_sf_business_travel_user" model="res.groups">
+            <field name="name">Business Travel / User</field>
+            <field name="category_id" ref="module_category_sf_business_travel"/>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        </record>
+
+        <record id="group_sf_business_travel_manager" model="res.groups">
+            <field name="name">Business Travel / Manager</field>
+            <field name="category_id" ref="module_category_sf_business_travel"/>
+            <field name="implied_ids" eval="[(4, ref('sf_business_travel.group_sf_business_travel_user'))]"/>
+        </record>
+
+        <record id="rule_sf_business_travel_company" model="ir.rule">
+            <field name="name">Business Travel: user sees own company</field>
+            <field name="model_id" ref="model_sf_business_travel"/>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+            <field name="groups" eval="[(4, ref('sf_business_travel.group_sf_business_travel_user'))]"/>
+        </record>
+        <record id="rule_sf_business_travel_manager_all" model="ir.rule">
+            <field name="name">Business Travel: manager sees all companies</field>
+            <field name="model_id" ref="model_sf_business_travel"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('sf_business_travel.group_sf_business_travel_manager'))]"/>
+        </record>
+
+        <record id="rule_sf_business_travel_line_company" model="ir.rule">
+            <field name="name">Business Travel Line: user sees own company</field>
+            <field name="model_id" ref="model_sf_business_travel_line"/>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+            <field name="groups" eval="[(4, ref('sf_business_travel.group_sf_business_travel_user'))]"/>
+        </record>
+        <record id="rule_sf_business_travel_line_manager_all" model="ir.rule">
+            <field name="name">Business Travel Line: manager sees all companies</field>
+            <field name="model_id" ref="model_sf_business_travel_line"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('sf_business_travel.group_sf_business_travel_manager'))]"/>
+        </record>
+    </data>
+</odoo>

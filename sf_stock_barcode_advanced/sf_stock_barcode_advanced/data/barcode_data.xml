@@ -1,0 +1,13 @@
+<odoo>
+    <record id="barcode_config_default" model="barcode.config">
+        <field name="name">Default Configuration</field>
+        <field name="sequence">10</field>
+        <field name="pattern_product">^\d{12,14}$</field>
+        <field name="pattern_lot">^LOT-\d+$</field>
+        <field name="pattern_package">^PKG-\d+$</field>
+        <field name="pattern_location">^LOC-\d+$</field>
+        <field name="pattern_gs1">^\(01\)\d{14}\(10\)</field>
+        <field name="auto_create_lot">True</field>
+        <field name="auto_create_package">True</field>
+    </record>
+</odoo>

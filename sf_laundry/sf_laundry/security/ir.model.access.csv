@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sf_laundry_order_user,sf.laundry.order.user,model_sf_laundry_order,sf_laundry.group_sf_laundry_user,1,1,1,0
+access_sf_laundry_item_user,sf.laundry.item.user,model_sf_laundry_item,sf_laundry.group_sf_laundry_user,1,1,1,0
+access_sf_laundry_item_type_user,sf.laundry.item.type.user,model_sf_laundry_item_type,sf_laundry.group_sf_laundry_user,1,1,1,0
+access_sf_laundry_order_manager,sf.laundry.order.manager,model_sf_laundry_order,sf_laundry.group_sf_laundry_manager,1,1,1,1
+access_sf_laundry_item_manager,sf.laundry.item.manager,model_sf_laundry_item,sf_laundry.group_sf_laundry_manager,1,1,1,1
+access_sf_laundry_item_type_manager,sf.laundry.item.type.manager,model_sf_laundry_item_type,sf_laundry.group_sf_laundry_manager,1,1,1,1
+access_sf_laundry_mail_activity,sf.laundry.mail.activity.user,mail.activity,sf_laundry.group_sf_laundry_user,1,1,1,0

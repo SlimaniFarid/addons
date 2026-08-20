@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ============ INSTRUMENT ============ -->
+    <record id="view_trade_instrument_tree" model="ir.ui.view">
+        <field name="name">sf.trade.instrument.tree</field>
+        <field name="model">sf.trade.instrument</field>
+        <field name="arch" type="xml">
+            <tree string="Instruments">
+                <field name="name"/>
+                <field name="instrument_type"/>
+                <field name="direction"/>
+                <field name="bank_id"/>
+                <field name="counterparty_id"/>
+                <field name="currency_id" column_invisible="True"/>
+                <field name="amount" sum="1"/>
+                <field name="state"/>
+                <field name="expiry_date"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_trade_instrument_form" model="ir.ui.view">
+        <field name="name">sf.trade.instrument.form</field>
+        <field name="model">sf.trade.instrument</field>
+        <field name="arch" type="xml">
+            <form string="Instrument">
+                <header>
+                    <button name="action_request" type="object"
+                            string="Request" invisible="state != 'draft'"/>
+                    <button name="action_issue" type="object"
+                            string="Issue" invisible="state != 'requested'"/>
+                    <button name="action_activate" type="object"
+                            string="Activate" invisible="state != 'issued'"/>
+                    <button name="action_settle" type="object"
+                            string="Settle" class="btn-primary"
+                            invisible="state != 'active'"/>
+                    <button name="action_close" type="object"
+                            string="Close" invisible="state not in ('settled', 'active')"/>
+                    <button name="action_cancel" type="object"
+                            string="Cancel" class="btn-danger"
+                            invisible="state in ('closed', 'cancelled')"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="toggle_active" type="object"
+                                class="oe_stat_button" icon="fa-archive">
+                            <field name="active" widget="boolean_toggle"/>
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="instrument_type"/>
+                            <field name="direction"/>
+                            <field name="bank_id"/>
+                        </group>
+                        <group>
+                            <field name="counterparty_id"/>
+                            <field name="currency_id"/>
+                            <field name="amount"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Key Dates">
+                            <group>
+                                <group>
+                                    <field name="application_date"/>
+                                    <field name="issue_date"/>
+                                </group>
+                                <group>
+                                    <field name="expiry_date"/>
+                                    <field name="payment_date"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Documents">
+                            <field name="document_ids">
+                                <tree string="Documents" editable="bottom">
+                                    <field name="name"/>
+                                    <field name="state"/>
+                                    <field name="submitted_on"/>
+                                    <field name="accepted_on"/>
+                                    <field name="notes"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Bank Fees">
+                            <field name="fee_ids">
+                                <tree string="Bank Fees" editable="bottom">
+                                    <field name="fee_date"/>
+                                    <field name="fee_type"/>
+                                    <field name="currency_id"/>
+                                    <field name="amount" sum="1"/>
+                                    <field name="notes"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Links">
+                            <group>
+                                <group>
+                                    <field name="order_ids"/>
+                                </group>
+                                <group>
+                                    <field name="invoice_ids"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                    <field name="notes"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_trade_instrument_search" model="ir.ui.view">
+        <field name="name">sf.trade.instrument.search</field>
+        <field name="model">sf.trade.instrument</field>
+        <field name="arch" type="xml">
+            <search string="Instruments">
+                <field name="name"/>
+                <field name="counterparty_id"/>
+                <field name="bank_id"/>
+                <field name="instrument_type"/>
+                <filter string="Active" name="active"
+                        domain="[('state', '=', 'active')]"/>
+                <filter string="Expiring Soon" name="expiring"
+                        domain="[('expiry_date', '!=', False)]"/>
+                <group>
+                    <filter string="Type" name="type_group"
+                            context="{'group_by': 'instrument_type'}"/>
+                    <filter string="Direction" name="direction_group"
+                            context="{'group_by': 'direction'}"/>
+                    <filter string="Status" name="state_group"
+                            context="{'group_by': 'state'}"/>
+                    <filter string="Bank" name="bank_group"
+                            context="{'group_by': 'bank_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_trade_instrument_kanban" model="ir.ui.view">
+        <field name="name">sf.trade.instrument.kanban</field>
+        <field name="model">sf.trade.instrument</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state">
+                <field name="name"/>
+                <field name="instrument_type"/>
+                <field name="amount"/>
+                <field name="currency_id"/>
+                <field name="counterparty_id"/>
+                <field name="expiry_date"/>
+                <templates>
+                    <t t-name="card">
+                        <div class="oe_kanban_global_click">
+                            <div class="o_kanban_record_title">
+                                <field name="name"/>
+                            </div>
+                            <div class="o_kanban_record_subtitle">
+                                <field name="instrument_type"/>
+                                - <field name="counterparty_id"/>
+                            </div>
+                            <div class="o_kanban_record_bottom">
+                                <span class="o_kanban_record_money">
+                                    <field name="amount" widget="monetary"/>
+                                </span>
+                                <span class="o_kanban_record_subtle">
+                                    Expiry: <field name="expiry_date"/>
+                                </span>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="action_trade_instrument" model="ir.actions.act_window">
+        <field name="name">Instruments</field>
+        <field name="res_model">sf.trade.instrument</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="search_view_id" ref="view_trade_instrument_search"/>
+    </record>
+
+    <!-- ============ BANK ============ -->
+    <record id="view_trade_bank_tree" model="ir.ui.view">
+        <field name="name">sf.trade.bank.tree</field>
+        <field name="model">sf.trade.bank</field>
+        <field name="arch" type="xml">
+            <tree string="Banks">
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="swift"/>
+                <field name="branch"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_trade_bank_form" model="ir.ui.view">
+        <field name="name">sf.trade.bank.form</field>
+        <field name="model">sf.trade.bank</field>
+        <field name="arch" type="xml">
+            <form string="Bank">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="swift"/>
+                        </group>
+                        <group>
+                            <field name="partner_id"/>
+                            <field name="branch"/>
+                            <field name="active"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_trade_bank" model="ir.actions.act_window">
+        <field name="name">Banks</field>
+        <field name="res_model">sf.trade.bank</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- ============ FEES ============ -->
+    <record id="view_trade_fee_tree" model="ir.ui.view">
+        <field name="name">sf.trade.instrument.fee.tree</field>
+        <field name="model">sf.trade.instrument.fee</field>
+        <field name="arch" type="xml">
+            <tree string="Bank Fees">
+                <field name="fee_date"/>
+                <field name="instrument_id"/>
+                <field name="fee_type"/>
+                <field name="currency_id"/>
+                <field name="amount" sum="1"/>
+                <field name="notes"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_trade_fee" model="ir.actions.act_window">
+        <field name="name">Bank Fees</field>
+        <field name="res_model">sf.trade.instrument.fee</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+    <!-- ============ PURCHASE ORDER SECTION ============ -->
+    <record id="view_purchase_order_trade" model="ir.ui.view">
+        <field name="name">purchase.order.form.trade</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet/notebook" position="inside">
+                <page string="Trade Finance" name="trade_finance">
+                    <field name="sf_trade_instrument_ids" widget="many2many_tags"/>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- ============ ACCOUNT MOVE SECTION ============ -->
+    <record id="view_account_move_trade" model="ir.ui.view">
+        <field name="name">account.move.form.trade</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form/sheet/notebook" position="inside">
+                <page string="Trade Finance" name="trade_finance">
+                    <field name="sf_trade_instrument_ids" widget="many2many_tags"/>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- ============ DASHBOARD ============ -->
+    <record id="view_trade_dashboard_graph" model="ir.ui.view">
+        <field name="name">sf.trade.instrument.dashboard.graph</field>
+        <field name="model">sf.trade.instrument</field>
+        <field name="arch" type="xml">
+            <graph string="Instruments by Status">
+                <field name="instrument_type"/>
+                <field name="amount" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="view_trade_dashboard_pivot" model="ir.ui.view">
+        <field name="name">sf.trade.instrument.dashboard.pivot</field>
+        <field name="model">sf.trade.instrument</field>
+        <field name="arch" type="xml">
+            <pivot string="Outstanding by Counterparty">
+                <field name="counterparty_id" type="row"/>
+                <field name="currency_id" type="col"/>
+                <field name="amount" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="action_trade_dashboard" model="ir.actions.act_window">
+        <field name="name">Trade Dashboard</field>
+        <field name="res_model">sf.trade.instrument</field>
+        <field name="view_mode">graph,pivot</field>
+        <field name="view_ids" eval="[(5, 0), (4, ref('view_trade_dashboard_graph')), (4, ref('view_trade_dashboard_pivot'))]"/>
+        <field name="domain">[('state', 'in', ('active', 'issued', 'requested'))]</field>
+    </record>
+
+    <!-- ============ WIZARD ============ -->
+    <record id="view_trade_cancel_wizard" model="ir.ui.view">
+        <field name="name">sf.trade.instrument.cancel.wizard.form</field>
+        <field name="model">sf.trade.instrument.cancel.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Cancel Instrument">
+                <group>
+                    <field name="instrument_id" readonly="1"/>
+                    <field name="reason"/>
+                </group>
+                <footer>
+                    <button name="action_confirm" type="object"
+                            string="Cancel" class="btn-danger"/>
+                    <button string="Back" class="btn-secondary"
+                            special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+</odoo>

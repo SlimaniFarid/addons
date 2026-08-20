@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_employee_loan_user,sf.employee.loan.user,model_sf_employee_loan,group_employee_loans_user,1,1,1,0
+access_employee_loan_manager,sf.employee.loan.manager,model_sf_employee_loan,group_employee_loans_manager,1,1,1,1
+access_employee_loan_line_user,sf.employee.loan.line.user,model_sf_employee_loan_line,group_employee_loans_user,1,1,1,0
+access_employee_loan_line_manager,sf.employee.loan.line.manager,model_sf_employee_loan_line,group_employee_loans_manager,1,1,1,1

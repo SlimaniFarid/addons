@@ -1,0 +1,41 @@
+<odoo>
+    <record id="view_mcp_log_form" model="ir.ui.view">
+        <field name="name">mcp.request.log.form</field>
+        <field name="model">mcp.request.log</field>
+        <field name="arch" type="xml">
+            <form string="MCP Request Log" create="false">
+                <sheet>
+                    <group>
+                        <field name="server_id"/>
+                        <field name="tool"/>
+                        <field name="model"/>
+                        <field name="status" widget="badge" decoration-success="status=='success'" decoration-danger="status=='error'" decoration-warning="status=='forbidden'"/>
+                        <field name="response_ms"/>
+                        <field name="create_date" readonly="1"/>
+                    </group>
+                    <group string="Parameters">
+                        <field name="params" widget="text" readonly="1"/>
+                    </group>
+                    <group string="Result">
+                        <field name="result" widget="text" readonly="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_mcp_log_list" model="ir.ui.view">
+        <field name="name">mcp.request.log.list</field>
+        <field name="model">mcp.request.log</field>
+        <field name="arch" type="xml">
+            <list string="MCP Request Logs">
+                <field name="create_date"/>
+                <field name="server_id"/>
+                <field name="tool"/>
+                <field name="model"/>
+                <field name="status" widget="badge" decoration-success="status=='success'" decoration-danger="status=='error'" decoration-warning="status=='forbidden'"/>
+                <field name="response_ms"/>
+            </list>
+        </field>
+    </record>
+</odoo>

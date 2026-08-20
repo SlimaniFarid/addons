@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_rework_order">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-set="company" t-value="o.company_id or res_company"/>
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2>Rework Order <span t-field="o.name"/></h2>
+                        <table class="table table-sm">
+                            <tr><th>Product</th><td><span t-field="o.product_id"/></td></tr>
+                            <tr><th>Lot</th><td><span t-field="o.lot_id"/></td></tr>
+                            <tr><th>Quantity</th><td><span t-field="o.qty"/> <span t-field="o.uom_id"/></td></tr>
+                            <tr><th>Source</th><td><span t-field="o.source"/></td></tr>
+                            <tr><th>Reason</th><td><span t-field="o.reason"/></td></tr>
+                            <tr><th>Status</th><td><span t-field="o.state"/></td></tr>
+                            <tr><th>Hourly Rate</th><td><span t-field="o.hourly_rate"/></td></tr>
+                            <tr><th>Total Hours</th><td><span t-field="o.total_hours"/></td></tr>
+                            <tr><th>Rework Cost</th><td><span t-field="o.rework_cost"/></td></tr>
+                            <tr><th>Scrap Value</th><td><span t-field="o.scrap_value"/></td></tr>
+                            <tr><th>Total Cost</th><td><span t-field="o.total_cost"/></td></tr>
+                        </table>
+                        <h3>Operations</h3>
+                        <table class="table table-sm">
+                            <tr><th>Name</th><th>Operator</th><th>Hours</th><th>Done</th><th>Description</th></tr>
+                            <tr t-foreach="o.operation_ids" t-as="op">
+                                <td><span t-field="op.name"/></td>
+                                <td><span t-field="op.user_id"/></td>
+                                <td><span t-field="op.hours"/></td>
+                                <td><span t-field="op.done"/></td>
+                                <td><span t-field="op.description"/></td>
+                            </tr>
+                        </table>
+                        <h3>Scrap</h3>
+                        <table class="table table-sm">
+                            <tr><th>Product</th><th>Quantity</th><th>Value</th><th>Reason</th></tr>
+                            <tr t-foreach="o.scrap_ids" t-as="sc">
+                                <td><span t-field="sc.product_id"/></td>
+                                <td><span t-field="sc.qty"/> <span t-field="sc.uom_id"/></td>
+                                <td><span t-field="sc.value"/></td>
+                                <td><span t-field="sc.reason"/></td>
+                            </tr>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

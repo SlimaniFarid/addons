@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form_correspondence" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.correspondence</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="inside">
+                <app data-string="Correspondence" string="Correspondence" name="sf_correspondence">
+                    <block title="Correspondence Settings">
+                        <setting string="Response Reminder (days before due)">
+                            <field name="sf_correspondence_default_reminder_days"/>
+                        </setting>
+                    </block>
+                </app>
+            </xpath>
+        </field>
+    </record>
+</odoo>

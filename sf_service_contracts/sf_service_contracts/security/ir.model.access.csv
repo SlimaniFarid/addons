@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_service_contract_user,sf.service.contract.user,model_sf_service_contract,group_service_contracts_user,1,1,0,0
+access_service_contract_manager,sf.service.contract.manager,model_sf_service_contract,group_service_contracts_manager,1,1,1,1
+access_sla_tier_user,sf.sla.tier.user,model_sf_sla_tier,group_service_contracts_user,1,1,0,0
+access_sla_tier_manager,sf.sla.tier.manager,model_sf_sla_tier,group_service_contracts_manager,1,1,1,1
+access_sla_event_user,sf.sla.event.user,model_sf_sla_event,group_service_contracts_user,1,1,0,0
+access_sla_event_manager,sf.sla.event.manager,model_sf_sla_event,group_service_contracts_manager,1,1,1,1

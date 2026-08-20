@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- ============================ PLAN FORM =========================== -->
+    <record id="view_commission_plan_form" model="ir.ui.view">
+        <field name="name">sf.commission.plan.form</field>
+        <field name="model">sf.commission.plan</field>
+        <field name="arch" type="xml">
+            <form string="Commission Plan">
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name"/></h1>
+                        <field name="active" invisible="1"/>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="sequence"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                            <field name="calculation_type"/>
+                            <field name="rate"/>
+                            <field name="min_commission"/>
+                        </group>
+                        <group>
+                            <field name="use_tiers"/>
+                            <field name="salesperson_domain"/>
+                            <field name="group_ids" widget="many2many_tags"/>
+                        </group>
+                    </group>
+                    <field name="note" placeholder="Describe this plan..."/>
+                    <notebook>
+                        <page string="Tiers" name="tiers"
+                              invisible="[('use_tiers', '=', False)]">
+                            <field name="tier_ids">
+                                <list string="Tiers" editable="bottom">
+                                    <field name="min_amount"/>
+                                    <field name="rate"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Rules" name="rules">
+                            <field name="rule_ids">
+                                <list string="Override Rules" editable="bottom">
+                                    <field name="sequence"/>
+                                    <field name="product_id"/>
+                                    <field name="product_category_id"/>
+                                    <field name="rate"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- ============================ PLAN TREE =========================== -->
+    <record id="view_commission_plan_tree" model="ir.ui.view">
+        <field name="name">sf.commission.plan.tree</field>
+        <field name="model">sf.commission.plan</field>
+        <field name="arch" type="xml">
+            <tree string="Commission Plans" editable="bottom">
+                <field name="name"/>
+                <field name="sequence"/>
+                <field name="calculation_type"/>
+                <field name="rate"/>
+                <field name="use_tiers"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- ========================== PLAN SEARCH =========================== -->
+    <record id="view_commission_plan_search" model="ir.ui.view">
+        <field name="name">sf.commission.plan.search</field>
+        <field name="model">sf.commission.plan</field>
+        <field name="arch" type="xml">
+            <search string="Commission Plans">
+                <field name="name"/>
+                <field name="calculation_type"/>
+                <filter string="Tiered" name="tiered"
+                        domain="[('use_tiers', '=', True)]"/>
+            </search>
+        </field>
+    </record>
+
+    <!-- ============================ LINE FORM =========================== -->
+    <record id="view_commission_line_form" model="ir.ui.view">
+        <field name="name">sf.commission.line.form</field>
+        <field name="model">sf.commission.line</field>
+        <field name="arch" type="xml">
+            <form string="Commission Line">
+                <header>
+                    <button name="action_approve" type="object"
+                            string="Approve" class="btn-primary" invisible="[('state', 'not in', ('draft',))]"/>
+                    <button name="action_paid" type="object"
+                            string="Mark Paid" class="btn-primary" invisible="[('state', 'not in', ('approved',))]"/>
+                    <button name="action_cancel" type="object"
+                            string="Cancel" invisible="[('state', 'not in', ('draft', 'approved'))]"/>
+                    <button name="action_draft" type="object"
+                            string="Set to Draft" invisible="[('state', 'not in', ('cancelled',))]"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name"/></h1>
+                        <group>
+                            <field name="state" widget="statusbar"
+                                   statusbar_visible="draft,approved,paid,cancelled"/>
+                        </group>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="date"/>
+                            <field name="salesperson_id"/>
+                            <field name="plan_id"/>
+                        </group>
+                        <group>
+                            <field name="sale_order_id"/>
+                            <field name="invoice_id"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Computation">
+                            <field name="base_amount"/>
+                            <field name="rate"/>
+                            <field name="commission"/>
+                            <field name="adjustment"/>
+                            <field name="final_commission"/>
+                        </group>
+                        <group string="Details">
+                            <field name="note"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- ============================ LINE TREE =========================== -->
+    <record id="view_commission_line_tree" model="ir.ui.view">
+        <field name="name">sf.commission.line.tree</field>
+        <field name="model">sf.commission.line</field>
+        <field name="arch" type="xml">
+            <tree string="Commission Lines">
+                <field name="name"/>
+                <field name="date"/>
+                <field name="salesperson_id"/>
+                <field name="plan_id"/>
+                <field name="sale_order_id"/>
+                <field name="base_amount" sum="Total"/>
+                <field name="rate"/>
+                <field name="final_commission" sum="Total"/>
+                <field name="state" widget="badge"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- ========================== LINE SEARCH =========================== -->
+    <record id="view_commission_line_search" model="ir.ui.view">
+        <field name="name">sf.commission.line.search</field>
+        <field name="model">sf.commission.line</field>
+        <field name="arch" type="xml">
+            <search string="Commission Lines">
+                <field name="name"/>
+                <field name="salesperson_id"/>
+                <field name="plan_id"/>
+                <filter string="Approved" name="approved"
+                        domain="[('state', '=', 'approved')]"/>
+                <filter string="Paid" name="paid"
+                        domain="[('state', '=', 'paid')]"/>
+                <group>
+                    <filter string="Salesperson" name="group_sp"
+                            context="{'group_by': 'salesperson_id'}"/>
+                    <filter string="Plan" name="group_plan"
+                            context="{'group_by': 'plan_id'}"/>
+                    <filter string="Date" name="group_date"
+                            context="{'group_by': 'date'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- ========================== ACTIONS + MENUS ======================= -->
+    <record id="action_commission_plan" model="ir.actions.act_window">
+        <field name="name">Commission Plans</field>
+        <field name="res_model">sf.commission.plan</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_commission_plan_search"/>
+    </record>
+
+    <record id="action_commission_line" model="ir.actions.act_window">
+        <field name="name">Commission Lines</field>
+        <field name="res_model">sf.commission.line</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_commission_line_search"/>
+    </record>
+
+    <menuitem id="menu_commission_root"
+              name="Sales Commissions"
+              parent="sale.sale_menu_root"
+              sequence="40"/>
+
+    <menuitem id="menu_commission_lines"
+              parent="menu_commission_root"
+              action="action_commission_line"
+              sequence="10"/>
+
+    <menuitem id="menu_commission_plans"
+              parent="menu_commission_root"
+              action="action_commission_plan"
+              sequence="20"/>
+</odoo>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="report_deposit_receipt" model="ir.actions.report">
+            <field name="name">Deposit Receipt</field>
+            <field name="model">sf.laundry.order</field>
+            <field name="report_type">qweb-html</field>
+            <field name="report_name">sf_laundry.report_deposit_receipt</field>
+            <field name="report_file">sf_laundry.report_deposit_receipt</field>
+            <field name="binding_model_id" ref="model_sf_laundry_order"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <record id="report_delivery_ticket" model="ir.actions.report">
+            <field name="name">Delivery Ticket</field>
+            <field name="model">sf.laundry.order</field>
+            <field name="report_type">qweb-html</field>
+            <field name="report_name">sf_laundry.report_delivery_ticket</field>
+            <field name="report_file">sf_laundry.report_delivery_ticket</field>
+            <field name="binding_model_id" ref="model_sf_laundry_order"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <record id="report_activity" model="ir.actions.report">
+            <field name="name">Laundry Activity Report</field>
+            <field name="model">sf.laundry.item</field>
+            <field name="report_type">qweb-html</field>
+            <field name="report_name">sf_laundry.report_activity</field>
+            <field name="report_file">sf_laundry.report_activity</field>
+            <field name="binding_model_id" ref="model_sf_laundry_item"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <record id="report_overdue_list" model="ir.actions.report">
+            <field name="name">Overdue Orders List</field>
+            <field name="model">sf.laundry.order</field>
+            <field name="report_type">qweb-html</field>
+            <field name="report_name">sf_laundry.report_overdue_list</field>
+            <field name="report_file">sf_laundry.report_overdue_list</field>
+            <field name="binding_model_id" ref="model_sf_laundry_order"/>
+            <field name="binding_type">report</field>
+        </record>
+    </data>
+</odoo>

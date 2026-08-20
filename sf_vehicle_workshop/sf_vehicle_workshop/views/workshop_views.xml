@@ -1,0 +1,388 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_workshop_vehicle_tree" model="ir.ui.view">
+        <field name="name">sf.workshop.vehicle.tree</field>
+        <field name="model">sf.workshop.vehicle</field>
+        <field name="arch" type="xml">
+            <tree string="Vehicles">
+                <field name="name"/>
+                <field name="license_plate"/>
+                <field name="brand"/>
+                <field name="model"/>
+                <field name="owner"/>
+                <field name="odometer"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_workshop_vehicle_form" model="ir.ui.view">
+        <field name="name">sf.workshop.vehicle.form</field>
+        <field name="model">sf.workshop.vehicle</field>
+        <field name="arch" type="xml">
+            <form string="Vehicle">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="license_plate"/>
+                            <field name="brand"/>
+                            <field name="model"/>
+                        </group>
+                        <group>
+                            <field name="owner"/>
+                            <field name="partner_id"/>
+                            <field name="odometer"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                            <field name="active"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Repair Orders">
+                            <field name="order_ids" readonly="1">
+                                <tree string="Repair Orders">
+                                    <field name="name"/>
+                                    <field name="state"/>
+                                    <field name="planned_end"/>
+                                    <field name="total_cost"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_workshop_vehicle_search" model="ir.ui.view">
+        <field name="name">sf.workshop.vehicle.search</field>
+        <field name="model">sf.workshop.vehicle</field>
+        <field name="arch" type="xml">
+            <search string="Vehicles">
+                <field name="license_plate"/>
+                <field name="brand"/>
+                <field name="owner"/>
+                <group>
+                    <filter string="Brand" name="brand_group"
+                            context="{'group_by': 'brand'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_workshop_vehicle" model="ir.actions.act_window">
+        <field name="name">Vehicles</field>
+        <field name="res_model">sf.workshop.vehicle</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_workshop_vehicle_search"/>
+    </record>
+
+    <record id="view_workshop_request_tree" model="ir.ui.view">
+        <field name="name">sf.workshop.request.tree</field>
+        <field name="model">sf.workshop.request</field>
+        <field name="arch" type="xml">
+            <tree string="Requests">
+                <field name="name"/>
+                <field name="vehicle_id"/>
+                <field name="requester"/>
+                <field name="priority"/>
+                <field name="state"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_workshop_request_form" model="ir.ui.view">
+        <field name="name">sf.workshop.request.form</field>
+        <field name="model">sf.workshop.request</field>
+        <field name="arch" type="xml">
+            <form string="Request">
+                <header>
+                    <button name="action_assign" type="object"
+                            string="Assign" class="btn-primary"
+                            groups="sf_vehicle_workshop.group_sf_workshop_manager"
+                            invisible="state != 'draft'"/>
+                    <button name="action_start" type="object"
+                            string="Start" class="btn-success"
+                            invisible="state != 'assigned'"/>
+                    <button name="action_done" type="object"
+                            string="Mark Done" class="btn-success"
+                            invisible="state != 'in_progress'"/>
+                    <button name="action_cancel" type="object"
+                            string="Cancel" class="btn-secondary"
+                            invisible="state not in ('draft', 'assigned')"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="vehicle_id"/>
+                            <field name="requester"/>
+                        </group>
+                        <group>
+                            <field name="priority"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <field name="description"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_workshop_request_search" model="ir.ui.view">
+        <field name="name">sf.workshop.request.search</field>
+        <field name="model">sf.workshop.request</field>
+        <field name="arch" type="xml">
+            <search string="Requests">
+                <field name="vehicle_id"/>
+                <field name="requester"/>
+                <filter string="Unassigned" name="unassigned"
+                        domain="[('state', '=', 'draft')]"/>
+                <filter string="Urgent" name="urgent"
+                        domain="[('priority', '=', 'urgent')]"/>
+                <group>
+                    <filter string="Priority" name="priority_group"
+                            context="{'group_by': 'priority'}"/>
+                    <filter string="Status" name="state_group"
+                            context="{'group_by': 'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_workshop_request" model="ir.actions.act_window">
+        <field name="name">Requests</field>
+        <field name="res_model">sf.workshop.request</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_workshop_request_search"/>
+    </record>
+
+    <record id="view_workshop_order_tree" model="ir.ui.view">
+        <field name="name">sf.workshop.order.tree</field>
+        <field name="model">sf.workshop.order</field>
+        <field name="arch" type="xml">
+            <tree string="Repair Orders">
+                <field name="name"/>
+                <field name="vehicle_id"/>
+                <field name="request_id"/>
+                <field name="state"/>
+                <field name="planned_end"/>
+                <field name="total_cost"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_workshop_order_form" model="ir.ui.view">
+        <field name="name">sf.workshop.order.form</field>
+        <field name="model">sf.workshop.order</field>
+        <field name="arch" type="xml">
+            <form string="Repair Order">
+                <header>
+                    <button name="action_plan" type="object"
+                            string="Plan" class="btn-primary"
+                            invisible="state != 'draft'"/>
+                    <button name="action_start" type="object"
+                            string="Start" class="btn-success"
+                            invisible="state != 'planned'"/>
+                    <button name="action_done" type="object"
+                            string="Mark Done" class="btn-success"
+                            groups="sf_vehicle_workshop.group_sf_workshop_manager"
+                            invisible="state != 'in_progress'"/>
+                    <button name="action_close" type="object"
+                            string="Close" class="btn-secondary"
+                            groups="sf_vehicle_workshop.group_sf_workshop_manager"
+                            invisible="state != 'done'"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="vehicle_id"/>
+                            <field name="request_id"/>
+                        </group>
+                        <group>
+                            <field name="mechanic_ids" widget="many2many_tags"/>
+                            <field name="planned_start"/>
+                            <field name="planned_end"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="parts_total" readonly="1"/>
+                            <field name="labor_total" readonly="1"/>
+                            <field name="total_cost" readonly="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Operations">
+                            <field name="operation_ids">
+                                <tree string="Operations" editable="bottom">
+                                    <field name="name"/>
+                                    <field name="operation_type"/>
+                                    <field name="hours"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Parts">
+                            <field name="part_ids">
+                                <tree string="Parts" editable="bottom">
+                                    <field name="name"/>
+                                    <field name="part_name"/>
+                                    <field name="quantity"/>
+                                    <field name="unit_price"/>
+                                    <field name="total"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_workshop_order_search" model="ir.ui.view">
+        <field name="name">sf.workshop.order.search</field>
+        <field name="model">sf.workshop.order</field>
+        <field name="arch" type="xml">
+            <search string="Repair Orders">
+                <field name="vehicle_id"/>
+                <field name="request_id"/>
+                <filter string="In Progress" name="in_progress"
+                        domain="[('state', '=', 'in_progress')]"/>
+                <filter string="Overdue" name="overdue"
+                        domain="[('planned_end', '!=', False), ('state', 'not in', ['done', 'closed'])]"/>
+                <group>
+                    <filter string="Status" name="state_group"
+                            context="{'group_by': 'state'}"/>
+                    <filter string="Vehicle" name="vehicle_group"
+                            context="{'group_by': 'vehicle_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_workshop_order" model="ir.actions.act_window">
+        <field name="name">Repair Orders</field>
+        <field name="res_model">sf.workshop.order</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_workshop_order_search"/>
+    </record>
+
+    <record id="view_workshop_operation_tree" model="ir.ui.view">
+        <field name="name">sf.workshop.operation.tree</field>
+        <field name="model">sf.workshop.operation</field>
+        <field name="arch" type="xml">
+            <tree string="Operations">
+                <field name="name"/>
+                <field name="order_id"/>
+                <field name="operation_type"/>
+                <field name="hours"/>
+                <field name="state"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_workshop_operation_form" model="ir.ui.view">
+        <field name="name">sf.workshop.operation.form</field>
+        <field name="model">sf.workshop.operation</field>
+        <field name="arch" type="xml">
+            <form string="Operation">
+                <header>
+                    <button name="action_plan" type="object"
+                            string="Plan" class="btn-primary"
+                            invisible="state != 'draft'"/>
+                    <button name="action_done" type="object"
+                            string="Mark Done" class="btn-success"
+                            invisible="state != 'planned'"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="order_id"/>
+                            <field name="operation_type"/>
+                        </group>
+                        <group>
+                            <field name="hours"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <field name="description"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_workshop_operation" model="ir.actions.act_window">
+        <field name="name">Operations</field>
+        <field name="res_model">sf.workshop.operation</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="view_workshop_part_tree" model="ir.ui.view">
+        <field name="name">sf.workshop.part.tree</field>
+        <field name="model">sf.workshop.part</field>
+        <field name="arch" type="xml">
+            <tree string="Parts">
+                <field name="name"/>
+                <field name="order_id"/>
+                <field name="part_name"/>
+                <field name="quantity"/>
+                <field name="unit_price"/>
+                <field name="total"/>
+                <field name="state"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_workshop_part_form" model="ir.ui.view">
+        <field name="name">sf.workshop.part.form</field>
+        <field name="model">sf.workshop.part</field>
+        <field name="arch" type="xml">
+            <form string="Part">
+                <header>
+                    <button name="action_order" type="object"
+                            string="Order" class="btn-primary"
+                            invisible="state != 'draft'"/>
+                    <button name="action_install" type="object"
+                            string="Install" class="btn-success"
+                            invisible="state != 'ordered'"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="order_id"/>
+                            <field name="part_name"/>
+                        </group>
+                        <group>
+                            <field name="quantity"/>
+                            <field name="unit_price"/>
+                            <field name="total" readonly="1"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_workshop_part" model="ir.actions.act_window">
+        <field name="name">Parts</field>
+        <field name="res_model">sf.workshop.part</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

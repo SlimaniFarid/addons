@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sf_gift_hospitality_user,sf.gift.hospitality.user,model_sf_gift_hospitality,sf_gifts_hospitality.group_sf_gifts_hospitality_user,1,1,1,0
+access_sf_gift_hospitality_manager,sf.gift.hospitality.manager,model_sf_gift_hospitality,sf_gifts_hospitality.group_sf_gifts_hospitality_manager,1,1,1,1
+access_sf_gifts_hospitality_mail_activity,sf.gifts.hospitality.mail.activity.user,mail.activity,sf_gifts_hospitality.group_sf_gifts_hospitality_user,1,1,1,0
+access_sf_gift_activity_mixin,sf.gift.activity.mixin.user,model_sf_gift_activity_mixin,sf_gifts_hospitality.group_sf_gifts_hospitality_user,1,1,1,0

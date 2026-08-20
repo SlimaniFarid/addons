@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="sf_batch_record_view_list" model="ir.ui.view">
+        <field name="name">sf.batch.record.list</field>
+        <field name="model">sf.batch.record</field>
+        <field name="arch" type="xml">
+            <list string="Batch Records">
+                <field name="name"/>
+                <field name="product_id"/>
+                <field name="product_lot_id"/>
+                <field name="quantity"/>
+                <field name="production_date"/>
+                <field name="out_of_spec_params"/>
+                <field name="state" widget="badge"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="sf_batch_record_view_form" model="ir.ui.view">
+        <field name="name">sf.batch.record.form</field>
+        <field name="model">sf.batch.record</field>
+        <field name="arch" type="xml">
+            <form string="Batch Record">
+                <header>
+                    <button name="action_start" string="Start" type="object" class="btn-primary" invisible="[('state', '!=', 'draft')]"/>
+                    <button name="action_submit_review" string="Submit for Review" type="object" class="btn-primary" invisible="[('state', 'not in', ('draft', 'in_progress'))]"/>
+                    <button name="action_release" string="Release" type="object" class="btn-primary" invisible="[('state', '!=', 'under_review')]"/>
+                    <button name="action_reject" string="Reject" type="object" invisible="[('state', '!=', 'under_review')]"/>
+                    <button name="action_cancel" string="Cancel" type="object" invisible="[('state', 'in', ('released', 'rejected', 'cancelled'))]"/>
+                    <field name="state" widget="statusbar" readonly="1"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="product_id"/>
+                            <field name="product_lot_id"/>
+                            <field name="quantity"/>
+                            <field name="uom_name"/>
+                            <field name="mo_reference"/>
+                        </group>
+                        <group>
+                            <field name="production_date"/>
+                            <field name="out_of_spec_params"/>
+                            <field name="reviewed_by"/>
+                            <field name="released_by"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Materials">
+                            <field name="material_ids">
+                                <list string="Materials">
+                                    <field name="product_id"/>
+                                    <field name="lot_id"/>
+                                    <field name="quantity"/>
+                                    <field name="uom_name"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Steps">
+                            <field name="step_ids">
+                                <list string="Steps">
+                                    <field name="sequence"/>
+                                    <field name="step_name"/>
+                                    <field name="operator_id"/>
+                                    <field name="started_at"/>
+                                    <field name="ended_at"/>
+                                    <field name="completed"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Parameters">
+                            <field name="parameter_ids">
+                                <list string="Parameters">
+                                    <field name="step_id"/>
+                                    <field name="name"/>
+                                    <field name="unit"/>
+                                    <field name="expected_value"/>
+                                    <field name="min_value"/>
+                                    <field name="max_value"/>
+                                    <field name="actual_value"/>
+                                    <field name="status" widget="badge"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Deviations">
+                            <field name="deviation_ids">
+                                <list string="Deviations">
+                                    <field name="display_name"/>
+                                    <field name="description"/>
+                                    <field name="category"/>
+                                    <field name="severity"/>
+                                    <field name="parameter_id"/>
+                                    <field name="state" widget="badge"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="sf_batch_record_view_search" model="ir.ui.view">
+        <field name="name">sf.batch.record.search</field>
+        <field name="model">sf.batch.record</field>
+        <field name="arch" type="xml">
+            <search string="Batch Records">
+                <field name="name"/>
+                <field name="product_id"/>
+                <field name="product_lot_id"/>
+                <filter name="batch_under_review" string="Under Review" domain="[('state', '=', 'under_review')]"/>
+                <filter name="batch_released" string="Released" domain="[('state', '=', 'released')]"/>
+                <filter name="batch_has_oos" string="Out-of-Spec" domain="[('out_of_spec_params', '>', 0)]"/>
+                <group>
+                    <filter name="group_batch_state" string="Status" context="{'group_by': 'state'}"/>
+                    <filter name="group_batch_product" string="Product" context="{'group_by': 'product_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_sf_batch_record" model="ir.actions.act_window">
+        <field name="name">Batch Records</field>
+        <field name="res_model">sf.batch.record</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="sf_batch_record_view_search"/>
+    </record>
+</odoo>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_sf_gifts_hospitality_root"
+              name="Gifts &amp; Hospitality"
+              sequence="29"
+              groups="sf_gifts_hospitality.group_sf_gifts_hospitality_user"
+              web_icon="sf_gifts_hospitality,static/description/icon.png"/>
+    <menuitem id="menu_sf_gifts_hospitality_declarations"
+              name="Declarations"
+              parent="menu_sf_gifts_hospitality_root"
+              groups="sf_gifts_hospitality.group_sf_gifts_hospitality_user"
+              action="action_sf_gift_hospitality"
+              sequence="10"/>
+</odoo>

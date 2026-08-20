@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_sf_store_credit_root"
+              name="Store Credit"
+              sequence="63"
+              groups="sf_store_credit.group_sf_store_credit_user"
+              web_icon="sf_store_credit,static/description/icon.png"/>
+    <menuitem id="menu_sf_store_credit_credits"
+              name="Store Credits"
+              parent="menu_sf_store_credit_root"
+              groups="sf_store_credit.group_sf_store_credit_user"
+              action="action_sf_store_credit"
+              sequence="10"/>
+    <menuitem id="menu_sf_store_credit_accounts"
+              name="Credit Accounts"
+              parent="menu_sf_store_credit_root"
+              groups="sf_store_credit.group_sf_store_credit_user"
+              action="action_sf_store_credit_account"
+              sequence="20"/>
+</odoo>

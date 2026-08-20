@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_sf_correspondence_root"
+              name="Correspondence"
+              sequence="28"
+              groups="sf_correspondence.group_sf_correspondence_user"
+              web_icon="sf_correspondence,static/description/icon.png"/>
+    <menuitem id="menu_sf_correspondence_register"
+              name="Correspondence Register"
+              parent="menu_sf_correspondence_root"
+              groups="sf_correspondence.group_sf_correspondence_user"
+              action="action_sf_correspondence"
+              sequence="10"/>
+    <menuitem id="menu_sf_correspondence_departments"
+              name="Departments"
+              parent="menu_sf_correspondence_root"
+              groups="sf_correspondence.group_sf_correspondence_user"
+              action="action_sf_correspondence_department"
+              sequence="20"/>
+</odoo>

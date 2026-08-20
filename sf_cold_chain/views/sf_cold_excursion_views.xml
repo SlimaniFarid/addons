@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="sf_cold_excursion_view_list" model="ir.ui.view">
+        <field name="name">sf.cold.excursion.list</field>
+        <field name="model">sf.cold.excursion</field>
+        <field name="arch" type="xml">
+            <list string="Cold Chain Excursions">
+                <field name="name"/>
+                <field name="trip_id"/>
+                <field name="site_id"/>
+                <field name="start_datetime"/>
+                <field name="duration_minutes"/>
+                <field name="max_deviation"/>
+                <field name="severity"/>
+                <field name="state" widget="badge"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="sf_cold_excursion_view_form" model="ir.ui.view">
+        <field name="name">sf.cold.excursion.form</field>
+        <field name="model">sf.cold.excursion</field>
+        <field name="arch" type="xml">
+            <form string="Cold Chain Excursion">
+                <header>
+                    <button name="action_resolve" string="Resolve" type="object" class="btn-primary" invisible="[('state', '!=', 'open')]"/>
+                    <field name="state" widget="statusbar" readonly="1"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="trip_id"/>
+                            <field name="site_id"/>
+                            <field name="start_datetime"/>
+                            <field name="end_datetime"/>
+                        </group>
+                        <group>
+                            <field name="duration_minutes"/>
+                            <field name="max_deviation"/>
+                            <field name="severity"/>
+                            <field name="resolved_by"/>
+                            <field name="resolved_datetime"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="resolution_note"/>
+                    </group>
+                    <notebook>
+                        <page string="Readings">
+                            <field name="reading_ids">
+                                <list string="Readings">
+                                    <field name="reading_datetime"/>
+                                    <field name="temperature"/>
+                                    <field name="deviation"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="sf_cold_excursion_view_search" model="ir.ui.view">
+        <field name="name">sf.cold.excursion.search</field>
+        <field name="model">sf.cold.excursion</field>
+        <field name="arch" type="xml">
+            <search string="Cold Chain Excursions">
+                <field name="name"/>
+                <field name="trip_id"/>
+                <field name="site_id"/>
+                <filter name="excursion_open" string="Open" domain="[('state', '=', 'open')]"/>
+                <filter name="excursion_resolved" string="Resolved" domain="[('state', '=', 'resolved')]"/>
+                <group>
+                    <filter name="group_excursion_severity" string="Severity" context="{'group_by': 'severity'}"/>
+                    <filter name="group_excursion_state" string="Status" context="{'group_by': 'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_sf_cold_excursion" model="ir.actions.act_window">
+        <field name="name">Excursions</field>
+        <field name="res_model">sf.cold.excursion</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="sf_cold_excursion_view_search"/>
+    </record>
+</odoo>

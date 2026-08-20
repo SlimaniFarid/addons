@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="sf_utility_tariff_view_list" model="ir.ui.view">
+        <field name="name">sf.utility.tariff.list</field>
+        <field name="model">sf.utility.tariff</field>
+        <field name="arch" type="xml">
+            <list string="Tariffs">
+                <field name="name"/>
+                <field name="utility_type"/>
+                <field name="effective_from"/>
+                <field name="active"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="sf_utility_tariff_view_form" model="ir.ui.view">
+        <field name="name">sf.utility.tariff.form</field>
+        <field name="model">sf.utility.tariff</field>
+        <field name="arch" type="xml">
+            <form string="Tariff">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="utility_type"/>
+                            <field name="effective_from"/>
+                        </group>
+                        <group>
+                            <field name="active"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Tiers">
+                            <field name="line_ids">
+                                <list string="Tiers" editable="bottom">
+                                    <field name="from_quantity"/>
+                                    <field name="to_quantity"/>
+                                    <field name="price_per_unit"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="sf_utility_tariff_view_search" model="ir.ui.view">
+        <field name="name">sf.utility.tariff.search</field>
+        <field name="model">sf.utility.tariff</field>
+        <field name="arch" type="xml">
+            <search string="Tariffs">
+                <field name="name"/>
+                <group>
+                    <filter name="group_tariff_type" string="Utility Type" context="{'group_by': 'utility_type'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_sf_utility_tariff" model="ir.actions.act_window">
+        <field name="name">Tariffs</field>
+        <field name="res_model">sf.utility.tariff</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="sf_utility_tariff_view_search"/>
+    </record>
+</odoo>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_store_credit">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-set="company" t-value="o.company_id or res_company"/>
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2>Store Credit</h2>
+                        <table class="table table-sm">
+                            <tr><th>Credit</th><td><span t-field="o.name"/></td></tr>
+                            <tr><th>Customer</th><td><span t-field="o.partner_id"/></td></tr>
+                            <tr><th>Type</th><td><span t-field="o.credit_type"/></td></tr>
+                            <tr><th>Reason</th><td><span t-field="o.reason"/></td></tr>
+                            <tr><th>Amount</th><td><span t-field="o.amount"/></td></tr>
+                            <tr><th>Used</th><td><span t-field="o.used_amount"/></td></tr>
+                            <tr><th>Remaining</th><td><span t-field="o.remaining"/></td></tr>
+                            <tr><th>Expiration</th><td><span t-field="o.expiration_date"/></td></tr>
+                            <tr><th>Status</th><td><span t-field="o.state"/></td></tr>
+                        </table>
+                        <h3>Movements</h3>
+                        <table class="table table-sm">
+                            <tr><th>Date</th><th>Type</th><th>Amount</th><th>Reason</th></tr>
+                            <tr t-foreach="o.move_ids" t-as="m">
+                                <td><span t-field="m.date"/></td>
+                                <td><span t-field="m.move_type"/></td>
+                                <td><span t-field="m.amount"/></td>
+                                <td><span t-field="m.reason"/></td>
+                            </tr>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

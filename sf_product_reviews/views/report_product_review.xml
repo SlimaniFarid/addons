@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_product_review">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-set="company" t-value="o.company_id or res_company"/>
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2>Product Review Summary</h2>
+                        <table class="table table-sm">
+                            <tr><th>Review</th><td><span t-field="o.name"/></td></tr>
+                            <tr><th>Product</th><td><span t-field="o.product_id"/></td></tr>
+                            <tr><th>Author</th><td><span t-field="o.author_name"/> <span t-if="o.partner_id">(<span t-field="o.partner_id"/>)</span></td></tr>
+                            <tr><th>Rating</th><td><span t-field="o.rating"/> / 5</td></tr>
+                            <tr><th>Verified Purchase</th><td><span t-field="o.verified_purchase"/></td></tr>
+                            <tr><th>Status</th><td><span t-field="o.state"/></td></tr>
+                            <tr><th>Date</th><td><span t-field="o.review_date"/></td></tr>
+                        </table>
+                        <h3>Comment</h3>
+                        <p><span t-field="o.body"/></p>
+                        <h3 t-if="o.reply">Reply</h3>
+                        <p t-if="o.reply"><span t-field="o.reply"/></p>
+                        <h3>Product Rating Summary</h3>
+                        <table class="table table-sm">
+                            <tr><th>Average Rating</th><td><span t-field="o.product_id.sf_review_avg"/></td></tr>
+                            <tr><th>Approved Reviews</th><td><span t-field="o.product_id.sf_review_count"/></td></tr>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

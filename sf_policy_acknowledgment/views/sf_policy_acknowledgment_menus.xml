@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_sf_policy_root"
+              name="Policy Acknowledgment"
+              sequence="40"
+              groups="sf_policy_acknowledgment.group_sf_policy_user"
+              web_icon="sf_policy_acknowledgment,static/description/icon.png"/>
+    <menuitem id="menu_sf_policy_policies"
+              name="Company Policies"
+              parent="menu_sf_policy_root"
+              groups="sf_policy_acknowledgment.group_sf_policy_user"
+              action="action_sf_policy"
+              sequence="10"/>
+    <menuitem id="menu_sf_policy_acknowledgments"
+              name="Acknowledgment Register"
+              parent="menu_sf_policy_root"
+              groups="sf_policy_acknowledgment.group_sf_policy_user"
+              action="action_sf_policy_acknowledgment"
+              sequence="20"/>
+</odoo>

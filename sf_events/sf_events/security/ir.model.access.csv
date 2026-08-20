@@ -1,0 +1,10 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sf_event_user,sf.event.user,model_sf_event,sf_events.group_sf_events_user,1,1,1,0
+access_sf_event_session_user,sf.event.session.user,model_sf_event_session,sf_events.group_sf_events_user,1,1,1,0
+access_sf_event_registration_user,sf.event.registration.user,model_sf_event_registration,sf_events.group_sf_events_user,1,1,1,0
+access_sf_event_expense_user,sf.event.expense.user,model_sf_event_expense,sf_events.group_sf_events_user,1,1,1,0
+access_sf_event_manager,sf.event.manager,model_sf_event,sf_events.group_sf_events_manager,1,1,1,1
+access_sf_event_session_manager,sf.event.session.manager,model_sf_event_session,sf_events.group_sf_events_manager,1,1,1,1
+access_sf_event_registration_manager,sf.event.registration.manager,model_sf_event_registration,sf_events.group_sf_events_manager,1,1,1,1
+access_sf_event_expense_manager,sf.event.expense.manager,model_sf_event_expense,sf_events.group_sf_events_manager,1,1,1,1
+access_sf_events_mail_activity,sf.events.mail.activity.user,mail.activity,sf_events.group_sf_events_user,1,1,1,0
