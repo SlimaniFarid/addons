@@ -1,0 +1,26 @@
+# -*- coding: utf-8 -*-
+{
+    'name': 'Gestion de Pharmacie & Délivrance',
+    'version': '18.0.1.0.0',
+    'category': 'Sales',
+    'summary': 'Gestion de pharmacie : produits, lots, péremptions et délivrances sur ordonnance',
+    'description': 'Module de gestion d officine : produits pharmaceutiques, stocks par lot avec dates de péremption, alertes de rupture et de péremption, délivrances tracées sur ordonnance, rappels de lot et mouvements de stock.',
+    'author': 'Ethan Miller',
+    'support': 'tech5262@gmail.com',
+    'website': 'https://www.smartersaas.com',
+    'license': 'OPL-1',
+    'price': 62.50,
+    'currency': 'EUR',
+    'application': True,
+    'installable': True,
+    'images': ['static/description/banner.png'],
+    'depends': ['base', 'mail', 'contacts'],
+    'data': [
+        'security/sf_pharmacy_security.xml',
+        'security/ir.model.access.csv',
+        'views/sf_pharmacy_views.xml',
+        'views/res_config_settings_views.xml',
+        'views/sf_pharmacy_reports.xml',
+        'data/actions.xml',
+    ],
+}

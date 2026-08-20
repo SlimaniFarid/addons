@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="report_sf_library_loan_receipt" model="ir.actions.report">
+        <field name="name">Loan Receipt / Member Card</field>
+        <field name="model">sf.library.loan</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">sf_library.sf_library_loan_receipt_template</field>
+        <field name="report_file">sf_library.sf_library_loan_receipt_template</field>
+        <field name="binding_model_id" ref="model_sf_library_loan"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="sf_library_loan_receipt_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2>Loan Receipt</h2>
+                        <table class="table table-sm">
+                            <tr><td><strong>Number</strong></td><td><t t-esc="o.name"/></td></tr>
+                            <tr><td><strong>Item</strong></td><td><t t-esc="o.item_id.name or ''"/></td></tr>
+                            <tr><td><strong>Reference</strong></td><td><t t-esc="o.item_id.reference or ''"/></td></tr>
+                            <tr><td><strong>Author</strong></td><td><t t-esc="o.item_id.author or ''"/></td></tr>
+                            <tr><td><strong>Loan date</strong></td><td><t t-esc="o.loan_date or ''"/></td></tr>
+                            <tr><td><strong>Due date</strong></td><td><t t-esc="o.due_date or ''"/></td></tr>
+                            <tr><td><strong>Return date</strong></td><td><t t-esc="o.return_date or ''"/></td></tr>
+                            <tr><td><strong>Status</strong></td><td><t t-esc="o.state"/></td></tr>
+                        </table>
+                        <h4>Member Card</h4>
+                        <table class="table table-sm">
+                            <tr><td><strong>Number</strong></td><td><t t-esc="o.member_id.name or ''"/></td></tr>
+                            <tr><td><strong>Email</strong></td><td><t t-esc="o.member_id.email or ''"/></td></tr>
+                            <tr><td><strong>Phone</strong></td><td><t t-esc="o.member_id.phone or ''"/></td></tr>
+                            <tr><td><strong>Status</strong></td><td><t t-esc="o.member_id.status or ''"/></td></tr>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <record id="report_sf_library_late_report" model="ir.actions.report">
+        <field name="name">Late Loans &amp; Sanctions</field>
+        <field name="model">sf.library.loan</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">sf_library.sf_library_late_report_template</field>
+        <field name="report_file">sf_library.sf_library_late_report_template</field>
+        <field name="binding_model_id" ref="model_sf_library_loan"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="sf_library_late_report_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2>Late Loans &amp; Sanctions</h2>
+                        <table class="table table-sm">
+                            <thead>
+                                <tr>
+                                    <th>Number</th>
+                                    <th>Member</th>
+                                    <th>Item</th>
+                                    <th>Due date</th>
+                                    <th>Return date</th>
+                                    <th>Late days</th>
+                                    <th>Late fee</th>
+                                </tr>
+                            </thead>
+                            <t t-foreach="docs" t-as="loan">
+                                <tr>
+                                    <td><t t-esc="loan.name"/></td>
+                                    <td><t t-esc="loan.member_id.name or ''"/></td>
+                                    <td><t t-esc="loan.item_id.name or ''"/></td>
+                                    <td><t t-esc="loan.due_date or ''"/></td>
+                                    <td><t t-esc="loan.return_date or ''"/></td>
+                                    <td><t t-esc="loan.late_days"/></td>
+                                    <td><t t-esc="loan.late_fee"/></td>
+                                </tr>
+                            </t>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

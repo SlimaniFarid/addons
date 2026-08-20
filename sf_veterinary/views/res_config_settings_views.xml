@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="sf_veterinary_config_settings" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.sf.veterinary</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="inside">
+                <app data-string="Veterinary Clinic"
+                     string="Veterinary Clinic"
+                     name="sf_veterinary">
+                    <block title="Appointments">
+                        <setting string="Default Appointment Duration"
+                                 help="Default duration in minutes applied to new appointments.">
+                            <field name="sf_veterinary_default_duration_minutes"/>
+                        </setting>
+                    </block>
+                    <block title="Vaccination Protocols">
+                        <setting string="Vaccination Due Days"
+                                 help="Number of days after the administration before the next vaccination reminder is due.">
+                            <field name="sf_veterinary_vaccination_due_days"/>
+                        </setting>
+                        <setting string="Reminder Days"
+                                 help="Number of days before the due date when the vaccination reminder activity is created by the daily cron.">
+                            <field name="sf_veterinary_reminder_days"/>
+                        </setting>
+                    </block>
+                </app>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="report_sf_cleaning_mission" model="ir.actions.report">
+        <field name="name">Order of Mission</field>
+        <field name="model">sf.cleaning.schedule</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">sf_cleaning.sf_cleaning_mission_template</field>
+        <field name="report_file">sf_cleaning.sf_cleaning_mission_template</field>
+        <field name="binding_model_id" ref="model_sf_cleaning_schedule"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="sf_cleaning_mission_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2>Order of Mission</h2>
+                        <table class="table table-sm">
+                            <tr><td><strong>Number</strong></td><td><t t-esc="o.name"/></td></tr>
+                            <tr><td><strong>Contract</strong></td><td><t t-esc="o.contract_id.name"/></td></tr>
+                            <tr><td><strong>Site</strong></td><td><t t-esc="o.site_id.name"/></td></tr>
+                            <tr><td><strong>Agent</strong></td><td><t t-esc="o.agent_id.name or ''"/></td></tr>
+                            <tr><td><strong>Planned date</strong></td><td><t t-esc="o.planned_date or ''"/></td></tr>
+                            <tr><td><strong>Status</strong></td><td><t t-esc="o.state"/></td></tr>
+                        </table>
+                        <h4>Interventions</h4>
+                        <table class="table table-sm">
+                            <thead>
+                                <tr>
+                                    <th>Task</th>
+                                    <th>Planned date</th>
+                                    <th>Agent</th>
+                                    <th>Start</th>
+                                    <th>End</th>
+                                    <th>Executed date</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <t t-foreach="o.line_ids" t-as="line">
+                                <tr>
+                                    <td><t t-esc="line.task or ''"/></td>
+                                    <td><t t-esc="line.planned_date or ''"/></td>
+                                    <td><t t-esc="line.agent_id.name or ''"/></td>
+                                    <td><t t-esc="line.start_time or ''"/></td>
+                                    <td><t t-esc="line.end_time or ''"/></td>
+                                    <td><t t-esc="line.executed_date or ''"/></td>
+                                    <td><t t-esc="line.state"/></td>
+                                </tr>
+                            </t>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <record id="report_sf_cleaning_monthly_summary" model="ir.actions.report">
+        <field name="name">Monthly Service Summary</field>
+        <field name="model">sf.cleaning.contract</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">sf_cleaning.sf_cleaning_monthly_summary_template</field>
+        <field name="report_file">sf_cleaning.sf_cleaning_monthly_summary_template</field>
+        <field name="binding_model_id" ref="model_sf_cleaning_contract"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="sf_cleaning_monthly_summary_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2>Monthly Service Summary</h2>
+                        <table class="table table-sm">
+                            <tr><td><strong>Number</strong></td><td><t t-esc="o.name"/></td></tr>
+                            <tr><td><strong>Client</strong></td><td><t t-esc="o.partner_id.name"/></td></tr>
+                            <tr><td><strong>Billing period</strong></td><td><t t-esc="o.billing_period"/></td></tr>
+                            <tr><td><strong>Status</strong></td><td><t t-esc="o.state"/></td></tr>
+                        </table>
+                        <h4>Validated interventions</h4>
+                        <table class="table table-sm">
+                            <thead>
+                                <tr>
+                                    <th>Schedule</th>
+                                    <th>Site</th>
+                                    <th>Agent</th>
+                                    <th>Date</th>
+                                    <th>Qty</th>
+                                    <th>Amount</th>
+                                </tr>
+                            </thead>
+                            <t t-foreach="o.schedule_ids" t-as="schedule">
+                                <t t-if="schedule.state in ('validated', 'invoiced')">
+                                    <tr>
+                                        <td><t t-esc="schedule.name"/></td>
+                                        <td><t t-esc="schedule.site_id.name"/></td>
+                                        <td><t t-esc="schedule.agent_id.name or ''"/></td>
+                                        <td><t t-esc="schedule.planned_date or ''"/></td>
+                                        <td><t t-esc="schedule.qty"/></td>
+                                        <td><t t-esc="schedule.invoice_amount"/></td>
+                                    </tr>
+                                </t>
+                            </t>
+                            <tr>
+                                <td colspan="5"><strong>Total</strong></td>
+                                <td><strong><t t-esc="sum(o.schedule_ids.filtered(lambda s: s.state in ('validated', 'invoiced')).mapped('invoice_amount'))"/></strong></td>
+                            </tr>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>
