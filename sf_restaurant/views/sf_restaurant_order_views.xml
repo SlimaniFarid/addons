@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="sf_restaurant_order_view_list" model="ir.ui.view">
+        <field name="name">sf.restaurant.order.list</field>
+        <field name="model">sf.restaurant.order</field>
+        <field name="arch" type="xml">
+            <list string="Orders">
+                <field name="name"/>
+                <field name="table_id"/>
+                <field name="service"/>
+                <field name="order_date"/>
+                <field name="total" currency_field="currency_id" sum="Total"/>
+                <field name="state" widget="badge"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="sf_restaurant_order_view_form" model="ir.ui.view">
+        <field name="name">sf.restaurant.order.form</field>
+        <field name="model">sf.restaurant.order</field>
+        <field name="arch" type="xml">
+            <form string="Order">
+                <header>
+                    <button name="action_transmit" type="object" string="Transmit to Kitchen" invisible="[('state', 'not in', ('draft',))]" class="btn-primary"/>
+                    <button name="action_prepare" type="object" string="Prepared" invisible="[('state', 'not in', ('transmitted',))]"/>
+                    <button name="action_serve" type="object" string="Serve" invisible="[('state', 'not in', ('prepared',))]"/>
+                    <button name="action_close" type="object" string="Close Table" invisible="[('state', 'not in', ('served',))]"/>
+                    <button name="action_force_close" type="object" string="Force Close" invisible="[('state', 'not in', ('transmitted', 'prepared', 'served'))]"/>
+                    <button name="action_cancel" type="object" string="Cancel Order" invisible="[('state', 'not in', ('draft', 'transmitted', 'prepared', 'served'))]"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,transmitted,prepared,served,closed,cancelled"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="table_id"/>
+                            <field name="service"/>
+                            <field name="order_date"/>
+                        </group>
+                        <group>
+                            <field name="total" readonly="1" currency_field="currency_id"/>
+                            <field name="currency_id" invisible="1"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Lines">
+                            <field name="line_ids">
+                                <list string="Order Lines" editable="bottom">
+                                    <field name="item_id"/>
+                                    <field name="description"/>
+                                    <field name="qty"/>
+                                    <field name="price_unit" currency_field="currency_id"/>
+                                    <field name="subtotal" currency_field="currency_id" sum="Total"/>
+                                    <field name="notes"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="sf_restaurant_order_view_kanban" model="ir.ui.view">
+        <field name="name">sf.restaurant.order.kanban</field>
+        <field name="model">sf.restaurant.order</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state">
+                <field name="name"/>
+                <field name="table_id"/>
+                <field name="total"/>
+                <field name="state"/>
+                <templates>
+                    <t t-name="card">
+                        <div class="oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <strong><field name="name"/></strong>
+                                <div>Table: <field name="table_id"/></div>
+                                <div>Total: <field name="total"/></div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="sf_restaurant_order_view_pivot" model="ir.ui.view">
+        <field name="name">sf.restaurant.order.pivot</field>
+        <field name="model">sf.restaurant.order</field>
+        <field name="arch" type="xml">
+            <pivot string="Revenue by Service and Date">
+                <field name="service" type="row"/>
+                <field name="order_date" type="col" interval="day"/>
+                <field name="total" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="sf_restaurant_order_view_search" model="ir.ui.view">
+        <field name="name">sf.restaurant.order.search</field>
+        <field name="model">sf.restaurant.order</field>
+        <field name="arch" type="xml">
+            <search string="Orders">
+                <field name="name"/>
+                <field name="table_id"/>
+                <field name="service"/>
+                <filter name="order_draft" string="Draft" domain="[('state', '=', 'draft')]"/>
+                <filter name="order_transmitted" string="Transmitted" domain="[('state', '=', 'transmitted')]"/>
+                <filter name="order_closed" string="Closed" domain="[('state', '=', 'closed')]"/>
+                <group>
+                    <filter name="group_order_state" string="Status" context="{'group_by': 'state'}"/>
+                    <filter name="group_order_service" string="Service" context="{'group_by': 'service'}"/>
+                    <filter name="group_order_date" string="Date" context="{'group_by': 'order_date'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_sf_restaurant_order" model="ir.actions.act_window">
+        <field name="name">Orders</field>
+        <field name="res_model">sf.restaurant.order</field>
+        <field name="view_mode">kanban,list,form,pivot</field>
+        <field name="search_view_id" ref="sf_restaurant_order_view_search"/>
+    </record>
+</odoo>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_activity">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-set="company" t-value="o.company_id or res_company"/>
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2>Activity Report</h2>
+                        <p>Missions by client and period with billable revenue.</p>
+                        <table class="table table-sm">
+                            <thead>
+                                <tr><th>Mission</th><th>Client</th><th>Period</th><th>Status</th><th>Billable Amount</th></tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="docs" t-as="o">
+                                    <tr>
+                                        <td><span t-field="o.name"/></td>
+                                        <td><span t-field="o.client_id.name"/></td>
+                                        <td><span t-field="o.start_date"/> to <span t-field="o.end_date"/></td>
+                                        <td><span t-field="o.state"/></td>
+                                        <td><span t-field="o.total_billable" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/></td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

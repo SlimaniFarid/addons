@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_package_itinerary">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <div class="page">
+                    <h2>Package Itinerary</h2>
+                    <h3 t-field="doc.name"/>
+                    <table class="table table-sm">
+                        <tr>
+                            <td><strong>Destination</strong></td>
+                            <td t-field="doc.destination"/>
+                        </tr>
+                        <tr>
+                            <td><strong>Start Date</strong></td>
+                            <td t-field="doc.start_date"/>
+                        </tr>
+                        <tr>
+                            <td><strong>End Date</strong></td>
+                            <td t-field="doc.end_date"/>
+                        </tr>
+                        <tr>
+                            <td><strong>Price</strong></td>
+                            <td><span t-field="doc.price_unit"/> <span t-field="doc.currency_id"/></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Capacity</strong></td>
+                            <td t-field="doc.capacity"/>
+                        </tr>
+                        <tr>
+                            <td><strong>Status</strong></td>
+                            <td t-field="doc.state"/>
+                        </tr>
+                    </table>
+                    <h4>Providers</h4>
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Type</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="doc.provider_ids" t-as="provider">
+                                <td t-field="provider.name"/>
+                                <td t-field="provider.provider_type"/>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

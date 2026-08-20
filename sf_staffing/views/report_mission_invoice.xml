@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_mission_invoice">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-set="company" t-value="o.company_id or res_company"/>
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2>Mission Invoice</h2>
+                        <table class="table table-sm">
+                            <tr><th>Mission</th><td><span t-field="o.name"/></td></tr>
+                            <tr><th>Client</th><td><span t-field="o.client_id.name"/></td></tr>
+                            <tr><th>Candidate</th><td><span t-field="o.candidate_id.name"/></td></tr>
+                            <tr><th>Period</th><td><span t-field="o.start_date"/> to <span t-field="o.end_date"/></td></tr>
+                        </table>
+                        <h3>Validated Timesheets</h3>
+                        <table class="table table-sm">
+                            <thead>
+                                <tr><th>Date</th><th>Hours</th><th>Rate</th><th>Amount</th></tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="o.timesheet_ids" t-as="ts">
+                                    <t t-if="ts.state == 'done'">
+                                        <tr>
+                                            <td><span t-field="ts.date"/></td>
+                                            <td><span t-field="ts.hours"/></td>
+                                            <td><span t-field="ts.hourly_rate" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/></td>
+                                            <td><span t-field="ts.amount" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/></td>
+                                        </tr>
+                                    </t>
+                                </t>
+                            </tbody>
+                        </table>
+                        <p><strong>Total Billable:</strong> <span t-field="o.total_billable" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/></p>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

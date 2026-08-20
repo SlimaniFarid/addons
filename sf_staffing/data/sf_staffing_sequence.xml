@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="seq_sf_staffing_candidate" model="ir.sequence">
+            <field name="name">Staffing Candidate</field>
+            <field name="code">sf.staffing.candidate</field>
+            <field name="prefix">CAN-</field>
+            <field name="padding">4</field>
+            <field name="number_increment">1</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="seq_sf_staffing_client" model="ir.sequence">
+            <field name="name">Staffing Client</field>
+            <field name="code">sf.staffing.client</field>
+            <field name="prefix">CLI-</field>
+            <field name="padding">4</field>
+            <field name="number_increment">1</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="seq_sf_staffing_need" model="ir.sequence">
+            <field name="name">Staffing Need</field>
+            <field name="code">sf.staffing.need</field>
+            <field name="prefix">NED-</field>
+            <field name="padding">4</field>
+            <field name="number_increment">1</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="seq_sf_staffing_mission" model="ir.sequence">
+            <field name="name">Staffing Mission</field>
+            <field name="code">sf.staffing.mission</field>
+            <field name="prefix">MIS-</field>
+            <field name="padding">4</field>
+            <field name="number_increment">1</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="seq_sf_staffing_contract" model="ir.sequence">
+            <field name="name">Staffing Contract</field>
+            <field name="code">sf.staffing.contract</field>
+            <field name="prefix">CTR-</field>
+            <field name="padding">4</field>
+            <field name="number_increment">1</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="seq_sf_staffing_timesheet" model="ir.sequence">
+            <field name="name">Staffing Timesheet</field>
+            <field name="code">sf.staffing.timesheet</field>
+            <field name="prefix">TIM-</field>
+            <field name="padding">4</field>
+            <field name="number_increment">1</field>
+            <field name="company_id" eval="False"/>
+        </record>
+    </data>
+</odoo>

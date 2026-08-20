@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="sf_travel_reservation_view_list" model="ir.ui.view">
+        <field name="name">sf.travel.reservation.list</field>
+        <field name="model">sf.travel.reservation</field>
+        <field name="arch" type="xml">
+            <list string="Reservations">
+                <field name="name"/>
+                <field name="package_id"/>
+                <field name="partner_id"/>
+                <field name="traveler_name"/>
+                <field name="pax"/>
+                <field name="price_unit"/>
+                <field name="cost"/>
+                <field name="commission"/>
+                <field name="margin"/>
+                <field name="state" widget="badge" decoration-success="state == 'completed'" decoration-info="state == 'paid'" decoration-warning="state == 'confirmed'" decoration-muted="state == 'cancelled'"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="sf_travel_reservation_view_form" model="ir.ui.view">
+        <field name="name">sf.travel.reservation.form</field>
+        <field name="model">sf.travel.reservation</field>
+        <field name="arch" type="xml">
+            <form string="Travel Reservation">
+                <header>
+                    <button name="action_confirm" type="object" string="Confirm" invisible="state != 'draft'" class="oe_highlight"/>
+                    <button name="action_paid" type="object" string="Mark As Paid" invisible="state != 'confirmed'"/>
+                    <button name="action_completed" type="object" string="Mark As Completed" invisible="state != 'paid'"/>
+                    <button name="action_cancel" type="object" string="Cancel Reservation" invisible="state in ('completed', 'cancelled')"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,paid,completed,cancelled"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="package_id"/>
+                            <field name="partner_id"/>
+                            <field name="traveler_name"/>
+                            <field name="traveler_email"/>
+                            <field name="pax"/>
+                            <field name="booking_date"/>
+                        </group>
+                        <group>
+                            <field name="price_unit"/>
+                            <field name="cost"/>
+                            <field name="commission"/>
+                            <field name="margin"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                            <field name="currency_id"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Provider Costs" name="provider_costs">
+                            <field name="cost_ids">
+                                <list>
+                                    <field name="name"/>
+                                    <field name="provider_id"/>
+                                    <field name="amount"/>
+                                    <field name="cost_date"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="sf_travel_reservation_view_search" model="ir.ui.view">
+        <field name="name">sf.travel.reservation.search</field>
+        <field name="model">sf.travel.reservation</field>
+        <field name="arch" type="xml">
+            <search string="Search Reservations">
+                <field name="name"/>
+                <field name="package_id"/>
+                <field name="partner_id"/>
+                <field name="traveler_name"/>
+                <field name="state"/>
+                <group>
+                    <filter string="Confirmed" name="filter_confirmed" domain="[('state', '=', 'confirmed')]"/>
+                    <filter string="Paid" name="filter_paid" domain="[('state', '=', 'paid')]"/>
+                    <filter string="Completed" name="filter_completed" domain="[('state', '=', 'completed')]"/>
+                    <separator/>
+                    <group string="Group By">
+                        <filter string="State" name="group_by_state" context="{'group_by': 'state'}"/>
+                        <filter string="Package" name="group_by_package" context="{'group_by': 'package_id'}"/>
+                        <filter string="Booking Date" name="group_by_booking_date" context="{'group_by': 'booking_date'}"/>
+                    </group>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_sf_travel_reservation" model="ir.actions.act_window">
+        <field name="name">Reservations</field>
+        <field name="res_model">sf.travel.reservation</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

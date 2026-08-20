@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_delivery_ticket">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-set="company" t-value="o.company_id or res_company"/>
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2>Delivery Ticket</h2>
+                        <table class="table table-sm">
+                            <tr><th>Order</th><td><span t-field="o.name"/></td></tr>
+                            <tr><th>Customer</th><td><span t-field="o.customer_name"/></td></tr>
+                            <tr><th>Phone</th><td><span t-field="o.phone"/></td></tr>
+                            <tr><th>Delivery Date</th><td><span t-field="o.delivery_date"/></td></tr>
+                            <tr><th>Total</th><td><span t-field="o.total"/></td></tr>
+                        </table>
+                        <h3>Items</h3>
+                        <table class="table table-sm">
+                            <tr><th>Item</th><th>Type</th><th>Service</th><th>Qty</th></tr>
+                            <tr t-foreach="o.item_ids" t-as="item">
+                                <td><span t-field="item.name"/></td>
+                                <td><span t-field="item.item_type"/></td>
+                                <td><span t-field="item.service"/></td>
+                                <td><span t-field="item.qty"/></td>
+                            </tr>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

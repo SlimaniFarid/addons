@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="sf_restaurant_table_view_list" model="ir.ui.view">
+        <field name="name">sf.restaurant.table.list</field>
+        <field name="model">sf.restaurant.table</field>
+        <field name="arch" type="xml">
+            <list string="Tables">
+                <field name="name"/>
+                <field name="zone_id"/>
+                <field name="seats"/>
+                <field name="current_order_id"/>
+                <field name="state" widget="badge"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="sf_restaurant_table_view_form" model="ir.ui.view">
+        <field name="name">sf.restaurant.table.form</field>
+        <field name="model">sf.restaurant.table</field>
+        <field name="arch" type="xml">
+            <form string="Table">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="zone_id"/>
+                            <field name="seats"/>
+                        </group>
+                        <group>
+                            <field name="state" widget="badge"/>
+                            <field name="current_order_id"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="sf_restaurant_table_view_kanban" model="ir.ui.view">
+        <field name="name">sf.restaurant.table.kanban</field>
+        <field name="model">sf.restaurant.table</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state">
+                <field name="name"/>
+                <field name="zone_id"/>
+                <field name="seats"/>
+                <field name="state"/>
+                <templates>
+                    <t t-name="card">
+                        <div class="oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <strong><field name="name"/></strong>
+                                <div>Zone: <field name="zone_id"/></div>
+                                <div>Seats: <field name="seats"/></div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="sf_restaurant_table_view_search" model="ir.ui.view">
+        <field name="name">sf.restaurant.table.search</field>
+        <field name="model">sf.restaurant.table</field>
+        <field name="arch" type="xml">
+            <search string="Tables">
+                <field name="name"/>
+                <field name="zone_id"/>
+                <filter name="table_free" string="Free" domain="[('state', '=', 'free')]"/>
+                <filter name="table_occupied" string="Occupied" domain="[('state', '=', 'occupied')]"/>
+                <group>
+                    <filter name="group_table_state" string="Status" context="{'group_by': 'state'}"/>
+                    <filter name="group_table_zone" string="Zone" context="{'group_by': 'zone_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_sf_restaurant_table" model="ir.actions.act_window">
+        <field name="name">Tables</field>
+        <field name="res_model">sf.restaurant.table</field>
+        <field name="view_mode">kanban,list,form</field>
+        <field name="search_view_id" ref="sf_restaurant_table_view_search"/>
+    </record>
+</odoo>

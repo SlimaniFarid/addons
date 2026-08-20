@@ -1,0 +1,16 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sf_restaurant_table_user,sf.restaurant.table.user,model_sf_restaurant_table,sf_restaurant.group_sf_restaurant_user,1,1,1,0
+access_sf_restaurant_zone_user,sf.restaurant.zone.user,model_sf_restaurant_zone,sf_restaurant.group_sf_restaurant_user,1,1,1,0
+access_sf_restaurant_reservation_user,sf.restaurant.reservation.user,model_sf_restaurant_reservation,sf_restaurant.group_sf_restaurant_user,1,1,1,0
+access_sf_restaurant_menu_category_user,sf.restaurant.menu.category.user,model_sf_restaurant_menu_category,sf_restaurant.group_sf_restaurant_user,1,1,1,0
+access_sf_restaurant_menu_item_user,sf.restaurant.menu.item.user,model_sf_restaurant_menu_item,sf_restaurant.group_sf_restaurant_user,1,1,1,0
+access_sf_restaurant_order_user,sf.restaurant.order.user,model_sf_restaurant_order,sf_restaurant.group_sf_restaurant_user,1,1,1,0
+access_sf_restaurant_order_line_user,sf.restaurant.order.line.user,model_sf_restaurant_order_line,sf_restaurant.group_sf_restaurant_user,1,1,1,0
+access_sf_restaurant_table_manager,sf.restaurant.table.manager,model_sf_restaurant_table,sf_restaurant.group_sf_restaurant_manager,1,1,1,1
+access_sf_restaurant_zone_manager,sf.restaurant.zone.manager,model_sf_restaurant_zone,sf_restaurant.group_sf_restaurant_manager,1,1,1,1
+access_sf_restaurant_reservation_manager,sf.restaurant.reservation.manager,model_sf_restaurant_reservation,sf_restaurant.group_sf_restaurant_manager,1,1,1,1
+access_sf_restaurant_menu_category_manager,sf.restaurant.menu.category.manager,model_sf_restaurant_menu_category,sf_restaurant.group_sf_restaurant_manager,1,1,1,1
+access_sf_restaurant_menu_item_manager,sf.restaurant.menu.item.manager,model_sf_restaurant_menu_item,sf_restaurant.group_sf_restaurant_manager,1,1,1,1
+access_sf_restaurant_order_manager,sf.restaurant.order.manager,model_sf_restaurant_order,sf_restaurant.group_sf_restaurant_manager,1,1,1,1
+access_sf_restaurant_order_line_manager,sf.restaurant.order.line.manager,model_sf_restaurant_order_line,sf_restaurant.group_sf_restaurant_manager,1,1,1,1
+access_sf_restaurant_mail_activity,sf.restaurant.mail.activity.user,mail.activity,sf_restaurant.group_sf_restaurant_user,1,1,1,0
