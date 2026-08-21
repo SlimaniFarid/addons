@@ -1,7 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_esg_indicator_user,sf.esg.indicator.user,model_sf_esg_indicator,group_esg_user,1,1,0,0
-access_esg_indicator_manager,sf.esg.indicator.manager,model_sf_esg_indicator,group_esg_manager,1,1,1,1
-access_esg_period_user,sf.esg.period.user,model_sf_esg_period,group_esg_user,1,1,1,0
-access_esg_period_manager,sf.esg.period.manager,model_sf_esg_period,group_esg_manager,1,1,1,1
-access_esg_value_user,sf.esg.value.user,model_sf_esg_value,group_esg_user,1,1,1,0
-access_esg_value_manager,sf.esg.value.manager,model_sf_esg_value,group_esg_manager,1,1,1,1

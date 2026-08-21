@@ -1,9 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_sf_hotel_room_user,sf.hotel.room.user,model_sf_hotel_room,group_sf_hotel_user,1,1,1,0
-access_sf_hotel_room_manager,sf.hotel.room.manager,model_sf_hotel_room,group_sf_hotel_manager,1,1,1,1
-access_sf_hotel_reservation_user,sf.hotel.reservation.user,model_sf_hotel_reservation,group_sf_hotel_user,1,1,1,0
-access_sf_hotel_reservation_manager,sf.hotel.reservation.manager,model_sf_hotel_reservation,group_sf_hotel_manager,1,1,1,1
-access_sf_hotel_extra_user,sf.hotel.extra.user,model_sf_hotel_extra,group_sf_hotel_user,1,1,1,0
-access_sf_hotel_extra_manager,sf.hotel.extra.manager,model_sf_hotel_extra,group_sf_hotel_manager,1,1,1,1
-access_sf_hotel_housekeeping_user,sf.hotel.housekeeping.user,model_sf_hotel_housekeeping,group_sf_hotel_user,1,1,1,0
-access_sf_hotel_housekeeping_manager,sf.hotel.housekeeping.manager,model_sf_hotel_housekeeping,group_sf_hotel_manager,1,1,1,1

@@ -1,9 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_mes_station_user,sf.mes.station.user,model_sf_mes_station,group_mes_shop_floor_user,1,1,0,0
-access_mes_station_manager,sf.mes.station.manager,model_sf_mes_station,group_mes_shop_floor_manager,1,1,1,1
-access_mes_work_order_user,sf.mes.work.order.user,model_sf_mes_work_order,group_mes_shop_floor_user,1,1,1,0
-access_mes_work_order_manager,sf.mes.work.order.manager,model_sf_mes_work_order,group_mes_shop_floor_manager,1,1,1,1
-access_mes_downtime_user,sf.mes.downtime.user,model_sf_mes_downtime,group_mes_shop_floor_user,1,1,1,0
-access_mes_downtime_manager,sf.mes.downtime.manager,model_sf_mes_downtime,group_mes_shop_floor_manager,1,1,1,1
-access_mes_quality_check_user,sf.mes.quality.check.user,model_sf_mes_quality_check,group_mes_shop_floor_user,1,1,1,0
-access_mes_quality_check_manager,sf.mes.quality.check.manager,model_sf_mes_quality_check,group_mes_shop_floor_manager,1,1,1,1

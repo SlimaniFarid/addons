@@ -1,5 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_freight_carrier_user,sf.freight.carrier.user,model_sf_freight_carrier,group_freight_costing_user,1,1,0,0
-access_freight_carrier_manager,sf.freight.carrier.manager,model_sf_freight_carrier,group_freight_costing_manager,1,1,1,1
-access_freight_cost_user,sf.freight.cost.user,model_sf_freight_cost,group_freight_costing_user,1,1,0,0
-access_freight_cost_manager,sf.freight.cost.manager,model_sf_freight_cost,group_freight_costing_manager,1,1,1,1

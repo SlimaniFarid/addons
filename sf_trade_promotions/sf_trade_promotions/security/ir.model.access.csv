@@ -1,6 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_sf_trade_program_user,sf.trade.program.user,model_sf_trade_program,sf_trade_promotions.group_sf_trade_promotions_user,1,1,1,0
-access_sf_trade_claim_user,sf.trade.claim.user,model_sf_trade_claim,sf_trade_promotions.group_sf_trade_promotions_user,1,1,1,0
-access_sf_trade_program_manager,sf.trade.program.manager,model_sf_trade_program,sf_trade_promotions.group_sf_trade_promotions_manager,1,1,1,1
-access_sf_trade_claim_manager,sf.trade.claim.manager,model_sf_trade_claim,sf_trade_promotions.group_sf_trade_promotions_manager,1,1,1,1
-access_sf_trade_promotions_mail_activity,sf.trade.promotions.mail.activity.user,mail.activity,sf_trade_promotions.group_sf_trade_promotions_user,1,1,1,0

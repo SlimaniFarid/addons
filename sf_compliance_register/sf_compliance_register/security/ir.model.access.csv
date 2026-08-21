@@ -1,9 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_compliance_document_user,sf.compliance.document.user,model_sf_compliance_document,group_compliance_user,1,1,0,0
-access_compliance_document_manager,sf.compliance.document.manager,model_sf_compliance_document,group_compliance_manager,1,1,1,1
-access_compliance_type_user,sf.compliance.document.type.user,model_sf_compliance_document_type,group_compliance_user,1,0,0,0
-access_compliance_type_manager,sf.compliance.document.type.manager,model_sf_compliance_document_type,group_compliance_manager,1,1,1,1
-access_compliance_history_user,sf.compliance.history.user,model_sf_compliance_history,group_compliance_user,1,0,0,0
-access_compliance_history_manager,sf.compliance.history.manager,model_sf_compliance_history,group_compliance_manager,1,1,1,1
-access_compliance_renew_wizard_user,sf.compliance.renew.wizard.user,model_sf_compliance_renew_wizard,group_compliance_user,1,1,1,0
-access_compliance_renew_wizard_manager,sf.compliance.renew.wizard.manager,model_sf_compliance_renew_wizard,group_compliance_manager,1,1,1,1

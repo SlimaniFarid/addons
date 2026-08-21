@@ -1,9 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_psa_engagement_user,sf.psa.engagement.user,model_sf_psa_engagement,group_psa_user,1,1,0,0
-access_psa_engagement_manager,sf.psa.engagement.manager,model_sf_psa_engagement,group_psa_manager,1,1,1,1
-access_psa_resource_user,sf.psa.resource.user,model_sf_psa_resource,group_psa_user,1,1,0,0
-access_psa_resource_manager,sf.psa.resource.manager,model_sf_psa_resource,group_psa_manager,1,1,1,1
-access_psa_assignment_user,sf.psa.assignment.user,model_sf_psa_assignment,group_psa_user,1,1,0,0
-access_psa_assignment_manager,sf.psa.assignment.manager,model_sf_psa_assignment,group_psa_manager,1,1,1,1
-access_psa_time_entry_user,sf.psa.time.entry.user,model_sf_psa_time_entry,group_psa_user,1,1,1,0
-access_psa_time_entry_manager,sf.psa.time.entry.manager,model_sf_psa_time_entry,group_psa_manager,1,1,1,1

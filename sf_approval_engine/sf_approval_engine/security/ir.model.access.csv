@@ -1,9 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_sf_approval_template_user,sf.approval.template.user,model_sf_approval_template,sf_approval_engine.group_approval_user,1,0,0,0
-access_sf_approval_template_manager,sf.approval.template.manager,model_sf_approval_template,sf_approval_engine.group_approval_manager,1,1,1,1
-access_sf_approval_step_user,sf.approval.step.user,model_sf_approval_step,sf_approval_engine.group_approval_user,1,0,0,0
-access_sf_approval_step_manager,sf.approval.step.manager,model_sf_approval_step,sf_approval_engine.group_approval_manager,1,1,1,1
-access_sf_approval_request_user,sf.approval.request.user,model_sf_approval_request,sf_approval_engine.group_approval_user,1,1,1,0
-access_sf_approval_request_manager,sf.approval.request.manager,model_sf_approval_request,sf_approval_engine.group_approval_manager,1,1,1,1
-access_sf_approval_history_user,sf.approval.history.user,model_sf_approval_history,sf_approval_engine.group_approval_user,1,0,0,0
-access_sf_approval_history_manager,sf.approval.history.manager,model_sf_approval_history,sf_approval_engine.group_approval_manager,1,1,1,1

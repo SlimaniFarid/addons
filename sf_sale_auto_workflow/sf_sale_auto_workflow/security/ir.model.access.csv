@@ -1,5 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_sale_auto_rule_user,sale.auto.rule.user,model_sale_auto_rule,base.group_user,1,0,0,0
-access_sale_auto_rule_mgr,sale.auto.rule.mgr,model_sale_auto_rule,base.group_system,1,1,1,1
-access_sale_auto_log_user,sale.auto.rule.log.user,model_sale_auto_rule_log,base.group_user,1,0,0,0
-access_sale_auto_log_mgr,sale.auto.rule.log.mgr,model_sale_auto_rule_log,base.group_system,1,1,1,1

@@ -1,9 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_litigation_case_user,sf.litigation.case.user,model_sf_litigation_case,group_litigation_user,1,1,1,0
-access_litigation_case_manager,sf.litigation.case.manager,model_sf_litigation_case,group_litigation_manager,1,1,1,1
-access_litigation_deadline_user,sf.litigation.deadline.user,model_sf_litigation_deadline,group_litigation_user,1,1,1,0
-access_litigation_deadline_manager,sf.litigation.deadline.manager,model_sf_litigation_deadline,group_litigation_manager,1,1,1,1
-access_litigation_fee_user,sf.litigation.fee.user,model_sf_litigation_fee,group_litigation_user,1,1,1,0
-access_litigation_fee_manager,sf.litigation.fee.manager,model_sf_litigation_fee,group_litigation_manager,1,1,1,1
-access_litigation_decision_user,sf.litigation.decision.user,model_sf_litigation_decision,group_litigation_user,1,1,1,0
-access_litigation_decision_manager,sf.litigation.decision.manager,model_sf_litigation_decision,group_litigation_manager,1,1,1,1

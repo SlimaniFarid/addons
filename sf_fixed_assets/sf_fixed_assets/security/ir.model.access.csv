@@ -1,7 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_fixed_asset_category_user,sf.fixed.asset.category.user,model_sf_fixed_asset_category,group_fixed_assets_user,1,1,0,0
-access_fixed_asset_category_manager,sf.fixed.asset.category.manager,model_sf_fixed_asset_category,group_fixed_assets_manager,1,1,1,1
-access_fixed_asset_user,sf.fixed.asset.user,model_sf_fixed_asset,group_fixed_assets_user,1,1,0,0
-access_fixed_asset_manager,sf.fixed.asset.manager,model_sf_fixed_asset,group_fixed_assets_manager,1,1,1,1
-access_fixed_asset_depreciation_user,sf.fixed.asset.depreciation.user,model_sf_fixed_asset_depreciation,group_fixed_assets_user,1,1,0,0
-access_fixed_asset_depreciation_manager,sf.fixed.asset.depreciation.manager,model_sf_fixed_asset_depreciation,group_fixed_assets_manager,1,1,1,1

@@ -1,9 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_marketplace_user,sf.marketplace.user,model_sf_marketplace,group_marketplace_user,1,0,0,0
-access_marketplace_manager,sf.marketplace.manager,model_sf_marketplace,group_marketplace_manager,1,1,1,1
-access_marketplace_vendor_user,sf.marketplace.vendor.user,model_sf_marketplace_vendor,group_marketplace_user,1,1,0,0
-access_marketplace_vendor_manager,sf.marketplace.vendor.manager,model_sf_marketplace_vendor,group_marketplace_manager,1,1,1,1
-access_marketplace_listing_user,sf.marketplace.listing.user,model_sf_marketplace_listing,group_marketplace_user,1,1,0,0
-access_marketplace_listing_manager,sf.marketplace.listing.manager,model_sf_marketplace_listing,group_marketplace_manager,1,1,1,1
-access_marketplace_payout_user,sf.marketplace.payout.user,model_sf_marketplace_payout,group_marketplace_user,1,1,0,0
-access_marketplace_payout_manager,sf.marketplace.payout.manager,model_sf_marketplace_payout,group_marketplace_manager,1,1,1,1

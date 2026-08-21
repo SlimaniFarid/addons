@@ -1,9 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_energy_site_user,sf.energy.site.user,model_sf_energy_site,group_energy_user,1,1,0,0
-access_energy_site_manager,sf.energy.site.manager,model_sf_energy_site,group_energy_manager,1,1,1,1
-access_energy_meter_user,sf.energy.meter.user,model_sf_energy_meter,group_energy_user,1,1,1,0
-access_energy_meter_manager,sf.energy.meter.manager,model_sf_energy_meter,group_energy_manager,1,1,1,1
-access_energy_reading_user,sf.energy.reading.user,model_sf_energy_reading,group_energy_user,1,1,1,0
-access_energy_reading_manager,sf.energy.reading.manager,model_sf_energy_reading,group_energy_manager,1,1,1,1
-access_energy_objective_user,sf.energy.objective.user,model_sf_energy_objective,group_energy_user,1,0,0,0
-access_energy_objective_manager,sf.energy.objective.manager,model_sf_energy_objective,group_energy_manager,1,1,1,1

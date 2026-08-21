@@ -1,9 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_contract_document_user,ai.contract.analyzer.contract_document.user,model_contract_document,base.group_user,1,0,0,0
-access_contract_document_mgr,ai.contract.analyzer.contract_document.mgr,model_contract_document,base.group_system,1,1,1,1
-access_contract_obligation_user,ai.contract.analyzer.contract_obligation.user,model_contract_obligation,base.group_user,1,0,0,0
-access_contract_obligation_mgr,ai.contract.analyzer.contract_obligation.mgr,model_contract_obligation,base.group_system,1,1,1,1
-access_contract_alert_user,ai.contract.analyzer.contract_alert.user,model_contract_alert,base.group_user,1,0,0,0
-access_contract_alert_mgr,ai.contract.analyzer.contract_alert.mgr,model_contract_alert,base.group_system,1,1,1,1
-access_contract_provider_user,ai.contract.analyzer.contract_provider.user,model_contract_provider,base.group_user,1,0,0,0
-access_contract_provider_mgr,ai.contract.analyzer.contract_provider.mgr,model_contract_provider,base.group_system,1,1,1,1

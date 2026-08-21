@@ -1,9 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_invest_portfolio_user,sf.invest.portfolio.user,model_sf_invest_portfolio,group_invest_user,1,1,1,0
-access_invest_portfolio_manager,sf.invest.portfolio.manager,model_sf_invest_portfolio,group_invest_manager,1,1,1,1
-access_invest_line_user,sf.invest.line.user,model_sf_invest_line,group_invest_user,1,1,1,0
-access_invest_line_manager,sf.invest.line.manager,model_sf_invest_line,group_invest_manager,1,1,1,1
-access_invest_valuation_user,sf.invest.valuation.user,model_sf_invest_valuation,group_invest_user,1,1,1,0
-access_invest_valuation_manager,sf.invest.valuation.manager,model_sf_invest_valuation,group_invest_manager,1,1,1,1
-access_invest_income_user,sf.invest.income.user,model_sf_invest_income,group_invest_user,1,1,1,0
-access_invest_income_manager,sf.invest.income.manager,model_sf_invest_income,group_invest_manager,1,1,1,1

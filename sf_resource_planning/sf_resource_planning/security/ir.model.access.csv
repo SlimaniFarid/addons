@@ -1,5 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_resource_planning_resource_user,sf.resource.planning.resource.user,model_sf_resource_planning_resource,group_resource_planning_user,1,1,0,0
-access_resource_planning_resource_manager,sf.resource.planning.resource.manager,model_sf_resource_planning_resource,group_resource_planning_manager,1,1,1,1
-access_resource_planning_allocation_user,sf.resource.planning.allocation.user,model_sf_resource_planning_allocation,group_resource_planning_user,1,1,1,0
-access_resource_planning_allocation_manager,sf.resource.planning.allocation.manager,model_sf_resource_planning_allocation,group_resource_planning_manager,1,1,1,1
