@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate=""""""1"">
+        <!-- Sequences -->
+        <record id=""""""seq_sf_senior_residence"" model=""""""ir.sequence"">
+            <field name=""""""name"">Senior Residence</field>
+            <field name=""""""code"">sf.senior.residence</field>
+            <field name=""""""prefix"">RES-</field>
+            <field name=""""""padding"">5</field>
+            <field name=""""""company_id"" eval=""""""False""/>
+        </record>
+
+        <record id=""""""seq_sf_senior_building"" model=""""""ir.sequence"">
+            <field name=""""""name"">Senior Building</field>
+            <field name=""""""code"">sf.senior.building</field>
+            <field name=""""""prefix"">BAT-</field>
+            <field name=""""""padding"">4</field>
+            <field name=""""""company_id"" eval=""""""False""/>
+        </record>
+
+        <record id=""""""seq_sf_senior_room"" model=""""""ir.sequence"">
+            <field name=""""""name"">Senior Room</field>
+            <field name=""""""code"">sf.senior.room</field>
+            <field name=""""""prefix"">CHB-</field>
+            <field name=""""""padding"">5</field>
+            <field name=""""""company_id"" eval=""""""False""/>
+        </record>
+
+        <record id=""""""seq_sf_senior_resident"" model=""""""ir.sequence"">
+            <field name=""""""name"">Senior Resident</field>
+            <field name=""""""code"">sf.senior.resident</field>
+            <field name=""""""prefix"">RSD-</field>
+            <field name=""""""padding"">6</field>
+            <field name=""""""company_id"" eval=""""""False""/>
+        </record>
+
+        <record id=""""""seq_sf_senior_contract"" model=""""""ir.sequence"">
+            <field name=""""""name"">Stay Contract</field>
+            <field name=""""""code"">sf.senior.contract</field>
+            <field name=""""""prefix"">CTR-</field>
+            <field name=""""""padding"">6</field>
+            <field name=""""""company_id"" eval=""""""False""/>
+        </record>
+
+        <record id=""""""seq_sf_senior_care_plan"" model=""""""ir.sequence"">
+            <field name=""""""name"">Care Plan</field>
+            <field name=""""""code"">sf.senior.care_plan</field>
+            <field name=""""""prefix"">PS-</field>
+            <field name=""""""padding"">5</field>
+            <field name=""""""company_id"" eval=""""""False""/>
+        </record>
+
+        <record id=""""""seq_sf_senior_prescription"" model=""""""ir.sequence"">
+            <field name=""""""name"">Prescription</field>
+            <field name=""""""code"">sf.senior.prescription</field>
+            <field name=""""""prefix"">PRX-</field>
+            <field name=""""""padding"">6</field>
+            <field name=""""""company_id"" eval=""""""False""/>
+        </record>
+
+        <record id=""""""seq_sf_senior_nursing_note"" model=""""""ir.sequence"">
+            <field name=""""""name"">Nursing Note</field>
+            <field name=""""""code"">sf.senior.nursing_note</field>
+            <field name=""""""prefix"">TRS-</field>
+            <field name=""""""padding"">6</field>
+            <field name=""""""company_id"" eval=""""""False""/>
+        </record>
+
+        <record id=""""""seq_sf_senior_gir_evaluation"" model=""""""ir.sequence"">
+            <field name=""""""name"">GIR Evaluation</field>
+            <field name=""""""code"">sf.senior.gir_evaluation</field>
+            <field name=""""""prefix"">GIR-</field>
+            <field name=""""""padding"">5</field>
+            <field name=""""""company_id"" eval=""""""False""/>
+        </record>
+
+        <record id=""""""seq_sf_senior_activity"" model=""""""ir.sequence"">
+            <field name=""""""name"">Activity</field>
+            <field name=""""""code"">sf.senior.activity</field>
+            <field name=""""""prefix"">ACT-</field>
+            <field name=""""""padding"">5</field>
+            <field name=""""""company_id"" eval=""""""False""/>
+        </record>
+
+        <record id=""""""seq_sf_senior_meal_regime"" model=""""""ir.sequence"">
+            <field name=""""""name"">Meal Regime</field>
+            <field name=""""""code"">sf.senior.meal_regime</field>
+            <field name=""""""prefix"">REG-</field>
+            <field name=""""""padding"">5</field>
+            <field name=""""""company_id"" eval=""""""False""/>
+        </record>
+
+        <record id=""""""seq_sf_senior_menu"" model=""""""ir.sequence"">
+            <field name=""""""name"">Menu</field>
+            <field name=""""""code"">sf.senior.menu</field>
+            <field name=""""""prefix"">MNU-</field>
+            <field name=""""""padding"">5</field>
+            <field name=""""""company_id"" eval=""""""False""/>
+        </record>
+
+        <record id=""""""seq_sf_senior_meal_order"" model=""""""ir.sequence"">
+            <field name=""""""name"">Meal Order</field>
+            <field name=""""""code"">sf.senior.meal_order</field>
+            <field name=""""""prefix"">CMD-</field>
+            <field name=""""""padding"">6</field>
+            <field name=""""""company_id"" eval=""""""False""/>
+        </record>
+
+        <record id=""""""seq_sf_senior_invoice_line"" model=""""""ir.sequence"">
+            <field name=""""""name"">Invoice Line</field>
+            <field name=""""""code"">sf.senior.invoice_line</field>
+            <field name=""""""prefix"">FAC-</field>
+            <field name=""""""padding"">6</field>
+            <field name=""""""company_id"" eval=""""""False""/>
+        </record>
+
+        <record id=""""""seq_sf_senior_family_message"" model=""""""ir.sequence"">
+            <field name=""""""name"">Family Message</field>
+            <field name=""""""code"">sf.senior.family_message</field>
+            <field name=""""""prefix"">MSG-</field>
+            <field name=""""""padding"">6</field>
+            <field name=""""""company_id"" eval=""""""False""/>
+        </record>
+    </data>
+</odoo>

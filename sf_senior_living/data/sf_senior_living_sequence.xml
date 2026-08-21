@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<odoo>
+    <record id="seq_sf_senior_residence" model="ir.sequence">
+        <field name="name">Senior Residence</field>
+        <field name="code">sf.senior.residence</field>
+        <field name="prefix">RES-</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+    <record id="seq_sf_senior_resident" model="ir.sequence">
+        <field name="name">Senior Resident</field>
+        <field name="code">sf.senior.resident</field>
+        <field name="prefix">RST-</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+    <record id="seq_sf_senior_care_plan" model="ir.sequence">
+        <field name="name">Care Plan</field>
+        <field name="code">sf.senior.care_plan</field>
+        <field name="prefix">CPL-</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+</odoo>

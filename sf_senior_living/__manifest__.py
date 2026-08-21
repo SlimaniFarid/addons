@@ -1,0 +1,37 @@
+# -*- coding: utf-8 -*-
+{
+    'name': 'Senior Living & Retirement Community Management',
+    'version': '18.0.1.0.0',
+    'category': 'Healthcare',
+    'summary': 'Complete management for senior residences, EHPAD, retirement communities',
+    'description': 'Unified resident dossier (admin, medical, social), care plans, medical coordination, activities, catering, multi-component billing, family portal, regulatory compliance.',
+    'author': 'Ethan Miller',
+    'support': 'tech5262@gmail.com',
+    'website': 'https://www.smartersaas.com',
+    'license': 'OPL-1',
+    'price': 62.5,
+    'currency': 'EUR',
+    'application': true,
+    'installable': true,
+    'images': [
+        'static/description/banner.png',
+    ],
+    'depends': [
+        'base',
+        'mail',
+        'contacts',
+        'account',
+    ],
+    'data': [
+        'security/sf_senior_living_security.xml',
+        'security/ir.model.access.csv',
+        'data/sf_senior_living_sequence.xml',
+        'data/sf_senior_living_cron.xml',
+        'data/sf_senior_living_report.xml',
+        'views/sf_senior_residence_views.xml',
+        'views/sf_senior_resident_views.xml',
+        'views/sf_senior_care_plan_views.xml',
+        'views/sf_senior_menus.xml',
+        'views/res_config_settings_views.xml',
+    ],
+}

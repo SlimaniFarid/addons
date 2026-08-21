@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<odoo>
+    <record id="cron_sf_youth_sports_medical_cert" model="ir.cron">
+        <field name="name">Medical Certificate Expiry</field>
+        <field name="model_id" ref="model_sf_youth_sports_player"/>
+        <field name="function">_cron_medical_cert_reminder</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="doall">False</field>
+    </record>
+</odoo>

@@ -1,0 +1,27 @@
+<?xml version="1.0" ?>
+<odoo>
+    <record id="module_category_sf_senior_living" model="ir.module.category">
+        <field name="name">Senior Living &amp; Retirement Community Management</field>
+        <field name="description">Complete management for senior residences, EHPAD, retirement communities</field>
+        <field name="sequence">10</field>
+    </record>
+    <record id="group_sf_senior_living_user" model="res.groups">
+        <field name="name">Senior Living / User</field>
+        <field name="category_id" ref="module_category_sf_senior_living"/>
+    </record>
+    <record id="group_sf_senior_living_manager" model="res.groups">
+        <field name="name">Senior Living / Manager</field>
+        <field name="category_id" ref="module_category_sf_senior_living"/>
+        <field name="implied_ids" eval="[(4, ref('sf_senior_living.group_sf_senior_living_user'))]"/>
+    </record>
+    <record id="group_sf_senior_medical" model="res.groups">
+        <field name="name">Senior Living / Medical Staff</field>
+        <field name="category_id" ref="module_category_sf_senior_living"/>
+        <field name="implied_ids" eval="[(4, ref('sf_senior_living.group_sf_senior_living_user'))]"/>
+    </record>
+    <record id="group_sf_senior_family" model="res.groups">
+        <field name="name">Senior Living / Family Portal</field>
+        <field name="category_id" ref="module_category_sf_senior_living"/>
+        <field name="implied_ids" eval="[(4, ref('base.group_portal'))]"/>
+    </record>
+</odoo>

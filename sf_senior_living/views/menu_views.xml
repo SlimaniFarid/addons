@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Main Menu -->
+        <menuitem id=""""""menu_sf_senior_living_root"" name=""""""Senior Living"" sequence=""""""20"" web_icon=""""""sf_senior_living,static/description/icon.png"" groups=""""""sf_senior_living.group_sf_senior_user""/>
+
+        <!-- Residence Menu -->
+        <menuitem id=""""""menu_sf_senior_residence"" name=""""""Residences"" parent=""""""menu_sf_senior_living_root"" sequence=""""""10"" action=""""""action_sf_senior_residence"" groups=""""""sf_senior_living.group_sf_senior_user""/>
+        <menuitem id=""""""menu_sf_senior_building"" name=""""""Buildings"" parent=""""""menu_sf_senior_living_root"" sequence=""""""15"" action=""""""action_sf_senior_building"" groups=""""""sf_senior_living.group_sf_senior_user""/>
+        <menuitem id=""""""menu_sf_senior_room"" name=""""""Rooms"" parent=""""""menu_sf_senior_living_root"" sequence=""""""20"" action=""""""action_sf_senior_room"" groups=""""""sf_senior_living.group_sf_senior_user""/>
+
+        <!-- Residents Menu -->
+        <menuitem id=""""""menu_sf_senior_residents"" name=""""""Residents"" parent=""""""menu_sf_senior_living_root"" sequence=""""""30"" groups=""""""sf_senior_living.group_sf_senior_user""/>
+        <menuitem id=""""""menu_sf_senior_resident_list"" name=""""""All Residents"" parent=""""""menu_sf_senior_residents"" sequence=""""""10"" action=""""""action_sf_senior_resident"" groups=""""""sf_senior_living.group_sf_senior_user""/>
+        <menuitem id=""""""menu_sf_senior_contract"" name=""""""Stay Contracts"" parent=""""""menu_sf_senior_residents"" sequence=""""""20"" action=""""""action_sf_senior_contract"" groups=""""""sf_senior_living.group_sf_senior_user""/>
+
+        <!-- Medical Menu -->
+        <menuitem id=""""""menu_sf_senior_medical"" name=""""""Medical"" parent=""""""menu_sf_senior_living_root"" sequence=""""""40"" groups=""""""sf_senior_living.group_sf_senior_medical""/>
+        <menuitem id=""""""menu_sf_senior_care_plan"" name=""""""Care Plans (PPS)"" parent=""""""menu_sf_senior_medical"" sequence=""""""10"" action=""""""action_sf_senior_care_plan"" groups=""""""sf_senior_living.group_sf_senior_medical""/>
+        <menuitem id=""""""menu_sf_senior_prescription"" name=""""""Prescriptions"" parent=""""""menu_sf_senior_medical"" sequence=""""""20"" action=""""""action_sf_senior_prescription"" groups=""""""sf_senior_living.group_sf_senior_medical""/>
+        <menuitem id=""""""menu_sf_senior_nursing_note"" name=""""""Nursing Notes"" parent=""""""menu_sf_senior_medical"" sequence=""""""30"" action=""""""action_sf_senior_nursing_note"" groups=""""""sf_senior_living.group_sf_senior_medical""/>
+        <menuitem id=""""""menu_sf_senior_gir_evaluation"" name=""""""GIR Evaluations"" parent=""""""menu_sf_senior_medical"" sequence=""""""40"" action=""""""action_sf_senior_gir_evaluation"" groups=""""""sf_senior_living.group_sf_senior_medical""/>
+
+        <!-- Activities Menu -->
+        <menuitem id=""""""menu_sf_senior_activities"" name=""""""Activities & Animation"" parent=""""""menu_sf_senior_living_root"" sequence=""""""50"" groups=""""""sf_senior_living.group_sf_senior_user""/>
+        <menuitem id=""""""menu_sf_senior_activity"" name=""""""Activities"" parent=""""""menu_sf_senior_activities"" sequence=""""""10"" action=""""""action_sf_senior_activity"" groups=""""""sf_senior_living.group_sf_senior_user""/>
+
+        <!-- Catering Menu -->
+        <menuitem id=""""""menu_sf_senior_catering"" name=""""""Catering"" parent=""""""menu_sf_senior_living_root"" sequence=""""""60"" groups=""""""sf_senior_living.group_sf_senior_user""/>
+        <menuitem id=""""""menu_sf_senior_meal_regime"" name=""""""Meal Regimes"" parent=""""""menu_sf_senior_catering"" sequence=""""""10"" action=""""""action_sf_senior_meal_regime"" groups=""""""sf_senior_living.group_sf_senior_user""/>
+        <menuitem id=""""""menu_sf_senior_menu"" name=""""""Menus"" parent=""""""menu_sf_senior_catering"" sequence=""""""20"" action=""""""action_sf_senior_menu"" groups=""""""sf_senior_living.group_sf_senior_user""/>
+        <menuitem id=""""""menu_sf_senior_meal_order"" name=""""""Meal Orders"" parent=""""""menu_sf_senior_catering"" sequence=""""""30"" action=""""""action_sf_senior_meal_order"" groups=""""""sf_senior_living.group_sf_senior_user""/>
+
+        <!-- Billing Menu -->
+        <menuitem id=""""""menu_sf_senior_billing"" name=""""""Billing"" parent=""""""menu_sf_senior_living_root"" sequence=""""""70"" groups=""""""sf_senior_living.group_sf_senior_user""/>
+        <menuitem id=""""""menu_sf_senior_invoice_line"" name=""""""Invoice Lines"" parent=""""""menu_sf_senior_billing"" sequence=""""""10"" action=""""""action_sf_senior_invoice_line"" groups=""""""sf_senior_living.group_sf_senior_user""/>
+
+        <!-- Communication Menu -->
+        <menuitem id=""""""menu_sf_senior_communication"" name=""""""Communication"" parent=""""""menu_sf_senior_living_root"" sequence=""""""80"" groups=""""""sf_senior_living.group_sf_senior_user""/>
+        <menuitem id=""""""menu_sf_senior_family_message"" name=""""""Family Messages"" parent=""""""menu_sf_senior_communication"" sequence=""""""10"" action=""""""action_sf_senior_family_message"" groups=""""""sf_senior_living.group_sf_senior_user""/>
+
+        <!-- Reports Menu -->
+        <menuitem id=""""""menu_sf_senior_reports"" name=""""""Reports"" parent=""""""menu_sf_senior_living_root"" sequence=""""""90"" groups=""""""sf_senior_living.group_sf_senior_manager""/>
+        <menuitem id=""""""menu_sf_senior_report_ars"" name=""""""ARS Compliance"" parent=""""""menu_sf_senior_reports"" sequence=""""""10"" action=""""""action_report_ars_compliance"" groups=""""""sf_senior_living.group_sf_senior_manager""/>
+
+        <!-- Configuration Menu -->
+        <menuitem id=""""""menu_sf_senior_configuration"" name=""""""Configuration"" parent=""""""menu_sf_senior_living_root"" sequence=""""""100"" groups=""""""base.group_system""/>
+        <menuitem id=""""""menu_sf_senior_settings"" name=""""""Settings"" parent=""""""menu_sf_senior_configuration"" sequence=""""""10"" action=""""""action_sf_senior_settings"" groups=""""""base.group_system""/>
+    </data>
+</odoo>

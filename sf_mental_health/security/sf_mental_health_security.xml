@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<odoo>
+    <record id="module_category_sf_mental_health" model="ir.module.category">
+        <field name="name">Mental Health &amp; Therapy Practice Management</field>
+        <field name="description">Mental health practice: patient records, treatment plans, sessions, billing, outcomes</field>
+        <field name="sequence">10</field>
+    </record>
+    <record id="group_sf_mental_health_user" model="res.groups">
+        <field name="name">Mental Health / User</field>
+        <field name="category_id" ref="module_category_sf_mental_health"/>
+    </record>
+    <record id="group_sf_mental_health_manager" model="res.groups">
+        <field name="name">Mental Health / Manager</field>
+        <field name="category_id" ref="module_category_sf_mental_health"/>
+        <field name="implied_ids" eval="[(4, ref('sf_mental_health.group_sf_mental_health_user'))]"/>
+    </record>
+    <record id="group_sf_mental_health_therapist" model="res.groups">
+        <field name="name">Mental Health / Therapist</field>
+        <field name="category_id" ref="module_category_sf_mental_health"/>
+        <field name="implied_ids" eval="[(4, ref('sf_mental_health.group_sf_mental_health_user'))]"/>
+    </record>
+</odoo>

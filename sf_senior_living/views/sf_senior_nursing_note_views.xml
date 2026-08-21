@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Nursing Note List View -->
+        <record id=""""""view_sf_senior_nursing_note_list"" model=""""""ir.ui.view"">
+            <field name=""""""name"">sf.senior.nursing_note.list</field>
+            <field name=""""""model"">sf.senior.nursing_note</field>
+            <field name=""""""arch"" type=""""""xml"">
+                <list string=""""""Nursing Notes"" decoration-danger=""""""alert==True"">
+                    <field name=""""""name""/>
+                    <field name=""""""resident_id""/>
+                    <field name=""""""care_plan_id""/>
+                    <field name=""""""author_id""/>
+                    <field name=""""""note_date""/>
+                    <field name=""""""shift""/>
+                    <field name=""""""alert""/>
+                    <field name=""""""alert_type"" invisible=""""""not alert""/>
+                </list>
+            </field>
+        </record>
+
+        <!-- Nursing Note Form View -->
+        <record id=""""""view_sf_senior_nursing_note_form"" model=""""""ir.ui.view"">
+            <field name=""""""name"">sf.senior.nursing_note.form</field>
+            <field name=""""""model"">sf.senior.nursing_note</field>
+            <field name=""""""arch"" type=""""""xml"">
+                <form string=""""""Nursing Note"">
+                    <sheet>
+                        <div class=""""""oe_title"">
+                            <h1><field name=""""""name"" placeholder=""""""Reference (auto)"" readonly=""""""1""/></h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name=""""""resident_id"" required=""""""1""/>
+                                <field name=""""""care_plan_id""/>
+                                <field name=""""""author_id"" required=""""""1"" readonly=""""""1""/>
+                                <field name=""""""note_date"" required=""""""1""/>
+                                <field name=""""""shift"" required=""""""1""/>
+                            </group>
+                            <group>
+                                <field name=""""""alert""/>
+                                <field name=""""""alert_type"" invisible=""""""not alert""/>
+                            </group>
+                        </group>
+                        <group string=""""""Interventions Concerned"">
+                            <field name=""""""intervention_ids"" widget=""""""many2many_tags""/>
+                        </group>
+                        <group string=""""""Content"">
+                            <field name=""""""content"" placeholder=""""""Nursing handover content...""/>
+                        </group>
+                        <group string=""""""Read By"">
+                            <field name=""""""read_by_ids"" widget=""""""many2many_tags""/>
+                        </group>
+                    </sheet>
+                    <div class=""""""oe_chatter"">
+                        <field name=""""""message_follower_ids"" widget=""""""mail_followers""/>
+                        <field name=""""""activity_ids"" widget=""""""mail_activity""/>
+                        <field name=""""""message_ids"" widget=""""""mail_thread""/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <!-- Nursing Note Search View -->
+        <record id=""""""view_sf_senior_nursing_note_search"" model=""""""ir.ui.view"">
+            <field name=""""""name"">sf.senior.nursing_note.search</field>
+            <field name=""""""model"">sf.senior.nursing_note</field>
+            <field name=""""""arch"" type=""""""xml"">
+                <search string=""""""Search Nursing Notes"">
+                    <field name=""""""name""/>
+                    <field name=""""""resident_id""/>
+                    <field name=""""""author_id""/>
+                    <filter string=""""""Alerts"" name=""""""alerts"" domain=""""""[(&apos;alert&apos;, &apos;=&apos;, True)]""/>
+                    <filter string=""""""Today"" name=""""""today"" domain=""""""[(&apos;note_date&apos;, &apos;>=&apos;, fields.Date.today())]""/>
+                    <filter string=""""""This Week"" name=""""""this_week"" domain=""""""[(&apos;note_date&apos;, &apos;>=&apos;, fields.Date.today() - timedelta(days=7))]""/>
+                    <group string=""""""Group By"">
+                        <filter string=""""""Resident"" name=""""""group_by_resident"" context=""""""{&apos;group_by&apos;: &apos;resident_id&apos;}""/>
+                        <filter string=""""""Shift"" name=""""""group_by_shift"" context=""""""{&apos;group_by&apos;: &apos;shift&apos;}""/>
+                        <filter string=""""""Alert Type"" name=""""""group_by_alert_type"" context=""""""{&apos;group_by&apos;: &apos;alert_type&apos;}""/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- Nursing Note Action -->
+        <record id=""""""action_sf_senior_nursing_note"" model=""""""ir.actions.act_window"">
+            <field name=""""""name"">Nursing Notes</field>
+            <field name=""""""res_model"">sf.senior.nursing_note</field>
+            <field name=""""""view_mode"">list,form</field>
+        </record>
+
+        <!-- GIR Evaluation List View -->
+        <record id=""""""view_sf_senior_gir_evaluation_list"" model=""""""ir.ui.view"">
+            <field name=""""""name"">sf.senior.gir_evaluation.list</field>
+            <field name=""""""model"">sf.senior.gir_evaluation</field>
+            <field name=""""""arch"" type=""""""xml"">
+                <list string=""""""GIR Evaluations"" decoration-info=""""""state==&apos;scheduled&apos;"" decoration-warning=""""""state==&apos;in_progress&apos;"" decoration-success=""""""state==&apos;validated&apos;"" decoration-muted=""""""state==&apos;locked&apos;"">
+                    <field name=""""""name""/>
+                    <field name=""""""resident_id""/>
+                    <field name=""""""evaluator_id""/>
+                    <field name=""""""evaluation_date""/>
+                    <field name=""""""gir_level"" widget=""""""badge"" decoration=""""""{&apos;gir1&apos;: &apos;danger&apos;, &apos;gir2&apos;: &apos;danger&apos;, &apos;gir3&apos;: &apos;warning&apos;, &apos;gir4&apos;: &apos;info&apos;, &apos;gir5&apos;: &apos;success&apos;, &apos;gir6&apos;: &apos;success&apos;}""/>
+                    <field name=""""""score_total""/>
+                    <field name=""""""state"" widget=""""""badge"" decoration=""""""{&apos;scheduled&apos;: &apos;info&apos;, &apos;in_progress&apos;: &apos;warning&apos;, &apos;validated&apos;: &apos;success&apos;, &apos;locked&apos;: &apos;muted&apos;}""/>
+                    <field name=""""""validated_by""/>
+                    <field name=""""""validated_date""/>
+                </list>
+            </field>
+        </record>
+
+        <!-- GIR Evaluation Form View -->
+        <record id=""""""view_sf_senior_gir_evaluation_form"" model=""""""ir.ui.view"">
+            <field name=""""""name"">sf.senior.gir_evaluation.form</field>
+            <field name=""""""model"">sf.senior.gir_evaluation</field>
+            <field name=""""""arch"" type=""""""xml"">
+                <form string=""""""GIR Evaluation"">
+                    <header>
+                        <button name=""""""action_start_evaluation"" type=""""""object"" string=""""""Start"" class=""""""btn-secondary"" invisible=""""""state!=&apos;scheduled&apos;"" groups=""""""sf_senior_living.group_sf_senior_medical""/>
+                        <button name=""""""action_validate"" type=""""""object"" string=""""""Validate"" class=""""""btn-primary"" invisible=""""""state!=&apos;in_progress&apos;"" groups=""""""sf_senior_living.group_sf_senior_manager""/>
+                        <button name=""""""action_lock"" type=""""""object"" string=""""""Lock"" class=""""""btn-secondary"" invisible=""""""state!=&apos;validated&apos;"" groups=""""""sf_senior_living.group_sf_senior_manager""/>
+                        <button name=""""""action_unlock"" type=""""""object"" string=""""""Unlock"" class=""""""btn-secondary"" invisible=""""""state!=&apos;locked&apos;"" groups=""""""sf_senior_living.group_sf_senior_manager""/>
+                        <button name=""""""action_print_gir"" type=""""""object"" string=""""""Print GIR"" class=""""""btn-secondary"" groups=""""""sf_senior_living.group_sf_senior_medical,sf_senior_living.group_sf_senior_manager""/>
+                        <field name=""""""state"" widget=""""""statusbar"" statusbar_visible=""""""scheduled,in_progress,validated,locked""/>
+                    </header>
+                    <sheet>
+                        <div class=""""""oe_title"">
+                            <h1><field name=""""""name"" placeholder=""""""Reference (auto)"" readonly=""""""1""/></h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name=""""""resident_id"" required=""""""1""/>
+                                <field name=""""""evaluator_id"" required=""""""1""/>
+                                <field name=""""""evaluation_date"" required=""""""1""/>
+                            </group>
+                            <group>
+                                <field name=""""""gir_level"" required=""""""1"" readonly=""""""state==&apos;locked&apos;""/>
+                                <field name=""""""score_total"" readonly=""""""1""/>
+                                <field name=""""""state"" readonly=""""""1""/>
+                            </group>
+                        </group>
+                        <group string=""""""AGGIR Details (10 Variables)"">
+                            <group>
+                                <field name=""""""coherence"" string=""""""1. Cohérence"" attrs=""""""{&apos;readonly&apos;: [(&apos;state&apos;, &apos;=&apos;, &apos;locked&apos;)]}""/>
+                                <field name=""""""orientation"" string=""""""2. Orientation"" attrs=""""""{&apos;readonly&apos;: [(&apos;state&apos;, &apos;=&apos;, &apos;locked&apos;)]}""/>
+                                <field name=""""""toilette"" string=""""""3. Toilette"" attrs=""""""{&apos;readonly&apos;: [(&apos;state&apos;, &apos;=&apos;, &apos;locked&apos;)]}""/>
+                                <field name=""""""habillage"" string=""""""4. Habillage"" attrs=""""""{&apos;readonly&apos;: [(&apos;state&apos;, &apos;=&apos;, &apos;locked&apos;)]}""/>
+                                <field name=""""""alimentation"" string=""""""5. Alimentation"" attrs=""""""{&apos;readonly&apos;: [(&apos;state&apos;, &apos;=&apos;, &apos;locked&apos;)]}""/>
+                            </group>
+                            <group>
+                                <field name=""""""elimination"" string=""""""6. Élimination"" attrs=""""""{&apos;readonly&apos;: [(&apos;state&apos;, &apos;=&apos;, &apos;locked&apos;)]}""/>
+                                <field name=""""""transfert"" string=""""""7. Transfert"" attrs=""""""{&apos;readonly&apos;: [(&apos;state&apos;, &apos;=&apos;, &apos;locked&apos;)]}""/>
+                                <field name=""""""deplacement_int"" string=""""""8. Déplacement Intérieur"" attrs=""""""{&apos;readonly&apos;: [(&apos;state&apos;, &apos;=&apos;, &apos;locked&apos;)]}""/>
+                                <field name=""""""deplacement_ext"" string=""""""9. Déplacement Extérieur"" attrs=""""""{&apos;readonly&apos;: [(&apos;state&apos;, &apos;=&apos;, &apos;locked&apos;)]}""/>
+                                <field name=""""""communication"" string=""""""10. Communication"" attrs=""""""{&apos;readonly&apos;: [(&apos;state&apos;, &apos;=&apos;, &apos;locked&apos;)]}""/>
+                            </group>
+                        </group>
+                        <group string=""""""Validation"" invisible=""""""state in (&apos;scheduled&apos;, &apos;in_progress&apos;)"">
+                            <field name=""""""validated_by"" readonly=""""""1""/>
+                            <field name=""""""validated_date"" readonly=""""""1""/>
+                        </group>
+                        <group string=""""""Notes"">
+                            <field name=""""""notes"" attrs=""""""{&apos;readonly&apos;: [(&apos;state&apos;, &apos;=&apos;, &apos;locked&apos;)]}""/>
+                        </group>
+                    </sheet>
+                    <div class=""""""oe_chatter"">
+                        <field name=""""""message_follower_ids"" widget=""""""mail_followers""/>
+                        <field name=""""""activity_ids"" widget=""""""mail_activity""/>
+                        <field name=""""""message_ids"" widget=""""""mail_thread""/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <!-- GIR Evaluation Search View -->
+        <record id=""""""view_sf_senior_gir_evaluation_search"" model=""""""ir.ui.view"">
+            <field name=""""""name"">sf.senior.gir_evaluation.search</field>
+            <field name=""""""model"">sf.senior.gir_evaluation</field>
+            <field name=""""""arch"" type=""""""xml"">
+                <search string=""""""Search GIR Evaluations"">
+                    <field name=""""""name""/>
+                    <field name=""""""resident_id""/>
+                    <field name=""""""evaluator_id""/>
+                    <filter string=""""""Scheduled"" name=""""""scheduled"" domain=""""""[(&apos;state&apos;, &apos;=&apos;, &apos;scheduled&apos;)]""/>
+                    <filter string=""""""In Progress"" name=""""""in_progress"" domain=""""""[(&apos;state&apos;, &apos;=&apos;, &apos;in_progress&apos;)]""/>
+                    <filter string=""""""Validated"" name=""""""validated"" domain=""""""[(&apos;state&apos;, &apos;=&apos;, &apos;validated&apos;)]""/>
+                    <filter string=""""""Locked"" name=""""""locked"" domain=""""""[(&apos;state&apos;, &apos;=&apos;, &apos;locked&apos;)]""/>
+                    <filter string=""""""Overdue"" name=""""""overdue"" domain=""""""[(&apos;evaluation_date&apos;, &apos;<&apos;, fields.Date.today()), (&apos;state&apos;, &apos;in&apos;, [&apos;scheduled&apos;, &apos;in_progress&apos;])]""/>
+                    <group string=""""""Group By"">
+                        <filter string=""""""Resident"" name=""""""group_by_resident"" context=""""""{&apos;group_by&apos;: &apos;resident_id&apos;}""/>
+                        <filter string=""""""GIR Level"" name=""""""group_by_gir"" context=""""""{&apos;group_by&apos;: &apos;gir_level&apos;}""/>
+                        <filter string=""""""State"" name=""""""group_by_state"" context=""""""{&apos;group_by&apos;: &apos;state&apos;}""/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- GIR Evaluation Action -->
+        <record id=""""""action_sf_senior_gir_evaluation"" model=""""""ir.actions.act_window"">
+            <field name=""""""name"">GIR Evaluations</field>
+            <field name=""""""res_model"">sf.senior.gir_evaluation</field>
+            <field name=""""""view_mode"">list,form</field>
+        </record>
+    </data>
+</odoo>

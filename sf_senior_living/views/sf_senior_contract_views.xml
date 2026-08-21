@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Contract List View -->
+        <record id=""""""view_sf_senior_contract_list"" model=""""""ir.ui.view"">
+            <field name=""""""name"">sf.senior.contract.list</field>
+            <field name=""""""model"">sf.senior.contract</field>
+            <field name=""""""arch"" type=""""""xml"">
+                <list string=""""""Contracts"" decoration-info=""""""state==&apos;draft&apos;"" decoration-warning=""""""state==&apos;signed&apos;"" decoration-success=""""""state==&apos;active&apos;"" decoration-muted=""""""state in (&apos;renewed&apos;,&apos;terminated&apos;)"">
+                    <field name=""""""name""/>
+                    <field name=""""""resident_id""/>
+                    <field name=""""""start_date""/>
+                    <field name=""""""end_date""/>
+                    <field name=""""""renewal_type""/>
+                    <field name=""""""price_accommodation""/>
+                    <field name=""""""price_dependency""/>
+                    <field name=""""""price_care""/>
+                    <field name=""""""price_services""/>
+                    <field name=""""""state"" widget=""""""badge"" decoration=""""""{&apos;draft&apos;: &apos;info&apos;, &apos;signed&apos;: &apos;warning&apos;, &apos;active&apos;: &apos;success&apos;, &apos;renewed&apos;: &apos;muted&apos;, &apos;terminated&apos;: &apos;danger&apos;}""/>
+                    <field name=""""""signed_date""/>
+                </list>
+            </field>
+        </record>
+
+        <!-- Contract Form View -->
+        <record id=""""""view_sf_senior_contract_form"" model=""""""ir.ui.view"">
+            <field name=""""""name"">sf.senior.contract.form</field>
+            <field name=""""""model"">sf.senior.contract</field>
+            <field name=""""""arch"" type=""""""xml"">
+                <form string=""""""Contract"">
+                    <header>
+                        <button name=""""""action_sign_resident"" type=""""""object"" string=""""""Sign Resident/Family"" class=""""""btn-secondary"" invisible=""""""state!=&apos;draft&apos; or signed_by_resident"" groups=""""""sf_senior_living.group_sf_senior_manager""/>
+                        <button name=""""""action_sign_family"" type=""""""object"" string=""""""Sign Family"" class=""""""btn-secondary"" invisible=""""""state!=&apos;draft&apos; or signed_by_family"" groups=""""""sf_senior_living.group_sf_senior_manager""/>
+                        <button name=""""""action_sign_director"" type=""""""object"" string=""""""Sign Director"" class=""""""btn-secondary"" invisible=""""""state!=&apos;draft&apos; or signed_by_director"" groups=""""""sf_senior_living.group_sf_senior_manager""/>
+                        <button name=""""""action_activate"" type=""""""object"" string=""""""Activate"" class=""""""btn-primary"" invisible=""""""state!=&apos;signed&apos;"" groups=""""""sf_senior_living.group_sf_senior_manager""/>
+                        <button name=""""""action_renew"" type=""""""object"" string=""""""Renew"" class=""""""btn-secondary"" invisible=""""""state!=&apos;active&apos;"" groups=""""""sf_senior_living.group_sf_senior_manager""/>
+                        <button name=""""""action_terminate"" type=""""""object"" string=""""""Terminate"" class=""""""btn-danger"" invisible=""""""state not in (&apos;active&apos;,&apos;signed&apos;)"" groups=""""""sf_senior_living.group_sf_senior_manager""/>
+                        <button name=""""""action_print_contract"" type=""""""object"" string=""""""Print Contract"" class=""""""btn-secondary"" groups=""""""sf_senior_living.group_sf_senior_manager""/>
+                        <field name=""""""state"" widget=""""""statusbar"" statusbar_visible=""""""draft,signed,active,renewed,terminated""/>
+                    </header>
+                    <sheet>
+                        <div class=""""""oe_title"">
+                            <h1><field name=""""""name"" placeholder=""""""Reference (auto)"" readonly=""""""1""/></h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name=""""""resident_id"" required=""""""1""/>
+                                <field name=""""""start_date"" required=""""""1""/>
+                                <field name=""""""end_date""/>
+                                <field name=""""""renewal_type""/>
+                            </group>
+                            <group>
+                                <field name=""""""price_accommodation""/>
+                                <field name=""""""price_dependency""/>
+                                <field name=""""""price_care""/>
+                                <field name=""""""price_services""/>
+                                <field name=""""""state"" readonly=""""""1""/>
+                                <field name=""""""signed_date"" readonly=""""""1""/>
+                            </group>
+                        </group>
+                        <group string=""""""Signatures"">
+                            <group>
+                                <field name=""""""signed_by_resident"" readonly=""""""1""/>
+                                <field name=""""""signed_by_family"" readonly=""""""1""/>
+                                <field name=""""""signed_by_director"" readonly=""""""1""/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string=""""""Terms & Conditions"">
+                                <field name=""""""notes"" placeholder=""""""Contract terms and conditions...""/>
+                            </page>
+                            <page string=""""""Documents"">
+                                <field name=""""""document_ids"" widget=""""""many2many_binary""/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class=""""""oe_chatter"">
+                        <field name=""""""message_follower_ids"" widget=""""""mail_followers""/>
+                        <field name=""""""activity_ids"" widget=""""""mail_activity""/>
+                        <field name=""""""message_ids"" widget=""""""mail_thread""/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <!-- Contract Search View -->
+        <record id=""""""view_sf_senior_contract_search"" model=""""""ir.ui.view"">
+            <field name=""""""name"">sf.senior.contract.search</field>
+            <field name=""""""model"">sf.senior.contract</field>
+            <field name=""""""arch"" type=""""""xml"">
+                <search string=""""""Search Contracts"">
+                    <field name=""""""name""/>
+                    <field name=""""""resident_id""/>
+                    <filter string=""""""Draft"" name=""""""draft"" domain=""""""[(&apos;state&apos;, &apos;=&apos;, &apos;draft&apos;)]""/>
+                    <filter string=""""""Signed"" name=""""""signed"" domain=""""""[(&apos;state&apos;, &apos;=&apos;, &apos;signed&apos;)]""/>
+                    <filter string=""""""Active"" name=""""""active"" domain=""""""[(&apos;state&apos;, &apos;=&apos;, &apos;active&apos;)]""/>
+                    <filter string=""""""Expired"" name=""""""expired"" domain=""""""[(&apos;end_date&apos;, &apos;<&apos;, fields.Date.today()), (&apos;state&apos;, &apos;=&apos;, &apos;active&apos;)]""/>
+                    <group string=""""""Group By"">
+                        <filter string=""""""Resident"" name=""""""group_by_resident"" context=""""""{&apos;group_by&apos;: &apos;resident_id&apos;}""/>
+                        <filter string=""""""State"" name=""""""group_by_state"" context=""""""{&apos;group_by&apos;: &apos;state&apos;}""/>
+                        <filter string=""""""Renewal Type"" name=""""""group_by_renewal"" context=""""""{&apos;group_by&apos;: &apos;renewal_type&apos;}""/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- Contract Action -->
+        <record id=""""""action_sf_senior_contract"" model=""""""ir.actions.act_window"">
+            <field name=""""""name"">Stay Contracts</field>
+            <field name=""""""res_model"">sf.senior.contract</field>
+            <field name=""""""view_mode"">list,form</field>
+        </record>
+    </data>
+</odoo>

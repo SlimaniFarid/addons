@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate=""""""1"">
+        <!-- Report Actions -->
+        <record id=""""""action_report_stay_contract"" model=""""""ir.actions.report"">
+            <field name=""""""name"">Stay Contract</field>
+            <field name=""""""model"">sf.senior.contract</field>
+            <field name=""""""report_type"">qweb-pdf</field>
+            <field name=""""""report_name"">sf_senior_living.report_stay_contract</field>
+            <field name=""""""report_file"">sf_senior_living.report_stay_contract</field>
+            <field name=""""""print_report_name"">"Stay Contract - %s" % object.name</field>
+            <field name=""""""binding_model_id"" ref=""""""model_sf_senior_contract""/>
+            <field name=""""""binding_type"">report</field>
+        </record>
+
+        <record id=""""""action_report_care_plan"" model=""""""ir.actions.report"">
+            <field name=""""""name"">Care Plan / PPS</field>
+            <field name=""""""model"">sf.senior.care_plan</field>
+            <field name=""""""report_type"">qweb-pdf</field>
+            <field name=""""""report_name"">sf_senior_living.report_care_plan</field>
+            <field name=""""""report_file"">sf_senior_living.report_care_plan</field>
+            <field name=""""""print_report_name"">"Care Plan - %s" % object.name</field>
+            <field name=""""""binding_model_id"" ref=""""""model_sf_senior_care_plan""/>
+            <field name=""""""binding_type"">report</field>
+        </record>
+
+        <record id=""""""action_report_gir_evaluation"" model=""""""ir.actions.report"">
+            <field name=""""""name"">GIR Evaluation</field>
+            <field name=""""""model"">sf.senior.gir_evaluation</field>
+            <field name=""""""report_type"">qweb-pdf</field>
+            <field name=""""""report_name"">sf_senior_living.report_gir_evaluation</field>
+            <field name=""""""report_file"">sf_senior_living.report_gir_evaluation</field>
+            <field name=""""""print_report_name"">"GIR Evaluation - %s" % object.name</field>
+            <field name=""""""binding_model_id"" ref=""""""model_sf_senior_gir_evaluation""/>
+            <field name=""""""binding_type"">report</field>
+        </record>
+
+        <record id=""""""action_report_resident_invoice"" model=""""""ir.actions.report"">
+            <field name=""""""name"">Resident Invoice</field>
+            <field name=""""""model"">account.move</field>
+            <field name=""""""report_type"">qweb-pdf</field>
+            <field name=""""""report_name"">sf_senior_living.report_resident_invoice</field>
+            <field name=""""""report_file"">sf_senior_living.report_resident_invoice</field>
+            <field name=""""""print_report_name"">"Invoice - %s" % object.name</field>
+            <field name=""""""binding_model_id"" ref=""""""account.model_account_move""/>
+            <field name=""""""binding_type"">report</field>
+        </record>
+
+        <record id=""""""action_report_room_condition"" model=""""""ir.actions.report"">
+            <field name=""""""name"">Room Condition Report</field>
+            <field name=""""""model"">sf.senior.room</field>
+            <field name=""""""report_type"">qweb-pdf</field>
+            <field name=""""""report_name"">sf_senior_living.report_room_condition</field>
+            <field name=""""""report_file"">sf_senior_living.report_room_condition</field>
+            <field name=""""""print_report_name"">"Room Condition - %s" % object.name</field>
+            <field name=""""""binding_model_id"" ref=""""""model_sf_senior_room""/>
+            <field name=""""""binding_type"">report</field>
+        </record>
+
+        <record id=""""""action_report_activity_planning"" model=""""""ir.actions.report"">
+            <field name=""""""name"">Activity Planning</field>
+            <field name=""""""model"">sf.senior.activity</field>
+            <field name=""""""report_type"">qweb-pdf</field>
+            <field name=""""""report_name"">sf_senior_living.report_activity_planning</field>
+            <field name=""""""report_file"">sf_senior_living.report_activity_planning</field>
+            <field name=""""""print_report_name"">"Activity Planning - Week of %s" % object.planned_date</field>
+            <field name=""""""binding_model_id"" ref=""""""model_sf_senior_activity""/>
+            <field name=""""""binding_type"">report</field>
+        </record>
+
+        <record id=""""""action_report_weekly_menu"" model=""""""ir.actions.report"">
+            <field name=""""""name"">Weekly Menu</field>
+            <field name=""""""model"">sf.senior.menu</field>
+            <field name=""""""report_type"">qweb-pdf</field>
+            <field name=""""""report_name"">sf_senior_living.report_weekly_menu</field>
+            <field name=""""""report_file"">sf_senior_living.report_weekly_menu</field>
+            <field name=""""""print_report_name"">"Weekly Menu - %s" % object.date</field>
+            <field name=""""""binding_model_id"" ref=""""""model_sf_senior_menu""/>
+            <field name=""""""binding_type"">report</field>
+        </record>
+
+        <record id=""""""action_report_ars_compliance"" model=""""""ir.actions.report"">
+            <field name=""""""name"">ARS Compliance Report</field>
+            <field name=""""""model"">sf.senior.residence</field>
+            <field name=""""""report_type"">qweb-pdf</field>
+            <field name=""""""report_name"">sf_senior_living.report_ars_compliance</field>
+            <field name=""""""report_file"">sf_senior_living.report_ars_compliance</field>
+            <field name=""""""print_report_name"">"ARS Compliance - %s" % object.name</field>
+            <field name=""""""binding_model_id"" ref=""""""model_sf_senior_residence""/>
+            <field name=""""""binding_type"">report</field>
+        </record>
+
+        <!-- Report Templates -->
+        <template id=""""""report_stay_contract"">
+            <t t-call=""""""web.html_container"">
+                <t t-foreach=""""""docs"" t-as=""""""doc"">
+                    <t t-call=""""""sf_senior_living.report_stay_contract_template""/>
+                </t>
+            </t>
+        </template>
+
+        <template id=""""""report_care_plan"">
+            <t t-call=""""""web.html_container"">
+                <t t-foreach=""""""docs"" t-as=""""""doc"">
+                    <t t-call=""""""sf_senior_living.report_care_plan_template""/>
+                </t>
+            </t>
+        </template>
+
+        <template id=""""""report_gir_evaluation"">
+            <t t-call=""""""web.html_container"">
+                <t t-foreach=""""""docs"" t-as=""""""doc"">
+                    <t t-call=""""""sf_senior_living.report_gir_evaluation_template""/>
+                </t>
+            </t>
+        </template>
+
+        <template id=""""""report_resident_invoice"">
+            <t t-call=""""""web.html_container"">
+                <t t-foreach=""""""docs"" t-as=""""""doc"">
+                    <t t-call=""""""sf_senior_living.report_resident_invoice_template""/>
+                </t>
+            </t>
+        </template>
+
+        <template id=""""""report_room_condition"">
+            <t t-call=""""""web.html_container"">
+                <t t-foreach=""""""docs"" t-as=""""""doc"">
+                    <t t-call=""""""sf_senior_living.report_room_condition_template""/>
+                </t>
+            </t>
+        </template>
+
+        <template id=""""""report_activity_planning"">
+            <t t-call=""""""web.html_container"">
+                <t t-foreach=""""""docs"" t-as=""""""doc"">
+                    <t t-call=""""""sf_senior_living.report_activity_planning_template""/>
+                </t>
+            </t>
+        </template>
+
+        <template id=""""""report_weekly_menu"">
+            <t t-call=""""""web.html_container"">
+                <t t-foreach=""""""docs"" t-as=""""""doc"">
+                    <t t-call=""""""sf_senior_living.report_weekly_menu_template""/>
+                </t>
+            </t>
+        </template>
+
+        <template id=""""""report_ars_compliance"">
+            <t t-call=""""""web.html_container"">
+                <t t-foreach=""""""docs"" t-as=""""""doc"">
+                    <t t-call=""""""sf_senior_living.report_ars_compliance_template""/>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

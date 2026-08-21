@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id=""""""report_ars_compliance_template"">
+            <div class=""""""page"">
+                <div class=""""""page-header"">
+                    <div class=""""""row"">
+                        <div class=""""""col-6"">
+                            <h2><t t-esc=""""""doc.name""/></h2>
+                            <p><t t-esc=""""""doc.address_id.street""/>, <t t-esc=""""""doc.address_id.zip""/> <t t-esc=""""""doc.address_id.city""/></p>
+                            <p>Directeur: <t t-esc=""""""doc.director_id.name""/></p>
+                            <p>Médecin coordonnateur: <t t-esc=""""""doc.medical_coordinator_id.name""/></p>
+                        </div>
+                        <div class=""""""col-6 text-end"">
+                            <h3>RAPPORT CONFORMITÉ ARS</h3>
+                            <p><strong>Date:</strong> <t t-esc=""""""fields.Date.today()""/></p>
+                            <p><strong>Période:</strong> <t t-esc=""""""(fields.Date.today() - timedelta(days=365)).strftime(&apos;%d/%m/%Y&apos;)""/> - <t t-esc=""""""fields.Date.today().strftime(&apos;%d/%m/%Y&apos;)""/></p>
+                        </div>
+                    </div>
+                    <hr/>
+                </div>
+
+                <div class=""""""page-content"">
+                    <t t-set=""""""residents"" t-value=""""""doc.resident_ids.filtered(lambda r: r.state == &apos;admitted&apos;)""/>
+                    <t t-set=""""""total_residents"" t-value=""""""len(residents)""/>
+
+                    <h4>1. EFFECTIFS ET OCCUPATION</h4>
+                    <table class=""""""table table-bordered table-sm"">
+                        <tr><td>Capacité totale</td><td class=""""""text-center""><t t-esc=""""""doc.capacity_total""/></td></tr>
+                        <tr><td>Résidents admis</td><td class=""""""text-center""><t t-esc=""""""total_residents""/></td></tr>
+                        <tr><td>Taux d'occupation</td><td class=""""""text-center""><t t-esc=""""""round(total_residents / doc.capacity_total * 100, 1) if doc.capacity_total else 0""/>%</td></tr>
+                    </table>
+
+                    <h4>2. MIX GIR</h4>
+                    <table class=""""""table table-bordered table-sm"">
+                        <thead><tr><th>Niveau GIR</th><th>Effectif</th><th>%</th></tr></thead>
+                        <tbody>
+                            <t t-foreach=""""""[&apos;gir1&apos;, &apos;gir2&apos;, &apos;gir3&apos;, &apos;gir4&apos;, &apos;gir5&apos;, &apos;gir6&apos;]"" t-as=""""""gir"">
+                                <t t-set=""""""count"" t-value=""""""len(residents.filtered(lambda r: r.gir_level == gir))""/>
+                                <tr>
+                                    <td>GIR <t t-esc=""""""gir[-1]""/></td>
+                                    <td class=""""""text-center""><t t-esc=""""""count""/></td>
+                                    <td class=""""""text-center""><t t-esc=""""""round(count / total_residents * 100, 1) if total_residents else 0""/>%</td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+
+                    <h4>3. ÉVALUATIONS GIR À JOUR</h4>
+                    <t t-set=""""""gir_ok"" t-value=""""""len(residents.filtered(lambda r: r.gir_next_evaluation and r.gir_next_evaluation >= fields.Date.today()))""/>
+                    <t t-set=""""""gir_due"" t-value=""""""len(residents.filtered(lambda r: r.gir_next_evaluation and r.gir_next_evaluation < fields.Date.today()))""/>
+                    <t t-set=""""""gir_never"" t-value=""""""len(residents.filtered(lambda r: not r.gir_next_evaluation))""/>
+                    <table class=""""""table table-bordered table-sm"">
+                        <tr><td>Évaluations à jour</td><td class=""""""text-center""><t t-esc=""""""gir_ok""/></td><td class=""""""text-center""><t t-esc=""""""round(gir_ok / total_residents * 100, 1) if total_residents else 0""/>%</td></tr>
+                        <tr><td>Évaluations en retard</td><td class=""""""text-center""><t t-esc=""""""gir_due""/></td><td class=""""""text-center""><t t-esc=""""""round(gir_due / total_residents * 100, 1) if total_residents else 0""/>%</td></tr>
+                        <tr><td>Jamais évalués</td><td class=""""""text-center""><t t-esc=""""""gir_never""/></td><td class=""""""text-center""><t t-esc=""""""round(gir_never / total_residents * 100, 1) if total_residents else 0""/>%</td></tr>
+                    </table>
+
+                    <h4>4. PPS VALIDÉS</h4>
+                    <t t-set=""""""care_plans"" t-value=""""""doc.env[&apos;sf.senior.care_plan&apos;].search([(&apos;resident_id&apos;, &apos;in&apos;, residents.ids), (&apos;state&apos;, &apos;=&apos;, &apos;active&apos;)])""/>
+                    <t t-set=""""""pps_validated"" t-value=""""""len(care_plans.filtered(lambda p: p.pps_validated))""/>
+                    <t t-set=""""""pps_draft"" t-value=""""""len(care_plans.filtered(lambda p: not p.pps_validated))""/>
+                    <table class=""""""table table-bordered table-sm"">
+                        <tr><td>PPS validés</td><td class=""""""text-center""><t t-esc=""""""pps_validated""/></td><td class=""""""text-center""><t t-esc=""""""round(pps_validated / len(care_plans) * 100, 1) if care_plans else 0""/>%</td></tr>
+                        <tr><td>PPS en brouillon</td><td class=""""""text-center""><t t-esc=""""""pps_draft""/></td><td class=""""""text-center""><t t-esc=""""""round(pps_draft / len(care_plans) * 100, 1) if care_plans else 0""/>%</td></tr>
+                    </table>
+
+                    <h4>5. CONTRATS DE SÉJOUR SIGNÉS</h4>
+                    <t t-set=""""""contracts"" t-value=""""""doc.contract_ids.filtered(lambda c: c.resident_id.state == &apos;admitted&apos;)""/>
+                    <t t-set=""""""contracts_signed"" t-value=""""""len(contracts.filtered(lambda c: c.state in (&apos;signed&apos;, &apos;active&apos;)))""/>
+                    <t t-set=""""""contracts_draft"" t-value=""""""len(contracts.filtered(lambda c: c.state == &apos;draft&apos;))""/>
+                    <table class=""""""table table-bordered table-sm"">
+                        <tr><td>Contrats signés/actifs</td><td class=""""""text-center""><t t-esc=""""""contracts_signed""/></td><td class=""""""text-center""><t t-esc=""""""round(contracts_signed / len(contracts) * 100, 1) if contracts else 0""/>%</td></tr>
+                        <tr><td>Contrats en brouillon</td><td class=""""""text-center""><t t-esc=""""""contracts_draft""/></td><td class=""""""text-center""><t t-esc=""""""round(contracts_draft / len(contracts) * 100, 1) if contracts else 0""/>%</td></tr>
+                    </table>
+
+                    <h4>6. EFFECTIFS SOIGNANTS</h4>
+                    <t t-set=""""""care_staff"" t-value=""""""doc.env[&apos;hr.employee&apos;].search([(&apos;department_id.name&apos;, &apos;ilike&apos;, &apos;soin&apos;), (&apos;company_id&apos;, &apos;=&apos;, doc.company_id.id)])""/>
+                    <t t-set=""""""anim_staff"" t-value=""""""doc.env[&apos;hr.employee&apos;].search([(&apos;department_id.name&apos;, &apos;ilike&apos;, &apos;anim&apos;), (&apos;company_id&apos;, &apos;=&apos;, doc.company_id.id)])""/>
+                    <table class=""""""table table-bordered table-sm"">
+                        <tr><td>Personnel soignant (IDE/AS)</td><td class=""""""text-center""><t t-esc=""""""len(care_staff)""/></td></tr>
+                        <tr><td>Personnel animation</td><td class=""""""text-center""><t t-esc=""""""len(anim_staff)""/></td></tr>
+                        <tr><td>Ratio soignants/résidents</td><td class=""""""text-center""><t t-esc=""""""round(len(care_staff) / total_residents, 2) if total_residents else 0""/></td></tr>
+                    </table>
+
+                    <h4>7. CHARGES DE SOINS</h4>
+                    <t t-set=""""""nursing_notes"" t-value=""""""doc.env[&apos;sf.senior.nursing_note&apos;].search([(&apos;resident_id&apos;, &apos;in&apos;, residents.ids), (&apos;note_date&apos;, &apos;>=&apos;, fields.Date.today() - timedelta(days=30))])""/>
+                    <t t-set=""""""alerts"" t-value=""""""len(nursing_notes.filtered(lambda n: n.alert))""/>
+                    <table class=""""""table table-bordered table-sm"">
+                        <tr><td>Transmissions infirmières (30j)</td><td class=""""""text-center""><t t-esc=""""""len(nursing_notes)""/></td></tr>
+                        <tr><td>Alertes (30j)</td><td class=""""""text-center""><t t-esc=""""""alerts""/></td></tr>
+                        <tr><td>Moyenne transmissions/jour/résident</td><td class=""""""text-center""><t t-esc=""""""round(len(nursing_notes) / total_residents / 30, 2) if total_residents else 0""/></td></tr>
+                    </table>
+                </div>
+
+                <div class=""""""page-footer"">
+                    <hr/>
+                    <p class=""""""text-center text-muted small"">
+                        <t t-esc=""""""doc.name""/> - Rapport généré le <t t-esc=""""""fields.Date.today()""/> - Conformément aux exigences ARS
+                    </p>
+                </div>
+            </div>
+        </template>
+    </data>
+</odoo>

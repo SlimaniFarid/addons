@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Invoice Line List View -->
+        <record id=""""""view_sf_senior_invoice_line_list"" model=""""""ir.ui.view"">
+            <field name=""""""name"">sf.senior.invoice_line.list</field>
+            <field name=""""""model"">sf.senior.invoice_line</field>
+            <field name=""""""arch"" type=""""""xml"">
+                <list string=""""""Invoice Lines"">
+                    <field name=""""""name""/>
+                    <field name=""""""resident_id""/>
+                    <field name=""""""invoice_id""/>
+                    <field name=""""""period_start""/>
+                    <field name=""""""period_end""/>
+                    <field name=""""""line_type"" widget=""""""badge"" decoration=""""""{&apos;accommodation&apos;: &apos;info&apos;, &apos;dependency&apos;: &apos;warning&apos;, &apos;care&apos;: &apos;success&apos;, &apos;services&apos;: &apos;primary&apos;, &apos;meals&apos;: &apos;secondary&apos;, &apos;other&apos;: &apos;muted&apos;}""/>
+                    <field name=""""""description""/>
+                    <field name=""""""quantity""/>
+                    <field name=""""""price_unit""/>
+                    <field name=""""""price_subtotal""/>
+                    <field name=""""""gir_level_at_billing""/>
+                </list>
+            </field>
+        </record>
+
+        <!-- Invoice Line Form View -->
+        <record id=""""""view_sf_senior_invoice_line_form"" model=""""""ir.ui.view"">
+            <field name=""""""name"">sf.senior.invoice_line.form</field>
+            <field name=""""""model"">sf.senior.invoice_line</field>
+            <field name=""""""arch"" type=""""""xml"">
+                <form string=""""""Invoice Line"">
+                    <sheet>
+                        <div class=""""""oe_title"">
+                            <h1><field name=""""""name"" placeholder=""""""Reference (auto)"" readonly=""""""1""/></h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name=""""""resident_id"" required=""""""1""/>
+                                <field name=""""""invoice_id""/>
+                                <field name=""""""period_start"" required=""""""1""/>
+                                <field name=""""""period_end"" required=""""""1""/>
+                            </group>
+                            <group>
+                                <field name=""""""line_type"" required=""""""1""/>
+                                <field name=""""""quantity""/>
+                                <field name=""""""price_unit""/>
+                                <field name=""""""gir_level_at_billing""/>
+                            </group>
+                        </group>
+                        <group string=""""""Description"">
+                            <field name=""""""description""/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Invoice Line Search View -->
+        <record id=""""""view_sf_senior_invoice_line_search"" model=""""""ir.ui.view"">
+            <field name=""""""name"">sf.senior.invoice_line.search</field>
+            <field name=""""""model"">sf.senior.invoice_line</field>
+            <field name=""""""arch"" type=""""""xml"">
+                <search string=""""""Search Invoice Lines"">
+                    <field name=""""""name""/>
+                    <field name=""""""resident_id""/>
+                    <field name=""""""invoice_id""/>
+                    <filter string=""""""Accommodation"" name=""""""accommodation"" domain=""""""[(&apos;line_type&apos;, &apos;=&apos;, &apos;accommodation&apos;)]""/>
+                    <filter string=""""""Dependency"" name=""""""dependency"" domain=""""""[(&apos;line_type&apos;, &apos;=&apos;, &apos;dependency&apos;)]""/>
+                    <filter string=""""""Care"" name=""""""care"" domain=""""""[(&apos;line_type&apos;, &apos;=&apos;, &apos;care&apos;)]""/>
+                    <filter string=""""""Services"" name=""""""services"" domain=""""""[(&apos;line_type&apos;, &apos;=&apos;, &apos;services&apos;)]""/>
+                    <filter string=""""""Meals"" name=""""""meals"" domain=""""""[(&apos;line_type&apos;, &apos;=&apos;, &apos;meals&apos;)]""/>
+                    <group string=""""""Group By"">
+                        <filter string=""""""Resident"" name=""""""group_by_resident"" context=""""""{&apos;group_by&apos;: &apos;resident_id&apos;}""/>
+                        <filter string=""""""Line Type"" name=""""""group_by_type"" context=""""""{&apos;group_by&apos;: &apos;line_type&apos;}""/>
+                        <filter string=""""""Period"" name=""""""group_by_period"" context=""""""{&apos;group_by&apos;: &apos;period_start&apos;}""/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- Invoice Line Action -->
+        <record id=""""""action_sf_senior_invoice_line"" model=""""""ir.actions.act_window"">
+            <field name=""""""name"">Resident Invoice Lines</field>
+            <field name=""""""res_model"">sf.senior.invoice_line</field>
+            <field name=""""""view_mode"">list,form</field>
+        </record>
+
+        <!-- Family Message List View -->
+        <record id=""""""view_sf_senior_family_message_list"" model=""""""ir.ui.view"">
+            <field name=""""""name"">sf.senior.family_message.list</field>
+            <field name=""""""model"">sf.senior.family_message</field>
+            <field name=""""""arch"" type=""""""xml"">
+                <list string=""""""Family Messages"" decoration-warning=""""""priority==&apos;high&apos;"" decoration-danger=""""""priority==&apos;urgent&apos;"" decoration-muted=""""""is_read==True"">
+                    <field name=""""""name""/>
+                    <field name=""""""resident_id""/>
+                    <field name=""""""sender_id""/>
+                    <field name=""""""recipient_type""/>
+                    <field name=""""""subject""/>
+                    <field name=""""""priority"" widget=""""""badge"" decoration=""""""{&apos;normal&apos;: &apos;success&apos;, &apos;high&apos;: &apos;warning&apos;, &apos;urgent&apos;: &apos;danger&apos;}""/>
+                    <field name=""""""is_read"" widget=""""""boolean_toggle""/>
+                    <field name=""""""create_date""/>
+                </list>
+            </field>
+        </record>
+
+        <!-- Family Message Form View -->
+        <record id=""""""view_sf_senior_family_message_form"" model=""""""ir.ui.view"">
+            <field name=""""""name"">sf.senior.family_message.form</field>
+            <field name=""""""model"">sf.senior.family_message</field>
+            <field name=""""""arch"" type=""""""xml"">
+                <form string=""""""Family Message"">
+                    <header>
+                        <button name=""""""action_mark_read"" type=""""""object"" string=""""""Mark as Read"" class=""""""btn-secondary"" invisible=""""""is_read""/>
+                        <button name=""""""action_mark_unread"" type=""""""object"" string=""""""Mark as Unread"" class=""""""btn-secondary"" invisible=""""""not is_read""/>
+                    </header>
+                    <sheet>
+                        <div class=""""""oe_title"">
+                            <h1><field name=""""""name"" placeholder=""""""Reference (auto)"" readonly=""""""1""/></h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name=""""""resident_id"" required=""""""1""/>
+                                <field name=""""""sender_id"" required=""""""1"" readonly=""""""1""/>
+                                <field name=""""""recipient_type"" required=""""""1""/>
+                                <field name=""""""priority""/>
+                            </group>
+                            <group>
+                                <field name=""""""is_read"" widget=""""""boolean_toggle""/>
+                            </group>
+                        </group>
+                        <group string=""""""Subject"">
+                            <field name=""""""subject""/>
+                        </group>
+                        <group string=""""""Body"">
+                            <field name=""""""body"" placeholder=""""""Message content...""/>
+                        </group>
+                        <group string=""""""Attachments"">
+                            <field name=""""""attachment_ids"" widget=""""""many2many_binary""/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Family Message Search View -->
+        <record id=""""""view_sf_senior_family_message_search"" model=""""""ir.ui.view"">
+            <field name=""""""name"">sf.senior.family_message.search</field>
+            <field name=""""""model"">sf.senior.family_message</field>
+            <field name=""""""arch"" type=""""""xml"">
+                <search string=""""""Search Family Messages"">
+                    <field name=""""""name""/>
+                    <field name=""""""resident_id""/>
+                    <field name=""""""sender_id""/>
+                    <field name=""""""subject""/>
+                    <filter string=""""""Unread"" name=""""""unread"" domain=""""""[(&apos;is_read&apos;, &apos;=&apos;, False)]""/>
+                    <filter string=""""""High Priority"" name=""""""high_priority"" domain=""""""[(&apos;priority&apos;, &apos;in&apos;, [&apos;high&apos;, &apos;urgent&apos;])]""/>
+                    <filter string=""""""From Family"" name=""""""from_family"" domain=""""""[(&apos;recipient_type&apos;, &apos;=&apos;, &apos;family&apos;)]""/>
+                    <filter string=""""""From Staff"" name=""""""from_staff"" domain=""""""[(&apos;recipient_type&apos;, &apos;=&apos;, &apos;staff&apos;)]""/>
+                    <group string=""""""Group By"">
+                        <filter string=""""""Resident"" name=""""""group_by_resident"" context=""""""{&apos;group_by&apos;: &apos;resident_id&apos;}""/>
+                        <filter string=""""""Recipient Type"" name=""""""group_by_recipient"" context=""""""{&apos;group_by&apos;: &apos;recipient_type&apos;}""/>
+                        <filter string=""""""Priority"" name=""""""group_by_priority"" context=""""""{&apos;group_by&apos;: &apos;priority&apos;}""/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- Family Message Action -->
+        <record id=""""""action_sf_senior_family_message"" model=""""""ir.actions.act_window"">
+            <field name=""""""name"">Family Messages</field>
+            <field name=""""""res_model"">sf.senior.family_message</field>
+            <field name=""""""view_mode"">list,form</field>
+        </record>
+    </data>
+</odoo>
