@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <record id="ir_cron_clean_mcp_logs" model="ir.cron">
         <field name="name">Clean MCP Request Logs</field>

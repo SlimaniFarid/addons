@@ -29,7 +29,7 @@ Ideal for:
     'support': 'tech5262@gmail.com',
     'website': '',
     'category': 'Other/Others',
-    'version': '18.0.1.0.0',
+    'version': '18.0.1.0',
     'license': 'OPL-1',
     'price': 62.50,
     'currency': 'EUR',

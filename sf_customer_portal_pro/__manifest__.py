@@ -1,6 +1,6 @@
 {
     'name': 'Customer Self-Service Portal Pro',
-    'version': '18.0.1.0.0',
+    'version': '18.0.1.0',
     'category': 'Website',
     'summary': 'B2B/B2C portal: invoices, payments, subscriptions, returns, tickets, documents',
     'description': """Customer Self-Service Portal Pro

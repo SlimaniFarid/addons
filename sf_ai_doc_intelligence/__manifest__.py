@@ -1,6 +1,6 @@
 {
     'name': 'AI Document Intelligence Hub',
-    'version': '18.0.1.0.0',
+    'version': '18.0.1.0',
     'category': 'Productivity',
     'summary': 'Classify, extract & route documents (invoices, contracts, CVs, claims) with AI',
     'description': """AI Document Intelligence Hub

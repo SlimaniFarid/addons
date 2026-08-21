@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Compliance Documents & Licenses Register',
-    'version': '18.0.1.0.0',
+    'version': '18.0.1.0',
     'category': 'Operations',
     'summary': 'Track licenses, permits, certifications and insurance expirations with alerts',
     'description': """

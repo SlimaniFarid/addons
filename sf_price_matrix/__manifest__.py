@@ -1,6 +1,6 @@
 {
     'name': 'B2B Price & Discount Matrix',
-    'version': '18.0.1.0.0',
+    'version': '18.0.1.0',
     'category': 'Sales',
     'summary': 'Tiered pricing and discount matrix per customer category',
     'description': """

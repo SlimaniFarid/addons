@@ -159,8 +159,13 @@ class TestSfProductReviews(TransactionCase):
 
     def test_multi_company_isolation(self):
         company2 = self.env['res.company'].create({'name': 'Reviews Co 2'})
+        product2 = self.env['product.template'].with_company(company2).create({
+            'name': 'Product Company 2',
+            'type': 'service',
+            'company_id': company2.id,
+        })
         review2 = self.env['sf.product.review'].with_company(company2).create({
-            'product_id': self.product.id,
+            'product_id': product2.id,
             'partner_id': self.customer.id,
             'author_name': 'Tom',
             'rating': 5,

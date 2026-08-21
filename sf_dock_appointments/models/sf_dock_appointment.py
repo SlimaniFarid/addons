@@ -21,7 +21,8 @@ class SfDockAppointment(models.Model):
         ('outbound', 'Outbound'),
     ], string='Direction', required=True, default='inbound')
     reference = fields.Char(string='Reference')
-    appointment_datetime = fields.Datetime(string='Appointment', required=True)
+    appointment_datetime = fields.Datetime(string='Appointment', required=True,
+                                           index=True)
     window_minutes = fields.Integer(string='Window (Minutes)', required=True,
                                     default=60)
     carrier_name = fields.Char(string='Carrier Name')
@@ -44,7 +45,7 @@ class SfDockAppointment(models.Model):
                                            compute='_compute_durations', store=True)
     notes = fields.Text(string='Notes')
     company_id = fields.Many2one('res.company', string='Company', store=True,
-                                 default=lambda self: self.env.company)
+                                 default=lambda self: self.env.company, index=True)
 
     _sql_constraints = [
         ('check_window_positive',
@@ -127,6 +128,11 @@ class SfDockAppointment(models.Model):
                     exclude_id=record.id)
         return super().write(vals)
 
+    def _get_grace_minutes(self):
+        param = self.env['ir.config_parameter'].sudo().get_param(
+            'sf_dock_appointments.grace_minutes')
+        return int(param) if param else 15
+
     def _check_manager(self):
         if not self.env.user.has_group('sf_dock_appointments.group_sf_dock_appointments_manager'):
             raise UserError(_('Only a dock appointments manager can perform this action.'))
@@ -135,10 +141,14 @@ class SfDockAppointment(models.Model):
         self.ensure_one()
         if self.state != 'scheduled':
             raise UserError(_('Only scheduled appointments can be registered as arrived.'))
+        arrival = self.actual_arrival_datetime or fields.Datetime.now()
+        earliest = self.appointment_datetime - timedelta(minutes=self._get_grace_minutes())
+        if arrival < earliest:
+            raise UserError(_(
+                'Arrival time cannot be earlier than %s minutes before the appointment time.') % self._get_grace_minutes())
         self.write({
             'state': 'arrived',
-            'actual_arrival_datetime': self.actual_arrival_datetime
-            or fields.Datetime.now(),
+            'actual_arrival_datetime': arrival,
         })
 
     def action_dock(self):
@@ -178,10 +188,17 @@ class SfDockAppointment(models.Model):
             'sf_dock_appointments.grace_minutes')
         grace = int(grace_param) if grace_param else 15
         companies = self.env['res.company'].search([])
+        now = fields.Datetime.now()
+        # Pre-filter: appointment_datetime + max_window/2 + grace < now
+        # Use a reasonable max window (e.g., 480 minutes) to limit search
+        max_window = 480
+        cutoff = now - timedelta(minutes=max_window / 2 + grace)
         for company in companies:
             scoped = self.with_company(company)
-            now = fields.Datetime.now()
-            domain = [('state', '=', 'scheduled')]
+            domain = [
+                ('state', '=', 'scheduled'),
+                ('appointment_datetime', '<', cutoff),
+            ]
             candidates = scoped.env['sf.dock.appointment'].search(domain)
             for appointment in candidates:
                 _, window_end = self._window_bounds(

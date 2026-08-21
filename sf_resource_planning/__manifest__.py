@@ -1,6 +1,6 @@
 {
     'name': 'Resource Capacity Planning',
-    'version': '18.0.1.0.0',
+    'version': '18.0.1.0',
     'category': 'Project',
     'summary': 'Allocate resources to projects, track capacity and avoid overload',
     'description': """

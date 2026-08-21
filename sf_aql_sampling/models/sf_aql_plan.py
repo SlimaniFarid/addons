@@ -6,7 +6,7 @@ from odoo.exceptions import ValidationError
 class SfAqlPlan(models.Model):
     _name = 'sf.aql.plan'
     _description = 'AQL Sampling Plan'
-    _inherit = ['mail.thread', 'mail.activity.mixin', 'sf.aql.sampling.activity.mixin']
+    _inherit = ['mail.thread', 'mail.activity.mixin']
     _order = 'inspection_level asc, lot_size_min asc'
 
     name = fields.Char(string='Name', required=True, copy=False)

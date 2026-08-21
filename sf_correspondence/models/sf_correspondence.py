@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-from datetime import timedelta
-
 from odoo import _, api, fields, models
 from odoo.exceptions import UserError
 
@@ -15,21 +13,23 @@ class SfCorrespondence(models.Model):
     direction = fields.Selection([
         ('inbound', 'Inbound'),
         ('outbound', 'Outbound'),
-    ], string='Direction', required=True)
+    ], string='Direction', required=True, index=True)
     correspondence_date = fields.Date(
         string='Date', default=fields.Date.context_today)
     partner_id = fields.Many2one(
         'res.partner', string='Correspondent', required=True)
     department_id = fields.Many2one(
-        'sf.correspondence.department', string='Department')
+        'sf.correspondence.department', string='Department', index=True)
     assigned_to = fields.Many2one(
         'res.users', string='Assigned To',
         default=lambda self: self.env.user)
     subject = fields.Char(string='Subject', required=True)
     reference = fields.Char(string='Reference')
     registered_mail = fields.Boolean(string='Registered Mail')
-    ack_received = fields.Boolean(string='Acknowledgment Received')
-    response_due_date = fields.Date(string='Response Due Date')
+    ack_received = fields.Boolean(
+        string='Acknowledgment Received',
+        readonly="[('registered_mail', '=', False)]")
+    response_due_date = fields.Date(string='Response Due Date', index=True)
     response_date = fields.Date(string='Response Date')
     state = fields.Selection([
         ('draft', 'Draft'),
@@ -38,7 +38,7 @@ class SfCorrespondence(models.Model):
         ('responded', 'Responded'),
         ('archived', 'Archived'),
         ('cancelled', 'Cancelled'),
-    ], string='Status', default='draft', copy=False)
+    ], string='Status', default='draft', copy=False, index=True)
     attachment_ids = fields.One2many(
         'ir.attachment', 'res_id', string='Attachments',
         domain=lambda self: [('res_model', '=', self._name)])
@@ -111,18 +111,14 @@ class SfCorrespondence(models.Model):
         for company in companies:
             scoped = self.with_company(company)
             today = fields.Date.context_today(scoped)
-            param = self.env['ir.config_parameter'].sudo().get_param(
-                'sf_correspondence.default_reminder_days')
-            reminder_days = int(param) if param else 2
-            deadline = today + timedelta(days=reminder_days)
             due = scoped.env['sf.correspondence'].search([
                 ('state', 'in', ('open', 'in_progress')),
                 ('response_due_date', '!=', False),
-                ('response_due_date', '<=', deadline),
+                ('response_due_date', '<=', today),
             ])
             for record in due:
                 record._sf_check_todo(
                     todo_type,
-                    'Response due for %s' % record.name,
-                    'The response is due since %s.' % record.response_due_date,
+                    'Response overdue for %s' % record.name,
+                    'The response was due on %s.' % record.response_due_date,
                 )

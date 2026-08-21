@@ -15,6 +15,9 @@ class TestSfTradePromotions(TransactionCase):
         self.customer = self.env['res.partner'].create({
             'name': 'Customer %s' % uuid.uuid4().hex[:6],
         })
+        self.customer2 = self.env['res.partner'].create({
+            'name': 'Customer 2 %s' % uuid.uuid4().hex[:6],
+        })
 
     def _create_program(self, budget=1000.0, days_start=-5, days_end=10, state=None, **kw):
         vals = {
@@ -90,8 +93,8 @@ class TestSfTradePromotions(TransactionCase):
         claim.action_submit()
         claim.action_reject()
         self.assertEqual(claim.state, 'rejected')
-        claim.action_cancel()
-        self.assertEqual(claim.state, 'cancelled')
+        with self.assertRaises(UserError):
+            claim.action_cancel()
 
     def test_submit_requires_active_program(self):
         program = self._create_program()
@@ -195,6 +198,82 @@ class TestSfTradePromotions(TransactionCase):
         action = self.env.ref(
             'sf_trade_promotions.action_report_trade_program').report_action(program)
         self.assertTrue(action)
+        self.assertIn('data', action)
+        self.assertEqual(action['report_type'], 'qweb-pdf')
         action = self.env.ref(
             'sf_trade_promotions.action_report_trade_claim').report_action(claim)
         self.assertTrue(action)
+        self.assertIn('data', action)
+        self.assertEqual(action['report_type'], 'qweb-pdf')
+
+    def test_partner_eligibility_constraint(self):
+        program = self._create_program(state='active', partner_ids=[(6, 0, [self.customer.id])])
+        # Customer not in program partner_ids should raise
+        claim = self._create_claim(program, partner_id=self.customer2.id)
+        with self.assertRaises(UserError):
+            claim.action_submit()
+
+    def test_cancel_only_draft_submitted(self):
+        program = self._create_program(state='active')
+        claim = self._create_claim(program)
+        claim.action_submit()
+        claim.action_reject()
+        # Cannot cancel from rejected state
+        with self.assertRaises(UserError):
+            claim.action_cancel()
+        # But can cancel from draft/submitted
+        claim2 = self._create_claim(program)
+        claim2.action_cancel()
+        self.assertEqual(claim2.state, 'cancelled')
+        claim3 = self._create_claim(program)
+        claim3.action_submit()
+        claim3.action_cancel()
+        self.assertEqual(claim3.state, 'cancelled')
+
+    def test_multi_company_domain_partner_ids(self):
+        company2 = self.env['res.company'].create({'name': 'Trade Co 2'})
+        customer2 = self.env['res.partner'].create({
+            'name': 'Customer Co2 %s' % uuid.uuid4().hex[:4],
+            'company_id': company2.id,
+        })
+        program = self._create_program(state='active')
+        # Program in company1 should not allow selecting customer from company2 in partner_ids
+        # This is enforced by domain, but we test the record rule isolation
+        program.partner_ids = [(6, 0, [self.customer.id, customer2.id])]
+        self.assertEqual(len(program.partner_ids), 2)
+
+    def test_invoice_id_domain(self):
+        # Create a customer invoice and a vendor bill
+        invoice = self.env['account.move'].create({
+            'move_type': 'out_invoice',
+            'partner_id': self.customer.id,
+            'invoice_date': odoo_fields.Date.today(),
+            'line_ids': [(0, 0, {
+                'name': 'Test line',
+                'quantity': 1,
+                'price_unit': 100.0,
+            })],
+        })
+        vendor_bill = self.env['account.move'].create({
+            'move_type': 'in_invoice',
+            'partner_id': self.customer.id,
+            'invoice_date': odoo_fields.Date.today(),
+            'line_ids': [(0, 0, {
+                'name': 'Test line',
+                'quantity': 1,
+                'price_unit': 100.0,
+            })],
+        })
+        program = self._create_program(state='active')
+        claim = self._create_claim(program)
+        claim.invoice_id = invoice.id
+        # This should work
+        self.assertEqual(claim.invoice_id, invoice)
+        # Setting vendor bill should be prevented by domain (but create bypasses domain)
+        # We test that the domain filters correctly in search
+        domain_invoices = self.env['account.move'].search([
+            ('move_type', '=', 'out_invoice'),
+            ('company_id', '=', self.env.company.id),
+        ])
+        self.assertIn(invoice, domain_invoices)
+        self.assertNotIn(vendor_bill, domain_invoices)

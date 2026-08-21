@@ -10,9 +10,10 @@
                 <field name="lot_id"/>
                 <field name="qty"/>
                 <field name="source"/>
+                <field name="disposition"/>
                 <field name="assignee_id"/>
                 <field name="total_hours"/>
-                <field name="total_cost"/>
+                <field name="total_cost" widget="monetary" options="{'currency_field': 'currency_id'}"/>
                 <field name="state" widget="badge"/>
                 <field name="company_id" groups="base.group_multi_company"/>
             </list>
@@ -34,7 +35,7 @@
                         </div>
                         <div class="oe_kanban_details">
                             <div>Hours: <field name="total_hours"/></div>
-                            <div>Total Cost: <field name="total_cost"/></div>
+                            <div>Total Cost: <field name="total_cost" widget="monetary" options="{'currency_field': 'currency_id'}"/></div>
                             <field name="state" widget="badge"/>
                         </div>
                     </div>
@@ -66,24 +67,25 @@
                             <field name="product_id"/>
                             <field name="lot_id"/>
                             <field name="qty"/>
-                            <field name="uom_id"/>
                         </group>
                         <group>
                             <field name="source"/>
                             <field name="reason"/>
+                            <field name="disposition"/>
                             <field name="assignee_id"/>
-                            <field name="hourly_rate"/>
+                            <field name="hourly_rate" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                            <field name="currency_id" invisible="1"/>
                             <field name="company_id" groups="base.group_multi_company"/>
                         </group>
                     </group>
                     <group string="Costs">
                         <group>
                             <field name="total_hours"/>
-                            <field name="rework_cost"/>
+                            <field name="rework_cost" widget="monetary" options="{'currency_field': 'currency_id'}"/>
                         </group>
                         <group>
-                            <field name="scrap_value"/>
-                            <field name="total_cost"/>
+                            <field name="scrap_value" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                            <field name="total_cost" widget="monetary" options="{'currency_field': 'currency_id'}"/>
                         </group>
                     </group>
                     <group string="Timeline">
@@ -100,10 +102,13 @@
                             <field name="operation_ids">
                                 <list string="Operations">
                                     <field name="name"/>
+                                    <field name="operator_name"/>
                                     <field name="user_id"/>
                                     <field name="hours"/>
+                                    <field name="hourly_rate" widget="monetary" options="{'currency_field': 'currency_id'}"/>
                                     <field name="done"/>
                                     <field name="description"/>
+                                    <field name="notes"/>
                                 </list>
                             </field>
                         </page>
@@ -112,9 +117,9 @@
                                 <list string="Scrap">
                                     <field name="product_id"/>
                                     <field name="qty"/>
-                                    <field name="uom_id"/>
-                                    <field name="value"/>
-                                    <field name="reason"/>
+                                    <field name="unit_value" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                    <field name="value" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                    <field name="scrap_reason"/>
                                 </list>
                             </field>
                         </page>

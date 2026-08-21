@@ -38,6 +38,9 @@ class SfProductReview(models.Model):
 
     @api.depends('partner_id', 'product_id', 'company_id')
     def _compute_verified_purchase(self):
+        # sudo() is required because sale.order.line access is restricted by company
+        # and the review's company_id may differ from the user's current company.
+        # The search is limited to the review's own company_id for security.
         for review in self:
             verified = False
             if review.partner_id:

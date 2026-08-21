@@ -11,7 +11,7 @@
             <field name="name">Correspondence Department</field>
             <field name="code">sf.correspondence.department</field>
             <field name="prefix">DEP-</field>
-            <field name="padding">3</field>
+            <field name="padding">6</field>
         </record>
     </data>
 </odoo>

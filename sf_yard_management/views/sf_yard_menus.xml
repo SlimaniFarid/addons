@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_sf_yard_root"
+              name="Yard Management"
+              sequence="27"
+              groups="sf_yard_management.group_sf_yard_user"
+              web_icon="sf_yard_management,static/description/icon.png"/>
+    <menuitem id="menu_sf_yard_trailers" name="Trailers"
+              parent="menu_sf_yard_root" action="action_sf_yard_trailer"
+              sequence="10" groups="sf_yard_management.group_sf_yard_user"/>
+    <menuitem id="menu_sf_yard_checkins" name="Check-ins"
+              parent="menu_sf_yard_root" action="action_sf_yard_checkin"
+              sequence="20" groups="sf_yard_management.group_sf_yard_user"/>
+    <menuitem id="menu_sf_yard_shunts" name="Shunt Moves"
+              parent="menu_sf_yard_root" action="action_sf_yard_shunt"
+              sequence="30" groups="sf_yard_management.group_sf_yard_user"/>
+    <menuitem id="menu_sf_yard_detention" name="Detention"
+              parent="menu_sf_yard_root" action="action_sf_yard_detention"
+              sequence="40" groups="sf_yard_management.group_sf_yard_user"/>
+    <menuitem id="menu_sf_yard_zones" name="Zones &amp; Locations"
+              parent="menu_sf_yard_root" action="action_sf_yard_zone"
+              sequence="50" groups="sf_yard_management.group_sf_yard_manager"/>
+</odoo>

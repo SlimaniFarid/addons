@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Field Sales Routes & Territory Management',
-    'version': '18.0.1.0.0',
+    'version': '18.0.1.0',
     'category': 'Sales',
     'summary': 'Plan field sales routes, track visits, territories and objectives',
     'description': """

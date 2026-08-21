@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Business Mail & Correspondence Register',
-    'version': '18.0.1.0.0',
+    'version': '18.0.1.0',
     'category': 'Operations',
     'summary': 'Incoming and outgoing correspondence register with routing, response deadlines and registered mail tracking',
     'description': 'Business mail and correspondence register for administrative and legal departments: record inbound and outbound correspondence (direction, date, correspondent, subject, reference, type, registered mail), route it to an internal department and a responsible person, track its status (open, in progress, responded, archived), follow response deadlines with automatic reminders, track registered mail acknowledgments, attach scanned documents, and print PDF reports (correspondence register and correspondence sheet).',
@@ -26,6 +26,5 @@
         'views/sf_correspondence_menus.xml',
         'views/report_correspondence_register.xml',
         'views/report_correspondence_sheet.xml',
-        'views/res_config_settings_views.xml',
     ],
 }

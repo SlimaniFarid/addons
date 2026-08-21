@@ -25,13 +25,13 @@
                         <group>
                             <field name="cost_method"/>
                             <field name="fixed_price"
-                                   invisible="[('cost_method', '!=', 'fixed')]"/>
+                                   attrs="{'invisible': [('cost_method', '!=', 'fixed')]}"/>
                             <field name="per_kg"
-                                   invisible="[('cost_method', '!=', 'weight')]"/>
+                                   attrs="{'invisible': [('cost_method', '!=', 'weight')]}"/>
                             <field name="per_m3"
-                                   invisible="[('cost_method', '!=', 'volume')]"/>
+                                   attrs="{'invisible': [('cost_method', '!=', 'volume')]}"/>
                             <field name="percent_value"
-                                   invisible="[('cost_method', '!=', 'value')]"/>
+                                   attrs="{'invisible': [('cost_method', '!=', 'value')]}"/>
                         </group>
                         <group>
                             <field name="min_charge"/>
@@ -65,7 +65,7 @@
                 <header>
                     <button name="action_mark_actual" type="object"
                             string="Mark Actual" class="btn-primary"
-                            invisible="[('state', 'not in', ('estimated',))]"/>
+                            states="estimated"/>
                     <field name="state" widget="statusbar"/>
                 </header>
                 <sheet>

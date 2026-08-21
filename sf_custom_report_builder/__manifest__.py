@@ -1,6 +1,6 @@
 {
     'name': 'PDF Report Builder',
-    'version': '18.0.1.0.0',
+    'version': '18.0.1.0',
     'category': 'Productivity',
     'summary': 'Design professional PDF reports without code',
     'description': "Create custom PDF reports (quotes, invoices, delivery slips, purchase orders) with a visual drag-and-drop builder. Add logo, text blocks, tables, signatures, dynamic fields, and conditional sections. No Python/XML coding required. Templates can be assigned per document type and company.",

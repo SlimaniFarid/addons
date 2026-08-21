@@ -5,5 +5,3 @@ access_sf_aql_defect_user,sf.aql.defect.user,model_sf_aql_defect,sf_aql_sampling
 access_sf_aql_plan_manager,sf.aql.plan.manager,model_sf_aql_plan,sf_aql_sampling.group_sf_aql_sampling_manager,1,1,1,1
 access_sf_aql_inspection_manager,sf.aql.inspection.manager,model_sf_aql_inspection,sf_aql_sampling.group_sf_aql_sampling_manager,1,1,1,1
 access_sf_aql_defect_manager,sf.aql.defect.manager,model_sf_aql_defect,sf_aql_sampling.group_sf_aql_sampling_manager,1,1,1,1
-access_sf_aql_sampling_mail_activity,sf.aql.sampling.mail.activity.user,mail.activity,sf_aql_sampling.group_sf_aql_sampling_user,1,1,1,0
-access_sf_aql_sampling_activity_mixin,sf.aql.sampling.activity.mixin.user,model_sf_aql_sampling_activity_mixin,sf_aql_sampling.group_sf_aql_sampling_user,1,1,1,0

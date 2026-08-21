@@ -10,7 +10,7 @@ class SfShareClass(models.Model):
     name = fields.Char(string='Name', required=True, copy=False)
     nominal_value = fields.Monetary(
         string='Nominal Value', currency_field='currency_id')
-    authorized_shares = fields.Integer(string='Authorized Shares')
+    authorized_shares = fields.Integer(string='Authorized Shares', default=0)
     currency_id = fields.Many2one(
         'res.currency', string='Currency',
         related='company_id.currency_id', readonly=True, store=True)
@@ -24,15 +24,18 @@ class SfShareClass(models.Model):
 
     @api.depends('capital_movement_ids.state',
                  'capital_movement_ids.quantity',
-                 'capital_movement_ids.direction')
+                 'capital_movement_ids.movement_type')
     def _compute_issued_shares(self):
         for share_class in self:
             moves = share_class.capital_movement_ids.filtered(
                 lambda m: m.state == 'posted')
             issued = 0
             for move in moves:
-                issued += move.quantity if move.direction == 'buy' \
-                    else -move.quantity
+                if move.movement_type == 'issue':
+                    issued += move.quantity
+                elif move.movement_type == 'buyback':
+                    issued -= move.quantity
+                # transfer does not change total issued shares
             share_class.issued_shares = issued
 
     @api.model_create_multi

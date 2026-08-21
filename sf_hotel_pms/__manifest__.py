@@ -33,7 +33,7 @@ Ideal for:
     'support': 'tech5262@gmail.com',
     'website': 'https://tech5262@gmail.com',
     'category': 'Other/Others',
-    'version': '18.0.1.0.0',
+    'version': '18.0.1.0',
     'license': 'OPL-1',
     'price': 62.50,
     'application': True,

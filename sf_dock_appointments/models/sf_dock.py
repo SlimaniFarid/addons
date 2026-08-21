@@ -19,7 +19,7 @@ class SfDock(models.Model):
     appointment_ids = fields.One2many('sf.dock.appointment', 'dock_id',
                                       string='Appointments')
     company_id = fields.Many2one('res.company', string='Company', store=True,
-                                 default=lambda self: self.env.company)
+                                 default=lambda self: self.env.company, index=True)
 
     @api.model_create_multi
     def create(self, vals_list):

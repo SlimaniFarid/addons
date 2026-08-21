@@ -6,7 +6,7 @@ from odoo.exceptions import UserError, ValidationError
 class SfAqlDefect(models.Model):
     _name = 'sf.aql.defect'
     _description = 'AQL Defect'
-    _inherit = ['mail.thread', 'mail.activity.mixin', 'sf.aql.sampling.activity.mixin']
+    _inherit = ['mail.thread', 'mail.activity.mixin']
     _order = 'id asc'
 
     inspection_id = fields.Many2one('sf.aql.inspection', string='Inspection',

@@ -1,51 +1,41 @@
-/** @odoo-module **/
-import { Component, mount } from "@odoo/owl";
-import { rpc } from "@web/core/network/rpc_service";
+odoo.define('sf_vendor_portal.vendor_portal', function (require) {
+    'use strict';
 
-class VendorRfqButtons extends Component {
-    static template = `
-        <div class="d-flex gap-2">
-            <button class="btn btn-success" t-on-click="onAccept">Accept</button>
-            <button class="btn btn-danger" t-on-click="onDecline">Decline</button>
-            <button class="btn btn-warning" t-on-click="onCounter">Propose a counter-offer</button>
-        </div>`;
-    static props = { orderId: { type: Number } };
+    var ajax = require('web.ajax');
 
-    async onAccept() {
-        await this._call("accept");
+    function post(url, params) {
+        return ajax.jsonRpc(url, 'call', params);
     }
 
-    async onDecline() {
-        const comment = window.prompt("Reason for declining (optional)") || "";
-        await this._call("decline", { comment });
+    function vendorAccept(btn) {
+        var id = parseInt(btn.getAttribute('data-id'), 10);
+        post('/my/vendor/rfq/' + id + '/accept').then(function () {
+            location.reload();
+        });
     }
 
-    async onCounter() {
-        const amount = window.prompt("Propose your total price");
+    function vendorDecline(btn) {
+        var id = parseInt(btn.getAttribute('data-id'), 10);
+        var comment = window.prompt('Reason for declining (optional)') || '';
+        post('/my/vendor/rfq/' + id + '/decline', {comment: comment}).then(function () {
+            location.reload();
+        });
+    }
+
+    function vendorCounter(btn) {
+        var id = parseInt(btn.getAttribute('data-id'), 10);
+        var amount = window.prompt('Propose your total price');
         if (amount === null) {
             return;
         }
-        await this._call("counter", { amount: parseFloat(amount) || 0 });
-    }
-
-    async _call(action, params) {
-        await rpc(`/my/vendor/rfq/${this.props.orderId}/${action}`, params || {});
-        window.location.reload();
-    }
-}
-
-function mountButtons() {
-    const target = document.querySelector("[data-vendor-rfq-buttons]");
-    if (target) {
-        mount(VendorRfqButtons, {
-            target,
-            props: { orderId: Number(target.dataset.orderId) },
+        post('/my/vendor/rfq/' + id + '/counter', {amount: parseFloat(amount) || 0}).then(function () {
+            location.reload();
         });
     }
-}
 
-if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", mountButtons);
-} else {
-    mountButtons();
-}
+    return {
+        vendorAccept: vendorAccept,
+        vendorDecline: vendorDecline,
+        vendorCounter: vendorCounter,
+    };
+});

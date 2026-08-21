@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Trade Finance — LC & Bank Guarantees',
-    'version': '18.0.1.0.0',
+    'version': '18.0.1.0',
     'category': 'Finance',
     'summary': 'Letters of credit, bank guarantees and documentary collections with key dates and documents',
     'description': """

@@ -62,16 +62,16 @@
                 <header>
                     <button name="action_start" type="object"
                             string="Start" class="btn-primary"
-                            invisible="[('state', 'not in', ('pending',))]"/>
+                            states="pending"/>
                     <button name="action_pause" type="object"
                             string="Pause" class="btn-secondary"
-                            invisible="[('state', 'not in', ('running',))]"/>
+                            states="running"/>
                     <button name="action_resume" type="object"
                             string="Resume" class="btn-secondary"
-                            invisible="[('state', 'not in', ('paused',))]"/>
+                            states="paused"/>
                     <button name="action_done" type="object"
                             string="Finish" class="btn-primary"
-                            invisible="[('state', 'not in', ('running', 'paused'))]"/>
+                            states="running,paused"/>
                     <field name="state" widget="statusbar"/>
                 </header>
                 <sheet>

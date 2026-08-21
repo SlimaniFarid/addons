@@ -1,6 +1,6 @@
 {
     'name': 'Visual No-Code Automation Builder',
-    'version': '18.0.1.0.0',
+    'version': '18.0.1.0',
     'category': 'Productivity',
     'summary': 'Zapier-like visual builder: triggers → actions → conditions for Odoo models + external APIs',
     'description': """Visual No-Code Automation Builder

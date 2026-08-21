@@ -14,10 +14,10 @@ class SfBusinessTravel(models.Model):
     name = fields.Char(string='Name', required=True, copy=False)
     employee_id = fields.Many2one(
         'res.users', string='Employee',
-        default=lambda self: self.env.user, required=True)
+        default=lambda self: self.env.user, required=True, index=True)
     purpose = fields.Char(string='Purpose', required=True)
     destination = fields.Char(string='Destination', required=True)
-    departure_date = fields.Date(string='Departure Date', required=True)
+    departure_date = fields.Date(string='Departure Date', required=True, index=True)
     return_date = fields.Date(string='Return Date', required=True)
     budget = fields.Monetary(string='Budget', currency_field='currency_id')
     estimated_cost = fields.Monetary(
@@ -35,7 +35,7 @@ class SfBusinessTravel(models.Model):
         ('in_progress', 'In Progress'),
         ('completed', 'Completed'),
         ('cancelled', 'Cancelled'),
-    ], string='Status', default='draft', copy=False)
+    ], string='Status', default='draft', copy=False, index=True)
     line_ids = fields.One2many(
         'sf.business.travel.line', 'travel_id', string='Itinerary')
     company_id = fields.Many2one(
@@ -102,6 +102,7 @@ class SfBusinessTravel(models.Model):
         if not self.destination or not self.departure_date or \
                 not self.return_date or not self.purpose:
             raise UserError(_('Destination, dates and purpose are required before submission.'))
+        self._check_budget()
         self._set_state('submitted')
 
     def action_approve(self):
@@ -109,7 +110,16 @@ class SfBusinessTravel(models.Model):
         self._check_manager()
         if self.state != 'submitted':
             raise UserError(_('Only submitted travels can be approved.'))
+        self._check_budget()
         self._set_state('approved')
+
+    def _check_budget(self):
+        self.ensure_one()
+        if self.budget and self.estimated_cost and self.estimated_cost > self.budget:
+            raise UserError(_(
+                'Estimated cost (%(cost)s) exceeds budget (%(budget)s). '
+                'Please adjust the budget or itinerary before proceeding.',
+                cost=self.estimated_cost, budget=self.budget))
 
     def action_reject(self):
         self.ensure_one()
@@ -143,15 +153,16 @@ class SfBusinessTravel(models.Model):
 
     def _cron_departure_reminders(self):
         todo_type = self.env.ref('mail.mail_activity_data_todo')
+        today = fields.Date.today()
         companies = self.env['res.company'].search([])
         for company in companies:
-            scoped = self.with_company(company)
-            today = fields.Date.context_today(scoped)
-            param = self.env['ir.config_parameter'].sudo().get_param(
+            param = self.env['ir.config_parameter'].with_company(company).sudo().get_param(
                 'sf_business_travel.reminder_days')
             reminder_days = int(param) if param else 2
+            if reminder_days <= 0:
+                continue
             horizon = today + timedelta(days=reminder_days)
-            upcoming = scoped.env['sf.business.travel'].search([
+            upcoming = self.with_company(company).search([
                 ('state', 'in', ('approved', 'in_progress')),
                 ('departure_date', '>=', today),
                 ('departure_date', '<=', horizon),

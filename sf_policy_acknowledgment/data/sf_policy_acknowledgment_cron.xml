@@ -3,7 +3,7 @@
     <data noupdate="1">
         <record id="cron_sf_policy_ack_reminders" model="ir.cron">
             <field name="name">Policy: Pending Acknowledgment Reminders</field>
-            <field name="model_id" ref="model_sf_policy_acknowledgment"/>
+            <field name="model_id" ref="model_sf_policy"/>
             <field name="state">code</field>
             <field name="code">model._cron_ack_reminders()</field>
             <field name="interval_number">1</field>

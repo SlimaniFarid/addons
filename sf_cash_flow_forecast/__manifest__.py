@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Cash Flow & Treasury Manager',
-    'version': '18.0.1.0.0',
+    'version': '18.0.1.0',
     'category': 'Accounting/Accounting',
     'summary': 'Forecast cash position, track receivables/payables and avoid liquidity gaps',
     'description': """

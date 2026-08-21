@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Grants & Public Funding Management',
-    'version': '18.0.1.0.0',
+    'version': '18.0.1.0',
     'category': 'Operations',
     'summary': 'Grant programs, calls for projects, application workflow, justified expenses and financial reports',
     'description': """

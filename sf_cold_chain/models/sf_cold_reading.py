@@ -7,28 +7,29 @@ class SfColdReading(models.Model):
     _name = 'sf.cold.reading'
     _description = 'Cold Chain Reading'
     _inherit = ['mail.thread', 'mail.activity.mixin', 'sf.cold.chain.activity.mixin']
-    _order = 'reading_datetime asc, id asc'
+    _order = 'recorded_at asc, id asc'
 
     name = fields.Char(string='Name', compute='_compute_name', store=True)
     trip_id = fields.Many2one('sf.cold.trip', string='Trip', ondelete='cascade')
     site_id = fields.Many2one('sf.cold.site', string='Site', ondelete='cascade')
-    reading_datetime = fields.Datetime(string='Reading Time', required=True,
-                                       default=lambda self: fields.Datetime.now())
+    recorded_at = fields.Datetime(string='Recorded At', required=True,
+                                  default=lambda self: fields.Datetime.now())
     temperature = fields.Float(string='Temperature', required=True)
+    source = fields.Selection([
+        ('manual', 'Manual'),
+        ('logger', 'Logger'),
+    ], string='Source', default='manual')
+    notes = fields.Text(string='Notes')
     within_range = fields.Boolean(string='Within Range',
                                   compute='_compute_within_range', store=True)
-    temperature_min = fields.Float(string='Min Temperature',
+    temperature_min = fields.Float(string='Target Min Temp',
                                    compute='_compute_limits', store=True)
-    temperature_max = fields.Float(string='Max Temperature',
+    temperature_max = fields.Float(string='Target Max Temp',
                                    compute='_compute_limits', store=True)
     deviation = fields.Float(string='Deviation', compute='_compute_within_range',
                              store=True)
     excursion_id = fields.Many2one('sf.cold.excursion', string='Excursion',
                                    ondelete='set null')
-    recorded_by = fields.Many2one('res.users', string='Recorded By',
-                                  default=lambda self: self.env.user,
-                                  readonly=True)
-    notes = fields.Text(string='Notes')
     company_id = fields.Many2one('res.company', string='Company', store=True,
                                  default=lambda self: self.env.company)
 
@@ -39,16 +40,16 @@ class SfColdReading(models.Model):
                 raise ValidationError(_(
                     'A reading must be linked to a trip or a cold storage site.'))
 
-    @api.depends('trip_id.temperature_min', 'trip_id.temperature_max',
-                 'site_id.temperature_min', 'site_id.temperature_max')
+    @api.depends('trip_id.target_min_temp', 'trip_id.target_max_temp',
+                 'site_id.target_min_temp', 'site_id.target_max_temp')
     def _compute_limits(self):
         for reading in self:
             if reading.trip_id:
-                reading.temperature_min = reading.trip_id.temperature_min
-                reading.temperature_max = reading.trip_id.temperature_max
+                reading.temperature_min = reading.trip_id.target_min_temp
+                reading.temperature_max = reading.trip_id.target_max_temp
             elif reading.site_id:
-                reading.temperature_min = reading.site_id.temperature_min
-                reading.temperature_max = reading.site_id.temperature_max
+                reading.temperature_min = reading.site_id.target_min_temp
+                reading.temperature_max = reading.site_id.target_max_temp
             else:
                 reading.temperature_min = 0.0
                 reading.temperature_max = 0.0
@@ -70,7 +71,7 @@ class SfColdReading(models.Model):
     def _compute_name(self):
         for reading in self:
             source = reading.trip_id.name or reading.site_id.name or 'Unknown'
-            reading.name = '%s / %s' % (source, reading.reading_datetime)
+            reading.name = '%s / %s' % (source, reading.recorded_at)
 
     def _find_open_excursion(self):
         self.ensure_one()
@@ -95,7 +96,7 @@ class SfColdReading(models.Model):
                     excursion = excursion_model.create({
                         'trip_id': reading.trip_id.id,
                         'site_id': reading.site_id.id,
-                        'start_datetime': reading.reading_datetime,
+                        'started_at': reading.recorded_at,
                         'company_id': reading.company_id.id,
                     })
                 reading.excursion_id = excursion.id

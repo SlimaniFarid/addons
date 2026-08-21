@@ -1,6 +1,6 @@
 {
     'name': 'Construction BOQ & Subcontractor Billing',
-    'version': '18.0.1.0.0',
+    'version': '18.0.1.0',
     'category': 'Operations/Project',
     'summary': 'Bill of Quantities, subcontract management and progress billing (IPC) for construction',
     'description': """Construction BOQ & Subcontractor Billing

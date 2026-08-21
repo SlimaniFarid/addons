@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Shareholder Register & Capital Management (Cap Table)',
-    'version': '18.0.1.0.0',
+    'version': '18.0.1.0',
     'category': 'Accounting',
-    'summary': 'Shareholders, share classes, capital movements, issued shares, cap table and share certificates',
-    'description': 'Shareholder register and capital management: maintain a register of shareholders and share classes with nominal value and authorized shares, record capital movements (buy/sell) with quantity and unit price, compute the amount of each movement, track issued shares per class and total holding per shareholder, validate sell operations against current holdings, post movements to make them immutable, and print PDF reports (cap table and share certificate).',
+    'summary': 'Shareholders, share classes, capital movements (issue/transfer/buyback), issued shares, cap table and share certificates',
+    'description': 'Shareholder register and capital management: maintain a register of shareholders (individual/company) and share classes with nominal value and authorized shares, record capital movements (issue, transfer, buyback) with quantity and unit price, compute the amount of each movement, track issued shares per class and total holding per shareholder, validate movements against current holdings, post/cancel movements (manager only) to make them immutable, configure defaults via settings, and print PDF reports (cap table per class with percentages and share certificate attestation).',
     'author': 'Ethan Miller',
     'support': 'tech5262@gmail.com',
     'website': 'https://www.smartersaas.com',
@@ -24,6 +24,7 @@
         'views/sf_share_class_views.xml',
         'views/sf_capital_movement_views.xml',
         'views/sf_corporate_capital_menus.xml',
+        'views/sf_corporate_capital_settings_views.xml',
         'views/report_cap_table.xml',
         'views/report_share_certificate.xml',
     ],

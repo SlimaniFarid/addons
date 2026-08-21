@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <record id="seq_membership_member" model="ir.sequence">
         <field name="name">Member Code</field>

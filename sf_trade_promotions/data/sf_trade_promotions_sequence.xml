@@ -6,14 +6,14 @@
             <field name="code">sf.trade.program</field>
             <field name="prefix">TPR-</field>
             <field name="padding">5</field>
-            <field name="company_id" eval="False"/>
+            <field name="company_id" eval="None"/>
         </record>
         <record id="seq_sf_trade_claim" model="ir.sequence">
             <field name="name">Trade Promotion Claim</field>
             <field name="code">sf.trade.claim</field>
             <field name="prefix">TCL-</field>
             <field name="padding">5</field>
-            <field name="company_id" eval="False"/>
+            <field name="company_id" eval="None"/>
         </record>
     </data>
 </odoo>

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Business Continuity & BIA (PCA)',
-    'version': '18.0.1.0.0',
+    'version': '18.0.1.0',
     'category': 'Operations',
     'summary': 'Resilience ISO 22301: critical processes BIA, continuity strategies, recovery plans, exercises and review alerts',
     'description': """

@@ -10,7 +10,7 @@
                 <header>
                     <button name="action_publish" type="object"
                             string="Publish" class="btn-primary"
-                            invisible="[('state', 'not in', ('draft',))]"/>
+                            states="draft"/>
                     <field name="state" widget="statusbar"/>
                 </header>
                 <sheet>
@@ -82,7 +82,7 @@
                 <header>
                     <button name="action_resolve" type="object"
                             string="Mark Resolved" class="btn-primary"
-                            invisible="[('resolved', '=', True)]"/>
+                            attrs="{'invisible': [('resolved', '=', True)]}"/>
                 </header>
                 <sheet>
                     <div class="oe_title">

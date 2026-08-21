@@ -9,13 +9,13 @@
                         <h2>Correspondence Register</h2>
                         <table class="table table-sm">
                             <tr><th>Name</th><th>Direction</th><th>Date</th><th>Correspondent</th><th>Subject</th><th>Status</th></tr>
-                            <tr t-foreach="docs" t-as="c">
-                                <td><span t-field="c.name"/></td>
-                                <td><span t-field="c.direction"/></td>
-                                <td><span t-field="c.correspondence_date"/></td>
-                                <td><span t-field="c.partner_id"/></td>
-                                <td><span t-field="c.subject"/></td>
-                                <td><span t-field="c.state"/></td>
+                            <tr>
+                                <td><span t-field="o.name"/></td>
+                                <td><span t-field="o.direction"/></td>
+                                <td><span t-field="o.correspondence_date"/></td>
+                                <td><span t-field="o.partner_id"/></td>
+                                <td><span t-field="o.subject"/></td>
+                                <td><span t-field="o.state"/></td>
                             </tr>
                         </table>
                     </div>

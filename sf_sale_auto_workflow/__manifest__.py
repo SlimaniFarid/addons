@@ -1,6 +1,6 @@
 {
     'name': 'Sales Auto Workflow',
-    'version': '18.0.1.0.0',
+    'version': '18.0.1.0',
     'category': 'Sales',
     'summary': 'Automate quotes, deliveries and invoices with configurable rules',
     'description': "Define rules to automatically confirm sales orders, create deliveries, and generate invoices based on payment method, order type, amount, customer, or custom conditions. Reduce manual steps and accelerate order-to-cash cycle.",

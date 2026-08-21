@@ -79,16 +79,24 @@ class TestSfCorrespondence(TransactionCase):
 
     def test_cron_followups(self):
         today = odoo_fields.Date.today()
-        due = self._create_correspondence(
+        overdue = self._create_correspondence(
             response_due_date=today - timedelta(days=1))
-        due.action_open()
-        ok = self._create_correspondence(
+        overdue.action_open()
+        due_today = self._create_correspondence(
+            response_due_date=today)
+        due_today.action_open()
+        future = self._create_correspondence(
+            response_due_date=today + timedelta(days=1))
+        future.action_open()
+        responded = self._create_correspondence(
             response_due_date=today - timedelta(days=1))
-        ok.action_open()
-        ok.action_responded()
+        responded.action_open()
+        responded.action_responded()
         self.env['sf.correspondence']._cron_followups()
-        self.assertTrue(due.activity_ids)
-        self.assertFalse(ok.activity_ids)
+        self.assertTrue(overdue.activity_ids, 'Overdue correspondence should have activity')
+        self.assertTrue(due_today.activity_ids, 'Due today correspondence should have activity')
+        self.assertFalse(future.activity_ids, 'Future correspondence should not have activity')
+        self.assertFalse(responded.activity_ids, 'Responded correspondence should not have activity')
 
     def test_multi_company_isolation(self):
         company2 = self.env['res.company'].create({
@@ -118,3 +126,45 @@ class TestSfCorrespondence(TransactionCase):
             action = self.env.ref(
                 'sf_correspondence.%s' % report).report_action(record)
             self.assertTrue(action)
+
+    def test_ack_received_invisible_when_not_registered_mail(self):
+        record = self._create_correspondence(registered_mail=False)
+        self.assertFalse(record.registered_mail)
+        self.assertFalse(record.ack_received)
+        record.write({'ack_received': True})
+        self.assertTrue(record.ack_received)
+
+    def test_assigned_to_default_current_user(self):
+        record = self._create_correspondence()
+        self.assertEqual(record.assigned_to, self.env.user)
+
+    def test_company_id_default_current_company(self):
+        record = self._create_correspondence()
+        self.assertEqual(record.company_id, self.env.company)
+
+    def test_attachment_ids_widget_many2many_binary(self):
+        record = self._create_correspondence()
+        attachment = self.env['ir.attachment'].create({
+            'name': 'Test Attachment',
+            'datas': b'dGVzdA==',
+            'res_model': 'sf.correspondence',
+            'res_id': record.id,
+        })
+        self.assertIn(attachment, record.attachment_ids)
+
+    def test_search_filters_group_by(self):
+        record1 = self._create_correspondence(state='draft', direction='inbound', department_id=self.department.id)
+        record2 = self._create_correspondence(state='open', direction='outbound', department_id=self.department.id)
+        self.env['sf.correspondence'].flush_model()
+        groups = self.env['sf.correspondence'].read_group(
+            [('id', 'in', [record1.id, record2.id])],
+            ['name'], ['state'])
+        self.assertEqual(len(groups), 2)
+        groups = self.env['sf.correspondence'].read_group(
+            [('id', 'in', [record1.id, record2.id])],
+            ['name'], ['direction'])
+        self.assertEqual(len(groups), 2)
+        groups = self.env['sf.correspondence'].read_group(
+            [('id', 'in', [record1.id, record2.id])],
+            ['name'], ['department_id'])
+        self.assertEqual(len(groups), 1)

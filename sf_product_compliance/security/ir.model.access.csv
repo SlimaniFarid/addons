@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_regulation_user,sf.product.regulation.user,model_sf_product_regulation,group_compliance_user,1,1,1,0
 access_regulation_manager,sf.product.regulation.manager,model_sf_product_regulation,group_compliance_manager,1,1,1,1
 access_requirement_user,sf.product.compliance.requirement.user,model_sf_product_compliance_requirement,group_compliance_user,1,1,1,0

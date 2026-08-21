@@ -171,6 +171,7 @@ class SfFranchiseDeclaration(models.Model):
                 )
             invoiced = scoped.env['sf.franchise.declaration'].search([
                 ('state', '=', 'invoiced'),
+                ('invoice_id.state', '!=', 'cancel'),
             ]).filtered(lambda d: not d.invoice_id or d.invoice_id.payment_state != 'paid')
             for declaration in invoiced:
                 declaration._sf_check_todo(

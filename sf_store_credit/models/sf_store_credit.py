@@ -15,7 +15,7 @@ class SfStoreCredit(models.Model):
     account_id = fields.Many2one('sf.store.credit.account', string='Credit Account',
                                  required=True, ondelete='cascade')
     partner_id = fields.Many2one('res.partner', string='Customer',
-                                 related='account_id.partner_id', store=True, readonly=False)
+                                 related='account_id.partner_id', store=True, readonly=True)
     credit_type = fields.Selection([
         ('granted', 'Granted'),
         ('adjustment', 'Adjustment'),
@@ -85,6 +85,7 @@ class SfStoreCredit(models.Model):
             if credit.state != 'draft':
                 raise UserError(_('Only draft credits can be confirmed.'))
             credit.state = 'confirmed'
+            credit.credit_type = 'granted'
             self.env['sf.store.credit.move'].create({
                 'credit_id': credit.id,
                 'move_type': 'grant',
@@ -95,33 +96,34 @@ class SfStoreCredit(models.Model):
             credit.message_post(body=_('The credit was confirmed and is now available.'))
 
     def action_use(self, amount, sale_order_id=False):
-        for credit in self:
-            if credit.state != 'confirmed':
-                raise UserError(_('Only confirmed credits can be used.'))
-            if credit.expiration_date and credit.expiration_date < \
-                    fields.Date.context_today(credit):
-                raise UserError(_('This credit has expired and can no longer be used.'))
-            if amount <= 0:
-                raise UserError(_('The amount to use must be positive.'))
-            if amount > credit.remaining:
-                raise UserError(_('The amount exceeds the remaining balance of the credit.'))
-            self.env['sf.store.credit.move'].create({
-                'credit_id': credit.id,
-                'move_type': 'use',
-                'amount': amount,
-                'reason': _('Credit used on a sale'),
-                'sale_order_id': sale_order_id,
-                'company_id': credit.company_id.id,
-            })
-            if sale_order_id:
-                credit.sale_order_id = sale_order_id
-            if credit.remaining <= 0:
-                credit.state = 'used'
-            credit.message_post(body=_('Credit used: %s') % amount)
+        self.ensure_one()
+        if self.state != 'confirmed':
+            raise UserError(_('Only confirmed credits can be used.'))
+        if self.expiration_date and self.expiration_date < \
+                fields.Date.context_today(self):
+            raise UserError(_('This credit has expired and can no longer be used.'))
+        if amount <= 0:
+            raise UserError(_('The amount to use must be positive.'))
+        if amount > self.remaining:
+            raise UserError(_('The amount exceeds the remaining balance of the credit.'))
+        self.env['sf.store.credit.move'].create({
+            'credit_id': self.id,
+            'move_type': 'use',
+            'amount': amount,
+            'reason': _('Credit used on a sale'),
+            'sale_order_id': sale_order_id,
+            'company_id': self.company_id.id,
+        })
+        if sale_order_id:
+            self.sale_order_id = sale_order_id
+        if self.remaining <= 0:
+            self.state = 'used'
+            self.credit_type = 'used'
+        self.message_post(body=_('Credit used: %s') % amount)
 
     def action_use_remaining(self):
         for credit in self:
-            self.action_use(credit.remaining)
+            credit.action_use(credit.remaining)
 
     def action_adjust(self, amount, reason):
         self._check_manager()
@@ -141,6 +143,7 @@ class SfStoreCredit(models.Model):
             })
             if credit.remaining <= 0:
                 credit.state = 'adjusted'
+                credit.credit_type = 'adjustment'
             credit.message_post(body=_('Credit adjusted by %s.') % amount)
 
     def action_cancel(self):
@@ -151,6 +154,7 @@ class SfStoreCredit(models.Model):
             if credit.used_amount > 0:
                 raise UserError(_('A credit that has already been used cannot be cancelled.'))
             credit.state = 'cancelled'
+            credit.credit_type = 'cancelled'
             self.env['sf.store.credit.move'].create({
                 'credit_id': credit.id,
                 'move_type': 'cancel',
@@ -187,6 +191,7 @@ class SfStoreCredit(models.Model):
             ])
             for credit in expired:
                 credit.state = 'expired'
+                credit.credit_type = 'expired'
                 self.env['sf.store.credit.move'].create({
                     'credit_id': credit.id,
                     'move_type': 'expire',

@@ -10,28 +10,37 @@ class SfColdSite(models.Model):
     _order = 'name asc'
 
     name = fields.Char(string='Name', required=True, copy=False)
-    site_type = fields.Selection([
-        ('cold_storage', 'Cold Storage'),
-        ('refrigerated_transport', 'Refrigerated Transport'),
-        ('chamber', 'Chamber'),
-        ('freezer', 'Freezer'),
+    location = fields.Char(string='Location')
+    device_type = fields.Selection([
         ('cold_room', 'Cold Room'),
-    ], string='Site Type', required=True, default='cold_storage')
-    temperature_min = fields.Float(string='Min Temperature', required=True,
+        ('fridge', 'Fridge'),
+        ('freezer', 'Freezer'),
+    ], string='Device Type', required=True, default='cold_room')
+    target_min_temp = fields.Float(string='Target Min Temp', required=True,
                                    default=2.0)
-    temperature_max = fields.Float(string='Max Temperature', required=True,
+    target_max_temp = fields.Float(string='Target Max Temp', required=True,
                                    default=8.0)
-    location_note = fields.Char(string='Location')
-    is_active = fields.Boolean(string='Active', default=True)
+    state = fields.Selection([
+        ('monitored', 'Monitored'),
+        ('out_of_range', 'Out of Range'),
+    ], string='Status', compute='_compute_state', store=True)
+    reading_ids = fields.One2many('sf.cold.reading', 'site_id', string='Readings')
+    excursion_ids = fields.One2many('sf.cold.excursion', 'site_id', string='Excursions')
     company_id = fields.Many2one('res.company', string='Company', store=True,
                                  default=lambda self: self.env.company)
 
-    @api.constrains('temperature_min', 'temperature_max')
+    @api.constrains('target_min_temp', 'target_max_temp')
     def _check_temperature_range(self):
         for site in self:
-            if site.temperature_max < site.temperature_min:
+            if site.target_max_temp < site.target_min_temp:
                 raise ValidationError(_(
                     'The maximum temperature cannot be lower than the minimum temperature.'))
+
+    @api.depends('reading_ids.within_range')
+    def _compute_state(self):
+        for site in self:
+            out_of_range = site.reading_ids.filtered(lambda r: not r.within_range)
+            site.state = 'out_of_range' if out_of_range else 'monitored'
 
     @api.model_create_multi
     def create(self, vals_list):

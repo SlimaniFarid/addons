@@ -1,6 +1,6 @@
 {
     'name': 'Warehouse Wave Picking',
-    'version': '18.0.1.0.0',
+    'version': '18.0.1.0',
     'category': 'Inventory/Inventory',
     'summary': 'Group pickings into waves and release them efficiently',
     'description': """

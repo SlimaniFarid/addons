@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <record id="tiktokshop_store_example" model="tiktokshop.store">
         <field name="name">My TikTok Shop</field>

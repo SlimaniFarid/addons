@@ -10,41 +10,37 @@ class SfColdTrip(models.Model):
     _order = 'id desc'
 
     name = fields.Char(string='Name', required=True, copy=False)
-    carrier_id = fields.Many2one('res.partner', string='Carrier', required=True,
-                                 ondelete='restrict')
+    origin = fields.Char(string='Origin', required=True)
+    destination = fields.Char(string='Destination', required=True)
     vehicle_plate = fields.Char(string='Vehicle Plate')
-    cargo_description = fields.Char(string='Cargo')
-    temperature_min = fields.Float(string='Min Temperature', required=True,
+    driver_name = fields.Char(string='Driver Name')
+    target_min_temp = fields.Float(string='Target Min Temp', required=True,
                                    default=2.0)
-    temperature_max = fields.Float(string='Max Temperature', required=True,
+    target_max_temp = fields.Float(string='Target Max Temp', required=True,
                                    default=8.0)
-    planned_departure = fields.Datetime(string='Planned Departure')
-    planned_arrival = fields.Datetime(string='Planned Arrival')
-    actual_departure = fields.Datetime(string='Actual Departure')
-    actual_arrival = fields.Datetime(string='Actual Arrival')
+    departure_datetime = fields.Datetime(string='Departure Datetime')
+    arrival_datetime = fields.Datetime(string='Arrival Datetime')
     state = fields.Selection([
         ('planned', 'Planned'),
         ('in_transit', 'In Transit'),
         ('completed', 'Completed'),
         ('cancelled', 'Cancelled'),
     ], string='Status', default='planned', copy=False)
-    reading_ids = fields.One2many('sf.cold.reading', 'trip_id',
-                                  string='Readings')
-    excursion_ids = fields.One2many('sf.cold.excursion', 'trip_id',
-                                    string='Excursions')
+    reading_ids = fields.One2many('sf.cold.reading', 'trip_id', string='Readings')
+    excursion_ids = fields.One2many('sf.cold.excursion', 'trip_id', string='Excursions')
     company_id = fields.Many2one('res.company', string='Company', store=True,
                                  default=lambda self: self.env.company)
 
-    @api.constrains('temperature_min', 'temperature_max')
+    @api.constrains('target_min_temp', 'target_max_temp')
     def _check_temperature_range(self):
         for trip in self:
-            if trip.temperature_max < trip.temperature_min:
+            if trip.target_max_temp < trip.target_min_temp:
                 raise ValidationError(_(
                     'The maximum temperature cannot be lower than the minimum temperature.'))
-            if (trip.actual_arrival and trip.actual_departure
-                    and trip.actual_arrival < trip.actual_departure):
+            if (trip.arrival_datetime and trip.departure_datetime
+                    and trip.arrival_datetime < trip.departure_datetime):
                 raise ValidationError(_(
-                    'The actual arrival time cannot be before the actual departure time.'))
+                    'The arrival datetime cannot be before the departure datetime.'))
 
     @api.model_create_multi
     def create(self, vals_list):
@@ -63,19 +59,19 @@ class SfColdTrip(models.Model):
             raise UserError(_('Only planned trips can be started.'))
         self.write({
             'state': 'in_transit',
-            'actual_departure': self.actual_departure or fields.Datetime.now(),
+            'departure_datetime': self.departure_datetime or fields.Datetime.now(),
         })
 
     def action_complete(self):
         self.ensure_one()
         if self.state != 'in_transit':
             raise UserError(_('Only in-transit trips can be completed.'))
-        arrival = self.actual_arrival or fields.Datetime.now()
-        if arrival < self.actual_departure:
-            raise UserError(_('The actual arrival time cannot be before the actual departure time.'))
+        arrival = self.arrival_datetime or fields.Datetime.now()
+        if arrival < self.departure_datetime:
+            raise UserError(_('The arrival datetime cannot be before the departure datetime.'))
         self.write({
             'state': 'completed',
-            'actual_arrival': arrival,
+            'arrival_datetime': arrival,
         })
 
     def action_cancel(self):

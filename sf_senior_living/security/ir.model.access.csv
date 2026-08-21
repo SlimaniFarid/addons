@@ -1,8 +1,5 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_sf_senior_living_sf.senior.residence_user,sf_senior_living.sf.senior.residence.user,model_sf_senior_residence,group_sf_senior_living_user,1,1,0,0
-access_sf_senior_living_sf.senior.residence_manager,sf_senior_living.sf.senior.residence.manager,model_sf_senior_residence,group_sf_senior_living_manager,1,1,1,1
-access_sf_senior_living_sf.senior.resident_user,sf_senior_living.sf.senior.resident.user,model_sf_senior_resident,group_sf_senior_living_user,1,1,0,0
-access_sf_senior_living_sf.senior.resident_manager,sf_senior_living.sf.senior.resident.manager,model_sf_senior_resident,group_sf_senior_living_manager,1,1,1,1
-access_sf_senior_living_sf.senior.care_plan_user,sf_senior_living.sf.senior.care_plan.user,model_sf_senior_care_plan,group_sf_senior_living_user,1,1,0,0
-access_sf_senior_living_sf.senior.care_plan_manager,sf_senior_living.sf.senior.care_plan.manager,model_sf_senior_care_plan,group_sf_senior_living_manager,1,1,1,1
-access_sf_senior_living_activity_mixin_user,sf_senior_living.activity.mixin.user,model_sf_senior_living_activity_mixin,group_sf_senior_living_user,1,1,0,0
+access_sf_senior_residence_user,sf.senior.residence.user,model_sf_senior_residence,group_sf_senior_living_user,1,1,1,0
+access_sf_senior_residence_manager,sf.senior.residence.manager,model_sf_senior_residence,group_sf_senior_living_manager,1,1,1,1
+access_sf_senior_resident_user,sf.senior.resident.user,model_sf_senior_resident,group_sf_senior_living_user,1,1,1,0
+access_sf_senior_resident_manager,sf.senior.resident.manager,model_sf_senior_resident,group_sf_senior_living_manager,1,1,1,1

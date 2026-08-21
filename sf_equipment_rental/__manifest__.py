@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Equipment Rental & Hire Operations',
-    'version': '18.0.1.0.0',
+    'version': '18.0.1.0',
     'category': 'Operations',
     'summary': 'Equipment cards with calendar availability, rental contracts with tiered pricing, out/in inspections, damages and planned maintenance',
     'description': 'Equipment rental and hire operations module for professional rental companies: manage equipment cards with calendar availability, rental contracts with tiered pricing (hour/day/week/month), reservations and availability conflicts, out/in state inspections with damages and penalties, maintenance planning between rentals and automatic invoicing.',

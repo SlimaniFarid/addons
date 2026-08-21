@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Automated Supplier Invoice Control (3-Way Match)',
-    'version': '18.0.1.0.0',
+    'version': '18.0.1.0',
     'category': 'Accounting',
     'summary': 'Automatic purchase order / receipt / invoice reconciliation with tolerances and exceptions',
     'description': """

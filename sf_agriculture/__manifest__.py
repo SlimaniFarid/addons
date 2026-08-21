@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Agriculture Management & Farm Operations',
-    'version': '18.0.1.0.0',
+    'version': '18.0.1.0',
     'category': 'Operations',
     'summary': 'Farms, plots, campaigns, cultures, treatments, harvests and inputs register for agriculture',
     'description': """

@@ -6,10 +6,14 @@
         <field name="arch" type="xml">
             <list string="Cold Transport Trips">
                 <field name="name"/>
-                <field name="carrier_id"/>
+                <field name="origin"/>
+                <field name="destination"/>
                 <field name="vehicle_plate"/>
-                <field name="planned_departure"/>
-                <field name="planned_arrival"/>
+                <field name="driver_name"/>
+                <field name="target_min_temp"/>
+                <field name="target_max_temp"/>
+                <field name="departure_datetime"/>
+                <field name="arrival_datetime"/>
                 <field name="state" widget="badge"/>
                 <field name="company_id" groups="base.group_multi_company"/>
             </list>
@@ -35,17 +39,16 @@
                     </div>
                     <group>
                         <group>
-                            <field name="carrier_id"/>
+                            <field name="origin"/>
+                            <field name="destination"/>
                             <field name="vehicle_plate"/>
-                            <field name="cargo_description"/>
-                            <field name="temperature_min"/>
-                            <field name="temperature_max"/>
+                            <field name="driver_name"/>
+                            <field name="target_min_temp"/>
+                            <field name="target_max_temp"/>
                         </group>
                         <group>
-                            <field name="planned_departure"/>
-                            <field name="planned_arrival"/>
-                            <field name="actual_departure"/>
-                            <field name="actual_arrival"/>
+                            <field name="departure_datetime"/>
+                            <field name="arrival_datetime"/>
                             <field name="company_id" groups="base.group_multi_company"/>
                         </group>
                     </group>
@@ -53,10 +56,11 @@
                         <page string="Readings">
                             <field name="reading_ids">
                                 <list string="Readings">
-                                    <field name="reading_datetime"/>
+                                    <field name="recorded_at"/>
                                     <field name="temperature"/>
+                                    <field name="source"/>
                                     <field name="within_range" widget="boolean_toggle"/>
-                                    <field name="recorded_by"/>
+                                    <field name="deviation"/>
                                 </list>
                             </field>
                         </page>
@@ -64,9 +68,10 @@
                             <field name="excursion_ids">
                                 <list string="Excursions">
                                     <field name="name"/>
-                                    <field name="start_datetime"/>
+                                    <field name="started_at"/>
                                     <field name="duration_minutes"/>
-                                    <field name="max_deviation"/>
+                                    <field name="min_temp"/>
+                                    <field name="max_temp"/>
                                     <field name="severity"/>
                                     <field name="state" widget="badge"/>
                                 </list>
@@ -84,13 +89,13 @@
         <field name="arch" type="xml">
             <search string="Cold Transport Trips">
                 <field name="name"/>
-                <field name="carrier_id"/>
+                <field name="origin"/>
+                <field name="destination"/>
                 <field name="vehicle_plate"/>
                 <filter name="trip_open" string="Active" domain="[('state', 'in', ('planned', 'in_transit'))]"/>
                 <filter name="trip_completed" string="Completed" domain="[('state', '=', 'completed')]"/>
                 <group>
                     <filter name="group_trip_state" string="Status" context="{'group_by': 'state'}"/>
-                    <filter name="group_trip_carrier" string="Carrier" context="{'group_by': 'carrier_id'}"/>
                 </group>
             </search>
         </field>

@@ -1,6 +1,6 @@
 {
     'name': 'Project Margin & Budget Control',
-    'version': '18.0.1.0.0',
+    'version': '18.0.1.0',
     'category': 'Project/Project',
     'summary': 'Track project budgets, costs and margins live',
     'description': """

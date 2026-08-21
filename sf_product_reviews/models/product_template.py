@@ -11,13 +11,17 @@ class ProductTemplate(models.Model):
                                  compute='_compute_sf_reviews', store=True)
     sf_review_count = fields.Integer(string='Review Count',
                                      compute='_compute_sf_reviews', store=True)
+    company_id = fields.Many2one('res.company', string='Company',
+                                  default=lambda self: self.env.company)
 
-    @api.depends('sf_product_review_ids.state')
+    @api.depends('sf_product_review_ids.rating', 'sf_product_review_ids.state')
     def _compute_sf_reviews(self):
         for product in self:
             reviews = product.sf_product_review_ids.filtered(
-                lambda review: review.state == 'approved'
-                and (review.company_id.id == product.company_id.id or not product.company_id))
+                lambda r: r.state == 'approved'
+                and (r.company_id.id == product.company_id.id
+                     or not product.company_id
+                     or product.company_id == self.env.company))
             product.sf_review_count = len(reviews)
             product.sf_review_avg = reviews and round(
                 sum(reviews.mapped('rating')) / len(reviews), 1) or 0.0

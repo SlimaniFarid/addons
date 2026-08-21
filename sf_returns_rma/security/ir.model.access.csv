@@ -8,4 +8,11 @@ access_rma_inspection_mgr,returns.rma.rma_inspection.mgr,model_rma_inspection,ba
 access_rma_disposition_user,returns.rma.rma_disposition.user,model_rma_disposition,base.group_user,1,0,0,0
 access_rma_disposition_mgr,returns.rma.rma_disposition.mgr,model_rma_disposition,base.group_system,1,1,1,1
 access_rma_carrier_label_user,returns.rma.rma_carrier_label.user,model_rma_carrier_label,base.group_user,1,0,0,0
-access_rma_carrier_label_mgr,returns.rma.rma_carrier_label.mgr,model_rma_carrier_label,base.group_system,1,1,1,1
+access_rma_carrier_label_mgr,returns.rma.rma_carrier_label.mgr,model_rma_carrier_label,base.group_system,1,1,1,1access_sf_returns_rma_rma_channel_config_user,rma.channel.config.user,model_rma_channel_config,sf_returns_rma.group_sf_returns_rma_user,1,1,1,0
+access_sf_returns_rma_rma_channel_config_manager,rma.channel.config.manager,model_rma_channel_config,sf_returns_rma.group_sf_returns_rma_user,1,1,1,1
+access_sf_returns_rma_rma_inspection_line_user,rma.inspection.line.user,model_rma_inspection_line,sf_returns_rma.group_sf_returns_rma_user,1,1,1,0
+access_sf_returns_rma_rma_inspection_line_manager,rma.inspection.line.manager,model_rma_inspection_line,sf_returns_rma.group_sf_returns_rma_user,1,1,1,1
+access_sf_returns_rma_rma_line_user,rma.line.user,model_rma_line,sf_returns_rma.group_sf_returns_rma_user,1,1,1,0
+access_sf_returns_rma_rma_line_manager,rma.line.manager,model_rma_line,sf_returns_rma.group_sf_returns_rma_user,1,1,1,1
+access_sf_returns_rma_rma_reason_config_user,rma.reason.config.user,model_rma_reason_config,sf_returns_rma.group_sf_returns_rma_user,1,1,1,0
+access_sf_returns_rma_rma_reason_config_manager,rma.reason.config.manager,model_rma_reason_config,sf_returns_rma.group_sf_returns_rma_user,1,1,1,1

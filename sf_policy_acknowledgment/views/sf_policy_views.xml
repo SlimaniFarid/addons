@@ -23,9 +23,9 @@
         <field name="arch" type="xml">
             <form string="Company Policy">
                 <header>
-                    <button name="action_publish" string="Publish" type="object" class="btn-primary" invisible="[('state', '!=', 'draft')]"/>
-                    <button name="action_retire" string="Retire" type="object" invisible="[('state', '!=', 'published')]"/>
-                    <button name="action_archive" string="Archive" type="object" invisible="[('state', '!=', 'retired')]"/>
+                    <button name="action_publish" string="Publish" type="object" class="btn-primary" invisible="[('state', '!=', 'draft')]" groups="sf_policy_acknowledgment.group_sf_policy_manager"/>
+                    <button name="action_retire" string="Retire" type="object" invisible="[('state', '!=', 'published')]" groups="sf_policy_acknowledgment.group_sf_policy_manager"/>
+                    <button name="action_archive" string="Archive" type="object" invisible="[('state', '!=', 'retired')]" groups="sf_policy_acknowledgment.group_sf_policy_manager"/>
                     <field name="state" widget="statusbar" readonly="1"/>
                 </header>
                 <sheet>

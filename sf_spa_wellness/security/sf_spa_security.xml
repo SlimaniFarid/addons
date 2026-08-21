@@ -2,8 +2,8 @@
 <odoo>
     <data noupdate="1">
         <record id="module_category_sf_spa" model="ir.module.category">
-            <field name="name">Spa & Wellness</field>
-            <field name="description">Spa & Wellness Center Management</field>
+            <field name="name">Spa &amp; Wellness</field>
+            <field name="description">Spa &amp; Wellness Center Management</field>
             <field name="sequence">10</field>
         </record>
 

@@ -6,7 +6,7 @@ from odoo.exceptions import UserError, ValidationError
 class SfAqlInspection(models.Model):
     _name = 'sf.aql.inspection'
     _description = 'AQL Lot Inspection'
-    _inherit = ['mail.thread', 'mail.activity.mixin', 'sf.aql.sampling.activity.mixin']
+    _inherit = ['mail.thread', 'mail.activity.mixin']
     _order = 'inspection_date desc, id desc'
 
     name = fields.Char(string='Name', required=True, copy=False)
@@ -85,7 +85,7 @@ class SfAqlInspection(models.Model):
             inspection.weighted_defects = total
 
     @api.depends('critical_defects', 'weighted_defects', 'plan_id.reject_number',
-                 'defect_ids.quantity')
+                 'defect_ids.quantity', 'defect_ids.severity')
     def _compute_decision(self):
         param = self.env['ir.config_parameter'].sudo().get_param(
             'sf_aql_sampling.enable_weighted_defects')
@@ -111,10 +111,11 @@ class SfAqlInspection(models.Model):
 
     @api.model
     def _find_plan(self, lot_quantity, inspection_level):
+        lot_qty = int(round(lot_quantity))
         plans = self.env['sf.aql.plan'].search([
             ('inspection_level', '=', inspection_level),
-            ('lot_size_min', '<=', lot_quantity),
-            ('lot_size_max', '>=', lot_quantity),
+            ('lot_size_min', '<=', lot_qty),
+            ('lot_size_max', '>=', lot_qty),
         ], order='lot_size_min asc, sample_size asc', limit=1)
         return plans.id or False
 
@@ -161,7 +162,15 @@ class SfAqlInspection(models.Model):
         if self.state != 'completed':
             raise UserError(_('Only completed inspections can be rejected.'))
         if self.decision != 'rejected':
-            raise UserError(_('An accepted inspection cannot be rejected without a critical defect.'))
+            raise UserError(_('An accepted inspection cannot be rejected without a critical defect. A manager can force rejection by setting the decision to rejected first.'))
+        self.state = 'rejected'
+
+    def action_force_reject(self):
+        self.ensure_one()
+        self._check_manager()
+        if self.state != 'completed':
+            raise UserError(_('Only completed inspections can be rejected.'))
+        self.decision = 'rejected'
         self.state = 'rejected'
 
     def action_cancel(self):

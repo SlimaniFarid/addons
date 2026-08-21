@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <menuitem id="menu_membership_reports_root" name="Reports" parent="menu_membership_root" sequence="50"/>
     <record id="action_membership_expiring" model="ir.actions.act_window">

@@ -1,6 +1,6 @@
 {
     'name': 'Multi-Company Consolidation',
-    'version': '18.0.1.0.0',
+    'version': '18.0.1.0',
     'category': 'Accounting/Accounting',
     'summary': 'Consolidate P&L data across companies and currencies',
     'description': """

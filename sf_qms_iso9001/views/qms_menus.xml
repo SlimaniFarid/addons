@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <record id="action_qms_document" model="ir.actions.act_window">
         <field name="name">QMS Documents</field>

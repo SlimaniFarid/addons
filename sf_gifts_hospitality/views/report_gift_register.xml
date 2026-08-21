@@ -9,14 +9,14 @@
                         <h2>Gifts &amp; Hospitality Register</h2>
                         <table class="table table-sm">
                             <tr><th>Name</th><th>Employee</th><th>Direction</th><th>Date</th><th>Category</th><th>Value</th><th>Status</th></tr>
-                            <tr t-foreach="docs" t-as="g">
-                                <td><span t-field="g.name"/></td>
-                                <td><span t-field="g.employee_id"/></td>
-                                <td><span t-field="g.direction"/></td>
-                                <td><span t-field="g.date"/></td>
-                                <td><span t-field="g.category"/></td>
-                                <td><span t-field="g.estimated_value"/></td>
-                                <td><span t-field="g.state"/></td>
+                            <tr>
+                                <td><span t-field="o.name"/></td>
+                                <td><span t-field="o.employee_id"/></td>
+                                <td><span t-field="o.direction"/></td>
+                                <td><span t-field="o.date"/></td>
+                                <td><span t-field="o.category"/></td>
+                                <td><span t-field="o.estimated_value"/></td>
+                                <td><span t-field="o.state"/></td>
                             </tr>
                         </table>
                     </div>
@@ -24,4 +24,4 @@
             </t>
         </t>
     </template>
-</odoo>
+</odoo>

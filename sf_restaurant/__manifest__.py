@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Restaurant, Cafe & In-Room Dining',
-    'version': '18.0.1.0.0',
+    'version': '18.0.1.0',
     'category': 'Sales',
     'summary': 'Restaurant and cafe management: tables, reservations, menus, kitchen orders and revenue tracking',
     'description': 'Restaurant and cafe management module for dining rooms: manage tables with states and zones, reservations with capacity control without overbooking, menu categories and items with per-service availability, table orders with kitchen ticket transmission, and daily revenue tracking by service and by table.',

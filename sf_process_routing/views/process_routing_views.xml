@@ -63,8 +63,8 @@
         <field name="arch" type="xml">
             <form string="Routing Version">
                 <header>
-                    <button name="action_activate" type="object" string="Activate" class="btn-primary" invisible="[('state', 'not in', ('draft',))]"/>
-                    <button name="action_obsolete" type="object" string="Obsolete" class="btn-secondary" invisible="[('state', 'not in', ('active',))]"/>
+                    <button name="action_activate" type="object" string="Activate" class="btn-primary" states="draft"/>
+                    <button name="action_obsolete" type="object" string="Obsolete" class="btn-secondary" states="active"/>
                     <field name="state" widget="statusbar"/>
                 </header>
                 <sheet>
@@ -213,9 +213,9 @@
                         </group>
                     </group>
                     <group>
-                        <field name="workcenter_id" invisible="[('condition_type', 'not in', ['workcenter_load','workcenter_availability','quality_score','capacity'])]"/>
+                        <field name="workcenter_id" attrs="{'invisible': [('condition_type', 'not in', ['workcenter_load','workcenter_availability','quality_score','capacity'])]}"/>
                     </group>
-                    <group string="Custom Expression" invisible="[('condition_type', '!=', 'custom')]">
+                    <group string="Custom Expression" attrs="{'invisible': [('condition_type', '!=', 'custom')]}">
                         <field name="python_code" widget="code" options="{'mode': 'python'}"/>
                     </group>
                 </sheet>

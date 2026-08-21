@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_sf_senior_living_root"
+              name="Senior Living"
+              sequence="100"
+              groups="sf_senior_living.group_sf_senior_living_user"
+              web_icon="sf_senior_living,static/description/icon.png"/>
+    <menuitem id="menu_sf_senior_residences"
+              name="Residences"
+              parent="menu_sf_senior_living_root"
+              action="action_sf_senior_residence"
+              sequence="10"
+              groups="sf_senior_living.group_sf_senior_living_user"/>
+</odoo>

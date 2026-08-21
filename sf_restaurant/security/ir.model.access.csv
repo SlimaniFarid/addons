@@ -13,4 +13,4 @@ access_sf_restaurant_menu_category_manager,sf.restaurant.menu.category.manager,m
 access_sf_restaurant_menu_item_manager,sf.restaurant.menu.item.manager,model_sf_restaurant_menu_item,sf_restaurant.group_sf_restaurant_manager,1,1,1,1
 access_sf_restaurant_order_manager,sf.restaurant.order.manager,model_sf_restaurant_order,sf_restaurant.group_sf_restaurant_manager,1,1,1,1
 access_sf_restaurant_order_line_manager,sf.restaurant.order.line.manager,model_sf_restaurant_order_line,sf_restaurant.group_sf_restaurant_manager,1,1,1,1
-access_sf_restaurant_mail_activity,sf.restaurant.mail.activity.user,mail.activity,sf_restaurant.group_sf_restaurant_user,1,1,1,0
+access_sf_restaurant_mail_activity,sf.restaurant.mail.activity.user,mail.activity,sf_restaurant.group_sf_restaurant_user,1,1,1,0access_sf_restaurant_sf_restaurant_activity_mixin_ro,sf.restaurant.activity.mixin.readonly,model_sf_restaurant_activity_mixin,sf_restaurant.group_sf_restaurant_user,1,0,0,0

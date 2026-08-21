@@ -196,3 +196,59 @@ class TestSfAqlSampling(TransactionCase):
         action = self.env.ref(
             'sf_aql_sampling.action_report_aql_inspection').report_action(inspection)
         self.assertTrue(action)
+
+    def test_plan_fallback_no_match(self):
+        inspection = self._create_inspection(lot_quantity=5000.0)
+        self.assertFalse(inspection.plan_id)
+        self.assertEqual(inspection.sample_size, 5000)
+
+    def test_decision_unweighted(self):
+        self.env['ir.config_parameter'].sudo().set_param(
+            'sf_aql_sampling.enable_weighted_defects', 'False')
+        inspection = self._create_inspection()
+        inspection.action_start()
+        self._add_defect(inspection, 'major', 1)
+        self.assertEqual(inspection.decision, 'accepted')
+        self._add_defect(inspection, 'major', 1)
+        self.assertEqual(inspection.decision, 'rejected')
+
+    def test_action_cancel(self):
+        inspection = self._create_inspection()
+        inspection.action_start()
+        inspection.action_complete()
+        inspection.with_user(self.manager).action_cancel()
+        self.assertEqual(inspection.state, 'cancelled')
+        with self.assertRaises(UserError):
+            inspection.with_user(self.manager).action_cancel()
+        inspection2 = self._create_inspection()
+        inspection2.action_start()
+        self._add_defect(inspection2, 'minor', 1)
+        inspection2.action_complete()
+        inspection2.with_user(self.manager).action_release()
+        with self.assertRaises(UserError):
+            inspection2.with_user(self.manager).action_cancel()
+
+    def test_plan_selection_priority(self):
+        self.plan_mid = self.env['sf.aql.plan'].create({
+            'inspection_level': 'II',
+            'lot_size_min': 0,
+            'lot_size_max': 100,
+            'sample_size': 15,
+            'accept_number': 1,
+            'reject_number': 2,
+        })
+        inspection = self._create_inspection(lot_quantity=50.0)
+        self.assertEqual(inspection.plan_id, self.plan)
+        self.assertEqual(inspection.sample_size, 10)
+
+    def test_action_force_reject(self):
+        inspection = self._create_inspection()
+        inspection.action_start()
+        self._add_defect(inspection, 'minor', 1)
+        inspection.action_complete()
+        self.assertEqual(inspection.decision, 'accepted')
+        with self.assertRaises(UserError):
+            inspection.with_user(self.manager).action_reject()
+        inspection.with_user(self.manager).action_force_reject()
+        self.assertEqual(inspection.state, 'rejected')
+        self.assertEqual(inspection.decision, 'rejected')

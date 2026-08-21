@@ -90,7 +90,7 @@
                         domain="[('overtime_hours','&gt;',0)]"/>
                 <filter string="Late Days" name="late"
                         domain="[('late_days','&gt;',0)]"/>
-                <group>
+                <group expand="0" string="Group By">
                     <filter string="Employee" name="employee"
                             context="{'group_by':'employee_id'}"/>
                     <filter string="Month" name="month"

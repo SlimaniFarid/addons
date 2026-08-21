@@ -11,4 +11,4 @@ access_sf_staffing_contract_user,sf.staffing.contract.user,model_sf_staffing_con
 access_sf_staffing_contract_manager,sf.staffing.contract.manager,model_sf_staffing_contract,sf_staffing.group_sf_staffing_manager,1,1,1,1
 access_sf_staffing_timesheet_user,sf.staffing.timesheet.user,model_sf_staffing_timesheet,sf_staffing.group_sf_staffing_user,1,1,1,0
 access_sf_staffing_timesheet_manager,sf.staffing.timesheet.manager,model_sf_staffing_timesheet,sf_staffing.group_sf_staffing_manager,1,1,1,1
-access_mail_activity_sf_staffing_user,mail.activity.staffing.user,mail.model_mail_activity,sf_staffing.group_sf_staffing_user,1,1,1,0
+access_mail_activity_sf_staffing_user,mail.activity.staffing.user,mail.model_mail_activity,sf_staffing.group_sf_staffing_user,1,1,1,0access_sf_staffing_sf_staffing_activity_mixin_ro,sf.staffing.activity.mixin.readonly,model_sf_staffing_activity_mixin,sf_staffing.group_sf_staffing_user,1,0,0,0

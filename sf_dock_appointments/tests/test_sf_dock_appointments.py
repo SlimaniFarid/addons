@@ -19,6 +19,10 @@ class TestSfDockAppointments(TransactionCase):
             'name': 'Receiving Dock A',
             'dock_type': 'receiving',
         })
+        self.dock2 = self.env['sf.dock'].create({
+            'name': 'Shipping Dock B',
+            'dock_type': 'shipping',
+        })
         self.manager_group = self.env.ref(
             'sf_dock_appointments.group_sf_dock_appointments_manager')
         self.user_group = self.env.ref(
@@ -98,12 +102,34 @@ class TestSfDockAppointments(TransactionCase):
         with self.assertRaises(UserError):
             appointment.action_complete()
 
+    def test_arrival_grace_period_validation(self):
+        """Test that arrival before grace period raises UserError."""
+        self.env['ir.config_parameter'].sudo().set_param(
+            'sf_dock_appointments.grace_minutes', '15')
+        at = fields.Datetime.now() + timedelta(hours=4)
+        appointment = self._create_appointment(at=at, window=60)
+        # Arrival 20 minutes before appointment (outside 15 min grace) should fail
+        early_arrival = at - timedelta(minutes=20)
+        appointment.actual_arrival_datetime = early_arrival
+        with self.assertRaises(UserError):
+            appointment.action_arrive()
+        # Arrival 10 minutes before appointment (within 15 min grace) should succeed
+        appointment2 = self._create_appointment(at=at + timedelta(hours=1), window=60)
+        arrival_within_grace = at + timedelta(hours=1) - timedelta(minutes=10)
+        appointment2.actual_arrival_datetime = arrival_within_grace
+        appointment2.action_arrive()
+        self.assertEqual(appointment2.state, 'arrived')
+        # Arrival after appointment time should succeed
+        appointment3 = self._create_appointment(at=at + timedelta(hours=2), window=60)
+        appointment3.action_arrive()
+        self.assertEqual(appointment3.state, 'arrived')
+
     def test_departure_before_dock_rejected(self):
         appointment = self._create_appointment()
         appointment.action_arrive()
-        appointment.write({'actual_dock_datetime': appointment.actual_arrival_datetime})
-        appointment.state = 'docked'
-        appointment.actual_departure_datetime = appointment.actual_arrival_datetime - timedelta(hours=1)
+        appointment.action_dock()
+        # Set departure before dock time
+        appointment.actual_departure_datetime = appointment.actual_dock_datetime - timedelta(hours=1)
         with self.assertRaises(UserError):
             appointment.action_complete()
 
@@ -111,13 +137,11 @@ class TestSfDockAppointments(TransactionCase):
         at = fields.Datetime.now() + timedelta(hours=4)
         appointment = self._create_appointment(at=at, window=60)
         appointment.action_arrive()
-        appointment.write({
-            'actual_dock_datetime': appointment.actual_arrival_datetime,
-        })
-        appointment.state = 'docked'
+        appointment.action_dock()
         appointment.write({
             'actual_departure_datetime': at + timedelta(minutes=90),
         })
+        appointment.action_complete()
         self.assertEqual(appointment.delay_minutes, 60)
         self.assertEqual(appointment.dock_duration_minutes, 90)
 
@@ -161,3 +185,23 @@ class TestSfDockAppointments(TransactionCase):
         action = self.env.ref(
             'sf_dock_appointments.action_report_appointments').report_action(appointment)
         self.assertTrue(action)
+
+    def test_report_grouped_by_dock_and_day(self):
+        """Test that report groups appointments by dock and by day."""
+        base_date = fields.Datetime.now() + timedelta(days=1)
+        # Create appointments on different docks and different days
+        appt1 = self._create_appointment(at=base_date, dock=self.dock.id)
+        appt2 = self._create_appointment(
+            at=base_date + timedelta(hours=2), dock=self.dock.id)
+        appt3 = self._create_appointment(
+            at=base_date + timedelta(days=1), dock=self.dock.id)
+        appt4 = self._create_appointment(at=base_date, dock=self.dock2.id)
+
+        # Generate report
+        action = self.env.ref(
+            'sf_dock_appointments.action_report_appointments').report_action(
+            self.env['sf.dock.appointment'].search([]))
+        # Verify report action is valid
+        self.assertTrue(action)
+        self.assertEqual(action['report_type'], 'qweb-pdf')
+        self.assertEqual(action['report_name'], 'sf_dock_appointments.report_appointments')

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Fuel & Fleet Management',
-    'version': '18.0.1.0.0',
+    'version': '18.0.1.0',
     'category': 'Operations',
     'summary': 'Fuel cards, fills with L/100km consumption tracking, tanks with receipts and anomaly alerts',
     'description': """

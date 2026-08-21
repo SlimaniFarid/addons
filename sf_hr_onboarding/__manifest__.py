@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Employee Onboarding & Offboarding',
-    'version': '18.0.1.0.0',
+    'version': '18.0.1.0',
     'category': 'Human Resources',
     'summary': 'Structured onboarding and offboarding journeys with checklists, tasks and alerts',
     'description': """

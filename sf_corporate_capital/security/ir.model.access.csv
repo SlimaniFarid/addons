@@ -5,5 +5,4 @@ access_sf_share_class_user,sf.share.class.user,model_sf_share_class,sf_corporate
 access_sf_share_class_manager,sf.share.class.manager,model_sf_share_class,sf_corporate_capital.group_sf_capital_manager,1,1,1,1
 access_sf_capital_movement_user,sf.capital.movement.user,model_sf_capital_movement,sf_corporate_capital.group_sf_capital_user,1,1,1,0
 access_sf_capital_movement_manager,sf.capital.movement.manager,model_sf_capital_movement,sf_corporate_capital.group_sf_capital_manager,1,1,1,1
-access_sf_capital_movement_mail_activity,sf.capital.movement.mail.activity.user,mail.activity,sf_corporate_capital.group_sf_capital_user,1,1,1,0
-access_sf_capital_activity_mixin,sf.capital.activity.mixin.user,model_sf_capital_activity_mixin,sf_corporate_capital.group_sf_capital_user,1,1,1,0
+access_sf_capital_movement_mail_activity,sf.capital.movement.mail.activity.user,mail.activity,sf_corporate_capital.group_sf_capital_user,1,1,1,0access_sf_corporate_capital_sf_capital_activity_mixin_ro,sf.capital.activity.mixin.readonly,model_sf_capital_activity_mixin,sf_corporate_capital.group_sf_capital_user,1,0,0,0

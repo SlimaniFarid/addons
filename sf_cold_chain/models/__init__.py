@@ -4,4 +4,5 @@ from . import sf_cold_site
 from . import sf_cold_trip
 from . import sf_cold_reading
 from . import sf_cold_excursion
+from . import sf_cold_chain_report_wizard
 from . import res_config_settings

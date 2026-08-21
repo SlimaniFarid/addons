@@ -1,6 +1,6 @@
 {
     'name': 'WhatsApp Business API',
-    'version': '18.0.1.0.0',
+    'version': '18.0.1.0',
     'category': 'Productivity',
     'summary': 'Send WhatsApp messages from Odoo via Meta Cloud API',
     'description': "Integrate WhatsApp Business Cloud API with Odoo Community. Send templated messages from any record (partners, orders, invoices, etc.) with automated workflows for order confirmation, invoice reminders, delivery updates, and more.",

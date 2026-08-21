@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'E-commerce Digital Goods & License Key Delivery',
-    'version': '18.0.1.0.0',
+    'version': '18.0.1.0',
     'category': 'Sales',
     'summary': 'Digital products, automatic license key generation, expirable download links and digital delivery tracking',
     'description': 'Sell and deliver digital goods (software licenses, activation keys, e-books, downloads): define digital products, generate unique license keys automatically, create expirable download links, trigger the delivery on order confirmation, track activations and produce PDF delivery and license key certificate reports.',

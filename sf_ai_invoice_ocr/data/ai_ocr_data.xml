@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <record id="seq_ai_ocr_request" model="ir.sequence">
         <field name="name">OCR Request</field>

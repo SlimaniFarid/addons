@@ -4,8 +4,7 @@ Company Policy & Employee Acknowledgment Register module for Odoo 18.
 
 ## Features
 
-- Versioned internal policies (category, version, effective and expiry
-  dates, owner, content).
+- Versioned internal policies (category: Code of Conduct, Human Resources, IT Security, Safety, Data Protection, Finance, Quality, Other; version, effective and expiry dates, owner, content).
 - Employee assignment per policy.
 - Publication workflow: Draft, Published, Retired, Archived.
 - Acknowledgment register generated at publication, one acknowledgment

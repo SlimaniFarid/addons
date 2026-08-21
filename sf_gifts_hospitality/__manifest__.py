@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Corporate Gifts & Hospitality Register',
-    'version': '18.0.1.0.0',
+    'version': '18.0.1.0',
     'category': 'Operations',
     'summary': 'Anti-bribery register of gifts and hospitality given or received with approval threshold',
     'description': 'Corporate gifts and hospitality register for anti-bribery compliance (Sapin II, FCPA, UK Bribery Act, ISO 37001): employees declare gifts, hospitality and invitations given or received, the module computes whether an approval is required based on a configurable threshold, managers approve or reject the declarations, an annual register per employee is available, and PDF reports (gifts register and annual declaration) can be printed.',

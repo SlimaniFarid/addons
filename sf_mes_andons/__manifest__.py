@@ -1,6 +1,6 @@
 {
     'name': 'Andon & Alert System',
-    'version': '18.0.1.0.0',
+    'version': '18.0.1.0',
     'category': 'Manufacturing/Manufacturing',
     'summary': 'Real-time Andon alerts, escalation and response tracking for shop floor',
     'description': """

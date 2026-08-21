@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <record id="seq_access_policy" model="ir.sequence">
         <field name="name">Access Policy</field>

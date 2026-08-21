@@ -14,7 +14,10 @@ class SfTradeClaim(models.Model):
                                  ondelete='cascade')
     partner_id = fields.Many2one('res.partner', string='Customer', required=True,
                                  ondelete='restrict')
-    invoice_id = fields.Many2one('account.move', string='Related Invoice', ondelete='set null')
+    invoice_id = fields.Many2one(
+        'account.move', string='Related Invoice', ondelete='set null',
+        domain="[('move_type', '=', 'out_invoice'), ('company_id', '=', company_id)]"
+    )
     amount = fields.Monetary(string='Amount', required=True, currency_field='currency_id')
     reason = fields.Char(string='Reason')
     claim_date = fields.Date(string='Claim Date',
@@ -30,11 +33,18 @@ class SfTradeClaim(models.Model):
     currency_id = fields.Many2one('res.currency', string='Currency',
                                   related='company_id.currency_id', readonly=True, store=True)
     company_id = fields.Many2one('res.company', string='Company', store=True,
-                                 default=lambda self: self.env.company)
+                                 default=lambda self: self.env.company, index=True)
 
     _sql_constraints = [
         ('amount_positive', 'CHECK (amount > 0)', 'The claim amount must be positive.'),
     ]
+
+    @api.constrains('partner_id', 'program_id')
+    def _check_partner_eligible(self):
+        for claim in self:
+            if claim.program_id and claim.partner_id:
+                if claim.partner_id not in claim.program_id.partner_ids:
+                    raise UserError(_('The customer must be an eligible customer of the program.'))
 
     @api.model_create_multi
     def create(self, vals_list):
@@ -69,9 +79,14 @@ class SfTradeClaim(models.Model):
 
     def action_approve(self):
         self._check_manager()
+        # Lock programs to prevent race conditions on budget validation
+        programs = self.mapped('program_id')
+        if programs:
+            programs.with_lock()
         for claim in self:
             if claim.state != 'submitted':
                 raise UserError(_('Only submitted claims can be approved.'))
+            # Re-check budget after lock (remaining_budget is computed)
             if claim.amount > claim.program_id.remaining_budget:
                 raise UserError(_('Approving this claim would exceed the remaining budget '
                                   'of the program.'))
@@ -97,7 +112,7 @@ class SfTradeClaim(models.Model):
     def action_cancel(self):
         self._check_manager()
         for claim in self:
-            if claim.state in ('approved', 'paid'):
-                raise UserError(_('Approved or paid claims cannot be cancelled.'))
+            if claim.state not in ('draft', 'submitted'):
+                raise UserError(_('Only draft or submitted claims can be cancelled.'))
             claim.state = 'cancelled'
             claim.message_post(body=_('The claim was cancelled.'))

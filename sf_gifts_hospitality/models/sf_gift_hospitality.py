@@ -48,10 +48,10 @@ class SfGiftHospitality(models.Model):
         'res.company', string='Company', store=True,
         default=lambda self: self.env.company)
 
-    @api.depends('estimated_value')
+    @api.depends('estimated_value', 'company_id')
     def _compute_requires_approval(self):
-        threshold = self._get_approval_threshold()
         for record in self:
+            threshold = record._get_approval_threshold()
             record.requires_approval = (
                 record.estimated_value or 0.0) >= threshold
 
@@ -93,12 +93,22 @@ class SfGiftHospitality(models.Model):
             raise UserError(_('Only draft declarations can be submitted.'))
         if self.requires_approval:
             self._set_state('submitted')
+            self._sf_check_todo(
+                self.env.ref('mail.mail_activity_data_todo').id,
+                _('Declaration submitted for approval: %s', self.name),
+                _('Please review this gift/hospitality declaration.')
+            )
         else:
             self.write({
                 'approved_by': self.env.user.id,
                 'approved_date': fields.Date.context_today(self),
             })
             self._set_state('approved')
+            self._sf_check_todo(
+                self.env.ref('mail.mail_activity_data_todo').id,
+                _('Declaration auto-approved: %s', self.name),
+                _('Declaration was auto-approved as it is below the approval threshold.')
+            )
 
     def action_approve(self):
         self.ensure_one()
@@ -110,6 +120,11 @@ class SfGiftHospitality(models.Model):
             'approved_date': fields.Date.context_today(self),
         })
         self._set_state('approved')
+        self._sf_check_todo(
+            self.env.ref('mail.mail_activity_data_todo').id,
+            _('Declaration approved: %s', self.name),
+            _('Your declaration has been approved.')
+        )
 
     def action_reject(self):
         self.ensure_one()
@@ -117,12 +132,22 @@ class SfGiftHospitality(models.Model):
         if self.state != 'submitted':
             raise UserError(_('Only submitted declarations can be rejected.'))
         self._set_state('rejected')
+        self._sf_check_todo(
+            self.env.ref('mail.mail_activity_data_todo').id,
+            _('Declaration rejected: %s', self.name),
+            _('Your declaration has been rejected. Please review and resubmit if needed.')
+        )
 
     def action_resubmit(self):
         self.ensure_one()
         if self.state != 'rejected':
             raise UserError(_('Only rejected declarations can be resubmitted.'))
         self._set_state('submitted')
+        self._sf_check_todo(
+            self.env.ref('mail.mail_activity_data_todo').id,
+            _('Declaration resubmitted: %s', self.name),
+            _('Please review this gift/hospitality declaration.')
+        )
 
     def action_archive(self):
         self.ensure_one()
@@ -130,11 +155,18 @@ class SfGiftHospitality(models.Model):
         if self.state != 'approved':
             raise UserError(_('Only approved declarations can be archived.'))
         self._set_state('archived')
+        self._sf_check_todo(
+            self.env.ref('mail.mail_activity_data_todo').id,
+            _('Declaration archived: %s', self.name),
+            _('This declaration has been archived.')
+        )
 
     def _declaration_lines(self):
         grouped = {}
+        today = fields.Date.context_today(self)
         for record in self:
-            year = record.date.year if record.date else 0
+            date = record.date or today
+            year = date.year
             key = (record.employee_id.id, year)
             grouped.setdefault(key, []).append(record)
         lines = []

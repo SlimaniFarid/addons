@@ -9,9 +9,9 @@
             <form string="Property">
                 <header>
                     <button name="action_available" string="Mark Available"
-                            type="object" invisible="[('state', 'not in', ('rented', 'maintenance'))]"/>
+                            type="object" states="rented,maintenance"/>
                     <button name="action_maintenance" string="Maintenance"
-                            type="object" invisible="[('state', 'not in', ('available', 'rented'))]"/>
+                            type="object" states="available,rented"/>
                 </header>
                 <sheet>
                     <div class="oe_title">
@@ -89,7 +89,7 @@
                         domain="[('state','=','available')]"/>
                 <filter string="Rented" name="rented"
                         domain="[('state','=','rented')]"/>
-                <group>
+                <group expand="0" string="Group By">
                     <filter string="Type" name="type"
                             context="{'group_by':'property_type'}"/>
                     <filter string="City" name="city"
@@ -107,11 +107,11 @@
             <form string="Lease">
                 <header>
                     <button name="action_activate" string="Activate"
-                            type="object" invisible="[('state', 'not in', ('draft',))]"/>
+                            type="object" states="draft"/>
                     <button name="action_close" string="Close"
-                            type="object" invisible="[('state', 'not in', ('active',))]"/>
+                            type="object" states="active"/>
                     <button name="action_generate_invoices" string="Generate Rent Invoices"
-                            type="object" invisible="[('state', 'not in', ('active',))]"/>
+                            type="object" states="active"/>
                 </header>
                 <sheet>
                     <div class="oe_title">
@@ -178,9 +178,9 @@
             <form string="Rent Invoice">
                 <header>
                     <button name="action_post" string="Post" type="object"
-                            invisible="[('state', 'not in', ('draft',))]"/>
+                            states="draft"/>
                     <button name="action_paid" string="Mark Paid" type="object"
-                            invisible="[('state', 'not in', ('posted',))]"/>
+                            states="posted"/>
                 </header>
                 <sheet>
                     <group>

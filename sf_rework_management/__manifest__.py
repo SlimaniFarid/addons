@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Rework Management',
-    'version': '18.0.1.0.0',
+    'version': '18.0.1.0',
     'category': 'Manufacturing',
     'summary': 'Track rework orders, operations and scrap with cost computation and escalation alerts',
     'description': 'Rework management for manufacturing and quality departments: create rework orders linked to products and lots, record rework operations with hours, register scrap quantities with values, compute labor cost, scrap value and total rework cost automatically, track orders through draft, in progress, completed, closed and cancelled states, alert managers with a cron when rework orders stay open too long, and print the rework order PDF report.',

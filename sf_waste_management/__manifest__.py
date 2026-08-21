@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Waste Management (BSD)',
-    'version': '18.0.1.0.0',
+    'version': '18.0.1.0',
     'category': 'Manufacturing/Quality',
     'sequence': 12,
     'summary': 'Waste tracking slips (BSD), sites and waste codes',

@@ -1,6 +1,6 @@
 {
     'name': 'AI Contract Analyzer & Obligations',
-    'version': '18.0.1.0.0',
+    'version': '18.0.1.0',
     'category': 'Productivity',
     'summary': 'Extract obligations, dates, risks from contracts (PDF/Word) with AI - auto calendar alerts',
     'description': """AI Contract Analyzer & Obligations

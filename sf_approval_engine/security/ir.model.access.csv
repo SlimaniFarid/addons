@@ -6,4 +6,4 @@ access_sf_approval_step_manager,sf.approval.step.manager,model_sf_approval_step,
 access_sf_approval_request_user,sf.approval.request.user,model_sf_approval_request,sf_approval_engine.group_approval_user,1,1,1,0
 access_sf_approval_request_manager,sf.approval.request.manager,model_sf_approval_request,sf_approval_engine.group_approval_manager,1,1,1,1
 access_sf_approval_history_user,sf.approval.history.user,model_sf_approval_history,sf_approval_engine.group_approval_user,1,0,0,0
-access_sf_approval_history_manager,sf.approval.history.manager,model_sf_approval_history,sf_approval_engine.group_approval_manager,1,1,1,1
+access_sf_approval_history_manager,sf.approval.history.manager,model_sf_approval_history,sf_approval_engine.group_approval_manager,1,1,1,1access_sf_approval_engine_sf_approval_mixin_ro,sf.approval.mixin.readonly,model_sf_approval_mixin,base.group_user,1,0,0,0

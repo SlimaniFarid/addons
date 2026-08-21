@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Warranty & Claims Management',
-    'version': '18.0.1.0.0',
+    'version': '18.0.1.0',
     'category': 'Operations',
     'summary': 'Product warranties, claims with automatic eligibility check and motivated decisions',
     'description': """

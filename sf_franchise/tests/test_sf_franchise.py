@@ -193,7 +193,8 @@ class TestSfFranchise(TransactionCase):
         pending.action_confirm()
         self.contract.action_activate()
         self.env['sf.franchise.declaration']._cron_daily_checks()
-        self.assertTrue(pending.activity_ids)
+        expected_summary = 'Royalty declaration %s awaits invoicing' % pending.name
+        self.assertTrue(pending.activity_ids.filtered(lambda a: a.summary == expected_summary))
 
     def test_report_generation(self):
         declaration = self._create_declaration()

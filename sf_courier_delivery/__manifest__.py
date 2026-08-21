@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Courier & Parcel Delivery Management',
-    'version': '18.0.1.0.0',
+    'version': '18.0.1.0',
     'category': 'Operations',
     'summary': 'Pickup/delivery requests, courier assignment, routes, delivery proof (photo/signature), failures, returns and invoicing',
     'description': 'Courier and parcel delivery management module for courier and express delivery companies: register pickup/delivery requests with addresses and time windows, assign couriers, plan routes, track each delivery by status (to collect, in transit, delivered, failed, returned), capture proof of delivery (photo, signature, timestamp), handle delivery failures and returns, and invoice deliveries.',

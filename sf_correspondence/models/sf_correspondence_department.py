@@ -6,6 +6,7 @@ class SfCorrespondenceDepartment(models.Model):
     _name = 'sf.correspondence.department'
     _description = 'Correspondence Department'
     _order = 'name asc'
+    _rec_name = 'name'
 
     name = fields.Char(string='Name', required=True, copy=False)
     company_id = fields.Many2one(

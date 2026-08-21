@@ -8,12 +8,13 @@
                 <field name="name"/>
                 <field name="trip_id"/>
                 <field name="site_id"/>
-                <field name="reading_datetime"/>
+                <field name="recorded_at"/>
                 <field name="temperature"/>
+                <field name="source"/>
                 <field name="temperature_min"/>
                 <field name="temperature_max"/>
                 <field name="within_range" widget="boolean_toggle"/>
-                <field name="recorded_by"/>
+                <field name="deviation"/>
                 <field name="company_id" groups="base.group_multi_company"/>
             </list>
         </field>
@@ -29,8 +30,9 @@
                         <group>
                             <field name="trip_id"/>
                             <field name="site_id"/>
-                            <field name="reading_datetime"/>
+                            <field name="recorded_at"/>
                             <field name="temperature"/>
+                            <field name="source"/>
                         </group>
                         <group>
                             <field name="temperature_min"/>
@@ -38,7 +40,6 @@
                             <field name="within_range" widget="boolean_toggle"/>
                             <field name="deviation"/>
                             <field name="excursion_id"/>
-                            <field name="recorded_by"/>
                             <field name="company_id" groups="base.group_multi_company"/>
                         </group>
                     </group>
@@ -58,11 +59,13 @@
                 <field name="name"/>
                 <field name="trip_id"/>
                 <field name="site_id"/>
+                <field name="source"/>
                 <filter name="reading_out_of_range" string="Out of Range" domain="[('within_range', '=', False)]"/>
                 <filter name="reading_in_range" string="Within Range" domain="[('within_range', '=', True)]"/>
                 <group>
                     <filter name="group_reading_trip" string="Trip" context="{'group_by': 'trip_id'}"/>
                     <filter name="group_reading_site" string="Site" context="{'group_by': 'site_id'}"/>
+                    <filter name="group_reading_source" string="Source" context="{'group_by': 'source'}"/>
                 </group>
             </search>
         </field>

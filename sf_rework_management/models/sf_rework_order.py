@@ -16,23 +16,22 @@ class SfReworkOrder(models.Model):
                                  required=True, ondelete='restrict')
     lot_id = fields.Many2one('stock.lot', string='Lot', ondelete='restrict')
     qty = fields.Float(string='Quantity', required=True)
-    uom_id = fields.Many2one('uom.uom', string='Unit of Measure')
     assignee_id = fields.Many2one('res.users', string='Assignee')
     source = fields.Selection([
-        ('inspection', 'Inspection'),
+        ('production', 'Production'),
+        ('quality', 'Quality'),
         ('customer_return', 'Customer Return'),
-        ('internal', 'Internal'),
         ('other', 'Other'),
-    ], string='Source', required=True, default='internal')
-    reason = fields.Selection([
-        ('defective_component', 'Defective Component'),
-        ('finish_defect', 'Finish Defect'),
-        ('assembly_error', 'Assembly Error'),
-        ('calibration', 'Calibration / Adjustment'),
-        ('damage', 'Damage'),
-        ('other', 'Other'),
-    ], string='Reason', default='other')
+    ], string='Source', required=True, default='production')
+    reason = fields.Char(string='Reason', required=True)
     description = fields.Text(string='Description')
+    disposition = fields.Selection([
+        ('rework', 'Rework'),
+        ('scrap', 'Scrap'),
+        ('use_as_is', 'Use As Is'),
+        ('return_to_supplier', 'Return to Supplier'),
+        ('other', 'Other'),
+    ], string='Disposition', default='rework')
     state = fields.Selection([
         ('draft', 'Draft'),
         ('in_progress', 'In Progress'),
@@ -42,19 +41,21 @@ class SfReworkOrder(models.Model):
     ], string='Status', default='draft', copy=False)
     actual_start_datetime = fields.Datetime(string='Start Time')
     actual_end_datetime = fields.Datetime(string='End Time')
-    hourly_rate = fields.Float(string='Hourly Rate', required=True)
+    hourly_rate = fields.Monetary(string='Hourly Rate', required=True, currency_field='currency_id')
+    currency_id = fields.Many2one('res.currency', string='Currency',
+                                  related='company_id.currency_id', store=True, readonly=True)
     operation_ids = fields.One2many('sf.rework.operation', 'order_id',
                                     string='Operations')
     scrap_ids = fields.One2many('sf.rework.scrap', 'order_id',
                                 string='Scrap')
     total_hours = fields.Float(string='Total Hours',
                                compute='_compute_costs', store=True)
-    rework_cost = fields.Float(string='Rework Cost',
-                               compute='_compute_costs', store=True)
-    scrap_value = fields.Float(string='Scrap Value',
-                               compute='_compute_costs', store=True)
-    total_cost = fields.Float(string='Total Cost',
-                              compute='_compute_costs', store=True)
+    rework_cost = fields.Monetary(string='Rework Cost',
+                                  compute='_compute_costs', store=True, currency_field='currency_id')
+    scrap_value = fields.Monetary(string='Scrap Value',
+                                  compute='_compute_costs', store=True, currency_field='currency_id')
+    total_cost = fields.Monetary(string='Total Cost',
+                                 compute='_compute_costs', store=True, currency_field='currency_id')
     company_id = fields.Many2one('res.company', string='Company', store=True,
                                  default=lambda self: self.env.company)
 
@@ -71,11 +72,11 @@ class SfReworkOrder(models.Model):
             if order.qty <= 0:
                 raise ValidationError(_('The rework quantity must be greater than zero.'))
 
-    @api.depends('operation_ids.hours', 'hourly_rate', 'scrap_ids.value')
+    @api.depends('operation_ids.hours', 'operation_ids.hourly_rate', 'scrap_ids.value')
     def _compute_costs(self):
         for order in self:
             order.total_hours = sum(order.operation_ids.mapped('hours'))
-            order.rework_cost = order.total_hours * order.hourly_rate
+            order.rework_cost = sum(op.hours * op.hourly_rate for op in order.operation_ids)
             order.scrap_value = sum(order.scrap_ids.mapped('value'))
             order.total_cost = order.rework_cost + order.scrap_value
 
@@ -95,10 +96,16 @@ class SfReworkOrder(models.Model):
                 vals['name'] = self.env['ir.sequence'].next_by_code('sf.rework.order')
             if 'hourly_rate' not in vals:
                 vals['hourly_rate'] = self._default_hourly_rate()
-            if not vals.get('uom_id') and vals.get('product_id'):
-                product = self.env['product.product'].browse(vals['product_id'])
-                vals['uom_id'] = product.uom_id.id
         return super().create(vals_list)
+
+    def write(self, vals):
+        if not self.env.context.get('allow_write_on_locked'):
+            locked_states = ('completed', 'closed', 'cancelled')
+            for order in self:
+                if order.state in locked_states:
+                    if not self.env.user.has_group('sf_rework_management.group_sf_rework_management_manager'):
+                        raise UserError(_('A completed, closed or cancelled rework order cannot be modified.'))
+        return super().write(vals)
 
     def _check_manager(self):
         if not self.env.user.has_group('sf_rework_management.group_sf_rework_management_manager'):
@@ -110,8 +117,7 @@ class SfReworkOrder(models.Model):
             raise UserError(_('Only draft rework orders can be started.'))
         self.write({
             'state': 'in_progress',
-            'actual_start_datetime': self.actual_start_datetime
-            or fields.Datetime.now(),
+            'actual_start_datetime': fields.Datetime.now(),
         })
 
     def action_complete(self):
@@ -120,8 +126,7 @@ class SfReworkOrder(models.Model):
             raise UserError(_('Only in-progress rework orders can be completed.'))
         self.write({
             'state': 'completed',
-            'actual_end_datetime': self.actual_end_datetime
-            or fields.Datetime.now(),
+            'actual_end_datetime': fields.Datetime.now(),
         })
 
     def action_close(self):
@@ -129,15 +134,16 @@ class SfReworkOrder(models.Model):
         self._check_manager()
         if self.state != 'completed':
             raise UserError(_('Only completed rework orders can be closed.'))
+        self.with_context(allow_write_on_locked=True).write({'state': 'closed'})
 
     def action_cancel(self):
         self.ensure_one()
         self._check_manager()
         if self.state in ('completed', 'closed', 'cancelled'):
             raise UserError(_('A completed, closed or cancelled rework order cannot be cancelled.'))
-        self.write({
+        self.with_context(allow_write_on_locked=True).write({
             'state': 'cancelled',
-            'actual_end_datetime': self.actual_end_datetime or fields.Datetime.now(),
+            'actual_end_datetime': fields.Datetime.now(),
         })
 
     def _cron_escalation(self):
@@ -145,7 +151,7 @@ class SfReworkOrder(models.Model):
         param = self.env['ir.config_parameter'].sudo().get_param(
             'sf_rework_management.alert_days')
         alert_days = int(param) if param else 7
-        domain = [('state', '=', 'in_progress')]
+        domain = [('state', 'in', ('draft', 'in_progress'))]
         companies = self.env['res.company'].search([])
         for company in companies:
             scoped = self.with_company(company)

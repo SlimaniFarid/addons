@@ -1,6 +1,6 @@
 {
     'name': 'Vendor Portal & e-Procurement',
-    'version': '18.0.1.0.0',
+    'version': '18.0.1.0',
     'category': 'Purchasing',
     'summary': 'Self-service vendor portal: RFQs, quotations, orders and invoices online',
     'description': """

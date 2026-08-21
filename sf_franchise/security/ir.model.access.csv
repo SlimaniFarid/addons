@@ -3,5 +3,4 @@ access_sf_franchise_contract_user,sf.franchise.contract.user,model_sf_franchise_
 access_sf_franchise_declaration_user,sf.franchise.declaration.user,model_sf_franchise_declaration,sf_franchise.group_sf_franchise_user,1,1,1,0
 access_sf_franchise_contract_manager,sf.franchise.contract.manager,model_sf_franchise_contract,sf_franchise.group_sf_franchise_manager,1,1,1,1
 access_sf_franchise_declaration_manager,sf.franchise.declaration.manager,model_sf_franchise_declaration,sf_franchise.group_sf_franchise_manager,1,1,1,1
-access_sf_franchise_mail_activity,sf.franchise.mail.activity.user,mail.activity,sf_franchise.group_sf_franchise_user,1,1,1,0
 access_sf_franchise_activity_mixin,sf.franchise.activity.mixin.user,model_sf_franchise_activity_mixin,sf_franchise.group_sf_franchise_user,1,1,1,0

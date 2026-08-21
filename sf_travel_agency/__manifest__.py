@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'SF Travel Agency',
-    'version': '18.0.1.0.0',
+    'version': '18.0.1.0',
     'author': 'Ethan Miller',
     'support': 'tech5262@gmail.com',
     'license': 'OPL-1',

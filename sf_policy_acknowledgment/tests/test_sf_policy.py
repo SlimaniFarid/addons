@@ -145,7 +145,7 @@ class TestSfPolicy(TransactionCase):
             'name': 'Policy Co 2'})
         policy2 = self.env['sf.policy'].with_company(company2).create({
             'name': 'Co2 Policy',
-            'policy_type': 'it',
+            'policy_type': 'it_security',
             'effective_date': odoo_fields.Date.today(),
             'company_id': company2.id,
         })

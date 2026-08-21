@@ -8,4 +8,5 @@ access_portal_subscription_mgmt_mgr,customer.portal.pro.portal_subscription_mgmt
 access_portal_document_user,customer.portal.pro.portal_document.user,model_portal_document,base.group_user,1,0,0,0
 access_portal_document_mgr,customer.portal.pro.portal_document.mgr,model_portal_document,base.group_system,1,1,1,1
 access_portal_ticket_user,customer.portal.pro.portal_ticket.user,model_portal_ticket,base.group_user,1,0,0,0
-access_portal_ticket_mgr,customer.portal.pro.portal_ticket.mgr,model_portal_ticket,base.group_system,1,1,1,1
+access_portal_ticket_mgr,customer.portal.pro.portal_ticket.mgr,model_portal_ticket,base.group_system,1,1,1,1access_sf_customer_portal_pro_portal_document_tag_user,portal.document.tag.user,model_portal_document_tag,sf_customer_portal_pro.group_sf_customer_portal_pro_user,1,1,1,0
+access_sf_customer_portal_pro_portal_document_tag_manager,portal.document.tag.manager,model_portal_document_tag,sf_customer_portal_pro.group_sf_customer_portal_pro_user,1,1,1,1

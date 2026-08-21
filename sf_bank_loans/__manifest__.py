@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Bank Loans & Credits',
-    'version': '18.0.1.0.0',
+    'version': '18.0.1.0',
     'category': 'Accounting',
     'summary': 'Track bank loans, calculated amortization schedules, drawdowns, early repayments and covenants with alerts',
     'description': """

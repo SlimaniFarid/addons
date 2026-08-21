@@ -15,9 +15,11 @@ class SfReworkScrap(models.Model):
     product_id = fields.Many2one('product.product', string='Product',
                                  required=True, ondelete='restrict')
     qty = fields.Float(string='Quantity', required=True)
-    uom_id = fields.Many2one('uom.uom', string='Unit of Measure')
-    value = fields.Float(string='Value', compute='_compute_value', store=True)
-    reason = fields.Text(string='Reason')
+    unit_value = fields.Monetary(string='Unit Value', required=True, currency_field='currency_id')
+    value = fields.Monetary(string='Value', compute='_compute_value', store=True, currency_field='currency_id')
+    scrap_reason = fields.Char(string='Scrap Reason', required=True)
+    currency_id = fields.Many2one('res.currency', string='Currency',
+                                  related='company_id.currency_id', store=True, readonly=True)
     company_id = fields.Many2one('res.company', string='Company', store=True,
                                  default=lambda self: self.env.company)
 
@@ -26,23 +28,18 @@ class SfReworkScrap(models.Model):
          'The scrap quantity must be greater than zero.'),
     ]
 
-    @api.depends('product_id.uom_id')
+    @api.depends('order_id.name', 'product_id.name')
     def _compute_name(self):
         for scrap in self:
             scrap.name = '%s / %s' % (scrap.order_id.name, scrap.product_id.name)
 
-    @api.depends('product_id.standard_price', 'qty')
+    @api.depends('qty', 'unit_value')
     def _compute_value(self):
         for scrap in self:
-            scrap.value = scrap.qty * scrap.product_id.standard_price
+            scrap.value = scrap.qty * scrap.unit_value
 
     @api.constrains('qty')
     def _check_qty(self):
         for scrap in self:
             if scrap.qty <= 0:
                 raise ValidationError(_('The scrap quantity must be greater than zero.'))
-
-    @api.onchange('order_id', 'product_id')
-    def _onchange_uom(self):
-        if self.product_id:
-            self.uom_id = self.product_id.uom_id

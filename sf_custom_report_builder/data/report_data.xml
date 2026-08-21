@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <record id="report_template_invoice" model="report.template">
         <field name="name">Custom Invoice</field>

@@ -1,6 +1,6 @@
 {
     'name': 'Multi-Channel Returns & RMA Center',
-    'version': '18.0.1.0.0',
+    'version': '18.0.1.0',
     'category': 'Sales',
     'summary': 'Unified returns portal for eCommerce, POS, B2B, marketplaces with auto-approval rules',
     'description': """Multi-Channel Returns & RMA Center

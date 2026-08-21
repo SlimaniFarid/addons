@@ -6,11 +6,11 @@
         <field name="arch" type="xml">
             <list string="Cold Storage Sites">
                 <field name="name"/>
-                <field name="site_type"/>
-                <field name="temperature_min"/>
-                <field name="temperature_max"/>
-                <field name="location_note"/>
-                <field name="is_active"/>
+                <field name="device_type"/>
+                <field name="target_min_temp"/>
+                <field name="target_max_temp"/>
+                <field name="location"/>
+                <field name="state" widget="badge"/>
                 <field name="company_id" groups="base.group_multi_company"/>
             </list>
         </field>
@@ -29,16 +29,42 @@
                     </div>
                     <group>
                         <group>
-                            <field name="site_type"/>
-                            <field name="temperature_min"/>
-                            <field name="temperature_max"/>
+                            <field name="device_type"/>
+                            <field name="target_min_temp"/>
+                            <field name="target_max_temp"/>
                         </group>
                         <group>
-                            <field name="location_note"/>
-                            <field name="is_active"/>
+                            <field name="location"/>
+                            <field name="state" readonly="1"/>
                             <field name="company_id" groups="base.group_multi_company"/>
                         </group>
                     </group>
+                    <notebook>
+                        <page string="Readings">
+                            <field name="reading_ids">
+                                <list string="Readings">
+                                    <field name="recorded_at"/>
+                                    <field name="temperature"/>
+                                    <field name="source"/>
+                                    <field name="within_range" widget="boolean_toggle"/>
+                                    <field name="deviation"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Excursions">
+                            <field name="excursion_ids">
+                                <list string="Excursions">
+                                    <field name="name"/>
+                                    <field name="started_at"/>
+                                    <field name="duration_minutes"/>
+                                    <field name="min_temp"/>
+                                    <field name="max_temp"/>
+                                    <field name="severity"/>
+                                    <field name="state" widget="badge"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
                 </sheet>
             </form>
         </field>
@@ -50,9 +76,11 @@
         <field name="arch" type="xml">
             <search string="Cold Storage Sites">
                 <field name="name"/>
-                <field name="site_type"/>
+                <field name="device_type"/>
+                <field name="location"/>
                 <group>
-                    <filter name="group_site_type" string="Type" context="{'group_by': 'site_type'}"/>
+                    <filter name="group_device_type" string="Type" context="{'group_by': 'device_type'}"/>
+                    <filter name="group_state" string="Status" context="{'group_by': 'state'}"/>
                 </group>
             </search>
         </field>

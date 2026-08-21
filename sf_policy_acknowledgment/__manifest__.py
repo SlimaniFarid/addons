@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Company Policy & Employee Acknowledgment Register',
-    'version': '18.0.1.0.0',
+    'version': '18.0.1.0',
     'category': 'Human Resources',
     'summary': 'Versioned internal policies, employee assignment, acknowledgment sign-off, reminders and coverage rate',
     'description': 'Company policy and employee acknowledgment register: define versioned internal policies (category, version, effective date, owner, content), assign them to employees, publish them to generate acknowledgments, collect the acknowledgment of each employee, compute the coverage rate, raise automatic reminders for pending acknowledgments and for expiring policies, and print PDF reports (policy and acknowledgment register).',

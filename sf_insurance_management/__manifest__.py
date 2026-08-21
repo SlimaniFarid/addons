@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Insurance & Claims Management',
-    'version': '18.0.1.0.0',
+    'version': '18.0.1.0',
     'category': 'Operations',
     'summary': 'Insurance policies, premiums, guarantees, renewals and claims with indemnities',
     'description': """

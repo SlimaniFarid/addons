@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Trade Promotion Management (TPM)',
-    'version': '18.0.1.0.0',
+    'version': '18.0.1.0',
     'category': 'Sales',
     'summary': 'Trade promotion programs, budgets, customer claims, validation workflow and ROI tracking',
     'description': 'Manage trade promotions for FMCG and wholesale: promotion programs with budgets, periods and eligible customers, customer claims / deductions recording and validation, budget consumption tracking, ROI computation per program, daily closure of expired programs and PDF program and claims reports.',

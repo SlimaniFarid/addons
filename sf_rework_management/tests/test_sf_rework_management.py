@@ -37,52 +37,61 @@ class TestSfReworkManagement(TransactionCase):
         vals = {
             'product_id': self.product.id,
             'qty': 10.0,
-            'source': 'inspection',
-            'reason': 'assembly_error',
+            'source': 'production',
+            'reason': 'Assembly error',
             'hourly_rate': 20.0,
         }
         vals.update(kw)
         return self.env['sf.rework.order'].create(vals)
 
-    def _add_operation(self, order, hours=2.0):
+    def _add_operation(self, order, hours=2.0, hourly_rate=20.0):
         return self.env['sf.rework.operation'].create({
             'order_id': order.id,
             'name': 'Repair',
             'hours': hours,
+            'hourly_rate': hourly_rate,
         })
 
-    def _add_scrap(self, order, qty=2.0):
+    def _add_scrap(self, order, qty=2.0, unit_value=5.0):
         return self.env['sf.rework.scrap'].create({
             'order_id': order.id,
             'product_id': self.product.id,
             'qty': qty,
+            'unit_value': unit_value,
+            'scrap_reason': 'Damaged',
         })
 
     def test_sequence(self):
         order = self._create_order()
         self.assertTrue(order.name.startswith('RWO-'))
 
-    def test_uom_and_hourly_rate_defaults(self):
-        self.env['ir.config_parameter'].sudo().set_param(
-            'sf_rework_management.default_hourly_rate', '15.5')
+    def test_currency_id_defaults(self):
         order = self.env['sf.rework.order'].create({
             'product_id': self.product.id,
             'qty': 5.0,
+            'hourly_rate': 15.5,
+            'source': 'production',
+            'reason': 'Test',
         })
+        self.assertEqual(order.currency_id, self.env.company.currency_id)
         self.assertEqual(order.hourly_rate, 15.5)
-        self.assertEqual(order.uom_id, self.product.uom_id)
-        self.env['ir.config_parameter'].sudo().set_param(
-            'sf_rework_management.default_hourly_rate', '0')
+
+        op = self._add_operation(order)
+        self.assertEqual(op.currency_id, self.env.company.currency_id)
+
+        sc = self._add_scrap(order)
+        self.assertEqual(sc.currency_id, self.env.company.currency_id)
 
     def test_cost_computation(self):
         order = self._create_order()
-        self._add_operation(order, 2.0)
-        self._add_operation(order, 1.5)
-        self._add_scrap(order, 2.0)
+        self._add_operation(order, 2.0, 20.0)
+        self._add_operation(order, 1.5, 25.0)
+        self._add_scrap(order, 2.0, 5.0)
+        self._add_scrap(order, 1.0, 10.0)
         self.assertEqual(order.total_hours, 3.5)
-        self.assertEqual(order.rework_cost, 70.0)
-        self.assertEqual(order.scrap_value, 20.0)
-        self.assertEqual(order.total_cost, 90.0)
+        self.assertEqual(order.rework_cost, 2.0 * 20.0 + 1.5 * 25.0)
+        self.assertEqual(order.scrap_value, 2.0 * 5.0 + 1.0 * 10.0)
+        self.assertEqual(order.total_cost, order.rework_cost + order.scrap_value)
 
     def test_workflow(self):
         order = self._create_order()
@@ -127,8 +136,16 @@ class TestSfReworkManagement(TransactionCase):
             self.env['sf.rework.operation'].create({
                 'order_id': order.id,
                 'name': 'Repair',
-                'hours': 0,
+                'hours': -1,
+                'hourly_rate': 10.0,
             })
+        op = self.env['sf.rework.operation'].create({
+            'order_id': order.id,
+            'name': 'Inspection',
+            'hours': 0,
+            'hourly_rate': 10.0,
+        })
+        self.assertEqual(op.hours, 0)
 
     def test_scrap_qty_constraint(self):
         order = self._create_order()
@@ -137,6 +154,8 @@ class TestSfReworkManagement(TransactionCase):
                 'order_id': order.id,
                 'product_id': self.product.id,
                 'qty': 0,
+                'unit_value': 5.0,
+                'scrap_reason': 'Test',
             })
 
     def test_cron_escalation(self):
@@ -144,7 +163,8 @@ class TestSfReworkManagement(TransactionCase):
             'sf_rework_management.alert_days', '7')
         old = self._create_order()
         old.action_start()
-        old.write({'actual_start_datetime': fields.Datetime.now() - timedelta(days=10)})
+        old.with_context(allow_write_on_locked=True).write(
+            {'actual_start_datetime': fields.Datetime.now() - timedelta(days=10)})
         fresh = self._create_order()
         fresh.action_start()
         self.env['sf.rework.order']._cron_escalation()
@@ -157,11 +177,25 @@ class TestSfReworkManagement(TransactionCase):
             'product_id': self.product.id,
             'qty': 5.0,
             'hourly_rate': 20.0,
+            'source': 'production',
+            'reason': 'Test',
             'company_id': company2.id,
         })
         visible = self.env['sf.rework.order'].with_user(self.user).search(
             [('id', '=', order2.id)])
         self.assertFalse(visible)
+
+    def test_write_guard_on_locked_states(self):
+        order = self._create_order()
+        order.action_start()
+        order.action_complete()
+        with self.assertRaises(UserError):
+            order.write({'reason': 'Changed after completion'})
+        with self.assertRaises(UserError):
+            order.with_user(self.user).write({'reason': 'Changed by user'})
+        order.with_user(self.manager).with_context(allow_write_on_locked=True).write(
+            {'reason': 'Changed by manager with context'})
+        self.assertEqual(order.reason, 'Changed by manager with context')
 
     def test_report_generation(self):
         order = self._create_order()

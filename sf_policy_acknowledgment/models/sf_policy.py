@@ -13,12 +13,15 @@ class SfPolicy(models.Model):
 
     name = fields.Char(string='Name', required=True, copy=False)
     policy_type = fields.Selection([
-        ('general', 'General'),
+        ('code_of_conduct', 'Code of Conduct'),
         ('hr', 'Human Resources'),
+        ('it_security', 'IT Security'),
+        ('safety', 'Safety'),
+        ('data_protection', 'Data Protection'),
         ('finance', 'Finance'),
-        ('it', 'Information Technology'),
-        ('compliance', 'Compliance'),
-    ], string='Category', default='general', required=True)
+        ('quality', 'Quality'),
+        ('other', 'Other'),
+    ], string='Category', default='code_of_conduct', required=True)
     version = fields.Char(string='Version', default='1.0', required=True)
     effective_date = fields.Date(string='Effective Date', required=True)
     expiry_date = fields.Date(string='Expiry Date')
@@ -77,7 +80,7 @@ class SfPolicy(models.Model):
         locked = self.filtered(lambda p: p.state != 'draft')
         locked_fields = {'name', 'policy_type', 'version',
                          'effective_date', 'expiry_date', 'owner_id',
-                         'body', 'employee_ids'}
+                         'body', 'employee_ids', 'company_id'}
         if locked and locked_fields & set(vals) \
                 and not self.env.context.get('sf_policy_bypass_state'):
             raise UserError(_('Only draft policies can be modified.'))
@@ -133,9 +136,9 @@ class SfPolicy(models.Model):
                     )
 
     def _cron_expiry_reminders(self):
-        todo_type = self.env.ref('mail.mail_activity_data_todo')
         companies = self.env['res.company'].search([])
         for company in companies:
+            todo_type = self.env.ref('mail.mail_activity_data_todo')
             scoped = self.with_company(company)
             today = fields.Date.context_today(scoped)
             param = self.env['ir.config_parameter'].sudo().get_param(

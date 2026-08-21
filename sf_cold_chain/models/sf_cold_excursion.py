@@ -9,54 +9,79 @@ class SfColdExcursion(models.Model):
     _name = 'sf.cold.excursion'
     _description = 'Cold Chain Excursion'
     _inherit = ['mail.thread', 'mail.activity.mixin', 'sf.cold.chain.activity.mixin']
-    _order = 'start_datetime asc, id asc'
+    _order = 'started_at asc, id asc'
 
     name = fields.Char(string='Name', required=True, copy=False)
     trip_id = fields.Many2one('sf.cold.trip', string='Trip', ondelete='cascade')
     site_id = fields.Many2one('sf.cold.site', string='Site', ondelete='cascade')
-    start_datetime = fields.Datetime(string='Start', required=True)
-    end_datetime = fields.Datetime(string='End')
-    duration_minutes = fields.Integer(string='Duration (Minutes)',
-                                      compute='_compute_details', store=True)
-    max_deviation = fields.Float(string='Max Deviation',
-                                 compute='_compute_details', store=True)
+    started_at = fields.Datetime(string='Started At', required=True)
+    ended_at = fields.Datetime(string='Ended At')
+    min_temp = fields.Float(string='Min Temp', compute='_compute_details', store=True)
+    max_temp = fields.Float(string='Max Temp', compute='_compute_details', store=True)
+    duration_minutes = fields.Float(string='Duration (Minutes)',
+                                    compute='_compute_details', store=True)
     severity = fields.Selection([
-        ('low', 'Low'),
-        ('medium', 'Medium'),
-        ('high', 'High'),
+        ('minor', 'Minor'),
+        ('major', 'Major'),
+        ('critical', 'Critical'),
     ], string='Severity', compute='_compute_details', store=True)
     state = fields.Selection([
         ('open', 'Open'),
         ('resolved', 'Resolved'),
     ], string='Status', default='open', copy=False)
+    corrective_action = fields.Text(string='Corrective Action')
     resolved_by = fields.Many2one('res.users', string='Resolved By')
-    resolved_datetime = fields.Datetime(string='Resolved On')
-    resolution_note = fields.Text(string='Resolution Note')
+    resolved_on = fields.Datetime(string='Resolved On')
     reading_ids = fields.One2many('sf.cold.reading', 'excursion_id',
                                   string='Readings')
     company_id = fields.Many2one('res.company', string='Company', store=True,
                                  default=lambda self: self.env.company)
 
     @api.depends('reading_ids.temperature', 'reading_ids.temperature_min',
-                 'reading_ids.temperature_max', 'start_datetime', 'end_datetime')
+                 'reading_ids.temperature_max', 'started_at', 'ended_at')
     def _compute_details(self):
         for excursion in self:
-            deviation = 0.0
+            min_temp = 0.0
+            max_temp = 0.0
+            max_deviation = 0.0
+            first = True
             for reading in excursion.reading_ids:
                 if not reading.within_range:
-                    deviation = max(deviation, reading.deviation)
-            excursion.max_deviation = deviation
-            if deviation >= 5.0:
-                excursion.severity = 'high'
-            elif deviation >= 2.0:
-                excursion.severity = 'medium'
+                    if first:
+                        min_temp = reading.temperature
+                        max_temp = reading.temperature
+                        first = False
+                    else:
+                        min_temp = min(min_temp, reading.temperature)
+                        max_temp = max(max_temp, reading.temperature)
+                    max_deviation = max(max_deviation, reading.deviation)
+            excursion.min_temp = min_temp
+            excursion.max_temp = max_temp
+            # severity: critical if deviation > 20% of range, major if > 10%, minor otherwise
+            range_span = 0.0
+            if excursion.reading_ids:
+                temp_min = excursion.reading_ids[0].temperature_min
+                temp_max = excursion.reading_ids[0].temperature_max
+                range_span = temp_max - temp_min
+            if range_span > 0:
+                deviation_pct = (max_deviation / range_span) * 100
+                if deviation_pct > 20:
+                    excursion.severity = 'critical'
+                elif deviation_pct > 10:
+                    excursion.severity = 'major'
+                else:
+                    excursion.severity = 'minor'
             else:
-                excursion.severity = 'low'
-            if excursion.end_datetime and excursion.start_datetime:
-                duration = excursion.end_datetime - excursion.start_datetime
-                excursion.duration_minutes = int(max(0, duration.total_seconds() // 60))
+                excursion.severity = 'minor'
+            # duration: if ended_at set, use it; else compute ongoing duration to now
+            if excursion.ended_at and excursion.started_at:
+                duration = excursion.ended_at - excursion.started_at
+                excursion.duration_minutes = max(0, duration.total_seconds() / 60)
+            elif excursion.started_at:
+                duration = fields.Datetime.now() - excursion.started_at
+                excursion.duration_minutes = max(0, duration.total_seconds() / 60)
             else:
-                excursion.duration_minutes = 0
+                excursion.duration_minutes = 0.0
 
     @api.model_create_multi
     def create(self, vals_list):
@@ -74,14 +99,14 @@ class SfColdExcursion(models.Model):
         self._check_manager()
         if self.state != 'open':
             raise UserError(_('Only open excursions can be resolved.'))
-        end = self.end_datetime or (
-            max(self.reading_ids.mapped('reading_datetime'))
+        end = self.ended_at or (
+            max(self.reading_ids.mapped('recorded_at'))
             if self.reading_ids else fields.Datetime.now())
         self.write({
             'state': 'resolved',
-            'end_datetime': end,
+            'ended_at': end,
             'resolved_by': self.env.user.id,
-            'resolved_datetime': fields.Datetime.now(),
+            'resolved_on': fields.Datetime.now(),
         })
 
     def _cron_escalation(self):
@@ -95,7 +120,7 @@ class SfColdExcursion(models.Model):
             cutoff = fields.Datetime.now() - timedelta(hours=alert_hours)
             excursions = scoped.search([
                 ('state', '=', 'open'),
-                ('start_datetime', '<', cutoff),
+                ('started_at', '<', cutoff),
             ])
             for excursion in excursions:
                 excursion._sf_check_todo(

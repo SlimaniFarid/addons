@@ -8,4 +8,5 @@ access_edi_format_mgr,edi.einvoicing.edi_format.mgr,model_edi_format,base.group_
 access_edi_transmission_user,edi.einvoicing.edi_transmission.user,model_edi_transmission,base.group_user,1,0,0,0
 access_edi_transmission_mgr,edi.einvoicing.edi_transmission.mgr,model_edi_transmission,base.group_system,1,1,1,1
 access_edi_peppol_config_user,edi.einvoicing.edi_peppol_config.user,model_edi_peppol_config,base.group_user,1,0,0,0
-access_edi_peppol_config_mgr,edi.einvoicing.edi_peppol_config.mgr,model_edi_peppol_config,base.group_system,1,1,1,1
+access_edi_peppol_config_mgr,edi.einvoicing.edi_peppol_config.mgr,model_edi_peppol_config,base.group_system,1,1,1,1access_sf_edi_einvoicing_edi_document_type_user,edi.document.type.user,model_edi_document_type,sf_edi_einvoicing.group_sf_edi_einvoicing_user,1,1,1,0
+access_sf_edi_einvoicing_edi_document_type_manager,edi.document.type.manager,model_edi_document_type,sf_edi_einvoicing.group_sf_edi_einvoicing_user,1,1,1,1

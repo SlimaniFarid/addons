@@ -53,6 +53,7 @@ class SfFranchiseContract(models.Model):
             raise UserError(_('Only a franchise manager can perform this action.'))
 
     def action_activate(self):
+        self._check_manager()
         for contract in self:
             if contract.state != 'draft':
                 raise UserError(_('Only draft contracts can be activated.'))
