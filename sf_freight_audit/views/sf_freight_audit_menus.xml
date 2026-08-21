@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_sf_freight_audit_root"
+              name="Freight Audit"
+              sequence="26"
+              groups="sf_freight_audit.group_sf_freight_audit_user"
+              web_icon="sf_freight_audit,static/description/icon.png"/>
+    <menuitem id="menu_sf_freight_invoices"
+              name="Invoices"
+              parent="menu_sf_freight_audit_root"
+              action="action_sf_freight_invoice"
+              sequence="10"
+              groups="sf_freight_audit.group_sf_freight_audit_user"/>
+    <menuitem id="menu_sf_freight_findings"
+              name="Findings"
+              parent="menu_sf_freight_audit_root"
+              action="action_sf_freight_finding"
+              sequence="20"
+              groups="sf_freight_audit.group_sf_freight_audit_user"/>
+    <menuitem id="menu_sf_freight_disputes"
+              name="Disputes"
+              parent="menu_sf_freight_audit_root"
+              action="action_sf_freight_dispute"
+              sequence="30"
+              groups="sf_freight_audit.group_sf_freight_audit_user"/>
+    <menuitem id="menu_sf_freight_contracts"
+              name="Contracts"
+              parent="menu_sf_freight_audit_root"
+              action="action_sf_freight_contract"
+              sequence="40"
+              groups="sf_freight_audit.group_sf_freight_audit_user"/>
+    <menuitem id="menu_sf_freight_rules"
+              name="Rules"
+              parent="menu_sf_freight_audit_root"
+              action="action_sf_freight_rule"
+              sequence="50"
+              groups="sf_freight_audit.group_sf_freight_audit_manager"/>
+</odoo>

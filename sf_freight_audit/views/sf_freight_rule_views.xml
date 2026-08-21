@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Rule -->
+    <record id="view_sf_freight_rule_list" model="ir.ui.view">
+        <field name="name">sf.freight.rule.list</field>
+        <field name="model">sf.freight.rule</field>
+        <field name="arch" type="xml">
+            <list string="Verification Rules">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="rule_type"/>
+                <field name="severity"/>
+                <field name="action"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'active'"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_sf_freight_rule_form" model="ir.ui.view">
+        <field name="name">sf.freight.rule.form</field>
+        <field name="model">sf.freight.rule</field>
+        <field name="arch" type="xml">
+            <form string="Verification Rule">
+                <header>
+                    <button name="action_activate" string="Activate" type="object"
+                            class="btn-primary" invisible="state != 'draft'"/>
+                    <button name="action_archive" string="Archive" type="object"
+                            invisible="state != 'active'"/>
+                    <field name="state" widget="statusbar" readonly="1"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="rule_type"/>
+                        </group>
+                        <group>
+                            <field name="severity"/>
+                            <field name="action"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <field name="condition_domain"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_sf_freight_rule" model="ir.actions.act_window">
+        <field name="name">Verification Rules</field>
+        <field name="res_model">sf.freight.rule</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- Finding -->
+    <record id="view_sf_freight_finding_list" model="ir.ui.view">
+        <field name="name">sf.freight.finding.list</field>
+        <field name="model">sf.freight.finding</field>
+        <field name="arch" type="xml">
+            <list string="Findings" decoration-danger="severity == 'critical'">
+                <field name="invoice_id"/>
+                <field name="finding_type"/>
+                <field name="severity" widget="badge"
+                       decoration-danger="severity == 'critical'"
+                       decoration-warning="severity in ('high', 'medium')"/>
+                <field name="expected_amount"/>
+                <field name="actual_amount"/>
+                <field name="variance_amount" sum="Total"/>
+                <field name="status" widget="badge"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_sf_freight_finding_pivot" model="ir.ui.view">
+        <field name="name">sf.freight.finding.pivot</field>
+        <field name="model">sf.freight.finding</field>
+        <field name="arch" type="xml">
+            <pivot string="Findings Analysis">
+                <field name="finding_type" type="row"/>
+                <field name="severity" type="col"/>
+                <field name="variance_amount" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="action_sf_freight_finding" model="ir.actions.act_window">
+        <field name="name">Findings</field>
+        <field name="res_model">sf.freight.finding</field>
+        <field name="view_mode">list,pivot</field>
+    </record>
+
+    <!-- Dispute -->
+    <record id="view_sf_freight_dispute_list" model="ir.ui.view">
+        <field name="name">sf.freight.dispute.list</field>
+        <field name="model">sf.freight.dispute</field>
+        <field name="arch" type="xml">
+            <list string="Disputes">
+                <field name="name"/>
+                <field name="carrier_id"/>
+                <field name="amount_claimed" sum="Total"/>
+                <field name="state" widget="badge"
+                       decoration-success="state in ('resolved', 'closed')"
+                       decoration-info="state == 'submitted'"/>
+                <field name="resolution_type"/>
+                <field name="user_id"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_sf_freight_dispute_form" model="ir.ui.view">
+        <field name="name">sf.freight.dispute.form</field>
+        <field name="model">sf.freight.dispute</field>
+        <field name="arch" type="xml">
+            <form string="Freight Dispute">
+                <header>
+                    <button name="action_submit" string="Submit to Carrier" type="object"
+                            class="btn-primary" invisible="state != 'draft'"/>
+                    <button name="action_carrier_responded" string="Carrier Responded" type="object"
+                            invisible="state != 'submitted'"/>
+                    <button name="action_resolve_credit_note" string="Resolve: Credit Note" type="object"
+                            class="btn-primary" invisible="state != 'carrier_response'"/>
+                    <button name="action_reject" string="Rejected by Carrier" type="object"
+                            invisible="state != 'carrier_response'"/>
+                    <button name="action_close" string="Close" type="object"
+                            invisible="state != 'resolved'"/>
+                    <field name="state" widget="statusbar" readonly="1"/>
+                </header>
+                <sheet>
+                    <div class="oe_title"><h1><field name="name"/></h1></div>
+                    <group>
+                        <group>
+                            <field name="invoice_id"/>
+                            <field name="carrier_id"/>
+                            <field name="user_id"/>
+                        </group>
+                        <group>
+                            <field name="amount_claimed"/>
+                            <field name="resolution_type" readonly="1"/>
+                            <field name="credit_note_id"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Findings">
+                            <field name="finding_ids" readonly="1">
+                                <list>
+                                    <field name="finding_type"/>
+                                    <field name="severity"/>
+                                    <field name="variance_amount"/>
+                                    <field name="status"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Carrier Response">
+                            <field name="carrier_response"/>
+                            <field name="response_date"/>
+                            <field name="resolved_date"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_sf_freight_dispute" model="ir.actions.act_window">
+        <field name="name">Disputes</field>
+        <field name="res_model">sf.freight.dispute</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>
