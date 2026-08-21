@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Salon & Beauty Studio Management',
-    'version': '18.0.1.0',
+    'version': '19.0.1.0.0',
     'category': 'Operations',
     'summary': 'Appointments, staff availability, packages, commissions and billing for salons and beauty studios',
     'description': 'Salon and beauty studio management module for salon managers, hairdressers and estheticians: manage appointments with staff availability, per-employee schedules, customer cards with service history, prepaid packages and memberships, automatic staff commission calculation and revenue statistics.',

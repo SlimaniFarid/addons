@@ -1,6 +1,6 @@
 {
     'name': 'Revenue Recognition & Subscription Billing',
-    'version': '18.0.1.0',
+    'version': '19.0.1.0.0',
     'category': 'Accounting',
     'summary': 'ASC 606 / IFRS 15 compliant revenue recognition for subscriptions and contracts',
     'description': """Revenue Recognition & Subscription Billing
@@ -41,5 +41,6 @@ Use cases:
     'auto_install': False,
     'images': ['static/description/banner.png'],
 }
+
 
 

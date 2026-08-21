@@ -12,14 +12,14 @@ class WarrantyClaim(models.Model):
     currency_id = fields.Many2one(related='company_id.currency_id', store=True)
     company_id = fields.Many2one('res.company', string='Company', required=True, store=True, default=lambda self: self.env.company)
 
-    name = fields.Reference(string='Name', required=True)
-    partner_id = fields.res.partner(string='Partner Id', required=True)
-    product_id = fields.product.product(string='Product Id', required=True)
-    lot_id = fields.stock.lot(string='Lot Id')
-    claim_date = fields.Claim(string='Claim Date', default=fields.Date.today)
-    description = fields.Description(string='Description')
-    sla_deadline = fields.SLA(string='Sla Deadline')
-    state = fields.draft,submitted,under_review,approved,rejected,resolved(string='State', default='draft tracking', tracking=True)
+    name = fields.Char(string='Name', required=True)
+    partner_id = fields.Many2one(required=True, comodel_name='res.partner', ondelete='restrict')
+    product_id = fields.Many2one(required=True, comodel_name='product.product', ondelete='restrict')
+    lot_id = fields.Many2one(comodel_name='stock.lot', ondelete='restrict')
+    claim_date = fields.Date(string='Claim Date', default=fields.Date.today)
+    description = fields.Text(string='Description')
+    sla_deadline = fields.Date(string='Sla Deadline')
+    state = fields.Selection(default='draft tracking', tracking=True)
 
     @api.model_create_multi
     def create(self, vals_list):

@@ -12,14 +12,14 @@ class PmPlan(models.Model):
     currency_id = fields.Many2one(related='company_id.currency_id', store=True)
     company_id = fields.Many2one('res.company', string='Company', required=True, store=True, default=lambda self: self.env.company)
 
-    name = fields.Plan(string='Name', required=True)
-    equipment_id = fields.maintenance.equipment(string='Equipment Id', required=True)
-    trigger_type = fields.time,meter(string='Trigger Type', default='time')
-    interval_days = fields.Interval(string='Interval Days', default=30)
-    meter_threshold = fields.Meter(string='Meter Threshold')
-    last_executed = fields.Last(string='Last Executed')
-    next_due = fields.Next(compute='_compute_next_due', store=True)
-    active = fields.Active(string='Active', default='True')
+    name = fields.Char(string='Name', required=True)
+    equipment_id = fields.Many2one(required=True, comodel_name='maintenance.equipment', ondelete='restrict')
+    trigger_type = fields.Selection(default='time')
+    interval_days = fields.Integer(string='Interval Days', default=30)
+    meter_threshold = fields.Float(string='Meter Threshold')
+    last_executed = fields.Date(string='Last Executed')
+    next_due = fields.Date(compute='_compute_next_due', store=True)
+    active = fields.Boolean(string='Active', default='True')
 
     @api.model_create_multi
     def create(self, vals_list):

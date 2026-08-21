@@ -12,8 +12,8 @@ class LeadScore(models.Model):
     currency_id = fields.Many2one(related='company_id.currency_id', store=True)
     company_id = fields.Many2one('res.company', string='Company', required=True, store=True, default=lambda self: self.env.company)
 
-    lead_id = fields.crm.lead(string='Lead Id', required=True)
-    total_score = fields.Total(string='Total Score')
-    grade = fields.A,B,C,D(string='Grade', default='D')
-    scored_date = fields.Scored(string='Scored Date', default=fields.Datetime.now)
+    lead_id = fields.Many2one(required=True, comodel_name='crm.lead', ondelete='restrict')
+    total_score = fields.Integer(string='Total Score')
+    grade = fields.Selection(default='D')
+    scored_date = fields.Datetime(string='Scored Date', default=fields.Datetime.now)
 

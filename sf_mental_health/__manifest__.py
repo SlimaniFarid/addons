@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Mental Health & Therapy Practice Management',
-    'version': '18.0.1.0',
+    'version': '19.0.1.0.0',
     'category': 'Healthcare',
     'summary': 'Mental health practice: patient records, treatment plans, sessions, billing, outcomes',
     'description': '',

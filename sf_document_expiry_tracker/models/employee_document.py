@@ -12,12 +12,12 @@ class EmployeeDocument(models.Model):
     currency_id = fields.Many2one(related='company_id.currency_id', store=True)
     company_id = fields.Many2one('res.company', string='Company', required=True, store=True, default=lambda self: self.env.company)
 
-    employee_id = fields.hr.employee(string='Employee Id', required=True)
-    doc_type = fields.visa,passport,certification,contract,medical,other(string='Doc Type', required=True)
-    expiry_date = fields.Expiry(string='Expiry Date', required=True)
-    reminder_days = fields.Reminder(string='Reminder Days', default=30)
-    attachment_id = fields.ir.attachment(string='Attachment Id')
-    state = fields.valid,expiring_soon,expired(string='State', default='valid tracking', tracking=True)
+    employee_id = fields.Many2one(required=True, comodel_name='hr.employee', ondelete='restrict')
+    doc_type = fields.Selection(required=True)
+    expiry_date = fields.Date(string='Expiry Date', required=True)
+    reminder_days = fields.Integer(string='Reminder Days', default=30)
+    attachment_id = fields.Many2one(comodel_name='ir.attachment', ondelete='restrict')
+    state = fields.Selection(default='valid tracking', tracking=True)
 
     @api.model_create_multi
     def create(self, vals_list):

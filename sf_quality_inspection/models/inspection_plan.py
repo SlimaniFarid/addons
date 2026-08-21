@@ -12,10 +12,10 @@ class InspectionPlan(models.Model):
     currency_id = fields.Many2one(related='company_id.currency_id', store=True)
     company_id = fields.Many2one('res.company', string='Company', required=True, store=True, default=lambda self: self.env.company)
 
-    name = fields.Name(string='Name', required=True)
-    product_tmpl_id = fields.product.template(string='Product Tmpl Id')
-    frequency = fields.per_receipt,before_delivery,periodic(string='Frequency', default='per_receipt')
-    active = fields.Active(string='Active', default='True')
+    name = fields.Char(string='Name', required=True)
+    product_tmpl_id = fields.Many2one(comodel_name='product.template', ondelete='restrict')
+    frequency = fields.Selection(default='per_receipt')
+    active = fields.Boolean(string='Active', default='True')
 
     @api.model_create_multi
     def create(self, vals_list):

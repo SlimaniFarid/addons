@@ -12,13 +12,13 @@ class ShopFloorEntry(models.Model):
     currency_id = fields.Many2one(related='company_id.currency_id', store=True)
     company_id = fields.Many2one('res.company', string='Company', required=True, store=True, default=lambda self: self.env.company)
 
-    employee_id = fields.hr.employee(string='Employee Id', required=True)
-    workorder_id = fields.mrp.workorder(string='Workorder Id')
-    start_time = fields.Start(string='Start Time', default=fields.Datetime.now)
-    end_time = fields.End(string='End Time')
-    qty_produced = fields.Qty(string='Qty Produced', default=0.0)
-    qty_scrap = fields.Qty(string='Qty Scrap', default=0.0)
-    state = fields.running,paused,completed(string='State', default='running')
+    employee_id = fields.Many2one(required=True, comodel_name='hr.employee', ondelete='restrict')
+    workorder_id = fields.Many2one(comodel_name='mrp.workorder', ondelete='restrict')
+    start_time = fields.Datetime(string='Start Time', default=fields.Datetime.now)
+    end_time = fields.Datetime(string='End Time')
+    qty_produced = fields.Float(string='Qty Produced', default=0.0)
+    qty_scrap = fields.Float(string='Qty Scrap', default=0.0)
+    state = fields.Selection(default='running')
 
     @api.model_create_multi
     def create(self, vals_list):

@@ -1,6 +1,6 @@
 {
     'name': 'TikTok Shop Connector',
-    'version': '18.0.1.0',
+    'version': '19.0.1.0.0',
     'category': 'eCommerce',
     'summary': 'Sync products, orders and stock with TikTok Shop',
     'description': "Connect your Odoo instance to TikTok Shop. Synchronize products, inventory, orders, and returns. Supports multiple shops, automated cron sync, webhook handling for real-time updates, and detailed sync logs. Requires TikTok Shop API credentials (App Key, App Secret, Access Token).",
@@ -25,6 +25,7 @@
     'application': True,
     'auto_install': False,
 }
+
 
 
 

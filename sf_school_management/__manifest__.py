@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'School Management & Continuing Education (SIS)',
-    'version': '18.0.1.0',
+    'version': '19.0.1.0.0',
     'category': 'Education',
     'summary': 'Students, groups/classes, teachers, courses, absences, grades, report cards and tuition fee management',
     'description': """

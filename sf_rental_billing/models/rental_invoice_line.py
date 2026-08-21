@@ -12,8 +12,8 @@ class RentalInvoiceLine(models.Model):
     currency_id = fields.Many2one(related='company_id.currency_id', store=True)
     company_id = fields.Many2one('res.company', string='Company', required=True, store=True, default=lambda self: self.env.company)
 
-    contract_id = fields.rental.contract(string='Contract Id', required=True)
-    period_start = fields.Period(string='Period Start')
-    period_end = fields.Period(string='Period End')
-    amount = fields.Amount(string='Amount', currency_field='currency_id')
+    contract_id = fields.Many2one(required=True, comodel_name='rental.contract', ondelete='cascade')
+    period_start = fields.Date(string='Period Start')
+    period_end = fields.Date(string='Period End')
+    amount = fields.Monetary(string='Amount', currency_field='currency_id', currency_field='currency_id')
 

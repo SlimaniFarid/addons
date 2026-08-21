@@ -8,4 +8,4 @@ access_sf_cold_trip_manager,sf.cold.trip.manager,model_sf_cold_trip,sf_cold_chai
 access_sf_cold_reading_manager,sf.cold.reading.manager,model_sf_cold_reading,sf_cold_chain.group_sf_cold_chain_manager,1,1,1,1
 access_sf_cold_excursion_manager,sf.cold.excursion.manager,model_sf_cold_excursion,sf_cold_chain.group_sf_cold_chain_manager,1,1,1,1
 access_sf_cold_chain_report_wizard_user,sf.cold.chain.report.wizard.user,model_sf_cold_chain_report_wizard,sf_cold_chain.group_sf_cold_chain_user,1,1,1,0
-access_sf_cold_chain_report_wizard_manager,sf.cold.chain.report.wizard.manager,model_sf_cold_chain_report_wizard,sf_cold_chain.group_sf_cold_chain_manager,1,1,1,1access_sf_cold_chain_sf_cold_chain_activity_mixin_ro,sf.cold.chain.activity.mixin.readonly,model_sf_cold_chain_activity_mixin,sf_cold_chain.group_sf_cold_chain_user,1,0,0,0
+access_sf_cold_chain_report_wizard_manager,sf.cold.chain.report.wizard.manager,model_sf_cold_chain_report_wizard,sf_cold_chain.group_sf_cold_chain_manager,1,1,1,1

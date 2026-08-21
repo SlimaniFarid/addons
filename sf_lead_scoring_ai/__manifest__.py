@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Lead Scoring Engine',
-    'version': '18.0.1.0.0',
+    'version': '19.0.1.0.0',
     'category': 'Sales',
     'summary': 'Configurable lead scoring rules: engagement, fit, behavior. Auto-prioritize leads for sales teams.',
     'description': 'Lead Scoring Engine module for Odoo. Configurable lead scoring rules: engagement, fit, behavior. Auto-prioritize leads for sales teams.',

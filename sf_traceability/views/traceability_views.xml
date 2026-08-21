@@ -9,9 +9,9 @@
             <form string="Batch Recall">
                 <header>
                     <button name="action_start" string="Start" type="object"
-                            states="open"/>
+                            invisible="[('state', 'not in', ('open',))]"/>
                     <button name="action_close" string="Close" type="object"
-                            states="in_progress"/>
+                            invisible="[('state', 'not in', ('in_progress',))]"/>
                 </header>
                 <sheet>
                     <div class="oe_title">
@@ -71,7 +71,7 @@
                         domain="[('state','=','in_progress')]"/>
                 <filter string="Critical" name="critical"
                         domain="[('severity','=','critical')]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="Severity" name="severity"
                             context="{'group_by':'severity'}"/>
                     <filter string="Status" name="state"

@@ -1,6 +1,6 @@
 {
     'name': 'Field Service Offline-First Mobile',
-    'version': '18.0.1.0',
+    'version': '19.0.1.0.0',
     'category': 'Services',
     'summary': 'True offline-first mobile app for field technicians with background sync',
     'description': """Field Service Offline-First Mobile
@@ -41,6 +41,7 @@ Note: This module provides the Odoo backend API. Mobile app template available s
     'auto_install': False,
     'images': ['static/description/banner.png'],
 }
+
 
 
 

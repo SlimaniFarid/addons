@@ -1,6 +1,6 @@
 {
     'name': 'EDI & E-Invoicing Compliance',
-    'version': '18.0.1.0',
+    'version': '19.0.1.0.0',
     'category': 'Accounting',
     'summary': 'Peppol, Factur-X, ViDA, ANSI X12, CFDI, KSeF - certified e-invoicing & EDI',
     'description': """EDI & E-Invoicing Compliance
@@ -48,6 +48,7 @@ Certifications:
     'auto_install': False,
     'images': ['static/description/banner.png'],
 }
+
 
 
 

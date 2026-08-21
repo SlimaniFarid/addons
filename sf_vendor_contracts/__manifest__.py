@@ -1,6 +1,6 @@
 {
     'name': 'Supplier Contract & Agreement Manager',
-    'version': '18.0.1.0',
+    'version': '19.0.1.0.0',
     'category': 'Purchases',
     'summary': 'Manage supplier contracts, clauses, amounts, expirations and renewals with alerts',
     'description': """

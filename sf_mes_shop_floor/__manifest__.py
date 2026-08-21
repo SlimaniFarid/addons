@@ -1,6 +1,6 @@
 {
     'name': 'Shop Floor Execution (MES)',
-    'version': '18.0.1.0',
+    'version': '19.0.1.0.0',
     'category': 'Manufacturing/Manufacturing',
     'summary': 'Track work orders, stations, downtime and quality on the floor',
     'description': """

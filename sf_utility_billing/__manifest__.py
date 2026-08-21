@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Utility & Sub-Meter Billing',
-    'version': '18.0.1.0',
+    'version': '19.0.1.0.0',
     'category': 'Accounting',
     'summary': 'Delivery points and meters registry, reading campaigns, tiered tariffs and consumption invoices',
     'description': 'Utility and sub-meter billing for water, energy and sub-metering companies: manage delivery points and meters, launch reading campaigns (manual or CSV import), compute consumption per period, apply tiered tariff grids, generate consumption invoices and track abnormal consumption and unpaid invoices.',

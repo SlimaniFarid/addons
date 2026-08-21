@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Warranty & Claims Management',
-    'version': '18.0.1.0',
+    'version': '19.0.1.0.0',
     'category': 'Operations',
     'summary': 'Product warranties, claims with automatic eligibility check and motivated decisions',
     'description': """
@@ -16,7 +16,7 @@ verification (serial number, purchase date), motivated decisions
 Key Features:
 ------------
 * Warranty catalog per product (duration, coverage)
-* Claims workflow: draft → open → decision → closed / rejected
+* Claims workflow: draft â†’ open â†’ decision â†’ closed / rejected
 * Automatic eligibility check (serial number + purchase date)
 * Motivated decisions with mandatory reason on rejection
 * Estimated warranty cost per claim

@@ -6,7 +6,7 @@
     'author': 'Ethan Miller',
     'support': 'tech5262@gmail.com',
     'category': 'Human Resources',
-    'version': '18.0.1.0',
+    'version': '19.0.1.0.0',
     'license': 'OPL-1',
     'price': '62.50',
     'currency': 'EUR',

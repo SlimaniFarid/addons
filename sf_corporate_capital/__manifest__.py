@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Shareholder Register & Capital Management (Cap Table)',
-    'version': '18.0.1.0',
+    'version': '19.0.1.0.0',
     'category': 'Accounting',
     'summary': 'Shareholders, share classes, capital movements (issue/transfer/buyback), issued shares, cap table and share certificates',
     'description': 'Shareholder register and capital management: maintain a register of shareholders (individual/company) and share classes with nominal value and authorized shares, record capital movements (issue, transfer, buyback) with quantity and unit price, compute the amount of each movement, track issued shares per class and total holding per shareholder, validate movements against current holdings, post/cancel movements (manager only) to make them immutable, configure defaults via settings, and print PDF reports (cap table per class with percentages and share certificate attestation).',

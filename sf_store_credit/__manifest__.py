@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Retail Store Credit & Customer Wallet',
-    'version': '18.0.1.0',
+    'version': '19.0.1.0.0',
     'category': 'Sales',
     'summary': 'Customer store credit accounts, reusable credit grants, usage, adjustments, expirations and balances',
     'description': 'Manage store credit / customer wallets for retail: grant reusable credits (reason, amount, expiration), track the available balance per customer, use the credit on sales, record adjustments and cancellations, expire credits with reminders, and produce PDF balance and credit reports. No accounting entries are created.',

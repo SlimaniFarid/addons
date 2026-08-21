@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 {
-    'name': 'GRC — Enterprise Risk Management',
-    'version': '18.0.1.0',
+    'name': 'GRC â€” Enterprise Risk Management',
+    'version': '19.0.1.0.0',
     'category': 'Operations',
     'summary': 'Risk register, 5x5 matrix, treatment plans, controls and regulatory mapping',
     'description': """
-GRC — Enterprise Risk Management
+GRC â€” Enterprise Risk Management
 =================================
 
 Governance, risk and compliance for NIS2, DORA, ISO 27001, GDPR

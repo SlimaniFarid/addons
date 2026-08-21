@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Retail Franchise Network Management',
-    'version': '18.0.1.0',
+    'version': '19.0.1.0.0',
     'category': 'Sales',
     'summary': 'Franchise contracts, declared sales, automatic royalty calculation, invoicing and payment tracking',
     'description': 'Manage a retail franchise network: franchise contracts with territory and royalty conditions (fixed or percentage), periodic sales declarations by franchisees, automatic royalty calculation, royalty invoicing (account.move), payment and delay tracking, plus PDF contract and royalty statement reports.',

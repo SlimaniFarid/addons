@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Electronic Batch Production Records (EBR)',
-    'version': '18.0.1.0',
+    'version': '19.0.1.0.0',
     'category': 'Manufacturing/Manufacturing',
     'summary': 'Electronic batch production records: materials, steps, parameters, deviations, QA review and lot release',
     'description': 'Electronic Batch Production Records for regulated manufacturers: create batch records per production campaign, track consumed materials with their lots, document executed steps and operators, record measured parameters with expected values and tolerances, manage deviations (approved/rejected), run a QA review and release workflow with signatures, and print an auditable batch record PDF.',

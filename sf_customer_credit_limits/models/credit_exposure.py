@@ -12,8 +12,8 @@ class CreditExposure(models.Model):
     currency_id = fields.Many2one(related='company_id.currency_id', store=True)
     company_id = fields.Many2one('res.company', string='Company', required=True, store=True, default=lambda self: self.env.company)
 
-    rule_id = fields.credit.limit.rule(string='Rule Id')
-    exposure_amount = fields.Exposure(string='Exposure Amount', currency_field='currency_id')
-    check_date = fields.Check(string='Check Date', default=fields.Datetime.now)
-    action_taken = fields.none,warned,blocked(string='Action Taken', default='none')
+    rule_id = fields.Many2one(comodel_name='credit.limit.rule', ondelete='restrict')
+    exposure_amount = fields.Monetary(string='Exposure Amount', currency_field='currency_id', currency_field='currency_id')
+    check_date = fields.Datetime(string='Check Date', default=fields.Datetime.now)
+    action_taken = fields.Selection(default='none')
 

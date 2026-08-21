@@ -9,17 +9,17 @@
                 <header>
                     <button name="action_set_in_progress" type="object"
                             string="Start Work" class="btn-primary"
-                            states="open,promise"/>
+                            invisible="[('state', 'not in', ('open', 'promise'))]"/>
                     <button name="action_create_dunning" type="object"
                             string="Create Dunning" class="btn-secondary"
-                            states="open,in_progress,promise"/>
+                            invisible="[('state', 'not in', ('open', 'in_progress', 'promise'))]"/>
                     <button name="action_mark_done" type="object"
                             string="Mark Resolved" class="btn-primary"
-                            states="open,in_progress,promise"/>
+                            invisible="[('state', 'not in', ('open', 'in_progress', 'promise'))]"/>
                     <button name="action_cancel" type="object"
-                            string="Cancel" states="open,in_progress,promise"/>
+                            string="Cancel" invisible="[('state', 'not in', ('open', 'in_progress', 'promise'))]"/>
                     <button name="action_open" type="object"
-                            string="Reopen" states="done,cancelled"/>
+                            string="Reopen" invisible="[('state', 'not in', ('done', 'cancelled'))]"/>
                 </header>
                 <sheet>
                     <div class="oe_title">
@@ -128,7 +128,7 @@
                         domain="[('state', '=', 'promise')]"/>
                 <filter string="My Cases" name="mine"
                         domain="[('collector_id', '=', uid)]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="Collector" name="group_col"
                             context="{'group_by': 'collector_id'}"/>
                     <filter string="Status" name="group_state"
@@ -185,9 +185,9 @@
             <form string="Dunning Run">
                 <header>
                     <button name="action_sent" type="object" string="Mark Sent"
-                            class="btn-primary" states="draft"/>
+                            class="btn-primary" invisible="[('state', 'not in', ('draft',))]"/>
                     <button name="action_done" type="object" string="Done"
-                            states="sent"/>
+                            invisible="[('state', 'not in', ('sent',))]"/>
                 </header>
                 <sheet>
                     <group>

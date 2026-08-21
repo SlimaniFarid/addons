@@ -12,9 +12,9 @@ class RequisitionLine(models.Model):
     currency_id = fields.Many2one(related='company_id.currency_id', store=True)
     company_id = fields.Many2one('res.company', string='Company', required=True, store=True, default=lambda self: self.env.company)
 
-    requisition_id = fields.Many2one('sf_purchase_requisition.purchase.requisition.sf', string='Requisition Id')
-    product_id = fields.Many2one('product.product', string='Product Id', required=True)
+    requisition_id = fields.Many2one(comodel_name='purchase.requisition.sf', ondelete='restrict')
+    product_id = fields.Many2one(required=True, comodel_name='product.product', ondelete='restrict')
     quantity = fields.Float(string='Quantity', required=True, default=1.0)
-    price_estimated = fields.Monetary(string='Price Estimated', currency_field='currency_id')
-    vendor_suggested = fields.Many2one('res.partner', string='Vendor Suggested')
+    price_estimated = fields.Monetary(string='Price Estimated', currency_field='currency_id', currency_field='currency_id')
+    vendor_suggested = fields.Many2one(comodel_name='res.partner', ondelete='restrict')
 

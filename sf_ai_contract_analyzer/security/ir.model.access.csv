@@ -6,7 +6,4 @@ access_contract_obligation_mgr,ai.contract.analyzer.contract_obligation.mgr,mode
 access_contract_alert_user,ai.contract.analyzer.contract_alert.user,model_contract_alert,base.group_user,1,0,0,0
 access_contract_alert_mgr,ai.contract.analyzer.contract_alert.mgr,model_contract_alert,base.group_system,1,1,1,1
 access_contract_provider_user,ai.contract.analyzer.contract_provider.user,model_contract_provider,base.group_user,1,0,0,0
-access_contract_provider_mgr,ai.contract.analyzer.contract_provider.mgr,model_contract_provider,base.group_system,1,1,1,1access_sf_ai_contract_analyzer_contract_party_user,contract.party.user,model_contract_party,sf_ai_contract_analyzer.group_sf_ai_contract_analyzer_user,1,1,1,0
-access_sf_ai_contract_analyzer_contract_party_manager,contract.party.manager,model_contract_party,sf_ai_contract_analyzer.group_sf_ai_contract_analyzer_user,1,1,1,1
-access_sf_ai_contract_analyzer_contract_risk_flag_user,contract.risk.flag.user,model_contract_risk_flag,sf_ai_contract_analyzer.group_sf_ai_contract_analyzer_user,1,1,1,0
-access_sf_ai_contract_analyzer_contract_risk_flag_manager,contract.risk.flag.manager,model_contract_risk_flag,sf_ai_contract_analyzer.group_sf_ai_contract_analyzer_user,1,1,1,1
+access_contract_provider_mgr,ai.contract.analyzer.contract_provider.mgr,model_contract_provider,base.group_system,1,1,1,1

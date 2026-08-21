@@ -12,12 +12,12 @@ class PurchaseRequisitionSf(models.Model):
     currency_id = fields.Many2one(related='company_id.currency_id', store=True)
     company_id = fields.Many2one('res.company', string='Company', required=True, store=True, default=lambda self: self.env.company)
 
-    name = fields.Ref(string='Name', required=True)
-    requested_by = fields.res.users(string='Requested By', default='current')
-    department_id = fields.hr.department(string='Department Id')
-    budget_check = fields.Budget(string='Budget Check', default='False')
-    state = fields.draft,to_approve,approved,ordered,done,cancelled(string='State', default='draft tracking', tracking=True)
-    line_ids = fields.requisition.line(string='Line Ids')
+    name = fields.Char(string='Name', required=True)
+    requested_by = fields.Many2one(default='current', comodel_name='res.users', ondelete='restrict')
+    department_id = fields.Many2one(comodel_name='hr.department', ondelete='restrict')
+    budget_check = fields.Boolean(string='Budget Check', default='False')
+    state = fields.Selection(default='draft tracking', tracking=True)
+    line_ids = fields.One2many('requisition.line', 'Lines', string='Line Ids')
 
     @api.model_create_multi
     def create(self, vals_list):

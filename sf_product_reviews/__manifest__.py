@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'E-commerce Product Reviews & Ratings',
-    'version': '18.0.1.0',
+    'version': '19.0.1.0.0',
     'category': 'Sales',
     'summary': 'Customer product reviews, moderation workflow, verified purchases and aggregated ratings',
     'description': 'Collect, moderate and display product reviews and ratings: customer reviews with rating, title and comment, a moderation workflow (draft, submitted, approved, rejected, archived), verified purchase detection from confirmed sales orders, aggregated average rating and review count per product, and a PDF review summary report.',

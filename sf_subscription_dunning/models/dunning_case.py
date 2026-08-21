@@ -12,8 +12,8 @@ class DunningCase(models.Model):
     currency_id = fields.Many2one(related='company_id.currency_id', store=True)
     company_id = fields.Many2one('res.company', string='Company', required=True, store=True, default=lambda self: self.env.company)
 
-    invoice_id = fields.account.move(string='Invoice Id', required=True)
-    level_id = fields.dunning.level(string='Level Id')
-    attempts = fields.Attempts(string='Attempts', default=0)
-    state = fields.open,escalated,resolved(string='State', default='open')
+    invoice_id = fields.Many2one(required=True, comodel_name='account.move', ondelete='restrict')
+    level_id = fields.Many2one(comodel_name='dunning.level', ondelete='restrict')
+    attempts = fields.Integer(string='Attempts', default=0)
+    state = fields.Selection(default='open')
 

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Parking Lot & Garage Management',
-    'version': '18.0.1.0',
+    'version': '19.0.1.0.0',
     'category': 'Operations',
     'summary': 'Parking sites and zones, spaces, recurring subscriptions, tickets, entry/exit and occupancy statistics',
     'description': 'Parking lot and garage management module for parking operators: manage sites and parking zones, spaces and their occupation, recurring subscriptions (monthly, quarterly, yearly) with invoicing and expiry reminders, tickets and entry/exit with hourly and daily rates, and occupancy and revenue statistics per site.',

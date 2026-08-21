@@ -1,6 +1,6 @@
 {
     'name': 'Professional Services Automation',
-    'version': '18.0.1.0',
+    'version': '19.0.1.0.0',
     'category': 'Services/Project',
     'summary': 'Manage engagements, resources and time for services teams',
     'description': """

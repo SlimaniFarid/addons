@@ -13,12 +13,12 @@ class Complaint8d(models.Model):
     company_id = fields.Many2one('res.company', string='Company', required=True, store=True, default=lambda self: self.env.company)
 
     name = fields.Char(string='Name', required=True)
-    partner_id = fields.Many2one('res.partner', string='Partner Id')
-    product_id = fields.Many2one('product.product', string='Product Id')
+    partner_id = fields.Many2one(comodel_name='res.partner', ondelete='restrict')
+    product_id = fields.Many2one(comodel_name='product.product', ondelete='restrict')
     problem_description = fields.Html(string='Problem Description')
     root_cause = fields.Html(string='Root Cause')
     corrective_action = fields.Html(string='Corrective Action')
-    state = fields.Selection([('d1_team','D1 Team'),('d2_problem','D2 Problem'),('d3_interim','D3 Interim'),('d4_root','D4 Root Cause'),('d5_actions','D5 Actions'),('d6_implemented','D6 Implemented'),('d7_prevented','D7 Prevented'),('d8_closed','D8 Closed')], string='State', default='d1_team tracking', tracking=True)
+    state = fields.Selection(default='d1_team tracking', tracking=True)
 
     @api.model_create_multi
     def create(self, vals_list):

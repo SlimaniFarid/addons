@@ -9,9 +9,9 @@
             <form string="Service Contract">
                 <header>
                     <button name="action_activate" string="Activate"
-                            type="object" states="draft"/>
+                            type="object" invisible="[('state', 'not in', ('draft',))]"/>
                     <button name="action_cancel" string="Cancel"
-                            type="object" states="draft,active"/>
+                            type="object" invisible="[('state', 'not in', ('draft', 'active'))]"/>
                 </header>
                 <sheet>
                     <div class="oe_title">
@@ -78,7 +78,7 @@
                         domain="[('state','=','active')]"/>
                 <filter string="Breached" name="breached"
                         domain="[('breached_events','&gt;',0)]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="SLA Tier" name="tier"
                             context="{'group_by':'sla_tier_id'}"/>
                     <filter string="Status" name="state"

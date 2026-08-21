@@ -1,6 +1,6 @@
 {
     'name': 'Service Contracts & SLA Engine',
-    'version': '18.0.1.0',
+    'version': '19.0.1.0.0',
     'category': 'Sales',
     'summary': 'Service contracts, SLA tiers and breach tracking',
     'description': """

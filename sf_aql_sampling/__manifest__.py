@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Acceptance Sampling & AQL Inspection Plans',
-    'version': '18.0.1.0',
+    'version': '19.0.1.0.0',
     'category': 'Quality/Quality',
     'summary': 'Statistical acceptance sampling: AQL inspection plans, lot inspections, defect recording and accept/reject decisions',
     'description': 'Acceptance sampling and AQL inspection plans for quality departments: define sampling plans (inspection level, lot size range, sample size, accept and reject numbers), run lot inspections with automatic plan selection, record defects by severity (critical, major, minor), compute weighted defect scores and automatic accept/reject decisions, release or reject inspected lots, and print the inspection report PDF.',

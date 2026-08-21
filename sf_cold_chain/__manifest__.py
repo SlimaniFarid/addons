@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Cold Chain Monitoring',
-    'version': '18.0.1.0',
+    'version': '19.0.1.0.0',
     'category': 'Operations',
     'summary': 'Monitor temperature excursions on cold storage sites and transport trips with alerts and reports',
     'description': 'Cold chain monitoring for food, pharma and temperature-sensitive logistics: manage cold storage sites and transport trips with temperature ranges, record temperature readings, detect out-of-range excursions automatically, compute deviation, duration and severity of each excursion, resolve excursions with manager rights, alert on unresolved excursions with a cron, and print the cold chain log PDF report.',

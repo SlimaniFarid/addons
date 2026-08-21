@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Community Center & Recreation Management',
-    'version': '18.0.1.0',
+    'version': '19.0.1.0.0',
     'category': 'Services',
     'summary': 'Community center management: spaces, activities, memberships, ticketing, grants',
     'description': '',

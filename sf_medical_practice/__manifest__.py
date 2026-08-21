@@ -14,8 +14,8 @@ Key Features:
 -------------
 * Centralized patient files (identity, allergies, insurance)
 * Appointment agenda without overlapping slots per practitioner
-* Consultations with diagnosis (draft → done → closed)
-* Prescriptions with dosage (draft → issued → closed)
+* Consultations with diagnosis (draft â†’ done â†’ closed)
+* Prescriptions with dosage (draft â†’ issued â†’ closed)
 * Vital signs with computed BMI (weight / height squared)
 * Automated reminder activities for upcoming unconfirmed appointments
 * Per-company access rules (user / manager)
@@ -29,7 +29,7 @@ Ideal for:
     'support': 'tech5262@gmail.com',
     'website': 'https://tech5262.com',
     'category': 'Other/Others',
-    'version': '18.0.1.0',
+    'version': '19.0.1.0.0',
     'license': 'OPL-1',
     'price': 62.50,
     'application': True,

@@ -12,9 +12,9 @@ class SlottingResult(models.Model):
     currency_id = fields.Many2one(related='company_id.currency_id', store=True)
     company_id = fields.Many2one('res.company', string='Company', required=True, store=True, default=lambda self: self.env.company)
 
-    analysis_id = fields.slotting.analysis(string='Analysis Id')
-    product_id = fields.product.product(string='Product Id')
-    pick_count = fields.Pick(string='Pick Count')
-    current_location = fields.Current(string='Current Location')
-    abc_class = fields.A,B,C(string='Abc Class', default='C')
+    analysis_id = fields.Many2one(comodel_name='slotting.analysis', ondelete='restrict')
+    product_id = fields.Many2one(comodel_name='product.product', ondelete='restrict')
+    pick_count = fields.Integer(string='Pick Count')
+    current_location = fields.Char(string='Current Location')
+    abc_class = fields.Selection(default='C')
 

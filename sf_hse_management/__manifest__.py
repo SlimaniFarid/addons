@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 {
-    'name': 'HSE — Health & Safety Management',
-    'version': '18.0.1.0',
+    'name': 'HSE â€” Health & Safety Management',
+    'version': '19.0.1.0.0',
     'category': 'Operations',
     'summary': 'Incidents, inspections, risk assessments, work permits and PPE tracking',
     'description': """
-HSE — Health & Safety Management
+HSE â€” Health & Safety Management
 =================================
 
 Centralize your occupational health and safety program with

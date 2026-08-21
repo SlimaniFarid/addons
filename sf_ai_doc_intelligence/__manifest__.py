@@ -1,6 +1,6 @@
 {
     'name': 'AI Document Intelligence Hub',
-    'version': '18.0.1.0',
+    'version': '19.0.1.0.0',
     'category': 'Productivity',
     'summary': 'Classify, extract & route documents (invoices, contracts, CVs, claims) with AI',
     'description': """AI Document Intelligence Hub
@@ -12,7 +12,7 @@ Features:
 - Multi-provider AI (Mistral, Gemini, Claude, OpenAI) - BYOK
 - Document classification: invoice, contract, CV, claim, PO, expense, other
 - Structured extraction per type (vendor, amounts, dates, parties, clauses, skills)
-- Automatic routing: invoices → AP, contracts → legal, CVs → HR, claims → support
+- Automatic routing: invoices â†’ AP, contracts â†’ legal, CVs â†’ HR, claims â†’ support
 - Human-in-the-loop review queue with confidence thresholds
 - Learning loop: corrections retrain classification/extraction
 - Batch processing from email, scanner, portal upload
@@ -40,5 +40,6 @@ Integrates with:
     'auto_install': False,
     'images': ['static/description/banner.png'],
 }
+
 
 

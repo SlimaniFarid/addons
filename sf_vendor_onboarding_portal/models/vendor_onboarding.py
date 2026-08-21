@@ -12,13 +12,13 @@ class VendorOnboarding(models.Model):
     currency_id = fields.Many2one(related='company_id.currency_id', store=True)
     company_id = fields.Many2one('res.company', string='Company', required=True, store=True, default=lambda self: self.env.company)
 
-    name = fields.Ref(string='Name', required=True)
-    partner_id = fields.res.partner(string='Partner Id', required=True)
-    tax_id = fields.Tax(string='Tax Id')
-    bank_account = fields.Bank(string='Bank Account')
-    cert_documents = fields.ir.attachment(string='Cert Documents')
-    state = fields.draft,documents_submitted,under_review,approved,rejected(string='State', default='draft tracking', tracking=True)
-    reviewer_id = fields.res.users(string='Reviewer Id')
+    name = fields.Char(string='Name', required=True)
+    partner_id = fields.Many2one(required=True, comodel_name='res.partner', ondelete='restrict')
+    tax_id = fields.Char(string='Tax Id')
+    bank_account = fields.Char(string='Bank Account')
+    cert_documents = fields.Many2many('ir.attachment', string='Cert Documents')
+    state = fields.Selection(default='draft tracking', tracking=True)
+    reviewer_id = fields.Many2one(comodel_name='res.users', ondelete='restrict')
 
     @api.model_create_multi
     def create(self, vals_list):

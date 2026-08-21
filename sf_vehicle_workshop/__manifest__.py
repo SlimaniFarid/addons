@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Workshop & Vehicle Maintenance',
-    'version': '18.0.1.0',
+    'version': '19.0.1.0.0',
     'category': 'Other/Others',
     'summary': 'Vehicles, intervention requests, repair orders with operations and parts, full cost per vehicle and urgency alerts',
     'description': """

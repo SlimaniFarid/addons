@@ -1,6 +1,6 @@
 {
     'name': 'Real Estate Property Manager',
-    'version': '18.0.1.0',
+    'version': '19.0.1.0.0',
     'category': 'Sales',
     'summary': 'Properties, leases, tenants and rent invoicing in one place',
     'description': """

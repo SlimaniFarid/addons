@@ -1,6 +1,6 @@
 {
     'name': 'AI Contract Analyzer & Obligations',
-    'version': '18.0.1.0',
+    'version': '19.0.1.0.0',
     'category': 'Productivity',
     'summary': 'Extract obligations, dates, risks from contracts (PDF/Word) with AI - auto calendar alerts',
     'description': """AI Contract Analyzer & Obligations
@@ -9,7 +9,7 @@
 Turn static contracts into actionable intelligence.
 
 Features:
-- Upload PDF/Word/image → AI extracts structured data (Mistral, Gemini, Claude, OpenAI)
+- Upload PDF/Word/image â†’ AI extracts structured data (Mistral, Gemini, Claude, OpenAI)
 - Key entities: parties, effective/termination dates, auto-renewal, notice periods
 - Financial: value, payment terms, penalties, price escalation, volume discounts
 - Obligations: SLAs, delivery dates, reporting, compliance (GDPR, SOC2, ESG), insurance
@@ -17,8 +17,8 @@ Features:
 - Calendar integration: auto-create alerts for renewals, notice deadlines, price reviews
 - Obligation register: searchable, filterable, assignable to owners
 - Clause comparison: benchmark against templates, highlight deviations
-- Multi-lang support (contracts in any language → English summary)
-- Approval workflow: legal review → signatory → counter-party → executed
+- Multi-lang support (contracts in any language â†’ English summary)
+- Approval workflow: legal review â†’ signatory â†’ counter-party â†’ executed
 - Repository: versioned, tagged, full-text search, access control
 
 Integrations:
@@ -42,5 +42,6 @@ Integrations:
     'auto_install': False,
     'images': ['static/description/banner.png'],
 }
+
 
 

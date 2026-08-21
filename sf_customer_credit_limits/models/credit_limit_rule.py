@@ -12,10 +12,10 @@ class CreditLimitRule(models.Model):
     currency_id = fields.Many2one(related='company_id.currency_id', store=True)
     company_id = fields.Many2one('res.company', string='Company', required=True, store=True, default=lambda self: self.env.company)
 
-    partner_id = fields.res.partner(string='Partner Id', required=True)
-    limit_amount = fields.Credit(string='Limit Amount', required=True, currency_field='currency_id')
-    warning_pct = fields.Warning(string='Warning Pct', default=80)
-    block_over_limit = fields.Block(string='Block Over Limit', default='True')
+    partner_id = fields.Many2one(required=True, comodel_name='res.partner', ondelete='restrict')
+    limit_amount = fields.Monetary(string='Limit Amount', currency_field='currency_id', required=True, currency_field='currency_id')
+    warning_pct = fields.Float(string='Warning Pct', default=80)
+    block_over_limit = fields.Boolean(string='Block Over Limit', default='True')
 
     @api.model_create_multi
     def create(self, vals_list):

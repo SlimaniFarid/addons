@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Corporate Business Travel Management',
-    'version': '18.0.1.0',
+    'version': '19.0.1.0.0',
     'category': 'Operations',
     'summary': 'Employee travel requests, approval workflow, itinerary lines, budget tracking and mission orders',
     'description': 'Corporate business travel management for employers: employees submit travel requests (purpose, destination, dates, budget, justification), managers approve or reject them, an itinerary is detailed in lines (flight, train, hotel, car, other) with estimated costs, the estimated cost is compared to the budget, trips move through approved, in progress and completed states, departure reminders are raised automatically, and PDF reports (mission order and itinerary) can be printed.',

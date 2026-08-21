@@ -12,11 +12,11 @@ class SlottingAnalysis(models.Model):
     currency_id = fields.Many2one(related='company_id.currency_id', store=True)
     company_id = fields.Many2one('res.company', string='Company', required=True, store=True, default=lambda self: self.env.company)
 
-    warehouse_id = fields.stock.warehouse(string='Warehouse Id', required=True)
-    analysis_date = fields.Analysis(string='Analysis Date', default=fields.Date.today)
-    abc_a_pct = fields.Class(string='Abc A Pct', default=20)
-    abc_b_pct = fields.Class(string='Abc B Pct', default=30)
-    state = fields.draft,computed(string='State', default='draft')
+    warehouse_id = fields.Many2one(required=True, comodel_name='stock.warehouse', ondelete='restrict')
+    analysis_date = fields.Date(string='Analysis Date', default=fields.Date.today)
+    abc_a_pct = fields.Float(string='Abc A Pct', default=20)
+    abc_b_pct = fields.Float(string='Abc B Pct', default=30)
+    state = fields.Selection(default='draft', compute='_compute_state', store=True)
 
     @api.model_create_multi
     def create(self, vals_list):

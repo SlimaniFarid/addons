@@ -9,10 +9,10 @@
                 <header>
                     <button name="action_release" type="object"
                             string="Release" class="btn-primary"
-                            states="draft"/>
+                            invisible="[('state', 'not in', ('draft',))]"/>
                     <button name="action_done" type="object"
                             string="Validate" class="btn-secondary"
-                            states="released"/>
+                            invisible="[('state', 'not in', ('released',))]"/>
                     <field name="state" widget="statusbar"/>
                 </header>
                 <sheet>

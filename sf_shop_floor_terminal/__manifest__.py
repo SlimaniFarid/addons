@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Shop Floor Data Terminal',
-    'version': '18.0.1.0.0',
+    'version': '19.0.1.0.0',
     'category': 'Manufacturing',
     'summary': 'Shop floor terminal for work order tracking, time logging, quantity reporting and scrap entry.',
     'description': 'Shop Floor Data Terminal module for Odoo. Shop floor terminal for work order tracking, time logging, quantity reporting and scrap entry.',

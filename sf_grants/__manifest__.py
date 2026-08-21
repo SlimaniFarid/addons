@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Grants & Public Funding Management',
-    'version': '18.0.1.0',
+    'version': '19.0.1.0.0',
     'category': 'Operations',
     'summary': 'Grant programs, calls for projects, application workflow, justified expenses and financial reports',
     'description': """
@@ -10,7 +10,7 @@ Grants & Public Funding Management
 
 Manage subsidies and public funding: reference of programs and
 calls for projects (eligibility, deadlines), application files with
-a full workflow (draft → submitted → approved → paid → closed or
+a full workflow (draft â†’ submitted â†’ approved â†’ paid â†’ closed or
 rejected), justified expenses attached to each application with a
 budget control on the granted amount, deadline alerts via cron and
 auditable financial reports per program.

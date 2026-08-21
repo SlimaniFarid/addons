@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'HACCP Food Safety',
-    'version': '18.0.1.0',
+    'version': '19.0.1.0.0',
     'category': 'Operations',
     'summary': 'HACCP food safety: plans, CCP, critical limits, monitoring checks, deviations, corrective actions and auditable PDF registers',
     'description': """

@@ -12,12 +12,12 @@ class LabelTemplate(models.Model):
     currency_id = fields.Many2one(related='company_id.currency_id', store=True)
     company_id = fields.Many2one('res.company', string='Company', required=True, store=True, default=lambda self: self.env.company)
 
-    name = fields.Template(string='Name', required=True)
-    label_width_mm = fields.Width(string='Label Width Mm', default=50)
-    label_height_mm = fields.Height(string='Label Height Mm', default=30)
-    barcode_type = fields.code128,qrcode,ean13(string='Barcode Type', default='code128')
-    output_format = fields.pdf,zpl(string='Output Format', default='pdf')
-    active = fields.Active(string='Active', default='True')
+    name = fields.Char(string='Name', required=True)
+    label_width_mm = fields.Float(string='Label Width Mm', default=50)
+    label_height_mm = fields.Float(string='Label Height Mm', default=30)
+    barcode_type = fields.Selection(default='code128')
+    output_format = fields.Selection(default='pdf')
+    active = fields.Boolean(string='Active', default='True')
 
     @api.model_create_multi
     def create(self, vals_list):

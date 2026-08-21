@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Events & Conferences Management',
-    'version': '18.0.1.0',
+    'version': '19.0.1.0.0',
     'category': 'Sales',
     'summary': 'Events, sessions, speakers, registrations and ticketing, badge check-in, budget and revenue tracking',
     'description': 'Event management module for organizers, event project managers and ticketing teams: manage events with dates, locations, capacities and budgets, sessions with speakers and rooms, registrations with ticket types and capacity control, badge check-in, and budget and revenue tracking per event.',

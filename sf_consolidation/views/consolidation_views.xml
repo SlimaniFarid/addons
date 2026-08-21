@@ -61,10 +61,10 @@
                 <header>
                     <button name="action_generate_from_moves" type="object"
                             string="Generate from Moves" class="btn-primary"
-                            states="draft"/>
+                            invisible="[('state', 'not in', ('draft',))]"/>
                     <button name="action_done" type="object"
                             string="Done" class="btn-secondary"
-                            states="draft"/>
+                            invisible="[('state', 'not in', ('draft',))]"/>
                     <field name="state" widget="statusbar"/>
                 </header>
                 <sheet>

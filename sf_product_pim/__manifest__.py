@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'PIM - Product Information Management',
-    'version': '18.0.1.0',
+    'version': '19.0.1.0.0',
     'category': 'Sales',
     'summary': 'Central product data, families, attributes, completeness score and channel publications',
     'description': """

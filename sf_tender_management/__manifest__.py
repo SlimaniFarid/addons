@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Tender Management & Sourcing (RFx)',
-    'version': '18.0.1.0',
+    'version': '19.0.1.0.0',
     'category': 'Operations',
     'summary': 'Manage RFQ/RFI/RFP and public tenders with criteria scoring and justified award',
     'description': """

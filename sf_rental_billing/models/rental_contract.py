@@ -12,14 +12,14 @@ class RentalContract(models.Model):
     currency_id = fields.Many2one(related='company_id.currency_id', store=True)
     company_id = fields.Many2one('res.company', string='Company', required=True, store=True, default=lambda self: self.env.company)
 
-    partner_id = fields.res.partner(string='Partner Id', required=True)
-    start_date = fields.Start(string='Start Date', required=True)
-    end_date = fields.End(string='End Date')
-    recurring_interval = fields.Billing(string='Recurring Interval', default=1)
-    amount = fields.Monthly(string='Amount', required=True, currency_field='currency_id')
-    deposit_amount = fields.Deposit(string='Deposit Amount', currency_field='currency_id')
-    state = fields.draft,active,expired,cancelled(string='State', default='draft tracking', tracking=True)
-    invoice_count = fields.Invoice(compute='_compute_invoice_count', store=True)
+    partner_id = fields.Many2one(required=True, comodel_name='res.partner', ondelete='restrict')
+    start_date = fields.Date(string='Start Date', required=True)
+    end_date = fields.Date(string='End Date')
+    recurring_interval = fields.Integer(string='Recurring Interval', default=1)
+    amount = fields.Monetary(string='Amount', currency_field='currency_id', required=True, currency_field='currency_id')
+    deposit_amount = fields.Monetary(string='Deposit Amount', currency_field='currency_id', currency_field='currency_id')
+    state = fields.Selection(default='draft tracking', tracking=True)
+    invoice_count = fields.Integer(compute='_compute_invoice_count', store=True)
 
     @api.model_create_multi
     def create(self, vals_list):

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Laundry & Dry Cleaning Management',
-    'version': '18.0.1.0',
+    'version': '19.0.1.0.0',
     'category': 'Operations',
     'summary': 'Deposit vouchers and items, treatment statuses, per-piece pricing, pickup/delivery and customer history',
     'description': 'Laundry and dry cleaning management module for laundromat managers and dry cleaners: manage deposit vouchers with item lists and descriptions, track each item by status (received, in progress, ready, delivered, lost), price per piece by item type and service, handle pickup and delivery with timestamps, and track customer history and overdue items.',

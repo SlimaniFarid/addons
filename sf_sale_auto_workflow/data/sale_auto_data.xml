@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <record id="sale_auto_rule_cash" model="sale.auto.rule">
         <field name="name">Cash Orders - Full Auto</field>

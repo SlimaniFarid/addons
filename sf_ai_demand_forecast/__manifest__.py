@@ -1,6 +1,6 @@
 {
     'name': 'AI Demand Forecasting',
-    'version': '18.0.1.0',
+    'version': '19.0.1.0.0',
     'category': 'Inventory',
     'summary': 'ML-powered demand forecasting for inventory optimization',
     'description': """AI Demand Forecasting
@@ -38,5 +38,6 @@ Technical:
     'auto_install': False,
     'images': ['static/description/banner.png'],
 }
+
 
 

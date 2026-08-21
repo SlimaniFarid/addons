@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Rental Billing & Contracts',
-    'version': '18.0.1.0.0',
+    'version': '19.0.1.0.0',
     'category': 'Accounting',
     'summary': 'Recurring rental billing: contracts, automatic invoicing cycles, proration, deposit management.',
     'description': 'Rental Billing & Contracts module for Odoo. Recurring rental billing: contracts, automatic invoicing cycles, proration, deposit management.',

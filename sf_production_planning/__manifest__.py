@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Production Master Scheduling (MPS)',
-    'version': '18.0.1.0',
+    'version': '19.0.1.0.0',
     'category': 'Manufacturing',
     'summary': 'Master production schedule with Gantt, priorities and work center load',
     'description': """

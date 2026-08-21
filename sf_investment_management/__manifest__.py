@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Investment Management & Portfolios',
-    'version': '18.0.1.0',
+    'version': '19.0.1.0.0',
     'category': 'Finance',
     'summary': 'Portfolios, investment lines, valuations, dividends and coupons, maturity alerts and PDF performance reports',
     'description': """

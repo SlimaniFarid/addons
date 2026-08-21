@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Product Compliance & Technical Documentation',
-    'version': '18.0.1.0',
+    'version': '19.0.1.0.0',
     'category': 'Operations',
     'summary': 'Regulatory compliance of products (CE, RoHS, REACH, UL, FDA): regulations, requirements, compliance dossiers and certificates with expiry alerts',
     'description': """

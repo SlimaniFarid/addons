@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Pharmacy & Dispensation Management',
-    'version': '18.0.1.0',
+    'version': '19.0.1.0.0',
     'category': 'Sales',
     'summary': 'Pharmacy management: products, batches, expiries and prescription dispensations',
     'description': 'Pharmacy management module: pharmaceutical products, batch stock with expiry dates, stock-out and expiry alerts, traced prescription dispensations, batch recalls and stock movements.',
@@ -24,3 +24,4 @@
         'data/actions.xml',
     ],
 }
+

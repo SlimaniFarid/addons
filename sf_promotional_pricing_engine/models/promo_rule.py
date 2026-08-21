@@ -12,15 +12,15 @@ class PromoRule(models.Model):
     currency_id = fields.Many2one(related='company_id.currency_id', store=True)
     company_id = fields.Many2one('res.company', string='Company', required=True, store=True, default=lambda self: self.env.company)
 
-    name = fields.Promo(string='Name', required=True)
-    product_tmpl_ids = fields.product.template(string='Product Tmpl Ids')
-    date_start = fields.Start(string='Date Start', required=True)
-    date_end = fields.End(string='Date End', required=True)
-    discount_pct = fields.Discount(string='Discount Pct', default=0.0)
-    fixed_price = fields.Fixed(string='Fixed Price', currency_field='currency_id')
-    min_qty = fields.Min(string='Min Qty', default=1.0)
-    margin_floor_pct = fields.Margin(string='Margin Floor Pct', default=0.0)
-    active = fields.Active(string='Active', default='True')
+    name = fields.Char(string='Name', required=True)
+    product_tmpl_ids = fields.Many2many('product.template', string='Product Tmpl Ids')
+    date_start = fields.Date(string='Date Start', required=True)
+    date_end = fields.Date(string='Date End', required=True)
+    discount_pct = fields.Float(string='Discount Pct', default=0.0)
+    fixed_price = fields.Monetary(string='Fixed Price', currency_field='currency_id', currency_field='currency_id')
+    min_qty = fields.Float(string='Min Qty', default=1.0)
+    margin_floor_pct = fields.Float(string='Margin Floor Pct', default=0.0)
+    active = fields.Boolean(string='Active', default='True')
 
     @api.model_create_multi
     def create(self, vals_list):

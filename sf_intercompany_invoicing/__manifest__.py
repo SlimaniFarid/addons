@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Intercompany Invoicing Automation',
-    'version': '18.0.1.0.0',
+    'version': '19.0.1.0.0',
     'category': 'Accounting',
     'summary': 'Automated intercompany invoices with multi-book accounting, currency conversion and elimination entries.',
     'description': 'Intercompany Invoicing Automation module for Odoo. Automated intercompany invoices with multi-book accounting, currency conversion and elimination entries.',

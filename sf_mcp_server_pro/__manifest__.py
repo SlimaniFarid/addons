@@ -1,6 +1,6 @@
 {
     'name': 'MCP Server PRO',
-    'version': '18.0.1.0',
+    'version': '19.0.1.0.0',
     'category': 'Productivity',
     'summary': 'Connect AI assistants to your Odoo instance securely',
     'description': "Expose your Odoo data to AI assistants (Claude, ChatGPT, etc.) through a secure Model Context Protocol endpoint.",
@@ -24,6 +24,7 @@
     'application': True,
     'auto_install': False,
 }
+
 
 
 

@@ -12,10 +12,10 @@ class QualityInspection(models.Model):
     currency_id = fields.Many2one(related='company_id.currency_id', store=True)
     company_id = fields.Many2one('res.company', string='Company', required=True, store=True, default=lambda self: self.env.company)
 
-    plan_id = fields.Many2one('sf.quality_inspection.inspection.plan', string='Plan Id', required=True)
-    picking_id = fields.Many2one('stock.picking', string='Picking Id')
-    result = fields.Selection([('pass','Pass'),('fail','Fail'),('pending','Pending')], string='Result', default='pending tracking', tracking=True)
-    inspector_id = fields.Many2one('res.users', string='Inspector Id', default='current')
+    plan_id = fields.Many2one(required=True, comodel_name='inspection.plan', ondelete='restrict')
+    picking_id = fields.Many2one(comodel_name='stock.picking', ondelete='restrict')
+    result = fields.Selection(default='pending tracking', tracking=True)
+    inspector_id = fields.Many2one(default='current', comodel_name='res.users', ondelete='restrict')
     notes = fields.Html(string='Notes')
     photo_ids = fields.Many2many('ir.attachment', string='Photo Ids')
 

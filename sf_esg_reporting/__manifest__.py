@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'ESG Reporting (CSRD)',
-    'version': '18.0.1.0',
+    'version': '19.0.1.0.0',
     'category': 'Operations',
     'summary': 'Collect, validate and report ESG indicators (environment, social, governance) per company and period for CSRD compliance',
     'description': """

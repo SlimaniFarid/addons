@@ -12,11 +12,11 @@ class NpsCampaign(models.Model):
     currency_id = fields.Many2one(related='company_id.currency_id', store=True)
     company_id = fields.Many2one('res.company', string='Company', required=True, store=True, default=lambda self: self.env.company)
 
-    name = fields.Campaign(string='Name', required=True)
-    start_date = fields.Start(string='Start Date', default=fields.Date.today)
-    end_date = fields.End(string='End Date')
-    target_model = fields.sale_order,account_move,helpdesk_ticket(string='Target Model')
-    state = fields.draft,active,closed(string='State', default='draft')
+    name = fields.Char(string='Name', required=True)
+    start_date = fields.Date(string='Start Date', default=fields.Date.today)
+    end_date = fields.Date(string='End Date')
+    target_model = fields.Selection(selection=[])
+    state = fields.Selection(default='draft')
 
     @api.model_create_multi
     def create(self, vals_list):

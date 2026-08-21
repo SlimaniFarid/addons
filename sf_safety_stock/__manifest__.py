@@ -1,6 +1,6 @@
 {
     'name': 'Safety Stock Optimizer',
-    'version': '18.0.1.0',
+    'version': '19.0.1.0.0',
     'category': 'Inventory',
     'summary': 'Optimal safety stock levels and reorder points from real demand',
     'description': """

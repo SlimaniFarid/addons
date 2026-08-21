@@ -68,7 +68,7 @@
                 <field name="warehouse_id"/>
                 <filter string="Below Reorder Point" name="below"
                         domain="[('below_point','=',True)]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="Warehouse" name="warehouse"
                             context="{'group_by':'warehouse_id'}"/>
                     <filter string="Service Level" name="level"

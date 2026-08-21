@@ -1,6 +1,6 @@
 {
     'name': 'Multi-Channel Returns & RMA Center',
-    'version': '18.0.1.0',
+    'version': '19.0.1.0.0',
     'category': 'Sales',
     'summary': 'Unified returns portal for eCommerce, POS, B2B, marketplaces with auto-approval rules',
     'description': """Multi-Channel Returns & RMA Center
@@ -12,7 +12,7 @@ Features:
 - Customer self-service portal (branded, multi-lang)
 - Channel-specific rules: eCommerce (30 days), POS (14 days), B2B (contract), marketplace (policy)
 - Auto-approval: amount thresholds, reason codes, customer tier, product category
-- RMA workflow: receive → inspect → disposition (restock, repair, scrap, return-to-vendor)
+- RMA workflow: receive â†’ inspect â†’ disposition (restock, repair, scrap, return-to-vendor)
 - Prepaid label generation (carrier integration: UPS, FedEx, DHL, local)
 - Refund/replacement/credit note automation
 - Analytics: return rate by product/channel/reason, cost recovery, fraud detection
@@ -37,5 +37,6 @@ Channels supported:
     'auto_install': False,
     'images': ['static/description/banner.png'],
 }
+
 
 

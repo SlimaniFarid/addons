@@ -93,7 +93,7 @@
                 <field name="code"/>
                 <filter string="Active" name="active" domain="[('active','=',True)]"/>
                 <filter string="Inactive" name="inactive" domain="[('active','=',False)]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="Company" name="company" context="{'group_by':'company_id'}"/>
                 </group>
             </search>
@@ -199,11 +199,11 @@
             <form string="Marketplace Listing">
                 <header>
                     <button name="action_list" string="List" type="object"
-                            states="draft,paused"/>
+                            invisible="[('state', 'not in', ('draft', 'paused'))]"/>
                     <button name="action_pause" string="Pause" type="object"
-                            states="listed"/>
+                            invisible="[('state', 'not in', ('listed',))]"/>
                     <button name="action_close" string="Close" type="object"
-                            states="draft,listed,paused"/>
+                            invisible="[('state', 'not in', ('draft', 'listed', 'paused'))]"/>
                 </header>
                 <sheet>
                     <group>
@@ -251,11 +251,11 @@
             <form string="Marketplace Payout">
                 <header>
                     <button name="action_approve" string="Approve" type="object"
-                            states="draft"/>
+                            invisible="[('state', 'not in', ('draft',))]"/>
                     <button name="action_pay" string="Mark as Paid" type="object"
-                            states="approved"/>
+                            invisible="[('state', 'not in', ('approved',))]"/>
                     <button name="action_cancel" string="Cancel" type="object"
-                            states="draft,approved"/>
+                            invisible="[('state', 'not in', ('draft', 'approved'))]"/>
                 </header>
                 <sheet>
                     <group>

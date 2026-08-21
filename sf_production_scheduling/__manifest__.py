@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Production Scheduling Advanced',
-    'version': '18.0.1.0.0',
+    'version': '19.0.1.0.0',
     'category': 'Manufacturing',
     'summary': 'Finite capacity scheduling with Gantt view, bottleneck detection and what-if simulation.',
     'description': 'Production Scheduling Advanced module for Odoo. Finite capacity scheduling with Gantt view, bottleneck detection and what-if simulation.',

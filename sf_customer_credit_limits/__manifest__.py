@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Customer Credit Limits',
-    'version': '18.0.1.0.0',
+    'version': '19.0.1.0.0',
     'category': 'Accounting',
     'summary': 'Automated credit limit enforcement with blocking, escalation workflow and exposure dashboard.',
     'description': 'Customer Credit Limits module for Odoo. Automated credit limit enforcement with blocking, escalation workflow and exposure dashboard.',

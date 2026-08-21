@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Warehouse Activity Heatmap',
-    'version': '18.0.1.0.0',
+    'version': '19.0.1.0.0',
     'category': 'Inventory',
     'summary': 'Activity heatmap for slotting optimization: pick frequency, travel distance and ABC classification.',
     'description': 'Warehouse Activity Heatmap module for Odoo. Activity heatmap for slotting optimization: pick frequency, travel distance and ABC classification.',

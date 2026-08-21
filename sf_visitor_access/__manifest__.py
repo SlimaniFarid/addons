@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Visitor Management & Site Access',
-    'version': '18.0.1.0',
+    'version': '19.0.1.0.0',
     'category': 'Operations',
     'summary': 'Visitor check-in/out, badges, zones, safety rules and real-time presence register',
     'description': """

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Litigation & Legal Case Management',
-    'version': '18.0.1.0',
+    'version': '19.0.1.0.0',
     'category': 'Operations',
     'summary': 'Legal cases and pre-litigation: cases and parties, domains, procedural deadlines with alerts, fees and honoraries, decisions and results, legal activity PDF report',
     'description': """

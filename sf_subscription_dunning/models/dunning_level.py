@@ -12,11 +12,11 @@ class DunningLevel(models.Model):
     currency_id = fields.Many2one(related='company_id.currency_id', store=True)
     company_id = fields.Many2one('res.company', string='Company', required=True, store=True, default=lambda self: self.env.company)
 
-    name = fields.Level(string='Name', required=True)
-    sequence = fields.Sequence(string='Sequence', default=10)
-    days_after_due = fields.Days(string='Days After Due', default=7)
-    email_template_id = fields.mail.template(string='Email Template Id')
-    suspend_subscription = fields.Suspend(string='Suspend Subscription', default='False')
+    name = fields.Char(string='Name', required=True)
+    sequence = fields.Integer(string='Sequence', default=10)
+    days_after_due = fields.Integer(string='Days After Due', default=7)
+    email_template_id = fields.Many2one(comodel_name='mail.template', ondelete='restrict')
+    suspend_subscription = fields.Boolean(string='Suspend Subscription', default='False')
 
     @api.model_create_multi
     def create(self, vals_list):

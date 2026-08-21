@@ -12,10 +12,10 @@ class AssetScheduleLine(models.Model):
     currency_id = fields.Many2one(related='company_id.currency_id', store=True)
     company_id = fields.Many2one('res.company', string='Company', required=True, store=True, default=lambda self: self.env.company)
 
-    asset_id = fields.account.asset(string='Asset Id')
+    asset_id = fields.Many2one(comodel_name='account.asset', ondelete='restrict')
     depreciation_date = fields.Date(string='Depreciation Date')
-    amount = fields.Amount(string='Amount', currency_field='currency_id')
-    posted = fields.Posted(string='Posted', default='False')
+    amount = fields.Monetary(string='Amount', currency_field='currency_id', currency_field='currency_id')
+    posted = fields.Boolean(string='Posted', default='False')
 
     @api.model_create_multi
     def create(self, vals_list):

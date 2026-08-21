@@ -28,7 +28,7 @@
                     <field name="note" placeholder="Describe this plan..."/>
                     <notebook>
                         <page string="Tiers" name="tiers"
-                              attrs="{'invisible': [('use_tiers', '=', False)]}">
+                              invisible="[('use_tiers', '=', False)]">
                             <field name="tier_ids">
                                 <list string="Tiers" editable="bottom">
                                     <field name="min_amount"/>
@@ -90,13 +90,13 @@
             <form string="Commission Line">
                 <header>
                     <button name="action_approve" type="object"
-                            string="Approve" class="btn-primary" states="draft"/>
+                            string="Approve" class="btn-primary" invisible="[('state', 'not in', ('draft',))]"/>
                     <button name="action_paid" type="object"
-                            string="Mark Paid" class="btn-primary" states="approved"/>
+                            string="Mark Paid" class="btn-primary" invisible="[('state', 'not in', ('approved',))]"/>
                     <button name="action_cancel" type="object"
-                            string="Cancel" states="draft,approved"/>
+                            string="Cancel" invisible="[('state', 'not in', ('draft', 'approved'))]"/>
                     <button name="action_draft" type="object"
-                            string="Set to Draft" states="cancelled"/>
+                            string="Set to Draft" invisible="[('state', 'not in', ('cancelled',))]"/>
                 </header>
                 <sheet>
                     <div class="oe_title">
@@ -171,7 +171,7 @@
                         domain="[('state', '=', 'approved')]"/>
                 <filter string="Paid" name="paid"
                         domain="[('state', '=', 'paid')]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="Salesperson" name="group_sp"
                             context="{'group_by': 'salesperson_id'}"/>
                     <filter string="Plan" name="group_plan"

@@ -12,12 +12,12 @@ class IcSale(models.Model):
     currency_id = fields.Many2one(related='company_id.currency_id', store=True)
     company_id = fields.Many2one('res.company', string='Company', required=True, store=True, default=lambda self: self.env.company)
 
-    name = fields.Ref(string='Name', required=True)
-    source_company_id = fields.res.company(string='Source Company Id', required=True)
-    dest_company_id = fields.res.company(string='Dest Company Id', required=True)
-    sale_order_id = fields.sale.order(string='Sale Order Id')
-    amount = fields.Amount(string='Amount', currency_field='currency_id')
-    state = fields.draft,invoiced,matched,eliminated(string='State', default='draft tracking', tracking=True)
+    name = fields.Char(string='Name', required=True)
+    source_company_id = fields.Many2one(required=True, comodel_name='res.company', ondelete='restrict')
+    dest_company_id = fields.Many2one(required=True, comodel_name='res.company', ondelete='restrict')
+    sale_order_id = fields.Many2one(comodel_name='sale.order', ondelete='restrict')
+    amount = fields.Monetary(string='Amount', currency_field='currency_id', currency_field='currency_id')
+    state = fields.Selection(default='draft tracking', tracking=True)
 
     @api.model_create_multi
     def create(self, vals_list):

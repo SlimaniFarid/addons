@@ -1,6 +1,6 @@
 {
     'name': 'Dynamic Process Routing',
-    'version': '18.0.1.0',
+    'version': '19.0.1.0.0',
     'category': 'Manufacturing/Manufacturing',
     'summary': 'Alternative routing selection based on conditions, capacity, and quality',
     'description': """

@@ -1,6 +1,6 @@
 {
     'name': 'Time & Attendance System',
-    'version': '18.0.1.0',
+    'version': '19.0.1.0.0',
     'category': 'Human Resources',
     'summary': 'Shifts, overtime, late arrivals and attendance analytics',
     'description': """

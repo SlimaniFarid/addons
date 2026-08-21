@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Export Documents & Customs Compliance',
-    'version': '18.0.1.0',
+    'version': '19.0.1.0.0',
     'category': 'Operations',
     'summary': 'Export pack documents, Incoterms, completeness control and dossier workflow',
     'description': """
@@ -15,7 +15,7 @@ check completeness before shipment and archive the history.
 
 Key Features:
 ------------
-* Export dossier workflow: draft → in_preparation → ready → shipped → archived
+* Export dossier workflow: draft â†’ in_preparation â†’ ready â†’ shipped â†’ archived
 * Incoterms reference and transport modes
 * Commercial invoice and packing list from the sale order
 * Certificate of origin and EUR.1 / ATR reports

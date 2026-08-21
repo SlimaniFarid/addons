@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Bank Loans & Credits',
-    'version': '18.0.1.0',
+    'version': '19.0.1.0.0',
     'category': 'Accounting',
     'summary': 'Track bank loans, calculated amortization schedules, drawdowns, early repayments and covenants with alerts',
     'description': """
@@ -16,8 +16,8 @@ projection and a debt position report by bank.
 Key Features:
 -------------
 * Banks and contacts
-* Loan files with workflow (draft → offered → disbursing →
-  active → closed)
+* Loan files with workflow (draft â†’ offered â†’ disbursing â†’
+  active â†’ closed)
 * Amortization schedule generation (annuity or constant)
 * Drawdowns that update the disbursed capital
 * Early repayments that adjust the remaining debt

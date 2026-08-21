@@ -12,12 +12,12 @@ class ScoringRule(models.Model):
     currency_id = fields.Many2one(related='company_id.currency_id', store=True)
     company_id = fields.Many2one('res.company', string='Company', required=True, store=True, default=lambda self: self.env.company)
 
-    name = fields.Rule(string='Name', required=True)
-    field_name = fields.CRM(string='Field Name', required=True)
-    operator = fields.eq,gt,lt,contains(string='Operator', default='eq')
-    score_value = fields.Score(string='Score Value', default=10)
-    sequence = fields.Sequence(string='Sequence', default=10)
-    active = fields.Active(string='Active', default='True')
+    name = fields.Char(string='Name', required=True)
+    field_name = fields.Char(string='Field Name', required=True)
+    operator = fields.Selection(default='eq')
+    score_value = fields.Integer(string='Score Value', default=10)
+    sequence = fields.Integer(string='Sequence', default=10)
+    active = fields.Boolean(string='Active', default='True')
 
     @api.model_create_multi
     def create(self, vals_list):

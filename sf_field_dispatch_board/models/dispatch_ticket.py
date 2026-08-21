@@ -12,12 +12,12 @@ class DispatchTicket(models.Model):
     currency_id = fields.Many2one(related='company_id.currency_id', store=True)
     company_id = fields.Many2one('res.company', string='Company', required=True, store=True, default=lambda self: self.env.company)
 
-    name = fields.Ticket(string='Name', required=True)
-    partner_id = fields.res.partner(string='Partner Id', required=True)
-    technician_id = fields.res.users(string='Technician Id')
-    priority = fields.low,normal,high,urgent(string='Priority', default='normal')
-    scheduled_date = fields.Scheduled(string='Scheduled Date')
-    state = fields.new,assigned,en_route,in_progress,done,cancelled(string='State', default='new tracking', tracking=True)
+    name = fields.Char(string='Name', required=True)
+    partner_id = fields.Many2one(required=True, comodel_name='res.partner', ondelete='restrict')
+    technician_id = fields.Many2one(comodel_name='res.users', ondelete='restrict')
+    priority = fields.Selection(default='normal')
+    scheduled_date = fields.Datetime(string='Scheduled Date')
+    state = fields.Selection(default='new tracking', tracking=True)
 
     @api.model_create_multi
     def create(self, vals_list):

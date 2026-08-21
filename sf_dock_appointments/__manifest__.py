@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Dock & Shipment Appointment Scheduling',
-    'version': '18.0.1.0',
+    'version': '19.0.1.0.0',
     'category': 'Operations',
     'summary': 'Dock registry and truck appointment scheduling with time windows, arrival tracking and no-show detection',
     'description': 'Dock and shipment appointment scheduling for warehouses, distribution centers and 3PL providers: manage receiving/shipping docks, plan truck appointments with time windows, assign docks, track states (scheduled, arrived, docked, completed, no-show, cancelled), record actual arrival/dock/departure times, compute delays and dock durations, detect no-shows automatically with a daily cron, and print the daily schedule PDF.',

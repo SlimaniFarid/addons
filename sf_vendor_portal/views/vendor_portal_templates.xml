@@ -104,20 +104,8 @@
                         </h6>
                     </div>
                 </div>
-                <div class="d-flex gap-2">
-                    <button t-attf-data-id="#{order.id}" class="btn btn-success"
-                            onclick="vendorAccept(this)">
-                        Accept
-                    </button>
-                    <button t-attf-data-id="#{order.id}" class="btn btn-danger"
-                            onclick="vendorDecline(this)">
-                        Decline
-                    </button>
-                    <button t-attf-data-id="#{order.id}" class="btn btn-warning"
-                            onclick="vendorCounter(this)">
-                        Propose a counter-offer
-                    </button>
-                </div>
+                <div class="d-flex gap-2" data-vendor-rfq-buttons="1"
+                     t-att-data-order-id="order.id"/>
             </div>
         </t>
     </template>

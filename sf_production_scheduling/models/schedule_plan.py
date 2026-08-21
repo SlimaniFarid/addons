@@ -12,11 +12,11 @@ class SchedulePlan(models.Model):
     currency_id = fields.Many2one(related='company_id.currency_id', store=True)
     company_id = fields.Many2one('res.company', string='Company', required=True, store=True, default=lambda self: self.env.company)
 
-    name = fields.Name(string='Name', required=True)
-    date_from = fields.From(string='Date From', required=True)
-    date_to = fields.To(string='Date To', required=True)
-    workcenter_id = fields.mrp.workcenter(string='Workcenter Id')
-    state = fields.draft,optimized,released(string='State', default='draft')
+    name = fields.Char(string='Name', required=True)
+    date_from = fields.Date(string='Date From', required=True)
+    date_to = fields.Date(string='Date To', required=True)
+    workcenter_id = fields.Many2one(comodel_name='mrp.workcenter', ondelete='restrict')
+    state = fields.Selection(default='draft')
 
     @api.model_create_multi
     def create(self, vals_list):
