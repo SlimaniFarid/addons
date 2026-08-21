@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Subscription Dunning Management',
-    'version': '19.0.1.0.0',
+    'version': '18.0.1.0.0',
     'category': 'Accounting',
     'summary': 'Automated dunning: retry schedules, escalation emails and revenue recovery dashboard.',
     'description': 'Subscription Dunning Management module for Odoo. Automated dunning: retry schedules, escalation emails and revenue recovery dashboard.',

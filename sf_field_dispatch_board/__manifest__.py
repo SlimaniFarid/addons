@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Field Dispatch Board',
-    'version': '19.0.1.0.0',
+    'version': '18.0.1.0.0',
     'category': 'Operations',
     'summary': 'Dispatch board with skills matching, route optimization, SLA timers and mobile check-in/out.',
     'description': 'Field Dispatch Board module for Odoo. Dispatch board with skills matching, route optimization, SLA timers and mobile check-in/out.',

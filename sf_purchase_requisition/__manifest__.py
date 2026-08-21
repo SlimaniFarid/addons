@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Purchase Requisition Workflow',
-    'version': '19.0.1.0.0',
+    'version': '18.0.1.0.0',
     'category': 'Purchase',
     'summary': 'Purchase requisition with multi-level approval chains, budget checking and vendor suggestion.',
     'description': 'Purchase Requisition Workflow module for Odoo. Purchase requisition with multi-level approval chains, budget checking and vendor suggestion.',

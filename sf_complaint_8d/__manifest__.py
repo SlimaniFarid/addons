@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': '8D Complaint Management',
-    'version': '19.0.1.0.0',
+    'version': '18.0.1.0.0',
     'category': 'Quality',
     'summary': '8D methodology: team formation, root cause, corrective actions, CAPA tracking and supplier notification.',
     'description': '8D Complaint Management module for Odoo. 8D methodology: team formation, root cause, corrective actions, CAPA tracking and supplier notification.',

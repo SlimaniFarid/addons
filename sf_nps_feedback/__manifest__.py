@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'NPS & Customer Feedback',
-    'version': '19.0.1.0.0',
+    'version': '18.0.1.0.0',
     'category': 'Sales',
     'summary': 'NPS survey campaigns with automated detractor follow-up, trend analysis and team scorecards.',
     'description': 'NPS & Customer Feedback module for Odoo. NPS survey campaigns with automated detractor follow-up, trend analysis and team scorecards.',

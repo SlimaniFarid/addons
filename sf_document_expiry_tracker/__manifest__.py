@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Employee Document Expiry Tracker',
-    'version': '19.0.1.0.0',
+    'version': '18.0.1.0.0',
     'category': 'HR',
     'summary': 'Track employee document expiry with automated renewal reminders.',
     'description': 'Employee Document Expiry Tracker module for Odoo. Track employee document expiry with automated renewal reminders.',

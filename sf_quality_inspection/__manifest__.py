@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Quality Inspection Mobile',
-    'version': '19.0.1.0.0',
+    'version': '18.0.1.0.0',
     'category': 'Quality',
     'summary': 'Mobile-first quality inspection checklists with photo capture and non-conformance escalation.',
     'description': 'Quality Inspection Mobile module for Odoo. Mobile-first quality inspection checklists with photo capture and non-conformance escalation.',

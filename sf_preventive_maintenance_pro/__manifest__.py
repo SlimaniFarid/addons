@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Preventive Maintenance Pro',
-    'version': '19.0.1.0.0',
+    'version': '18.0.1.0.0',
     'category': 'Manufacturing',
     'summary': 'PM scheduling by meter reading or time triggers, work order auto-generation and compliance calendar.',
     'description': 'Preventive Maintenance Pro module for Odoo. PM scheduling by meter reading or time triggers, work order auto-generation and compliance calendar.',

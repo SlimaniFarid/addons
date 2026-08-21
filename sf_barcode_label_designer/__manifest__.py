@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Barcode Label Designer',
-    'version': '19.0.1.0.0',
+    'version': '18.0.1.0.0',
     'category': 'Operations',
     'summary': 'Drag-and-drop label designer with barcode/QR support, ZPL and PDF output, batch printing.',
     'description': 'Barcode Label Designer module for Odoo. Drag-and-drop label designer with barcode/QR support, ZPL and PDF output, batch printing.',
