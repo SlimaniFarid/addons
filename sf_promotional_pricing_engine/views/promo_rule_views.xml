@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_promo_rule_list" model="ir.ui.view">
+        <field name="name">sf.promotional.pricing.engine.promo.rule.list</field>
+        <field name="model">sf.promotional.pricing.engine.promo.rule</field>
+        <field name="arch" type="xml">
+            <list string="Promo.Rule">
+                <field name="name"/>
+                <field name="product_tmpl_ids"/>
+                <field name="date_start"/>
+                <field name="date_end"/>
+                <field name="discount_pct"/>
+                <field name="fixed_price"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_promo_rule_form" model="ir.ui.view">
+        <field name="name">sf.promotional.pricing.engine.promo.rule.form</field>
+        <field name="model">sf.promotional.pricing.engine.promo.rule</field>
+        <field name="arch" type="xml">
+            <form string="Promo.Rule">
+                <header>
+                </header>
+                <sheet>
+                    <div class="oe_title"><h1><field name="name" placeholder="Name"/></h1></div>
+                    <group><group>
+                            <field name="name"/>
+                            <field name="product_tmpl_ids"/>
+                            <field name="date_start"/>
+                            <field name="date_end"/>
+                            <field name="discount_pct"/>
+                            <field name="fixed_price"/>
+                            <field name="min_qty"/>
+                            <field name="margin_floor_pct"/>
+                            <field name="active"/>
+                    </group>
+                    <group>
+                        <field name="currency_id" invisible="1"/>
+                        <field name="company_id" groups="base.group_multi_company"/>
+                    </group>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_promo_rule" model="ir.actions.act_window">
+        <field name="name">Promo.Rule</field>
+        <field name="res_model">sf.promotional.pricing.engine.promo.rule</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

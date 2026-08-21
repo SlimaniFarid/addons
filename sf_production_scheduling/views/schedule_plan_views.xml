@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_schedule_plan_list" model="ir.ui.view">
+        <field name="name">sf.production.scheduling.schedule.plan.list</field>
+        <field name="model">sf.production.scheduling.schedule.plan</field>
+        <field name="arch" type="xml">
+            <list string="Schedule.Plan">
+                <field name="name"/>
+                <field name="date_from"/>
+                <field name="date_to"/>
+                <field name="workcenter_id"/>
+                <field name="state"/>
+                <field name="state" widget="badge"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_schedule_plan_form" model="ir.ui.view">
+        <field name="name">sf.production.scheduling.schedule.plan.form</field>
+        <field name="model">sf.production.scheduling.schedule.plan</field>
+        <field name="arch" type="xml">
+            <form string="Schedule.Plan">
+                <header>
+                <field name="state" widget="badge"/>
+                </header>
+                <sheet>
+                    <div class="oe_title"><h1><field name="name" placeholder="Name"/></h1></div>
+                    <group><group>
+                            <field name="name"/>
+                            <field name="date_from"/>
+                            <field name="date_to"/>
+                            <field name="workcenter_id"/>
+                            <field name="state"/>
+                    </group>
+                    <group>
+                        <field name="currency_id" invisible="1"/>
+                        <field name="company_id" groups="base.group_multi_company"/>
+                    </group>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_schedule_plan" model="ir.actions.act_window">
+        <field name="name">Schedule.Plan</field>
+        <field name="res_model">sf.production.scheduling.schedule.plan</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

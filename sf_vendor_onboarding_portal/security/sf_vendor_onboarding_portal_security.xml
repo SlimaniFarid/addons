@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="module_category_sf_vendor_onboarding_portal" model="ir.module.category">
+        <field name="name">Vendor Onboarding Portal</field>
+        <field name="description">Vendor Onboarding Portal</field>
+        <field name="sequence">10</field>
+    </record>
+    <record id="group_vendor_onboarding_portal_user" model="res.groups">
+        <field name="name">Vendor Onboarding Portal / User</field>
+        <field name="category_id" ref="module_category_sf_vendor_onboarding_portal"/>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+    <record id="group_vendor_onboarding_portal_manager" model="res.groups">
+        <field name="name">Vendor Onboarding Portal / Manager</field>
+        <field name="category_id" ref="module_category_sf_vendor_onboarding_portal"/>
+        <field name="implied_ids" eval="[(4, ref('sf_vendor_onboarding_portal.group_vendor_onboarding_portal_user'))]"/>
+    </record>
+</odoo>

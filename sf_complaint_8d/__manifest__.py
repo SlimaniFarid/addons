@@ -1,0 +1,25 @@
+# -*- coding: utf-8 -*-
+{
+    'name': '8D Complaint Management',
+    'version': '19.0.1.0.0',
+    'category': 'Quality',
+    'summary': '8D methodology: team formation, root cause, corrective actions, CAPA tracking and supplier notification.',
+    'description': '8D Complaint Management module for Odoo. 8D methodology: team formation, root cause, corrective actions, CAPA tracking and supplier notification.',
+    'author': 'Ethan Miller',
+    'support': 'tech5262@gmail.com',
+    'website': 'https://www.smartersaas.com',
+    'license': 'OPL-1',
+    'price': 62.50,
+    'currency': 'EUR',
+    'application': True,
+    'installable': True,
+    'images': ['static/description/banner.png'],
+    'depends': ['base', 'mail', 'account', 'stock'],
+    'data': [
+        'security/sf_complaint_8d_security.xml',
+        'security/ir.model.access.csv',
+        'data/sf_complaint_8d_sequence.xml',
+        'views/complaint_8d_views.xml',
+        'views/sf_complaint_8d_menus.xml',
+    ],
+}

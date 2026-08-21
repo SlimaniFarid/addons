@@ -1,0 +1,26 @@
+# -*- coding: utf-8 -*-
+{
+    'name': 'Subscription Dunning Management',
+    'version': '19.0.1.0.0',
+    'category': 'Accounting',
+    'summary': 'Automated dunning: retry schedules, escalation emails and revenue recovery dashboard.',
+    'description': 'Subscription Dunning Management module for Odoo. Automated dunning: retry schedules, escalation emails and revenue recovery dashboard.',
+    'author': 'Ethan Miller',
+    'support': 'tech5262@gmail.com',
+    'website': 'https://www.smartersaas.com',
+    'license': 'OPL-1',
+    'price': 62.50,
+    'currency': 'EUR',
+    'application': True,
+    'installable': True,
+    'images': ['static/description/banner.png'],
+    'depends': ['base', 'mail', 'account', 'stock'],
+    'data': [
+        'security/sf_subscription_dunning_security.xml',
+        'security/ir.model.access.csv',
+        'data/sf_subscription_dunning_sequence.xml',
+        'views/dunning_level_views.xml',
+        'views/dunning_case_views.xml',
+        'views/sf_subscription_dunning_menus.xml',
+    ],
+}

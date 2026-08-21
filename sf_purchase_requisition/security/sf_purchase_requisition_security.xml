@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="module_category_sf_purchase_requisition" model="ir.module.category">
+        <field name="name">Purchase Requisition Workflow</field>
+        <field name="description">Purchase Requisition Workflow</field>
+        <field name="sequence">10</field>
+    </record>
+    <record id="group_purchase_requisition_user" model="res.groups">
+        <field name="name">Purchase Requisition Workflow / User</field>
+        <field name="category_id" ref="module_category_sf_purchase_requisition"/>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+    <record id="group_purchase_requisition_manager" model="res.groups">
+        <field name="name">Purchase Requisition Workflow / Manager</field>
+        <field name="category_id" ref="module_category_sf_purchase_requisition"/>
+        <field name="implied_ids" eval="[(4, ref('sf_purchase_requisition.group_purchase_requisition_user'))]"/>
+    </record>
+</odoo>

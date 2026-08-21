@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_customer_credit_limits_root"
+              name="Customer Credit Limits"
+              sequence="30"
+              groups="sf_customer_credit_limits.group_customer_credit_limits_user"
+              web_icon="sf_customer_credit_limits,static/description/icon.png"/>
+    <menuitem id="menu_credit_limit_rule" name="Credit.Limit.Rule"
+              parent="menu_customer_credit_limits_root"
+              action="action_credit_limit_rule"
+              sequence="10"
+              groups="sf_customer_credit_limits.group_customer_credit_limits_user"/>
+    <menuitem id="menu_credit_exposure" name="Credit.Exposure"
+              parent="menu_customer_credit_limits_root"
+              action="action_credit_exposure"
+              sequence="20"
+              groups="sf_customer_credit_limits.group_customer_credit_limits_user"/>
+</odoo>

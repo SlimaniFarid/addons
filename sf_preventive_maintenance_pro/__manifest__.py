@@ -1,0 +1,26 @@
+# -*- coding: utf-8 -*-
+{
+    'name': 'Preventive Maintenance Pro',
+    'version': '19.0.1.0.0',
+    'category': 'Manufacturing',
+    'summary': 'PM scheduling by meter reading or time triggers, work order auto-generation and compliance calendar.',
+    'description': 'Preventive Maintenance Pro module for Odoo. PM scheduling by meter reading or time triggers, work order auto-generation and compliance calendar.',
+    'author': 'Ethan Miller',
+    'support': 'tech5262@gmail.com',
+    'website': 'https://www.smartersaas.com',
+    'license': 'OPL-1',
+    'price': 62.50,
+    'currency': 'EUR',
+    'application': True,
+    'installable': True,
+    'images': ['static/description/banner.png'],
+    'depends': ['base', 'mail', 'account', 'stock'],
+    'data': [
+        'security/sf_preventive_maintenance_pro_security.xml',
+        'security/ir.model.access.csv',
+        'data/sf_preventive_maintenance_pro_sequence.xml',
+        'views/pm_plan_views.xml',
+        'views/pm_work_order_views.xml',
+        'views/sf_preventive_maintenance_pro_menus.xml',
+    ],
+}

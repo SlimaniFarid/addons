@@ -1,0 +1,25 @@
+# -*- coding: utf-8 -*-
+{
+    'name': 'Warranty Claims Portal',
+    'version': '19.0.1.0.0',
+    'category': 'Services',
+    'summary': 'Customer self-service warranty claims with SLA tracking and automatic credit note.',
+    'description': 'Warranty Claims Portal module for Odoo. Customer self-service warranty claims with SLA tracking and automatic credit note.',
+    'author': 'Ethan Miller',
+    'support': 'tech5262@gmail.com',
+    'website': 'https://www.smartersaas.com',
+    'license': 'OPL-1',
+    'price': 62.50,
+    'currency': 'EUR',
+    'application': True,
+    'installable': True,
+    'images': ['static/description/banner.png'],
+    'depends': ['base', 'mail', 'account', 'stock'],
+    'data': [
+        'security/sf_warranty_claims_portal_security.xml',
+        'security/ir.model.access.csv',
+        'data/sf_warranty_claims_portal_sequence.xml',
+        'views/warranty_claim_views.xml',
+        'views/sf_warranty_claims_portal_menus.xml',
+    ],
+}

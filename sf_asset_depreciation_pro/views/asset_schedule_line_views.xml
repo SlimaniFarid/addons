@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_asset_schedule_line_list" model="ir.ui.view">
+        <field name="name">sf.asset.depreciation.pro.asset.schedule.line.list</field>
+        <field name="model">sf.asset.depreciation.pro.asset.schedule.line</field>
+        <field name="arch" type="xml">
+            <list string="Asset.Schedule.Line">
+                <field name="asset_id"/>
+                <field name="depreciation_date"/>
+                <field name="amount"/>
+                <field name="posted"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_asset_schedule_line_form" model="ir.ui.view">
+        <field name="name">sf.asset.depreciation.pro.asset.schedule.line.form</field>
+        <field name="model">sf.asset.depreciation.pro.asset.schedule.line</field>
+        <field name="arch" type="xml">
+            <form string="Asset.Schedule.Line">
+                <header>
+                </header>
+                <sheet>
+                    <div class="oe_title"><h1><field name="name" placeholder="Name"/></h1></div>
+                    <group><group>
+                            <field name="asset_id"/>
+                            <field name="depreciation_date"/>
+                            <field name="amount"/>
+                            <field name="posted"/>
+                    </group>
+                    <group>
+                        <field name="currency_id" invisible="1"/>
+                        <field name="company_id" groups="base.group_multi_company"/>
+                    </group>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_asset_schedule_line" model="ir.actions.act_window">
+        <field name="name">Asset.Schedule.Line</field>
+        <field name="res_model">sf.asset.depreciation.pro.asset.schedule.line</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

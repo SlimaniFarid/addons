@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_warranty_claims_portal_root"
+              name="Warranty Claims Portal"
+              sequence="30"
+              groups="sf_warranty_claims_portal.group_warranty_claims_portal_user"
+              web_icon="sf_warranty_claims_portal,static/description/icon.png"/>
+    <menuitem id="menu_warranty_claim" name="Warranty.Claim"
+              parent="menu_warranty_claims_portal_root"
+              action="action_warranty_claim"
+              sequence="10"
+              groups="sf_warranty_claims_portal.group_warranty_claims_portal_user"/>
+</odoo>

@@ -1,0 +1,25 @@
+# -*- coding: utf-8 -*-
+{
+    'name': 'Employee Document Expiry Tracker',
+    'version': '19.0.1.0.0',
+    'category': 'HR',
+    'summary': 'Track employee document expiry with automated renewal reminders.',
+    'description': 'Employee Document Expiry Tracker module for Odoo. Track employee document expiry with automated renewal reminders.',
+    'author': 'Ethan Miller',
+    'support': 'tech5262@gmail.com',
+    'website': 'https://www.smartersaas.com',
+    'license': 'OPL-1',
+    'price': 62.50,
+    'currency': 'EUR',
+    'application': True,
+    'installable': True,
+    'images': ['static/description/banner.png'],
+    'depends': ['base', 'mail', 'account', 'stock'],
+    'data': [
+        'security/sf_document_expiry_tracker_security.xml',
+        'security/ir.model.access.csv',
+        'data/sf_document_expiry_tracker_sequence.xml',
+        'views/employee_document_views.xml',
+        'views/sf_document_expiry_tracker_menus.xml',
+    ],
+}

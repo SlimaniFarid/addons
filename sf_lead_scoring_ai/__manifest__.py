@@ -1,0 +1,26 @@
+# -*- coding: utf-8 -*-
+{
+    'name': 'Lead Scoring Engine',
+    'version': '19.0.1.0.0',
+    'category': 'Sales',
+    'summary': 'Configurable lead scoring rules: engagement, fit, behavior. Auto-prioritize leads for sales teams.',
+    'description': 'Lead Scoring Engine module for Odoo. Configurable lead scoring rules: engagement, fit, behavior. Auto-prioritize leads for sales teams.',
+    'author': 'Ethan Miller',
+    'support': 'tech5262@gmail.com',
+    'website': 'https://www.smartersaas.com',
+    'license': 'OPL-1',
+    'price': 62.50,
+    'currency': 'EUR',
+    'application': True,
+    'installable': True,
+    'images': ['static/description/banner.png'],
+    'depends': ['base', 'mail', 'account', 'stock'],
+    'data': [
+        'security/sf_lead_scoring_ai_security.xml',
+        'security/ir.model.access.csv',
+        'data/sf_lead_scoring_ai_sequence.xml',
+        'views/scoring_rule_views.xml',
+        'views/lead_score_views.xml',
+        'views/sf_lead_scoring_ai_menus.xml',
+    ],
+}

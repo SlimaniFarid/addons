@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_credit_exposure_list" model="ir.ui.view">
+        <field name="name">sf.customer.credit.limits.credit.exposure.list</field>
+        <field name="model">sf.customer.credit.limits.credit.exposure</field>
+        <field name="arch" type="xml">
+            <list string="Credit.Exposure">
+                <field name="rule_id"/>
+                <field name="exposure_amount"/>
+                <field name="check_date"/>
+                <field name="action_taken"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_credit_exposure_form" model="ir.ui.view">
+        <field name="name">sf.customer.credit.limits.credit.exposure.form</field>
+        <field name="model">sf.customer.credit.limits.credit.exposure</field>
+        <field name="arch" type="xml">
+            <form string="Credit.Exposure">
+                <header>
+                </header>
+                <sheet>
+                    <div class="oe_title"><h1><field name="name" placeholder="Name"/></h1></div>
+                    <group><group>
+                            <field name="rule_id"/>
+                            <field name="exposure_amount"/>
+                            <field name="check_date"/>
+                            <field name="action_taken"/>
+                    </group>
+                    <group>
+                        <field name="currency_id" invisible="1"/>
+                        <field name="company_id" groups="base.group_multi_company"/>
+                    </group>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_credit_exposure" model="ir.actions.act_window">
+        <field name="name">Credit.Exposure</field>
+        <field name="res_model">sf.customer.credit.limits.credit.exposure</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

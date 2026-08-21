@@ -1,0 +1,25 @@
+# -*- coding: utf-8 -*-
+{
+    'name': 'Vendor Onboarding Portal',
+    'version': '19.0.1.0.0',
+    'category': 'Purchase',
+    'summary': 'Vendor onboarding portal with document collection, compliance verification and approval workflow.',
+    'description': 'Vendor Onboarding Portal module for Odoo. Vendor onboarding portal with document collection, compliance verification and approval workflow.',
+    'author': 'Ethan Miller',
+    'support': 'tech5262@gmail.com',
+    'website': 'https://www.smartersaas.com',
+    'license': 'OPL-1',
+    'price': 62.50,
+    'currency': 'EUR',
+    'application': True,
+    'installable': True,
+    'images': ['static/description/banner.png'],
+    'depends': ['base', 'mail', 'account', 'stock'],
+    'data': [
+        'security/sf_vendor_onboarding_portal_security.xml',
+        'security/ir.model.access.csv',
+        'data/sf_vendor_onboarding_portal_sequence.xml',
+        'views/vendor_onboarding_views.xml',
+        'views/sf_vendor_onboarding_portal_menus.xml',
+    ],
+}

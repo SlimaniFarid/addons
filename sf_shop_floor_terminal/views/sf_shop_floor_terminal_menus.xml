@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_shop_floor_terminal_root"
+              name="Shop Floor Data Terminal"
+              sequence="30"
+              groups="sf_shop_floor_terminal.group_shop_floor_terminal_user"
+              web_icon="sf_shop_floor_terminal,static/description/icon.png"/>
+    <menuitem id="menu_shop_floor_entry" name="Shop.Floor.Entry"
+              parent="menu_shop_floor_terminal_root"
+              action="action_shop_floor_entry"
+              sequence="10"
+              groups="sf_shop_floor_terminal.group_shop_floor_terminal_user"/>
+</odoo>

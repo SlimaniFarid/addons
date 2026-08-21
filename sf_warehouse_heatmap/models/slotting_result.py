@@ -1,0 +1,20 @@
+# -*- coding: utf-8 -*-
+from odoo import _, api, fields, models
+from odoo.exceptions import UserError
+
+
+class SlottingResult(models.Model):
+    _name = 'sf.warehouse.heatmap.slotting.result'
+    _description = 'Slotting Result'
+    _inherit = ['mail.thread', 'mail.activity.mixin']
+    _order = 'id desc'
+
+    currency_id = fields.Many2one(related='company_id.currency_id', store=True)
+    company_id = fields.Many2one('res.company', string='Company', required=True, store=True, default=lambda self: self.env.company)
+
+    analysis_id = fields.slotting.analysis(string='Analysis Id')
+    product_id = fields.product.product(string='Product Id')
+    pick_count = fields.Pick(string='Pick Count')
+    current_location = fields.Current(string='Current Location')
+    abc_class = fields.A,B,C(string='Abc Class', default='C')
+

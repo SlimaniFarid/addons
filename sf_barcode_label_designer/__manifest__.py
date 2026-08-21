@@ -1,0 +1,26 @@
+# -*- coding: utf-8 -*-
+{
+    'name': 'Barcode Label Designer',
+    'version': '19.0.1.0.0',
+    'category': 'Operations',
+    'summary': 'Drag-and-drop label designer with barcode/QR support, ZPL and PDF output, batch printing.',
+    'description': 'Barcode Label Designer module for Odoo. Drag-and-drop label designer with barcode/QR support, ZPL and PDF output, batch printing.',
+    'author': 'Ethan Miller',
+    'support': 'tech5262@gmail.com',
+    'website': 'https://www.smartersaas.com',
+    'license': 'OPL-1',
+    'price': 62.50,
+    'currency': 'EUR',
+    'application': True,
+    'installable': True,
+    'images': ['static/description/banner.png'],
+    'depends': ['base', 'mail', 'account', 'stock'],
+    'data': [
+        'security/sf_barcode_label_designer_security.xml',
+        'security/ir.model.access.csv',
+        'data/sf_barcode_label_designer_sequence.xml',
+        'views/label_template_views.xml',
+        'views/label_print_batch_views.xml',
+        'views/sf_barcode_label_designer_menus.xml',
+    ],
+}

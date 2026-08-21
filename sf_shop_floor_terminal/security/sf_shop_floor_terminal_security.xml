@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="module_category_sf_shop_floor_terminal" model="ir.module.category">
+        <field name="name">Shop Floor Data Terminal</field>
+        <field name="description">Shop Floor Data Terminal</field>
+        <field name="sequence">10</field>
+    </record>
+    <record id="group_shop_floor_terminal_user" model="res.groups">
+        <field name="name">Shop Floor Data Terminal / User</field>
+        <field name="category_id" ref="module_category_sf_shop_floor_terminal"/>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+    <record id="group_shop_floor_terminal_manager" model="res.groups">
+        <field name="name">Shop Floor Data Terminal / Manager</field>
+        <field name="category_id" ref="module_category_sf_shop_floor_terminal"/>
+        <field name="implied_ids" eval="[(4, ref('sf_shop_floor_terminal.group_shop_floor_terminal_user'))]"/>
+    </record>
+</odoo>

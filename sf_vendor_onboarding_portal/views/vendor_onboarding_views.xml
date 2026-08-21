@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_vendor_onboarding_list" model="ir.ui.view">
+        <field name="name">sf.vendor.onboarding.portal.vendor.onboarding.list</field>
+        <field name="model">sf.vendor.onboarding.portal.vendor.onboarding</field>
+        <field name="arch" type="xml">
+            <list string="Vendor.Onboarding">
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="tax_id"/>
+                <field name="bank_account"/>
+                <field name="cert_documents"/>
+                <field name="state"/>
+                <field name="state" widget="badge"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_vendor_onboarding_form" model="ir.ui.view">
+        <field name="name">sf.vendor.onboarding.portal.vendor.onboarding.form</field>
+        <field name="model">sf.vendor.onboarding.portal.vendor.onboarding</field>
+        <field name="arch" type="xml">
+            <form string="Vendor.Onboarding">
+                <header>
+                <field name="state" widget="badge"/>
+                </header>
+                <sheet>
+                    <div class="oe_title"><h1><field name="name" placeholder="Name"/></h1></div>
+                    <group><group>
+                            <field name="name"/>
+                            <field name="partner_id"/>
+                            <field name="tax_id"/>
+                            <field name="bank_account"/>
+                            <field name="cert_documents"/>
+                            <field name="state"/>
+                            <field name="reviewer_id"/>
+                    </group>
+                    <group>
+                        <field name="currency_id" invisible="1"/>
+                        <field name="company_id" groups="base.group_multi_company"/>
+                    </group>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_vendor_onboarding" model="ir.actions.act_window">
+        <field name="name">Vendor.Onboarding</field>
+        <field name="res_model">sf.vendor.onboarding.portal.vendor.onboarding</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>
