@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_sf_ci_policy" model="ir.actions.act_window">
+        <field name="name">Insurance Policies</field>
+        <field name="res_model">sf.ci.policy</field>
+        <field name="view_mode">list,form</field>
+    </record>
+    <record id="action_sf_ci_claim" model="ir.actions.act_window">
+        <field name="name">Claims</field>
+        <field name="res_model">sf.ci.claim</field>
+        <field name="view_mode">list,form</field>
+    </record>
+    <record id="view_sf_ci_policy_form" model="ir.ui.view">
+        <field name="name">sf.ci.policy.form</field>
+        <field name="model">sf.ci.policy</field>
+        <field name="arch" type="xml">
+            <form string="Credit Insurance Policy">
+                <header>
+                    <button name="action_activate" type="object"
+                            string="Activate" class="btn-primary"
+                            invisible="state != 'draft'"/>
+                    <button name="action_expire" type="object"
+                            string="Expire" invisible="state != 'active'"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,active,expired"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" readonly="1"/>
+                            <field name="insurer_id"/>
+                            <field name="policy_number"/>
+                            <field name="default_coverage_percent"/>
+                        </group>
+                        <group>
+                            <field name="date_start"/>
+                            <field name="date_end"/>
+                            <field name="premium_percent"/>
+                            <field name="currency_id" invisible="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Insured Buyers" name="buyers">
+                            <field name="buyer_ids">
+                                <list editable="bottom">
+                                    <field name="partner_id"/>
+                                    <field name="requested_limit"/>
+                                    <field name="approved_limit"/>
+                                    <field name="coverage_percent"/>
+                                    <field name="state"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Claims" name="claims">
+                            <field name="claim_ids">
+                                <list editable="bottom">
+                                    <field name="name" readonly="1"/>
+                                    <field name="buyer_id"/>
+                                    <field name="overdue_amount"/>
+                                    <field name="claimed_amount"/>
+                                    <field name="indemnity_amount"
+                                           readonly="1"/>
+                                    <field name="state"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="view_sf_ci_policy_list" model="ir.ui.view">
+        <field name="name">sf.ci.policy.list</field>
+        <field name="model">sf.ci.policy</field>
+        <field name="arch" type="xml">
+            <list string="Insurance Policies" sample="1">
+                <field name="name"/>
+                <field name="insurer_id"/>
+                <field name="date_start"/>
+                <field name="date_end"/>
+                <field name="buyer_count"/>
+                <field name="claim_count"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'active'"/>
+            </list>
+        </field>
+    </record>
+    <menuitem id="menu_sf_ci_root" name="Credit Insurance" sequence="32"
+              parent="account.menu_finance_configuration"/>
+    <menuitem id="menu_sf_ci_policies" name="Policies"
+              parent="menu_sf_ci_root" action="action_sf_ci_policy"
+              sequence="10"/>
+    <menuitem id="menu_sf_ci_claims" name="Claims"
+              parent="menu_sf_ci_root" action="action_sf_ci_claim"
+              sequence="20"/>
+</odoo>
