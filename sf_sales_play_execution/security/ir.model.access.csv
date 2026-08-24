@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sf_sales_play_execution_user,sf.sales_play_execution.user,model_sf_sales_play_execution,group_sales_play_execution_user,1,1,1,0
+access_sf_sales_play_execution_manager,sf.sales_play_execution.manager,model_sf_sales_play_execution,group_sales_play_execution_manager,1,1,1,1

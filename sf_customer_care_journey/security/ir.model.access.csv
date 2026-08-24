@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sf_customer_care_journey_user,sf.customer_care_journey.user,model_sf_customer_care_journey,group_customer_care_journey_user,1,1,1,0
+access_sf_customer_care_journey_manager,sf.customer_care_journey.manager,model_sf_customer_care_journey,group_customer_care_journey_manager,1,1,1,1

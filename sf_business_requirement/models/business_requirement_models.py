@@ -1,0 +1,66 @@
+# -*- coding: utf-8 -*-
+"""Business Requirement Register models"""
+from odoo import api, fields, models, _
+from odoo.exceptions import UserError
+
+
+class SfBusiness_requirement(models.Model):
+    _name = 'sf.business_requirement'
+    _description = 'Business Requirement Register'
+    _inherit = ['mail.thread', 'mail.activity.mixin']
+    _order = 'create_date desc, id desc'
+
+    name = fields.Char(string='Reference', required=True, copy=False, readonly=True, default='New')
+    company_id = fields.Many2one('res.company', string='Company', required=True, default=lambda s: s.env.company, tracking=True)
+    requirement = fields.Text(string='Requirement', required=True)
+    source = fields.Selection([
+        ('customer', 'Customer'),
+        ('regulation', 'Regulation'),
+        ('internal', 'Internal'),
+        ('market', 'Market'),
+        ], string='Source', required=True)
+    priority = fields.Selection([
+        ('must', 'Must Have'),
+        ('should', 'Should Have'),
+        ('could', 'Could Have'),
+        ], string='Priority', required=True)
+    complexity = fields.Selection([
+        ('simple', 'Simple'),
+        ('medium', 'Medium'),
+        ('complex', 'Complex'),
+        ], string='Complexity', default=medium)
+    status = fields.Selection([
+        ('proposed', 'Proposed'),
+        ('approved', 'Approved'),
+        ('in_progress', 'In Progress'),
+        ('delivered', 'Delivered'),
+        ], string='Status', default=proposed)
+    currency_id = fields.Many2one(related='company_id.currency_id')
+    state = fields.Selection([
+        ('draft', 'Draft'),
+        ('submitted', 'Submitted'),
+        ('approved', 'Approved'),
+        ('done', 'Done'),
+        ('cancelled', 'Cancelled'),
+        ], string='Status', default='draft', tracking=True, copy=False)
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            if vals.get('name', 'New') == 'New':
+                vals['name'] = self.env['ir.sequence'].next_by_code(
+                    'sf.business_requirement') or 'NEW'
+        return super().create(vals_list)
+
+    def action_submitted(self):
+        self.write({'state': 'submitted'})
+
+    def action_approved(self):
+        self.write({'state': 'approved'})
+
+    def action_done(self):
+        self.write({'state': 'done'})
+
+    def action_cancelled(self):
+        self.write({'state': 'cancelled'})
+

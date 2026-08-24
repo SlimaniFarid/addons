@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="seq_sf_territory_mapping" model="ir.sequence">
+        <field name="name">Sales Territory Mapping</field>
+        <field name="code">sf.territory_mapping</field>
+        <field name="prefix">TER/</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+</odoo>

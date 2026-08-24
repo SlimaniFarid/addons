@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_sf_safety_training_tracker" model="ir.actions.act_window">
+        <field name="name">Safety Training Compliance</field>
+        <field name="res_model">sf.safety_training_tracker</field>
+        <field name="view_mode">list,form,kanban</field>
+    </record>
+    <record id="view_sf_safety_training_tracker_form" model="ir.ui.view">
+        <field name="name">sf.safety_training_tracker.form</field>
+        <field name="model">sf.safety_training_tracker</field>
+        <field name="arch" type="xml">
+            <form string="Safety Training Compliance">
+                <header>
+                    <button name="action_submitted" type="object" string="Submitted"
+                            class="btn-primary"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,submitted,done"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="employee_id"/>
+                            <field name="training_type"/>
+                            <field name="completed_date"/>
+                            <field name="expiry_date"/>
+                            <field name="compliant"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="view_sf_safety_training_tracker_list" model="ir.ui.view">
+        <field name="name">sf.safety_training_tracker.list</field>
+        <field name="model">sf.safety_training_tracker</field>
+        <field name="arch" type="xml">
+            <list string="Safety Training Compliance" sample="1">
+                <field name="employee_id"/>
+                <field name="training_type"/>
+                <field name="completed_date"/>
+                <field name="expiry_date"/>
+                <field name="compliant"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'done'"
+                       decoration-info="state in ('submitted','approved')"/>
+            </list>
+        </field>
+    </record>
+    <record id="view_sf_safety_training_tracker_kanban" model="ir.ui.view">
+        <field name="name">sf.safety_training_tracker.kanban</field>
+        <field name="model">sf.safety_training_tracker</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_view" group_by="state">
+                <field name="name"/>
+                <field name="state"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <strong><field name="name"/></strong>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+    <menuitem id="menu_sf_safety_training_tracker_root" name="Safety Training Compliance" sequence="1"
+              web_icon="sf_safety_training_tracker,static/description/icon.png"/>
+    <menuitem id="menu_sf_safety_training_tracker_main" name="Records"
+              parent="menu_sf_safety_training_tracker_root" action="action_sf_safety_training_tracker" sequence="10"/>
+</odoo>

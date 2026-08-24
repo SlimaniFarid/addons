@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_sf_financial_ratio_dashboard" model="ir.actions.act_window">
+        <field name="name">Financial Ratio Calculator</field>
+        <field name="res_model">sf.financial_ratio_dashboard</field>
+        <field name="view_mode">list,form,kanban</field>
+    </record>
+    <record id="view_sf_financial_ratio_dashboard_form" model="ir.ui.view">
+        <field name="name">sf.financial_ratio_dashboard.form</field>
+        <field name="model">sf.financial_ratio_dashboard</field>
+        <field name="arch" type="xml">
+            <form string="Financial Ratio Calculator">
+                <header>
+
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="period_label"/>
+                            <field name="total_assets"/>
+                            <field name="total_liabilities"/>
+                            <field name="revenue"/>
+                            <field name="net_income"/>
+                            <field name="current_ratio"/>
+                            <field name="debt_ratio"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="view_sf_financial_ratio_dashboard_list" model="ir.ui.view">
+        <field name="name">sf.financial_ratio_dashboard.list</field>
+        <field name="model">sf.financial_ratio_dashboard</field>
+        <field name="arch" type="xml">
+            <list string="Financial Ratio Calculator" sample="1">
+                <field name="period_label"/>
+                <field name="total_assets"/>
+                <field name="total_liabilities"/>
+                <field name="revenue"/>
+                <field name="net_income"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'done'"
+                       decoration-info="state in ('submitted','approved')"/>
+            </list>
+        </field>
+    </record>
+    <record id="view_sf_financial_ratio_dashboard_kanban" model="ir.ui.view">
+        <field name="name">sf.financial_ratio_dashboard.kanban</field>
+        <field name="model">sf.financial_ratio_dashboard</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_view" group_by="state">
+                <field name="name"/>
+                <field name="state"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <strong><field name="name"/></strong>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+    <menuitem id="menu_sf_financial_ratio_dashboard_root" name="Financial Ratio Calculator" sequence="19"
+              web_icon="sf_financial_ratio_dashboard,static/description/icon.png"/>
+    <menuitem id="menu_sf_financial_ratio_dashboard_main" name="Records"
+              parent="menu_sf_financial_ratio_dashboard_root" action="action_sf_financial_ratio_dashboard" sequence="10"/>
+</odoo>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="seq_sf_shift_swap_board" model="ir.sequence">
+        <field name="name">Shift Swap Board</field>
+        <field name="code">sf.shift_swap_board</field>
+        <field name="prefix">SHI/</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+</odoo>

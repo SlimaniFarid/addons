@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_sf_supplier_leadtime_audit" model="ir.actions.act_window">
+        <field name="name">Supplier Lead Time Audit</field>
+        <field name="res_model">sf.supplier_leadtime_audit</field>
+        <field name="view_mode">list,form,kanban</field>
+    </record>
+    <record id="view_sf_supplier_leadtime_audit_form" model="ir.ui.view">
+        <field name="name">sf.supplier_leadtime_audit.form</field>
+        <field name="model">sf.supplier_leadtime_audit</field>
+        <field name="arch" type="xml">
+            <form string="Supplier Lead Time Audit">
+                <header>
+                    <button name="action_submitted" type="object" string="Submitted"
+                            class="btn-primary"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,submitted,done"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="vendor_id"/>
+                            <field name="product_id"/>
+                            <field name="quoted_days"/>
+                            <field name="actual_days"/>
+                            <field name="variance_days"/>
+                            <field name="rating"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="view_sf_supplier_leadtime_audit_list" model="ir.ui.view">
+        <field name="name">sf.supplier_leadtime_audit.list</field>
+        <field name="model">sf.supplier_leadtime_audit</field>
+        <field name="arch" type="xml">
+            <list string="Supplier Lead Time Audit" sample="1">
+                <field name="vendor_id"/>
+                <field name="product_id"/>
+                <field name="quoted_days"/>
+                <field name="actual_days"/>
+                <field name="variance_days"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'done'"
+                       decoration-info="state in ('submitted','approved')"/>
+            </list>
+        </field>
+    </record>
+    <record id="view_sf_supplier_leadtime_audit_kanban" model="ir.ui.view">
+        <field name="name">sf.supplier_leadtime_audit.kanban</field>
+        <field name="model">sf.supplier_leadtime_audit</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_view" group_by="state">
+                <field name="name"/>
+                <field name="state"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <strong><field name="name"/></strong>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+    <menuitem id="menu_sf_supplier_leadtime_audit_root" name="Supplier Lead Time Audit" sequence="6"
+              web_icon="sf_supplier_leadtime_audit,static/description/icon.png"/>
+    <menuitem id="menu_sf_supplier_leadtime_audit_main" name="Records"
+              parent="menu_sf_supplier_leadtime_audit_root" action="action_sf_supplier_leadtime_audit" sequence="10"/>
+</odoo>

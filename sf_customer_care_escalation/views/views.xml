@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_sf_customer_care_escalation" model="ir.actions.act_window">
+        <field name="name">Customer Care Escalation Tracker</field>
+        <field name="res_model">sf.customer_care_escalation</field>
+        <field name="view_mode">list,form,kanban</field>
+    </record>
+    <record id="view_sf_customer_care_escalation_form" model="ir.ui.view">
+        <field name="name">sf.customer_care_escalation.form</field>
+        <field name="model">sf.customer_care_escalation</field>
+        <field name="arch" type="xml">
+            <form string="Customer Care Escalation Tracker">
+                <header>
+                    <button name="action_submitted" type="object" string="Submitted"
+                            class="btn-primary"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,submitted,done"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="partner_id"/>
+                            <field name="escalation_reason"/>
+                            <field name="tier"/>
+                            <field name="resolved_at"/>
+                            <field name="resolution_hours"/>
+                            <field name="satisfaction"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="view_sf_customer_care_escalation_list" model="ir.ui.view">
+        <field name="name">sf.customer_care_escalation.list</field>
+        <field name="model">sf.customer_care_escalation</field>
+        <field name="arch" type="xml">
+            <list string="Customer Care Escalation Tracker" sample="1">
+                <field name="partner_id"/>
+                <field name="escalation_reason"/>
+                <field name="tier"/>
+                <field name="resolved_at"/>
+                <field name="resolution_hours"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'done'"
+                       decoration-info="state in ('submitted','approved')"/>
+            </list>
+        </field>
+    </record>
+    <record id="view_sf_customer_care_escalation_kanban" model="ir.ui.view">
+        <field name="name">sf.customer_care_escalation.kanban</field>
+        <field name="model">sf.customer_care_escalation</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_view" group_by="state">
+                <field name="name"/>
+                <field name="state"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <strong><field name="name"/></strong>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+    <menuitem id="menu_sf_customer_care_escalation_root" name="Customer Care Escalation Tracker" sequence="9"
+              web_icon="sf_customer_care_escalation,static/description/icon.png"/>
+    <menuitem id="menu_sf_customer_care_escalation_main" name="Records"
+              parent="menu_sf_customer_care_escalation_root" action="action_sf_customer_care_escalation" sequence="10"/>
+</odoo>

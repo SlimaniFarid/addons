@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sf_production_order_sequencing_user,sf.production_order_sequencing.user,model_sf_production_order_sequencing,group_production_order_sequencing_user,1,1,1,0
+access_sf_production_order_sequencing_manager,sf.production_order_sequencing.manager,model_sf_production_order_sequencing,group_production_order_sequencing_manager,1,1,1,1

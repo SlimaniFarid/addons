@@ -1,0 +1,41 @@
+# -*- coding: utf-8 -*-
+"""Purchase Order Aging Monitor models"""
+from odoo import api, fields, models, _
+from odoo.exceptions import UserError
+
+
+class SfPurchase_order_aging(models.Model):
+    _name = 'sf.purchase_order_aging'
+    _description = 'Purchase Order Aging Monitor'
+    _inherit = ['mail.thread', 'mail.activity.mixin']
+    _order = 'create_date desc, id desc'
+
+    name = fields.Char(string='Reference', required=True, copy=False, readonly=True, default='New')
+    company_id = fields.Many2one('res.company', string='Company', required=True, default=lambda s: s.env.company, tracking=True)
+    po_id = fields.Many2one('purchase.order', string='Purchase Order', required=True)
+    vendor_id = fields.Many2one('res.partner', string='Vendor')
+    days_open = fields.Integer(string='Days Open')
+    expected_receipt = fields.Date(string='Expected Receipt')
+    delay_days = fields.Integer(string='Delay (days)')
+    action = fields.Text(string='Action')
+    currency_id = fields.Many2one(related='company_id.currency_id')
+    state = fields.Selection([
+        ('draft', 'Draft'),
+        ('submitted', 'Submitted'),
+        ('done', 'Done'),
+        ], string='Status', default='draft', tracking=True, copy=False)
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            if vals.get('name', 'New') == 'New':
+                vals['name'] = self.env['ir.sequence'].next_by_code(
+                    'sf.purchase_order_aging') or 'NEW'
+        return super().create(vals_list)
+
+    def action_submitted(self):
+        self.write({'state': 'submitted'})
+
+    def action_done(self):
+        self.write({'state': 'done'})
+

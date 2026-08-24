@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sf_project_lessons_learned_user,sf.project_lessons_learned.user,model_sf_project_lessons_learned,group_project_lessons_learned_user,1,1,1,0
+access_sf_project_lessons_learned_manager,sf.project_lessons_learned.manager,model_sf_project_lessons_learned,group_project_lessons_learned_manager,1,1,1,1

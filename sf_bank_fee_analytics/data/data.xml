@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="seq_sf_bank_fee_analytics" model="ir.sequence">
+        <field name="name">Bank Fee Analytics</field>
+        <field name="code">sf.bank_fee_analytics</field>
+        <field name="prefix">BAN/</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+</odoo>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="seq_sf_training_budget" model="ir.sequence">
+        <field name="name">Training Budget Tracker</field>
+        <field name="code">sf.training_budget</field>
+        <field name="prefix">TRA/</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+</odoo>

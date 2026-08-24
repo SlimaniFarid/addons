@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="seq_sf_internship_tracker" model="ir.sequence">
+        <field name="name">Internship Program Tracker</field>
+        <field name="code">sf.internship_tracker</field>
+        <field name="prefix">INT/</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+</odoo>

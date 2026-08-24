@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sf_inventory_abc_classification_user,sf.inventory_abc_classification.user,model_sf_inventory_abc_classification,group_inventory_abc_classification_user,1,1,1,0
+access_sf_inventory_abc_classification_manager,sf.inventory_abc_classification.manager,model_sf_inventory_abc_classification,group_inventory_abc_classification_manager,1,1,1,1

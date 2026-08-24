@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="module_category_quality_alert_auto_assign" model="ir.module.category">
+        <field name="name">Quality Alert Auto-Assignment</field>
+        <field name="sequence">288</field>
+    </record>
+    <record id="group_quality_alert_auto_assign_user" model="res.groups">
+        <field name="name">Quality Alert Auto-Assignment User</field>
+        <field name="category_id" ref="module_category_quality_alert_auto_assign"/>
+        <field name="implied_ids" eval="[(4, ref('sales_team.group_sale_salesman'))]"/>
+
+    </record>
+    <record id="group_quality_alert_auto_assign_manager" model="res.groups">
+        <field name="name">Quality Alert Auto-Assignment Manager</field>
+        <field name="category_id" ref="module_category_quality_alert_auto_assign"/>
+        <field name="implied_ids" eval="[(4, ref('group_quality_alert_auto_assign_user'))]"/>
+    </record>
+    <record id="rule_quality_alert_auto_assign_sf_quality_alert_auto_assign" model="ir.rule">
+        <field name="name">Quality Alert Auto-Assignment: multi-company</field>
+        <field name="model_id" ref="model_sf_quality_alert_auto_assign"/>
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+    </record>
+
+</odoo>

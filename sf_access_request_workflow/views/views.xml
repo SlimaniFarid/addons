@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_sf_access_request_workflow" model="ir.actions.act_window">
+        <field name="name">Access Request Workflow</field>
+        <field name="res_model">sf.access_request_workflow</field>
+        <field name="view_mode">list,form,kanban</field>
+    </record>
+    <record id="view_sf_access_request_workflow_form" model="ir.ui.view">
+        <field name="name">sf.access_request_workflow.form</field>
+        <field name="model">sf.access_request_workflow</field>
+        <field name="arch" type="xml">
+            <form string="Access Request Workflow">
+                <header>
+                    <button name="action_submitted" type="object" string="Submitted"
+                            class="btn-primary"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,submitted,done"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="requester_id"/>
+                            <field name="system_name"/>
+                            <field name="access_level"/>
+                            <field name="justification"/>
+                            <field name="approver_id"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="view_sf_access_request_workflow_list" model="ir.ui.view">
+        <field name="name">sf.access_request_workflow.list</field>
+        <field name="model">sf.access_request_workflow</field>
+        <field name="arch" type="xml">
+            <list string="Access Request Workflow" sample="1">
+                <field name="requester_id"/>
+                <field name="system_name"/>
+                <field name="access_level"/>
+                <field name="justification"/>
+                <field name="approver_id"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'done'"
+                       decoration-info="state in ('submitted','approved')"/>
+            </list>
+        </field>
+    </record>
+    <record id="view_sf_access_request_workflow_kanban" model="ir.ui.view">
+        <field name="name">sf.access_request_workflow.kanban</field>
+        <field name="model">sf.access_request_workflow</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_view" group_by="state">
+                <field name="name"/>
+                <field name="state"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <strong><field name="name"/></strong>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+    <menuitem id="menu_sf_access_request_workflow_root" name="Access Request Workflow" sequence="4"
+              web_icon="sf_access_request_workflow,static/description/icon.png"/>
+    <menuitem id="menu_sf_access_request_workflow_main" name="Records"
+              parent="menu_sf_access_request_workflow_root" action="action_sf_access_request_workflow" sequence="10"/>
+</odoo>
