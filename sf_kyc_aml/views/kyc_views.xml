@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_sf_kyc_file" model="ir.actions.act_window">
+        <field name="name">KYC Files</field>
+        <field name="res_model">sf.kyc.file</field>
+        <field name="view_mode">list,form,kanban</field>
+        <field name="context">{'search_default_group_by_state': 1}</field>
+    </record>
+    <record id="view_sf_kyc_file_form" model="ir.ui.view">
+        <field name="name">sf.kyc.file.form</field>
+        <field name="model">sf.kyc.file</field>
+        <field name="arch" type="xml">
+            <form string="KYC File">
+                <header>
+                    <button name="action_approve" type="object"
+                            string="Approve" class="btn-primary"
+                            invisible="state != 'pending'"/>
+                    <button name="action_reject" type="object" string="Reject"
+                            invisible="state != 'pending'"/>
+                    <button name="action_expire" type="object" string="Expire"
+                            invisible="state != 'approved'"/>
+                    <button name="action_run_screening" type="object"
+                            string="Screening Done"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="pending,approved,rejected,expired"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" readonly="1"/>
+                            <field name="partner_id"/>
+                            <field name="file_type"/>
+                            <field name="risk_rating" widget="radio"/>
+                        </group>
+                        <group>
+                            <field name="reviewer_id"/>
+                            <field name="screening_date"/>
+                            <field name="screening_result"/>
+                            <field name="ubo_declared"/>
+                        </group>
+                        <group string="Document Checklist">
+                            <field name="id_document"/>
+                            <field name="proof_of_address"/>
+                            <field name="bank_statement"/>
+                        </group>
+                        <group string="Review Cycle">
+                            <field name="review_frequency_months"/>
+                            <field name="last_review_date"/>
+                            <field name="next_review_date" readonly="1"/>
+                            <field name="review_overdue" readonly="1"
+                                   widget="boolean"/>
+                            <field name="company_id"
+                                   groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <group string="Notes">
+                        <field name="notes"/>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="view_sf_kyc_file_list" model="ir.ui.view">
+        <field name="name">sf.kyc.file.list</field>
+        <field name="model">sf.kyc.file</field>
+        <field name="arch" type="xml">
+            <list string="KYC Files" sample="1"
+                  decoration-danger="review_overdue or state == 'rejected'">
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="file_type"/>
+                <field name="risk_rating" widget="badge"
+                       decoration-danger="risk_rating == 'high'"
+                       decoration-warning="risk_rating == 'medium'"/>
+                <field name="screening_result"/>
+                <field name="next_review_date"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'approved'"/>
+            </list>
+        </field>
+    </record>
+    <menuitem id="menu_sf_kyc_root" name="KYC / AML" sequence="33"
+              parent="account.menu_finance_configuration"/>
+    <menuitem id="menu_sf_kyc_files" name="KYC Files"
+              parent="menu_sf_kyc_root" action="action_sf_kyc_file"
+              sequence="10"/>
+</odoo>
