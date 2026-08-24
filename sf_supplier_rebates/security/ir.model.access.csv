@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sf_rebate_deal_user,sf.supplier.rebate.deal.user,model_sf_supplier_rebate_deal,group_sf_rebate_user,1,1,1,0
+access_sf_rebate_deal_manager,sf.supplier.rebate.deal.manager,model_sf_supplier_rebate_deal,group_sf_rebate_manager,1,1,1,1
+access_sf_rebate_accrual_user,sf.supplier.rebate.accrual.user,model_sf_supplier_rebate_accrual,group_sf_rebate_user,1,1,1,0
+access_sf_rebate_accrual_manager,sf.supplier.rebate.accrual.manager,model_sf_supplier_rebate_accrual,group_sf_rebate_manager,1,1,1,1
+access_sf_rebate_claim_user,sf.supplier.rebate.claim.user,model_sf_supplier_rebate_claim,group_sf_rebate_user,1,1,1,0
+access_sf_rebate_claim_manager,sf.supplier.rebate.claim.manager,model_sf_supplier_rebate_claim,group_sf_rebate_manager,1,1,1,1
