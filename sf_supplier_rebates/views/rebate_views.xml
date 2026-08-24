@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_sf_rebate_deal" model="ir.actions.act_window">
+        <field name="name">Rebate Deals</field>
+        <field name="res_model">sf.supplier.rebate.deal</field>
+        <field name="view_mode">list,form,kanban</field>
+    </record>
+    <record id="action_sf_rebate_claim" model="ir.actions.act_window">
+        <field name="name">Claims</field>
+        <field name="res_model">sf.supplier.rebate.claim</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <record id="view_sf_rebate_deal_form" model="ir.ui.view">
+        <field name="name">sf.supplier.rebate.deal.form</field>
+        <field name="model">sf.supplier.rebate.deal</field>
+        <field name="arch" type="xml">
+            <form string="Rebate Deal">
+                <header>
+                    <button name="action_activate" type="object"
+                            string="Activate" class="btn-primary"
+                            invisible="state != 'draft'"/>
+                    <button name="action_compute_accrual" type="object"
+                            string="Compute Accruals"
+                            invisible="state != 'active'"/>
+                    <button name="action_expire" type="object"
+                            string="Expire" invisible="state == 'expired'"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,active,claimed,settled"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" readonly="1"/>
+                            <field name="vendor_id"/>
+                            <field name="deal_type"/>
+                            <field name="product_category_id"/>
+                        </group>
+                        <group>
+                            <field name="date_start"/>
+                            <field name="date_end"/>
+                            <field name="company_id"
+                                   groups="base.group_multi_company"/>
+                            <field name="currency_id" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="threshold_amount"
+                                   invisible="deal_type != 'turnover_bonus'"/>
+                            <field name="fixed_bonus_amount"
+                                   invisible="deal_type != 'turnover_bonus'"/>
+                            <field name="rebate_percent"
+                                   invisible="deal_type != 'retro_percent'"/>
+                            <field name="rebate_per_unit"
+                                   invisible="deal_type != 'per_unit'"/>
+                        </group>
+                        <group>
+                            <field name="total_purchases" readonly="1"/>
+                            <field name="progress_percent"
+                                   widget="progressbar"
+                                   invisible="deal_type != 'turnover_bonus'"/>
+                            <field name="total_accrued" readonly="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Accruals" name="accruals">
+                            <field name="accrual_ids" readonly="1">
+                                <list create="0">
+                                    <field name="period_month"/>
+                                    <field name="purchases"/>
+                                    <field name="units" optional="show"/>
+                                    <field name="accrued_amount"/>
+                                    <field name="claimed" widget="boolean"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Claims" name="claims">
+                            <field name="claim_ids">
+                                <list editable="bottom">
+                                    <field name="name" readonly="1"/>
+                                    <field name="claim_date"/>
+                                    <field name="claimed_amount"/>
+                                    <field name="credit_note_ref"/>
+                                    <field name="state"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="view_sf_rebate_deal_list" model="ir.ui.view">
+        <field name="name">sf.supplier.rebate.deal.list</field>
+        <field name="model">sf.supplier.rebate.deal</field>
+        <field name="arch" type="xml">
+            <list string="Rebate Deals" sample="1">
+                <field name="name"/>
+                <field name="vendor_id"/>
+                <field name="deal_type"/>
+                <field name="date_start"/>
+                <field name="date_end"/>
+                <field name="total_purchases" optional="show"/>
+                <field name="total_accrued"/>
+                <field name="state" widget="badge"
+                       decoration-success="state in ('active','settled')"/>
+            </list>
+        </field>
+    </record>
+
+    <menuitem id="menu_sf_rebate_root" name="Supplier Rebates" sequence="39"
+              parent="purchase.menu_purchase_root"/>
+    <menuitem id="menu_sf_rebate_deals" name="Rebate Deals"
+              parent="menu_sf_rebate_root" action="action_sf_rebate_deal"
+              sequence="10"/>
+    <menuitem id="menu_sf_rebate_claims" name="Claims"
+              parent="menu_sf_rebate_root" action="action_sf_rebate_claim"
+              sequence="20"/>
+</odoo>
