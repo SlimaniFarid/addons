@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="module_category_sf_ch" model="ir.module.category">
+        <field name="name">Customer Health</field>
+        <field name="sequence">65</field>
+    </record>
+    <record id="group_sf_ch_user" model="res.groups">
+        <field name="name">Customer Health User</field>
+        <field name="category_id" ref="module_category_sf_ch"/>
+        <field name="implied_ids" eval="[(4, ref('sales_team.group_sale_salesman'))]"/>
+    </record>
+    <record id="group_sf_ch_manager" model="res.groups">
+        <field name="name">Customer Health Manager</field>
+        <field name="category_id" ref="module_category_sf_ch"/>
+        <field name="implied_ids" eval="[(4, ref('group_sf_ch_user'))]"/>
+    </record>
+    <record id="rule_sf_ch_company" model="ir.rule">
+        <field name="name">Customer Health: multi-company</field>
+        <field name="model_id" ref="model_sf_customer_health"/>
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+    </record>
+</odoo>

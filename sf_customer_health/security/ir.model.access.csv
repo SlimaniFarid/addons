@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sf_customer_health_user,sf.customer.health.user,model_sf_customer_health,group_sf_ch_user,1,1,1,0
+access_sf_customer_health_manager,sf.customer.health.manager,model_sf_customer_health,group_sf_ch_manager,1,1,1,1

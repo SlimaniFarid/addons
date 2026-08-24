@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_sf_customer_health" model="ir.actions.act_window">
+        <field name="name">Customer Health</field>
+        <field name="res_model">sf.customer.health</field>
+        <field name="view_mode">list,form,kanban,pivot</field>
+        <field name="context">{'search_default_group_by_risk': 1}</field>
+    </record>
+    <record id="view_sf_customer_health_form" model="ir.ui.view">
+        <field name="name">sf.customer.health.form</field>
+        <field name="model">sf.customer.health</field>
+        <field name="arch" type="xml">
+            <form string="Customer Health">
+                <header>
+                    <button name="action_refresh" type="object"
+                            string="Refresh Signals" class="btn-primary"/>
+                    <field name="risk" widget="statusbar"
+                           statusbar_visible="churn,at_risk,watch,healthy"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" readonly="1"/>
+                            <field name="partner_id"/>
+                            <field name="owner_id"/>
+                            <field name="health_score" readonly="1"
+                                   widget="progressbar"/>
+                        </group>
+                        <group>
+                            <field name="revenue_12m" readonly="1"/>
+                            <field name="revenue_prev_12m" readonly="1"/>
+                            <field name="trend_percent" readonly="1"/>
+                            <field name="last_order_date" readonly="1"/>
+                            <field name="days_since_last_order" readonly="1"/>
+                            <field name="overdue_amount" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="next_action_date"/>
+                            <field name="next_action_note"/>
+                            <field name="refreshed_at" readonly="1"/>
+                            <field name="company_id"
+                                   groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <group string="Notes">
+                        <field name="notes"/>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="view_sf_customer_health_list" model="ir.ui.view">
+        <field name="name">sf.customer.health.list</field>
+        <field name="model">sf.customer.health</field>
+        <field name="arch" type="xml">
+            <list string="Customer Health" sample="1"
+                  decoration-danger="risk in ('at_risk','churn')">
+                <field name="partner_id"/>
+                <field name="owner_id"/>
+                <field name="revenue_12m"/>
+                <field name="trend_percent"/>
+                <field name="days_since_last_order"/>
+                <field name="overdue_amount" optional="show"/>
+                <field name="health_score" widget="progressbar"/>
+                <field name="risk" widget="badge"
+                       decoration-success="risk == 'healthy'"
+                       decoration-warning="risk == 'watch'"
+                       decoration-danger="risk in ('at_risk','churn')"/>
+            </list>
+        </field>
+    </record>
+    <record id="view_sf_customer_health_kanban" model="ir.ui.view">
+        <field name="name">sf.customer.health.kanban</field>
+        <field name="model">sf.customer.health</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_view" group_by="risk">
+                <field name="partner_id"/>
+                <field name="health_score"/>
+                <field name="revenue_12m"/>
+                <field name="days_since_last_order"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <strong><field name="partner_id"/></strong><br/>
+                                Score: <field name="health_score"/><br/>
+                                Rev 12m: <field name="revenue_12m"/>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+    <menuitem id="menu_sf_ch_root" name="Customer Health" sequence="15"
+              parent="sale.sale_menu_root"/>
+    <menuitem id="menu_sf_ch_health" name="Health Dashboard"
+              parent="menu_sf_ch_root" action="action_sf_customer_health"
+              sequence="10"/>
+</odoo>
