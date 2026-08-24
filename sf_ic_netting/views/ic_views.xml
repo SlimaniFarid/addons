@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_sf_ic_session" model="ir.actions.act_window">
+        <field name="name">Netting Sessions</field>
+        <field name="res_model">sf.ic.netting.session</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <record id="view_sf_ic_session_form" model="ir.ui.view">
+        <field name="name">sf.ic.netting.session.form</field>
+        <field name="model">sf.ic.netting.session</field>
+        <field name="arch" type="xml">
+            <form string="Netting Session">
+                <header>
+                    <button name="action_compute" type="object"
+                            string="Compute Positions" class="btn-primary"
+                            invisible="state not in ('draft','computed')"/>
+                    <button name="action_confirm" type="object"
+                            string="Confirm" invisible="state != 'computed'"/>
+                    <button name="action_settle" type="object"
+                            string="Settle Net Amounts"
+                            class="btn-primary" invisible="state != 'confirmed'"/>
+                    <button name="action_cancel" type="object" string="Cancel"
+                            invisible="state in ('settled','cancelled')"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,computed,confirmed,settled"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" readonly="1"/>
+                            <field name="period_start"/>
+                            <field name="period_end"/>
+                            <field name="company_id"
+                                   groups="base.group_multi_company"/>
+                        </group>
+                        <group>
+                            <field name="company_ids" widget="many2many_tags"/>
+                            <field name="dispute_count" readonly="1"/>
+                            <field name="total_net" readonly="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Net Positions" name="positions">
+                            <field name="line_ids" readonly="1">
+                                <list create="0" delete="0">
+                                    <field name="company_id"/>
+                                    <field name="counterpart_company_id"/>
+                                    <field name="gross_receivable"/>
+                                    <field name="gross_payable"/>
+                                    <field name="net_amount"/>
+                                    <field name="item_count"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Disputed Items" name="disputes">
+                            <field name="dispute_ids">
+                                <list editable="bottom">
+                                    <field name="move_line_id"/>
+                                    <field name="reason"/>
+                                    <field name="state"/>
+                                    <field name="resolved_notes"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Settlement Entries" name="settlement"
+                              invisible="state != 'settled'">
+                            <field name="settlement_move_ids">
+                                <list create="0">
+                                    <field name="name"/>
+                                    <field name="date"/>
+                                    <field name="ref"/>
+                                    <field name="amount_total_in_company_currency"
+                                           string="Amount"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                    <group string="Notes">
+                        <field name="notes"/>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="view_sf_ic_session_list" model="ir.ui.view">
+        <field name="name">sf.ic.netting.session.list</field>
+        <field name="model">sf.ic.netting.session</field>
+        <field name="arch" type="xml">
+            <list string="Netting Sessions" sample="1">
+                <field name="name"/>
+                <field name="period_start"/>
+                <field name="period_end"/>
+                <field name="total_net"/>
+                <field name="dispute_count" optional="show"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'settled'"/>
+            </list>
+        </field>
+    </record>
+
+    <menuitem id="menu_sf_ic_root" name="IC Netting" sequence="43"
+              parent="account.menu_finance_entries"/>
+    <menuitem id="menu_sf_ic_sessions" name="Netting Sessions"
+              parent="menu_sf_ic_root" action="action_sf_ic_session"
+              sequence="10"/>
+</odoo>
