@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sf_close_template_user,sf.close.template.user,model_sf_close_template,group_sf_close_user,1,1,1,0
+access_sf_close_template_manager,sf.close.template.manager,model_sf_close_template,group_sf_close_manager,1,1,1,1
+access_sf_close_template_step_user,sf.close.template.step.user,model_sf_close_template_step,group_sf_close_user,1,1,1,0
+access_sf_close_template_step_manager,sf.close.template.step.manager,model_sf_close_template_step,group_sf_close_manager,1,1,1,1
+access_sf_close_period_user,sf.close.period.user,model_sf_close_period,group_sf_close_user,1,1,1,0
+access_sf_close_period_manager,sf.close.period.manager,model_sf_close_period,group_sf_close_manager,1,1,1,1
+access_sf_close_task_user,sf.close.task.user,model_sf_close_task,group_sf_close_user,1,1,1,0
+access_sf_close_task_manager,sf.close.task.manager,model_sf_close_task,group_sf_close_manager,1,1,1,1

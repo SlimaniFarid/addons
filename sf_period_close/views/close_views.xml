@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_sf_close_period" model="ir.actions.act_window">
+        <field name="name">Close Periods</field>
+        <field name="res_model">sf.close.period</field>
+        <field name="view_mode">list,form,kanban</field>
+    </record>
+    <record id="action_sf_close_task" model="ir.actions.act_window">
+        <field name="name">Close Tasks</field>
+        <field name="res_model">sf.close.task</field>
+        <field name="view_mode">list,form,kanban</field>
+        <field name="context">{'search_default_group_by_department': 1}</field>
+    </record>
+    <record id="action_sf_close_template" model="ir.actions.act_window">
+        <field name="name">Checklist Templates</field>
+        <field name="res_model">sf.close.template</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <record id="view_sf_close_period_form" model="ir.ui.view">
+        <field name="name">sf.close.period.form</field>
+        <field name="model">sf.close.period</field>
+        <field name="arch" type="xml">
+            <form string="Close Period">
+                <header>
+                    <button name="action_start" type="object"
+                            string="Generate Tasks and Start"
+                            class="btn-primary" invisible="state != 'draft'"/>
+                    <button name="action_close" type="object"
+                            string="Close Period" class="btn-primary"
+                            invisible="state not in ('in_progress','blocked')"/>
+                    <button name="action_cancel" type="object" string="Cancel"
+                            invisible="state in ('closed','cancelled')"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,in_progress,blocked,closed"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" readonly="1"/>
+                            <field name="date_start"/>
+                            <field name="date_end"/>
+                        </group>
+                        <group>
+                            <field name="template_id"/>
+                            <field name="responsible_id"/>
+                            <field name="company_id"
+                                   groups="base.group_multi_company"/>
+                        </group>
+                        <group>
+                            <field name="progress_percent" widget="progressbar"/>
+                        </group>
+                        <group>
+                            <field name="blocked_count" readonly="1"/>
+                            <field name="closed_date" readonly="1"/>
+                            <field name="signed_off_by_id" readonly="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Tasks" name="tasks">
+                            <field name="task_ids"
+                                   invisible="state == 'draft'">
+                                <list decoration-danger="state == 'blocked'"
+                                      decoration-success="state == 'done'"
+                                      decoration-muted="state == 'na'">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="department"/>
+                                    <field name="name"/>
+                                    <field name="responsible_id"/>
+                                    <field name="due_date"/>
+                                    <field name="state" widget="badge"
+                                           decoration-danger="state == 'blocked'"
+                                           decoration-success="state == 'done'"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="view_sf_close_period_list" model="ir.ui.view">
+        <field name="name">sf.close.period.list</field>
+        <field name="model">sf.close.period</field>
+        <field name="arch" type="xml">
+            <list string="Close Periods" sample="1"
+                  decoration-danger="state == 'blocked'">
+                <field name="name"/>
+                <field name="date_start"/>
+                <field name="date_end"/>
+                <field name="responsible_id"/>
+                <field name="progress_percent" widget="progressbar"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'closed'"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_sf_close_task_form" model="ir.ui.view">
+        <field name="name">sf.close.task.form</field>
+        <field name="model">sf.close.task</field>
+        <field name="arch" type="xml">
+            <form string="Close Task">
+                <header>
+                    <button name="action_start" type="object" string="Start"
+                            invisible="state != 'pending'"/>
+                    <button name="action_done" type="object" string="Done"
+                            class="btn-primary"
+                            invisible="state not in ('pending','in_progress','blocked')"/>
+                    <button name="action_block" type="object" string="Block"
+                            invisible="state in ('done','na')"/>
+                    <button name="action_na" type="object" string="N/A"
+                            invisible="state == 'done'"/>
+                    <button name="action_reset" type="object" string="Reset"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="pending,in_progress,blocked,done,na"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="period_id"/>
+                            <field name="name"/>
+                            <field name="department"/>
+                            <field name="due_date"/>
+                        </group>
+                        <group>
+                            <field name="responsible_id"/>
+                            <field name="done_date" readonly="1"/>
+                            <field name="signed_off_by_id" readonly="1"/>
+                            <field name="company_id"
+                                   groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <group string="Instructions">
+                        <field name="description"/>
+                    </group>
+                    <group string="Blocker / Comment">
+                        <field name="blocker_note"/>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_sf_close_template_form" model="ir.ui.view">
+        <field name="name">sf.close.template.form</field>
+        <field name="model">sf.close.template</field>
+        <field name="arch" type="xml">
+            <form string="Checklist Template">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="company_id" groups="base.group_multi_company"/>
+                    </group>
+                    <field name="step_ids">
+                        <list editable="bottom">
+                            <field name="sequence" widget="handle"/>
+                            <field name="department"/>
+                            <field name="name"/>
+                            <field name="due_offset_days"/>
+                            <field name="description"/>
+                        </list>
+                    </field>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <menuitem id="menu_sf_close_root" name="Financial Close" sequence="42"
+              parent="account.menu_finance_entries"/>
+    <menuitem id="menu_sf_close_periods" name="Close Periods"
+              parent="menu_sf_close_root" action="action_sf_close_period"
+              sequence="10"/>
+    <menuitem id="menu_sf_close_tasks" name="Close Tasks"
+              parent="menu_sf_close_root" action="action_sf_close_task"
+              sequence="20"/>
+    <menuitem id="menu_sf_close_templates" name="Templates"
+              parent="menu_sf_close_root" action="action_sf_close_template"
+              sequence="30"/>
+</odoo>
