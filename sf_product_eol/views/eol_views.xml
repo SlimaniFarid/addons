@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_sf_product_eol" model="ir.actions.act_window">
+        <field name="name">Product EOL Records</field>
+        <field name="res_model">sf.product.eol</field>
+        <field name="view_mode">list,form,kanban</field>
+    </record>
+    <record id="view_sf_product_eol_form" model="ir.ui.view">
+        <field name="name">sf.product.eol.form</field>
+        <field name="model">sf.product.eol</field>
+        <field name="arch" type="xml">
+            <form string="Product EOL">
+                <header>
+                    <button name="action_phaseout" type="object"
+                            string="Start Phase-Out" class="btn-primary"
+                            invisible="state != 'announced'"/>
+                    <button name="action_discontinue" type="object"
+                            string="Discontinue (Block Sales)"
+                            class="btn-danger" invisible="state != 'phaseout'"/>
+                    <button name="action_cancel" type="object" string="Cancel"
+                            invisible="state == 'discontinued'"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="announced,phaseout,discontinued"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" readonly="1"/>
+                            <field name="product_id" readonly="state != 'announced'"/>
+                            <field name="announcement_date"/>
+                            <field name="eol_date"/>
+                            <field name="last_time_buy_date"/>
+                        </group>
+                        <group>
+                            <field name="replacement_product_id"/>
+                            <field name="remaining_stock" readonly="1"/>
+                            <field name="open_sale_orders" readonly="1"/>
+                            <field name="open_order_lines" readonly="1"/>
+                            <field name="discontinued_on" readonly="1"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <group string="Customer Communication Plan">
+                        <field name="communication_plan"/>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="view_sf_product_eol_list" model="ir.ui.view">
+        <field name="name">sf.product.eol.list</field>
+        <field name="model">sf.product.eol</field>
+        <field name="arch" type="xml">
+            <list string="Product EOL" sample="1">
+                <field name="name"/>
+                <field name="product_id"/>
+                <field name="eol_date"/>
+                <field name="last_time_buy_date" optional="show"/>
+                <field name="replacement_product_id"/>
+                <field name="remaining_stock"/>
+                <field name="open_sale_orders"/>
+                <field name="state" widget="badge"
+                       decoration-danger="state == 'discontinued'"
+                       decoration-warning="state == 'phaseout'"/>
+            </list>
+        </field>
+    </record>
+    <menuitem id="menu_sf_eol_root" name="Product EOL" sequence="28"
+              parent="stock.menu_stock_root"/>
+    <menuitem id="menu_sf_eol_records" name="EOL Records"
+              parent="menu_sf_eol_root" action="action_sf_product_eol"
+              sequence="10"/>
+</odoo>
