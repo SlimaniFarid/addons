@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_sf_incident" model="ir.actions.act_window">
+        <field name="name">Incidents</field>
+        <field name="res_model">sf.incident</field>
+        <field name="view_mode">list,form,kanban</field>
+        <field name="context">{'search_default_group_by_state': 1}</field>
+    </record>
+    <record id="view_sf_incident_form" model="ir.ui.view">
+        <field name="name">sf.incident.form</field>
+        <field name="model">sf.incident</field>
+        <field name="arch" type="xml">
+            <form string="Incident">
+                <header>
+                    <button name="action_identify_cause" type="object"
+                            string="Root Cause Identified"
+                            invisible="state != 'open'"/>
+                    <button name="action_start_actions" type="object"
+                            string="Actions In Progress"
+                            invisible="state != 'identified'"/>
+                    <button name="action_close" type="object"
+                            string="Close Post-Mortem" class="btn-primary"
+                            invisible="state != 'actions'"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="open,identified,actions,closed"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" readonly="1"/>
+                            <field name="title"/>
+                            <field name="severity" widget="radio"/>
+                            <field name="category"/>
+                            <field name="commander_id"/>
+                        </group>
+                        <group>
+                            <field name="detected_at"/>
+                            <field name="resolved_at"/>
+                            <field name="duration_hours" readonly="1"/>
+                            <field name="company_id"
+                                   groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Impact &amp; Root Cause" name="analysis">
+                            <group>
+                                <group string="Business Impact">
+                                    <field name="impact"/>
+                                </group>
+                                <group string="Root Cause Analysis">
+                                    <field name="root_cause"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Actions" name="actions">
+                            <field name="action_ids">
+                                <list editable="bottom"
+                                      decoration-success="state == 'done'">
+                                    <field name="action_type"/>
+                                    <field name="description"/>
+                                    <field name="owner_id"/>
+                                    <field name="due_date"/>
+                                    <field name="state"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Lessons Learned" name="lessons">
+                            <field name="lessons_learned"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="view_sf_incident_list" model="ir.ui.view">
+        <field name="name">sf.incident.list</field>
+        <field name="model">sf.incident</field>
+        <field name="arch" type="xml">
+            <list string="Incidents" sample="1"
+                  decoration-danger="severity == 's1' and state != 'closed'">
+                <field name="name"/>
+                <field name="title"/>
+                <field name="severity" widget="badge"
+                       decoration-danger="severity == 's1'"
+                       decoration-warning="severity == 's2'"/>
+                <field name="category"/>
+                <field name="detected_at"/>
+                <field name="duration_hours" optional="show"/>
+                <field name="open_actions"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'closed'"/>
+            </list>
+        </field>
+    </record>
+    <menuitem id="menu_sf_inc_root" name="Incident Post-Mortem" sequence="21"
+              web_icon="sf_incident_postmortem,static/description/icon.png"/>
+    <menuitem id="menu_sf_inc_incidents" name="Incidents"
+              parent="menu_sf_inc_root" action="action_sf_incident"
+              sequence="10"/>
+</odoo>
