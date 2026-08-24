@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sf_cob_template_user,sf.cob.template.user,model_sf_cob_template,group_sf_cob_user,1,1,1,0
+access_sf_cob_template_manager,sf.cob.template.manager,model_sf_cob_template,group_sf_cob_manager,1,1,1,1
+access_sf_cob_step_user,sf.cob.template.step.user,model_sf_cob_template_step,group_sf_cob_user,1,1,1,0
+access_sf_cob_step_manager,sf.cob.template.step.manager,model_sf_cob_template_step,group_sf_cob_manager,1,1,1,1
+access_sf_cob_user,sf.customer.onboarding.user,model_sf_customer_onboarding,group_sf_cob_user,1,1,1,0
+access_sf_cob_manager,sf.customer.onboarding.manager,model_sf_customer_onboarding,group_sf_cob_manager,1,1,1,1
+access_sf_cob_task_user,sf.customer.onboarding.task.user,model_sf_customer_onboarding_task,group_sf_cob_user,1,1,1,0
+access_sf_cob_task_manager,sf.customer.onboarding.task.manager,model_sf_customer_onboarding_task,group_sf_cob_manager,1,1,1,1
