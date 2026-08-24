@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="seq_sf_ic_netting" model="ir.sequence">
+        <field name="name">IC Netting Session</field>
+        <field name="code">sf.ic.netting</field>
+        <field name="prefix">ICNET/</field>
+        <field name="padding">4</field>
+        <field name="company_id" eval="False"/>
+    </record>
+</odoo>
