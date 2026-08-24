@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sf_price_change_user,sf.price.change.user,model_sf_price_change,group_sf_pc_user,1,1,1,0
+access_sf_price_change_manager,sf.price.change.manager,model_sf_price_change,group_sf_pc_manager,1,1,1,1
+access_sf_price_change_line_user,sf.price.change.line.user,model_sf_price_change_line,group_sf_pc_user,1,1,1,0
+access_sf_price_change_line_manager,sf.price.change.line.manager,model_sf_price_change_line,group_sf_pc_manager,1,1,1,1
