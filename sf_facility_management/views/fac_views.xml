@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_sf_fac_site" model="ir.actions.act_window">
+        <field name="name">Sites</field>
+        <field name="res_model">sf.facility.site</field>
+        <field name="view_mode">list,form</field>
+    </record>
+    <record id="action_sf_fac_room" model="ir.actions.act_window">
+        <field name="name">Rooms</field>
+        <field name="res_model">sf.facility.room</field>
+        <field name="view_mode">list,form</field>
+    </record>
+    <record id="action_sf_fac_booking" model="ir.actions.act_window">
+        <field name="name">Bookings</field>
+        <field name="res_model">sf.facility.booking</field>
+        <field name="view_mode">list,form,calendar</field>
+    </record>
+    <record id="view_sf_fac_site_form" model="ir.ui.view">
+        <field name="name">sf.facility.site.form</field>
+        <field name="model">sf.facility.site</field>
+        <field name="arch" type="xml">
+            <form string="Facility Site">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="owner_type"/>
+                            <field name="lease_reference"
+                                   invisible="owner_type != 'leased'"/>
+                        </group>
+                        <group>
+                            <field name="surface_m2"/>
+                            <field name="room_count" readonly="1"/>
+                            <field name="company_id"
+                                   groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <group string="Address">
+                        <field name="address"/>
+                    </group>
+                    <field name="room_ids">
+                        <list editable="bottom">
+                            <field name="name"/>
+                            <field name="room_type"/>
+                            <field name="capacity"/>
+                            <field name="floor" optional="show"/>
+                            <field name="surface_m2" optional="show"/>
+                        </list>
+                    </field>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="view_sf_fac_site_list" model="ir.ui.view">
+        <field name="name">sf.facility.site.list</field>
+        <field name="model">sf.facility.site</field>
+        <field name="arch" type="xml">
+            <list string="Sites" sample="1">
+                <field name="name"/>
+                <field name="owner_type"/>
+                <field name="surface_m2"/>
+                <field name="room_count"/>
+            </list>
+        </field>
+    </record>
+    <record id="view_sf_fac_booking_form" model="ir.ui.view">
+        <field name="name">sf.facility.booking.form</field>
+        <field name="model">sf.facility.booking</field>
+        <field name="arch" type="xml">
+            <form string="Room Booking">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" readonly="1"/>
+                            <field name="room_id"/>
+                            <field name="purpose"/>
+                            <field name="booked_by_id"/>
+                        </group>
+                        <group>
+                            <field name="start"/>
+                            <field name="end"/>
+                            <field name="attendees"/>
+                            <field name="state" widget="radio"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <menuitem id="menu_sf_fac_root" name="Facility Management" sequence="17"
+              web_icon="sf_facility_management,static/description/icon.png"/>
+    <menuitem id="menu_sf_fac_sites" name="Sites"
+              parent="menu_sf_fac_root" action="action_sf_fac_site"
+              sequence="10"/>
+    <menuitem id="menu_sf_fac_rooms" name="Rooms"
+              parent="menu_sf_fac_root" action="action_sf_fac_room"
+              sequence="20"/>
+    <menuitem id="menu_sf_fac_bookings" name="Bookings"
+              parent="menu_sf_fac_root" action="action_sf_fac_booking"
+              sequence="30"/>
+</odoo>
