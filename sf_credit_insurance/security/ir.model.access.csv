@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sf_ci_policy_user,sf.ci.policy.user,model_sf_ci_policy,group_sf_ci_user,1,1,1,0
+access_sf_ci_policy_manager,sf.ci.policy.manager,model_sf_ci_policy,group_sf_ci_manager,1,1,1,1
+access_sf_ci_buyer_user,sf.ci.buyer.user,model_sf_ci_buyer,group_sf_ci_user,1,1,1,0
+access_sf_ci_buyer_manager,sf.ci.buyer.manager,model_sf_ci_buyer,group_sf_ci_manager,1,1,1,1
+access_sf_ci_claim_user,sf.ci.claim.user,model_sf_ci_claim,group_sf_ci_user,1,1,1,0
+access_sf_ci_claim_manager,sf.ci.claim.manager,model_sf_ci_claim,group_sf_ci_manager,1,1,1,1
