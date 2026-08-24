@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- PPAP Submission Form View -->
+    <record id="view_iatf_ppap_submission_form" model="ir.ui.view">
+        <field name="name">iatf.ppap.submission.form</field>
+        <field name="model">iatf.ppap.submission</field>
+        <field name="arch" type="xml">
+            <form string="PPAP Submission">
+                <header>
+                    <button name="action_prepare" type="object" string="Prepare Package" class="btn-primary" invisible="state != 'draft'"/>
+                    <button name="action_submit" type="object" string="Submit to Customer" class="btn-primary" invisible="state != 'preparing'"/>
+                    <button name="action_customer_review" type="object" string="Under Customer Review" class="btn-secondary" invisible="state != 'submitted'"/>
+                    <button name="action_approve" type="object" string="Approve" class="btn-success" invisible="state != 'customer_review'"/>
+                    <button name="action_reject" type="object" string="Reject" class="btn-danger" invisible="state != 'customer_review'"/>
+                    <button name="action_withdraw" type="object" string="Withdraw" class="btn-secondary" invisible="state not in ('submitted','customer_review')"/>
+                    <button name="action_generate_package" type="object" string="Generate Package (PDF)" class="btn-primary" invisible="state == 'draft'"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,preparing,submitted,customer_review,approved,rejected,withdrawn"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" readonly="1"/>
+                            <field name="customer_id" readonly="state != 'draft'"/>
+                            <field name="product_id" readonly="state != 'draft'"/>
+                            <field name="part_revision" readonly="state != 'draft'"/>
+                            <field name="drawing_number" readonly="state != 'draft'"/>
+                            <field name="drawing_revision" readonly="state != 'draft'"/>
+                        </group>
+                        <group>
+                            <field name="level" readonly="state != 'draft'"/>
+                            <field name="submission_date"/>
+                            <field name="due_date"/>
+                            <field name="approval_date" readonly="1"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="PPAP Elements (18)" name="elements">
+                            <field name="element_ids">
+                                <list editable="bottom" create="0" delete="0">
+                                    <field name="element_number"/>
+                                    <field name="name"/>
+                                    <field name="required"/>
+                                    <field name="status" widget="selection"/>
+                                    <field name="reviewer_id"/>
+                                    <field name="review_date"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="PSW (Part Submission Warrant)" name="psw">
+                            <field name="psw_id" readonly="0">
+                                <form string="PSW">
+                                    <sheet>
+                                        <group>
+                                            <group>
+                                                <field name="customer_name" readonly="1"/>
+                                                <field name="customer_part_number"/>
+                                                <field name="customer_po_number"/>
+                                            </group>
+                                            <group>
+                                                <field name="supplier_name" readonly="1"/>
+                                                <field name="supplier_code"/>
+                                            </group>
+                                        </group>
+                                        <group>
+                                            <group>
+                                                <field name="part_number" readonly="1"/>
+                                                <field name="part_name" readonly="1"/>
+                                                <field name="part_revision" readonly="1"/>
+                                            </group>
+                                            <group>
+                                                <field name="drawing_number" readonly="1"/>
+                                                <field name="drawing_revision" readonly="1"/>
+                                            </group>
+                                        </group>
+                                        <group>
+                                            <group>
+                                                <field name="submission_level" readonly="1"/>
+                                                <field name="submission_date" readonly="1"/>
+                                                <field name="reason_for_submission"/>
+                                            </group>
+                                            <group>
+                                                <field name="declaration" widget="radio"/>
+                                                <field name="authorized_signatory"/>
+                                                <field name="signatory_title"/>
+                                                <field name="signature_date"/>
+                                            </group>
+                                        </group>
+                                        <group string="Explanation / Comments">
+                                            <field name="explanation"/>
+                                        </group>
+                                        <footer>
+                                            <button name="action_sign" type="object" string="Sign PSW" class="btn-primary" invisible="declaration != 'full' or authorized_signatory"/>
+                                        </footer>
+                                    </sheet>
+                                </form>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- PPAP Submission List View -->
+    <record id="view_iatf_ppap_submission_list" model="ir.ui.view">
+        <field name="name">iatf.ppap.submission.list</field>
+        <field name="model">iatf.ppap.submission</field>
+        <field name="arch" type="xml">
+            <list string="PPAP Submissions" sample="1">
+                <field name="name"/>
+                <field name="customer_id"/>
+                <field name="product_id"/>
+                <field name="level"/>
+                <field name="state" widget="badge"
+                       decoration-danger="state in ('rejected','withdrawn')"
+                       decoration-success="state == 'approved'"
+                       decoration-info="state == 'customer_review'"
+                       decoration-warning="state in ('preparing','submitted')"
+                       decoration-muted="state == 'draft'"/>
+                <field name="submission_date"/>
+                <field name="due_date"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- PPAP Submission Kanban View -->
+    <record id="view_iatf_ppap_submission_kanban" model="ir.ui.view">
+        <field name="name">iatf.ppap.submission.kanban</field>
+        <field name="model">iatf.ppap.submission</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_view" group_by="state">
+                <field name="name"/>
+                <field name="customer_id"/>
+                <field name="product_id"/>
+                <field name="level"/>
+                <field name="state"/>
+                <field name="submission_date"/>
+                <field name="due_date"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="oe_kanban_header">
+                                <span class="oe_kanban_label"><t t-esc="record.name"/></span>
+                                <field name="state" widget="badge"
+                                       decoration-danger="state in ('rejected','withdrawn')"
+                                       decoration-success="state == 'approved'"
+                                       decoration-info="state == 'customer_review'"
+                                       decoration-warning="state in ('preparing','submitted')"
+                                       decoration-muted="state == 'draft'"/>
+                            </div>
+                            <div class="oe_kanban_details">
+                                <field name="customer_id"/>
+                                <br/><field name="product_id"/> - Level <field name="level"/>
+                                <br/>Submitted: <field name="submission_date"/> / Due: <field name="due_date"/>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- PPAP Element Form View -->
+    <record id="view_iatf_ppap_element_form" model="ir.ui.view">
+        <field name="name">iatf.ppap.element.form</field>
+        <field name="model">iatf.ppap.element</field>
+        <field name="arch" type="xml">
+            <form string="PPAP Element">
+                <header>
+                    <field name="status" widget="statusbar"
+                           statusbar_visible="pending,in_progress,submitted,reviewed,approved,rejected,na"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="submission_id" readonly="1"/>
+                            <field name="element_number" readonly="1"/>
+                            <field name="name" readonly="1"/>
+                            <field name="required" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="status" widget="selection"/>
+                            <field name="reviewer_id" readonly="1"/>
+                            <field name="review_date" readonly="1"/>
+                        </group>
+                    </group>
+                    <group string="Description">
+                        <field name="description"/>
+                    </group>
+                    <group string="Attachments / Evidence">
+                        <field name="attachment_ids" widget="many2many_tags"/>
+                    </group>
+                    <group string="Review Comments">
+                        <field name="comments"/>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+</odoo>

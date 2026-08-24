@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Control Plan Form View -->
+    <record id="view_iatf_control_plan_form" model="ir.ui.view">
+        <field name="name">iatf.control.plan.form</field>
+        <field name="model">iatf.control.plan</field>
+        <field name="arch" type="xml">
+            <form string="Control Plan">
+                <header>
+                    <button name="action_submit_review" type="object" string="Submit for Review" class="btn-primary" invisible="state != 'draft'"/>
+                    <button name="action_approve" type="object" string="Approve" class="btn-secondary" invisible="state != 'review'"/>
+                    <button name="action_activate" type="object" string="Activate" class="btn-secondary" invisible="state != 'approved'"/>
+                    <button name="action_obsolete" type="object" string="Obsolete" class="btn-secondary" invisible="state in ('draft','obsolete')"/>
+                    <button name="action_revise" type="object" string="New Revision" class="btn-primary" invisible="state not in ('active','obsolete')"/>
+                    <button name="action_generate_from_pfmea" type="object" string="Generate from PFMEA" class="btn-primary"
+                            invisible="state != 'draft' or not pfmea_id"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,review,approved,active,obsolete"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_generate_from_pfmea" type="object" class="oe_stat_button" icon="fa-sitemap"
+                                invisible="not pfmea_id">
+                            <field name="pfmea_id" widget="statinfo" string="Source PFMEA"/>
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="name" readonly="1"/>
+                            <field name="product_id" readonly="state != 'draft'"/>
+                            <field name="process_id" domain="[('product_id', '=', product_id)]"/>
+                            <field name="pfmea_id" domain="[('fmea_type', '=', 'pfmea')]" readonly="state != 'draft'"/>
+                        </group>
+                        <group>
+                            <field name="phase" readonly="state != 'draft'"/>
+                            <field name="version" readonly="1"/>
+                            <field name="approved_by_id" readonly="1"/>
+                            <field name="approved_date" readonly="1"/>
+                            <field name="effective_date"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Control Plan Lines" name="lines">
+                            <field name="line_ids">
+                                <list editable="bottom" create="state in ('draft','review')" delete="state in ('draft','review')">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="characteristic_type"/>
+                                    <field name="characteristic_number"/>
+                                    <field name="characteristic_name"/>
+                                    <field name="specification"/>
+                                    <field name="spec_usl" invisible="1"/>
+                                    <field name="spec_lsl" invisible="1"/>
+                                    <field name="spec_target" invisible="1"/>
+                                    <field name="control_method"/>
+                                    <field name="measurement_device"/>
+                                    <field name="equipment_id"/>
+                                    <field name="msa_study_id" invisible="1"/>
+                                    <field name="frequency"/>
+                                    <field name="sample_size"/>
+                                    <field name="reaction_plan"/>
+                                    <field name="responsible_id"/>
+                                    <field name="operation_id" invisible="1"/>
+                                    <field name="fmea_item_id" invisible="1"/>
+                                    <field name="quality_point_id" readonly="1" invisible="1"/>
+                                    <field name="active_sync" invisible="1"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="By Operation" name="by_operation">
+                            <field name="line_ids" domain="[('operation_id', '!=', False)]">
+                                <list editable="bottom" create="state in ('draft','review')" delete="state in ('draft','review')">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="operation_id"/>
+                                    <field name="characteristic_type"/>
+                                    <field name="characteristic_name"/>
+                                    <field name="specification"/>
+                                    <field name="control_method"/>
+                                    <field name="frequency"/>
+                                    <field name="sample_size"/>
+                                    <field name="reaction_plan"/>
+                                    <field name="responsible_id"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Control Plan List View -->
+    <record id="view_iatf_control_plan_list" model="ir.ui.view">
+        <field name="name">iatf.control.plan.list</field>
+        <field name="model">iatf.control.plan</field>
+        <field name="arch" type="xml">
+            <list string="Control Plans" sample="1">
+                <field name="name"/>
+                <field name="product_id"/>
+                <field name="phase" widget="badge"
+                       decoration-info="phase == 'prototype'"
+                       decoration-warning="phase == 'pre_launch'"
+                       decoration-success="phase == 'production'"/>
+                <field name="version"/>
+                <field name="pfmea_id"/>
+                <field name="state" widget="badge"
+                       decoration-danger="state == 'obsolete'"
+                       decoration-success="state == 'active'"
+                       decoration-info="state == 'approved'"
+                       decoration-warning="state == 'review'"
+                       decoration-muted="state == 'draft'"/>
+                <field name="effective_date"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Control Plan Kanban View -->
+    <record id="view_iatf_control_plan_kanban" model="ir.ui.view">
+        <field name="name">iatf.control.plan.kanban</field>
+        <field name="model">iatf.control.plan</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_view">
+                <field name="name"/>
+                <field name="product_id"/>
+                <field name="phase"/>
+                <field name="version"/>
+                <field name="state"/>
+                <field name="pfmea_id"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="oe_kanban_header">
+                                <span class="oe_kanban_label"><t t-esc="record.name"/></span>
+                                <field name="state" widget="badge"
+                                       decoration-danger="state == 'obsolete'"
+                                       decoration-success="state == 'active'"
+                                       decoration-info="state == 'approved'"
+                                       decoration-warning="state == 'review'"
+                                       decoration-muted="state == 'draft'"/>
+                            </div>
+                            <div class="oe_kanban_details">
+                                <t t-esc="record.product_id.display_name"/>
+                                <br/>Phase: <field name="phase"/> v<field name="version"/>
+                                <br/>PFMEA: <field name="pfmea_id"/>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+</odoo>
