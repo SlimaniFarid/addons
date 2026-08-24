@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="demo_template_generic_csv" model="sf.bank.stmt.template">
+        <field name="name">Generic European Bank CSV</field>
+        <field name="file_format">csv</field>
+        <field name="csv_delimiter">;</field>
+        <field name="csv_encoding">utf-8-sig</field>
+        <field name="csv_header_row">1</field>
+        <field name="date_col">0</field>
+        <field name="amount_col">1</field>
+        <field name="reference_col">2</field>
+        <field name="partner_col">3</field>
+        <field name="communication_col">4</field>
+        <field name="date_format">%d/%m/%Y</field>
+        <field name="decimal_separator">,</field>
+        <field name="thousands_separator">.</field>
+    </record>
+</odoo>

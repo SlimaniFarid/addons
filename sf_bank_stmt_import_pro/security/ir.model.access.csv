@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sf_bank_stmt_run_user,sf.bank.stmt.run.user,model_sf_bank_stmt_run,group_sf_bank_import_user,1,1,1,0
+access_sf_bank_stmt_run_manager,sf.bank.stmt.run.manager,model_sf_bank_stmt_run,group_sf_bank_import_manager,1,1,1,1
+access_sf_bank_stmt_template_user,sf.bank.stmt.template.user,model_sf_bank_stmt_template,group_sf_bank_import_user,1,1,1,0
+access_sf_bank_stmt_template_manager,sf.bank.stmt.template.manager,model_sf_bank_stmt_template,group_sf_bank_import_manager,1,1,1,1
+access_sf_bank_stmt_line_preview_user,sf.bank.stmt.line.preview.user,model_sf_bank_stmt_line_preview,group_sf_bank_import_user,1,1,1,0
+access_sf_bank_stmt_line_preview_manager,sf.bank.stmt.line.preview.manager,model_sf_bank_stmt_line_preview,group_sf_bank_import_manager,1,1,1,1
