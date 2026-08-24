@@ -182,3 +182,24 @@ Testing: static validation (Python compile, XML parse, manifest/models/views/sec
 | sf_sample_management | ✅ Codé | ✅ Codé | **Codé — en attente de tests** | v18.0.1.0.0 / v19.0.1.0.0 — Sample Management (approvals, coûts, feedback, conversion) |
 
 *Dernière mise à jour : 2026-08-23*
+
+| sf_renewal_management | ✅ Codé | ✅ Codé | **Codé — en attente de tests** | v18.0.1.0.0 / v19.0.1.0.0 — Customer Contract Renewals (notice deadlines, churn risk, outcomes) |
+| sf_kyc_aml | ✅ Codé | ✅ Codé | **Codé — en attente de tests** | v18.0.1.0.0 / v19.0.1.0.0 — KYC/AML Due Diligence (risk rating, screening, UBO, review cycles) |
+| sf_credit_insurance | ✅ Codé | ✅ Codé | **Codé — en attente de tests** | v18.0.1.0.0 / v19.0.1.0.0 — Credit Insurance (policies, buyer limits, claims, indemnity) |
+| sf_spend_analytics | ✅ Codé | ✅ Codé | **Codé — en attente de tests** | v18.0.1.0.0 / v19.0.1.0.0 — Spend Analytics (vendor/category spend, PO coverage, maverick) |
+| sf_inventory_aging | ✅ Codé | ✅ Codé | **Codé — en attente de tests** | v18.0.1.0.0 / v19.0.1.0.0 — Inventory Aging (buckets, slow movers, provisions) |
+| sf_customer_rebates | ✅ Codé | ✅ Codé | **Codé — en attente de tests** | v18.0.1.0.0 / v19.0.1.0.0 — Customer Rebates (deals, accruals, credit note settlement) |
+| sf_product_eol | ✅ Codé | ✅ Codé | **Codé — en attente de tests** | v18.0.1.0.0 / v19.0.1.0.0 — Product EOL (last-time-buy, replacements, sale blocking) |
+| sf_backorder_priority | ✅ Codé | ✅ Codé | **Codé — en attente de tests** | v18.0.1.0.0 / v19.0.1.0.0 — Backorder Priority (scoring, allocation, reservations) |
+| sf_customer_onboarding | ✅ Codé | ✅ Codé | **Codé — en attente de tests** | v18.0.1.0.0 / v19.0.1.0.0 — Customer Onboarding (templates, tasks, progress, first order) |
+| sf_price_change_mgmt | ✅ Codé | ✅ Codé | **Codé — en attente de tests** | v18.0.1.0.0 / v19.0.1.0.0 — Price Change Mgmt (campaigns, delta %, effective dates) |
+| sf_quality_coa | ✅ Codé | ✅ Codé | **Codé — en attente de tests** | v18.0.1.0.0 / v19.0.1.0.0 — CoA Generator (parameters, verdicts, all-pass approval) |
+| sf_data_dedup | ✅ Codé | ✅ Codé | **Codé — en attente de tests** | v18.0.1.0.0 / v19.0.1.0.0 — Data Dedup (4 strategies, groups, merge tracking) |
+| sf_management_reporting | ✅ Codé | ✅ Codé | **Codé — en attente de tests** | v18.0.1.0.0 / v19.0.1.0.0 — Management Reporting (revenue/costs/margin KPIs, commentary) |
+| sf_incident_postmortem | ✅ Codé | ✅ Codé | **Codé — en attente de tests** | v18.0.1.0.0 / v19.0.1.0.0 — Incident Post-Mortem (severity, RCA, actions, lessons) |
+| sf_policy_waivers | ✅ Codé | ✅ Codé | **Codé — en attente de tests** | v18.0.1.0.0 / v19.0.1.0.0 — Policy Waivers (risk, controls, validity windows) |
+| sf_change_requests | ✅ Codé | ✅ Codé | **Codé — en attente de tests** | v18.0.1.0.0 / v19.0.1.0.0 — Change Requests (CAB votes, rollback plans, PIR) |
+| sf_telecom_expense | ✅ Codé | ✅ Codé | **Codé — en attente de tests** | v18.0.1.0.0 / v19.0.1.0.0 — Telecom Expense (lines, plan costs, invoice variance audit) |
+| sf_facility_management | ✅ Codé | ✅ Codé | **Codé — en attente de tests** | v18.0.1.0.0 / v19.0.1.0.0 — Facility Management (sites, rooms, conflict-checked bookings) |
+| sf_access_review | ✅ Codé | ✅ Codé | **Codé — en attente de tests** | v18.0.1.0.0 / v19.0.1.0.0 — Access Review (campaigns, keep/revoke, evidence) |
+| sf_customer_health | ✅ Codé | ✅ Codé | **Codé — en attente de tests** | v18.0.1.0.0 / v19.0.1.0.0 — Customer Health (score 0-100, trend, recency, churn risk) |
