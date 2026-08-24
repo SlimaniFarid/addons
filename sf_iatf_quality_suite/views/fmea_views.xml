@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- FMEA Form View -->
+    <record id="view_iatf_fmea_form" model="ir.ui.view">
+        <field name="name">iatf.fmea.form</field>
+        <field name="model">iatf.fmea</field>
+        <field name="arch" type="xml">
+            <form string="FMEA">
+                <header>
+                    <button name="action_start" type="object" string="Start" class="btn-primary" invisible="state != 'draft'"/>
+                    <button name="action_submit_review" type="object" string="Submit for Review" class="btn-primary" invisible="state != 'in_progress'"/>
+                    <button name="action_approve" type="object" string="Approve" class="btn-secondary" invisible="state != 'review'"/>
+                    <button name="action_activate" type="object" string="Activate" class="btn-secondary" invisible="state != 'approved'"/>
+                    <button name="action_obsolete" type="object" string="Obsolete" class="btn-secondary" invisible="state in ('draft','obsolete')"/>
+                    <button name="action_revise" type="object" string="New Revision" class="btn-primary" invisible="state not in ('active','obsolete')"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,in_progress,review,approved,active,obsolete"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_generate_cp_line" type="object" class="oe_stat_button" icon="fa-sitemap"
+                                invisible="fmea_type != 'pfmea' or state != 'active'">
+                            <field name="control_plan_ids" widget="statinfo" string="Control Plans"/>
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="name" readonly="1"/>
+                            <field name="fmea_type" readonly="state != 'draft'"/>
+                            <field name="project_id"/>
+                            <field name="product_id" readonly="state != 'draft'"/>
+                            <field name="process_id" domain="[('product_id', '=', product_id)]"
+                                   invisible="fmea_type != 'pfmea'"/>
+                        </group>
+                        <group>
+                            <field name="team_leader_id" readonly="state not in ('draft','in_progress')"/>
+                            <field name="team_member_ids" widget="many2many_tags" readonly="state not in ('draft','in_progress')"/>
+                            <field name="revision" readonly="1"/>
+                            <field name="approved_by_id" readonly="1"/>
+                            <field name="approved_date" readonly="1"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <group string="Scope of Analysis">
+                        <field name="scope"/>
+                    </group>
+                    <group string="Boundary Diagram / P-Diagram">
+                        <field name="boundary_diagram"/>
+                    </group>
+                    <notebook>
+                        <page string="FMEA Items" name="items">
+                            <field name="item_ids">
+                                <list editable="bottom" create="state in ('draft','in_progress')" delete="state in ('draft','in_progress')">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="function"/>
+                                    <field name="requirement"/>
+                                    <field name="failure_mode"/>
+                                    <field name="failure_cause"/>
+                                    <field name="failure_effect"/>
+                                    <field name="prevention_control"/>
+                                    <field name="detection_control"/>
+                                    <field name="severity"/>
+                                    <field name="occurrence"/>
+                                    <field name="detection"/>
+                                    <field name="rpn" readonly="1"/>
+                                    <field name="rpn_class" readonly="1" widget="badge"
+                                           decoration-danger="rpn_class == 'critical'"
+                                           decoration-warning="rpn_class == 'high'"
+                                           decoration-info="rpn_class == 'medium'"
+                                           decoration-success="rpn_class == 'low'"/>
+                                    <field name="recommended_action"/>
+                                    <field name="action_responsible_id"/>
+                                    <field name="action_due_date"/>
+                                    <field name="action_taken" invisible="1"/>
+                                    <field name="new_severity" invisible="1"/>
+                                    <field name="new_occurrence" invisible="1"/>
+                                    <field name="new_detection" invisible="1"/>
+                                    <field name="new_rpn" readonly="1" invisible="1"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Action Plan" name="actions">
+                            <field name="item_ids" domain="[('recommended_action', '!=', False)]">
+                                <list editable="bottom" create="0" delete="0">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="function"/>
+                                    <field name="failure_mode"/>
+                                    <field name="rpn" readonly="1"/>
+                                    <field name="recommended_action"/>
+                                    <field name="action_responsible_id"/>
+                                    <field name="action_due_date"/>
+                                    <field name="action_taken"/>
+                                    <field name="action_completion_date"/>
+                                    <field name="new_rpn" readonly="1"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- FMEA List View -->
+    <record id="view_iatf_fmea_list" model="ir.ui.view">
+        <field name="name">iatf.fmea.list</field>
+        <field name="model">iatf.fmea</field>
+        <field name="arch" type="xml">
+            <list string="FMEA" sample="1">
+                <field name="name"/>
+                <field name="fmea_type"/>
+                <field name="product_id"/>
+                <field name="team_leader_id"/>
+                <field name="state" widget="badge"
+                       decoration-danger="state == 'obsolete'"
+                       decoration-success="state == 'active'"
+                       decoration-info="state == 'approved'"
+                       decoration-warning="state in ('in_progress','review')"
+                       decoration-muted="state == 'draft'"/>
+                <field name="revision"/>
+                <field name="create_date"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- FMEA Kanban View -->
+    <record id="view_iatf_fmea_kanban" model="ir.ui.view">
+        <field name="name">iatf.fmea.kanban</field>
+        <field name="model">iatf.fmea</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_view">
+                <field name="name"/>
+                <field name="fmea_type"/>
+                <field name="product_id"/>
+                <field name="team_leader_id"/>
+                <field name="state"/>
+                <field name="revision"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="oe_kanban_header">
+                                <span class="oe_kanban_label"><t t-esc="record.name"/></span>
+                                <field name="state" widget="badge"
+                                       decoration-danger="state == 'obsolete'"
+                                       decoration-success="state == 'active'"
+                                       decoration-info="state == 'approved'"
+                                       decoration-warning="state in ('in_progress','review')"
+                                       decoration-muted="state == 'draft'"/>
+                            </div>
+                            <div class="oe_kanban_details">
+                                <t t-esc="record.fmea_type"/> — <t t-esc="record.product_id.display_name"/>
+                                <br/><field name="team_leader_id"/>
+                                <br/>Rev. <field name="revision"/>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- FMEA Pivot View -->
+    <record id="view_iatf_fmea_pivot" model="ir.ui.view">
+        <field name="name">iatf.fmea.pivot</field>
+        <field name="model">iatf.fmea</field>
+        <field name="arch" type="xml">
+            <pivot string="FMEA Analysis">
+                <field name="fmea_type" type="row"/>
+                <field name="product_id" type="row"/>
+                <field name="state" type="col"/>
+                <field name="item_ids" type="measure" measure="rpn" string="Avg RPN"/>
+                <field name="item_ids" type="measure" measure="count" string="Count"/>
+            </pivot>
+        </field>
+    </record>
+
+    <!-- FMEA Item Form (embedded) - not needed as inline in FMEA form -->
+    <!-- Process Form View -->
+    <record id="view_iatf_process_form" model="ir.ui.view">
+        <field name="name">iatf.process.form</field>
+        <field name="model">iatf.process</field>
+        <field name="arch" type="xml">
+            <form string="Process">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="code"/>
+                            <field name="product_id"/>
+                        </group>
+                        <group>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <group string="Description">
+                        <field name="description"/>
+                    </group>
+                    <group string="Process Flow Diagram">
+                        <field name="process_flow_diagram" widget="image" class="oe_avatar oe_avatar_64"/>
+                        <field name="pfd_filename" invisible="1"/>
+                    </group>
+                    <notebook>
+                        <page string="Operations">
+                            <field name="operation_ids">
+                                <list editable="bottom">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="name"/>
+                                    <field name="description"/>
+                                    <field name="workcenter_id"/>
+                                    <field name="equipment_ids" widget="many2many_tags"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_iatf_process_list" model="ir.ui.view">
+        <field name="name">iatf.process.list</field>
+        <field name="model">iatf.process</field>
+        <field name="arch" type="xml">
+            <list string="Processes">
+                <field name="code"/>
+                <field name="name"/>
+                <field name="product_id"/>
+            </list>
+        </field>
+    </record>
+</odoo>
