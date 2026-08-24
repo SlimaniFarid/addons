@@ -1,4 +1,4 @@
-# DEVELOPMENT STATUS — 50 Odoo Modules (18.0 / 19.0)
+# DEVELOPMENT STATUS — Modules in ~/addons
 
 Development tracking for the 50 modules of the plan. Source of truth: plan validated in session.
 Conventions: `sf_` prefix, `OPL-1` license, author Ethan Miller, support tech5262@gmail.com, EUR currency.
@@ -91,17 +91,17 @@ Testing: static validation (Python compile, XML parse, manifest/models/views/sec
 | 83 | sf_guided_selling — Guided Selling & CPQ Wizard | ⏳ | ⏳ | ⏳ | ⏳ | ⏳ | Pending |
 | 84 | sf_pricing_optimizer — AI Pricing Optimizer | ⏳ | ⏳ | ⏳ | ⏳ | ⏳ | Pending |
 | 85 | sf_treasury_management — Treasury & Cash Management | ⏳ | ⏳ | ⏳ | ⏳ | ⏳ | Pending |
-| 86 | sf_fx_hedging — FX Exposure & Hedging | ⏳ | ⏳ | ⏳ | ⏳ | ⏳ | Pending |
-| 87 | sf_intercompany_netting — Intercompany Netting & Settlement | ⏳ | ⏳ | ⏳ | ⏳ | ⏳ | Pending |
-| 88 | sf_fixed_asset_leasing — Asset Leasing (IFRS 16 / ASC 842) | ⏳ | ⏳ | ⏳ | ⏳ | ⏳ | Pending |
-| 89 | sf_revenue_recognition — Revenue Recognition (ASC 606 / IFRS 15) | ⏳ | ⏳ | ⏳ | ⏳ | ⏳ | Pending |
+| 86 | sf_fx_hedging_plan — FX Exposure & Hedging (plan) | ⏳ | ⏳ | ⏳ | ⏳ | ⏳ | Pending |
+| 87 | sf_intercompany_netting_plan — IC Netting (plan) | ⏳ | ⏳ | ⏳ | ⏳ | ⏳ | Pending |
+| 88 | sf_fixed_asset_leasing — Asset Leasing (IFRS 16 / ASC 842) (plan) | ⏳ | ⏳ | ⏳ | ⏳ | ⏳ | Pending |
+| 89 | sf_revenue_recognition_plan — Revenue Recognition (plan) | ⏳ | ⏳ | ⏳ | ⏳ | ⏳ | Pending |
 | 90 | sf_tax_determination — Tax Determination & Compliance | ⏳ | ⏳ | ⏳ | ⏳ | ⏳ | Pending |
 | 91 | sf_ebookkeeping — E-Invoicing & Peppol/EDI | ⏳ | ⏳ | ⏳ | ⏳ | ⏳ | Pending |
 | 92 | sf_fp_a_planning — FP&A Planning & Budgeting | ⏳ | ⏳ | ⏳ | ⏳ | ⏳ | Pending |
 | 93 | sf_cost_allocation — Advanced Cost Allocation (ABC) | ⏳ | ⏳ | ⏳ | ⏳ | ⏳ | Pending |
 | 94 | sf_bank_connectivity — Multi-Bank Connectivity (EBICS/Swift) | ⏳ | ⏳ | ⏳ | ⏳ | ⏳ | Pending |
 | 95 | sf_payment_factory — Payment Factory & Approval | ⏳ | ⏳ | ⏳ | ⏳ | ⏳ | Pending |
-| 96 | sf_financial_close — Financial Close Management | ⏳ | ⏳ | ⏳ | ⏳ | ⏳ | Pending |
+| 96 | sf_financial_close_plan — Financial Close Management (plan) | ⏳ | ⏳ | ⏳ | ⏳ | ⏳ | Pending |
 | 97 | sf_talent_acquisition — Talent Acquisition & ATS Pro | ⏳ | ⏳ | ⏳ | ⏳ | ⏳ | Pending |
 | 98 | sf_learning_lms — Learning Management (LMS) | ⏳ | ⏳ | ⏳ | ⏳ | ⏳ | Pending |
 | 99 | sf_compensation_review — Compensation & Merit Review | ⏳ | ⏳ | ⏳ | ⏳ | ⏳ | Pending |
@@ -112,7 +112,7 @@ Testing: static validation (Python compile, XML parse, manifest/models/views/sec
 | 104 | sf_succession_planning — Succession & Career Planning | ⏳ | ⏳ | ⏳ | ⏳ | ⏳ | Pending |
 | 105 | sf_hr_analytics — People Analytics & Dashboards | ⏳ | ⏳ | ⏳ | ⏳ | ⏳ | Pending |
 | 106 | sf_contractor_management — Contractor & Freelance Management | ⏳ | ⏳ | ⏳ | ⏳ | ⏳ | Pending |
-| 107 | sf_field_service — Field Service & Dispatch | ⏳ | ⏳ | ⏳ | ⏳ | ⏳ | Pending |
+| 107 | sf_field_service_plan — Field Service & Dispatch (plan) | ⏳ | ⏳ | ⏳ | ⏳ | ⏳ | Pending |
 | 108 | sf_service_scheduling — Service Scheduling & Dispatch Board | ⏳ | ⏳ | ⏳ | ⏳ | ⏳ | Pending |
 | 109 | sf_project_resource_mgmt — Project Resource Management | ⏳ | ⏳ | ⏳ | ⏳ | ⏳ | Pending |
 | 110 | sf_professional_services — Professional Services Automation Pro | ⏳ | ⏳ | ⏳ | ⏳ | ⏳ | Pending |
@@ -129,7 +129,7 @@ Testing: static validation (Python compile, XML parse, manifest/models/views/sec
 | 121 | sf_food_safety — Food Safety & HACCP | ⏳ | ⏳ | ⏳ | ⏳ | ⏳ | Pending |
 | 122 | sf_pharma_qms — Pharma QMS & Validation | ⏳ | ⏳ | ⏳ | ⏳ | ⏳ | Pending |
 | 123 | sf_aerospace_as9100 — Aerospace AS9100 Compliance | ⏳ | ⏳ | ⏳ | ⏳ | ⏳ | Pending |
-| 124 | sf_automotive_iatf — Automotive IATF 16949 Compliance | ⏳ | ⏳ | ⏳ | ⏳ | ⏳ | Pending |
+| 124 | sf_automotive_iatf_plan — Automotive IATF 16949 (plan) | ⏳ | ⏳ | ⏳ | ⏳ | ⏳ | Pending |
 | 125 | sf_chemical_reach — Chemical REACH & SDS Management | ⏳ | ⏳ | ⏳ | ⏳ | ⏳ | Pending |
 | 126 | sf_energy_asset_mgmt — Energy Asset Management | ⏳ | ⏳ | ⏳ | ⏳ | ⏳ | Pending |
 | 127 | sf_telco_fulfillment — Telco Order Fulfillment | ⏳ | ⏳ | ⏳ | ⏳ | ⏳ | Pending |
@@ -160,3 +160,25 @@ Testing: static validation (Python compile, XML parse, manifest/models/views/sec
 ## Legend
 - ✅ Done - 🔄 In progress - ⏳ Pending
 - 1 module = 1 Odoo 18 commit + 1 Odoo 19 commit (branches 18.0 / 19.0)
+
+---
+
+## Nouveaux modules — usine de production (cycles récents)
+
+| Module | Odoo 18.0 | Odoo 19.0 | Status | Notes |
+|--------|-----------|-----------|--------|-------|
+| sf_iatf_quality_suite | ✅ Codé | ✅ Codé | **Codé — en attente de tests** | v18.0.1.0.0 / v19.0.1.0.0 — IATF 16949 Automotive Quality Toolkit (FMEA, Control Plan, APQP, PPAP, MSA, SPC) |
+| sf_lease_ifrs16 | ✅ Codé | ✅ Codé | **Codé — en attente de tests** | v18.0.1.0.0 / v19.0.1.0.0 — Lease Accounting IFRS 16 / ASC 842 (ROU, liability, PV schedule, écritures auto, modifications) |
+| sf_bank_stmt_import_pro | ✅ Codé | ✅ Codé | **Codé — en attente de tests** | v18.0.1.0.0 / v19.0.1.0.0 — Bank Statement Import Pro (MT940, CAMT.053, OFX, QIF, CSV templates, dédup SHA-256) |
+| sf_transfer_pricing | ✅ Codé | ✅ Codé | **Codé — en attente de tests** | v18.0.1.0.0 / v19.0.1.0.0 — Transfer Pricing Engine (4 méthodes OECD, variances, Master/Local File) |
+| sf_ic_netting | ✅ Codé | ✅ Codé | **Codé — en attente de tests** | v18.0.1.0.0 / v19.0.1.0.0 — IC Netting (scan soldes interco, net par paire, disputes, écritures de settlement) |
+| sf_period_close | ✅ Codé | ✅ Codé | **Codé — en attente de tests** | v18.0.1.0.0 / v19.0.1.0.0 — Month-End Close (templates, tâches, blockers, sign-offs) |
+| sf_fx_hedging | ✅ Codé | ✅ Codé | **Codé — en attente de tests** | v18.0.1.0.0 / v19.0.1.0.0 — FX Hedging (exposure par devise, forwards, settlement P&L) |
+| sf_capex_requests | ✅ Codé | ✅ Codé | **Codé — en attente de tests** | v18.0.1.0.0 / v19.0.1.0.0 — CAPEX Requests (approbations multi-niveaux, payback, capitalisation) |
+| sf_supplier_rebates | ✅ Codé | ✅ Codé | **Codé — en attente de tests** | v18.0.1.0.0 / v19.0.1.0.0 — Supplier Rebates (deals, accruals auto, claims, settlement) |
+| sf_return_to_vendor | ✅ Codé | ✅ Codé | **Codé — en attente de tests** | v18.0.1.0.0 / v19.0.1.0.0 — RTV (dispositions, return pickings avec lots, debit notes) |
+| sf_purchase_price_analysis | ✅ Codé | ✅ Codé | **Codé — en attente de tests** | v18.0.1.0.0 / v19.0.1.0.0 — PPV Analysis (prix réel vs standard, alertes, comparaison fournisseurs) |
+| sf_load_planning | ✅ Codé | ✅ Codé | **Codé — en attente de tests** | v18.0.1.0.0 / v19.0.1.0.0 — Load Planning (capacités poids/volume/palettes, arrêts de route) |
+| sf_sample_management | ✅ Codé | ✅ Codé | **Codé — en attente de tests** | v18.0.1.0.0 / v19.0.1.0.0 — Sample Management (approvals, coûts, feedback, conversion) |
+
+*Dernière mise à jour : 2026-08-23*
