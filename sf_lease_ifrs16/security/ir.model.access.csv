@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sf_lease_contract_user,sf.lease.contract.user,model_sf_lease_contract,group_sf_lease_user,1,1,1,0
+access_sf_lease_contract_manager,sf.lease.contract.manager,model_sf_lease_contract,group_sf_lease_manager,1,1,1,1
+access_sf_lease_payment_line_user,sf.lease.payment.line.user,model_sf_lease_payment_line,group_sf_lease_user,1,1,1,0
+access_sf_lease_payment_line_manager,sf.lease.payment.line.manager,model_sf_lease_payment_line,group_sf_lease_manager,1,1,1,1
+access_sf_lease_modification_user,sf.lease.modification.user,model_sf_lease_modification,group_sf_lease_user,1,1,1,0
+access_sf_lease_modification_manager,sf.lease.modification.manager,model_sf_lease_modification,group_sf_lease_manager,1,1,1,1
