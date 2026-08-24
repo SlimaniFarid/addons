@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_sf_quote_followup" model="ir.actions.act_window">
+        <field name="name">Quote Follow-up Cadence</field>
+        <field name="res_model">sf.quote.followup</field>
+        <field name="view_mode">list,form,kanban</field>
+    </record>
+    <record id="view_sf_quote_followup_form" model="ir.ui.view">
+        <field name="name">sf.quote.followup.form</field>
+        <field name="model">sf.quote.followup</field>
+        <field name="arch" type="xml">
+            <form string="Quote Follow-up Cadence">
+                <header>
+                    <button name="action_contacted" type="object" string="Contacted"
+                            class="btn-primary"/>
+                    <button name="action_won" type="object" string="Won"
+                            class="btn-primary"/>
+                    <field name="state" widget="statusbar" statusbar_visible="planned,contacted,won,lost"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="order_id"/>
+                            <field name="partner_id"/>
+                            <field name="followup_step"/>
+                            <field name="due_date"/>
+                            <field name="outcome"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="view_sf_quote_followup_list" model="ir.ui.view">
+        <field name="name">sf.quote.followup.list</field>
+        <field name="model">sf.quote.followup</field>
+        <field name="arch" type="xml">
+            <list string="Quote Follow-up Cadence" sample="1">
+                <field name="order_id"/>
+                <field name="partner_id"/>
+                <field name="followup_step"/>
+                <field name="due_date"/>
+                <field name="outcome"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'done'"
+                       decoration-info="state in ('submitted','approved')"/>
+            </list>
+        </field>
+    </record>
+    <record id="view_sf_quote_followup_kanban" model="ir.ui.view">
+        <field name="name">sf.quote.followup.kanban</field>
+        <field name="model">sf.quote.followup</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_view" group_by="state">
+                <field name="name"/>
+                <field name="state"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <strong><field name="name"/></strong>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+    <menuitem id="menu_sf_quote_followup_root" name="Quote Follow-up Cadence" sequence="14"
+              web_icon="sf_quote_followup_cadence,static/description/icon.png"/>
+    <menuitem id="menu_sf_quote_followup_main" name="Records"
+              parent="menu_sf_quote_followup_root" action="action_sf_quote_followup" sequence="10"/>
+</odoo>

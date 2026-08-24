@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sf_fx_reval_user,sf.fx.reval.user,model_sf_fx_reval,group_fx_reval_scheduler_user,1,1,1,0
+access_sf_fx_reval_manager,sf.fx.reval.manager,model_sf_fx_reval,group_fx_reval_scheduler_manager,1,1,1,1

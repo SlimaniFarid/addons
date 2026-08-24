@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sf_blanket_order_user,sf.blanket.order.user,model_sf_blanket_order,group_blanket_order_release_user,1,1,1,0
+access_sf_blanket_order_manager,sf.blanket.order.manager,model_sf_blanket_order,group_blanket_order_release_manager,1,1,1,1

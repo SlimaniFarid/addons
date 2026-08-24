@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="module_category_ehs_inspection_schedule" model="ir.module.category">
+        <field name="name">EHS Inspection Scheduler</field>
+        <field name="sequence">19</field>
+    </record>
+    <record id="group_ehs_inspection_schedule_user" model="res.groups">
+        <field name="name">EHS Inspection Scheduler User</field>
+        <field name="category_id" ref="module_category_ehs_inspection_schedule"/>
+
+    </record>
+    <record id="group_ehs_inspection_schedule_manager" model="res.groups">
+        <field name="name">EHS Inspection Scheduler Manager</field>
+        <field name="category_id" ref="module_category_ehs_inspection_schedule"/>
+        <field name="implied_ids" eval="[(4, ref('group_ehs_inspection_schedule_user'))]"/>
+    </record>
+    <record id="rule_ehs_inspection_schedule_sf_ehs_inspection" model="ir.rule">
+        <field name="name">EHS Inspection: multi-company</field>
+        <field name="model_id" ref="model_sf_ehs_inspection"/>
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+    </record>
+
+</odoo>

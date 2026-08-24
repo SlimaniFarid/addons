@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="seq_sf_peak_plan" model="ir.sequence">
+        <field name="name">Peak Season Plan</field>
+        <field name="code">sf.peak.plan</field>
+        <field name="prefix">PEAK/</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+</odoo>

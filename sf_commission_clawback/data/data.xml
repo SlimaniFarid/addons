@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="seq_sf_clawback" model="ir.sequence">
+        <field name="name">Clawback Case</field>
+        <field name="code">sf.clawback</field>
+        <field name="prefix">CLB/</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+</odoo>

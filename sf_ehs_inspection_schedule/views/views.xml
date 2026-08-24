@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_sf_ehs_inspection" model="ir.actions.act_window">
+        <field name="name">EHS Inspection Scheduler</field>
+        <field name="res_model">sf.ehs.inspection</field>
+        <field name="view_mode">list,form,kanban</field>
+    </record>
+    <record id="view_sf_ehs_inspection_form" model="ir.ui.view">
+        <field name="name">sf.ehs.inspection.form</field>
+        <field name="model">sf.ehs.inspection</field>
+        <field name="arch" type="xml">
+            <form string="EHS Inspection Scheduler">
+                <header>
+                    <button name="action_done" type="object" string="Done"
+                            class="btn-primary"/>
+                    <field name="state" widget="statusbar" statusbar_visible="scheduled,done,findings_tracked"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="site_area"/>
+                            <field name="inspection_type"/>
+                            <field name="scheduled_date"/>
+                            <field name="inspector_id"/>
+                            <field name="findings_count"/>
+                        <field name="checklist"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="view_sf_ehs_inspection_list" model="ir.ui.view">
+        <field name="name">sf.ehs.inspection.list</field>
+        <field name="model">sf.ehs.inspection</field>
+        <field name="arch" type="xml">
+            <list string="EHS Inspection Scheduler" sample="1">
+                <field name="site_area"/>
+                <field name="inspection_type"/>
+                <field name="scheduled_date"/>
+                <field name="inspector_id"/>
+                <field name="findings_count"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'done'"
+                       decoration-info="state in ('submitted','approved')"/>
+            </list>
+        </field>
+    </record>
+    <record id="view_sf_ehs_inspection_kanban" model="ir.ui.view">
+        <field name="name">sf.ehs.inspection.kanban</field>
+        <field name="model">sf.ehs.inspection</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_view" group_by="state">
+                <field name="name"/>
+                <field name="state"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <strong><field name="name"/></strong>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+    <menuitem id="menu_sf_ehs_inspection_root" name="EHS Inspection Scheduler" sequence="16"
+              web_icon="sf_ehs_inspection_schedule,static/description/icon.png"/>
+    <menuitem id="menu_sf_ehs_inspection_main" name="Records"
+              parent="menu_sf_ehs_inspection_root" action="action_sf_ehs_inspection" sequence="10"/>
+</odoo>

@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sf_tax_deadline_user,sf.tax.deadline.user,model_sf_tax_deadline,group_tax_deadline_calendar_user,1,1,1,0
+access_sf_tax_deadline_manager,sf.tax.deadline.manager,model_sf_tax_deadline,group_tax_deadline_calendar_manager,1,1,1,1

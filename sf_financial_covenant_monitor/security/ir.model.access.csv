@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sf_covenant_user,sf.covenant.user,model_sf_covenant,group_financial_covenant_monitor_user,1,1,1,0
+access_sf_covenant_manager,sf.covenant.manager,model_sf_covenant,group_financial_covenant_monitor_manager,1,1,1,1

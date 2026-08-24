@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="seq_sf_pricing_request" model="ir.sequence">
+        <field name="name">Pricing Request</field>
+        <field name="code">sf.pricing.request</field>
+        <field name="prefix">CPR/</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+</odoo>

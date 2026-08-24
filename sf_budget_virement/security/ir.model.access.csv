@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sf_budget_virement_user,sf.budget.virement.user,model_sf_budget_virement,group_budget_virement_user,1,1,1,0
+access_sf_budget_virement_manager,sf.budget.virement.manager,model_sf_budget_virement,group_budget_virement_manager,1,1,1,1

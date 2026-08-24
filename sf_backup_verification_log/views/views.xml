@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_sf_backup_log" model="ir.actions.act_window">
+        <field name="name">Backup Verification Log</field>
+        <field name="res_model">sf.backup.log</field>
+        <field name="view_mode">list,form,kanban</field>
+    </record>
+    <record id="view_sf_backup_log_form" model="ir.ui.view">
+        <field name="name">sf.backup.log.form</field>
+        <field name="model">sf.backup.log</field>
+        <field name="arch" type="xml">
+            <form string="Backup Verification Log">
+                <header>
+                    <button name="action_success" type="object" string="Success"
+                            class="btn-primary"/>
+                    <field name="state" widget="statusbar" statusbar_visible="running,success,failed"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="backup_type"/>
+                            <field name="system"/>
+                            <field name="run_at"/>
+                            <field name="size_gb"/>
+                            <field name="verified"/>
+                            <field name="restore_tested"/>
+                            <field name="issues"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="view_sf_backup_log_list" model="ir.ui.view">
+        <field name="name">sf.backup.log.list</field>
+        <field name="model">sf.backup.log</field>
+        <field name="arch" type="xml">
+            <list string="Backup Verification Log" sample="1">
+                <field name="backup_type"/>
+                <field name="system"/>
+                <field name="run_at"/>
+                <field name="size_gb"/>
+                <field name="verified"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'done'"
+                       decoration-info="state in ('submitted','approved')"/>
+            </list>
+        </field>
+    </record>
+    <record id="view_sf_backup_log_kanban" model="ir.ui.view">
+        <field name="name">sf.backup.log.kanban</field>
+        <field name="model">sf.backup.log</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_view" group_by="state">
+                <field name="name"/>
+                <field name="state"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <strong><field name="name"/></strong>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+    <menuitem id="menu_sf_backup_log_root" name="Backup Verification Log" sequence="15"
+              web_icon="sf_backup_verification_log,static/description/icon.png"/>
+    <menuitem id="menu_sf_backup_log_main" name="Records"
+              parent="menu_sf_backup_log_root" action="action_sf_backup_log" sequence="10"/>
+</odoo>

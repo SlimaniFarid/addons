@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_sf_price_approval" model="ir.actions.act_window">
+        <field name="name">Special Price Approval Workflow</field>
+        <field name="res_model">sf.price.approval</field>
+        <field name="view_mode">list,form,kanban</field>
+    </record>
+    <record id="view_sf_price_approval_form" model="ir.ui.view">
+        <field name="name">sf.price.approval.form</field>
+        <field name="model">sf.price.approval</field>
+        <field name="arch" type="xml">
+            <form string="Special Price Approval Workflow">
+                <header>
+                    <button name="action_submitted" type="object" string="Submitted"
+                            class="btn-primary"/>
+                    <button name="action_approved" type="object" string="Approved"
+                            class="btn-primary"/>
+                    <button name="action_done" type="object" string="Done"
+                            class="btn-primary"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,submitted,approved,done,cancelled"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="partner_id"/>
+                            <field name="product_id"/>
+                            <field name="list_price"/>
+                            <field name="requested_price"/>
+                            <field name="margin_impact"/>
+                            <field name="valid_until"/>
+                            <field name="justification"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="view_sf_price_approval_list" model="ir.ui.view">
+        <field name="name">sf.price.approval.list</field>
+        <field name="model">sf.price.approval</field>
+        <field name="arch" type="xml">
+            <list string="Special Price Approval Workflow" sample="1">
+                <field name="partner_id"/>
+                <field name="product_id"/>
+                <field name="list_price"/>
+                <field name="requested_price"/>
+                <field name="margin_impact"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'done'"
+                       decoration-info="state in ('submitted','approved')"/>
+            </list>
+        </field>
+    </record>
+    <record id="view_sf_price_approval_kanban" model="ir.ui.view">
+        <field name="name">sf.price.approval.kanban</field>
+        <field name="model">sf.price.approval</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_view" group_by="state">
+                <field name="name"/>
+                <field name="state"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <strong><field name="name"/></strong>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+    <menuitem id="menu_sf_price_approval_root" name="Special Price Approval Workflow" sequence="11"
+              web_icon="sf_special_price_approval,static/description/icon.png"/>
+    <menuitem id="menu_sf_price_approval_main" name="Records"
+              parent="menu_sf_price_approval_root" action="action_sf_price_approval" sequence="10"/>
+</odoo>

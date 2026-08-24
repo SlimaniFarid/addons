@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="seq_sf_discounted_invoice" model="ir.sequence">
+        <field name="name">Discounted Invoice</field>
+        <field name="code">sf.discounted.invoice</field>
+        <field name="prefix">IDR/</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+</odoo>

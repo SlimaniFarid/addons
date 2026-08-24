@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sf_maintenance_intake_user,sf.maintenance.intake.user,model_sf_maintenance_intake,group_maintenance_intake_user,1,1,1,0
+access_sf_maintenance_intake_manager,sf.maintenance.intake.manager,model_sf_maintenance_intake,group_maintenance_intake_manager,1,1,1,1

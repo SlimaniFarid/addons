@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_sf_discounted_invoice" model="ir.actions.act_window">
+        <field name="name">Invoice Discounting &amp; Factoring Register</field>
+        <field name="res_model">sf.discounted.invoice</field>
+        <field name="view_mode">list,form,kanban</field>
+    </record>
+    <record id="view_sf_discounted_invoice_form" model="ir.ui.view">
+        <field name="name">sf.discounted.invoice.form</field>
+        <field name="model">sf.discounted.invoice</field>
+        <field name="arch" type="xml">
+            <form string="Invoice Discounting &amp; Factoring Register">
+                <header>
+                    <button name="action_funded" type="object" string="Funded"
+                            class="btn-primary"/>
+                    <field name="state" widget="statusbar" statusbar_visible="registered,funded,settled"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="factor_id"/>
+                            <field name="invoice_ref"/>
+                            <field name="face_amount"/>
+                            <field name="advance_percent"/>
+                            <field name="fee_percent"/>
+                            <field name="maturity_date"/>
+                            <field name="settled"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="view_sf_discounted_invoice_list" model="ir.ui.view">
+        <field name="name">sf.discounted.invoice.list</field>
+        <field name="model">sf.discounted.invoice</field>
+        <field name="arch" type="xml">
+            <list string="Invoice Discounting &amp; Factoring Register" sample="1">
+                <field name="factor_id"/>
+                <field name="invoice_ref"/>
+                <field name="face_amount"/>
+                <field name="advance_percent"/>
+                <field name="fee_percent"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'done'"
+                       decoration-info="state in ('submitted','approved')"/>
+            </list>
+        </field>
+    </record>
+    <record id="view_sf_discounted_invoice_kanban" model="ir.ui.view">
+        <field name="name">sf.discounted.invoice.kanban</field>
+        <field name="model">sf.discounted.invoice</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_view" group_by="state">
+                <field name="name"/>
+                <field name="state"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <strong><field name="name"/></strong>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+    <menuitem id="menu_sf_discounted_invoice_root" name="Invoice Discounting &amp; Factoring Register" sequence="1"
+              web_icon="sf_invoice_discounting,static/description/icon.png"/>
+    <menuitem id="menu_sf_discounted_invoice_main" name="Records"
+              parent="menu_sf_discounted_invoice_root" action="action_sf_discounted_invoice" sequence="10"/>
+</odoo>

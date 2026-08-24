@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sf_quote_followup_user,sf.quote.followup.user,model_sf_quote_followup,group_quote_followup_cadence_user,1,1,1,0
+access_sf_quote_followup_manager,sf.quote.followup.manager,model_sf_quote_followup,group_quote_followup_cadence_manager,1,1,1,1

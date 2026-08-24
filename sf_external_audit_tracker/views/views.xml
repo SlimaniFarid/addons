@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_sf_audit_finding" model="ir.actions.act_window">
+        <field name="name">External Audit Finding Tracker</field>
+        <field name="res_model">sf.audit.finding</field>
+        <field name="view_mode">list,form,kanban</field>
+    </record>
+    <record id="view_sf_audit_finding_form" model="ir.ui.view">
+        <field name="name">sf.audit.finding.form</field>
+        <field name="model">sf.audit.finding</field>
+        <field name="arch" type="xml">
+            <form string="External Audit Finding Tracker">
+                <header>
+                    <button name="action_in_remediation" type="object" string="In Remediation"
+                            class="btn-primary"/>
+                    <button name="action_pending_verification" type="object" string="Pending Verification"
+                            class="btn-primary"/>
+                    <field name="state" widget="statusbar" statusbar_visible="open,in_remediation,pending_verification,closed"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="audit_ref"/>
+                            <field name="finding"/>
+                            <field name="severity"/>
+                            <field name="owner_id"/>
+                            <field name="due_date"/>
+                        <field name="evidence"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="view_sf_audit_finding_list" model="ir.ui.view">
+        <field name="name">sf.audit.finding.list</field>
+        <field name="model">sf.audit.finding</field>
+        <field name="arch" type="xml">
+            <list string="External Audit Finding Tracker" sample="1">
+                <field name="audit_ref"/>
+                <field name="finding"/>
+                <field name="severity"/>
+                <field name="owner_id"/>
+                <field name="due_date"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'done'"
+                       decoration-info="state in ('submitted','approved')"/>
+            </list>
+        </field>
+    </record>
+    <record id="view_sf_audit_finding_kanban" model="ir.ui.view">
+        <field name="name">sf.audit.finding.kanban</field>
+        <field name="model">sf.audit.finding</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_view" group_by="state">
+                <field name="name"/>
+                <field name="state"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <strong><field name="name"/></strong>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+    <menuitem id="menu_sf_audit_finding_root" name="External Audit Finding Tracker" sequence="14"
+              web_icon="sf_external_audit_tracker,static/description/icon.png"/>
+    <menuitem id="menu_sf_audit_finding_main" name="Records"
+              parent="menu_sf_audit_finding_root" action="action_sf_audit_finding" sequence="10"/>
+</odoo>

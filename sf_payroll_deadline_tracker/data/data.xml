@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="seq_sf_payroll_deadline" model="ir.sequence">
+        <field name="name">Payroll Deadline</field>
+        <field name="code">sf.payroll.deadline</field>
+        <field name="prefix">PYD/</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+</odoo>

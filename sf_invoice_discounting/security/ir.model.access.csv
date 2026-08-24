@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sf_discounted_invoice_user,sf.discounted.invoice.user,model_sf_discounted_invoice,group_invoice_discounting_user,1,1,1,0
+access_sf_discounted_invoice_manager,sf.discounted.invoice.manager,model_sf_discounted_invoice,group_invoice_discounting_manager,1,1,1,1

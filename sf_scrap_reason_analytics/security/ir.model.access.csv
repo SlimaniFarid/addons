@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sf_scrap_reason_user,sf.scrap.reason.user,model_sf_scrap_reason,group_scrap_reason_analytics_user,1,1,1,0
+access_sf_scrap_reason_manager,sf.scrap.reason.manager,model_sf_scrap_reason,group_scrap_reason_analytics_manager,1,1,1,1

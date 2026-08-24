@@ -1,0 +1,41 @@
+# -*- coding: utf-8 -*-
+"""Interim Billing Tracker models"""
+from odoo import api, fields, models, _
+from odoo.exceptions import UserError
+
+
+class SfInterimBilling(models.Model):
+    _name = 'sf.interim.billing'
+    _description = 'Interim Billing'
+    _inherit = ['mail.thread', 'mail.activity.mixin']
+    _order = 'create_date desc, id desc'
+
+    name = fields.Char(string='Reference', required=True, copy=False, readonly=True, default='New')
+    company_id = fields.Many2one('res.company', string='Company', required=True, default=lambda s: s.env.company, tracking=True)
+    project_ref = fields.Char(string='Project', required=True)
+    partner_id = fields.Many2one('res.partner', string='Customer', required=True)
+    total_contract = fields.Monetary(string='Contract Value', required=True)
+    percent_complete = fields.Float(string='% Complete')
+    billed_to_date = fields.Monetary(string='Billed to Date')
+    next_milestone = fields.Date(string='Next Milestone')
+    currency_id = fields.Many2one(related='company_id.currency_id')
+    state = fields.Selection([
+        ('active', 'Active'),
+        ('final_billing', 'Final Billing'),
+        ('closed', 'Closed'),
+        ], string='Status', default='active', tracking=True, copy=False)
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            if vals.get('name', 'New') == 'New':
+                vals['name'] = self.env['ir.sequence'].next_by_code(
+                    'sf.interim.billing') or 'NEW'
+        return super().create(vals_list)
+
+    def action_final_billing(self):
+        self.write({'state': 'final_billing'})
+
+    def action_closed(self):
+        self.write({'state': 'closed'})
+
