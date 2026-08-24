@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="seq_sf_product_eol" model="ir.sequence">
+        <field name="name">Product EOL</field>
+        <field name="code">sf.product.eol</field>
+        <field name="prefix">EOL/</field>
+        <field name="padding">4</field>
+        <field name="company_id" eval="False"/>
+    </record>
+</odoo>
