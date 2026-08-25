@@ -1,0 +1,43 @@
+# -*- coding: utf-8 -*-
+"""Customer Concentration Risk models"""
+from odoo import api, fields, models, _
+from odoo.exceptions import UserError
+
+
+class SfCustomer_risk_score(models.Model):
+    _name = 'sf.customer_risk_score'
+    _description = 'Customer Concentration Risk'
+    _inherit = ['mail.thread', 'mail.activity.mixin']
+    _order = 'create_date desc, id desc'
+
+    name = fields.Char(string='Reference', required=True, copy=False, readonly=True, default='New')
+    company_id = fields.Many2one('res.company', string='Company', required=True, default=lambda s: s.env.company, tracking=True)
+    customer_name = fields.Char(string='Customer', required=True)
+    revenue_percent = fields.Float(string='% of Total Revenue')
+    risk_level = fields.Selection([
+        ('low', 'Low'),
+        ('medium', 'Medium'),
+        ('high', 'High'),
+        ], string='Risk', default=medium)
+    mitigation = fields.Text(string='Mitigation Plan')
+    currency_id = fields.Many2one(related='company_id.currency_id')
+    state = fields.Selection([
+        ('draft', 'Draft'),
+        ('submitted', 'Submitted'),
+        ('done', 'Done'),
+        ], string='Status', default='draft', tracking=True, copy=False)
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            if vals.get('name', 'New') == 'New':
+                vals['name'] = self.env['ir.sequence'].next_by_code(
+                    'sf.customer_risk_score') or 'NEW'
+        return super().create(vals_list)
+
+    def action_submitted(self):
+        self.write({'state': 'submitted'})
+
+    def action_done(self):
+        self.write({'state': 'done'})
+

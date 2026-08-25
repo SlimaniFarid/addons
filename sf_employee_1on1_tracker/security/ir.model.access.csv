@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sf_employee_1on1_tracker_user,sf.employee_1on1_tracker.user,model_sf_employee_1on1_tracker,group_employee_1on1_tracker_user,1,1,1,0
+access_sf_employee_1on1_tracker_manager,sf.employee_1on1_tracker.manager,model_sf_employee_1on1_tracker,group_employee_1on1_tracker_manager,1,1,1,1

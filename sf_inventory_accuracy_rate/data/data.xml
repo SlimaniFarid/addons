@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="seq_sf_inventory_accuracy_rate" model="ir.sequence">
+        <field name="name">Inventory Accuracy KPI</field>
+        <field name="code">sf.inventory_accuracy_rate</field>
+        <field name="prefix">INV/</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+</odoo>

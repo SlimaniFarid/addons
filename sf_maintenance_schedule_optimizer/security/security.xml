@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="module_category_maintenance_schedule_optimizer" model="ir.module.category">
+        <field name="name">Maintenance Schedule Optimizer</field>
+        <field name="sequence">374</field>
+    </record>
+    <record id="group_maintenance_schedule_optimizer_user" model="res.groups">
+        <field name="name">Maintenance Schedule Optimizer User</field>
+        <field name="category_id" ref="module_category_maintenance_schedule_optimizer"/>
+        <field name="implied_ids" eval="[(4, ref('sales_team.group_sale_salesman'))]"/>
+
+    </record>
+    <record id="group_maintenance_schedule_optimizer_manager" model="res.groups">
+        <field name="name">Maintenance Schedule Optimizer Manager</field>
+        <field name="category_id" ref="module_category_maintenance_schedule_optimizer"/>
+        <field name="implied_ids" eval="[(4, ref('group_maintenance_schedule_optimizer_user'))]"/>
+    </record>
+    <record id="rule_maintenance_schedule_optimizer_sf_maintenance_schedule_optimizer" model="ir.rule">
+        <field name="name">Maintenance Schedule Optimizer: multi-company</field>
+        <field name="model_id" ref="model_sf_maintenance_schedule_optimizer"/>
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+    </record>
+
+    <record id="group_id" model="res.groups">
+        <field name="name">Id</field>
+        <field name="category_id" ref="module_category_maintenance_schedule_optimizer"/>
+    </record>
+</odoo>

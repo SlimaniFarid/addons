@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sf_price_harmony_user,sf.price.harmony.user,model_sf_price_harmony,group_multi_site_price_harmony_user,1,1,1,0
+access_sf_price_harmony_manager,sf.price.harmony.manager,model_sf_price_harmony,group_multi_site_price_harmony_manager,1,1,1,1

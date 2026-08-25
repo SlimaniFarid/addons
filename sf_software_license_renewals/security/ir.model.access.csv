@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sf_license_sub_user,sf.license.sub.user,model_sf_license_sub,group_software_license_renewals_user,1,1,1,0
+access_sf_license_sub_manager,sf.license.sub.manager,model_sf_license_sub,group_software_license_renewals_manager,1,1,1,1

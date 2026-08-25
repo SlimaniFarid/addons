@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="seq_sf_bank_change" model="ir.sequence">
+        <field name="name">Bank Change Request</field>
+        <field name="code">sf.bank.change</field>
+        <field name="prefix">SBC/</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+</odoo>

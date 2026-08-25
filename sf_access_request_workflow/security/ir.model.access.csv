@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sf_access_request_workflow_user,sf.access_request_workflow.user,model_sf_access_request_workflow,group_access_request_workflow_user,1,1,1,0
+access_sf_access_request_workflow_manager,sf.access_request_workflow.manager,model_sf_access_request_workflow,group_access_request_workflow_manager,1,1,1,1

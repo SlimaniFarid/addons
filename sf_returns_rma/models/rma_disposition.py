@@ -71,11 +71,31 @@ class RMADisposition(models.Model):
 
     def _action_repair(self):
         # Create repair order
-        pass
+        for disp in self:
+            if disp.rma_id.line_ids:
+                line = disp.rma_id.line_ids[0]
+                repair = self.env['repair.order'].create({
+                    'product_id': line.product_id.id,
+                    'product_uom': line.uom_id.id,
+                    'product_qty': line.quantity,
+                    'partner_id': disp.rma_id.partner_id.id,
+                    'origin': disp.rma_id.name,
+                    'notes': disp.notes or '',
+                })
+                disp.repair_order_id = repair.id
 
     def _action_scrap(self):
         # Create scrap move
-        pass
+        for disp in self:
+            for line in disp.rma_id.line_ids:
+                self.env['stock.scrap'].create({
+                    'product_id': line.product_id.id,
+                    'product_uom_qty': line.quantity,
+                    'product_uom': line.uom_id.id,
+                    'location_id': disp.rma_id.partner_id.property_stock_customer.id,
+                    'scrap_reason': disp.scrap_reason or 'RMA Disposition',
+                    'origin': disp.rma_id.name,
+                }).do_scrap()
 
 
 class RMACarrierLabel(models.Model):

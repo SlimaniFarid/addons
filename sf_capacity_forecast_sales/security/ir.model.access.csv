@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sf_sales_capacity_user,sf.sales.capacity.user,model_sf_sales_capacity,group_capacity_forecast_sales_user,1,1,1,0
+access_sf_sales_capacity_manager,sf.sales.capacity.manager,model_sf_sales_capacity,group_capacity_forecast_sales_manager,1,1,1,1

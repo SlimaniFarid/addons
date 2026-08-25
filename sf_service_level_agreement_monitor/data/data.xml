@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="seq_sf_service_level_agreement_monitor" model="ir.sequence">
+        <field name="name">Internal SLA Monitor</field>
+        <field name="code">sf.service_level_agreement_monitor</field>
+        <field name="prefix">SER/</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+</odoo>

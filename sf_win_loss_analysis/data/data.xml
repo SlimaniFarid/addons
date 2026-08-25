@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="seq_sf_win_loss" model="ir.sequence">
+        <field name="name">Win / Loss Record</field>
+        <field name="code">sf.win.loss</field>
+        <field name="prefix">WLR/</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+</odoo>

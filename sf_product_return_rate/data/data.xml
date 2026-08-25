@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="seq_sf_product_return_rate" model="ir.sequence">
+        <field name="name">Product Return Rate Monitor</field>
+        <field name="code">sf.product_return_rate</field>
+        <field name="prefix">PRO/</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+</odoo>

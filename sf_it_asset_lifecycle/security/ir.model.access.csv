@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sf_it_asset_lifecycle_user,sf.it_asset_lifecycle.user,model_sf_it_asset_lifecycle,group_it_asset_lifecycle_user,1,1,1,0
+access_sf_it_asset_lifecycle_manager,sf.it_asset_lifecycle.manager,model_sf_it_asset_lifecycle,group_it_asset_lifecycle_manager,1,1,1,1

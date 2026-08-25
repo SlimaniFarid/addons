@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="module_category_supplier_invoice_accuracy" model="ir.module.category">
+        <field name="name">Supplier Invoice Accuracy Monitor</field>
+        <field name="sequence">168</field>
+    </record>
+    <record id="group_supplier_invoice_accuracy_user" model="res.groups">
+        <field name="name">Supplier Invoice Accuracy Monitor User</field>
+        <field name="category_id" ref="module_category_supplier_invoice_accuracy"/>
+        <field name="implied_ids" eval="[(4, ref('sales_team.group_sale_salesman'))]"/>
+
+    </record>
+    <record id="group_supplier_invoice_accuracy_manager" model="res.groups">
+        <field name="name">Supplier Invoice Accuracy Monitor Manager</field>
+        <field name="category_id" ref="module_category_supplier_invoice_accuracy"/>
+        <field name="implied_ids" eval="[(4, ref('group_supplier_invoice_accuracy_user'))]"/>
+    </record>
+    <record id="rule_supplier_invoice_accuracy_sf_supplier_invoice_accuracy" model="ir.rule">
+        <field name="name">Supplier Invoice Accuracy Monitor: multi-company</field>
+        <field name="model_id" ref="model_sf_supplier_invoice_accuracy"/>
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+    </record>
+
+    <record id="group_id" model="res.groups">
+        <field name="name">Id</field>
+        <field name="category_id" ref="module_category_supplier_invoice_accuracy"/>
+    </record>
+</odoo>

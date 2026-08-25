@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_sf_fixed_asset_transfer" model="ir.actions.act_window">
+        <field name="name">Fixed Asset Inter-Company Transfer</field>
+        <field name="res_model">sf.fixed_asset_transfer</field>
+        <field name="view_mode">list,form,kanban</field>
+    </record>
+    <record id="view_sf_fixed_asset_transfer_form" model="ir.ui.view">
+        <field name="name">sf.fixed_asset_transfer.form</field>
+        <field name="model">sf.fixed_asset_transfer</field>
+        <field name="arch" type="xml">
+            <form string="Fixed Asset Inter-Company Transfer">
+                <header>
+                    <button name="action_in_progress" type="object" string="In Progress"
+                            class="btn-primary"/>
+                    <button name="action_review" type="object" string="Review"
+                            class="btn-primary"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,in_progress,review,done"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="asset_ref"/>
+                            <field name="from_company"/>
+                            <field name="to_company"/>
+                            <field name="transfer_value"/>
+                            <field name="transfer_date"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="view_sf_fixed_asset_transfer_list" model="ir.ui.view">
+        <field name="name">sf.fixed_asset_transfer.list</field>
+        <field name="model">sf.fixed_asset_transfer</field>
+        <field name="arch" type="xml">
+            <list string="Fixed Asset Inter-Company Transfer" sample="1">
+                <field name="asset_ref"/>
+                <field name="from_company"/>
+                <field name="to_company"/>
+                <field name="transfer_value"/>
+                <field name="transfer_date"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'done'"
+                       decoration-info="state in ('submitted','approved')"/>
+            </list>
+        </field>
+    </record>
+    <record id="view_sf_fixed_asset_transfer_kanban" model="ir.ui.view">
+        <field name="name">sf.fixed_asset_transfer.kanban</field>
+        <field name="model">sf.fixed_asset_transfer</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_view" group_by="state">
+                <field name="name"/>
+                <field name="state"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <strong><field name="name"/></strong>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+    <menuitem id="menu_sf_fixed_asset_transfer_root" name="Fixed Asset Inter-Company Transfer" sequence="17"
+              web_icon="sf_fixed_asset_transfer,static/description/icon.png"/>
+    <menuitem id="menu_sf_fixed_asset_transfer_main" name="Records"
+              parent="menu_sf_fixed_asset_transfer_root" action="action_sf_fixed_asset_transfer" sequence="10"/>
+</odoo>

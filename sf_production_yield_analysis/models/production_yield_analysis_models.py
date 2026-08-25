@@ -1,0 +1,41 @@
+# -*- coding: utf-8 -*-
+"""Production Yield Analysis models"""
+from odoo import api, fields, models, _
+from odoo.exceptions import UserError
+
+
+class SfProduction_yield_analysis(models.Model):
+    _name = 'sf.production_yield_analysis'
+    _description = 'Production Yield Analysis'
+    _inherit = ['mail.thread', 'mail.activity.mixin']
+    _order = 'create_date desc, id desc'
+
+    name = fields.Char(string='Reference', required=True, copy=False, readonly=True, default='New')
+    company_id = fields.Many2one('res.company', string='Company', required=True, default=lambda s: s.env.company, tracking=True)
+    production_id = fields.Many2one('mrp.production', string='Production Order', required=True)
+    planned_qty = fields.Float(string='Planned Qty')
+    actual_qty = fields.Float(string='Actual Qty')
+    scrap_qty = fields.Float(string='Scrap Qty')
+    yield_percent = fields.Float(string='Yield %')
+    root_cause = fields.Text(string='Root Cause of Loss')
+    currency_id = fields.Many2one(related='company_id.currency_id')
+    state = fields.Selection([
+        ('draft', 'Draft'),
+        ('submitted', 'Submitted'),
+        ('done', 'Done'),
+        ], string='Status', default='draft', tracking=True, copy=False)
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            if vals.get('name', 'New') == 'New':
+                vals['name'] = self.env['ir.sequence'].next_by_code(
+                    'sf.production_yield_analysis') or 'NEW'
+        return super().create(vals_list)
+
+    def action_submitted(self):
+        self.write({'state': 'submitted'})
+
+    def action_done(self):
+        self.write({'state': 'done'})
+

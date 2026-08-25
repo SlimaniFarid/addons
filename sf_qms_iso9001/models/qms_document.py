@@ -98,8 +98,20 @@ class QMSDocumentDistribution(models.Model):
     acknowledged_date = fields.Datetime(string='Acknowledged Date')
 
     def _notify(self):
-        # Send notification to user
-        pass
+        # Send notification to user via mail.activity or message_post
+        for dist in self:
+            if dist.user_id and dist.user_id.partner_id:
+                dist.document_id.message_post(
+                    body=f"Document '{dist.document_id.name}' v{dist.document_id.version} has been published. Please review and acknowledge.",
+                    partner_ids=[dist.user_id.partner_id.id],
+                    subtype_xmlid='mail.mt_note',
+                )
+                # Create activity for acknowledgment
+                dist.document_id.activity_schedule(
+                    'mail.mail_activity_data_todo',
+                    user_id=dist.user_id.id,
+                    note=f'Acknowledge document: {dist.document_id.name}',
+                )
 
 
 class QMSDocumentType(models.Model):

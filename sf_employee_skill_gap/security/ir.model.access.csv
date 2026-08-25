@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sf_employee_skill_gap_user,sf.employee_skill_gap.user,model_sf_employee_skill_gap,group_employee_skill_gap_user,1,1,1,0
+access_sf_employee_skill_gap_manager,sf.employee_skill_gap.manager,model_sf_employee_skill_gap,group_employee_skill_gap_manager,1,1,1,1

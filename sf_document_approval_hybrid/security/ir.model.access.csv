@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sf_doc_approval_chase_user,sf.doc.approval.chase.user,model_sf_doc_approval_chase,group_document_approval_hybrid_user,1,1,1,0
+access_sf_doc_approval_chase_manager,sf.doc.approval.chase.manager,model_sf_doc_approval_chase,group_document_approval_hybrid_manager,1,1,1,1

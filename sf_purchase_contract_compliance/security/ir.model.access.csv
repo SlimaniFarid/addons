@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sf_purchase_contract_compliance_user,sf.purchase_contract_compliance.user,model_sf_purchase_contract_compliance,group_purchase_contract_compliance_user,1,1,1,0
+access_sf_purchase_contract_compliance_manager,sf.purchase_contract_compliance.manager,model_sf_purchase_contract_compliance,group_purchase_contract_compliance_manager,1,1,1,1

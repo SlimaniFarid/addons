@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sf_kpi_definition_user,sf.kpi.definition.user,model_sf_kpi_definition,group_kpi_target_register_user,1,1,1,0
+access_sf_kpi_definition_manager,sf.kpi.definition.manager,model_sf_kpi_definition,group_kpi_target_register_manager,1,1,1,1

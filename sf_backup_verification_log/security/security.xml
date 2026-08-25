@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="module_category_backup_verification_log" model="ir.module.category">
+        <field name="name">Backup Verification Log</field>
+        <field name="sequence">1</field>
+    </record>
+    <record id="group_backup_verification_log_user" model="res.groups">
+        <field name="name">Backup Verification Log User</field>
+        <field name="category_id" ref="module_category_backup_verification_log"/>
+
+    </record>
+    <record id="group_backup_verification_log_manager" model="res.groups">
+        <field name="name">Backup Verification Log Manager</field>
+        <field name="category_id" ref="module_category_backup_verification_log"/>
+        <field name="implied_ids" eval="[(4, ref('group_backup_verification_log_user'))]"/>
+    </record>
+    <record id="rule_backup_verification_log_sf_backup_log" model="ir.rule">
+        <field name="name">Backup Log Entry: multi-company</field>
+        <field name="model_id" ref="model_sf_backup_log"/>
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+    </record>
+
+    <record id="group_id" model="res.groups">
+        <field name="name">Id</field>
+        <field name="category_id" ref="module_category_backup_verification_log"/>
+    </record>
+</odoo>

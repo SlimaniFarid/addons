@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_sf_customer_care_workforce" model="ir.actions.act_window">
+        <field name="name">Care Workforce Planner</field>
+        <field name="res_model">sf.customer_care_workforce</field>
+        <field name="view_mode">list,form,kanban</field>
+    </record>
+    <record id="view_sf_customer_care_workforce_form" model="ir.ui.view">
+        <field name="name">sf.customer_care_workforce.form</field>
+        <field name="model">sf.customer_care_workforce</field>
+        <field name="arch" type="xml">
+            <form string="Care Workforce Planner">
+                <header>
+                    <button name="action_submitted" type="object" string="Submitted"
+                            class="btn-primary"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,submitted,done"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="period"/>
+                            <field name="forecast_volume"/>
+                            <field name="staff_available"/>
+                            <field name="staff_needed"/>
+                            <field name="skills_gap"/>
+                            <field name="action"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="view_sf_customer_care_workforce_list" model="ir.ui.view">
+        <field name="name">sf.customer_care_workforce.list</field>
+        <field name="model">sf.customer_care_workforce</field>
+        <field name="arch" type="xml">
+            <list string="Care Workforce Planner" sample="1">
+                <field name="period"/>
+                <field name="forecast_volume"/>
+                <field name="staff_available"/>
+                <field name="staff_needed"/>
+                <field name="skills_gap"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'done'"
+                       decoration-info="state in ('submitted','approved')"/>
+            </list>
+        </field>
+    </record>
+    <record id="view_sf_customer_care_workforce_kanban" model="ir.ui.view">
+        <field name="name">sf.customer_care_workforce.kanban</field>
+        <field name="model">sf.customer_care_workforce</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_view" group_by="state">
+                <field name="name"/>
+                <field name="state"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <strong><field name="name"/></strong>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+    <menuitem id="menu_sf_customer_care_workforce_root" name="Care Workforce Planner" sequence="8"
+              web_icon="sf_customer_care_workforce,static/description/icon.png"/>
+    <menuitem id="menu_sf_customer_care_workforce_main" name="Records"
+              parent="menu_sf_customer_care_workforce_root" action="action_sf_customer_care_workforce" sequence="10"/>
+</odoo>

@@ -1,0 +1,46 @@
+# -*- coding: utf-8 -*-
+"""Inventory Count Variance Analyzer models"""
+from odoo import api, fields, models, _
+from odoo.exceptions import UserError
+
+
+class SfInventory_count_variance(models.Model):
+    _name = 'sf.inventory_count_variance'
+    _description = 'Inventory Count Variance Analyzer'
+    _inherit = ['mail.thread', 'mail.activity.mixin']
+    _order = 'create_date desc, id desc'
+
+    name = fields.Char(string='Reference', required=True, copy=False, readonly=True, default='New')
+    company_id = fields.Many2one('res.company', string='Company', required=True, default=lambda s: s.env.company, tracking=True)
+    product_id = fields.Many2one('product.product', string='Product', required=True)
+    zone = fields.Char(string='Zone', required=True)
+    variance_qty = fields.Float(string='Variance Qty')
+    variance_value = fields.Monetary(string='Variance Value')
+    reason_code = fields.Selection([
+        ('count_error', 'Count Error'),
+        ('theft', 'Theft'),
+        ('damage', 'Damage'),
+        ('process', 'Process Error'),
+        ], string='Reason', required=True)
+    corrective = fields.Text(string='Corrective Action')
+    currency_id = fields.Many2one(related='company_id.currency_id')
+    state = fields.Selection([
+        ('draft', 'Draft'),
+        ('submitted', 'Submitted'),
+        ('done', 'Done'),
+        ], string='Status', default='draft', tracking=True, copy=False)
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            if vals.get('name', 'New') == 'New':
+                vals['name'] = self.env['ir.sequence'].next_by_code(
+                    'sf.inventory_count_variance') or 'NEW'
+        return super().create(vals_list)
+
+    def action_submitted(self):
+        self.write({'state': 'submitted'})
+
+    def action_done(self):
+        self.write({'state': 'done'})
+

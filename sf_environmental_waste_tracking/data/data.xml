@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="seq_sf_environmental_waste_tracking" model="ir.sequence">
+        <field name="name">Environmental Waste Tracking</field>
+        <field name="code">sf.environmental_waste_tracking</field>
+        <field name="prefix">ENV/</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+</odoo>

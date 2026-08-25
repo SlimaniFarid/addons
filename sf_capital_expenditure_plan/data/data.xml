@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="seq_sf_capital_expenditure_plan" model="ir.sequence">
+        <field name="name">Multi-Year CapEx Plan</field>
+        <field name="code">sf.capital_expenditure_plan</field>
+        <field name="prefix">CAP/</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+</odoo>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_sf_remote_work" model="ir.actions.act_window">
+        <field name="name">Remote Work Request Workflow</field>
+        <field name="res_model">sf.remote.work</field>
+        <field name="view_mode">list,form,kanban</field>
+    </record>
+    <record id="view_sf_remote_work_form" model="ir.ui.view">
+        <field name="name">sf.remote.work.form</field>
+        <field name="model">sf.remote.work</field>
+        <field name="arch" type="xml">
+            <form string="Remote Work Request Workflow">
+                <header>
+                    <button name="action_submitted" type="object" string="Submitted"
+                            class="btn-primary"/>
+                    <button name="action_approved" type="object" string="Approved"
+                            class="btn-primary"/>
+                    <button name="action_done" type="object" string="Done"
+                            class="btn-primary"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,submitted,approved,done,cancelled"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="employee_id"/>
+                            <field name="date_from"/>
+                            <field name="date_to"/>
+                            <field name="days_count"/>
+                            <field name="equipment_ready"/>
+                            <field name="manager_id"/>
+                            <field name="reason"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="view_sf_remote_work_list" model="ir.ui.view">
+        <field name="name">sf.remote.work.list</field>
+        <field name="model">sf.remote.work</field>
+        <field name="arch" type="xml">
+            <list string="Remote Work Request Workflow" sample="1">
+                <field name="employee_id"/>
+                <field name="date_from"/>
+                <field name="date_to"/>
+                <field name="days_count"/>
+                <field name="equipment_ready"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'done'"
+                       decoration-info="state in ('submitted','approved')"/>
+            </list>
+        </field>
+    </record>
+    <record id="view_sf_remote_work_kanban" model="ir.ui.view">
+        <field name="name">sf.remote.work.kanban</field>
+        <field name="model">sf.remote.work</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_view" group_by="state">
+                <field name="name"/>
+                <field name="state"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <strong><field name="name"/></strong>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+    <menuitem id="menu_sf_remote_work_root" name="Remote Work Request Workflow" sequence="28"
+              web_icon="sf_remote_work_requests,static/description/icon.png"/>
+    <menuitem id="menu_sf_remote_work_main" name="Records"
+              parent="menu_sf_remote_work_root" action="action_sf_remote_work" sequence="10"/>
+</odoo>

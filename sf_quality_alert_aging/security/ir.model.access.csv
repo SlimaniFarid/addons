@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sf_qalert_aging_user,sf.qalert.aging.user,model_sf_qalert_aging,group_quality_alert_aging_user,1,1,1,0
+access_sf_qalert_aging_manager,sf.qalert.aging.manager,model_sf_qalert_aging,group_quality_alert_aging_manager,1,1,1,1

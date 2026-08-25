@@ -1,7 +1,9 @@
 import base64
+import json
 import logging
 from odoo import api, fields, models
 from odoo.exceptions import UserError
+from odoo.tools.safe_eval import safe_eval
 
 _logger = logging.getLogger(__name__)
 
@@ -190,7 +192,7 @@ class ReportBlock(models.Model):
 
     def _build_table_qweb(self, cond, cls, style):
         try:
-            fields = eval(self.table_fields or '[]')
+            fields = json.loads(self.table_fields or '[]')
         except Exception:
             fields = []
         if not fields:
@@ -244,7 +246,7 @@ class ReportAssignment(models.Model):
             return False
         if self.condition:
             try:
-                return bool(eval(self.condition, {'record': record}))
+                return bool(safe_eval(self.condition, {'record': record}, mode="eval", nocopy=True))
             except Exception:
                 return False
         return True

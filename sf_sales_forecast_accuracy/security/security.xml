@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="module_category_sales_forecast_accuracy" model="ir.module.category">
+        <field name="name">Sales Forecast Accuracy Tracker</field>
+        <field name="sequence">169</field>
+    </record>
+    <record id="group_sales_forecast_accuracy_user" model="res.groups">
+        <field name="name">Sales Forecast Accuracy Tracker User</field>
+        <field name="category_id" ref="module_category_sales_forecast_accuracy"/>
+        <field name="implied_ids" eval="[(4, ref('sales_team.group_sale_salesman'))]"/>
+
+    </record>
+    <record id="group_sales_forecast_accuracy_manager" model="res.groups">
+        <field name="name">Sales Forecast Accuracy Tracker Manager</field>
+        <field name="category_id" ref="module_category_sales_forecast_accuracy"/>
+        <field name="implied_ids" eval="[(4, ref('group_sales_forecast_accuracy_user'))]"/>
+    </record>
+    <record id="rule_sales_forecast_accuracy_sf_sales_forecast_accuracy" model="ir.rule">
+        <field name="name">Sales Forecast Accuracy Tracker: multi-company</field>
+        <field name="model_id" ref="model_sf_sales_forecast_accuracy"/>
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+    </record>
+
+    <record id="group_id" model="res.groups">
+        <field name="name">Id</field>
+        <field name="category_id" ref="module_category_sales_forecast_accuracy"/>
+    </record>
+</odoo>

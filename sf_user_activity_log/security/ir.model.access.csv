@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sf_user_activity_log_user,sf.user_activity_log.user,model_sf_user_activity_log,group_user_activity_log_user,1,1,1,0
+access_sf_user_activity_log_manager,sf.user_activity_log.manager,model_sf_user_activity_log,group_user_activity_log_manager,1,1,1,1

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="seq_sf_customer_care_qa_review" model="ir.sequence">
+        <field name="name">Customer Care QA Review</field>
+        <field name="code">sf.customer_care_qa_review</field>
+        <field name="prefix">CUS/</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+</odoo>

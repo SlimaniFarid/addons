@@ -1,0 +1,49 @@
+# -*- coding: utf-8 -*-
+"""Supplier Audit Program models"""
+from odoo import api, fields, models, _
+from odoo.exceptions import UserError
+
+
+class SfSupplier_audit_program(models.Model):
+    _name = 'sf.supplier_audit_program'
+    _description = 'Supplier Audit Program'
+    _inherit = ['mail.thread', 'mail.activity.mixin']
+    _order = 'create_date desc, id desc'
+
+    name = fields.Char(string='Reference', required=True, copy=False, readonly=True, default='New')
+    company_id = fields.Many2one('res.company', string='Company', required=True, default=lambda s: s.env.company, tracking=True)
+    vendor_id = fields.Many2one('res.partner', string='Supplier', required=True)
+    audit_type = fields.Selection([
+        ('onsite', 'On-Site'),
+        ('remote', 'Remote'),
+        ('desk_review', 'Desk Review'),
+        ], string='Type', required=True)
+    planned_date = fields.Date(string='Planned Date', required=True)
+    scope = fields.Html(string='Audit Scope')
+    findings = fields.Html(string='Findings')
+    next_audit = fields.Date(string='Next Audit')
+    currency_id = fields.Many2one(related='company_id.currency_id')
+    state = fields.Selection([
+        ('draft', 'Draft'),
+        ('in_progress', 'In Progress'),
+        ('review', 'Review'),
+        ('done', 'Done'),
+        ], string='Status', default='draft', tracking=True, copy=False)
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            if vals.get('name', 'New') == 'New':
+                vals['name'] = self.env['ir.sequence'].next_by_code(
+                    'sf.supplier_audit_program') or 'NEW'
+        return super().create(vals_list)
+
+    def action_in_progress(self):
+        self.write({'state': 'in_progress'})
+
+    def action_review(self):
+        self.write({'state': 'review'})
+
+    def action_done(self):
+        self.write({'state': 'done'})
+

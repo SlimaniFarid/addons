@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="seq_sf_operator_skill" model="ir.sequence">
+        <field name="name">Operator Skill</field>
+        <field name="code">sf.operator.skill</field>
+        <field name="prefix">OSK/</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+</odoo>

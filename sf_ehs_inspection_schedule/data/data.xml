@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="seq_sf_ehs_inspection" model="ir.sequence">
+        <field name="name">EHS Inspection</field>
+        <field name="code">sf.ehs.inspection</field>
+        <field name="prefix">EHS/</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+</odoo>

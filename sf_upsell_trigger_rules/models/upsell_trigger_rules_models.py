@@ -1,0 +1,45 @@
+# -*- coding: utf-8 -*-
+"""Upsell Trigger Rules models"""
+from odoo import api, fields, models, _
+from odoo.exceptions import UserError
+
+
+class SfUpsell_trigger_rules(models.Model):
+    _name = 'sf.upsell_trigger_rules'
+    _description = 'Upsell Trigger Rules'
+    _inherit = ['mail.thread', 'mail.activity.mixin']
+    _order = 'create_date desc, id desc'
+
+    name = fields.Char(string='Reference', required=True, copy=False, readonly=True, default='New')
+    company_id = fields.Many2one('res.company', string='Company', required=True, default=lambda s: s.env.company, tracking=True)
+    rule_name = fields.Char(string='Trigger Name', required=True)
+    trigger_type = fields.Selection([
+        ('usage_threshold', 'Usage Threshold'),
+        ('contract_end', 'Contract End Near'),
+        ('feature_request', 'Feature Request'),
+        ('growth_signal', 'Growth Signal'),
+        ], string='Trigger', required=True)
+    threshold_value = fields.Float(string='Threshold')
+    recommended_product = fields.Char(string='Recommended Product/Upgrade')
+    active = fields.Boolean(string='Active', default=True)
+    currency_id = fields.Many2one(related='company_id.currency_id')
+    state = fields.Selection([
+        ('draft', 'Draft'),
+        ('submitted', 'Submitted'),
+        ('done', 'Done'),
+        ], string='Status', default='draft', tracking=True, copy=False)
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            if vals.get('name', 'New') == 'New':
+                vals['name'] = self.env['ir.sequence'].next_by_code(
+                    'sf.upsell_trigger_rules') or 'NEW'
+        return super().create(vals_list)
+
+    def action_submitted(self):
+        self.write({'state': 'submitted'})
+
+    def action_done(self):
+        self.write({'state': 'done'})
+

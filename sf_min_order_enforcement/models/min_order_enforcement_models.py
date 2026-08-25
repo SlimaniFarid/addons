@@ -1,0 +1,40 @@
+# -*- coding: utf-8 -*-
+"""Minimum Order Enforcement models"""
+from odoo import api, fields, models, _
+from odoo.exceptions import UserError
+
+
+class SfMinOrderRule(models.Model):
+    _name = 'sf.min.order.rule'
+    _description = 'Minimum Order Rule'
+    _inherit = ['mail.thread', 'mail.activity.mixin']
+    _order = 'create_date desc, id desc'
+
+    name = fields.Char(string='Reference', required=True, copy=False, readonly=True, default='New')
+    company_id = fields.Many2one('res.company', string='Company', required=True, default=lambda s: s.env.company, tracking=True)
+    segment = fields.Char(string='Customer Segment', required=True)
+    min_value = fields.Monetary(string='Minimum Value')
+    min_qty = fields.Integer(string='Minimum Quantity')
+    override_group_note = fields.Text(string='Override Conditions')
+    active = fields.Boolean(string='Active', default=True)
+    currency_id = fields.Many2one(related='company_id.currency_id')
+    state = fields.Selection([
+        ('draft', 'Draft'),
+        ('active', 'Active'),
+        ('archived', 'Archived'),
+        ], string='Status', default='draft', tracking=True, copy=False)
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            if vals.get('name', 'New') == 'New':
+                vals['name'] = self.env['ir.sequence'].next_by_code(
+                    'sf.min.order.rule') or 'NEW'
+        return super().create(vals_list)
+
+    def action_active(self):
+        self.write({'state': 'active'})
+
+    def action_archived(self):
+        self.write({'state': 'archived'})
+

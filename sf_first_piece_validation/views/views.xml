@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_sf_first_piece" model="ir.actions.act_window">
+        <field name="name">First-Piece Validation</field>
+        <field name="res_model">sf.first.piece</field>
+        <field name="view_mode">list,form,kanban</field>
+    </record>
+    <record id="view_sf_first_piece_form" model="ir.ui.view">
+        <field name="name">sf.first.piece.form</field>
+        <field name="model">sf.first.piece</field>
+        <field name="arch" type="xml">
+            <form string="First-Piece Validation">
+                <header>
+                    <button name="action_passed" type="object" string="Passed"
+                            class="btn-primary"/>
+                    <field name="state" widget="statusbar" statusbar_visible="pending,passed,failed"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="production_id"/>
+                            <field name="workcenter_id"/>
+                            <field name="setup_reason"/>
+                        <field name="measurements"/>
+                            <field name="validated"/>
+                            <field name="inspector_id"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="view_sf_first_piece_list" model="ir.ui.view">
+        <field name="name">sf.first.piece.list</field>
+        <field name="model">sf.first.piece</field>
+        <field name="arch" type="xml">
+            <list string="First-Piece Validation" sample="1">
+                <field name="production_id"/>
+                <field name="workcenter_id"/>
+                <field name="setup_reason"/>
+                <field name="measurements"/>
+                <field name="validated"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'done'"
+                       decoration-info="state in ('submitted','approved')"/>
+            </list>
+        </field>
+    </record>
+    <record id="view_sf_first_piece_kanban" model="ir.ui.view">
+        <field name="name">sf.first.piece.kanban</field>
+        <field name="model">sf.first.piece</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_view" group_by="state">
+                <field name="name"/>
+                <field name="state"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <strong><field name="name"/></strong>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+    <menuitem id="menu_sf_first_piece_root" name="First-Piece Validation" sequence="23"
+              web_icon="sf_first_piece_validation,static/description/icon.png"/>
+    <menuitem id="menu_sf_first_piece_main" name="Records"
+              parent="menu_sf_first_piece_root" action="action_sf_first_piece" sequence="10"/>
+</odoo>

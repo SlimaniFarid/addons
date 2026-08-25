@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_sf_energy_reading" model="ir.actions.act_window">
+        <field name="name">Energy Meter Readings &amp; Alerts</field>
+        <field name="res_model">sf.energy.meter.reading</field>
+        <field name="view_mode">list,form,kanban</field>
+    </record>
+    <record id="view_sf_energy_reading_form" model="ir.ui.view">
+        <field name="name">sf.energy.meter.reading.form</field>
+        <field name="model">sf.energy.meter.reading</field>
+        <field name="arch" type="xml">
+            <form string="Energy Meter Readings &amp; Alerts">
+                <header>
+                    <field name="state" widget="statusbar" statusbar_visible="recorded,validated"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="site"/>
+                            <field name="meter_ref"/>
+                            <field name="period_month"/>
+                            <field name="reading"/>
+                            <field name="consumption"/>
+                            <field name="anomaly"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="view_sf_energy_reading_list" model="ir.ui.view">
+        <field name="name">sf.energy.meter.reading.list</field>
+        <field name="model">sf.energy.meter.reading</field>
+        <field name="arch" type="xml">
+            <list string="Energy Meter Readings &amp; Alerts" sample="1">
+                <field name="site"/>
+                <field name="meter_ref"/>
+                <field name="period_month"/>
+                <field name="reading"/>
+                <field name="consumption"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'done'"
+                       decoration-info="state in ('submitted','approved')"/>
+            </list>
+        </field>
+    </record>
+    <record id="view_sf_energy_reading_kanban" model="ir.ui.view">
+        <field name="name">sf.energy.meter.reading.kanban</field>
+        <field name="model">sf.energy.meter.reading</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_view" group_by="state">
+                <field name="name"/>
+                <field name="state"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <strong><field name="name"/></strong>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+    <menuitem id="menu_sf_energy_reading_root" name="Energy Meter Readings &amp; Alerts" sequence="6"
+              web_icon="sf_energy_meter_readings,static/description/icon.png"/>
+    <menuitem id="menu_sf_energy_reading_main" name="Records"
+              parent="menu_sf_energy_reading_root" action="action_sf_energy_reading" sequence="10"/>
+</odoo>

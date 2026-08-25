@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sf_sales_battlecard_user,sf.sales_battlecard.user,model_sf_sales_battlecard,group_sales_battlecard_user,1,1,1,0
+access_sf_sales_battlecard_manager,sf.sales_battlecard.manager,model_sf_sales_battlecard,group_sales_battlecard_manager,1,1,1,1

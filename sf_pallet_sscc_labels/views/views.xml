@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_sf_pallet_sscc" model="ir.actions.act_window">
+        <field name="name">Pallet SSCC Label Generator</field>
+        <field name="res_model">sf.pallet.sscc</field>
+        <field name="view_mode">list,form,kanban</field>
+    </record>
+    <record id="view_sf_pallet_sscc_form" model="ir.ui.view">
+        <field name="name">sf.pallet.sscc.form</field>
+        <field name="model">sf.pallet.sscc</field>
+        <field name="arch" type="xml">
+            <form string="Pallet SSCC Label Generator">
+                <header>
+                    <button name="action_printed" type="object" string="Printed"
+                            class="btn-primary"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,printed,shipped"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="picking_id"/>
+                            <field name="sscc_code"/>
+                            <field name="pallet_type"/>
+                            <field name="gross_weight"/>
+                            <field name="printed"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="view_sf_pallet_sscc_list" model="ir.ui.view">
+        <field name="name">sf.pallet.sscc.list</field>
+        <field name="model">sf.pallet.sscc</field>
+        <field name="arch" type="xml">
+            <list string="Pallet SSCC Label Generator" sample="1">
+                <field name="picking_id"/>
+                <field name="sscc_code"/>
+                <field name="pallet_type"/>
+                <field name="gross_weight"/>
+                <field name="printed"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'done'"
+                       decoration-info="state in ('submitted','approved')"/>
+            </list>
+        </field>
+    </record>
+    <record id="view_sf_pallet_sscc_kanban" model="ir.ui.view">
+        <field name="name">sf.pallet.sscc.kanban</field>
+        <field name="model">sf.pallet.sscc</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_view" group_by="state">
+                <field name="name"/>
+                <field name="state"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <strong><field name="name"/></strong>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+    <menuitem id="menu_sf_pallet_sscc_root" name="Pallet SSCC Label Generator" sequence="23"
+              web_icon="sf_pallet_sscc_labels,static/description/icon.png"/>
+    <menuitem id="menu_sf_pallet_sscc_main" name="Records"
+              parent="menu_sf_pallet_sscc_root" action="action_sf_pallet_sscc" sequence="10"/>
+</odoo>

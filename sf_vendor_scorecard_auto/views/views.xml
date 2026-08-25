@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_sf_vendor_scorecard_auto" model="ir.actions.act_window">
+        <field name="name">Automated Vendor Scorecard</field>
+        <field name="res_model">sf.vendor_scorecard_auto</field>
+        <field name="view_mode">list,form,kanban</field>
+    </record>
+    <record id="view_sf_vendor_scorecard_auto_form" model="ir.ui.view">
+        <field name="name">sf.vendor_scorecard_auto.form</field>
+        <field name="model">sf.vendor_scorecard_auto</field>
+        <field name="arch" type="xml">
+            <form string="Automated Vendor Scorecard">
+                <header>
+                    <button name="action_submitted" type="object" string="Submitted"
+                            class="btn-primary"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,submitted,done"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="vendor_id"/>
+                            <field name="otd_percent"/>
+                            <field name="quality_percent"/>
+                            <field name="invoice_accuracy"/>
+                            <field name="overall_score"/>
+                            <field name="trend"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="view_sf_vendor_scorecard_auto_list" model="ir.ui.view">
+        <field name="name">sf.vendor_scorecard_auto.list</field>
+        <field name="model">sf.vendor_scorecard_auto</field>
+        <field name="arch" type="xml">
+            <list string="Automated Vendor Scorecard" sample="1">
+                <field name="vendor_id"/>
+                <field name="otd_percent"/>
+                <field name="quality_percent"/>
+                <field name="invoice_accuracy"/>
+                <field name="overall_score"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'done'"
+                       decoration-info="state in ('submitted','approved')"/>
+            </list>
+        </field>
+    </record>
+    <record id="view_sf_vendor_scorecard_auto_kanban" model="ir.ui.view">
+        <field name="name">sf.vendor_scorecard_auto.kanban</field>
+        <field name="model">sf.vendor_scorecard_auto</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_view" group_by="state">
+                <field name="name"/>
+                <field name="state"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <strong><field name="name"/></strong>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+    <menuitem id="menu_sf_vendor_scorecard_auto_root" name="Automated Vendor Scorecard" sequence="5"
+              web_icon="sf_vendor_scorecard_auto,static/description/icon.png"/>
+    <menuitem id="menu_sf_vendor_scorecard_auto_main" name="Records"
+              parent="menu_sf_vendor_scorecard_auto_root" action="action_sf_vendor_scorecard_auto" sequence="10"/>
+</odoo>

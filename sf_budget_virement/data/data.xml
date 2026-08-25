@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="seq_sf_budget_virement" model="ir.sequence">
+        <field name="name">Budget Transfer</field>
+        <field name="code">sf.budget.virement</field>
+        <field name="prefix">VIR/</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+</odoo>

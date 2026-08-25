@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sf_pipeline_audit_user,sf.pipeline.audit.user,model_sf_pipeline_audit,group_sales_hygiene_audit_user,1,1,1,0
+access_sf_pipeline_audit_manager,sf.pipeline.audit.manager,model_sf_pipeline_audit,group_sales_hygiene_audit_manager,1,1,1,1

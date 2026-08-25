@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="module_category_cycle_count_scheduler" model="ir.module.category">
+        <field name="name">Cycle Count Scheduler</field>
+        <field name="sequence">32</field>
+    </record>
+    <record id="group_cycle_count_scheduler_user" model="res.groups">
+        <field name="name">Cycle Count Scheduler User</field>
+        <field name="category_id" ref="module_category_cycle_count_scheduler"/>
+        <field name="implied_ids" eval="[(4, ref('stock.group_stock_user'))]"/>
+
+    </record>
+    <record id="group_cycle_count_scheduler_manager" model="res.groups">
+        <field name="name">Cycle Count Scheduler Manager</field>
+        <field name="category_id" ref="module_category_cycle_count_scheduler"/>
+        <field name="implied_ids" eval="[(4, ref('group_cycle_count_scheduler_user'))]"/>
+    </record>
+    <record id="rule_cycle_count_scheduler_sf_cycle_count" model="ir.rule">
+        <field name="name">Cycle Count: multi-company</field>
+        <field name="model_id" ref="model_sf_cycle_count"/>
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+    </record>
+
+    <record id="group_id" model="res.groups">
+        <field name="name">Id</field>
+        <field name="category_id" ref="module_category_cycle_count_scheduler"/>
+    </record>
+</odoo>

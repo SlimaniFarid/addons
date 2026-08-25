@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sf_production_scrap_analytics_user,sf.production_scrap_analytics.user,model_sf_production_scrap_analytics,group_production_scrap_analytics_user,1,1,1,0
+access_sf_production_scrap_analytics_manager,sf.production_scrap_analytics.manager,model_sf_production_scrap_analytics,group_production_scrap_analytics_manager,1,1,1,1

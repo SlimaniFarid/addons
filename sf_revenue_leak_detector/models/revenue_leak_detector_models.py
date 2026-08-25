@@ -1,0 +1,45 @@
+# -*- coding: utf-8 -*-
+"""Revenue Leak Detector models"""
+from odoo import api, fields, models, _
+from odoo.exceptions import UserError
+
+
+class SfRevenue_leak_detector(models.Model):
+    _name = 'sf.revenue_leak_detector'
+    _description = 'Revenue Leak Detector'
+    _inherit = ['mail.thread', 'mail.activity.mixin']
+    _order = 'create_date desc, id desc'
+
+    name = fields.Char(string='Reference', required=True, copy=False, readonly=True, default='New')
+    company_id = fields.Many2one('res.company', string='Company', required=True, default=lambda s: s.env.company, tracking=True)
+    leak_type = fields.Selection([
+        ('unbilled', 'Unbilled Service'),
+        ('expired_discount', 'Expired Discount'),
+        ('missed_escalation', 'Missed Escalation'),
+        ('other', 'Other'),
+        ], string='Leak Type', required=True)
+    partner_id = fields.Many2one('res.partner', string='Customer')
+    estimated_loss = fields.Monetary(string='Estimated Loss')
+    root_cause = fields.Text(string='Root Cause')
+    corrective = fields.Text(string='Corrective Action')
+    currency_id = fields.Many2one(related='company_id.currency_id')
+    state = fields.Selection([
+        ('draft', 'Draft'),
+        ('submitted', 'Submitted'),
+        ('done', 'Done'),
+        ], string='Status', default='draft', tracking=True, copy=False)
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            if vals.get('name', 'New') == 'New':
+                vals['name'] = self.env['ir.sequence'].next_by_code(
+                    'sf.revenue_leak_detector') or 'NEW'
+        return super().create(vals_list)
+
+    def action_submitted(self):
+        self.write({'state': 'submitted'})
+
+    def action_done(self):
+        self.write({'state': 'done'})
+

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="seq_sf_policy_exception_tracker" model="ir.sequence">
+        <field name="name">Policy Exception Tracker</field>
+        <field name="code">sf.policy_exception_tracker</field>
+        <field name="prefix">POL/</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+</odoo>

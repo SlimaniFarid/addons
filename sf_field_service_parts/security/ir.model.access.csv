@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sf_field_service_parts_user,sf.field_service_parts.user,model_sf_field_service_parts,group_field_service_parts_user,1,1,1,0
+access_sf_field_service_parts_manager,sf.field_service_parts.manager,model_sf_field_service_parts,group_field_service_parts_manager,1,1,1,1

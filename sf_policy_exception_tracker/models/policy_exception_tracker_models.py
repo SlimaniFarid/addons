@@ -1,0 +1,53 @@
+# -*- coding: utf-8 -*-
+"""Policy Exception Tracker models"""
+from odoo import api, fields, models, _
+from odoo.exceptions import UserError
+
+
+class SfPolicy_exception_tracker(models.Model):
+    _name = 'sf.policy_exception_tracker'
+    _description = 'Policy Exception Tracker'
+    _inherit = ['mail.thread', 'mail.activity.mixin']
+    _order = 'create_date desc, id desc'
+
+    name = fields.Char(string='Reference', required=True, copy=False, readonly=True, default='New')
+    company_id = fields.Many2one('res.company', string='Company', required=True, default=lambda s: s.env.company, tracking=True)
+    policy_name = fields.Char(string='Policy', required=True)
+    exception_reason = fields.Text(string='Reason', required=True)
+    risk_level = fields.Selection([
+        ('low', 'Low'),
+        ('medium', 'Medium'),
+        ('high', 'High'),
+        ], string='Risk', required=True)
+    compensating_controls = fields.Text(string='Compensating Controls')
+    valid_until = fields.Date(string='Valid Until')
+    approved_by_id = fields.Many2one('res.users', string='Approved By')
+    currency_id = fields.Many2one(related='company_id.currency_id')
+    state = fields.Selection([
+        ('draft', 'Draft'),
+        ('submitted', 'Submitted'),
+        ('approved', 'Approved'),
+        ('done', 'Done'),
+        ('cancelled', 'Cancelled'),
+        ], string='Status', default='draft', tracking=True, copy=False)
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            if vals.get('name', 'New') == 'New':
+                vals['name'] = self.env['ir.sequence'].next_by_code(
+                    'sf.policy_exception_tracker') or 'NEW'
+        return super().create(vals_list)
+
+    def action_submitted(self):
+        self.write({'state': 'submitted'})
+
+    def action_approved(self):
+        self.write({'state': 'approved'})
+
+    def action_done(self):
+        self.write({'state': 'done'})
+
+    def action_cancelled(self):
+        self.write({'state': 'cancelled'})
+

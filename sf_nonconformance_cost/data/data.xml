@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="seq_sf_nonconformance_cost" model="ir.sequence">
+        <field name="name">Non-Conformance Cost Calculator</field>
+        <field name="code">sf.nonconformance_cost</field>
+        <field name="prefix">NON/</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+</odoo>
