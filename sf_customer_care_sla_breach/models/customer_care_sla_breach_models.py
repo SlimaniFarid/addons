@@ -14,7 +14,7 @@ class SfCustomer_care_sla_breach(models.Model):
     company_id = fields.Many2one('res.company', string='Company', required=True, default=lambda s: s.env.company, tracking=True)
     period = fields.Char(string='Period', required=True)
     breach_type = fields.Char(string='Breach Type', required=True)
-    breach_count = fields.Integer(string='Count', required=True)
+    count = fields.Integer(string='Count', required=True)
     root_cause = fields.Text(string='Root Cause')
     prevention_action = fields.Text(string='Prevention Action')
     owner_id = fields.Many2one('res.users', string='Owner')

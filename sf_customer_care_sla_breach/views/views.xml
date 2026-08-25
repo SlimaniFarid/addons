@@ -23,7 +23,7 @@
                         <group>
                             <field name="period"/>
                             <field name="breach_type"/>
-                            <field name="breach_count"/>
+                            <field name="count"/>
                             <field name="root_cause"/>
                             <field name="prevention_action"/>
                             <field name="owner_id"/>
@@ -45,7 +45,7 @@
             <list string="SLA Breach Analyzer" sample="1">
                 <field name="period"/>
                 <field name="breach_type"/>
-                <field name="breach_count"/>
+                <field name="count"/>
                 <field name="root_cause"/>
                 <field name="prevention_action"/>
                 <field name="state" widget="badge"
@@ -73,7 +73,7 @@
             </kanban>
         </field>
     </record>
-    <menuitem id="menu_sf_customer_care_sla_breach_root" name="SLA Breach Analyzer" sequence="13"
+    <menuitem id="menu_sf_customer_care_sla_breach_root" name="SLA Breach Analyzer" sequence="24"
               web_icon="sf_customer_care_sla_breach,static/description/icon.png"/>
     <menuitem id="menu_sf_customer_care_sla_breach_main" name="Records"
               parent="menu_sf_customer_care_sla_breach_root" action="action_sf_customer_care_sla_breach" sequence="10"/>

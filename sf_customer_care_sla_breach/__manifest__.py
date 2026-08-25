@@ -2,12 +2,12 @@
     'name': 'SLA Breach Analyzer',
     'version': '18.0.1.0.0',
     'category': 'Sales/Sales',
-    'summary': 'Analyze SLA breaches: root causes, trends and prevention actions.',
+    'summary': 'Analyze SLA breaches: root causes, trends and prevention actions per team.',
     'description': """
 SLA Breach Analyzer
 ===================
 
-Analyze SLA breaches: root causes, trends and prevention actions.
+Analyze SLA breaches: root causes, trends and prevention actions per team.
 
 Features:
 ---------

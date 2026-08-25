@@ -359,4 +359,12 @@
             <field name="groups" eval="[(4, ref('group_spa_manager'))]"/>
         </record>
     </data>
+    <record id="group_id" model="res.groups">
+        <field name="name">Id</field>
+        <field name="category_id" ref="module_category_sf_spa"/>
+    </record>
+    <record id="group_sf_spa_wellness_user" model="res.groups">
+        <field name="name">Sf Spa Wellness User</field>
+        <field name="category_id" ref="module_category_sf_spa"/>
+    </record>
 </odoo>

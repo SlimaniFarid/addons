@@ -15,4 +15,8 @@
         <field name="category_id" ref="module_category_sf_customer_credit_limits"/>
         <field name="implied_ids" eval="[(4, ref('sf_customer_credit_limits.group_customer_credit_limits_user'))]"/>
     </record>
+    <record id="group_id" model="res.groups">
+        <field name="name">Id</field>
+        <field name="category_id" ref="module_category_sf_customer_credit_limits"/>
+    </record>
 </odoo>

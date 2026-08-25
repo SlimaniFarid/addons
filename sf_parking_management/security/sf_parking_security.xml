@@ -84,4 +84,8 @@
             <field name="groups" eval="[(4, ref('sf_parking_management.group_sf_parking_manager'))]"/>
         </record>
     </data>
+    <record id="group_id" model="res.groups">
+        <field name="name">Id</field>
+        <field name="category_id" ref="module_category_sf_parking"/>
+    </record>
 </odoo>

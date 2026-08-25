@@ -71,4 +71,8 @@
             <field name="groups" eval="[(4, ref('sf_courier_delivery.group_sf_courier_manager'))]"/>
         </record>
     </data>
+    <record id="group_id" model="res.groups">
+        <field name="name">Id</field>
+        <field name="category_id" ref="module_category_sf_courier"/>
+    </record>
 </odoo>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="seq_sf_supplier_pricing_history" model="ir.sequence">
+        <field name="name">Supplier Pricing History</field>
+        <field name="code">sf.supplier_pricing_history</field>
+        <field name="prefix">SUP/</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+</odoo>

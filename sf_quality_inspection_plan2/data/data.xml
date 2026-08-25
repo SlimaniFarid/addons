@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="seq_sf_quality_inspection_plan2" model="ir.sequence">
+        <field name="name">Inspection Plan Template</field>
+        <field name="code">sf.quality_inspection_plan2</field>
+        <field name="prefix">QUA/</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+</odoo>

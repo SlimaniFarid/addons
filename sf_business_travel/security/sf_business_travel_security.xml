@@ -45,4 +45,8 @@
             <field name="groups" eval="[(4, ref('sf_business_travel.group_sf_business_travel_manager'))]"/>
         </record>
     </data>
+    <record id="group_id" model="res.groups">
+        <field name="name">Id</field>
+        <field name="category_id" ref="module_category_sf_business_travel"/>
+    </record>
 </odoo>

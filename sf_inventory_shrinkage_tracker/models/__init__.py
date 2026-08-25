@@ -1,0 +1,1 @@
+from . import inventory_shrinkage_tracker_models

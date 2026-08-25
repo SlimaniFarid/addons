@@ -5,7 +5,7 @@ from odoo.exceptions import UserError
 
 
 class SfEnergyReading(models.Model):
-    _name = 'sf.energy.reading'
+    _name = 'sf.energy.meter.reading'
     _description = 'Meter Reading'
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _order = 'create_date desc, id desc'
@@ -29,7 +29,7 @@ class SfEnergyReading(models.Model):
         for vals in vals_list:
             if vals.get('name', 'New') == 'New':
                 vals['name'] = self.env['ir.sequence'].next_by_code(
-                    'sf.energy.reading') or 'NEW'
+                    'sf.energy.meter.reading') or 'NEW'
         return super().create(vals_list)
 
     def action_validated(self):

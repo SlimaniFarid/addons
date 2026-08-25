@@ -45,4 +45,8 @@
             <field name="groups" eval="[(4, ref('sf_dock_appointments.group_sf_dock_appointments_manager'))]"/>
         </record>
     </data>
+    <record id="group_id" model="res.groups">
+        <field name="name">Id</field>
+        <field name="category_id" ref="module_category_sf_dock_appointments"/>
+    </record>
 </odoo>

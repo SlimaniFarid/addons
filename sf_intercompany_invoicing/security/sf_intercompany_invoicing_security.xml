@@ -15,4 +15,8 @@
         <field name="category_id" ref="module_category_sf_intercompany_invoicing"/>
         <field name="implied_ids" eval="[(4, ref('sf_intercompany_invoicing.group_intercompany_invoicing_user'))]"/>
     </record>
+    <record id="group_id" model="res.groups">
+        <field name="name">Id</field>
+        <field name="category_id" ref="module_category_sf_intercompany_invoicing"/>
+    </record>
 </odoo>

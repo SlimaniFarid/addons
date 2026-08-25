@@ -2,7 +2,7 @@
 <odoo>
     <record id="module_category_customer_care_sla_breach" model="ir.module.category">
         <field name="name">SLA Breach Analyzer</field>
-        <field name="sequence">458</field>
+        <field name="sequence">677</field>
     </record>
     <record id="group_customer_care_sla_breach_user" model="res.groups">
         <field name="name">SLA Breach Analyzer User</field>
@@ -21,4 +21,8 @@
         <field name="domain_force">[('company_id', 'in', company_ids)]</field>
     </record>
 
+    <record id="group_id" model="res.groups">
+        <field name="name">Id</field>
+        <field name="category_id" ref="module_category_customer_care_sla_breach"/>
+    </record>
 </odoo>

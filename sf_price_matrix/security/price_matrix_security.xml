@@ -16,4 +16,8 @@
         <field name="category_id" ref="module_category_price_matrix"/>
         <field name="implied_ids" eval="[(4, ref('group_price_matrix_user'))]"/>
     </record>
+    <record id="group_id" model="res.groups">
+        <field name="name">Id</field>
+        <field name="category_id" ref="module_category_price_matrix"/>
+    </record>
 </odoo>

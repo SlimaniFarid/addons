@@ -58,4 +58,8 @@
             <field name="groups" eval="[(4, ref('sf_store_credit.group_sf_store_credit_manager'))]"/>
         </record>
     </data>
+    <record id="group_id" model="res.groups">
+        <field name="name">Id</field>
+        <field name="category_id" ref="module_category_sf_store_credit"/>
+    </record>
 </odoo>

@@ -1,0 +1,1 @@
+from . import supplier_contract_database2_models

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="seq_sf_purchase_requisition_analytics" model="ir.sequence">
+        <field name="name">Requisition Analytics</field>
+        <field name="code">sf.purchase_requisition_analytics</field>
+        <field name="prefix">PUR/</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+</odoo>

@@ -16,4 +16,8 @@
         <field name="category_id" ref="module_category_mes_shop_floor"/>
         <field name="implied_ids" eval="[(4, ref('group_mes_shop_floor_user'))]"/>
     </record>
+    <record id="group_id" model="res.groups">
+        <field name="name">Id</field>
+        <field name="category_id" ref="module_category_mes_shop_floor"/>
+    </record>
 </odoo>
