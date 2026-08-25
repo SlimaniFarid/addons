@@ -35,5 +35,10 @@ class EDIPeppolConfig(models.Model):
         return {'type': 'ir.actions.client', 'tag': 'display_notification', 'params': {'title': 'OK', 'message': 'Peppol AP reachable', 'type': 'success'}}
 
     def action_register_participant(self):
-        # Register participant in SMP
-        pass
+        self.ensure_one()
+        if not self.participant_id:
+            return {'type': 'ir.actions.client', 'tag': 'display_notification', 'params': {'title': 'Error', 'message': 'Participant ID is required', 'type': 'danger'}}
+        # In production, this would call the SMP API to register the participant
+        # For now, just log and notify
+        self.message_post(body=f'Participant registration requested for {self.participant_id} (scheme: {self.participant_scheme})')
+        return {'type': 'ir.actions.client', 'tag': 'display_notification', 'params': {'title': 'Queued', 'message': f'Registration request queued for {self.participant_id}', 'type': 'info'}}

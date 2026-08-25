@@ -27,6 +27,8 @@ class FAICharacteristic(models.Model):
     equipment_id = fields.Many2one('maintenance.equipment', string='Equipment Used')
     sample_size = fields.Integer(string='Sample Size', default=1)
     measured_values = fields.Text(string='Measured Values (one per line)')
+    upper_limit = fields.Float(string='Upper Limit', compute='_compute_limits', store=True)
+    lower_limit = fields.Float(string='Lower Limit', compute='_compute_limits', store=True)
     result = fields.Selection([
         ('pass', 'Pass'),
         ('fail', 'Fail'),
@@ -37,4 +39,18 @@ class FAICharacteristic(models.Model):
 
     @api.onchange('nominal', 'tolerance_plus', 'tolerance_minus')
     def _onchange_tolerance(self):
-        pass  # Could add computed upper/lower limits
+        # Update upper/lower limit display or validation
+        for rec in self:
+            if rec.nominal is not None and rec.tolerance_plus is not None and rec.tolerance_minus is not None:
+                rec.upper_limit = rec.nominal + rec.tolerance_plus
+                rec.lower_limit = rec.nominal - rec.tolerance_minus
+
+    @api.depends('nominal', 'tolerance_plus', 'tolerance_minus')
+    def _compute_limits(self):
+        for rec in self:
+            if rec.nominal is not None and rec.tolerance_plus is not None and rec.tolerance_minus is not None:
+                rec.upper_limit = rec.nominal + rec.tolerance_plus
+                rec.lower_limit = rec.nominal - rec.tolerance_minus
+            else:
+                rec.upper_limit = 0.0
+                rec.lower_limit = 0.0

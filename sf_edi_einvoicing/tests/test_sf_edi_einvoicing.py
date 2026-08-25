@@ -24,3 +24,15 @@ class TestSfEdiEinvoicing(TransactionCase):
             'state': 'draft',
         })
         self.assertEqual(config.state, 'draft')
+
+    def test_peppol_participant_registration(self):
+        """Test Peppol participant registration action"""
+        config = self.env['edi.peppol.config'].create({
+            'name': 'Test Peppol Config',
+            'participant_id': '0192:123456789',
+            'participant_scheme': '0192',
+        })
+        result = config.action_register_participant()
+        self.assertEqual(result['type'], 'ir.actions.client')
+        self.assertEqual(result['params']['type'], 'info')
+        self.assertIn('0192:123456789', result['params']['message'])

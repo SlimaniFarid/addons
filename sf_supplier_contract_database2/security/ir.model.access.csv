@@ -1,3 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_sf_supplier_contract_database2_user,sf.supplier_contract_database2.user,model_sf_supplier_contract_database2,group_supplier_contract_database2_user,1,1,1,0
-access_sf_supplier_contract_database2_manager,sf.supplier_contract_database2.manager,model_sf_supplier_contract_database2,group_supplier_contract_database2_manager,1,1,1,1

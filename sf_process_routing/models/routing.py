@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from odoo import api, fields, models, _
+from odoo.tools.safe_eval import safe_eval
 
 
 class ProcessRouting(models.Model):
@@ -190,9 +191,9 @@ class ProcessRoutingCondition(models.Model):
         if self.condition_type == 'custom':
             try:
                 local_dict = {'context': context, 'route': self.route_id, 'workcenter': self.workcenter_id}
-                exec(self.python_code, {"__builtins__": {}}, local_dict)
+                safe_eval(self.python_code, local_dict, mode="exec", nocopy=True)
                 return bool(local_dict.get('result', False))
-            except:
+            except Exception:
                 return False
         
         # Get the value to compare

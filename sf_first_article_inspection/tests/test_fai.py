@@ -80,3 +80,16 @@ class TestFAI(TransactionCase):
         })
         self.assertEqual(report.fai_type, 'partial')
         self.assertIn('critical', report.reason_partial.lower())
+
+    def test_07_tolerance_limits(self):
+        """Test characteristic upper/lower limit computation"""
+        report = self.Report.create({'part_id': self.part.id, 'fai_type': 'full'})
+        char = self.Char.create({
+            'report_id': report.id,
+            'characteristic_number': 'C001',
+            'nominal': 10.0,
+            'tolerance_plus': 0.1,
+            'tolerance_minus': 0.05,
+        })
+        self.assertAlmostEqual(char.upper_limit, 10.1, places=2)
+        self.assertAlmostEqual(char.lower_limit, 9.95, places=2)

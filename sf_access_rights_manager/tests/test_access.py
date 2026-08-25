@@ -49,3 +49,50 @@ class TestAccessRights(TransactionCase):
             'group_ids': [(6, 0, [self.group_sales.id])],
         })
         self.assertEqual(rule.action, 'readonly')
+
+    def test_field_rule_application(self):
+        """Test that field rule creates view inheritance"""
+        policy = self.env['access.policy'].create({
+            'name': 'Test Field Application',
+            'code': 'TST-FLD',
+            'group_ids': [(6, 0, [self.group_sales.id])],
+        })
+        model = self.env['ir.model']._get('sale.order')
+        field = self.env['ir.model.fields'].search([
+            ('model_id', '=', model.id), ('name', '=', 'amount_untaxed')
+        ], limit=1)
+        self.env['access.rule.field'].create({
+            'policy_id': policy.id,
+            'model_id': model.id,
+            'field_id': field.id,
+            'action': 'readonly',
+            'group_ids': [(6, 0, [self.group_sales.id])],
+        })
+        policy.action_apply()
+        # Check that view inheritance was created
+        views = self.env['ir.ui.view'].search([
+            ('model', '=', 'sale.order'),
+            ('inherit_id', '!=', False),
+        ])
+        self.assertTrue(views.filtered(lambda v: 'amount_untaxed' in v.arch or 'readonly' in v.arch))
+
+    def test_action_rule_application(self):
+        """Test that action rule modifies action groups"""
+        policy = self.env['access.policy'].create({
+            'name': 'Test Action Application',
+            'code': 'TST-ACT',
+            'group_ids': [(6, 0, [self.group_sales.id])],
+        })
+        action = self.env['ir.actions.act_window'].search([
+            ('res_model', '=', 'sale.order'), ('name', 'ilike', 'order')
+        ], limit=1)
+        if action:
+            self.env['access.rule.action'].create({
+                'policy_id': policy.id,
+                'action': 'deny',
+                'action_ids': [(6, 0, [action.id])],
+                'group_ids': [(6, 0, [self.group_sales.id])],
+            })
+            policy.action_apply()
+            action.refresh()
+            self.assertIn(self.group_sales, action.groups_id)

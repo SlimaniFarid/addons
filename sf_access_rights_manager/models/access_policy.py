@@ -64,24 +64,64 @@ class AccessPolicy(models.Model):
 
     def _apply_field_rules(self):
         # Field-level: create view inheritances with modifiers
-        # This is complex; simplified approach: store rules for JS/frontend
-        pass
+        # This is a simplified implementation that creates view modifiers
+        View = self.env['ir.ui.view']
+        for rule in self.field_rule_ids:
+            if not rule.model_id or not rule.field_id:
+                continue
+            # Find form views for the model
+            views = View.search([
+                ('model', '=', rule.model_id.model),
+                ('type', '=', 'form'),
+                ('mode', '=', 'primary'),
+            ])
+            for view in views:
+                # Create an inheritance view with the modifier
+                arch = f"""
+                <xpath expr="//field[@name='{rule.field_id.name}']" position="attributes">
+                    <attribute name="invisible">{1 if rule.action == 'invisible' else 0}</attribute>
+                    <attribute name="readonly">{1 if rule.action == 'readonly' else 0}</attribute>
+                    <attribute name="required">{1 if rule.action == 'required' else 0}</attribute>
+                </xpath>
+                """
+                View.create({
+                    'name': f'{view.name} - {rule.policy_id.code} - {rule.field_id.name}',
+                    'model': rule.model_id.model,
+                    'inherit_id': view.id,
+                    'arch': arch,
+                    'groups_id': [(6, 0, rule.group_ids.ids)],
+                })
 
     def _apply_action_rules(self):
         Action = self.env['ir.actions.act_window']
         for rule in self.action_rule_ids:
             actions = Action.search([('id', 'in', rule.action_ids.ids)])
             for action in actions:
-                groups = list(action.groups_id.ids)
                 if rule.action == 'deny':
                     action.write({'groups_id': [(4, g.id) for g in rule.group_ids]})
                 elif rule.action == 'allow':
+                    # Allow: remove any denying groups or ensure access
+                    # By default Odoo allows access; 'allow' is a no-op for standard behavior
                     pass
 
     def _apply_export_rules(self):
-        # Export control is typically via group 'base.group_no_one' on export actions
-        # or by removing export from search views
-        pass
+        # Export control: add/remove 'Export' permission via groups on model
+        # Find the export action for each model and adjust its groups
+        Action = self.env['ir.actions.act_window']
+        for rule in self.export_rule_ids:
+            if not rule.model_id:
+                continue
+            # Find export actions for this model
+            export_actions = Action.search([
+                ('res_model', '=', rule.model_id.model),
+                ('name', 'ilike', 'export'),
+            ])
+            for action in export_actions:
+                if rule.action == 'deny':
+                    action.write({'groups_id': [(4, g.id) for g in rule.group_ids]})
+                elif rule.action == 'allow':
+                    # Allow: ensure the groups have access
+                    pass
 
 
 class AccessRuleMenu(models.Model):
