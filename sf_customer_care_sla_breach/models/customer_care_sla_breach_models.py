@@ -39,3 +39,15 @@ class SfCustomer_care_sla_breach(models.Model):
     def action_done(self):
         self.write({'state': 'done'})
 
+# --- business booster (auto) ---
+class _Boost(models.Model):
+    _inherit = 'sf.customer_care_sla_breach'
+
+    active = fields.Boolean(string='Active', default=True)
+    def action_submitted(self):
+        res = super().action_submitted()
+        for rec in self:
+                vals = {'Record': rec.display_name or rec.name}
+                rec.message_post(body=', '.join('%s: %s' % kv for kv in vals.items()))
+        return res
+

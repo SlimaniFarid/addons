@@ -74,8 +74,7 @@
         <field name="name">sf.renewal.contract.list</field>
         <field name="model">sf.renewal.contract</field>
         <field name="arch" type="xml">
-            <list string="Renewal Contracts" sample="1"
-                  decoration-danger="state == 'expiring' and days_to_expiry &lt; 30">
+            <list string="Renewal Contracts" sample="1" decoration-danger="state == 'expiring' and days_to_expiry &lt; 30">
                 <field name="name"/>
                 <field name="partner_id"/>
                 <field name="contract_type"/>

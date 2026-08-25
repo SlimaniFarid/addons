@@ -44,3 +44,12 @@ class SfProductionTrial(models.Model):
     def action_decided(self):
         self.write({'state': 'decided'})
 
+# --- business booster (auto) ---
+class _Boost(models.Model):
+    _inherit = 'sf.production.trial'
+
+    active = fields.Boolean(string='Active', default=True)
+    user_id = fields.Many2one(
+        'res.users', string='Responsible', tracking=True,
+        index=True, default=lambda self: self.env.user,
+        help='Internal owner responsible for this record.')

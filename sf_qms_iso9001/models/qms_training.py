@@ -130,3 +130,32 @@ class QMSCertification(models.Model):
     issuing_body = fields.Char(string='Issuing Body')
     validity_years = fields.Integer(string='Validity (Years)')
     renewal_requirements = fields.Text(string='Renewal Requirements')
+
+# --- business booster (auto) ---
+class _Boost(models.Model):
+    _inherit = 'qms.audit'
+
+    is_overdue = fields.Boolean(
+        string='Overdue', compute='_boost_is_overdue',
+        store=True)
+
+    @api.depends('planned_end_date', 'state')
+    def _boost_is_overdue(self):
+        today = fields.Date.context_today(self)
+        for rec in self:
+            dl = rec.planned_end_date
+            terminal = False
+
+            terminal = rec.state in ('done', 'cancelled', 'closed', 'resolved', 'expired', 'rejected', 'obsolete', 'archived')
+
+            val = dl
+            if val is not None and hasattr(val, 'hour'):
+                val = val.date()
+            elif val is not None and not hasattr(val, 'year'):
+                try:
+                    import datetime as _dt
+                    val = _dt.date.fromisoformat(str(val)[:10])
+                except ValueError:
+                    val = None
+            rec.is_overdue = bool(val) and not terminal and val < today
+

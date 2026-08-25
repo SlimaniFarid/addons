@@ -136,3 +136,13 @@ class SfCustomerRebateAccrual(models.Model):
     units = fields.Float(string='Units')
     accrued_amount = fields.Float(string='Accrued Rebate')
     claimed = fields.Boolean(default=False)
+
+# --- business booster (auto) ---
+class _Boost(models.Model):
+    _inherit = 'sf.customer.rebate.deal'
+
+    active = fields.Boolean(string='Active', default=True)
+    user_id = fields.Many2one(
+        'res.users', string='Responsible', tracking=True,
+        index=True, default=lambda self: self.env.user,
+        help='Internal owner responsible for this record.')

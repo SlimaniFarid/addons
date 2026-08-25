@@ -135,3 +135,13 @@ class SfLaundryOrder(models.Model):
                     'Item %s in progress for more than %s hours' % (item.name, slow_hours),
                     'Reminder: the item has been in progress for more than %s hours.' % slow_hours,
                 )
+
+# --- business booster (auto) ---
+class _Boost(models.Model):
+    _inherit = 'sf.laundry.activity.mixin'
+
+    active = fields.Boolean(string='Active', default=True)
+    user_id = fields.Many2one(
+        'res.users', string='Responsible', tracking=True,
+        index=True, default=lambda self: self.env.user,
+        help='Internal owner responsible for this record.')

@@ -27,4 +27,12 @@ class SfBank_fee_analytics(models.Model):
                     'sf.bank_fee_analytics') or 'NEW'
         return super().create(vals_list)
 
+# --- business booster (auto) ---
+class _Boost(models.Model):
+    _inherit = 'sf.bank_fee_analytics'
 
+    active = fields.Boolean(string='Active', default=True)
+    user_id = fields.Many2one(
+        'res.users', string='Responsible', tracking=True,
+        index=True, default=lambda self: self.env.user,
+        help='Internal owner responsible for this record.')

@@ -58,8 +58,7 @@
         <field name="name">sf.customer.health.list</field>
         <field name="model">sf.customer.health</field>
         <field name="arch" type="xml">
-            <list string="Customer Health" sample="1"
-                  decoration-danger="risk in ('at_risk','churn')">
+            <list string="Customer Health" sample="1" decoration-danger="risk in ('at_risk','churn')">
                 <field name="partner_id"/>
                 <field name="owner_id"/>
                 <field name="revenue_12m"/>

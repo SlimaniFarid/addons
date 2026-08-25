@@ -49,8 +49,7 @@
         <t t-call="website.layout">
             <div id="wrap" class="container mt-4" style="max-width: 720px;">
                 <h3 class="mb-4">New Vendor Onboarding</h3>
-                <form action="/my/vendor-onboarding/submit" method="post"
-                      enctype="multipart/form-data">
+                <form action="/my/vendor-onboarding/submit" method="post" enctype="multipart/form-data">
                     <input type="hidden" name="csrf_token"
                            t-att-value="request.csrf_token()"/>
                     <div class="mb-3">

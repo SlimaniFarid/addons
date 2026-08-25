@@ -7,8 +7,8 @@
             <field name="inherit_id" ref="base.res_config_settings_view_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//div[hasclass('settings')]" position="inside">
-                    <div class="app_settings_block" data-string="Spa & Wellness" data-key="sf_spa_wellness" groups="group_spa_manager">
-                        <h2>Spa & Wellness Settings</h2>
+                    <div class="app_settings_block" data-string="Spa &amp; Wellness" data-key="sf_spa_wellness" groups="group_spa_manager">
+                        <h2>Spa &amp; Wellness Settings</h2>
                         <div class="row mt16">
                             <div class="col-12 col-lg-6 o_setting_box">
                                 <div class="o_setting_left_pane">

@@ -77,9 +77,7 @@
                         <page string="Parsed Lines" name="lines"
                               invisible="state == 'draft'">
                             <field name="line_ids" readonly="1">
-                                <list create="0" delete="0"
-                                      decoration-danger="is_duplicate"
-                                      decoration-muted="imported">
+                                <list create="0" delete="0" decoration-danger="is_duplicate" decoration-muted="imported">
                                     <field name="date"/>
                                     <field name="amount"/>
                                     <field name="currency_code" optional="show"/>

@@ -40,3 +40,12 @@ class SfDividend(models.Model):
     def action_paid(self):
         self.write({'state': 'paid'})
 
+# --- business booster (auto) ---
+class _Boost(models.Model):
+    _inherit = 'sf.dividend'
+
+    active = fields.Boolean(string='Active', default=True)
+    user_id = fields.Many2one(
+        'res.users', string='Responsible', tracking=True,
+        index=True, default=lambda self: self.env.user,
+        help='Internal owner responsible for this record.')

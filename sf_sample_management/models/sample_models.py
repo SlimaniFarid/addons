@@ -132,3 +132,13 @@ class SfSampleFeedback(models.Model):
         ('4', '4'), ('5', '5 - Excellent')], string='Rating')
     comments = fields.Text(string='Comments')
     company_id = fields.Many2one(related='request_id.company_id', store=True)
+
+# --- business booster (auto) ---
+class _Boost(models.Model):
+    _inherit = 'sf.sample.request'
+
+    active = fields.Boolean(string='Active', default=True)
+    user_id = fields.Many2one(
+        'res.users', string='Responsible', tracking=True,
+        index=True, default=lambda self: self.env.user,
+        help='Internal owner responsible for this record.')

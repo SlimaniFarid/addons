@@ -98,3 +98,13 @@ class SfPriceChangeLine(models.Model):
     def _onchange_product(self):
         if self.product_id:
             self.old_price = self.product_id.list_price
+
+# --- business booster (auto) ---
+class _Boost(models.Model):
+    _inherit = 'sf.price.change'
+
+    active = fields.Boolean(string='Active', default=True)
+    user_id = fields.Many2one(
+        'res.users', string='Responsible', tracking=True,
+        index=True, default=lambda self: self.env.user,
+        help='Internal owner responsible for this record.')

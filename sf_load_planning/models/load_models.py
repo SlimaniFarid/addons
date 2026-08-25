@@ -126,3 +126,13 @@ class SfLoadStop(models.Model):
     planned_arrival = fields.Datetime(string='Planned Arrival')
     notes = fields.Char(string='Notes')
     company_id = fields.Many2one(related='load_id.company_id', store=True)
+
+# --- business booster (auto) ---
+class _Boost(models.Model):
+    _inherit = 'sf.load.plan'
+
+    active = fields.Boolean(string='Active', default=True)
+    user_id = fields.Many2one(
+        'res.users', string='Responsible', tracking=True,
+        index=True, default=lambda self: self.env.user,
+        help='Internal owner responsible for this record.')

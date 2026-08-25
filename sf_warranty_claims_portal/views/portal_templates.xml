@@ -99,9 +99,7 @@
                             <t t-out="record.description or '-'"/></p>
                     </div>
                 </div>
-                <form t-if="record.state in ('draft', 'submitted')"
-                      t-attf-action="/my/warranty-claims/{{ record.id }}/cancel"
-                      method="post">
+                <form t-if="record.state in ('draft', 'submitted')" t-attf-action="/my/warranty-claims/{{ record.id }}/cancel" method="post">
                     <input type="hidden" name="csrf_token"
                            t-att-value="request.csrf_token()"/>
                     <button type="submit" class="btn btn-outline-danger">Cancel claim</button>

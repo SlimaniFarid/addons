@@ -44,3 +44,15 @@ class ShopFloorEntry(models.Model):
     def action_cancel(self):
         self.write({'state': 'cancelled'})
 
+# --- business booster (auto) ---
+class _Boost(models.Model):
+    _inherit = 'sf.shop.floor.terminal.shop.floor.entry'
+
+    active = fields.Boolean(string='Active', default=True)
+    def action_confirm(self):
+        res = super().action_confirm()
+        for rec in self:
+                vals = {'Record': rec.display_name or rec.name}
+                rec.message_post(body=', '.join('%s: %s' % kv for kv in vals.items()))
+        return res
+

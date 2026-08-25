@@ -52,3 +52,12 @@ class SfBomChange(models.Model):
     def action_rejected(self):
         self.write({'state': 'rejected'})
 
+# --- business booster (auto) ---
+class _Boost(models.Model):
+    _inherit = 'sf.bom.change'
+
+    active = fields.Boolean(string='Active', default=True)
+    user_id = fields.Many2one(
+        'res.users', string='Responsible', tracking=True,
+        index=True, default=lambda self: self.env.user,
+        help='Internal owner responsible for this record.')

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from odoo import models
+from odoo import models, fields
 
 
 class SfDockAppointmentsActivityMixin(models.AbstractModel):
@@ -20,3 +20,13 @@ class SfDockAppointmentsActivityMixin(models.AbstractModel):
             summary=subject,
             note=note,
         )
+
+# --- business booster (auto) ---
+class _Boost(models.Model):
+    _inherit = 'sf.dock'
+
+    active = fields.Boolean(string='Active', default=True)
+    user_id = fields.Many2one(
+        'res.users', string='Responsible', tracking=True,
+        index=True, default=lambda self: self.env.user,
+        help='Internal owner responsible for this record.')

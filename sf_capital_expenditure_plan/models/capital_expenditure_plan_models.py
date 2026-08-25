@@ -27,4 +27,12 @@ class SfCapital_expenditure_plan(models.Model):
                     'sf.capital_expenditure_plan') or 'NEW'
         return super().create(vals_list)
 
+# --- business booster (auto) ---
+class _Boost(models.Model):
+    _inherit = 'sf.capital_expenditure_plan'
 
+    active = fields.Boolean(string='Active', default=True)
+    user_id = fields.Many2one(
+        'res.users', string='Responsible', tracking=True,
+        index=True, default=lambda self: self.env.user,
+        help='Internal owner responsible for this record.')

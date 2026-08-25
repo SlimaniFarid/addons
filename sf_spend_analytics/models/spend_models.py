@@ -96,3 +96,13 @@ class SfSpendLine(models.Model):
     maverick_amount = fields.Float(string='Maverick Spend')
     maverick_percent = fields.Float(string='Maverick %')
     alert = fields.Boolean(string='Alert')
+
+# --- business booster (auto) ---
+class _Boost(models.Model):
+    _inherit = 'sf.spend.analysis'
+
+    active = fields.Boolean(string='Active', default=True)
+    user_id = fields.Many2one(
+        'res.users', string='Responsible', tracking=True,
+        index=True, default=lambda self: self.env.user,
+        help='Internal owner responsible for this record.')

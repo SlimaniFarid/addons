@@ -43,3 +43,12 @@ class SfEmergencyPurchase(models.Model):
     def action_po_created(self):
         self.write({'state': 'po_created'})
 
+# --- business booster (auto) ---
+class _Boost(models.Model):
+    _inherit = 'sf.emergency.purchase'
+
+    active = fields.Boolean(string='Active', default=True)
+    user_id = fields.Many2one(
+        'res.users', string='Responsible', tracking=True,
+        index=True, default=lambda self: self.env.user,
+        help='Internal owner responsible for this record.')

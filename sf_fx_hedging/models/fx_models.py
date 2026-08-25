@@ -154,3 +154,13 @@ class SfFxHedge(models.Model):
                 self.strike_rate - spot)
         self.write({'state': 'settled',
                     'settlement_date': fields.Date.context_today(self)})
+
+# --- business booster (auto) ---
+class _Boost(models.Model):
+    _inherit = 'sf.fx.exposure'
+
+    active = fields.Boolean(string='Active', default=True)
+    user_id = fields.Many2one(
+        'res.users', string='Responsible', tracking=True,
+        index=True, default=lambda self: self.env.user,
+        help='Internal owner responsible for this record.')

@@ -111,3 +111,13 @@ class SfAgingLine(models.Model):
         ('b3', '91-180 days'), ('b4', '180+ days')], string='Bucket')
     provision_percent = fields.Float(string='Provision %')
     provision_amount = fields.Float(string='Provision')
+
+# --- business booster (auto) ---
+class _Boost(models.Model):
+    _inherit = 'sf.aging.analysis'
+
+    active = fields.Boolean(string='Active', default=True)
+    user_id = fields.Many2one(
+        'res.users', string='Responsible', tracking=True,
+        index=True, default=lambda self: self.env.user,
+        help='Internal owner responsible for this record.')

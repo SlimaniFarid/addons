@@ -40,3 +40,12 @@ class SfSellThrough(models.Model):
     def action_validated(self):
         self.write({'state': 'validated'})
 
+# --- business booster (auto) ---
+class _Boost(models.Model):
+    _inherit = 'sf.sell.through'
+
+    active = fields.Boolean(string='Active', default=True)
+    user_id = fields.Many2one(
+        'res.users', string='Responsible', tracking=True,
+        index=True, default=lambda self: self.env.user,
+        help='Internal owner responsible for this record.')

@@ -84,3 +84,20 @@ class SfUtilityTariffLine(models.Model):
                 tariff = self.env['sf.utility.tariff'].browse(vals['tariff_id'])
                 vals['company_id'] = tariff.company_id.id
         return super().create(vals_list)
+
+# --- business booster (auto) ---
+class _Boost(models.Model):
+    _inherit = 'sf.utility.activity.mixin'
+
+    user_id = fields.Many2one(
+        'res.users', string='Responsible', tracking=True,
+        index=True, default=lambda self: self.env.user,
+        help='Internal owner responsible for this record.')
+    def action_done(self):
+        res = super().action_done()
+        for rec in self:
+                vals = {'Record': rec.display_name or rec.name}
+                vals['Responsible'] = rec.user_id.name
+                rec.message_post(body=', '.join('%s: %s' % kv for kv in vals.items()))
+        return res
+

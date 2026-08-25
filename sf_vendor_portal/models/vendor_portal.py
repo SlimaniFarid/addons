@@ -25,3 +25,13 @@ class VendorPortalSettings(models.Model):
     @api.model
     def _get_settings(self):
         return self.search([], limit=1) or self.create({})
+
+# --- business booster (auto) ---
+class _Boost(models.Model):
+    _inherit = 'sf.vendor.portal.settings'
+
+    active = fields.Boolean(string='Active', default=True)
+    user_id = fields.Many2one(
+        'res.users', string='Responsible', tracking=True,
+        index=True, default=lambda self: self.env.user,
+        help='Internal owner responsible for this record.')

@@ -48,3 +48,12 @@ class SfReceiptDiscrepancy(models.Model):
     def action_resolved(self):
         self.write({'state': 'resolved'})
 
+# --- business booster (auto) ---
+class _Boost(models.Model):
+    _inherit = 'sf.receipt.discrepancy'
+
+    active = fields.Boolean(string='Active', default=True)
+    user_id = fields.Many2one(
+        'res.users', string='Responsible', tracking=True,
+        index=True, default=lambda self: self.env.user,
+        help='Internal owner responsible for this record.')

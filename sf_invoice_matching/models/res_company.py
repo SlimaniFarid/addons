@@ -39,3 +39,16 @@ class ResConfigSettings(models.TransientModel):
         related='company_id.sf_match_tolerance_price_pct', readonly=False)
     sf_match_tolerance_total_pct = fields.Float(
         related='company_id.sf_match_tolerance_total_pct', readonly=False)
+
+# --- business booster (auto) ---
+class _Boost(models.Model):
+    _inherit = 'sf.invoice.match.line'
+
+    active = fields.Boolean(string='Active', default=True)
+    def action_confirm(self):
+        res = super().action_confirm()
+        for rec in self:
+                vals = {'Record': rec.display_name or rec.name}
+                rec.message_post(body=', '.join('%s: %s' % kv for kv in vals.items()))
+        return res
+

@@ -42,3 +42,15 @@ class SfShift_swap_board(models.Model):
     def action_done(self):
         self.write({'state': 'done'})
 
+# --- business booster (auto) ---
+class _Boost(models.Model):
+    _inherit = 'sf.shift_swap_board'
+
+    active = fields.Boolean(string='Active', default=True)
+    def action_submitted(self):
+        res = super().action_submitted()
+        for rec in self:
+                vals = {'Record': rec.display_name or rec.name}
+                rec.message_post(body=', '.join('%s: %s' % kv for kv in vals.items()))
+        return res
+

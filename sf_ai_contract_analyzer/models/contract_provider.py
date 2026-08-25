@@ -48,3 +48,32 @@ class ContractProvider(models.Model):
                 {'title': 'Auto-Renewal', 'severity': 'high', 'category': 'renewal'},
             ],
         }
+
+# --- business booster (auto) ---
+class _Boost(models.Model):
+    _inherit = 'contract.alert'
+
+    is_overdue = fields.Boolean(
+        string='Overdue', compute='_boost_is_overdue',
+        store=True)
+
+    @api.depends('expiration_date', 'state')
+    def _boost_is_overdue(self):
+        today = fields.Date.context_today(self)
+        for rec in self:
+            dl = rec.expiration_date
+            terminal = False
+
+            terminal = rec.state in ('done', 'cancelled', 'closed', 'resolved', 'expired', 'rejected', 'obsolete', 'archived')
+
+            val = dl
+            if val is not None and hasattr(val, 'hour'):
+                val = val.date()
+            elif val is not None and not hasattr(val, 'year'):
+                try:
+                    import datetime as _dt
+                    val = _dt.date.fromisoformat(str(val)[:10])
+                except ValueError:
+                    val = None
+            rec.is_overdue = bool(val) and not terminal and val < today
+

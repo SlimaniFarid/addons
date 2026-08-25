@@ -36,3 +36,12 @@ class SfPrepaid(models.Model):
     def action_fully_amortized(self):
         self.write({'state': 'fully_amortized'})
 
+# --- business booster (auto) ---
+class _Boost(models.Model):
+    _inherit = 'sf.prepaid'
+
+    active = fields.Boolean(string='Active', default=True)
+    user_id = fields.Many2one(
+        'res.users', string='Responsible', tracking=True,
+        index=True, default=lambda self: self.env.user,
+        help='Internal owner responsible for this record.')

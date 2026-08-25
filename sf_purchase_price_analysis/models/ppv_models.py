@@ -106,3 +106,13 @@ class SfPpvLine(models.Model):
     variance_amount = fields.Float(string='Variance Amount')
     variance_percent = fields.Float(string='Variance %')
     alert = fields.Boolean(string='Alert')
+
+# --- business booster (auto) ---
+class _Boost(models.Model):
+    _inherit = 'sf.ppv.analysis'
+
+    active = fields.Boolean(string='Active', default=True)
+    user_id = fields.Many2one(
+        'res.users', string='Responsible', tracking=True,
+        index=True, default=lambda self: self.env.user,
+        help='Internal owner responsible for this record.')
