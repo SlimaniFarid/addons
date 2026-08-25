@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_sf_capex_request" model="ir.actions.act_window">
+        <field name="name">CAPEX Requests</field>
+        <field name="res_model">sf.capex.request</field>
+        <field name="view_mode">list,form,kanban,pivot</field>
+        <field name="context">{'search_default_group_by_state': 1}</field>
+    </record>
+
+    <record id="view_sf_capex_request_form" model="ir.ui.view">
+        <field name="name">sf.capex.request.form</field>
+        <field name="model">sf.capex.request</field>
+        <field name="arch" type="xml">
+            <form string="CAPEX Request">
+                <header>
+                    <button name="action_submit" type="object"
+                            string="Submit for Approval" class="btn-primary"
+                            invisible="state != 'draft'"/>
+                    <button name="action_approve_level" type="object"
+                            string="Approve Current Level" class="btn-primary"
+                            invisible="state != 'submitted'"/>
+                    <button name="action_reject" type="object" string="Reject"
+                            class="btn-danger" invisible="state != 'submitted'"/>
+                    <button name="action_mark_ordered" type="object"
+                            string="Mark Ordered"
+                            invisible="state != 'approved'"/>
+                    <button name="action_capitalize" type="object"
+                            string="Capitalized" class="btn-success"
+                            invisible="state != 'ordered'"/>
+                    <button name="action_cancel" type="object" string="Cancel"
+                            invisible="state in ('capitalized','cancelled')"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,submitted,approved,ordered,capitalized"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="title"/>
+                            <field name="requester_id"/>
+                            <field name="department"/>
+                            <field name="category"/>
+                            <field name="vendor_suggestion_id"/>
+                        </group>
+                        <group>
+                            <field name="requested_amount"/>
+                            <field name="approved_amount" readonly="1"/>
+                            <field name="expected_date"/>
+                            <field name="useful_life_years"/>
+                            <field name="annual_benefit"/>
+                            <field name="payback_years" readonly="1"/>
+                            <field name="currency_id" invisible="1"/>
+                        </group>
+                    </group>
+                    <group string="Business Case">
+                        <field name="description"/>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="po_reference"/>
+                        </group>
+                        <group>
+                            <field name="asset_reference"
+                                   invisible="state not in ('ordered','capitalized')"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Approval Chain" name="approvals">
+                            <field name="approval_ids" readonly="state != 'draft'">
+                                <list editable="bottom">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="role_name"/>
+                                    <field name="required_amount_from"/>
+                                    <field name="required_amount_to"/>
+                                    <field name="state" readonly="1"/>
+                                    <field name="approver_user_id" readonly="1"/>
+                                    <field name="approval_date" readonly="1"/>
+                                    <field name="comment"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="view_sf_capex_request_list" model="ir.ui.view">
+        <field name="name">sf.capex.request.list</field>
+        <field name="model">sf.capex.request</field>
+        <field name="arch" type="xml">
+            <list string="CAPEX Requests" sample="1">
+                <field name="name"/>
+                <field name="title"/>
+                <field name="department"/>
+                <field name="category"/>
+                <field name="requested_amount"/>
+                <field name="payback_years" optional="show"/>
+                <field name="state" widget="badge"
+                       decoration-success="state in ('approved','capitalized')"
+                       decoration-danger="state == 'rejected'"/>
+            </list>
+        </field>
+    </record>
+    <record id="view_sf_capex_request_kanban" model="ir.ui.view">
+        <field name="name">sf.capex.request.kanban</field>
+        <field name="model">sf.capex.request</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_view" group_by="state">
+                <field name="name"/>
+                <field name="title"/>
+                <field name="requested_amount"/>
+                <field name="department"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <strong><field name="title"/></strong><br/>
+                                <field name="requested_amount"/><br/>
+                                <field name="department"/>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <menuitem id="menu_sf_capex_root" name="CAPEX" sequence="40"
+              web_icon="sf_capex_requests,static/description/icon.png"/>
+    <menuitem id="menu_sf_capex_requests" name="Requests"
+              parent="menu_sf_capex_root" action="action_sf_capex_request"
+              sequence="10"/>
+</odoo>

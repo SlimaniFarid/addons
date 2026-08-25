@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sf_spend_analysis_user,sf.spend.analysis.user,model_sf_spend_analysis,group_sf_spend_user,1,1,1,0
+access_sf_spend_analysis_manager,sf.spend.analysis.manager,model_sf_spend_analysis,group_sf_spend_manager,1,1,1,1
+access_sf_spend_line_user,sf.spend.line.user,model_sf_spend_line,group_sf_spend_user,1,1,1,0
+access_sf_spend_line_manager,sf.spend.line.manager,model_sf_spend_line,group_sf_spend_manager,1,1,1,1

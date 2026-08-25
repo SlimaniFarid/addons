@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sf_incident_user,sf.incident.user,model_sf_incident,group_sf_inc_user,1,1,1,0
+access_sf_incident_manager,sf.incident.manager,model_sf_incident,group_sf_inc_manager,1,1,1,1
+access_sf_inc_action_user,sf.incident.action.user,model_sf_incident_action,group_sf_inc_user,1,1,1,0
+access_sf_inc_action_manager,sf.incident.action.manager,model_sf_incident_action,group_sf_inc_manager,1,1,1,1

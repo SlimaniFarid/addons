@@ -1,1 +1,1 @@
-from . import models
+from . import coa_models

@@ -1,1 +1,1 @@
-from . import models
+from . import tel_models
