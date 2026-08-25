@@ -1,1 +1,1 @@
-from . import sample_models
+from . import models

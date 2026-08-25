@@ -1,1 +1,0 @@
-# Config model defined in forecast_model.py

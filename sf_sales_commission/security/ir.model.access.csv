@@ -1,9 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_sf_commission_plan_user,sf.commission.plan.user,model_sf_commission_plan,sf_sales_commission.group_commission_user,1,0,0,0
-access_sf_commission_plan_manager,sf.commission.plan.manager,model_sf_commission_plan,sf_sales_commission.group_commission_manager,1,1,1,1
-access_sf_commission_tier_user,sf.commission.plan.tier.user,model_sf_commission_plan_tier,sf_sales_commission.group_commission_user,1,0,0,0
-access_sf_commission_tier_manager,sf.commission.plan.tier.manager,model_sf_commission_plan_tier,sf_sales_commission.group_commission_manager,1,1,1,1
-access_sf_commission_rule_user,sf.commission.rule.user,model_sf_commission_rule,sf_sales_commission.group_commission_user,1,0,0,0
-access_sf_commission_rule_manager,sf.commission.rule.manager,model_sf_commission_rule,sf_sales_commission.group_commission_manager,1,1,1,1
-access_sf_commission_line_user,sf.commission.line.user,model_sf_commission_line,sf_sales_commission.group_commission_user,1,1,0,0
-access_sf_commission_line_manager,sf.commission.line.manager,model_sf_commission_line,sf_sales_commission.group_commission_manager,1,1,1,1

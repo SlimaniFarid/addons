@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sf_committee_decision_user,sf.committee.decision.user,model_sf_committee_decision,group_committee_decisions_user,1,1,1,0
+access_sf_committee_decision_manager,sf.committee.decision.manager,model_sf_committee_decision,group_committee_decisions_manager,1,1,1,1

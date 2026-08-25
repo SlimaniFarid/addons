@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="seq_sf_revenue_leakage_analyzer" model="ir.sequence">
+        <field name="name">Revenue Leakage Analyzer</field>
+        <field name="code">sf.revenue_leakage_analyzer</field>
+        <field name="prefix">REV/</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+</odoo>

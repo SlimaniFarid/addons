@@ -1,0 +1,41 @@
+# -*- coding: utf-8 -*-
+"""Daily Warehouse Throughput models"""
+from odoo import api, fields, models, _
+from odoo.exceptions import UserError
+
+
+class SfWarehouse_throughput_daily(models.Model):
+    _name = 'sf.warehouse_throughput_daily'
+    _description = 'Daily Warehouse Throughput'
+    _inherit = ['mail.thread', 'mail.activity.mixin']
+    _order = 'create_date desc, id desc'
+
+    name = fields.Char(string='Reference', required=True, copy=False, readonly=True, default='New')
+    company_id = fields.Many2one('res.company', string='Company', required=True, default=lambda s: s.env.company, tracking=True)
+    date = fields.Date(string='Date', required=True, default=fields.Date.today)
+    warehouse_id = fields.Many2one('stock.warehouse', string='Warehouse')
+    orders_shipped = fields.Integer(string='Orders Shipped')
+    lines_picked = fields.Integer(string='Lines Picked')
+    error_rate = fields.Float(string='Error Rate %')
+    operators_count = fields.Integer(string='Operators')
+    currency_id = fields.Many2one(related='company_id.currency_id')
+    state = fields.Selection([
+        ('draft', 'Draft'),
+        ('submitted', 'Submitted'),
+        ('done', 'Done'),
+        ], string='Status', default='draft', tracking=True, copy=False)
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            if vals.get('name', 'New') == 'New':
+                vals['name'] = self.env['ir.sequence'].next_by_code(
+                    'sf.warehouse_throughput_daily') or 'NEW'
+        return super().create(vals_list)
+
+    def action_submitted(self):
+        self.write({'state': 'submitted'})
+
+    def action_done(self):
+        self.write({'state': 'done'})
+

@@ -1,5 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_sf_dedup_scan_user,sf.dedup.scan.user,model_sf_dedup_scan,group_sf_dedup_user,1,1,1,0
-access_sf_dedup_scan_manager,sf.dedup.scan.manager,model_sf_dedup_scan,group_sf_dedup_manager,1,1,1,1
-access_sf_dedup_group_user,sf.dedup.group.user,model_sf_dedup_group,group_sf_dedup_user,1,1,1,0
-access_sf_dedup_group_manager,sf.dedup.group.manager,model_sf_dedup_group,group_sf_dedup_manager,1,1,1,1

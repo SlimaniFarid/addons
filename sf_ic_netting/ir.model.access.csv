@@ -1,7 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_sf_ic_session_user,sf.ic.netting.session.user,model_sf_ic_netting_session,group_sf_ic_user,1,1,1,0
-access_sf_ic_session_manager,sf.ic.netting.session.manager,model_sf_ic_netting_session,group_sf_ic_manager,1,1,1,1
-access_sf_ic_line_user,sf.ic.netting.line.user,model_sf_ic_netting_line,group_sf_ic_user,1,1,1,0
-access_sf_ic_line_manager,sf.ic.netting.line.manager,model_sf_ic_netting_line,group_sf_ic_manager,1,1,1,1
-access_sf_ic_dispute_user,sf.ic.netting.dispute.user,model_sf_ic_netting_dispute,group_sf_ic_user,1,1,1,0
-access_sf_ic_dispute_manager,sf.ic.netting.dispute.manager,model_sf_ic_netting_dispute,group_sf_ic_manager,1,1,1,1

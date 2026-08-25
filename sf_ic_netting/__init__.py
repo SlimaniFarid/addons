@@ -1,1 +1,1 @@
-from . import ic_models
+from . import models

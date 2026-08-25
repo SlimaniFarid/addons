@@ -1,5 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_sf_access_campaign_user,sf.access.campaign.user,model_sf_access_campaign,group_sf_ar_user,1,1,1,0
-access_sf_access_campaign_manager,sf.access.campaign.manager,model_sf_access_campaign,group_sf_ar_manager,1,1,1,1
-access_sf_access_review_user,sf.access.review.user,model_sf_access_review,group_sf_ar_user,1,1,1,0
-access_sf_access_review_manager,sf.access.review.manager,model_sf_access_review,group_sf_ar_manager,1,1,1,1

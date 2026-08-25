@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sf_decision_user,sf.decision.user,model_sf_decision,group_decision_log_user,1,1,1,0
+access_sf_decision_manager,sf.decision.manager,model_sf_decision,group_decision_log_manager,1,1,1,1

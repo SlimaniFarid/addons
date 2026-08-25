@@ -1,1 +1,2 @@
-# Wizards package
+from . import models
+from . import wizards

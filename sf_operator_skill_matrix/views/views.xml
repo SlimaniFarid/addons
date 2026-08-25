@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_sf_operator_skill" model="ir.actions.act_window">
+        <field name="name">Operator Skill Matrix</field>
+        <field name="res_model">sf.operator.skill</field>
+        <field name="view_mode">list,form,kanban</field>
+    </record>
+    <record id="view_sf_operator_skill_form" model="ir.ui.view">
+        <field name="name">sf.operator.skill.form</field>
+        <field name="model">sf.operator.skill</field>
+        <field name="arch" type="xml">
+            <form string="Operator Skill Matrix">
+                <header>
+                    <button name="action_expired" type="object" string="Expired"
+                            class="btn-primary"/>
+                    <field name="state" widget="statusbar" statusbar_visible="active,expired,revoked"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="employee_id"/>
+                            <field name="workcenter_id"/>
+                            <field name="skill_name"/>
+                            <field name="level"/>
+                            <field name="certified_date"/>
+                            <field name="expiry_date"/>
+                            <field name="training_needed"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="view_sf_operator_skill_list" model="ir.ui.view">
+        <field name="name">sf.operator.skill.list</field>
+        <field name="model">sf.operator.skill</field>
+        <field name="arch" type="xml">
+            <list string="Operator Skill Matrix" sample="1">
+                <field name="employee_id"/>
+                <field name="workcenter_id"/>
+                <field name="skill_name"/>
+                <field name="level"/>
+                <field name="certified_date"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'done'"
+                       decoration-info="state in ('submitted','approved')"/>
+            </list>
+        </field>
+    </record>
+    <record id="view_sf_operator_skill_kanban" model="ir.ui.view">
+        <field name="name">sf.operator.skill.kanban</field>
+        <field name="model">sf.operator.skill</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_view" group_by="state">
+                <field name="name"/>
+                <field name="state"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <strong><field name="name"/></strong>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+    <menuitem id="menu_sf_operator_skill_root" name="Operator Skill Matrix" sequence="19"
+              web_icon="sf_operator_skill_matrix,static/description/icon.png"/>
+    <menuitem id="menu_sf_operator_skill_main" name="Records"
+              parent="menu_sf_operator_skill_root" action="action_sf_operator_skill" sequence="10"/>
+</odoo>

@@ -1,1 +1,1 @@
-from . import ch_models
+from . import models

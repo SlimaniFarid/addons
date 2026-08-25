@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sf_service_item_user,sf.service.item.user,model_sf_service_item,group_service_catalog_user,1,1,1,0
+access_sf_service_item_manager,sf.service.item.manager,model_sf_service_item,group_service_catalog_manager,1,1,1,1

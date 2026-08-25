@@ -1,0 +1,44 @@
+# -*- coding: utf-8 -*-
+"""Sales Coaching Dashboard models"""
+from odoo import api, fields, models, _
+from odoo.exceptions import UserError
+
+
+class SfSales_coaching_dashboard(models.Model):
+    _name = 'sf.sales_coaching_dashboard'
+    _description = 'Sales Coaching Dashboard'
+    _inherit = ['mail.thread', 'mail.activity.mixin']
+    _order = 'create_date desc, id desc'
+
+    name = fields.Char(string='Reference', required=True, copy=False, readonly=True, default='New')
+    company_id = fields.Many2one('res.company', string='Company', required=True, default=lambda s: s.env.company, tracking=True)
+    rep_id = fields.Many2one('res.users', string='Sales Rep', required=True)
+    pipeline_health = fields.Selection([
+        ('healthy', 'Healthy'),
+        ('at_risk', 'At Risk'),
+        ('critical', 'Critical'),
+        ], string='Pipeline Health', default=healthy)
+    activity_score = fields.Float(string='Activity Score')
+    skill_gaps = fields.Text(string='Skill Gaps')
+    coach_notes = fields.Text(string='Coach Notes')
+    currency_id = fields.Many2one(related='company_id.currency_id')
+    state = fields.Selection([
+        ('draft', 'Draft'),
+        ('submitted', 'Submitted'),
+        ('done', 'Done'),
+        ], string='Status', default='draft', tracking=True, copy=False)
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            if vals.get('name', 'New') == 'New':
+                vals['name'] = self.env['ir.sequence'].next_by_code(
+                    'sf.sales_coaching_dashboard') or 'NEW'
+        return super().create(vals_list)
+
+    def action_submitted(self):
+        self.write({'state': 'submitted'})
+
+    def action_done(self):
+        self.write({'state': 'done'})
+

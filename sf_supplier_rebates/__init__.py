@@ -1,1 +1,1 @@
-from . import rebate_models
+from . import models

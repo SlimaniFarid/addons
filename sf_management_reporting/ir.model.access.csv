@@ -1,5 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_sf_mgmt_report_user,sf.mgmt.report.user,model_sf_mgmt_report,group_sf_mr_user,1,1,1,0
-access_sf_mgmt_report_manager,sf.mgmt.report.manager,model_sf_mgmt_report,group_sf_mr_manager,1,1,1,1
-access_sf_mgmt_kpi_user,sf.mgmt.report.kpi.user,model_sf_mgmt_report_kpi,group_sf_mr_user,1,1,1,0
-access_sf_mgmt_kpi_manager,sf.mgmt.report.kpi.manager,model_sf_mgmt_report_kpi,group_sf_mr_manager,1,1,1,1

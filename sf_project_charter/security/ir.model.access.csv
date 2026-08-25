@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sf_project_charter_user,sf.project_charter.user,model_sf_project_charter,group_project_charter_user,1,1,1,0
+access_sf_project_charter_manager,sf.project_charter.manager,model_sf_project_charter,group_project_charter_manager,1,1,1,1

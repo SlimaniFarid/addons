@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<odoo>
-    <record id="channel_catalogue" model="sf.pim.channel">
-        <field name="name">Catalogue</field>
-        <field name="code">catalogue</field>
-    </record>
-</odoo>

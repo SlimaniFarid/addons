@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sf_training_feedback_user,sf.training.feedback.user,model_sf_training_feedback,group_training_feedback_user,1,1,1,0
+access_sf_training_feedback_manager,sf.training.feedback.manager,model_sf_training_feedback,group_training_feedback_manager,1,1,1,1

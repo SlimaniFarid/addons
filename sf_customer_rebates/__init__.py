@@ -1,1 +1,1 @@
-from . import crebate_models
+from . import models

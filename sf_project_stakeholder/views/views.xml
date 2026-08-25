@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_sf_project_stakeholder" model="ir.actions.act_window">
+        <field name="name">Stakeholder Register</field>
+        <field name="res_model">sf.project_stakeholder</field>
+        <field name="view_mode">list,form,kanban</field>
+    </record>
+    <record id="view_sf_project_stakeholder_form" model="ir.ui.view">
+        <field name="name">sf.project_stakeholder.form</field>
+        <field name="model">sf.project_stakeholder</field>
+        <field name="arch" type="xml">
+            <form string="Stakeholder Register">
+                <header>
+                    <button name="action_submitted" type="object" string="Submitted"
+                            class="btn-primary"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,submitted,done"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="project_name"/>
+                            <field name="stakeholder_name"/>
+                            <field name="influence"/>
+                            <field name="interest"/>
+                            <field name="engagement_strategy"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="view_sf_project_stakeholder_list" model="ir.ui.view">
+        <field name="name">sf.project_stakeholder.list</field>
+        <field name="model">sf.project_stakeholder</field>
+        <field name="arch" type="xml">
+            <list string="Stakeholder Register" sample="1">
+                <field name="project_name"/>
+                <field name="stakeholder_name"/>
+                <field name="influence"/>
+                <field name="interest"/>
+                <field name="engagement_strategy"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'done'"
+                       decoration-info="state in ('submitted','approved')"/>
+            </list>
+        </field>
+    </record>
+    <record id="view_sf_project_stakeholder_kanban" model="ir.ui.view">
+        <field name="name">sf.project_stakeholder.kanban</field>
+        <field name="model">sf.project_stakeholder</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_view" group_by="state">
+                <field name="name"/>
+                <field name="state"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <strong><field name="name"/></strong>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+    <menuitem id="menu_sf_project_stakeholder_root" name="Stakeholder Register" sequence="2"
+              web_icon="sf_project_stakeholder,static/description/icon.png"/>
+    <menuitem id="menu_sf_project_stakeholder_main" name="Records"
+              parent="menu_sf_project_stakeholder_root" action="action_sf_project_stakeholder" sequence="10"/>
+</odoo>

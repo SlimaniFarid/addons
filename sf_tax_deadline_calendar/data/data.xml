@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="seq_sf_tax_deadline" model="ir.sequence">
+        <field name="name">Tax Deadline</field>
+        <field name="code">sf.tax.deadline</field>
+        <field name="prefix">TAX/</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+</odoo>

@@ -1,5 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_safety_stock_rule_user,sf.safety.stock.rule.user,model_sf_safety_stock_rule,group_safety_stock_user,1,1,0,0
-access_safety_stock_rule_manager,sf.safety.stock.rule.manager,model_sf_safety_stock_rule,group_safety_stock_manager,1,1,1,1
-access_safety_stock_demand_user,sf.safety.stock.demand.user,model_sf_safety_stock_demand,group_safety_stock_user,1,1,0,0
-access_safety_stock_demand_manager,sf.safety.stock.demand.manager,model_sf_safety_stock_demand,group_safety_stock_manager,1,1,1,1

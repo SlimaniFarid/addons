@@ -1,9 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_insurance_company_user,sf.insurance.company.user,model_sf_insurance_company,group_insurance_user,1,1,1,0
-access_insurance_company_manager,sf.insurance.company.manager,model_sf_insurance_company,group_insurance_manager,1,1,1,1
-access_insurance_policy_user,sf.insurance.policy.user,model_sf_insurance_policy,group_insurance_user,1,1,1,0
-access_insurance_policy_manager,sf.insurance.policy.manager,model_sf_insurance_policy,group_insurance_manager,1,1,1,1
-access_insurance_guarantee_user,sf.insurance.guarantee.user,model_sf_insurance_guarantee,group_insurance_user,1,1,1,0
-access_insurance_guarantee_manager,sf.insurance.guarantee.manager,model_sf_insurance_guarantee,group_insurance_manager,1,1,1,1
-access_insurance_claim_user,sf.insurance.claim.user,model_sf_insurance_claim,group_insurance_user,1,1,1,0
-access_insurance_claim_manager,sf.insurance.claim.manager,model_sf_insurance_claim,group_insurance_manager,1,1,1,1

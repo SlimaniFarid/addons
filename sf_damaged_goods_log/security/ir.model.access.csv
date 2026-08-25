@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sf_damaged_goods_user,sf.damaged.goods.user,model_sf_damaged_goods,group_damaged_goods_log_user,1,1,1,0
+access_sf_damaged_goods_manager,sf.damaged.goods.manager,model_sf_damaged_goods,group_damaged_goods_log_manager,1,1,1,1

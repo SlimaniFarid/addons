@@ -1,1 +1,1 @@
-from . import cob_models
+from . import models

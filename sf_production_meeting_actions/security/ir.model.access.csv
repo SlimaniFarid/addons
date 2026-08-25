@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sf_production_meeting_user,sf.production.meeting.user,model_sf_production_meeting,group_production_meeting_actions_user,1,1,1,0
+access_sf_production_meeting_manager,sf.production.meeting.manager,model_sf_production_meeting,group_production_meeting_actions_manager,1,1,1,1

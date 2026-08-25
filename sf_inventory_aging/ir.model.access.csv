@@ -1,5 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_sf_aging_analysis_user,sf.aging.analysis.user,model_sf_aging_analysis,group_sf_aging_user,1,1,1,0
-access_sf_aging_analysis_manager,sf.aging.analysis.manager,model_sf_aging_analysis,group_sf_aging_manager,1,1,1,1
-access_sf_aging_line_user,sf.aging.line.user,model_sf_aging_line,group_sf_aging_user,1,1,1,0
-access_sf_aging_line_manager,sf.aging.line.manager,model_sf_aging_line,group_sf_aging_manager,1,1,1,1

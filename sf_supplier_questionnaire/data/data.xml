@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="seq_sf_supplier_questionnaire" model="ir.sequence">
+        <field name="name">Questionnaire</field>
+        <field name="code">sf.supplier.questionnaire</field>
+        <field name="prefix">SQN/</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+</odoo>

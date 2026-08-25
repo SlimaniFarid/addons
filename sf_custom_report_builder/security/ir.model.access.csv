@@ -1,7 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_report_template_user,report.template.user,model_report_template,base.group_user,1,0,0,0
-access_report_template_mgr,report.template.mgr,model_report_template,base.group_system,1,1,1,1
-access_report_block_user,report.block.user,model_report_block,base.group_user,1,0,0,0
-access_report_block_mgr,report.block.mgr,model_report_block,base.group_system,1,1,1,1
-access_report_assignment_user,report.assignment.user,model_report_assignment,base.group_user,1,0,0,0
-access_report_assignment_mgr,report.assignment.mgr,model_report_assignment,base.group_system,1,1,1,1

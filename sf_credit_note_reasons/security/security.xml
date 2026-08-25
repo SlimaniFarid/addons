@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="module_category_credit_note_reasons" model="ir.module.category">
+        <field name="name">Credit Note Reason Analytics</field>
+        <field name="sequence">44</field>
+    </record>
+    <record id="group_credit_note_reasons_user" model="res.groups">
+        <field name="name">Credit Note Reason Analytics User</field>
+        <field name="category_id" ref="module_category_credit_note_reasons"/>
+
+    </record>
+    <record id="group_credit_note_reasons_manager" model="res.groups">
+        <field name="name">Credit Note Reason Analytics Manager</field>
+        <field name="category_id" ref="module_category_credit_note_reasons"/>
+        <field name="implied_ids" eval="[(4, ref('group_credit_note_reasons_user'))]"/>
+    </record>
+    <record id="rule_credit_note_reasons_sf_credit_reason" model="ir.rule">
+        <field name="name">Credit Note Reason Record: multi-company</field>
+        <field name="model_id" ref="model_sf_credit_reason"/>
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+    </record>
+
+</odoo>

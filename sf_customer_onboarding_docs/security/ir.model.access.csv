@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sf_customer_doc_req_user,sf.customer.doc.req.user,model_sf_customer_doc_req,group_customer_onboarding_docs_user,1,1,1,0
+access_sf_customer_doc_req_manager,sf.customer.doc.req.manager,model_sf_customer_doc_req,group_customer_onboarding_docs_manager,1,1,1,1

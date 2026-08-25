@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sf_order_freeze_user,sf.order.freeze.user,model_sf_order_freeze,group_order_freeze_windows_user,1,1,1,0
+access_sf_order_freeze_manager,sf.order.freeze.manager,model_sf_order_freeze,group_order_freeze_windows_manager,1,1,1,1

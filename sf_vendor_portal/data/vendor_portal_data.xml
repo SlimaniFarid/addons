@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<odoo>
-    <data noupdate="1">
-        <record id="vendor_portal_settings_default" model="sf.vendor.portal.settings">
-            <field name="name">Vendor Portal</field>
-            <field name="welcome_message">Welcome to our vendor portal. Track your quotations, orders and invoices online.</field>
-        </record>
-    </data>
-</odoo>

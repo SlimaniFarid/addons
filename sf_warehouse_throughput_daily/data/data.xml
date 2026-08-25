@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="seq_sf_warehouse_throughput_daily" model="ir.sequence">
+        <field name="name">Daily Warehouse Throughput</field>
+        <field name="code">sf.warehouse_throughput_daily</field>
+        <field name="prefix">WAR/</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+</odoo>

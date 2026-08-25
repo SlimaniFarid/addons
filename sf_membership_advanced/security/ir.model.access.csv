@@ -1,9 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_membership_plan_user,membership.plan.user,model_membership_plan,base.group_user,1,0,0,0
-access_membership_plan_mgr,membership.plan.mgr,model_membership_plan,base.group_system,1,1,1,1
-access_membership_member_user,membership.member.user,model_membership_member,base.group_user,1,0,0,0
-access_membership_member_mgr,membership.member.mgr,model_membership_member,base.group_system,1,1,1,1
-access_membership_sub_user,membership.subscription.user,model_membership_subscription,base.group_user,1,0,0,0
-access_membership_sub_mgr,membership.subscription.mgr,model_membership_subscription,base.group_system,1,1,1,1
-access_membership_pay_user,membership.payment.user,model_membership_payment,base.group_user,1,0,0,0
-access_membership_pay_mgr,membership.payment.mgr,model_membership_payment,base.group_system,1,1,1,1

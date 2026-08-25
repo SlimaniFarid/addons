@@ -1,1 +1,1 @@
-from . import kyc_models
+from . import models

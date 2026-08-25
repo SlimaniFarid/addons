@@ -1,5 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_sf_ppv_analysis_user,sf.ppv.analysis.user,model_sf_ppv_analysis,group_sf_ppv_user,1,1,1,0
-access_sf_ppv_analysis_manager,sf.ppv.analysis.manager,model_sf_ppv_analysis,group_sf_ppv_manager,1,1,1,1
-access_sf_ppv_line_user,sf.ppv.line.user,model_sf_ppv_line,group_sf_ppv_user,1,1,1,0
-access_sf_ppv_line_manager,sf.ppv.line.manager,model_sf_ppv_line,group_sf_ppv_manager,1,1,1,1

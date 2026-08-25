@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="seq_sf_project_risk" model="ir.sequence">
+        <field name="name">Project Risk</field>
+        <field name="code">sf.project.risk</field>
+        <field name="prefix">PRL/</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+</odoo>

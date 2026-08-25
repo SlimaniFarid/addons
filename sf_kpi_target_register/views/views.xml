@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_sf_kpi_definition" model="ir.actions.act_window">
+        <field name="name">KPI Definition &amp; Target Register</field>
+        <field name="res_model">sf.kpi.definition</field>
+        <field name="view_mode">list,form,kanban</field>
+    </record>
+    <record id="view_sf_kpi_definition_form" model="ir.ui.view">
+        <field name="name">sf.kpi.definition.form</field>
+        <field name="model">sf.kpi.definition</field>
+        <field name="arch" type="xml">
+            <form string="KPI Definition &amp; Target Register">
+                <header>
+                    <button name="action_under_review" type="object" string="Under Review"
+                            class="btn-primary"/>
+                    <field name="state" widget="statusbar" statusbar_visible="active,under_review,retired"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="kpi_name"/>
+                            <field name="formula"/>
+                            <field name="owner_id"/>
+                            <field name="frequency"/>
+                            <field name="target_value"/>
+                            <field name="actual_value"/>
+                            <field name="unit"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="view_sf_kpi_definition_list" model="ir.ui.view">
+        <field name="name">sf.kpi.definition.list</field>
+        <field name="model">sf.kpi.definition</field>
+        <field name="arch" type="xml">
+            <list string="KPI Definition &amp; Target Register" sample="1">
+                <field name="kpi_name"/>
+                <field name="formula"/>
+                <field name="owner_id"/>
+                <field name="frequency"/>
+                <field name="target_value"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'done'"
+                       decoration-info="state in ('submitted','approved')"/>
+            </list>
+        </field>
+    </record>
+    <record id="view_sf_kpi_definition_kanban" model="ir.ui.view">
+        <field name="name">sf.kpi.definition.kanban</field>
+        <field name="model">sf.kpi.definition</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_view" group_by="state">
+                <field name="name"/>
+                <field name="state"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <strong><field name="name"/></strong>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+    <menuitem id="menu_sf_kpi_definition_root" name="KPI Definition &amp; Target Register" sequence="11"
+              web_icon="sf_kpi_target_register,static/description/icon.png"/>
+    <menuitem id="menu_sf_kpi_definition_main" name="Records"
+              parent="menu_sf_kpi_definition_root" action="action_sf_kpi_definition" sequence="10"/>
+</odoo>

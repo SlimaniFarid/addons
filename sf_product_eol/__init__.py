@@ -1,1 +1,1 @@
-from . import eol_models
+from . import models

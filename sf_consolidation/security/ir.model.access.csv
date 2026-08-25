@@ -1,7 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_consolidation_group_user,sf.consolidation.group.user,model_sf_consolidation_group,group_consolidation_user,1,1,0,0
-access_consolidation_group_manager,sf.consolidation.group.manager,model_sf_consolidation_group,group_consolidation_manager,1,1,1,1
-access_consolidation_period_user,sf.consolidation.period.user,model_sf_consolidation_period,group_consolidation_user,1,1,0,0
-access_consolidation_period_manager,sf.consolidation.period.manager,model_sf_consolidation_period,group_consolidation_manager,1,1,1,1
-access_consolidation_line_user,sf.consolidation.line.user,model_sf_consolidation_line,group_consolidation_user,1,1,1,0
-access_consolidation_line_manager,sf.consolidation.line.manager,model_sf_consolidation_line,group_consolidation_manager,1,1,1,1

@@ -1,3 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_traceability_recall_user,sf.traceability.recall.user,model_sf_traceability_recall,group_traceability_user,1,1,1,0
-access_traceability_recall_manager,sf.traceability.recall.manager,model_sf_traceability_recall,group_traceability_manager,1,1,1,1

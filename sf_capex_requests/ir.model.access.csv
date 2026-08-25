@@ -1,5 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_sf_capex_request_user,sf.capex.request.user,model_sf_capex_request,group_sf_capex_user,1,1,1,0
-access_sf_capex_request_manager,sf.capex.request.manager,model_sf_capex_request,group_sf_capex_manager,1,1,1,1
-access_sf_capex_approval_user,sf.capex.approval.user,model_sf_capex_approval,group_sf_capex_user,1,1,1,0
-access_sf_capex_approval_manager,sf.capex.approval.manager,model_sf_capex_approval,group_sf_capex_manager,1,1,1,1

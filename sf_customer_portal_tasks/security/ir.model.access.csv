@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sf_portal_task_user,sf.portal.task.user,model_sf_portal_task,group_customer_portal_tasks_user,1,1,1,0
+access_sf_portal_task_manager,sf.portal.task.manager,model_sf_portal_task,group_customer_portal_tasks_manager,1,1,1,1

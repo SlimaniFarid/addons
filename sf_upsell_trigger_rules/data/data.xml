@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="seq_sf_upsell_trigger_rules" model="ir.sequence">
+        <field name="name">Upsell Trigger Rules</field>
+        <field name="code">sf.upsell_trigger_rules</field>
+        <field name="prefix">UPS/</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+</odoo>

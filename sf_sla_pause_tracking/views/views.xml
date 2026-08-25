@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_sf_sla_pause" model="ir.actions.act_window">
+        <field name="name">SLA Clock Pause Tracking</field>
+        <field name="res_model">sf.sla.pause</field>
+        <field name="view_mode">list,form,kanban</field>
+    </record>
+    <record id="view_sf_sla_pause_form" model="ir.ui.view">
+        <field name="name">sf.sla.pause.form</field>
+        <field name="model">sf.sla.pause</field>
+        <field name="arch" type="xml">
+            <form string="SLA Clock Pause Tracking">
+                <header>
+                    <field name="state" widget="statusbar" statusbar_visible="paused,resumed"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="ticket_ref"/>
+                            <field name="pause_reason"/>
+                            <field name="paused_at"/>
+                            <field name="resumed_at"/>
+                            <field name="pause_minutes"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="view_sf_sla_pause_list" model="ir.ui.view">
+        <field name="name">sf.sla.pause.list</field>
+        <field name="model">sf.sla.pause</field>
+        <field name="arch" type="xml">
+            <list string="SLA Clock Pause Tracking" sample="1">
+                <field name="ticket_ref"/>
+                <field name="pause_reason"/>
+                <field name="paused_at"/>
+                <field name="resumed_at"/>
+                <field name="pause_minutes"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'done'"
+                       decoration-info="state in ('submitted','approved')"/>
+            </list>
+        </field>
+    </record>
+    <record id="view_sf_sla_pause_kanban" model="ir.ui.view">
+        <field name="name">sf.sla.pause.kanban</field>
+        <field name="model">sf.sla.pause</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_view" group_by="state">
+                <field name="name"/>
+                <field name="state"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <strong><field name="name"/></strong>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+    <menuitem id="menu_sf_sla_pause_root" name="SLA Clock Pause Tracking" sequence="7"
+              web_icon="sf_sla_pause_tracking,static/description/icon.png"/>
+    <menuitem id="menu_sf_sla_pause_main" name="Records"
+              parent="menu_sf_sla_pause_root" action="action_sf_sla_pause" sequence="10"/>
+</odoo>

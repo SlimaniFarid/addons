@@ -1,7 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_realestate_property_user,sf.realestate.property.user,model_sf_realestate_property,group_real_estate_user,1,1,0,0
-access_realestate_property_manager,sf.realestate.property.manager,model_sf_realestate_property,group_real_estate_manager,1,1,1,1
-access_realestate_lease_user,sf.realestate.lease.user,model_sf_realestate_lease,group_real_estate_user,1,1,0,0
-access_realestate_lease_manager,sf.realestate.lease.manager,model_sf_realestate_lease,group_real_estate_manager,1,1,1,1
-access_realestate_rent_invoice_user,sf.realestate.rent.invoice.user,model_sf_realestate_rent_invoice,group_real_estate_user,1,1,0,0
-access_realestate_rent_invoice_manager,sf.realestate.rent.invoice.manager,model_sf_realestate_rent_invoice,group_real_estate_manager,1,1,1,1

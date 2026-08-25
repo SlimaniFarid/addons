@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sf_supplier_invoice_matching_user,sf.supplier_invoice_matching.user,model_sf_supplier_invoice_matching,group_supplier_invoice_matching_user,1,1,1,0
+access_sf_supplier_invoice_matching_manager,sf.supplier_invoice_matching.manager,model_sf_supplier_invoice_matching,group_supplier_invoice_matching_manager,1,1,1,1

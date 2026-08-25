@@ -1,5 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_export_dossier_user,sf.export.dossier.user,model_sf_export_dossier,group_export_user,1,1,1,0
-access_export_dossier_manager,sf.export.dossier.manager,model_sf_export_dossier,group_export_manager,1,1,1,1
-access_export_incoterm_user,sf.export.incoterm.user,model_sf_export_incoterm,group_export_user,1,0,0,0
-access_export_incoterm_manager,sf.export.incoterm.manager,model_sf_export_incoterm,group_export_manager,1,1,1,1

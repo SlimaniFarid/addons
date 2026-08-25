@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sf_quality_alert_escalation_user,sf.quality_alert_escalation.user,model_sf_quality_alert_escalation,group_quality_alert_escalation_user,1,1,1,0
+access_sf_quality_alert_escalation_manager,sf.quality_alert_escalation.manager,model_sf_quality_alert_escalation,group_quality_alert_escalation_manager,1,1,1,1

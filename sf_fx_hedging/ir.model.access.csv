@@ -1,7 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_sf_fx_exposure_user,sf.fx.exposure.user,model_sf_fx_exposure,group_sf_fx_user,1,1,1,0
-access_sf_fx_exposure_manager,sf.fx.exposure.manager,model_sf_fx_exposure,group_sf_fx_manager,1,1,1,1
-access_sf_fx_exposure_line_user,sf.fx.exposure.line.user,model_sf_fx_exposure_line,group_sf_fx_user,1,1,1,0
-access_sf_fx_exposure_line_manager,sf.fx.exposure.line.manager,model_sf_fx_exposure_line,group_sf_fx_manager,1,1,1,1
-access_sf_fx_hedge_user,sf.fx.hedge.user,model_sf_fx_hedge,group_sf_fx_user,1,1,1,0
-access_sf_fx_hedge_manager,sf.fx.hedge.manager,model_sf_fx_hedge,group_sf_fx_manager,1,1,1,1

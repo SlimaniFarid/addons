@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sf_sla_pause_user,sf.sla.pause.user,model_sf_sla_pause,group_sla_pause_tracking_user,1,1,1,0
+access_sf_sla_pause_manager,sf.sla.pause.manager,model_sf_sla_pause,group_sla_pause_tracking_manager,1,1,1,1

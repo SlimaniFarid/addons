@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sf_glossary_term_user,sf.glossary.term.user,model_sf_glossary_term,group_business_glossary_user,1,1,1,0
+access_sf_glossary_term_manager,sf.glossary.term.manager,model_sf_glossary_term,group_business_glossary_manager,1,1,1,1

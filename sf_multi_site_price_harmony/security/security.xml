@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="module_category_multi_site_price_harmony" model="ir.module.category">
+        <field name="name">Multi-Site Price Harmony Check</field>
+        <field name="sequence">11</field>
+    </record>
+    <record id="group_multi_site_price_harmony_user" model="res.groups">
+        <field name="name">Multi-Site Price Harmony Check User</field>
+        <field name="category_id" ref="module_category_multi_site_price_harmony"/>
+        <field name="implied_ids" eval="[(4, ref('sales_team.group_sale_salesman'))]"/>
+
+    </record>
+    <record id="group_multi_site_price_harmony_manager" model="res.groups">
+        <field name="name">Multi-Site Price Harmony Check Manager</field>
+        <field name="category_id" ref="module_category_multi_site_price_harmony"/>
+        <field name="implied_ids" eval="[(4, ref('group_multi_site_price_harmony_user'))]"/>
+    </record>
+    <record id="rule_multi_site_price_harmony_sf_price_harmony" model="ir.rule">
+        <field name="name">Price Harmony Check: multi-company</field>
+        <field name="model_id" ref="model_sf_price_harmony"/>
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+    </record>
+
+</odoo>

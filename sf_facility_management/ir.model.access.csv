@@ -1,7 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_sf_fac_site_user,sf.facility.site.user,model_sf_facility_site,group_sf_fac_user,1,1,1,0
-access_sf_fac_site_manager,sf.facility.site.manager,model_sf_facility_site,group_sf_fac_manager,1,1,1,1
-access_sf_fac_room_user,sf.facility.room.user,model_sf_facility_room,group_sf_fac_user,1,1,1,0
-access_sf_fac_room_manager,sf.facility.room.manager,model_sf_facility_room,group_sf_fac_manager,1,1,1,1
-access_sf_fac_booking_user,sf.facility.booking.user,model_sf_facility_booking,group_sf_fac_user,1,1,1,1
-access_sf_fac_booking_manager,sf.facility.booking.manager,model_sf_facility_booking,group_sf_fac_manager,1,1,1,1

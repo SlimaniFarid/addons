@@ -1,9 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_andon_call_operator,sf.andon.call.operator,model_sf_andon_call,group_mes_andons_operator,1,1,1,0
-access_andon_call_responder,sf.andon.call.responder,model_sf_andon_call,group_mes_andons_responder,1,1,1,0
-access_andon_call_manager,sf.andon.call.manager,model_sf_andon_call,group_mes_andons_manager,1,1,1,1
-access_andon_station_operator,sf.andon.station.operator,model_sf_andon_station,group_mes_andons_operator,1,0,0,0
-access_andon_station_manager,sf.andon.station.manager,model_sf_andon_station,group_mes_andons_manager,1,1,1,1
-access_escalation_rule_manager,sf.andon.escalation.rule.manager,model_sf_andon_escalation_rule,group_mes_andons_manager,1,1,1,1
-access_response_log_operator,sf.andon.response.log.operator,model_sf_andon_response_log,group_mes_andons_operator,1,0,0,0
-access_response_log_manager,sf.andon.response.log.manager,model_sf_andon_response_log,group_mes_andons_manager,1,1,1,1

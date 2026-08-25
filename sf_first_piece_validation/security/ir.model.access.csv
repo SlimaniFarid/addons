@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sf_first_piece_user,sf.first.piece.user,model_sf_first_piece,group_first_piece_validation_user,1,1,1,0
+access_sf_first_piece_manager,sf.first.piece.manager,model_sf_first_piece,group_first_piece_validation_manager,1,1,1,1

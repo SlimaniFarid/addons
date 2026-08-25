@@ -1,7 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_sf_sample_request_user,sf.sample.request.user,model_sf_sample_request,group_sf_sample_user,1,1,1,0
-access_sf_sample_request_manager,sf.sample.request.manager,model_sf_sample_request,group_sf_sample_manager,1,1,1,1
-access_sf_sample_line_user,sf.sample.line.user,model_sf_sample_line,group_sf_sample_user,1,1,1,0
-access_sf_sample_line_manager,sf.sample.line.manager,model_sf_sample_line,group_sf_sample_manager,1,1,1,1
-access_sf_sample_feedback_user,sf.sample.feedback.user,model_sf_sample_feedback,group_sf_sample_user,1,1,1,0
-access_sf_sample_feedback_manager,sf.sample.feedback.manager,model_sf_sample_feedback,group_sf_sample_manager,1,1,1,1

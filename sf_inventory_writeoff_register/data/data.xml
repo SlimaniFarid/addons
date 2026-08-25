@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="seq_sf_writeoff" model="ir.sequence">
+        <field name="name">Write-Off</field>
+        <field name="code">sf.writeoff</field>
+        <field name="prefix">WOR/</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+</odoo>

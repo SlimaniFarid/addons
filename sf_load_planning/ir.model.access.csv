@@ -1,7 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_sf_load_plan_user,sf.load.plan.user,model_sf_load_plan,group_sf_load_user,1,1,1,0
-access_sf_load_plan_manager,sf.load.plan.manager,model_sf_load_plan,group_sf_load_manager,1,1,1,1
-access_sf_load_line_user,sf.load.line.user,model_sf_load_line,group_sf_load_user,1,1,1,0
-access_sf_load_line_manager,sf.load.line.manager,model_sf_load_line,group_sf_load_manager,1,1,1,1
-access_sf_load_stop_user,sf.load.stop.user,model_sf_load_stop,group_sf_load_user,1,1,1,0
-access_sf_load_stop_manager,sf.load.stop.manager,model_sf_load_stop,group_sf_load_manager,1,1,1,1

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="seq_sf_project_change_request" model="ir.sequence">
+        <field name="name">Project Change Request</field>
+        <field name="code">sf.project_change_request</field>
+        <field name="prefix">PRO/</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+</odoo>

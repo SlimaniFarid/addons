@@ -1,7 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_warranty_user,sf.warranty.user,model_sf_warranty,group_warranty_user,1,0,0,0
-access_warranty_manager,sf.warranty.manager,model_sf_warranty,group_warranty_manager,1,1,1,1
-access_warranty_claim_user,sf.warranty.claim.user,model_sf_warranty_claim,group_warranty_user,1,1,1,0
-access_warranty_claim_manager,sf.warranty.claim.manager,model_sf_warranty_claim,group_warranty_manager,1,1,1,1
-access_warranty_claim_decision_wizard_user,sf.warranty.claim.decision.wizard.user,model_sf_warranty_claim_decision_wizard,group_warranty_user,1,1,1,0
-access_warranty_claim_decision_wizard_manager,sf.warranty.claim.decision.wizard.manager,model_sf_warranty_claim_decision_wizard,group_warranty_manager,1,1,1,1

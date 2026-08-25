@@ -1,1 +1,1 @@
-from . import pw_models
+from . import models

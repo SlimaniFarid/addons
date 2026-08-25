@@ -1,1 +1,1 @@
-from . import ci_models
+from . import models

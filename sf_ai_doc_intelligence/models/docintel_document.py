@@ -1,1 +1,0 @@
-# Models defined in docintel_provider.py

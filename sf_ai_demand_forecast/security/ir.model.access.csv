@@ -1,9 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_forecast_model_user,ai.demand.forecast.forecast_model.user,model_forecast_model,base.group_user,1,0,0,0
-access_forecast_model_mgr,ai.demand.forecast.forecast_model.mgr,model_forecast_model,base.group_system,1,1,1,1
-access_forecast_prediction_user,ai.demand.forecast.forecast_prediction.user,model_forecast_prediction,base.group_user,1,0,0,0
-access_forecast_prediction_mgr,ai.demand.forecast.forecast_prediction.mgr,model_forecast_prediction,base.group_system,1,1,1,1
-access_forecast_config_user,ai.demand.forecast.forecast_config.user,model_forecast_config,base.group_user,1,0,0,0
-access_forecast_config_mgr,ai.demand.forecast.forecast_config.mgr,model_forecast_config,base.group_system,1,1,1,1
-access_forecast_training_log_user,ai.demand.forecast.forecast_training_log.user,model_forecast_training_log,base.group_user,1,0,0,0
-access_forecast_training_log_mgr,ai.demand.forecast.forecast_training_log.mgr,model_forecast_training_log,base.group_system,1,1,1,1

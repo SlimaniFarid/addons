@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sf_customer_comm_user,sf.customer.comm.user,model_sf_customer_comm,group_customer_incident_comms_user,1,1,1,0
+access_sf_customer_comm_manager,sf.customer.comm.manager,model_sf_customer_comm,group_customer_incident_comms_manager,1,1,1,1

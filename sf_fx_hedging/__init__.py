@@ -1,1 +1,1 @@
-from . import fx_models
+from . import models

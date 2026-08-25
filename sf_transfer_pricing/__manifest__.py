@@ -28,7 +28,7 @@ Compliance references: OECD TPG 2022 chapters I-II, BEPS Action 13
     'author': 'Ethan Miller',
     'support': 'tech5262@gmail.com',
     'license': 'OPL-1',
-    'price': 399.00,
+    'price': 99.75,
     'currency': 'EUR',
     'depends': ['base', 'account', 'mail'],
     'data': [

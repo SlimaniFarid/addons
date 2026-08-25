@@ -1,1 +1,1 @@
-from . import dedup_models
+from . import models

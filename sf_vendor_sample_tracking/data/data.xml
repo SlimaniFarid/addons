@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="seq_sf_vendor_sample" model="ir.sequence">
+        <field name="name">Vendor Sample Request</field>
+        <field name="code">sf.vendor.sample</field>
+        <field name="prefix">VSR/</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+</odoo>

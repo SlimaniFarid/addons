@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sf_ic_balance_check_user,sf.ic.balance.check.user,model_sf_ic_balance_check,group_intercompany_balance_check_user,1,1,1,0
+access_sf_ic_balance_check_manager,sf.ic.balance.check.manager,model_sf_ic_balance_check,group_intercompany_balance_check_manager,1,1,1,1

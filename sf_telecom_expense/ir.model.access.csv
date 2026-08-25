@@ -1,5 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_sf_telecom_line_user,sf.telecom.line.user,model_sf_telecom_line,group_sf_tel_user,1,1,1,0
-access_sf_telecom_line_manager,sf.telecom.line.manager,model_sf_telecom_line,group_sf_tel_manager,1,1,1,1
-access_sf_telecom_audit_user,sf.telecom.audit.user,model_sf_telecom_audit,group_sf_tel_user,1,1,1,0
-access_sf_telecom_audit_manager,sf.telecom.audit.manager,model_sf_telecom_audit,group_sf_tel_manager,1,1,1,1

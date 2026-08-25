@@ -1,1 +1,1 @@
-from . import bo_models
+from . import models

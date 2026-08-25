@@ -1,5 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_sf_crebate_deal_user,sf.customer.rebate.deal.user,model_sf_customer_rebate_deal,group_sf_crebate_user,1,1,1,0
-access_sf_crebate_deal_manager,sf.customer.rebate.deal.manager,model_sf_customer_rebate_deal,group_sf_crebate_manager,1,1,1,1
-access_sf_crebate_accrual_user,sf.customer.rebate.accrual.user,model_sf_customer_rebate_accrual,group_sf_crebate_user,1,1,1,0
-access_sf_crebate_accrual_manager,sf.customer.rebate.accrual.manager,model_sf_customer_rebate_accrual,group_sf_crebate_manager,1,1,1,1

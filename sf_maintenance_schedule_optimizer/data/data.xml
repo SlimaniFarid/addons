@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="seq_sf_maintenance_schedule_optimizer" model="ir.sequence">
+        <field name="name">Maintenance Schedule Optimizer</field>
+        <field name="code">sf.maintenance_schedule_optimizer</field>
+        <field name="prefix">MAI/</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+</odoo>

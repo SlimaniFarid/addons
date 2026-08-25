@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="seq_sf_purchase_envelope" model="ir.sequence">
+        <field name="name">Purchase Envelope</field>
+        <field name="code">sf.purchase.envelope</field>
+        <field name="prefix">ENV/</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+</odoo>

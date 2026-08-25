@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sf_car_assignment_user,sf.car.assignment.user,model_sf_car_assignment,group_company_car_policy_user,1,1,1,0
+access_sf_car_assignment_manager,sf.car.assignment.manager,model_sf_car_assignment,group_company_car_policy_manager,1,1,1,1

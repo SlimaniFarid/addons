@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sf_asset_return_user,sf.asset.return.user,model_sf_asset_return,group_employee_asset_return_user,1,1,1,0
+access_sf_asset_return_manager,sf.asset.return.manager,model_sf_asset_return,group_employee_asset_return_manager,1,1,1,1

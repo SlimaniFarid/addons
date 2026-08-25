@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="seq_sf_fx_reval" model="ir.sequence">
+        <field name="name">FX Revaluation Run</field>
+        <field name="code">sf.fx.reval</field>
+        <field name="prefix">RXV/</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+</odoo>

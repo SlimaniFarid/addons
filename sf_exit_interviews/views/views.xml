@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_sf_exit_interview" model="ir.actions.act_window">
+        <field name="name">Exit Interview Records</field>
+        <field name="res_model">sf.exit.interview</field>
+        <field name="view_mode">list,form,kanban</field>
+    </record>
+    <record id="view_sf_exit_interview_form" model="ir.ui.view">
+        <field name="name">sf.exit.interview.form</field>
+        <field name="model">sf.exit.interview</field>
+        <field name="arch" type="xml">
+            <form string="Exit Interview Records">
+                <header>
+                    <button name="action_done" type="object" string="Done"
+                            class="btn-primary"/>
+                    <field name="state" widget="statusbar" statusbar_visible="scheduled,done,shared"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="employee_id"/>
+                            <field name="leaving_date"/>
+                            <field name="primary_reason"/>
+                            <field name="would_return"/>
+                        <field name="feedback"/>
+                            <field name="actions"/>
+                            <field name="interviewer_id"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="view_sf_exit_interview_list" model="ir.ui.view">
+        <field name="name">sf.exit.interview.list</field>
+        <field name="model">sf.exit.interview</field>
+        <field name="arch" type="xml">
+            <list string="Exit Interview Records" sample="1">
+                <field name="employee_id"/>
+                <field name="leaving_date"/>
+                <field name="primary_reason"/>
+                <field name="would_return"/>
+                <field name="feedback"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'done'"
+                       decoration-info="state in ('submitted','approved')"/>
+            </list>
+        </field>
+    </record>
+    <record id="view_sf_exit_interview_kanban" model="ir.ui.view">
+        <field name="name">sf.exit.interview.kanban</field>
+        <field name="model">sf.exit.interview</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_view" group_by="state">
+                <field name="name"/>
+                <field name="state"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <strong><field name="name"/></strong>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+    <menuitem id="menu_sf_exit_interview_root" name="Exit Interview Records" sequence="25"
+              web_icon="sf_exit_interviews,static/description/icon.png"/>
+    <menuitem id="menu_sf_exit_interview_main" name="Records"
+              parent="menu_sf_exit_interview_root" action="action_sf_exit_interview" sequence="10"/>
+</odoo>

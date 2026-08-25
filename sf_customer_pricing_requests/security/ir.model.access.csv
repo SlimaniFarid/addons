@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sf_pricing_request_user,sf.pricing.request.user,model_sf_pricing_request,group_customer_pricing_requests_user,1,1,1,0
+access_sf_pricing_request_manager,sf.pricing.request.manager,model_sf_pricing_request,group_customer_pricing_requests_manager,1,1,1,1

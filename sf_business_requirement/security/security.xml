@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="module_category_business_requirement" model="ir.module.category">
+        <field name="name">Business Requirement Register</field>
+        <field name="sequence">387</field>
+    </record>
+    <record id="group_business_requirement_user" model="res.groups">
+        <field name="name">Business Requirement Register User</field>
+        <field name="category_id" ref="module_category_business_requirement"/>
+        <field name="implied_ids" eval="[(4, ref('sales_team.group_sale_salesman'))]"/>
+
+    </record>
+    <record id="group_business_requirement_manager" model="res.groups">
+        <field name="name">Business Requirement Register Manager</field>
+        <field name="category_id" ref="module_category_business_requirement"/>
+        <field name="implied_ids" eval="[(4, ref('group_business_requirement_user'))]"/>
+    </record>
+    <record id="rule_business_requirement_sf_business_requirement" model="ir.rule">
+        <field name="name">Business Requirement Register: multi-company</field>
+        <field name="model_id" ref="model_sf_business_requirement"/>
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+    </record>
+
+</odoo>

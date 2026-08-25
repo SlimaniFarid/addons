@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_sf_mgmt_fee" model="ir.actions.act_window">
+        <field name="name">Recurring Management Fee Billing</field>
+        <field name="res_model">sf.mgmt.fee</field>
+        <field name="view_mode">list,form,kanban</field>
+    </record>
+    <record id="view_sf_mgmt_fee_form" model="ir.ui.view">
+        <field name="name">sf.mgmt.fee.form</field>
+        <field name="model">sf.mgmt.fee</field>
+        <field name="arch" type="xml">
+            <form string="Recurring Management Fee Billing">
+                <header>
+                    <button name="action_paused" type="object" string="Paused"
+                            class="btn-primary"/>
+                    <field name="state" widget="statusbar" statusbar_visible="active,paused,ended"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="client_id"/>
+                            <field name="fee_type"/>
+                            <field name="rate_percent"/>
+                            <field name="fixed_amount"/>
+                            <field name="billing_day"/>
+                            <field name="notes"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="view_sf_mgmt_fee_list" model="ir.ui.view">
+        <field name="name">sf.mgmt.fee.list</field>
+        <field name="model">sf.mgmt.fee</field>
+        <field name="arch" type="xml">
+            <list string="Recurring Management Fee Billing" sample="1">
+                <field name="client_id"/>
+                <field name="fee_type"/>
+                <field name="rate_percent"/>
+                <field name="fixed_amount"/>
+                <field name="billing_day"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'done'"
+                       decoration-info="state in ('submitted','approved')"/>
+            </list>
+        </field>
+    </record>
+    <record id="view_sf_mgmt_fee_kanban" model="ir.ui.view">
+        <field name="name">sf.mgmt.fee.kanban</field>
+        <field name="model">sf.mgmt.fee</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_view" group_by="state">
+                <field name="name"/>
+                <field name="state"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <strong><field name="name"/></strong>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+    <menuitem id="menu_sf_mgmt_fee_root" name="Recurring Management Fee Billing" sequence="6"
+              web_icon="sf_mgmt_fee_billing,static/description/icon.png"/>
+    <menuitem id="menu_sf_mgmt_fee_main" name="Records"
+              parent="menu_sf_mgmt_fee_root" action="action_sf_mgmt_fee" sequence="10"/>
+</odoo>

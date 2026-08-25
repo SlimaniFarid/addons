@@ -21,7 +21,7 @@ Features:
     'author': 'Ethan Miller',
     'support': 'tech5262@gmail.com',
     'license': 'OPL-1',
-    'price': 299.00,
+    'price': 74.75,
     'currency': 'EUR',
     'depends': ['base', 'account', 'purchase', 'product', 'mail'],
     'data': [

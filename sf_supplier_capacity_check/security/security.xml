@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="module_category_supplier_capacity_check" model="ir.module.category">
+        <field name="name">Supplier Capacity Check</field>
+        <field name="sequence">15</field>
+    </record>
+    <record id="group_supplier_capacity_check_user" model="res.groups">
+        <field name="name">Supplier Capacity Check User</field>
+        <field name="category_id" ref="module_category_supplier_capacity_check"/>
+        <field name="implied_ids" eval="[(4, ref('purchase.group_purchase_user'))]"/>
+
+    </record>
+    <record id="group_supplier_capacity_check_manager" model="res.groups">
+        <field name="name">Supplier Capacity Check Manager</field>
+        <field name="category_id" ref="module_category_supplier_capacity_check"/>
+        <field name="implied_ids" eval="[(4, ref('group_supplier_capacity_check_user'))]"/>
+    </record>
+    <record id="rule_supplier_capacity_check_sf_supplier_capacity" model="ir.rule">
+        <field name="name">Capacity Check: multi-company</field>
+        <field name="model_id" ref="model_sf_supplier_capacity"/>
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+    </record>
+
+</odoo>

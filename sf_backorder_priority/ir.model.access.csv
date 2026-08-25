@@ -1,5 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_sf_bo_allocation_user,sf.bo.allocation.user,model_sf_bo_allocation,group_sf_bo_user,1,1,1,0
-access_sf_bo_allocation_manager,sf.bo.allocation.manager,model_sf_bo_allocation,group_sf_bo_manager,1,1,1,1
-access_sf_bo_line_user,sf.bo.allocation.line.user,model_sf_bo_allocation_line,group_sf_bo_user,1,1,1,0
-access_sf_bo_line_manager,sf.bo.allocation.line.manager,model_sf_bo_allocation_line,group_sf_bo_manager,1,1,1,1

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="seq_sf_production_capacity_whatif" model="ir.sequence">
+        <field name="name">Capacity What-If Analyzer</field>
+        <field name="code">sf.production_capacity_whatif</field>
+        <field name="prefix">PRO/</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+</odoo>

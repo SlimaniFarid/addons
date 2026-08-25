@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="seq_sf_churn_prediction_rules" model="ir.sequence">
+        <field name="name">Churn Prediction Rules Engine</field>
+        <field name="code">sf.churn_prediction_rules</field>
+        <field name="prefix">CHU/</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+</odoo>

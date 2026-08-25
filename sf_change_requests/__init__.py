@@ -1,1 +1,1 @@
-from . import cr_models
+from . import models

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="module_category_late_payment_interest" model="ir.module.category">
+        <field name="name">Late Payment Interest Calculator</field>
+        <field name="sequence">62</field>
+    </record>
+    <record id="group_late_payment_interest_user" model="res.groups">
+        <field name="name">Late Payment Interest Calculator User</field>
+        <field name="category_id" ref="module_category_late_payment_interest"/>
+
+    </record>
+    <record id="group_late_payment_interest_manager" model="res.groups">
+        <field name="name">Late Payment Interest Calculator Manager</field>
+        <field name="category_id" ref="module_category_late_payment_interest"/>
+        <field name="implied_ids" eval="[(4, ref('group_late_payment_interest_user'))]"/>
+    </record>
+    <record id="rule_late_payment_interest_sf_late_interest" model="ir.rule">
+        <field name="name">Late Interest Run: multi-company</field>
+        <field name="model_id" ref="model_sf_late_interest"/>
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+    </record>
+
+</odoo>

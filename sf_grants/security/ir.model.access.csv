@@ -1,9 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_grant_program_user,sf.grant.program.user,model_sf_grant_program,group_grant_user,1,1,1,0
-access_grant_program_manager,sf.grant.program.manager,model_sf_grant_program,group_grant_manager,1,1,1,1
-access_grant_call_user,sf.grant.call.user,model_sf_grant_call,group_grant_user,1,1,1,0
-access_grant_call_manager,sf.grant.call.manager,model_sf_grant_call,group_grant_manager,1,1,1,1
-access_grant_application_user,sf.grant.application.user,model_sf_grant_application,group_grant_user,1,1,1,0
-access_grant_application_manager,sf.grant.application.manager,model_sf_grant_application,group_grant_manager,1,1,1,1
-access_grant_expense_user,sf.grant.expense.user,model_sf_grant_expense,group_grant_user,1,1,1,0
-access_grant_expense_manager,sf.grant.expense.manager,model_sf_grant_expense,group_grant_manager,1,1,1,1

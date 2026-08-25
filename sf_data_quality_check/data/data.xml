@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="seq_sf_data_quality_check" model="ir.sequence">
+        <field name="name">Data Quality Check Runner</field>
+        <field name="code">sf.data_quality_check</field>
+        <field name="prefix">DAT/</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+</odoo>

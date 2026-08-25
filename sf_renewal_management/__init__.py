@@ -1,1 +1,1 @@
-from . import renewal_models
+from . import models

@@ -1,1 +1,1 @@
-from . import mr_models
+from . import models

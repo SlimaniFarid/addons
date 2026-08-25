@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sf_product_lifecycle_stage_user,sf.product_lifecycle_stage.user,model_sf_product_lifecycle_stage,group_product_lifecycle_stage_user,1,1,1,0
+access_sf_product_lifecycle_stage_manager,sf.product_lifecycle_stage.manager,model_sf_product_lifecycle_stage,group_product_lifecycle_stage_manager,1,1,1,1

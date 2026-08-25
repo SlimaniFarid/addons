@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="seq_sf_ic_balance_check" model="ir.sequence">
+        <field name="name">IC Balance Check</field>
+        <field name="code">sf.ic.balance.check</field>
+        <field name="prefix">IBC/</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+</odoo>

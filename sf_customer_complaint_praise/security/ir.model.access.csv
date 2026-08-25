@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sf_compliment_user,sf.compliment.user,model_sf_compliment,group_customer_complaint_praise_user,1,1,1,0
+access_sf_compliment_manager,sf.compliment.manager,model_sf_compliment,group_customer_complaint_praise_manager,1,1,1,1

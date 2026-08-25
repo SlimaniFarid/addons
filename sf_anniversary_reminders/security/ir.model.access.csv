@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sf_anniversary_user,sf.anniversary.user,model_sf_anniversary,group_anniversary_reminders_user,1,1,1,0
+access_sf_anniversary_manager,sf.anniversary.manager,model_sf_anniversary,group_anniversary_reminders_manager,1,1,1,1

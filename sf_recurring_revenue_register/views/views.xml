@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_sf_mrr_line" model="ir.actions.act_window">
+        <field name="name">Recurring Revenue Register (MRR)</field>
+        <field name="res_model">sf.mrr.line</field>
+        <field name="view_mode">list,form,kanban</field>
+    </record>
+    <record id="view_sf_mrr_line_form" model="ir.ui.view">
+        <field name="name">sf.mrr.line.form</field>
+        <field name="model">sf.mrr.line</field>
+        <field name="arch" type="xml">
+            <form string="Recurring Revenue Register (MRR)">
+                <header>
+                    <field name="state" widget="statusbar" statusbar_visible="active,churned"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="partner_id"/>
+                            <field name="product_ref"/>
+                            <field name="mrr_amount"/>
+                            <field name="start_date"/>
+                            <field name="churn_date"/>
+                            <field name="expansion_from"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="view_sf_mrr_line_list" model="ir.ui.view">
+        <field name="name">sf.mrr.line.list</field>
+        <field name="model">sf.mrr.line</field>
+        <field name="arch" type="xml">
+            <list string="Recurring Revenue Register (MRR)" sample="1">
+                <field name="partner_id"/>
+                <field name="product_ref"/>
+                <field name="mrr_amount"/>
+                <field name="start_date"/>
+                <field name="churn_date"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'done'"
+                       decoration-info="state in ('submitted','approved')"/>
+            </list>
+        </field>
+    </record>
+    <record id="view_sf_mrr_line_kanban" model="ir.ui.view">
+        <field name="name">sf.mrr.line.kanban</field>
+        <field name="model">sf.mrr.line</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_view" group_by="state">
+                <field name="name"/>
+                <field name="state"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <strong><field name="name"/></strong>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+    <menuitem id="menu_sf_mrr_line_root" name="Recurring Revenue Register (MRR)" sequence="5"
+              web_icon="sf_recurring_revenue_register,static/description/icon.png"/>
+    <menuitem id="menu_sf_mrr_line_main" name="Records"
+              parent="menu_sf_mrr_line_root" action="action_sf_mrr_line" sequence="10"/>
+</odoo>

@@ -1,1 +1,1 @@
-from . import tp_models
+from . import models
