@@ -19,7 +19,7 @@ class SfSuccession_plan(models.Model):
         ('1_year', 'Ready in 1 Year'),
         ('2_years', 'Ready in 2 Years'),
         ('3_years', '3+ Years'),
-        ], string='Readiness', default=2_years)
+        ], string='Readiness', default='ready_now')
     development_actions = fields.Html(string='Development Actions')
     currency_id = fields.Many2one(related='company_id.currency_id')
     state = fields.Selection([

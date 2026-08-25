@@ -33,7 +33,7 @@ Certification ready: generates evidence package for registrar.""",
     'license': 'OPL-1',
     'price': 99.75,
     'currency': 'EUR',
-    'depends': ['base', 'quality', 'maintenance', 'mrp', 'hr', 'documents'],
+    'depends': ['base', 'quality', 'maintenance', 'mrp', 'hr', 'documents', 'stock'],
     'data': [
         'security/ir.model.access.csv',
         'views/qms_menus.xml',

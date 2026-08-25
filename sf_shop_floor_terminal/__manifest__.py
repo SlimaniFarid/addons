@@ -14,7 +14,7 @@
     'application': True,
     'installable': True,
     'images': ['static/description/banner.png'],
-    'depends': ['base', 'mail', 'account', 'stock'],
+    'depends': ['base', 'mail', 'account', 'stock', 'hr', 'mrp'],
     'data': [
         'security/sf_shop_floor_terminal_security.xml',
         'security/ir.model.access.csv',

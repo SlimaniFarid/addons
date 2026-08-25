@@ -17,7 +17,7 @@ class PromoRule(models.Model):
     date_start = fields.Date(string='Date Start', required=True)
     date_end = fields.Date(string='Date End', required=True)
     discount_pct = fields.Float(string='Discount Pct', default=0.0)
-    fixed_price = fields.Monetary(string='Fixed Price', currency_field='currency_id', currency_field='currency_id')
+    fixed_price = fields.Monetary(string='Fixed Price', currency_field='currency_id')
     min_qty = fields.Float(string='Min Qty', default=1.0)
     margin_floor_pct = fields.Float(string='Margin Floor Pct', default=0.0)
     active = fields.Boolean(string='Active', default='True')

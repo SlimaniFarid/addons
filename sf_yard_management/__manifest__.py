@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Yard Management',
-    'version': '18.0.1.0.0',
+    'version': '19.0.1.0.0',
     'category': 'Inventory/Inventory',
     'summary': 'Yard management: trailer inventory with dwell clocks, gate check-in/out, dock assignment, jockey shunts, detention billing',
     'description': """
@@ -42,9 +42,8 @@ timestamped.
     'data': [
         'security/sf_yard_management_security.xml',
         'security/ir.model.access.csv',
-                'data/sf_yard_cron.xml',
-        'models/res_partner.py',
-                        'views/sf_yard_trailer_views.xml',
-                                        'views/sf_yard_menus.xml',        'report/sf_yard_reports.xml',
+        'data/sf_yard_sequence.xml',
+        'views/sf_yard_views.xml',
+        'views/sf_yard_menus.xml',
     ],
 }

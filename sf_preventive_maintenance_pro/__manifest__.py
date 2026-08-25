@@ -14,7 +14,7 @@
     'application': True,
     'installable': True,
     'images': ['static/description/banner.png'],
-    'depends': ['base', 'mail', 'account', 'stock'],
+    'depends': ['base', 'mail', 'account', 'stock', 'maintenance'],
     'data': [
         'security/sf_preventive_maintenance_pro_security.xml',
         'security/ir.model.access.csv',

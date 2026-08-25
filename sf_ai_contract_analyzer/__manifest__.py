@@ -32,7 +32,7 @@ Integrations:
     'license': 'OPL-1',
     'price': 69.75,
     'currency': 'EUR',
-    'depends': ['base', 'mail', 'account', 'hr', 'fleet'],
+    'depends': ['base', 'mail', 'account', 'hr', 'fleet', 'sale', 'purchase'],
     'data': [
         'security/ir.model.access.csv',
         'views/contract_menus.xml',

@@ -14,7 +14,7 @@
     'application': True,
     'installable': True,
     'images': ['static/description/banner.png'],
-    'depends': ['base', 'mail', 'contacts', 'account'],
+    'depends': ['base', 'mail', 'contacts', 'account', 'hr', 'product', 'purchase'],
     'data': [
         'security/sf_senior_living_security.xml',
         'security/ir.model.access.csv',

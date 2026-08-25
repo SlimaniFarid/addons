@@ -32,7 +32,7 @@ Ideal for:
     'currency': 'EUR',
 
     'images': ['static/description/banner.png'],
-    'depends': ['base', 'quality', 'mrp', 'stock', 'mail'],
+    'depends': ['base', 'quality', 'mrp', 'stock', 'mail', 'maintenance', 'product', 'uom'],
     'data': [
         'security/fai_security.xml',
         'security/ir.model.access.csv',

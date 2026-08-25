@@ -14,7 +14,7 @@
     'application': True,
     'installable': True,
     'images': ['static/description/banner.png'],
-    'depends': ['base', 'mail', 'account', 'stock'],
+    'depends': ['base', 'mail', 'account', 'stock', 'hr'],
     'data': [
         'security/sf_document_expiry_tracker_security.xml',
         'security/ir.model.access.csv',

@@ -15,6 +15,6 @@ class RequisitionLine(models.Model):
     requisition_id = fields.Many2one(comodel_name='purchase.requisition.sf', ondelete='restrict')
     product_id = fields.Many2one(required=True, comodel_name='product.product', ondelete='restrict')
     quantity = fields.Float(string='Quantity', required=True, default=1.0)
-    price_estimated = fields.Monetary(string='Price Estimated', currency_field='currency_id', currency_field='currency_id')
+    price_estimated = fields.Monetary(string='Price Estimated', currency_field='currency_id')
     vendor_suggested = fields.Many2one(comodel_name='res.partner', ondelete='restrict')
 

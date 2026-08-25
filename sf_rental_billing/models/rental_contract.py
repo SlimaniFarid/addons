@@ -16,8 +16,8 @@ class RentalContract(models.Model):
     start_date = fields.Date(string='Start Date', required=True)
     end_date = fields.Date(string='End Date')
     recurring_interval = fields.Integer(string='Recurring Interval', default=1)
-    amount = fields.Monetary(string='Amount', currency_field='currency_id', required=True, currency_field='currency_id')
-    deposit_amount = fields.Monetary(string='Deposit Amount', currency_field='currency_id', currency_field='currency_id')
+    amount = fields.Monetary(string='Amount', required=True, currency_field='currency_id')
+    deposit_amount = fields.Monetary(string='Deposit Amount', currency_field='currency_id')
     state = fields.Selection(default='draft tracking', tracking=True)
     invoice_count = fields.Integer(compute='_compute_invoice_count', store=True)
 

@@ -26,7 +26,7 @@ Channels supported:
     'license': 'OPL-1',
     'price': 62.25,
     'currency': 'EUR',
-    'depends': ['base', 'sale', 'stock', 'account', 'delivery'],
+    'depends': ['base', 'sale', 'stock', 'account', 'delivery', 'repair', 'product', 'uom', 'point_of_sale'],
     'data': [
         'security/ir.model.access.csv',
         'views/rma_menus.xml',

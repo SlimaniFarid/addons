@@ -29,7 +29,7 @@ Note: This module provides the Odoo backend API. Mobile app template available s
     'license': 'OPL-1',
     'price': 112.25,
     'currency': 'EUR',
-    'depends': ['base', 'industry_fsm', 'stock', 'mail'],
+    'depends': ['base', 'industry_fsm', 'stock', 'mail', 'hr', 'project'],
     'data': [
         'security/ir.model.access.csv',
         'views/fsoffline_menus.xml',

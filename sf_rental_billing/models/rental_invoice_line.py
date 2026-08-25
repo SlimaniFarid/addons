@@ -15,5 +15,5 @@ class RentalInvoiceLine(models.Model):
     contract_id = fields.Many2one(required=True, comodel_name='rental.contract', ondelete='cascade')
     period_start = fields.Date(string='Period Start')
     period_end = fields.Date(string='Period End')
-    amount = fields.Monetary(string='Amount', currency_field='currency_id', currency_field='currency_id')
+    amount = fields.Monetary(string='Amount', currency_field='currency_id')
 
