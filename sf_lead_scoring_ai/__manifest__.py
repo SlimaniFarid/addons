@@ -19,6 +19,7 @@
         'security/sf_lead_scoring_ai_security.xml',
         'security/ir.model.access.csv',
         'data/sf_lead_scoring_ai_sequence.xml',
+        'data/sf_lead_scoring_ai_cron.xml',
         'views/scoring_rule_views.xml',
         'views/lead_score_views.xml',
         'views/sf_lead_scoring_ai_menus.xml',

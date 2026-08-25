@@ -35,6 +35,7 @@ Integrates with:
         'views/docintel_menus.xml',
         'data/docintel_data.xml',
     ],
+    'external_dependencies': {'python': ['requests']},
     'installable': True,
     'application': True,
     'auto_install': False,

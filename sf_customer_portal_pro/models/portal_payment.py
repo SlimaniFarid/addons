@@ -36,8 +36,27 @@ class PortalPayment(models.Model):
                 pay.transaction_id._send_payment_request()
             pay.state = 'processing'
 
+    def action_mark_paid(self):
+        """Confirm reconciliation once the provider webhook confirmed."""
+        for pay in self.filtered(lambda p: p.state == 'processing'):
+            pay.write({'state': 'done',
+                       'paid_date': fields.Datetime.now()})
+
     def action_refund(self):
+        """Real money-back path: reverse the invoice (credit note) then flag
+        the portal payment as refunded. The provider-side capture reversal is
+        driven by the standard payment module when a transaction exists."""
         for pay in self.filtered(lambda p: p.state == 'done'):
-            if pay.transaction_id:
-                pay.transaction_id._reconcile_after_done()
+            if not pay.invoice_id:
+                continue
+            reversal = self.env['account.move.reversal'].with_context(
+                active_model='account.move',
+                active_ids=pay.invoice_id.ids,
+            ).create({
+                'move_ids': [(6, 0, pay.invoice_id.ids)],
+                'reason': 'Portal refund %s' % pay.display_name,
+            })
+            res = reversal.action_reverse()
+            pay.transaction_id and pay.transaction_id._log_message_on(
+                pay.invoice_id, 'Refund requested from customer portal.')
             pay.state = 'refunded'

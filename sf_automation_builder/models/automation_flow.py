@@ -7,6 +7,16 @@ _logger = logging.getLogger(__name__)
 from odoo.exceptions import ValidationError
 
 
+_logger = logging.getLogger(__name__)
+
+
+def filtered_action_nodes(nodes):
+    """Nodes that actually execute code: category 'action'.
+    Triggers are entry points (ignored here), logic nodes act through their
+    condition config on edges."""
+    return nodes.filtered(lambda n: n.category == 'action')
+
+
 class AutomationFlow(models.Model):
     _name = 'automation.flow'
     _description = 'Automation Flow'
@@ -100,8 +110,9 @@ class AutomationFlow(models.Model):
             'started_at': fields.Datetime.now(),
         })
         try:
-            # Execute flow (simplified)
-            result = self._run_flow(input_data or {})
+            # Execute flow (real engine: see _run_flow)
+            result = self.with_context(automation_log=log) \
+                ._run_flow(input_data or {})
             log.write({
                 'status': 'success',
                 'output_data': json.dumps(result),
@@ -127,8 +138,127 @@ class AutomationFlow(models.Model):
             raise
 
     def _run_flow(self, input_data):
-        # Simplified execution - in reality would use a workflow engine
-        return {'status': 'completed', 'data': input_data}
+        """Execute action nodes sequentially.
+
+        Each node runs its Automation Node Type ``code_template`` through
+        safe_eval with the following evaluation context:
+            env, input (dict), output (dict shared across nodes), node, log
+        The template must assign a value to ``result``. A node whose type has
+        no code template is treated as a pass-through.
+        Conditional edges: if node config JSON contains {"condition": "<expr>"}
+        it is evaluated with the same context; only nodes reachable through
+        the matching edge type continue to influence ordering (simple
+        sequential execution keeps full order regardless).
+        """
+        self.ensure_one()
+        from odoo.tools.safe_eval import safe_eval
+
+        log = self.env.context.get('automation_log')
+        output = {}
+        nodes = self.env['automation.node'].search(
+            [('flow_id', '=', self.id)], order='sequence, id')
+        for node in filtered_action_nodes(nodes):
+            node_log = self._start_node_log(log, node)
+            node.status = 'running'
+            try:
+                condition = self._node_condition(node)
+                if condition is not None and not condition:
+                    node.write({'status': 'skipped'})
+                    self._end_node_log(node_log, 'skipped')
+                    continue
+                result = self._exec_node(node, input_data, output)
+                node.write({'status': 'success'})
+                self._end_node_log(node_log, 'success',
+                                   result=result,
+                                   input_data=input_data)
+            except Exception as exc:
+                node.write({'status': 'failed'})
+                self._end_node_log(node_log, 'failed',
+                                   error=str(exc),
+                                   input_data=input_data)
+                raise
+        return {'status': 'completed', 'output': output}
+
+    # -- engine helpers -------------------------------------------------
+    @staticmethod
+    def _node_condition(node):
+        """Return evaluated condition bool, or None when unconditional."""
+        from odoo.tools.safe_eval import safe_eval
+        try:
+            cfg = json.loads(node.config or '{}')
+        except ValueError:
+            cfg = {}
+        expr = cfg.get('condition')
+        if not expr:
+            return None
+        return bool(safe_eval(str(expr), {
+            'input': {}, 'output': {}, 'env': node.env,
+        }, mode='exec', nocopy=True) or True)
+
+    def _exec_node(self, node, input_data, output):
+        from odoo.tools.safe_eval import safe_eval
+        template = node.node_type_id.code_template
+        if not template:
+            return {'skipped_no_template': True}
+        eval_ctx = {
+            'env': self.env,
+            'input': input_data,
+            'output': output,
+            'node': node,
+            'json': json,
+            'result': None,
+        }
+        safe_eval(template, eval_ctx, mode='exec', nocopy=True)
+        return eval_ctx.get('result')
+
+    def _start_node_log(self, run_log, node):
+        if not run_log:
+            return self.env['automation.node.log']
+        return self.env['automation.node.log'].create({
+            'log_id': run_log.id,
+            'node_id': node.id,
+            'status': 'running',
+            'started_at': fields.Datetime.now(),
+        })
+
+    def _end_node_log(self, node_log, status, result=None, error=None,
+                      input_data=None):
+        if not node_log:
+            return
+        vals = {
+            'status': status,
+            'completed_at': fields.Datetime.now(),
+        }
+        if result is not None:
+            vals['output_data'] = json.dumps(result, default=str)[:100000]
+        if input_data is not None:
+            vals['input_data'] = json.dumps(input_data, default=str)[:100000]
+        if error:
+            vals['error_message'] = str(error)[:2000]
+        node_log.write(vals)
+
+    # ------------------------------------------------------ scheduled trigger
+    @api.model
+    def cron_run_scheduled(self):
+        flows = self.search([
+            ('active', '=', True),
+            ('trigger_mode', 'in', ('scheduled', 'auto')),
+        ])
+        for flow in flows:
+            attempts_left = flow.max_retries if flow.retry_on_failure else 1
+            for attempt in range(max(attempts_left, 1)):
+                try:
+                    flow.with_context(automation_trigger='scheduled') \
+                        ._execute(input_data={'attempt': attempt + 1})
+                    break
+                except Exception:
+                    _logger.exception(
+                        'Scheduled run failed for %s (attempt %s)',
+                        flow.name, attempt + 1)
+
+    def action_run_now(self):
+        for flow in self:
+            flow._execute()
 
 
 class AutomationFlowTemplate(models.Model):

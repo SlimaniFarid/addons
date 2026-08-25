@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Portal users see only their own records -->
+    <record id="rule_portal_ticket" model="ir.rule">
+        <field name="name">Portal ticket: own only</field>
+        <field name="model_id" ref="model_portal_ticket"/>
+        <field name="domain_force">[('partner_id','child_of', user.partner_id.id)]</field>
+        <field name="groups" eval="[(4, ref('base.group_portal'))]"/>
+        <field name="perm_write" eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+
+    <record id="rule_portal_document" model="ir.rule">
+        <field name="name">Portal document: own only</field>
+        <field name="model_id" ref="model_portal_document"/>
+        <field name="domain_force">[('partner_id','child_of', user.partner_id.id)]</field>
+        <field name="groups" eval="[(4, ref('base.group_portal'))]"/>
+        <field name="perm_create" eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+
+    <record id="rule_portal_subscription" model="ir.rule">
+        <field name="name">Portal subscription: own only</field>
+        <field name="model_id" ref="model_portal_subscription_mgmt"/>
+        <field name="domain_force">[('partner_id','child_of', user.partner_id.id)]</field>
+        <field name="groups" eval="[(4, ref('base.group_portal'))]"/>
+        <field name="perm_create" eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+
+    <!-- Portal group access rights -->
+    <record id="access_portal_ticket_portal" model="ir.model.access">
+        <field name="name">portal.ticket portal</field>
+        <field name="model_id" ref="model_portal_ticket"/>
+        <field name="group_id" ref="base.group_portal"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="False"/>
+        <field name="perm_create" eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+    <record id="access_portal_document_portal" model="ir.model.access">
+        <field name="name">portal.document portal</field>
+        <field name="model_id" ref="model_portal_document"/>
+        <field name="group_id" ref="base.group_portal"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="False"/>
+        <field name="perm_create" eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+    <record id="access_portal_subscription_portal" model="ir.model.access">
+        <field name="name">portal.subscription.mgmt portal</field>
+        <field name="model_id" ref="model_portal_subscription_mgmt"/>
+        <field name="group_id" ref="base.group_portal"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+</odoo>

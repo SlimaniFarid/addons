@@ -5,14 +5,19 @@
               sequence="30"
               groups="sf_lead_scoring_ai.group_lead_scoring_ai_user"
               web_icon="sf_lead_scoring_ai,static/description/icon.png"/>
-    <menuitem id="menu_scoring_rule" name="Scoring.Rule"
+    <menuitem id="menu_scoring_rule" name="Scoring Rules"
               parent="menu_lead_scoring_ai_root"
               action="action_scoring_rule"
               sequence="10"
               groups="sf_lead_scoring_ai.group_lead_scoring_ai_user"/>
-    <menuitem id="menu_lead_score" name="Lead.Score"
+    <menuitem id="menu_lead_score" name="Lead Scores"
               parent="menu_lead_scoring_ai_root"
               action="action_lead_score"
               sequence="20"
               groups="sf_lead_scoring_ai.group_lead_scoring_ai_user"/>
+    <menuitem id="menu_run_scoring" name="Run Scoring Now"
+              parent="menu_lead_scoring_ai_root"
+              action="server_action_score_all_leads"
+              sequence="30"
+              groups="sf_lead_scoring_ai.group_lead_scoring_ai_manager"/>
 </odoo>

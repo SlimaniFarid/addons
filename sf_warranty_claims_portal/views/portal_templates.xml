@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="portal_my_home_warranty_claims"
+              name="Portal My Home : Warranty Claims"
+              inherit_id="portal.portal_my_home" priority="25">
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+            <t t-call="portal.portal_docs_entry">
+                <t t-set="title">Warranty Claims</t>
+                <t t-set="url" t-value="'/my/warranty-claims'"/>
+                <t t-set="placeholder_icon">'/sf_warranty_claims_portal/static/description/icon.png'</t>
+            </t>
+        </xpath>
+    </template>
+
+    <template id="portal_warranty_claims_list" name="Warranty Claims List">
+        <t t-call="website.layout">
+            <div id="wrap" class="container mt-4">
+                <h3 class="mb-4">My Warranty Claims</h3>
+                <a href="/my/warranty-claims/new" class="btn btn-primary mb-3">
+                    <i class="fa fa-plus"/> New Claim
+                </a>
+                <table class="table table-striped o_portal_table" t-if="records">
+                    <thead>
+                        <tr><th>Reference</th><th>Product</th>
+                            <th>Status</th><th>SLA Due</th><th/></tr>
+                    </thead>
+                    <tbody>
+                        <tr t-foreach="records" t-as="rec">
+                            <td t-out="rec.name"/>
+                            <td t-out="rec.product_id.display_name"/>
+                            <td><span class="badge bg-secondary"
+                                      t-out="dict(rec._fields['state'].selection).get(rec.state)"/></td>
+                            <td t-field="rec.sla_deadline"/>
+                            <td>
+                                <a class="btn btn-sm btn-outline-primary"
+                                   t-attf-href="/my/warranty-claims/{{ rec.id }}">View</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="alert alert-info" t-if="not records">
+                    No warranty claim yet.
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="portal_warranty_claims_form" name="New Warranty Claim">
+        <t t-call="website.layout">
+            <div id="wrap" class="container mt-4" style="max-width: 720px;">
+                <h3 class="mb-4">New Warranty Claim</h3>
+                <div class="alert alert-danger" t-if="error == 'missing_product'">
+                    Please choose a product.
+                </div>
+                <form action="/my/warranty-claims/submit" method="post">
+                    <input type="hidden" name="csrf_token"
+                           t-att-value="request.csrf_token()"/>
+                    <div class="mb-3">
+                        <label class="form-label">Product *</label>
+                        <select class="form-select" name="product_id" required="required">
+                            <option value="">-- select --</option>
+                            <t t-foreach="products" t-as="p">
+                                <option t-att-value="p.id" t-out="p.display_name"/>
+                            </t>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Serial / Lot Number</label>
+                        <input type="text" class="form-control" name="lot_serial"/>
+                        <div class="form-text">Optional — speeds up eligibility checks.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Describe the issue</label>
+                        <textarea class="form-control" name="description" rows="5"/>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit claim</button>
+                    <a href="/my/warranty-claims" class="btn btn-link">Cancel</a>
+                </form>
+            </div>
+        </t>
+    </template>
+
+    <template id="portal_warranty_claims_detail" name="Warranty Claim Detail">
+        <t t-call="website.layout">
+            <div id="wrap" class="container mt-4" style="max-width: 720px;">
+                <h3 t-out="record.name"/>
+                <span class="badge bg-secondary mb-3"
+                      t-out="dict(record._fields['state'].selection).get(record.state)"/>
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <p><strong>Product:</strong> <t t-out="record.product_id.display_name"/></p>
+                        <p t-if="record.lot_id"><strong>Lot:</strong> <t t-out="record.lot_id.name"/></p>
+                        <p><strong>Claim date:</strong> <t t-field="record.claim_date"/></p>
+                        <p><strong>SLA resolution due:</strong>
+                            <t t-field="record.sla_deadline"/>
+                            <span t-if="not record.sla_deadline"> — to be confirmed</span></p>
+                        <p><strong>Description:</strong><br/>
+                            <t t-out="record.description or '-'"/></p>
+                    </div>
+                </div>
+                <form t-if="record.state in ('draft', 'submitted')"
+                      t-attf-action="/my/warranty-claims/{{ record.id }}/cancel"
+                      method="post">
+                    <input type="hidden" name="csrf_token"
+                           t-att-value="request.csrf_token()"/>
+                    <button type="submit" class="btn btn-outline-danger">Cancel claim</button>
+                </form>
+                <a href="/my/warranty-claims" class="btn btn-secondary mt-3">Back</a>
+            </div>
+        </t>
+    </template>
+
+</odoo>

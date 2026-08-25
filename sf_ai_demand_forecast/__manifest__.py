@@ -27,11 +27,12 @@ Technical:
     'price': 74.75,
     'currency': 'EUR',
     'depends': ['base', 'stock', 'sale'],
-    'depends_optional': ['purchase', 'mrp'],
+    'external_dependencies': {'python': ['requests', 'numpy', 'sklearn']},
     'data': [
         'security/ir.model.access.csv',
         'views/forecast_menus.xml',
         'data/forecast_data.xml',
+        'data/forecast_cron.xml',
     ],
     'installable': True,
     'application': True,

@@ -34,7 +34,9 @@ B2B specific:
     'depends': ['base', 'website', 'sale', 'account', 'portal', 'payment'],
     'data': [
         'security/ir.model.access.csv',
+        'security/portal_rules.xml',
         'views/portal_menus.xml',
+        'views/portal_templates.xml',
 
         'data/portal_data.xml',
     ],

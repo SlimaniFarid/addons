@@ -44,7 +44,7 @@ class PortalTicket(models.Model):
 
     # Assignment
     user_id = fields.Many2one('res.users', string='Assigned To', tracking=True)
-    team_id = fields.Many2one('helpdesk.team', string='Support Team')
+    team_name = fields.Char(string='Support Team')
 
     # SLA
     sla_deadline = fields.Datetime(string='SLA Deadline')

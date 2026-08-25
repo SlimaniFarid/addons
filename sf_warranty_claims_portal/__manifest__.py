@@ -14,12 +14,14 @@
     'application': True,
     'installable': True,
     'images': ['static/description/banner.png'],
-    'depends': ['base', 'mail', 'account', 'stock'],
+    'depends': ['base', 'mail', 'portal', 'website'],
     'data': [
         'security/sf_warranty_claims_portal_security.xml',
         'security/ir.model.access.csv',
+        'security/portal_rules.xml',
         'data/sf_warranty_claims_portal_sequence.xml',
         'views/warranty_claim_views.xml',
         'views/sf_warranty_claims_portal_menus.xml',
+        'views/portal_templates.xml',
     ],
 }

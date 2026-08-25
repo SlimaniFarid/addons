@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="seq_automation_log_run" model="ir.sequence">
+        <field name="name">Automation Run</field>
+        <field name="code">automation.log.run</field>
+        <field name="prefix">RUN-</field>
+        <field name="padding">6</field>
+    </record>
+
+    <record id="cron_automation_scheduled" model="ir.cron">
+        <field name="name">Automation Builder: run scheduled flows</field>
+        <field name="model_id" ref="model_automation_flow"/>
+        <field name="state">code</field>
+        <field name="code">model.cron_run_scheduled()</field>
+        <field name="interval_number">15</field>
+        <field name="interval_type">minutes</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False"/>
+    </record>
+</odoo>
