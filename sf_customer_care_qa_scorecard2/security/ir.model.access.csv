@@ -1,3 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_sf_customer_care_qa_scorecard2_user,sf.customer_care_qa_scorecard2.user,model_sf_customer_care_qa_scorecard2,group_customer_care_qa_scorecard2_user,1,1,1,0
-access_sf_customer_care_qa_scorecard2_manager,sf.customer_care_qa_scorecard2.manager,model_sf_customer_care_qa_scorecard2,group_customer_care_qa_scorecard2_manager,1,1,1,1

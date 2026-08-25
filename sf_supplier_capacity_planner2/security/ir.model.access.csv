@@ -1,3 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_sf_supplier_capacity_planner2_user,sf.supplier_capacity_planner2.user,model_sf_supplier_capacity_planner2,group_supplier_capacity_planner2_user,1,1,1,0
-access_sf_supplier_capacity_planner2_manager,sf.supplier_capacity_planner2.manager,model_sf_supplier_capacity_planner2,group_supplier_capacity_planner2_manager,1,1,1,1
