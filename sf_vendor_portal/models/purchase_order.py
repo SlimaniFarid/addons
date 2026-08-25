@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from odoo import api, fields, models, _
+from odoo.exceptions import UserError
 
 
 class PurchaseOrder(models.Model):
@@ -23,9 +24,17 @@ class PurchaseOrder(models.Model):
         import secrets
         return secrets.token_urlsafe(12)
 
+    def _portal_action_guard(self):
+        """Only RFQs actually sent to the vendor may be answered."""
+        if self.state not in ('sent',):
+            raise UserError(_(
+                'This document is not awaiting a vendor response '
+                '(current state: %s).') % self.state)
+
     def action_vendor_accept(self):
         """Called from the vendor portal when the vendor accepts the RFQ."""
         self.ensure_one()
+        self._portal_action_guard()
         self.write({
             'vendor_response': 'accepted',
             'vendor_response_date': fields.Datetime.now(),
@@ -36,6 +45,7 @@ class PurchaseOrder(models.Model):
     def action_vendor_decline(self, comment=False):
         """Called from the vendor portal when the vendor declines the RFQ."""
         self.ensure_one()
+        self._portal_action_guard()
         self.write({
             'vendor_response': 'declined',
             'vendor_response_date': fields.Datetime.now(),
@@ -47,6 +57,9 @@ class PurchaseOrder(models.Model):
     def action_vendor_counter(self, amount):
         """Called from the vendor portal when the vendor proposes a price."""
         self.ensure_one()
+        self._portal_action_guard()
+        if not amount or amount <= 0:
+            raise UserError(_('Counter-offer must be a positive amount.'))
         self.write({
             'vendor_response': 'counter',
             'vendor_response_date': fields.Datetime.now(),

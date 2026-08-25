@@ -1,5 +1,6 @@
 from odoo import api, fields, models
 from odoo.exceptions import ValidationError
+from odoo.exceptions import ValidationError
 
 
 class RevRecContract(models.Model):
@@ -44,6 +45,17 @@ class RevRecContract(models.Model):
             contract.recognized_amount = sum(o.recognized_amount for o in contract.obligation_ids)
             total_allocated = sum(o.allocated_amount for o in contract.obligation_ids)
             contract.deferred_amount = total_allocated - contract.recognized_amount
+
+    deferred_account_id = fields.Many2one(
+        'account.account', string='Deferred Revenue Account',
+        help='Contract liability (IFRS 15) credited on invoice, debited '
+             'when performance obligations are satisfied.')
+    revenue_account_id = fields.Many2one(
+        'account.account', string='Revenue Account')
+
+    @api.constrains('state')
+    def _check_accounts_on_activate(self):
+        self._check_revrec_accounts()
 
     def action_activate(self):
         self.write({'state': 'active'})
@@ -101,6 +113,14 @@ class RevRecObligation(models.Model):
     def _compute_recognized(self):
         for obl in self:
             obl.recognized_amount = sum(s.recognized_amount for s in obl.schedule_ids if s.state == 'recognized')
+
+    def _check_revrec_accounts(self):
+        for c in self:
+            if c.state != 'draft' and (
+                    not c.deferred_account_id or not c.revenue_account_id):
+                raise ValidationError(_(
+                    'Set both Deferred Revenue and Revenue accounts '
+                    'before activation.'))
 
     def _create_schedules(self):
         self.ensure_one()
@@ -168,21 +188,27 @@ class RevRecSchedule(models.Model):
         for sched in self:
             if sched.state != 'pending':
                 continue
-            # Create journal entry
+            contract = sched.obligation_id.contract_id
+            journal = self.env['account.journal'].search(
+                [('type', '=', 'general'),
+                 ('company_id', '=', contract.company_id.id)], limit=1)
             move = self.env['account.move'].create({
                 'move_type': 'entry',
+                'journal_id': journal.id,
                 'date': fields.Date.today(),
                 'ref': sched.name,
                 'line_ids': [
                     (0, 0, {
-                        'account_id': sched.obligation_id.contract_id.partner_id.property_account_receivable_id.id,
+                        'account_id': contract.deferred_account_id.id,
                         'debit': sched.planned_amount,
                         'credit': 0.0,
+                        'name': 'Recognise revenue',
                     }),
                     (0, 0, {
-                        'account_id': self.env['account.account'].search([('code', '=', '411000')], limit=1).id,
+                        'account_id': contract.revenue_account_id.id,
                         'debit': 0.0,
                         'credit': sched.planned_amount,
+                        'name': 'Recognise revenue',
                     }),
                 ],
             })

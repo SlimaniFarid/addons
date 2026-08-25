@@ -1,17 +1,35 @@
-from odoo import http
+from odoo import fields, http
 from odoo.http import request
 import json
 import time
+
+from dateutil.relativedelta import relativedelta
+import hmac
+
 from werkzeug.exceptions import Unauthorized
 
 
 class McpController(http.Controller):
 
+    SENSITIVE_FIELDS = {
+        'password', 'new_password', 'api_key', 'token', 'secret',
+        'access_token', 'refresh_token', 'webhook_verify_token',
+    }
+
     def _check_auth(self, server, headers):
         expected = 'Bearer %s' % server.api_key
         auth = headers.get('Authorization', '')
-        if auth != expected:
+        if not hmac.compare_digest(auth.encode(), expected.encode()):
             raise Unauthorized('Invalid API key')
+
+    @staticmethod
+    def _sanitize(recs, fields_):
+        data = recs.read(fields_) if fields_ else recs.read()
+        for rec in data:
+            for k in list(rec):
+                if any(s in k.lower() for s in McpController.SENSITIVE_FIELDS):
+                    rec[k] = '***'
+        return data
 
     def _list_models(self, server):
         return server.get_model_list()
@@ -20,14 +38,13 @@ class McpController(http.Controller):
         if not server.is_model_allowed(model):
             return {'error': 'model_not_allowed'}
         Model = request.env[model].sudo()
-        domain = []
         domain = self._build_domain(Model, kwargs)
-        limit = int(kwargs.get('limit', 10))
+        limit = min(int(kwargs.get('limit', 10)), 100)
         fields_ = kwargs.get('fields')
         recs = Model.search(domain, limit=limit)
         return {
             'count': len(recs),
-            'records': recs.read(fields_) if fields_ else recs.read(),
+            'records': self._sanitize(recs, fields_),
         }
 
     def _build_domain(self, Model, kwargs):
@@ -44,12 +61,15 @@ class McpController(http.Controller):
             return {'error': 'model_not_allowed'}
         Model = request.env[model].sudo()
         rec = Model.browse(int(id_))
-        return rec.read() if rec.exists() else {'error': 'record_not_found'}
+        return self._sanitize(rec, None) if rec.exists() \
+            else {'error': 'record_not_found'}
 
     def _handle_tool(self, server, name, params):
-        parts = name.split('_')
-        if len(parts) >= 2 and parts[0] in ('read', 'search'):
-            action, model = parts[0], parts[1]
+        parts = name.split('_', 1)
+        if len(parts) == 2 and parts[0] in ('read', 'search'):
+            action, model = parts[0], parts[1].replace('__', '.')
+            if not model or not all(p.isidentifier() for p in model.split('.')):
+                return {'error': 'unknown_tool'}
         else:
             return {'error': 'unknown_tool'}
         if action == 'read':
@@ -65,6 +85,16 @@ class McpController(http.Controller):
             self._check_auth(server, request.httprequest.headers)
         except Unauthorized:
             return request.make_response(json.dumps({'error': 'unauthorized'}), [('Content-Type', 'application/json')], 401)
+
+        window_start = fields.Datetime.now() - relativedelta(minutes=1)
+        recent = request.env['mcp.request.log'].sudo().search_count([
+            ('server_id', '=', server.id),
+            ('create_date', '>=', window_start),
+        ])
+        if recent >= server.max_requests_per_minute:
+            return request.make_response(
+                json.dumps({'error': 'rate_limited'}),
+                [('Content-Type', 'application/json')], 429)
 
         start = time.time()
         try:

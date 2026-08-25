@@ -246,26 +246,43 @@ class AiOcrRequest(models.Model):
             'ref': self.invoice_number,
             'currency_id': self.env['res.currency'].search([('name', '=', self.currency or 'EUR')], limit=1).id,
         })
+        expense_account = partner.property_account_expense_id \
+            or self.env['ir.property']._get(
+                'property_account_expense_categ_id', 'product.category')
         for line in self.line_ids:
+            taxes = self.env['account.tax']
+            if line.tax_rate:
+                taxes = taxes.search([
+                    ('type_tax_use', '=', 'purchase'),
+                    ('amount_type', '=', 'percent'),
+                    ('amount', '>=', line.tax_rate - 0.001),
+                    ('amount', '<=', line.tax_rate + 0.001),
+                ], limit=1)
             self.env['account.move.line'].create({
                 'move_id': bill.id,
                 'name': line.description,
+                'account_id': expense_account.id,
                 'quantity': line.quantity,
                 'price_unit': line.unit_price,
-                'tax_ids': [(6, 0, self.env['account.tax'].search([
-                    ('type_tax_use', '=', 'purchase'),
-                    ('amount', '=', line.tax_rate),
-                    ('amount_type', '=', 'percent'),
-                ], limit=1).ids)] if line.tax_rate else [],
+                'tax_ids': [(6, 0, taxes.ids)],
             })
         self.created_bill_id = bill.id
 
     def _create_expense(self):
         self.ensure_one()
+        product = self.env['product.product'].search([
+            ('can_be_expensed', '=', True)], limit=1)
+        if not product:
+            raise UserError(_(
+                'No expensable product found. Create one to log OCR expenses.'))
+        qty = line_qty = (self.line_ids and sum(self.line_ids.mapped('quantity'))) or 1.0
+        unit = (self.total_amount / qty) if qty else self.total_amount
         exp = self.env['hr.expense'].create({
             'name': f'OCR: {self.invoice_number or self.name}',
+            'product_id': product.id,
+            'unit_amount': unit,
+            'quantity': qty,
             'date': self.invoice_date or fields.Date.today(),
-            'total_amount': self.total_amount,
             'currency_id': self.env['res.currency'].search([('name', '=', self.currency or 'EUR')], limit=1).id,
         })
         self.created_expense_id = exp.id

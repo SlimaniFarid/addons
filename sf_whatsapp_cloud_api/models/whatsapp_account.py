@@ -208,7 +208,6 @@ class WhatsAppMessage(models.Model):
             else:
                 msg.status = 'failed'
                 msg.error_message = str(result)
-            self.env.cr.commit()
 
     def action_retry(self):
         self.filtered(lambda m: m.status == 'failed').write({'status': 'draft'}).action_send()
