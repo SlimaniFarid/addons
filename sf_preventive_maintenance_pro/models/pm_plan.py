@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from dateutil.relativedelta import relativedelta
 from odoo import _, api, fields, models
 from odoo.exceptions import UserError
 
@@ -14,12 +15,25 @@ class PmPlan(models.Model):
 
     name = fields.Char(string='Name', required=True)
     equipment_id = fields.Many2one(required=True, comodel_name='maintenance.equipment', ondelete='restrict')
-    trigger_type = fields.Selection(default='time')
+    trigger_type = fields.Selection([
+        ('time', 'Time Based'), ('meter', 'Meter Based'),
+        ('condition', 'Condition Based'),
+        ], string='Trigger Type', default='time', required=True)
     interval_days = fields.Integer(string='Interval Days', default=30)
     meter_threshold = fields.Float(string='Meter Threshold')
     last_executed = fields.Date(string='Last Executed')
+    state = fields.Selection([
+        ('draft', 'Draft'), ('active', 'Active'),
+        ('paused', 'Paused'), ('cancelled', 'Cancelled'),
+        ], string='Status', default='draft', tracking=True, copy=False)
     next_due = fields.Date(compute='_compute_next_due', store=True)
-    active = fields.Boolean(string='Active', default='True')
+    active = fields.Boolean(string='Active', default=True)
+
+    @api.depends('last_executed', 'interval_days')
+    def _compute_next_due(self):
+        for plan in self:
+            base = plan.last_executed or fields.Date.today()
+            plan.next_due = base + relativedelta(days=plan.interval_days or 30)
 
     @api.model_create_multi
     def create(self, vals_list):

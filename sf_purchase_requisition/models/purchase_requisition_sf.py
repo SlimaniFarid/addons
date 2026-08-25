@@ -15,8 +15,13 @@ class PurchaseRequisitionSf(models.Model):
     name = fields.Char(string='Name', required=True)
     requested_by = fields.Many2one(default='current', comodel_name='res.users', ondelete='restrict')
     department_id = fields.Many2one(comodel_name='hr.department', ondelete='restrict')
-    budget_check = fields.Boolean(string='Budget Check', default='False')
-    state = fields.Selection(default='draft tracking', tracking=True)
+    budget_check = fields.Boolean(string='Budget Check', default=False)
+    state = fields.Selection([
+        ('draft', 'Draft'),
+        ('submitted', 'Submitted'),
+        ('done', 'Done'),
+        ('cancelled', 'Cancelled'),
+        ], string='Status', default='draft', tracking=True, copy=False)
     line_ids = fields.One2many('requisition.line', 'Lines', string='Line Ids')
 
     @api.model_create_multi

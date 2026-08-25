@@ -14,8 +14,15 @@ class InspectionPlan(models.Model):
 
     name = fields.Char(string='Name', required=True)
     product_tmpl_id = fields.Many2one(comodel_name='product.template', ondelete='restrict')
-    frequency = fields.Selection(default='per_receipt')
-    active = fields.Boolean(string='Active', default='True')
+    state = fields.Selection([
+        ('draft', 'Draft'), ('confirmed', 'Confirmed'),
+        ('archived', 'Archived'), ('cancelled', 'Cancelled'),
+        ], string='Status', default='draft', tracking=True, copy=False)
+    frequency = fields.Selection([
+        ('per_receipt', 'Per Receipt'), ('per_lot', 'Per Lot'),
+        ('daily', 'Daily'), ('weekly', 'Weekly'), ('monthly', 'Monthly'),
+        ], string='Frequency', default='per_receipt')
+    active = fields.Boolean(string='Active', default=True)
 
     @api.model_create_multi
     def create(self, vals_list):

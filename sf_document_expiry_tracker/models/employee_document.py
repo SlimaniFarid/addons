@@ -13,11 +13,26 @@ class EmployeeDocument(models.Model):
     company_id = fields.Many2one('res.company', string='Company', required=True, store=True, default=lambda self: self.env.company)
 
     employee_id = fields.Many2one(required=True, comodel_name='hr.employee', ondelete='restrict')
-    doc_type = fields.Selection(required=True)
+    doc_type = fields.Selection([
+        ('passport', 'Passport'),
+        ('id_card', 'ID Card'),
+        ('work_permit', 'Work Permit'),
+        ('visa', 'Visa'),
+        ('medical_check', 'Medical Check'),
+        ('certification', 'Certification'),
+        ('driving_licence', 'Driving Licence'),
+        ('other', 'Other'),
+        ], string='Document Type', required=True)
     expiry_date = fields.Date(string='Expiry Date', required=True)
     reminder_days = fields.Integer(string='Reminder Days', default=30)
     attachment_id = fields.Many2one(comodel_name='ir.attachment', ondelete='restrict')
-    state = fields.Selection(default='valid tracking', tracking=True)
+    state = fields.Selection([
+        ('draft', 'Draft'),
+        ('valid', 'Valid'),
+        ('expiring_soon', 'Expiring Soon'),
+        ('expired', 'Expired'),
+        ('cancelled', 'Cancelled'),
+        ], string='Status', default='valid', tracking=True, copy=False)
 
     @api.model_create_multi
     def create(self, vals_list):

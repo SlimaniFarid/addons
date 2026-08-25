@@ -122,3 +122,16 @@ class RMACarrierLabel(models.Model):
     def action_generate(self):
         # Generate label via carrier API
         self.write({'state': 'generated', 'tracking_number': f'RMA-{self.rma_id.name}-{fields.Date.today()}'})
+
+class RMAVendorRMA(models.Model):
+    _name = 'rma.vendor.rma'
+    _description = 'Vendor RMA (supplier return authorisation)'
+    _inherit = ['mail.thread', 'mail.activity.mixin']
+
+    name = fields.Char(string='Vendor RMA Reference', required=True, copy=False)
+    partner_id = fields.Many2one('res.partner', string='Supplier', required=True,
+                                 ondelete='restrict')
+    state = fields.Selection([
+        ('draft', 'Draft'), ('sent', 'Sent'), ('done', 'Done'),
+        ('cancelled', 'Cancelled'),
+        ], string='Status', default='draft', tracking=True, copy=False)

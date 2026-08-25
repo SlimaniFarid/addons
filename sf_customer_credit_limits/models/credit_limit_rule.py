@@ -15,7 +15,7 @@ class CreditLimitRule(models.Model):
     partner_id = fields.Many2one(required=True, comodel_name='res.partner', ondelete='restrict')
     limit_amount = fields.Monetary(string='Limit Amount', required=True, currency_field='currency_id')
     warning_pct = fields.Float(string='Warning Pct', default=80)
-    block_over_limit = fields.Boolean(string='Block Over Limit', default='True')
+    block_over_limit = fields.Boolean(string='Block Over Limit', default=True)
 
     @api.model_create_multi
     def create(self, vals_list):

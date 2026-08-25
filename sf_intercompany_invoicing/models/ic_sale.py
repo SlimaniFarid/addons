@@ -17,7 +17,12 @@ class IcSale(models.Model):
     dest_company_id = fields.Many2one(required=True, comodel_name='res.company', ondelete='restrict')
     sale_order_id = fields.Many2one(comodel_name='sale.order', ondelete='restrict')
     amount = fields.Monetary(string='Amount', currency_field='currency_id')
-    state = fields.Selection(default='draft tracking', tracking=True)
+    state = fields.Selection([
+        ('draft', 'Draft'),
+        ('confirmed', 'Confirmed'),
+        ('done', 'Done'),
+        ('cancelled', 'Cancelled'),
+        ], string='Status', default='draft', tracking=True, copy=False)
 
     @api.model_create_multi
     def create(self, vals_list):

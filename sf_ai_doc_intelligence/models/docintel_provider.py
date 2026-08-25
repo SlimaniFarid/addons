@@ -155,3 +155,14 @@ class DocIntelExtraction(models.Model):
     ], string='Field Type', default='text')
     confidence = fields.Float(string='Confidence')
     bbox = fields.Char(string='Bounding Box (JSON)')
+
+class DocIntelRoutingRule(models.Model):
+    _name = 'docintel.routing.rule'
+    _description = 'Document Intelligence Routing Rule'
+    _order = 'sequence'
+
+    sequence = fields.Integer(default=10)
+    name = fields.Char(string='Rule Name', required=True)
+    domain_hint = fields.Char(string='Filename Contains')
+    target_model = fields.Char(string='Target Model')
+    active = fields.Boolean(default=True)

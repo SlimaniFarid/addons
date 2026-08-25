@@ -19,7 +19,14 @@ class WarrantyClaim(models.Model):
     claim_date = fields.Date(string='Claim Date', default=fields.Date.today)
     description = fields.Text(string='Description')
     sla_deadline = fields.Date(string='Sla Deadline')
-    state = fields.Selection(default='draft tracking', tracking=True)
+    state = fields.Selection([
+        ('draft', 'Draft'),
+        ('submitted', 'Submitted'),
+        ('in_progress', 'In Progress'),
+        ('resolved', 'Resolved'),
+        ('rejected', 'Rejected'),
+        ('cancelled', 'Cancelled'),
+        ], string='Status', default='draft', tracking=True, copy=False)
 
     @api.model_create_multi
     def create(self, vals_list):

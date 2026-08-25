@@ -18,7 +18,12 @@ class RentalContract(models.Model):
     recurring_interval = fields.Integer(string='Recurring Interval', default=1)
     amount = fields.Monetary(string='Amount', required=True, currency_field='currency_id')
     deposit_amount = fields.Monetary(string='Deposit Amount', currency_field='currency_id')
-    state = fields.Selection(default='draft tracking', tracking=True)
+    state = fields.Selection([
+        ('draft', 'Draft'),
+        ('active', 'Active'),
+        ('done', 'Done'),
+        ('cancelled', 'Cancelled'),
+        ], string='Status', default='draft', tracking=True, copy=False)
     invoice_count = fields.Integer(compute='_compute_invoice_count', store=True)
 
     @api.model_create_multi

@@ -15,3 +15,5 @@ access_qms_calibration_user,qms.iso9001.qms_calibration.user,model_qms_calibrati
 access_qms_calibration_mgr,qms.iso9001.qms_calibration.mgr,model_qms_calibration,base.group_system,1,1,1,1
 access_qms_review_user,qms.iso9001.qms_review.user,model_qms_review,base.group_user,1,0,0,0
 access_qms_review_mgr,qms.iso9001.qms_review.mgr,model_qms_review,base.group_system,1,1,1,1
+access_access_qms_document_user_qms_process_user,qms.process.user,model_qms_process,base.group_user,1,0,0,0
+access_access_qms_document_user_qms_process_manager,qms.process.manager,model_qms_process,base.group_user,1,1,1,1

@@ -9,3 +9,5 @@ access_rma_disposition_user,returns.rma.rma_disposition.user,model_rma_dispositi
 access_rma_disposition_mgr,returns.rma.rma_disposition.mgr,model_rma_disposition,base.group_system,1,1,1,1
 access_rma_carrier_label_user,returns.rma.rma_carrier_label.user,model_rma_carrier_label,base.group_user,1,0,0,0
 access_rma_carrier_label_mgr,returns.rma.rma_carrier_label.mgr,model_rma_carrier_label,base.group_system,1,1,1,1
+access_access_rma_request_user_rma_vendor_rma_user,rma.vendor.rma.user,model_rma_vendor_rma,base.group_user,1,0,0,0
+access_access_rma_request_user_rma_vendor_rma_manager,rma.vendor.rma.manager,model_rma_vendor_rma,base.group_user,1,1,1,1

@@ -15,8 +15,14 @@ class NpsCampaign(models.Model):
     name = fields.Char(string='Name', required=True)
     start_date = fields.Date(string='Start Date', default=fields.Date.today)
     end_date = fields.Date(string='End Date')
-    target_model = fields.Selection(selection=[])
-    state = fields.Selection(default='draft')
+    target_model = fields.Selection([
+        ('res.partner', 'Customer'), ('sale.order', 'Sale Order'),
+        ('account.move', 'Invoice'), ('project.task', 'Project Task'),
+        ], string='Target Model', required=True, default='res.partner')
+    state = fields.Selection([
+        ('draft', 'Draft'), ('running', 'Running'),
+        ('closed', 'Closed'), ('cancelled', 'Cancelled'),
+        ], string='Status', default='draft', copy=False)
 
     @api.model_create_multi
     def create(self, vals_list):

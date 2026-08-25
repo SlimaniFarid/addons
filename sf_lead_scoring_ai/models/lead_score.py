@@ -14,6 +14,9 @@ class LeadScore(models.Model):
 
     lead_id = fields.Many2one(required=True, comodel_name='crm.lead', ondelete='restrict')
     total_score = fields.Integer(string='Total Score')
-    grade = fields.Selection(default='D')
+    grade = fields.Selection([
+        ('A', 'Grade A'), ('B', 'Grade B'),
+        ('C', 'Grade C'), ('D', 'Grade D'),
+        ], string='Grade', default='D')
     scored_date = fields.Datetime(string='Scored Date', default=fields.Datetime.now)
 

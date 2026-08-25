@@ -15,9 +15,17 @@ class DispatchTicket(models.Model):
     name = fields.Char(string='Name', required=True)
     partner_id = fields.Many2one(required=True, comodel_name='res.partner', ondelete='restrict')
     technician_id = fields.Many2one(comodel_name='res.users', ondelete='restrict')
-    priority = fields.Selection(default='normal')
+    priority = fields.Selection([
+        ('low', 'Low'), ('normal', 'Normal'),
+        ('high', 'High'), ('urgent', 'Urgent'),
+        ], string='Priority', default='normal')
     scheduled_date = fields.Datetime(string='Scheduled Date')
-    state = fields.Selection(default='new tracking', tracking=True)
+    state = fields.Selection([
+        ('draft', 'Draft'), ('new', 'New'), ('assigned', 'Assigned'),
+        ('in_progress', 'In Progress'), ('waiting', 'Waiting'),
+        ('resolved', 'Resolved'), ('closed', 'Closed'),
+        ('cancelled', 'Cancelled'),
+        ], string='Status', default='new', tracking=True, copy=False)
 
     @api.model_create_multi
     def create(self, vals_list):

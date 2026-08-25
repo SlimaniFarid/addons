@@ -16,7 +16,7 @@ class DunningLevel(models.Model):
     sequence = fields.Integer(string='Sequence', default=10)
     days_after_due = fields.Integer(string='Days After Due', default=7)
     email_template_id = fields.Many2one(comodel_name='mail.template', ondelete='restrict')
-    suspend_subscription = fields.Boolean(string='Suspend Subscription', default='False')
+    suspend_subscription = fields.Boolean(string='Suspend Subscription', default=False)
 
     @api.model_create_multi
     def create(self, vals_list):

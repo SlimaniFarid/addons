@@ -123,3 +123,14 @@ class QMSDocumentType(models.Model):
     requires_approval = fields.Boolean(default=True)
     requires_review = fields.Boolean(default=True)
     review_frequency_months = fields.Integer(default=12)
+
+class QMSProcess(models.Model):
+    _name = 'qms.process'
+    _description = 'QMS Process'
+    _order = 'sequence'
+
+    sequence = fields.Integer(default=10)
+    name = fields.Char(string='Process Name', required=True)
+    code = fields.Char(string='Code')
+    owner_id = fields.Many2one('res.users', string='Process Owner')
+    active = fields.Boolean(default=True)

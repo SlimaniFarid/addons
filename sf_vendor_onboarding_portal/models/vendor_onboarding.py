@@ -17,7 +17,14 @@ class VendorOnboarding(models.Model):
     tax_id = fields.Char(string='Tax Id')
     bank_account = fields.Char(string='Bank Account')
     cert_documents = fields.Many2many('ir.attachment', string='Cert Documents')
-    state = fields.Selection(default='draft tracking', tracking=True)
+    state = fields.Selection([
+        ('draft', 'Draft'),
+        ('submitted', 'Submitted'),
+        ('under_review', 'Under Review'),
+        ('approved', 'Approved'),
+        ('rejected', 'Rejected'),
+        ('cancelled', 'Cancelled'),
+        ], string='Status', default='draft', tracking=True, copy=False)
     reviewer_id = fields.Many2one(comodel_name='res.users', ondelete='restrict')
 
     @api.model_create_multi

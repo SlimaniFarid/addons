@@ -16,7 +16,10 @@ class SchedulePlan(models.Model):
     date_from = fields.Date(string='Date From', required=True)
     date_to = fields.Date(string='Date To', required=True)
     workcenter_id = fields.Many2one(comodel_name='mrp.workcenter', ondelete='restrict')
-    state = fields.Selection(default='draft')
+    state = fields.Selection([
+        ('draft', 'Draft'), ('confirmed', 'Confirmed'),
+        ('done', 'Done'), ('cancelled', 'Cancelled'),
+        ], string='Status', default='draft', copy=False)
 
     @api.model_create_multi
     def create(self, vals_list):

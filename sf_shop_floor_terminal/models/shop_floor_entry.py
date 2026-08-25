@@ -18,7 +18,10 @@ class ShopFloorEntry(models.Model):
     end_time = fields.Datetime(string='End Time')
     qty_produced = fields.Float(string='Qty Produced', default=0.0)
     qty_scrap = fields.Float(string='Qty Scrap', default=0.0)
-    state = fields.Selection(default='running')
+    state = fields.Selection([
+        ('draft', 'Draft'), ('running', 'Running'), ('paused', 'Paused'),
+        ('completed', 'Completed'), ('cancelled', 'Cancelled'),
+        ], string='Status', default='running', copy=False)
 
     @api.model_create_multi
     def create(self, vals_list):

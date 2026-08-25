@@ -14,10 +14,13 @@ class ScoringRule(models.Model):
 
     name = fields.Char(string='Name', required=True)
     field_name = fields.Char(string='Field Name', required=True)
-    operator = fields.Selection(default='eq')
+    operator = fields.Selection([
+        ('eq', '='), ('ne', '!='), ('gt', '>'), ('gte', '>='),
+        ('lt', '<'), ('lte', '<='), ('contains', 'contains'),
+        ], string='Operator', default='eq', required=True)
     score_value = fields.Integer(string='Score Value', default=10)
     sequence = fields.Integer(string='Sequence', default=10)
-    active = fields.Boolean(string='Active', default='True')
+    active = fields.Boolean(string='Active', default=True)
 
     @api.model_create_multi
     def create(self, vals_list):

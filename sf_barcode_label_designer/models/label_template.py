@@ -15,9 +15,18 @@ class LabelTemplate(models.Model):
     name = fields.Char(string='Name', required=True)
     label_width_mm = fields.Float(string='Label Width Mm', default=50)
     label_height_mm = fields.Float(string='Label Height Mm', default=30)
-    barcode_type = fields.Selection(default='code128')
-    output_format = fields.Selection(default='pdf')
-    active = fields.Boolean(string='Active', default='True')
+    state = fields.Selection([
+        ('draft', 'Draft'), ('confirmed', 'Confirmed'), ('active', 'Active'),
+        ('archived', 'Archived'), ('cancelled', 'Cancelled'),
+        ], string='Status', default='draft', tracking=True, copy=False)
+    barcode_type = fields.Selection([
+        ('code128', 'Code 128'), ('ean13', 'EAN-13'), ('ean8', 'EAN-8'),
+        ('upca', 'UPC-A'), ('qr', 'QR Code'), ('datamatrix', 'Data Matrix'),
+        ], string='Barcode Type', default='code128', required=True)
+    output_format = fields.Selection([
+        ('pdf', 'PDF'), ('png', 'PNG'), ('zpl', 'ZPL'),
+        ], string='Output Format', default='pdf', required=True)
+    active = fields.Boolean(string='Active', default=True)
 
     @api.model_create_multi
     def create(self, vals_list):

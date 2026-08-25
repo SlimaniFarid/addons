@@ -13,7 +13,11 @@ class DunningCase(models.Model):
     company_id = fields.Many2one('res.company', string='Company', required=True, store=True, default=lambda self: self.env.company)
 
     invoice_id = fields.Many2one(required=True, comodel_name='account.move', ondelete='restrict')
-    level_id = fields.Many2one(comodel_name='dunning.level', ondelete='restrict')
+    level_id = fields.Many2one(comodel_name='sf.subscription.dunning.dunning.level', ondelete='restrict')
     attempts = fields.Integer(string='Attempts', default=0)
-    state = fields.Selection(default='open')
+    state = fields.Selection([
+        ('open', 'Open'), ('in_progress', 'In Progress'),
+        ('escalated', 'Escalated'), ('paid', 'Paid'),
+        ('closed', 'Closed'), ('cancelled', 'Cancelled'),
+        ], string='Status', default='open', copy=False)
 

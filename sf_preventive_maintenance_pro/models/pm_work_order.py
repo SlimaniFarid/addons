@@ -12,8 +12,11 @@ class PmWorkOrder(models.Model):
     currency_id = fields.Many2one(related='company_id.currency_id', store=True)
     company_id = fields.Many2one('res.company', string='Company', required=True, store=True, default=lambda self: self.env.company)
 
-    plan_id = fields.Many2one(comodel_name='pm.plan', ondelete='restrict')
+    plan_id = fields.Many2one(comodel_name='sf.preventive.maintenance.pro.pm.plan', ondelete='restrict')
     maintenance_request_id = fields.Many2one(comodel_name='maintenance.request', ondelete='restrict')
     created_date = fields.Date(string='Created Date', default=fields.Date.today)
-    state = fields.Selection(default='pending')
+    state = fields.Selection([
+        ('pending', 'Pending'), ('in_progress', 'In Progress'),
+        ('done', 'Done'), ('cancelled', 'Cancelled'),
+        ], string='Status', default='pending', copy=False)
 

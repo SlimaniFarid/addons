@@ -20,7 +20,7 @@ class PromoRule(models.Model):
     fixed_price = fields.Monetary(string='Fixed Price', currency_field='currency_id')
     min_qty = fields.Float(string='Min Qty', default=1.0)
     margin_floor_pct = fields.Float(string='Margin Floor Pct', default=0.0)
-    active = fields.Boolean(string='Active', default='True')
+    active = fields.Boolean(string='Active', default=True)
 
     @api.model_create_multi
     def create(self, vals_list):

@@ -18,7 +18,17 @@ class Complaint8d(models.Model):
     problem_description = fields.Html(string='Problem Description')
     root_cause = fields.Html(string='Root Cause')
     corrective_action = fields.Html(string='Corrective Action')
-    state = fields.Selection(default='d1_team tracking', tracking=True)
+    state = fields.Selection([
+        ('draft', 'Draft'),
+        ('d1_team', 'D1 - Team'),
+        ('d2_problem', 'D2 - Problem Description'),
+        ('d3_containment', 'D3 - Containment'),
+        ('d4_root_cause', 'D4 - Root Cause'),
+        ('d5_corrective', 'D5 - Corrective Actions'),
+        ('d6_validate', 'D6 - Validate Effectiveness'),
+        ('d7_prevent', 'D7 - Prevent Recurrence'),
+        ('d8_closed', 'D8 - Close & Recognise'),
+        ], string='Status', default='draft', tracking=True, copy=False)
 
     @api.model_create_multi
     def create(self, vals_list):

@@ -16,7 +16,10 @@ class SlottingAnalysis(models.Model):
     analysis_date = fields.Date(string='Analysis Date', default=fields.Date.today)
     abc_a_pct = fields.Float(string='Abc A Pct', default=20)
     abc_b_pct = fields.Float(string='Abc B Pct', default=30)
-    state = fields.Selection(default='draft', compute='_compute_state', store=True)
+    state = fields.Selection([
+        ('draft', 'Draft'), ('confirmed', 'Confirmed'),
+        ('done', 'Done'), ('cancelled', 'Cancelled'),
+        ], string='Status', default='draft', copy=False)
 
     @api.model_create_multi
     def create(self, vals_list):
