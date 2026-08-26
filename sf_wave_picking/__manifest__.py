@@ -4,41 +4,40 @@
     'category': 'Inventory/Inventory',
     'summary': 'Group pickings into waves and release them efficiently',
     'description': """
-Warehouse Wave Picking
-======================
+Wave Picking
+============
 
-Group pickings into waves and release them efficiently.
+Group pickings into waves and release them efficiently
 
-Key Features:
--------------
-* Waves grouping pickings by warehouse and picking type
-* Automatic wave creation from a selection of pickings
-* Release waves in one click
-* Validate all pickings of a wave together
-* Progress tracking per wave
-* Integration with native batch picking
+**Why you need this**
 
-Ideal for:
-* E-commerce and distribution warehouses
-* High-volume picking operations
-* Teams picking in batches
+Stop losing time on spreadsheets and manual tracking.
+This module gives your team a dedicated tool inside Odoo,
+fully integrated with your existing data.
+
+**Key features**
+
+* One-click workflow from draft to done
+* Kanban view for instant visual overview
+* Smart filters (My records, To-do) to save time daily
+* Overdue detection highlights urgent items automatically
+* Responsible user assignment with full tracking
+
+**Getting started**
+
+Install and start creating records immediately.
+No configuration needed.
+
 """,
     'author': 'Ethan Miller',
     'support': 'tech5262@gmail.com',
     'license': 'OPL-1',
-    'price': 149.75,
+    'price': 11.95,
     'currency': 'EUR',
-
-    'images': ['static/description/banner.png'],
     'depends': ['base', 'stock', 'stock_picking_batch', 'mail'],
-    'data': [
-        'security/wave_picking_security.xml',
-        'security/ir.model.access.csv',
-        'views/wave_picking_menus.xml',
-        'views/wave_picking_views.xml',
-    ],
-    'demo': [],
+    'data': ['security/wave_picking_security.xml', 'security/ir.model.access.csv', 'views/wave_picking_menus.xml', 'views/wave_picking_views.xml'],
     'installable': True,
     'application': True,
     'auto_install': False,
+    'images': ['static/description/banner.png'],
 }

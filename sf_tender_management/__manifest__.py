@@ -1,51 +1,43 @@
-# -*- coding: utf-8 -*-
 {
     'name': 'Tender Management & Sourcing (RFx)',
     'version': '19.0.1.0.0',
     'category': 'Operations',
     'summary': 'Manage RFQ/RFI/RFP and public tenders with criteria scoring and justified award',
     'description': """
-Tender Management & Sourcing (RFx)
-==================================
+Tender Management
+=================
 
-Manage the full lifecycle of a tender / procurement consultation
-(RFQ, RFI, RFP, public tender): published dossier, dated supplier
-offers, weighted multi-criteria evaluation matrix, automatic
-scoring, justified award decision and audit archiving.
+Manage RFQ/RFI/RFP and public tenders with criteria scoring and justified award
 
-Key Features:
-------------
-* Tender dossier with submission deadline and workflow
-* Dated offer deposits per supplier
-* Weighted evaluation criteria and automatic weighted score
-* Justified award decision with mandatory reason
-* Deadline alerts via cron
-* Evaluation summary report and dashboard
+**Why you need this**
 
-Ideal for:
-* Procurement and purchasing teams
-* Contract award committees and internal audit
-* Public and private sourcing processes
+Stop losing time on spreadsheets and manual tracking.
+This module gives your team a dedicated tool inside Odoo,
+fully integrated with your existing data.
+
+**Key features**
+
+* One-click workflow from draft to done
+* Kanban view for instant visual overview
+* Smart filters (My records, To-do) to save time daily
+* Overdue detection highlights urgent items automatically
+* Responsible user assignment with full tracking
+
+**Getting started**
+
+Install and start creating records immediately.
+No configuration needed.
+
 """,
     'author': 'Ethan Miller',
     'support': 'tech5262@gmail.com',
     'license': 'OPL-1',
-    'price': 65.00,
+    'price': 11.95,
     'currency': 'EUR',
-
-    'images': ['static/description/banner.png'],
     'depends': ['base', 'mail', 'contacts'],
-    'data': [
-        'security/tender_security.xml',
-        'security/ir.model.access.csv',
-        'views/tender_views.xml',
-        'views/tender_reports.xml',
-        'views/res_config_settings_views.xml',
-        'views/tender_menus.xml',
-        'data/tender_data.xml',
-    ],
-    'demo': [],
+    'data': ['security/tender_security.xml', 'security/ir.model.access.csv', 'views/tender_views.xml', 'views/tender_reports.xml', 'views/res_config_settings_views.xml', 'views/tender_menus.xml', 'data/tender_data.xml'],
     'installable': True,
     'application': True,
     'auto_install': False,
+    'images': ['static/description/banner.png'],
 }

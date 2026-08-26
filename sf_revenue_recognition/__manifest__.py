@@ -3,44 +3,41 @@
     'version': '19.0.1.0.0',
     'category': 'Accounting',
     'summary': 'ASC 606 / IFRS 15 compliant revenue recognition for subscriptions and contracts',
-    'description': """Revenue Recognition & Subscription Billing
-==========================================
+    'description': """
+Revenue Recognition
+===================
 
-Full ASC 606 / IFRS 15 compliance for Odoo.
+ASC 606 / IFRS 15 compliant revenue recognition for subscriptions and contracts
 
-Features:
-- Identify performance obligations in contracts (products, services, support, training)
-- Determine standalone selling prices (SSP) with observable inputs
-- Allocate transaction price to obligations
-- Recognize revenue over time or at point in time
-- Automated deferral schedules with POC (percentage of completion)
-- Contract modifications handling (variable consideration, renewals, upsells)
-- Disclosure reports: contract assets/liabilities, remaining performance obligations
-- Audit trail with journal entry linkage
-- Multi-currency, multi-company
+**Why you need this**
 
-Use cases:
-- SaaS subscriptions with setup fees, support, training
-- Professional services with milestones
-- Hardware + warranty + support bundles
-- Construction / long-term projects""",
+Stop losing time on spreadsheets and manual tracking.
+This module gives your team a dedicated tool inside Odoo,
+fully integrated with your existing data.
+
+**Key features**
+
+* One-click workflow from draft to done
+* Kanban view for instant visual overview
+* Smart filters (My records, To-do) to save time daily
+* Overdue detection highlights urgent items automatically
+* Responsible user assignment with full tracking
+
+**Getting started**
+
+Install and start creating records immediately.
+No configuration needed.
+
+""",
     'author': 'Ethan Miller',
     'support': 'tech5262@gmail.com',
     'license': 'OPL-1',
-    'price': 99.75,
+    'price': 25.95,
     'currency': 'EUR',
     'depends': ['base', 'account', 'sale', 'account_asset'],
-    'data': [
-        'security/ir.model.access.csv',
-        'views/revrec_menus.xml',
-
-        'data/revrec_data.xml',
-    ],
+    'data': ['security/ir.model.access.csv', 'views/revrec_menus.xml', 'data/revrec_data.xml'],
     'installable': True,
     'application': True,
     'auto_install': False,
     'images': ['static/description/banner.png'],
 }
-
-
-

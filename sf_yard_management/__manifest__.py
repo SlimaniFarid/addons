@@ -1,49 +1,44 @@
-# -*- coding: utf-8 -*-
 {
     'name': 'Yard Management',
     'version': '19.0.1.0.0',
     'category': 'Inventory/Inventory',
     'summary': 'Yard management: trailer inventory with dwell clocks, gate check-in/out, dock assignment, jockey shunts, detention billing',
     'description': """
-Yard Management System (YMS)
-============================
+Yard Management
+===============
 
-The yard is the blind spot between the gate and the dock doors. This module
-turns it into a live, timestamped operation.
+Yard management: trailer inventory with dwell clocks, gate check-in/out, dock assignment, jockey shunts, detention billing
 
-Features:
-- Yard map: zones and numbered locations (dock, parking, waiting,
-  maintenance, customs, cold)
-- Trailer inventory: plate, type, carrier, status, current location,
-  automatic dwell clock
-- Gate check-in / check-out (manual or QR-ready), driver and carrier logged
-- Dock door assignment with occupancy guards
-- Directed jockey shunt moves with full timing trail
-- Detention & demurrage engine: free time per carrier, warning at 80%,
-  chargeable beyond, monthly grouped vendor invoices
-- Real-time KPIs: occupancy by zone, average dwell, detention cost of the day
-- Daily yard report (PDF)
-- Multi-company, multi-yard ready, full chatter audit trail
+**Why you need this**
 
-Stop losing trailers and detention disputes: every gate and door event is
-timestamped.
+Stop losing time on spreadsheets and manual tracking.
+This module gives your team a dedicated tool inside Odoo,
+fully integrated with your existing data.
+
+**Key features**
+
+* One-click workflow from draft to done
+* Kanban view for instant visual overview
+* Smart filters (My records, To-do) to save time daily
+* Overdue detection highlights urgent items automatically
+* Responsible user assignment with full tracking
+
+**Getting started**
+
+Install and start creating records immediately.
+No configuration needed.
+
 """,
     'author': 'Ethan Miller',
     'support': 'tech5262@gmail.com',
     'website': 'https://www.smartersaas.com',
     'license': 'OPL-1',
-    'price': 62.50,
+    'price': 25.95,
     'currency': 'EUR',
-    'application': True,
+    'depends': ['base', 'mail', 'account', 'stock'],
+    'data': ['security/sf_yard_management_security.xml', 'security/ir.model.access.csv', 'data/sf_yard_sequence.xml', 'views/sf_yard_views.xml', 'views/sf_yard_menus.xml'],
     'installable': True,
+    'application': True,
     'auto_install': False,
     'images': ['static/description/banner.png'],
-    'depends': ['base', 'mail', 'account', 'stock'],
-    'data': [
-        'security/sf_yard_management_security.xml',
-        'security/ir.model.access.csv',
-        'data/sf_yard_sequence.xml',
-        'views/sf_yard_views.xml',
-        'views/sf_yard_menus.xml',
-    ],
 }

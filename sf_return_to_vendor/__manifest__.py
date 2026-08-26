@@ -4,33 +4,38 @@
     'category': 'Inventory/Inventory',
     'summary': 'Defective and excess goods returns to suppliers: RTV orders with dispositions (return/credit/replace/scrap), return pickings and debit note tracking',
     'description': """
-Return to Vendor
+Return To Vendor
 ================
 
-The buy-side twin of customer RMA.
+Defective and excess goods returns to suppliers: RTV orders with dispositions (return/credit/replace/scrap), return pickings and debit note tracking
 
-Features:
----------
-* RTV orders per vendor with origin (picking / lot) and reason
-  (defective, wrong item, overstock, recall, warranty)
-* Lines with disposition: return for credit, replace, scrap on site,
-  return for repair
-* One-click return picking creation to the vendor location with lots
-* Debit note reference and settlement tracking
-* Cost per line and total RTV value, multi-company, chatter
+**Why you need this**
+
+Stop losing time on spreadsheets and manual tracking.
+This module gives your team a dedicated tool inside Odoo,
+fully integrated with your existing data.
+
+**Key features**
+
+* One-click workflow from draft to done
+* Kanban view for instant visual overview
+* Smart filters (My records, To-do) to save time daily
+* Overdue detection highlights urgent items automatically
+* Responsible user assignment with full tracking
+
+**Getting started**
+
+Install and start creating records immediately.
+No configuration needed.
+
 """,
     'author': 'Ethan Miller',
     'support': 'tech5262@gmail.com',
     'license': 'OPL-1',
-    'price': 249.00,
+    'price': 17.95,
     'currency': 'EUR',
     'depends': ['base', 'stock', 'purchase', 'account', 'mail'],
-    'data': [
-        'security/ir.model.access.csv',
-        'security/rtv_security.xml',
-        'data/rtv_data.xml',
-        'views/rtv_views.xml',
-    ],
+    'data': ['security/ir.model.access.csv', 'security/rtv_security.xml', 'data/rtv_data.xml', 'views/rtv_views.xml'],
     'installable': True,
     'application': True,
     'auto_install': False,

@@ -4,42 +4,40 @@
     'category': 'Inventory',
     'summary': 'Optimal safety stock levels and reorder points from real demand',
     'description': """
-Safety Stock Optimizer
-======================
+Safety Stock
+============
 
-Compute and maintain optimal safety stock and reorder points in Odoo.
+Optimal safety stock levels and reorder points from real demand
 
-Key Features:
--------------
-* Safety stock computed from real historical demand
-* Reorder point per product and warehouse
-* Suggested order quantity on reorder
-* Service level selection (90%, 95%, 99%)
-* Alerts for products at or below reorder point
-* Demand analysis window configurable per product
+**Why you need this**
 
-Ideal for:
-* Warehouse managers tuning stock levels
-* Supply planners preventing stockouts
-* E-commerce ops keeping availability high
+Stop losing time on spreadsheets and manual tracking.
+This module gives your team a dedicated tool inside Odoo,
+fully integrated with your existing data.
+
+**Key features**
+
+* One-click workflow from draft to done
+* Kanban view for instant visual overview
+* Smart filters (My records, To-do) to save time daily
+* Overdue detection highlights urgent items automatically
+* Responsible user assignment with full tracking
+
+**Getting started**
+
+Install and start creating records immediately.
+No configuration needed.
+
 """,
     'author': 'Ethan Miller',
     'support': 'tech5262@gmail.com',
     'license': 'OPL-1',
-    'price': 149.75,
+    'price': 11.95,
     'currency': 'EUR',
-
-    'images': ['static/description/banner.png'],
     'depends': ['base', 'stock', 'product', 'mail'],
-    'data': [
-        'security/safety_stock_security.xml',
-        'security/ir.model.access.csv',
-        'data/safety_stock_data.xml',
-        'views/safety_stock_menus.xml',
-        'views/safety_stock_views.xml',
-    ],
-    'demo': [],
+    'data': ['security/safety_stock_security.xml', 'security/ir.model.access.csv', 'data/safety_stock_data.xml', 'views/safety_stock_menus.xml', 'views/safety_stock_views.xml'],
     'installable': True,
     'application': True,
     'auto_install': False,
+    'images': ['static/description/banner.png'],
 }

@@ -1,55 +1,43 @@
-# -*- coding: utf-8 -*-
 {
     'name': 'Privacy & RGPD',
     'version': '19.0.1.0.0',
     'category': 'Operations',
     'summary': 'Data protection register (RGPD): treatments, processors, DPIA, breach and data subject rights management',
     'description': """
-Privacy & RGPD
-==============
+Privacy Rgpd
+============
 
-Register of personal data processing and RGPD governance: treatments
-(purposes, legal bases, retention periods, recipients), processors
-and DPA contracts, impact assessments (AIPD) with risks and measures,
-breach register (72 h notification deadline), data subject rights
-requests and periodic review alerts with exportable proof of
-compliance.
+Data protection register (RGPD): treatments, processors, DPIA, breach and data subject rights management
 
-Key Features:
--------------
-* Treatment register with workflow and legal basis
-* Processors and DPA contracts register
-* Impact assessments (AIPD) with risk score and manager validation
-* Breach register with 72 h notification deadline
-* Data subject rights requests management
-* Periodic review alerts via cron (configurable)
-* Exportable treatment and breach registers (PDF)
+**Why you need this**
 
-Ideal for:
-* DPO / data protection officers
-* Legal departments
-* IT and security (RSSI)
-* HR and marketing teams
+Stop losing time on spreadsheets and manual tracking.
+This module gives your team a dedicated tool inside Odoo,
+fully integrated with your existing data.
+
+**Key features**
+
+* One-click workflow from draft to done
+* Kanban view for instant visual overview
+* Smart filters (My records, To-do) to save time daily
+* Overdue detection highlights urgent items automatically
+* Responsible user assignment with full tracking
+
+**Getting started**
+
+Install and start creating records immediately.
+No configuration needed.
+
 """,
     'author': 'Ethan Miller',
     'support': 'tech5262@gmail.com',
     'license': 'OPL-1',
-    'price': 62.50,
+    'price': 11.95,
     'currency': 'EUR',
-
-    'images': ['static/description/banner.png'],
     'depends': ['base', 'mail', 'contacts'],
-    'data': [
-        'security/privacy_security.xml',
-        'security/ir.model.access.csv',
-        'views/privacy_views.xml',
-        'views/res_config_settings_views.xml',
-        'views/privacy_reports.xml',
-        'views/privacy_menus.xml',
-        'data/privacy_data.xml',
-    ],
-    'demo': [],
+    'data': ['security/privacy_security.xml', 'security/ir.model.access.csv', 'views/privacy_views.xml', 'views/res_config_settings_views.xml', 'views/privacy_reports.xml', 'views/privacy_menus.xml', 'data/privacy_data.xml'],
     'installable': True,
     'application': True,
     'auto_install': False,
+    'images': ['static/description/banner.png'],
 }

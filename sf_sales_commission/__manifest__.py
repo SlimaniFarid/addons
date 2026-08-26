@@ -4,48 +4,40 @@
     'category': 'Sales',
     'summary': 'Flexible commission plans, auto-computed from paid invoices and tracked per salesperson',
     'description': """
-Sales Commission Engine
-=======================
+Sales Commission
+================
 
-Compute and manage sales commissions automatically, with flexible and
-transparent rules that your sales team will understand.
+Flexible commission plans, auto-computed from paid invoices and tracked per salesperson
 
-Key Features:
--------------
-* Commission plans with flat, tiered and percentage-of-margin rates
-* Commission per product category override (higher rates on strategic products)
-* Based on the paid invoice amount (commission earned when the customer pays)
-* Automatic commission line generation from validated invoices and payments
-* Manual adjustments: prorated commissions, fixed bonuses, clawbacks
-* Commission per salesperson, with amounts in the company currency
-* Draft / Approved / Paid / Cancelled workflow
-* Approval workflow: manager validates before payment
-* Totals per period and per salesperson
-* Dedicated menus and reporting views
+**Why you need this**
 
-Perfect for:
-* Sales teams and sales managers
-* SMEs wanting a transparent, data-driven incentive scheme
-* Companies replacing spreadsheet-based commission calculations
+Stop losing time on spreadsheets and manual tracking.
+This module gives your team a dedicated tool inside Odoo,
+fully integrated with your existing data.
 
-No code required: define plans and rates from the UI, then let Odoo compute.
+**Key features**
+
+* One-click workflow from draft to done
+* Kanban view for instant visual overview
+* Smart filters (My records, To-do) to save time daily
+* Overdue detection highlights urgent items automatically
+* Responsible user assignment with full tracking
+
+**Getting started**
+
+Install and start creating records immediately.
+No configuration needed.
+
 """,
     'author': 'Ethan Miller',
     'support': 'tech5262@gmail.com',
     'license': 'OPL-1',
-    'price': 149.75,
+    'price': 11.95,
     'currency': 'EUR',
-
-    'images': ['static/description/banner.png'],
     'depends': ['base', 'sale', 'account'],
-    'data': [
-        'security/commission_security.xml',
-        'security/ir.model.access.csv',
-        'views/commission_views.xml',
-        'views/sale_order_views.xml',
-    ],
-    'demo': [],
+    'data': ['security/commission_security.xml', 'security/ir.model.access.csv', 'views/commission_views.xml', 'views/sale_order_views.xml'],
     'installable': True,
     'application': True,
     'auto_install': False,
+    'images': ['static/description/banner.png'],
 }

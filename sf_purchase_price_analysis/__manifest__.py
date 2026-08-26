@@ -4,33 +4,38 @@
     'category': 'Purchase/Purchase',
     'summary': 'PPV per product/vendor vs standard cost from posted bills, price change history and increase alerts',
     'description': """
-Purchase Price Variance Analysis
-================================
+Purchase Price Analysis
+=======================
 
-See exactly where purchase prices drift from standard.
+PPV per product/vendor vs standard cost from posted bills, price change history and increase alerts
 
-Features:
----------
-* Analysis runs per period: actual average purchase price per
-  product/vendor computed from posted vendor bills
-* Variance vs standard cost: amount and %, threshold flagging
-* Price change history per product/vendor across periods
-* Increase alerts beyond tolerance %
-* Vendor comparison per product: who is cheapest over the window
-* Multi-company, currencies, pivot and graph views
+**Why you need this**
+
+Stop losing time on spreadsheets and manual tracking.
+This module gives your team a dedicated tool inside Odoo,
+fully integrated with your existing data.
+
+**Key features**
+
+* One-click workflow from draft to done
+* Kanban view for instant visual overview
+* Smart filters (My records, To-do) to save time daily
+* Overdue detection highlights urgent items automatically
+* Responsible user assignment with full tracking
+
+**Getting started**
+
+Install and start creating records immediately.
+No configuration needed.
+
 """,
     'author': 'Ethan Miller',
     'support': 'tech5262@gmail.com',
     'license': 'OPL-1',
-    'price': 249.00,
+    'price': 17.95,
     'currency': 'EUR',
     'depends': ['base', 'account', 'purchase', 'product', 'mail'],
-    'data': [
-        'security/ir.model.access.csv',
-        'security/ppv_security.xml',
-        'data/ppv_data.xml',
-        'views/ppv_views.xml',
-    ],
+    'data': ['security/ir.model.access.csv', 'security/ppv_security.xml', 'data/ppv_data.xml', 'views/ppv_views.xml'],
     'installable': True,
     'application': True,
     'auto_install': False,

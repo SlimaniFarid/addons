@@ -1,25 +1,43 @@
-# -*- coding: utf-8 -*-
 {
     'name': 'Shop Floor Data Terminal',
     'version': '19.0.1.0.0',
     'category': 'Manufacturing',
     'summary': 'Shop floor terminal for work order tracking, time logging, quantity reporting and scrap entry.',
-    'description': 'Shop Floor Data Terminal module for Odoo. Shop floor terminal for work order tracking, time logging, quantity reporting and scrap entry.',
+    'description': """
+Shop Floor Terminal
+===================
+
+Shop floor terminal for work order tracking, time logging, quantity reporting and scrap entry.
+
+**Why you need this**
+
+Stop losing time on spreadsheets and manual tracking.
+This module gives your team a dedicated tool inside Odoo,
+fully integrated with your existing data.
+
+**Key features**
+
+* One-click workflow from draft to done
+* Kanban view for instant visual overview
+* Smart filters (My records, To-do) to save time daily
+* Overdue detection highlights urgent items automatically
+* Responsible user assignment with full tracking
+
+**Getting started**
+
+Install and start creating records immediately.
+No configuration needed.
+
+""",
     'author': 'Ethan Miller',
     'support': 'tech5262@gmail.com',
     'website': 'https://www.smartersaas.com',
     'license': 'OPL-1',
-    'price': 62.50,
+    'price': 17.95,
     'currency': 'EUR',
-    'application': True,
-    'installable': True,
-    'images': ['static/description/banner.png'],
     'depends': ['base', 'mail', 'account', 'stock', 'hr', 'mrp'],
-    'data': [
-        'security/sf_shop_floor_terminal_security.xml',
-        'security/ir.model.access.csv',
-        'data/sf_shop_floor_terminal_sequence.xml',
-        'views/shop_floor_entry_views.xml',
-        'views/sf_shop_floor_terminal_menus.xml',
-    ],
+    'data': ['security/sf_shop_floor_terminal_security.xml', 'security/ir.model.access.csv', 'data/sf_shop_floor_terminal_sequence.xml', 'views/shop_floor_entry_views.xml', 'views/sf_shop_floor_terminal_menus.xml'],
+    'installable': True,
+    'application': True,
+    'images': ['static/description/banner.png'],
 }

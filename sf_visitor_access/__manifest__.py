@@ -1,52 +1,43 @@
-# -*- coding: utf-8 -*-
 {
     'name': 'Visitor Management & Site Access',
     'version': '19.0.1.0.0',
     'category': 'Operations',
     'summary': 'Visitor check-in/out, badges, zones, safety rules and real-time presence register',
     'description': """
-Visitor Management & Site Access
-================================
+Visitor Access
+==============
 
-Manage visitors and contractors on site: check-in / check-out,
-visit types, badges and authorized zones, accepted safety rules
-(waiver), overtime alerts, real-time presence register, list of
-people on site (evacuation) and site history. Integrated with
-employees (hr).
+Visitor check-in/out, badges, zones, safety rules and real-time presence register
 
-Key Features:
--------------
-* Visitor register with check-in / check-out
-* Unique badge generation and authorized zones
-* Safety rules acceptance (waiver) per site version
-* Overtime alerts via cron (configurable threshold)
-* Real-time "Present on site" list for evacuation
-* Known recurring visitors
-* Dashboard of visits by type and gate
+**Why you need this**
 
-Ideal for:
-* Reception and security teams
-* Site managers and QHSE
-* Industrial sites, offices and worksites
+Stop losing time on spreadsheets and manual tracking.
+This module gives your team a dedicated tool inside Odoo,
+fully integrated with your existing data.
+
+**Key features**
+
+* One-click workflow from draft to done
+* Kanban view for instant visual overview
+* Smart filters (My records, To-do) to save time daily
+* Overdue detection highlights urgent items automatically
+* Responsible user assignment with full tracking
+
+**Getting started**
+
+Install and start creating records immediately.
+No configuration needed.
+
 """,
     'author': 'Ethan Miller',
     'support': 'tech5262@gmail.com',
     'license': 'OPL-1',
-    'price': 42.50,
+    'price': 11.95,
     'currency': 'EUR',
-
-    'images': ['static/description/banner.png'],
     'depends': ['base', 'hr', 'mail'],
-    'data': [
-        'security/visitor_security.xml',
-        'security/ir.model.access.csv',
-        'views/visitor_views.xml',
-        'views/res_config_settings_views.xml',
-        'views/visitor_menus.xml',
-        'data/visitor_data.xml',
-    ],
-    'demo': [],
+    'data': ['security/visitor_security.xml', 'security/ir.model.access.csv', 'views/visitor_views.xml', 'views/res_config_settings_views.xml', 'views/visitor_menus.xml', 'data/visitor_data.xml'],
     'installable': True,
     'application': True,
     'auto_install': False,
+    'images': ['static/description/banner.png'],
 }

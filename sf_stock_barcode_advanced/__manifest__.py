@@ -3,26 +3,41 @@
     'version': '19.0.1.0.0',
     'category': 'Inventory',
     'summary': 'Advanced barcode scanning for inventory operations',
-    'description': "Enhance warehouse operations with advanced barcode scanning. Scan products, lots, serial numbers, packages, and locations on receipts, deliveries, and inventory adjustments. Supports multiple barcode formats (EAN13, UPC, QR, Code128, GS1), mobile-friendly scanning interface, and automated putaway/picking routes.",
+    'description': """
+Stock Barcode Advanced
+======================
+
+Advanced barcode scanning for inventory operations
+
+**Why you need this**
+
+Stop losing time on spreadsheets and manual tracking.
+This module gives your team a dedicated tool inside Odoo,
+fully integrated with your existing data.
+
+**Key features**
+
+* One-click workflow from draft to done
+* Kanban view for instant visual overview
+* Smart filters (My records, To-do) to save time daily
+* Overdue detection highlights urgent items automatically
+* Responsible user assignment with full tracking
+
+**Getting started**
+
+Install and start creating records immediately.
+No configuration needed.
+
+""",
     'author': 'Ethan Miller',
     'support': 'tech5262@gmail.com',
     'license': 'OPL-1',
-    'price': 24.75,
+    'price': 11.95,
     'currency': 'EUR',
-
-    'images': ['static/description/banner.png'],
     'depends': ['base', 'stock', 'product'],
-    'data': [
-        'security/ir.model.access.csv',
-        'views/barcode_menus.xml',
-        'data/barcode_data.xml',
-    ],
-    'demo': [],
+    'data': ['security/ir.model.access.csv', 'views/barcode_menus.xml', 'data/barcode_data.xml'],
     'installable': True,
     'application': True,
     'auto_install': False,
+    'images': ['static/description/banner.png'],
 }
-
-
-
-

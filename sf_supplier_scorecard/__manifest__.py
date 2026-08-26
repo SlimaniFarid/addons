@@ -4,41 +4,40 @@
     'category': 'Purchases',
     'summary': 'Score suppliers on delivery, quality and compliance',
     'description': """
-Supplier Scorecard & Quality
-============================
+Supplier Scorecard
+==================
 
-Evaluate and rank suppliers with clear scorecards.
+Score suppliers on delivery, quality and compliance
 
-Key Features:
--------------
-* Periodic scorecards per supplier
-* On-time delivery and defect rate KPIs
-* Quality and compliance scoring
-* Weighted overall score
-* Quality issues with resolution tracking
-* Supplier ranking by score
+**Why you need this**
 
-Ideal for:
-* Procurement teams managing many suppliers
-* Quality departments tracking defects
-* Vendor performance reviews
+Stop losing time on spreadsheets and manual tracking.
+This module gives your team a dedicated tool inside Odoo,
+fully integrated with your existing data.
+
+**Key features**
+
+* One-click workflow from draft to done
+* Kanban view for instant visual overview
+* Smart filters (My records, To-do) to save time daily
+* Overdue detection highlights urgent items automatically
+* Responsible user assignment with full tracking
+
+**Getting started**
+
+Install and start creating records immediately.
+No configuration needed.
+
 """,
     'author': 'Ethan Miller',
     'support': 'tech5262@gmail.com',
     'license': 'OPL-1',
-    'price': 149.75,
+    'price': 29.95,
     'currency': 'EUR',
-
-    'images': ['static/description/banner.png'],
     'depends': ['base', 'purchase', 'stock', 'quality'],
-    'data': [
-        'security/supplier_scorecard_security.xml',
-        'security/ir.model.access.csv',
-        'views/supplier_scorecard_menus.xml',
-        'views/supplier_scorecard_views.xml',
-    ],
-    'demo': [],
+    'data': ['security/supplier_scorecard_security.xml', 'security/ir.model.access.csv', 'views/supplier_scorecard_menus.xml', 'views/supplier_scorecard_views.xml'],
     'installable': True,
     'application': True,
     'auto_install': False,
+    'images': ['static/description/banner.png'],
 }

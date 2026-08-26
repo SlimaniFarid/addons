@@ -4,47 +4,40 @@
     'category': 'Accounting/Accounting',
     'summary': 'Aging analysis, collection cases, dunning plans and payment promises',
     'description': """
-Credit & Debt Collection
-========================
+Debt Collection
+===============
 
-Recover what you are owed, politely and systematically.
+Aging analysis, collection cases, dunning plans and payment promises
 
-Key Features:
--------------
-* Partner credit limits with usage tracking
-* Automatic aging analysis by maturity date (current, 30, 60, 90+ days)
-* Collection cases per customer with assigned collector and priority
-* Dunning plan: automatic escalation levels and reminder due dates
-* Payment promises with follow-up dates
-* Overdue warnings and follow-up tasks
-* Collection actions history (calls, emails, letters)
-* Per-collector workload and performance dashboards
-* Works with native Odoo accounting data
+**Why you need this**
 
-Perfect for:
-* Finance and credit management teams
-* SMEs that sell on credit and want to reduce late payments
-* Companies wanting a clear, professional dunning process
+Stop losing time on spreadsheets and manual tracking.
+This module gives your team a dedicated tool inside Odoo,
+fully integrated with your existing data.
 
-Install, open the Collections menu, and start recovering your cash.
+**Key features**
+
+* One-click workflow from draft to done
+* Kanban view for instant visual overview
+* Smart filters (My records, To-do) to save time daily
+* Overdue detection highlights urgent items automatically
+* Responsible user assignment with full tracking
+
+**Getting started**
+
+Install and start creating records immediately.
+No configuration needed.
+
 """,
     'author': 'Ethan Miller',
     'support': 'tech5262@gmail.com',
     'license': 'OPL-1',
-    'price': 149.75,
+    'price': 29.95,
     'currency': 'EUR',
-
-    'images': ['static/description/banner.png'],
     'depends': ['base', 'account', 'mail'],
-    'data': [
-        'security/debt_security.xml',
-        'security/ir.model.access.csv',
-        'data/debt_data.xml',
-        'views/debt_menus.xml',
-        'views/debt_views.xml',
-    ],
-    'demo': [],
+    'data': ['security/debt_security.xml', 'security/ir.model.access.csv', 'data/debt_data.xml', 'views/debt_menus.xml', 'views/debt_views.xml'],
     'installable': True,
     'application': True,
     'auto_install': False,
+    'images': ['static/description/banner.png'],
 }

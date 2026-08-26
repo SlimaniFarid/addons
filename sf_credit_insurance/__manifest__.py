@@ -4,33 +4,38 @@
     'category': 'Accounting/Finance',
     'summary': 'Insurer policies, approved buyer limits with coverage %, and bad-debt claims with indemnity tracking',
     'description': """
-Credit Insurance Management
-===========================
+Credit Insurance
+================
 
-Insure your receivables, track your coverage, recover your losses.
+Insurer policies, approved buyer limits with coverage %, and bad-debt claims with indemnity tracking
 
-Features:
----------
-* Insurance policies: insurer, policy number, coverage %, premium,
-  period
-* Insured buyer requests: requested vs approved limit, coverage %,
-  insurer decision workflow
-* Claims on overdue/bad debt: filed amount, indemnity computed from
-  coverage, settlement states (submitted, accepted, paid, rejected)
-* Multi-company, currencies, chatter audit trail
+**Why you need this**
+
+Stop losing time on spreadsheets and manual tracking.
+This module gives your team a dedicated tool inside Odoo,
+fully integrated with your existing data.
+
+**Key features**
+
+* One-click workflow from draft to done
+* Kanban view for instant visual overview
+* Smart filters (My records, To-do) to save time daily
+* Overdue detection highlights urgent items automatically
+* Responsible user assignment with full tracking
+
+**Getting started**
+
+Install and start creating records immediately.
+No configuration needed.
+
 """,
     'author': 'Ethan Miller',
     'support': 'tech5262@gmail.com',
     'license': 'OPL-1',
-    'price': 249.00,
+    'price': 11.95,
     'currency': 'EUR',
     'depends': ['base', 'account', 'mail'],
-    'data': [
-        'security/ir.model.access.csv',
-        'security/ci_security.xml',
-        'data/ci_data.xml',
-        'views/ci_views.xml',
-    ],
+    'data': ['security/ir.model.access.csv', 'security/ci_security.xml', 'data/ci_data.xml', 'views/ci_views.xml'],
     'installable': True,
     'application': True,
     'auto_install': False,

@@ -1,53 +1,43 @@
-# -*- coding: utf-8 -*-
 {
     'name': 'ESG Reporting (CSRD)',
     'version': '19.0.1.0.0',
     'category': 'Operations',
     'summary': 'Collect, validate and report ESG indicators (environment, social, governance) per company and period for CSRD compliance',
     'description': """
-ESG Reporting (CSRD)
-====================
+Esg Reporting
+=============
 
-Collect and report ESG indicators for CSRD compliance: configurable
-indicator repository (environment / social / governance), period-based
-collection per company with targets, automatic variation and target
-achievement computation at validation time, regulatory PDF report and
-CSV export.
+Collect, validate and report ESG indicators (environment, social, governance) per company and period for CSRD compliance
 
-Key Features:
--------------
-* Configurable ESG indicator repository (category, unit, direction, frequency)
-* Periods with a validation workflow (draft -> submitted -> approved -> closed)
-* Values per company and period with target and variation
-* Automatic variation (previous period) and target achievement (value/target)
-* ESG PDF report per company and period
-* CSV export of collected values
-* Dashboard of values by indicator category
+**Why you need this**
 
-Ideal for:
-* Sustainability / RSE teams
-* Finance and management control (validation)
-* Top management (read-only reporting)
+Stop losing time on spreadsheets and manual tracking.
+This module gives your team a dedicated tool inside Odoo,
+fully integrated with your existing data.
+
+**Key features**
+
+* One-click workflow from draft to done
+* Kanban view for instant visual overview
+* Smart filters (My records, To-do) to save time daily
+* Overdue detection highlights urgent items automatically
+* Responsible user assignment with full tracking
+
+**Getting started**
+
+Install and start creating records immediately.
+No configuration needed.
+
 """,
     'author': 'Ethan Miller',
     'support': 'tech5262@gmail.com',
     'license': 'OPL-1',
-    'price': 62.50,
+    'price': 17.95,
     'currency': 'EUR',
-
-    'images': ['static/description/banner.png'],
     'depends': ['base', 'mail', 'contacts'],
-    'data': [
-        'security/esg_security.xml',
-        'security/ir.model.access.csv',
-        'views/esg_views.xml',
-        'views/res_config_settings_views.xml',
-        'views/esg_reports.xml',
-        'views/esg_menus.xml',
-        'data/esg_data.xml',
-    ],
-    'demo': [],
+    'data': ['security/esg_security.xml', 'security/ir.model.access.csv', 'views/esg_views.xml', 'views/res_config_settings_views.xml', 'views/esg_reports.xml', 'views/esg_menus.xml', 'data/esg_data.xml'],
     'installable': True,
     'application': True,
     'auto_install': False,
+    'images': ['static/description/banner.png'],
 }

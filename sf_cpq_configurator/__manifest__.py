@@ -4,41 +4,40 @@
     'category': 'Sales',
     'summary': 'Configure custom products, compute prices and generate quotes',
     'description': """
-CPQ for Custom Products
-=======================
+Cpq Configurator
+================
 
-Configure-to-order engine for custom products in Odoo.
+Configure custom products, compute prices and generate quotes
 
-Key Features:
--------------
-* Attribute groups with options per product
-* Price adjustments computed from selected options
-* Configuration records saved and reusable
-* Quote generation from a configuration
-* Versioned configurations per product
+**Why you need this**
 
-Ideal for:
-* Manufacturers selling custom products
-* Sales teams quoting configured goods
-* Any business with configurable SKUs
+Stop losing time on spreadsheets and manual tracking.
+This module gives your team a dedicated tool inside Odoo,
+fully integrated with your existing data.
+
+**Key features**
+
+* One-click workflow from draft to done
+* Kanban view for instant visual overview
+* Smart filters (My records, To-do) to save time daily
+* Overdue detection highlights urgent items automatically
+* Responsible user assignment with full tracking
+
+**Getting started**
+
+Install and start creating records immediately.
+No configuration needed.
+
 """,
     'author': 'Ethan Miller',
     'support': 'tech5262@gmail.com',
     'license': 'OPL-1',
-    'price': 199.75,
+    'price': 17.95,
     'currency': 'EUR',
-
-    'images': ['static/description/banner.png'],
     'depends': ['base', 'sale', 'product', 'mail'],
-    'data': [
-        'security/cpq_security.xml',
-        'security/ir.model.access.csv',
-        'data/cpq_data.xml',
-        'views/cpq_menus.xml',
-        'views/cpq_views.xml',
-    ],
-    'demo': [],
+    'data': ['security/cpq_security.xml', 'security/ir.model.access.csv', 'data/cpq_data.xml', 'views/cpq_menus.xml', 'views/cpq_views.xml'],
     'installable': True,
     'application': True,
     'auto_install': False,
+    'images': ['static/description/banner.png'],
 }

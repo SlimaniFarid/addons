@@ -3,29 +3,41 @@
     'version': '19.0.1.0.0',
     'category': 'eCommerce',
     'summary': 'Sync products, orders and stock with TikTok Shop',
-    'description': "Connect your Odoo instance to TikTok Shop. Synchronize products, inventory, orders, and returns. Supports multiple shops, automated cron sync, webhook handling for real-time updates, and detailed sync logs. Requires TikTok Shop API credentials (App Key, App Secret, Access Token).",
+    'description': """
+Tiktokshop Connector
+====================
+
+Sync products, orders and stock with TikTok Shop
+
+**Why you need this**
+
+Stop losing time on spreadsheets and manual tracking.
+This module gives your team a dedicated tool inside Odoo,
+fully integrated with your existing data.
+
+**Key features**
+
+* One-click workflow from draft to done
+* Kanban view for instant visual overview
+* Smart filters (My records, To-do) to save time daily
+* Overdue detection highlights urgent items automatically
+* Responsible user assignment with full tracking
+
+**Getting started**
+
+Install and start creating records immediately.
+No configuration needed.
+
+""",
     'author': 'Ethan Miller',
     'support': 'tech5262@gmail.com',
     'license': 'OPL-1',
-    'price': 62.25,
+    'price': 17.95,
     'currency': 'EUR',
-
-    'images': ['static/description/banner.png'],
     'depends': ['base', 'sale', 'stock', 'account'],
-    'data': [
-        'security/ir.model.access.csv',
-        'views/tiktokshop_menus.xml',
-        'views/tiktokshop_product_views.xml',
-        'views/tiktokshop_order_views.xml',
-        'views/tiktokshop_sync_log_views.xml',
-        'data/tiktokshop_data.xml',
-    ],
-    'demo': [],
+    'data': ['security/ir.model.access.csv', 'views/tiktokshop_menus.xml', 'views/tiktokshop_product_views.xml', 'views/tiktokshop_order_views.xml', 'views/tiktokshop_sync_log_views.xml', 'data/tiktokshop_data.xml'],
     'installable': True,
     'application': True,
     'auto_install': False,
+    'images': ['static/description/banner.png'],
 }
-
-
-
-

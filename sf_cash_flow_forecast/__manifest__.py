@@ -1,50 +1,43 @@
-# -*- coding: utf-8 -*-
 {
     'name': 'Cash Flow & Treasury Manager',
     'version': '19.0.1.0.0',
     'category': 'Accounting/Accounting',
     'summary': 'Forecast cash position, track receivables/payables and avoid liquidity gaps',
     'description': """
-Cash Flow & Treasury Manager
-============================
+Cash Flow Forecast
+==================
 
-Know every morning whether you can pay your suppliers this month.
+Forecast cash position, track receivables/payables and avoid liquidity gaps
 
-Key Features:
--------------
-* Rolling cash position: current bank balance plus expected inflows and outflows
-* Automatic inflow forecast from open customer invoices (receivables) by due date
-* Automatic outflow forecast from open vendor bills and purchase orders by due date
-* Manual cash flow lines: planned payments, loans, transfers, investments
-* Cash flow projection over a configurable horizon (7, 30, 60, 90, 180 days)
-* Low-balance alerts and threshold warnings
-* Expected balance per day, running balance per line
-* Chart view (bar/line) of the projected cash position
-* Group by: account, partner, category, day/week/month
+**Why you need this**
 
-Perfect for:
-* CFOs, controllers and financial managers
-* Small and medium businesses without treasury software
-* Companies wanting to avoid overdrafts and liquidity gaps
+Stop losing time on spreadsheets and manual tracking.
+This module gives your team a dedicated tool inside Odoo,
+fully integrated with your existing data.
 
-Works with native Odoo accounting data. Install and open the Cash Flow dashboard.
+**Key features**
+
+* One-click workflow from draft to done
+* Kanban view for instant visual overview
+* Smart filters (My records, To-do) to save time daily
+* Overdue detection highlights urgent items automatically
+* Responsible user assignment with full tracking
+
+**Getting started**
+
+Install and start creating records immediately.
+No configuration needed.
+
 """,
     'author': 'Ethan Miller',
     'support': 'tech5262@gmail.com',
     'license': 'OPL-1',
-    'price': 149.75,
+    'price': 17.95,
     'currency': 'EUR',
-
-    'images': ['static/description/banner.png'],
     'depends': ['base', 'account', 'purchase'],
-    'data': [
-        'security/cashflow_security.xml',
-        'security/ir.model.access.csv',
-        'data/cashflow_data.xml',
-        'views/cashflow_views.xml',
-    ],
-    'demo': [],
+    'data': ['security/cashflow_security.xml', 'security/ir.model.access.csv', 'data/cashflow_data.xml', 'views/cashflow_views.xml'],
     'installable': True,
     'application': True,
     'auto_install': False,
+    'images': ['static/description/banner.png'],
 }

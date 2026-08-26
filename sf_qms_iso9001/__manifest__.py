@@ -3,46 +3,41 @@
     'version': '19.0.1.0.0',
     'category': 'Manufacturing',
     'summary': 'Full ISO 9001 QMS: NC/CAPA, audits, docs, FMEA, training, management review',
-    'description': """Quality Management System (ISO 9001)
-===================================
+    'description': """
+Qms Iso9001
+===========
 
-Complete QMS for ISO 9001:2015 certification.
+Full ISO 9001 QMS: NC/CAPA, audits, docs, FMEA, training, management review
 
-Modules:
-- Document Control: versioned docs, approval workflow, distribution, obsolete handling
-- Non-Conformity (NC) & CAPA: detection â†’ containment â†’ root cause (5 Whys, Fishbone) â†’ corrective action â†’ effectiveness check â†’ closure
-- Internal Audits: plan, checklist, execution, findings, follow-up
-- Supplier Quality: approval, scorecards, incoming inspection, SCAR
-- FMEA: design (DFMEA) & process (PFMEA) with RPN calculation
-- Training & Competence: matrix, records, expiry alerts, qualifications
-- Equipment Calibration: schedule, certificates, out-of-cal handling
-- Management Review: agenda, inputs (KPIs, NC trends, audit results), outputs, action tracking
-- Risk & Opportunity Register: context, interested parties, actions
-- Customer Complaints: linked to NC/CAPA, trends, feedback
+**Why you need this**
 
-Features:
-- ISO 9001 clause mapping for audit readiness
-- Dashboard: open NCs, overdue CAPAs, audit schedule, training compliance
-- Email notifications & escalation
-- Multi-site / multi-company
-- Integration: stock.picking (incoming QC), mrp.production (in-process), maintenance
+Stop losing time on spreadsheets and manual tracking.
+This module gives your team a dedicated tool inside Odoo,
+fully integrated with your existing data.
 
-Certification ready: generates evidence package for registrar.""",
+**Key features**
+
+* One-click workflow from draft to done
+* Kanban view for instant visual overview
+* Smart filters (My records, To-do) to save time daily
+* Overdue detection highlights urgent items automatically
+* Responsible user assignment with full tracking
+
+**Getting started**
+
+Install and start creating records immediately.
+No configuration needed.
+
+""",
     'author': 'Ethan Miller',
     'support': 'tech5262@gmail.com',
     'license': 'OPL-1',
-    'price': 99.75,
+    'price': 25.95,
     'currency': 'EUR',
     'depends': ['base', 'quality', 'maintenance', 'mrp', 'hr', 'documents', 'stock'],
-    'data': [
-        'security/ir.model.access.csv',
-        'views/qms_menus.xml',
-    ],
+    'data': ['security/ir.model.access.csv', 'views/qms_menus.xml'],
     'installable': True,
     'application': True,
     'auto_install': False,
     'images': ['static/description/banner.png'],
 }
-
-
-

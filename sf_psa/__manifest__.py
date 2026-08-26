@@ -4,41 +4,40 @@
     'category': 'Services/Project',
     'summary': 'Manage engagements, resources and time for services teams',
     'description': """
-Professional Services Automation
-=================================
+Psa
+===
 
-Run a professional services business in Odoo.
+Manage engagements, resources and time for services teams
 
-Key Features:
--------------
-* Client engagements with budgets
-* Resource pool with roles and rates
-* Assignments with allocation and billing rates
-* Time entries linked to engagements
-* Utilisation and progress reporting
-* Automated invoice-ready data
+**Why you need this**
 
-Ideal for:
-* Consulting firms
-* Agencies and studios
-* Managed services providers
+Stop losing time on spreadsheets and manual tracking.
+This module gives your team a dedicated tool inside Odoo,
+fully integrated with your existing data.
+
+**Key features**
+
+* One-click workflow from draft to done
+* Kanban view for instant visual overview
+* Smart filters (My records, To-do) to save time daily
+* Overdue detection highlights urgent items automatically
+* Responsible user assignment with full tracking
+
+**Getting started**
+
+Install and start creating records immediately.
+No configuration needed.
+
 """,
     'author': 'Ethan Miller',
     'support': 'tech5262@gmail.com',
     'license': 'OPL-1',
-    'price': 199.75,
+    'price': 25.95,
     'currency': 'EUR',
-
-    'images': ['static/description/banner.png'],
     'depends': ['base', 'sale', 'project', 'hr', 'account', 'mail'],
-    'data': [
-        'security/psa_security.xml',
-        'security/ir.model.access.csv',
-        'views/psa_menus.xml',
-        'views/psa_views.xml',
-    ],
-    'demo': [],
+    'data': ['security/psa_security.xml', 'security/ir.model.access.csv', 'views/psa_menus.xml', 'views/psa_views.xml'],
     'installable': True,
     'application': True,
     'auto_install': False,
+    'images': ['static/description/banner.png'],
 }

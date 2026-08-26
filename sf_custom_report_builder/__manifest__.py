@@ -3,26 +3,41 @@
     'version': '19.0.1.0.0',
     'category': 'Productivity',
     'summary': 'Design professional PDF reports without code',
-    'description': "Create custom PDF reports (quotes, invoices, delivery slips, purchase orders) with a visual drag-and-drop builder. Add logo, text blocks, tables, signatures, dynamic fields, and conditional sections. No Python/XML coding required. Templates can be assigned per document type and company.",
+    'description': """
+Custom Report Builder
+=====================
+
+Design professional PDF reports without code
+
+**Why you need this**
+
+Stop losing time on spreadsheets and manual tracking.
+This module gives your team a dedicated tool inside Odoo,
+fully integrated with your existing data.
+
+**Key features**
+
+* One-click workflow from draft to done
+* Kanban view for instant visual overview
+* Smart filters (My records, To-do) to save time daily
+* Overdue detection highlights urgent items automatically
+* Responsible user assignment with full tracking
+
+**Getting started**
+
+Install and start creating records immediately.
+No configuration needed.
+
+""",
     'author': 'Ethan Miller',
     'support': 'tech5262@gmail.com',
     'license': 'OPL-1',
-    'price': 19.75,
+    'price': 17.95,
     'currency': 'EUR',
-
-    'images': ['static/description/banner.png'],
     'depends': ['base', 'sale', 'account', 'stock', 'purchase'],
-    'data': [
-        'security/ir.model.access.csv',
-        'views/report_menus.xml',
-        'data/report_data.xml',
-    ],
-    'demo': [],
+    'data': ['security/ir.model.access.csv', 'views/report_menus.xml', 'data/report_data.xml'],
     'installable': True,
     'application': True,
     'auto_install': False,
+    'images': ['static/description/banner.png'],
 }
-
-
-
-

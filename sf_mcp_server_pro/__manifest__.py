@@ -3,28 +3,41 @@
     'version': '19.0.1.0.0',
     'category': 'Productivity',
     'summary': 'Connect AI assistants to your Odoo instance securely',
-    'description': "Expose your Odoo data to AI assistants (Claude, ChatGPT, etc.) through a secure Model Context Protocol endpoint.",
+    'description': """
+Mcp Server Pro
+==============
+
+Connect AI assistants to your Odoo instance securely
+
+**Why you need this**
+
+Stop losing time on spreadsheets and manual tracking.
+This module gives your team a dedicated tool inside Odoo,
+fully integrated with your existing data.
+
+**Key features**
+
+* One-click workflow from draft to done
+* Kanban view for instant visual overview
+* Smart filters (My records, To-do) to save time daily
+* Overdue detection highlights urgent items automatically
+* Responsible user assignment with full tracking
+
+**Getting started**
+
+Install and start creating records immediately.
+No configuration needed.
+
+""",
     'author': 'Ethan Miller',
     'support': 'tech5262@gmail.com',
     'license': 'OPL-1',
-    'price': 24.75,
+    'price': 25.95,
     'currency': 'EUR',
-
-    'images': ['static/description/banner.png'],
     'depends': ['base', 'mail', 'sale', 'stock', 'account'],
-    'data': [
-        'security/ir.model.access.csv',
-        'views/mcp_server_views.xml',
-        'views/mcp_token_views.xml',
-        'views/mcp_log_views.xml',
-        'data/ir_cron_data.xml',
-    ],
-    'demo': [],
+    'data': ['security/ir.model.access.csv', 'views/mcp_server_views.xml', 'views/mcp_token_views.xml', 'views/mcp_log_views.xml', 'data/ir_cron_data.xml'],
     'installable': True,
     'application': True,
     'auto_install': False,
+    'images': ['static/description/banner.png'],
 }
-
-
-
-

@@ -4,35 +4,38 @@
     'category': 'Finance/Finance',
     'summary': 'Capital expenditure requests with multi-level approvals, ROI/payback fields, budget check and capitalization tracking',
     'description': """
-CAPEX Request and Investment Approval
-=====================================
+Capex Requests
+==============
 
-Control capital spending before it happens.
+Capital expenditure requests with multi-level approvals, ROI/payback fields, budget check and capitalization tracking
 
-Features:
----------
-* Investment requests: category, amount, business case, payback and
-  ROI inputs, requested vs approved amount
-* Multi-level approval chain with per-level approver, comment and date
-* Budget check against analytic budget (informational) and annual
-  capex envelope per category
-* Lifecycle: draft, submitted, approved, rejected, ordered,
-  capitalized (asset reference), cancelled
-* Capitalization tracking with asset reference and PO link
-* Multi-company, chatter audit trail
+**Why you need this**
+
+Stop losing time on spreadsheets and manual tracking.
+This module gives your team a dedicated tool inside Odoo,
+fully integrated with your existing data.
+
+**Key features**
+
+* One-click workflow from draft to done
+* Kanban view for instant visual overview
+* Smart filters (My records, To-do) to save time daily
+* Overdue detection highlights urgent items automatically
+* Responsible user assignment with full tracking
+
+**Getting started**
+
+Install and start creating records immediately.
+No configuration needed.
+
 """,
     'author': 'Ethan Miller',
     'support': 'tech5262@gmail.com',
     'license': 'OPL-1',
-    'price': 249.00,
+    'price': 6.95,
     'currency': 'EUR',
     'depends': ['base', 'mail'],
-    'data': [
-        'security/ir.model.access.csv',
-        'security/capex_security.xml',
-        'data/capex_data.xml',
-        'views/capex_views.xml',
-    ],
+    'data': ['security/ir.model.access.csv', 'security/capex_security.xml', 'data/capex_data.xml', 'views/capex_views.xml'],
     'installable': True,
     'application': True,
     'auto_install': False,

@@ -1,29 +1,43 @@
-# -*- coding: utf-8 -*-
 {
     'name': 'Corporate Gifts & Hospitality Register',
     'version': '19.0.1.0.0',
     'category': 'Operations',
     'summary': 'Anti-bribery register of gifts and hospitality given or received with approval threshold',
-    'description': 'Corporate gifts and hospitality register for anti-bribery compliance (Sapin II, FCPA, UK Bribery Act, ISO 37001): employees declare gifts, hospitality and invitations given or received, the module computes whether an approval is required based on a configurable threshold, managers approve or reject the declarations, an annual register per employee is available, and PDF reports (gifts register and annual declaration) can be printed.',
+    'description': """
+Gifts Hospitality
+=================
+
+Anti-bribery register of gifts and hospitality given or received with approval threshold
+
+**Why you need this**
+
+Stop losing time on spreadsheets and manual tracking.
+This module gives your team a dedicated tool inside Odoo,
+fully integrated with your existing data.
+
+**Key features**
+
+* One-click workflow from draft to done
+* Kanban view for instant visual overview
+* Smart filters (My records, To-do) to save time daily
+* Overdue detection highlights urgent items automatically
+* Responsible user assignment with full tracking
+
+**Getting started**
+
+Install and start creating records immediately.
+No configuration needed.
+
+""",
     'author': 'Ethan Miller',
     'support': 'tech5262@gmail.com',
     'website': 'https://www.smartersaas.com',
     'license': 'OPL-1',
-    'price': 62.50,
+    'price': 11.95,
     'currency': 'EUR',
-    'application': True,
-    'installable': True,
-    'images': ['static/description/banner.png'],
     'depends': ['base', 'mail', 'contacts'],
-    'data': [
-        'security/sf_gifts_hospitality_security.xml',
-        'security/ir.model.access.csv',
-        'data/sf_gifts_hospitality_sequence.xml',
-        'data/sf_gifts_hospitality_report.xml',
-        'views/sf_gifts_hospitality_views.xml',
-        'views/sf_gifts_hospitality_menus.xml',
-        'views/report_gift_register.xml',
-        'views/report_gift_declaration.xml',
-        'views/res_config_settings_views.xml',
-    ],
+    'data': ['security/sf_gifts_hospitality_security.xml', 'security/ir.model.access.csv', 'data/sf_gifts_hospitality_sequence.xml', 'data/sf_gifts_hospitality_report.xml', 'views/sf_gifts_hospitality_views.xml', 'views/sf_gifts_hospitality_menus.xml', 'views/report_gift_register.xml', 'views/report_gift_declaration.xml', 'views/res_config_settings_views.xml'],
+    'installable': True,
+    'application': True,
+    'images': ['static/description/banner.png'],
 }

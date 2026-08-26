@@ -3,45 +3,41 @@
     'version': '19.0.1.0.0',
     'category': 'Productivity',
     'summary': 'Extract obligations, dates, risks from contracts (PDF/Word) with AI - auto calendar alerts',
-    'description': """AI Contract Analyzer & Obligations
-====================================
+    'description': """
+Ai Contract Analyzer
+====================
 
-Turn static contracts into actionable intelligence.
+Extract obligations, dates, risks from contracts (PDF/Word) with AI - auto calendar alerts
 
-Features:
-- Upload PDF/Word/image â†’ AI extracts structured data (Mistral, Gemini, Claude, OpenAI)
-- Key entities: parties, effective/termination dates, auto-renewal, notice periods
-- Financial: value, payment terms, penalties, price escalation, volume discounts
-- Obligations: SLAs, delivery dates, reporting, compliance (GDPR, SOC2, ESG), insurance
-- Risk flags: auto-renewal without notice, unlimited liability, unfavorable jurisdiction
-- Calendar integration: auto-create alerts for renewals, notice deadlines, price reviews
-- Obligation register: searchable, filterable, assignable to owners
-- Clause comparison: benchmark against templates, highlight deviations
-- Multi-lang support (contracts in any language â†’ English summary)
-- Approval workflow: legal review â†’ signatory â†’ counter-party â†’ executed
-- Repository: versioned, tagged, full-text search, access control
+**Why you need this**
 
-Integrations:
-- sale.order (customer contracts)
-- purchase.order (vendor contracts)
-- hr.contract (employment)
-- fleet.vehicle.lease (leases)
-- custom models via extension""",
+Stop losing time on spreadsheets and manual tracking.
+This module gives your team a dedicated tool inside Odoo,
+fully integrated with your existing data.
+
+**Key features**
+
+* One-click workflow from draft to done
+* Kanban view for instant visual overview
+* Smart filters (My records, To-do) to save time daily
+* Overdue detection highlights urgent items automatically
+* Responsible user assignment with full tracking
+
+**Getting started**
+
+Install and start creating records immediately.
+No configuration needed.
+
+""",
     'author': 'Ethan Miller',
     'support': 'tech5262@gmail.com',
     'license': 'OPL-1',
-    'price': 69.75,
+    'price': 25.95,
     'currency': 'EUR',
     'depends': ['base', 'mail', 'account', 'hr', 'fleet', 'sale', 'purchase'],
-    'data': [
-        'security/ir.model.access.csv',
-        'views/contract_menus.xml',
-    ],
+    'data': ['security/ir.model.access.csv', 'views/contract_menus.xml'],
     'installable': True,
     'application': True,
     'auto_install': False,
     'images': ['static/description/banner.png'],
 }
-
-
-

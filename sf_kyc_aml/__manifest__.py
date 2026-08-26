@@ -4,32 +4,38 @@
     'category': 'Finance/Compliance',
     'summary': 'Customer due diligence register: risk rating, PEP/sanctions screening cycles, UBO declaration and periodic reviews',
     'description': """
-KYC / AML Due Diligence Register
-================================
+Kyc Aml
+=======
 
-Know your customer, prove it to your regulator.
+Customer due diligence register: risk rating, PEP/sanctions screening cycles, UBO declaration and periodic reviews
 
-Features:
----------
-* KYC files per partner: risk rating (low/medium/high), status
-  workflow (pending, approved, rejected, expired)
-* PEP / sanctions screening date and periodic refresh cycles
-* UBO declaration tracking, document checklist
-* Automatic expiry flag and next review scheduling
-* Multi-company, chatter audit trail
+**Why you need this**
+
+Stop losing time on spreadsheets and manual tracking.
+This module gives your team a dedicated tool inside Odoo,
+fully integrated with your existing data.
+
+**Key features**
+
+* One-click workflow from draft to done
+* Kanban view for instant visual overview
+* Smart filters (My records, To-do) to save time daily
+* Overdue detection highlights urgent items automatically
+* Responsible user assignment with full tracking
+
+**Getting started**
+
+Install and start creating records immediately.
+No configuration needed.
+
 """,
     'author': 'Ethan Miller',
     'support': 'tech5262@gmail.com',
     'license': 'OPL-1',
-    'price': 299.00,
+    'price': 6.95,
     'currency': 'EUR',
     'depends': ['base', 'mail'],
-    'data': [
-        'security/ir.model.access.csv',
-        'security/kyc_security.xml',
-        'data/kyc_data.xml',
-        'views/kyc_views.xml',
-    ],
+    'data': ['security/ir.model.access.csv', 'security/kyc_security.xml', 'data/kyc_data.xml', 'views/kyc_views.xml'],
     'installable': True,
     'application': True,
     'auto_install': False,

@@ -1,53 +1,43 @@
-# -*- coding: utf-8 -*-
 {
     'name': 'Library & Media Center Management',
+    'version': '19.0.1.0.0',
+    'category': 'Other/Others',
     'summary': 'Catalogue, members, loans, returns, late fees and reservations with cron alerts',
     'description': """
-Library & Media Center Management
-=================================
+Library
+=======
 
-Structured catalogue of items and media (books, DVDs, CDs,
-games, press), library members, dated loans and returns with
-availability tracking, computed late days and fines, reservations
-with availability lifting and cron alerts.
+Catalogue, members, loans, returns, late fees and reservations with cron alerts
 
-Key Features:
--------------
-* Item catalogue with media types and categories
-* Members / users with statuses (draft, active, blocked)
-* Loans and returns with available copies computed
-* Late days and late fees automatically computed
-* Reservations lifted when an item becomes available
-* Daily cron alerts for late loans and expiring reservations
-* PDF reports: loan receipt / member card, late loans & sanctions
-* Per-company access rules
+**Why you need this**
 
-Ideal for:
-* Public and school libraries
-* Media centers
-* Community book clubs
+Stop losing time on spreadsheets and manual tracking.
+This module gives your team a dedicated tool inside Odoo,
+fully integrated with your existing data.
+
+**Key features**
+
+* One-click workflow from draft to done
+* Kanban view for instant visual overview
+* Smart filters (My records, To-do) to save time daily
+* Overdue detection highlights urgent items automatically
+* Responsible user assignment with full tracking
+
+**Getting started**
+
+Install and start creating records immediately.
+No configuration needed.
+
 """,
     'author': 'Ethan Miller',
     'support': 'tech5262@gmail.com',
-    'website': '',
-    'category': 'Other/Others',
-    'version': '19.0.1.0.0',
     'license': 'OPL-1',
-    'price': 62.50,
+    'price': 17.95,
     'currency': 'EUR',
-    'application': True,
-    'images': ['static/description/banner.png'],
     'depends': ['base', 'mail', 'contacts'],
-    'data': [
-        'security/sf_library_security.xml',
-        'security/ir.model.access.csv',
-        'views/sf_library_views.xml',
-        'views/sf_library_reports.xml',
-        'views/res_config_settings_views.xml',
-        'views/sf_library_menus.xml',
-        'data/actions.xml',
-    ],
+    'data': ['security/sf_library_security.xml', 'security/ir.model.access.csv', 'views/sf_library_views.xml', 'views/sf_library_reports.xml', 'views/res_config_settings_views.xml', 'views/sf_library_menus.xml', 'data/actions.xml'],
     'installable': True,
+    'application': True,
     'auto_install': False,
+    'images': ['static/description/banner.png'],
 }
-

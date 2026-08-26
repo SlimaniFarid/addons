@@ -1,31 +1,43 @@
-# -*- coding: utf-8 -*-
 {
     'name': 'Retail Franchise Network Management',
     'version': '19.0.1.0.0',
     'category': 'Sales',
     'summary': 'Franchise contracts, declared sales, automatic royalty calculation, invoicing and payment tracking',
-    'description': 'Manage a retail franchise network: franchise contracts with territory and royalty conditions (fixed or percentage), periodic sales declarations by franchisees, automatic royalty calculation, royalty invoicing (account.move), payment and delay tracking, plus PDF contract and royalty statement reports.',
+    'description': """
+Franchise
+=========
+
+Franchise contracts, declared sales, automatic royalty calculation, invoicing and payment tracking
+
+**Why you need this**
+
+Stop losing time on spreadsheets and manual tracking.
+This module gives your team a dedicated tool inside Odoo,
+fully integrated with your existing data.
+
+**Key features**
+
+* One-click workflow from draft to done
+* Kanban view for instant visual overview
+* Smart filters (My records, To-do) to save time daily
+* Overdue detection highlights urgent items automatically
+* Responsible user assignment with full tracking
+
+**Getting started**
+
+Install and start creating records immediately.
+No configuration needed.
+
+""",
     'author': 'Ethan Miller',
     'support': 'tech5262@gmail.com',
     'website': 'https://www.smartersaas.com',
     'license': 'OPL-1',
-    'price': 62.50,
+    'price': 17.95,
     'currency': 'EUR',
-    'application': True,
-    'installable': True,
-    'images': ['static/description/banner.png'],
     'depends': ['base', 'mail', 'contacts', 'account'],
-    'data': [
-        'security/sf_franchise_security.xml',
-        'security/ir.model.access.csv',
-        'data/sf_franchise_sequence.xml',
-        'data/sf_franchise_cron.xml',
-        'data/sf_franchise_report.xml',
-        'views/sf_franchise_contract_views.xml',
-        'views/sf_franchise_declaration_views.xml',
-        'views/sf_franchise_menus.xml',
-        'views/report_franchise_contract.xml',
-        'views/report_franchise_declaration.xml',
-        'views/res_config_settings_views.xml',
-    ],
+    'data': ['security/sf_franchise_security.xml', 'security/ir.model.access.csv', 'data/sf_franchise_sequence.xml', 'data/sf_franchise_cron.xml', 'data/sf_franchise_report.xml', 'views/sf_franchise_contract_views.xml', 'views/sf_franchise_declaration_views.xml', 'views/sf_franchise_menus.xml', 'views/report_franchise_contract.xml', 'views/report_franchise_declaration.xml', 'views/res_config_settings_views.xml'],
+    'installable': True,
+    'application': True,
+    'images': ['static/description/banner.png'],
 }

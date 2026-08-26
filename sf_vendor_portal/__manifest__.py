@@ -4,47 +4,40 @@
     'category': 'Purchasing',
     'summary': 'Self-service vendor portal: RFQs, quotations, orders and invoices online',
     'description': """
-Vendor Portal & e-Procurement
-=============================
+Vendor Portal
+=============
 
-Let your suppliers collaborate online instead of exchanging emails.
+Self-service vendor portal: RFQs, quotations, orders and invoices online
 
-Key Features:
--------------
-* Secure self-service portal for each vendor (portal access)
-* Vendors see their quotations (RFQs), confirmed orders and invoices
-* RFQ / quotation flow: vendor can accept, decline or propose a counter-offer
-* Confirmed orders visible with lines, prices and dates
-* Invoices and payments tracked for the vendor
-* Portal summary page per vendor with amounts and statuses
-* Automatic welcome message with secure portal link
-* Optional approval before quotations become orders
+**Why you need this**
 
-Perfect for:
-* Purchasing departments wanting to streamline RFQs
-* Companies moving away from email-based procurement
-* Vendors wanting self-service access to their documents
+Stop losing time on spreadsheets and manual tracking.
+This module gives your team a dedicated tool inside Odoo,
+fully integrated with your existing data.
 
-Works with native Odoo purchase and portal modules.
+**Key features**
+
+* One-click workflow from draft to done
+* Kanban view for instant visual overview
+* Smart filters (My records, To-do) to save time daily
+* Overdue detection highlights urgent items automatically
+* Responsible user assignment with full tracking
+
+**Getting started**
+
+Install and start creating records immediately.
+No configuration needed.
+
 """,
     'author': 'Ethan Miller',
     'support': 'tech5262@gmail.com',
     'license': 'OPL-1',
-    'price': 199.75,
+    'price': 25.95,
     'currency': 'EUR',
-
-    'images': ['static/description/banner.png'],
     'depends': ['base', 'purchase', 'portal', 'account', 'mail'],
-    'data': [
-        'security/vendor_portal_security.xml',
-        'security/ir.model.access.csv',
-        'data/vendor_portal_data.xml',
-        'views/vendor_portal_menus.xml',
-        'views/vendor_portal_views.xml',
-        'views/vendor_portal_templates.xml',
-    ],
-    'demo': [],
+    'data': ['security/vendor_portal_security.xml', 'security/ir.model.access.csv', 'data/vendor_portal_data.xml', 'views/vendor_portal_menus.xml', 'views/vendor_portal_views.xml', 'views/vendor_portal_templates.xml'],
     'installable': True,
     'application': True,
     'auto_install': False,
+    'images': ['static/description/banner.png'],
 }

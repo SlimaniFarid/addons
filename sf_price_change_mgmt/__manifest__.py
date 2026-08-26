@@ -4,30 +4,38 @@
     'category': 'Sales/Sales',
     'summary': 'Plan, announce and apply price increases: product lines with old/new price, delta %, effective dates and one-click application',
     'description': """
-Price Change Management
-=======================
+Price Change Mgmt
+=================
 
-Raise prices in a controlled, documented way.
+Plan, announce and apply price increases: product lines with old/new price, delta %, effective dates and one-click application
 
-Features:
----------
-* Price change campaigns: announcement date, effective date, reason
-* Lines per product: old price, new price, computed delta %
-* One-click application to product list prices at effective date
-* Cancel before effective date, full audit trail
+**Why you need this**
+
+Stop losing time on spreadsheets and manual tracking.
+This module gives your team a dedicated tool inside Odoo,
+fully integrated with your existing data.
+
+**Key features**
+
+* One-click workflow from draft to done
+* Kanban view for instant visual overview
+* Smart filters (My records, To-do) to save time daily
+* Overdue detection highlights urgent items automatically
+* Responsible user assignment with full tracking
+
+**Getting started**
+
+Install and start creating records immediately.
+No configuration needed.
+
 """,
     'author': 'Ethan Miller',
     'support': 'tech5262@gmail.com',
     'license': 'OPL-1',
-    'price': 199.00,
+    'price': 6.95,
     'currency': 'EUR',
     'depends': ['base', 'product', 'sale', 'mail'],
-    'data': [
-        'security/ir.model.access.csv',
-        'security/pc_security.xml',
-        'data/pc_data.xml',
-        'views/pc_views.xml',
-    ],
+    'data': ['security/ir.model.access.csv', 'security/pc_security.xml', 'data/pc_data.xml', 'views/pc_views.xml'],
     'installable': True,
     'application': True,
     'auto_install': False,

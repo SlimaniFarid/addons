@@ -4,43 +4,40 @@
     'category': 'Project',
     'summary': 'Allocate resources to projects, track capacity and avoid overload',
     'description': """
-Resource Capacity Planning
-==========================
+Resource Planning
+=================
 
-Balance your team's workload across projects.
+Allocate resources to projects, track capacity and avoid overload
 
-Key Features:
--------------
-* Resource records: people or machines with daily capacity
-* Resource allocation lines on project tasks and milestones
-* Capacity vs allocation: utilization percentage computed live
-* Overload warnings when a resource exceeds its capacity
-* Filters by project, resource, team and period
-* Per-resource and per-project dashboards
-* Works with native project and task modules
+**Why you need this**
 
-Ideal for:
-* Project managers balancing team workloads
-* Service companies planning resource utilization
-* Managers avoiding burnout and missed deadlines
+Stop losing time on spreadsheets and manual tracking.
+This module gives your team a dedicated tool inside Odoo,
+fully integrated with your existing data.
+
+**Key features**
+
+* One-click workflow from draft to done
+* Kanban view for instant visual overview
+* Smart filters (My records, To-do) to save time daily
+* Overdue detection highlights urgent items automatically
+* Responsible user assignment with full tracking
+
+**Getting started**
+
+Install and start creating records immediately.
+No configuration needed.
+
 """,
     'author': 'Ethan Miller',
     'support': 'tech5262@gmail.com',
     'license': 'OPL-1',
-    'price': 149.75,
+    'price': 17.95,
     'currency': 'EUR',
-
-    'images': ['static/description/banner.png'],
     'depends': ['base', 'project', 'hr', 'resource'],
-    'data': [
-        'security/resource_planning_security.xml',
-        'security/ir.model.access.csv',
-        'data/resource_planning_data.xml',
-        'views/resource_planning_menus.xml',
-        'views/resource_planning_views.xml',
-    ],
-    'demo': [],
+    'data': ['security/resource_planning_security.xml', 'security/ir.model.access.csv', 'data/resource_planning_data.xml', 'views/resource_planning_menus.xml', 'views/resource_planning_views.xml'],
     'installable': True,
     'application': True,
     'auto_install': False,
+    'images': ['static/description/banner.png'],
 }
