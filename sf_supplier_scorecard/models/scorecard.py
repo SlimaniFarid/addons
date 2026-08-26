@@ -79,3 +79,61 @@ class _Boost(models.Model):
         'res.users', string='Responsible', tracking=True,
         index=True, default=lambda self: self.env.user,
         help='Internal owner responsible for this record.')
+
+
+# --- wave2 ---
+class _Wave2Scorecard(models.Model):
+    _inherit = 'sf.supplier.scorecard'
+
+    def action_compute(self):
+        """OTIF from receipts, defect rate from logged supplier issues,
+        quality proxy from resolved ratio; weighted overall score."""
+        self.ensure_one()
+        start = self.date_from
+        end = self.date_to or fields.Date.context_today(self)
+
+        # --- On-time delivery: receipts of this partner's POs in window
+        picks = self.env['stock.picking'].search([
+            ('partner_id', '=', self.partner_id.id),
+            ('picking_type_code', '=', 'incoming'),
+            ('state', '=', 'done'),
+            ('date_done', '>=', start),
+            ('date_done', '<=', end),
+        ])
+        total_picks = len(picks)
+        on_time = len([p for p in picks
+                       if p.date_deadline
+                       and p.date_of_done.date() <= p.date_deadline])
+        on_time_pct = (on_time / total_picks * 100.0) if total_picks else 0.0
+
+        # --- Defects from issue log (module-native model)
+        Issue = self.env['sf.supplier.issue']
+        issues = Issue.search([
+            ('partner_id', '=', self.partner_id.id),
+            ('date', '>=', start), ('date', '<=', end)])
+        defect_rate = float(len(issues))  # issues count as raw defect signal
+
+        resolved = issues.filtered('resolved')
+        quality_score = (len(resolved) / len(issues) * 100.0)             if issues else 100.0
+        compliance_score = 100.0 - min(len(issues) * 5.0, 40.0)
+
+        overall = (on_time_pct * (self.on_time_weight or 0)
+                   + (100.0 - min(defect_rate * 10, 100))
+                   * (self.defect_weight or 0)
+                   + quality_score * (self.quality_weight or 0)
+                   + compliance_score * (self.compliance_weight or 0))
+        rating = 'A' if overall >= 85 else 'B' if overall >= 70 \
+            else 'C' if overall >= 55 else 'D'
+        self.write({
+            'on_time_pct': round(on_time_pct, 1),
+            'defect_rate': defect_rate,
+            'quality_score': round(quality_score, 1),
+            'compliance_score': round(compliance_score, 1),
+            'overall_score': round(overall, 1),
+            'rating': rating,
+        })
+        self.message_post(body=_(
+            'Scorecard computed: OTIF %.1f%% on %s receipt(s); '
+            '%s issue(s); overall %.1f -> %s.')
+            % (on_time_pct, total_picks, len(issues), overall, rating))
+        return True

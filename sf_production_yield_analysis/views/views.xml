@@ -77,4 +77,12 @@
               web_icon="sf_production_yield_analysis,static/description/icon.png"/>
     <menuitem id="menu_sf_production_yield_analysis_main" name="Records"
               parent="menu_sf_production_yield_analysis_root" action="action_sf_production_yield_analysis" sequence="10"/>
+
+    <record id="wave2_yield_pull" model="ir.actions.server">
+        <field name="name">Pull quantities from MO</field>
+        <field name="model_id" ref="model_sf_production_yield_analysis"/>
+        <field name="binding_model_id" ref="model_sf_production_yield_analysis"/>
+        <field name="state">code</field>
+        <field name="code">records.action_pull_from_mo()</field>
+    </record>
 </odoo>

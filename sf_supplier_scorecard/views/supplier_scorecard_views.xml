@@ -156,4 +156,11 @@
         <field name="view_mode">tree,form</field>
     </record>
 
+    <record id="wave2_score_compute" model="ir.actions.server">
+        <field name="name">Compute scorecard</field>
+        <field name="model_id" ref="model_sf_supplier_scorecard"/>
+        <field name="binding_model_id" ref="model_sf_supplier_scorecard"/>
+        <field name="state">code</field>
+        <field name="code">records.action_compute()</field>
+    </record>
 </odoo>

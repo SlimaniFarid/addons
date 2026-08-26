@@ -60,3 +60,46 @@ class _Boost(models.Model):
                 rec.message_post(body=', '.join('%s: %s' % kv for kv in vals.items()))
         return res
 
+
+# --- wave2 ---
+class _Wave2Leadtime(models.Model):
+    _inherit = 'sf.supplier_leadtime_audit'
+
+    def action_import_from_po(self):
+        """Promised vs actual lead time straight from purchase orders and
+        their receipt pickings (needs purchase + stock apps)."""
+        self.ensure_one()
+        if not self.vendor_id or not self.product_id:
+            return True
+        PO = self.env['purchase.order.line']
+        pos = PO.search([
+            ('partner_id', '=', self.vendor_id.id),
+            ('product_id', '=', self.product_id.id),
+            ('state', 'in', ('purchase', 'done')),
+        ], limit=50, order='date_order desc')
+        quoted = actual = None
+        for pol in pos:
+            po = pol.order_id
+            promised = (pol.date_planned.date() - po.date_order.date()).days
+            receipts = po.picking_ids.filtered(
+                lambda p: p.state == 'done'
+                and any(m.product_id == self.product_id
+                        for m in p.move_ids))
+            if not receipts:
+                continue
+            first_done = min(receipts.mapped('date_deadline') or
+                             receipts.mapped('scheduled_date'))
+            eff = min(p.date_of_done for p in receipts)
+            eff_date = fields.Date.to_date(eff)
+            act = (eff_date - po.date_order.date()).days
+            quoted, actual = promised, act
+            break
+        if quoted is None:
+            self.notes = 'No received PO found for this couple.'
+            return True
+        variance = actual - quoted
+        rating = 'good' if variance <= 0 else \
+                 'fair' if variance <= 3 else 'poor'
+        self.write({'quoted_days': quoted, 'actual_days': actual,
+                    'variance_days': variance, 'rating': rating})
+        return True

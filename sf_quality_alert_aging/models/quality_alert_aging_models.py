@@ -20,7 +20,7 @@ class SfQalertAging(models.Model):
         ('none', 'None'),
         ('manager', 'Manager'),
         ('director', 'Director'),
-        ], string='Escalation', default=none)
+        ], string='Escalation', default='none')
     blocker = fields.Text(string='Blocker')
     currency_id = fields.Many2one(related='company_id.currency_id')
     state = fields.Selection([
@@ -42,4 +42,38 @@ class SfQalertAging(models.Model):
 
     def action_closed(self):
         self.write({'state': 'closed'})
+
+
+# --- wave2 ---
+class _Wave2QAging(models.Model):
+    _inherit = 'sf.qalert.aging'
+
+    def action_sync_alerts(self):
+        """Import open native quality alerts with live ageing + escalation."""
+        Alert = self.env['quality.alert']
+        self.ensure_one()
+        today = fields.Date.context_today(self)
+        alerts = Alert.search([('stage_id.fold', '=', False)])
+        existing = {r.alert_ref: r for r in self.search([])}
+        created = updated = 0
+        for al in alerts:
+            opened = fields.Date.to_date(al.create_date)
+            age = (today - opened).days
+            esc = ('director' if age > 30 else
+                   'manager' if age > 14 else
+                   'none' if age <= 7 else 'manager')
+            vals = {'opened_date': opened, 'aging_days': age,
+                    'escalation_level': esc}
+            key = al.name
+            rec = existing.get(key)
+            if rec:
+                rec.write(vals)
+                updated += 1
+            else:
+                vals.update({'alert_ref': key, 'name': al.name})
+                self.create(vals)
+                created += 1
+        self.message_post(body=_('Alert sync: %s created, %s updated.')
+                          % (created, updated))
+        return True
 

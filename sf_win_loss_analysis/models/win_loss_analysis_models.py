@@ -57,3 +57,37 @@ class _Boost(models.Model):
         'res.users', string='Responsible', tracking=True,
         index=True, default=lambda self: self.env.user,
         help='Internal owner responsible for this record.')
+
+
+# --- wave2 ---
+class _Wave2(models.Model):
+    _inherit = 'sf.win.loss'
+
+    @api.model
+    def action_analyze(self):
+        """Aggregate win/loss KPIs across analysed records and broadcast."""
+        recs = self.search([('outcome', 'in', ('won', 'lost'))])
+        total = len(recs)
+        won = len(recs.filtered(lambda r: r.outcome == 'won'))
+        win_rate = (won / total * 100.0) if total else 0.0
+        losses = recs.filtered(lambda r: r.outcome == 'lost')
+        reasons = {}
+        for reason in set(losses.mapped('primary_reason')):
+            if reason:
+                reasons[reason] = len(losses.filtered(
+                    lambda r, rr=reason: r.primary_reason == rr))
+        top = sorted(reasons.items(), key=lambda kv: -kv[1])[:3]
+        gaps = [g for g in losses.mapped('price_gap_percent') if g]
+        avg_gap = sum(gaps) / len(gaps) if gaps else 0.0
+        body = (_('Win/Loss analysis: %s deals, win rate %.1f%%. '
+                  'Top loss reasons: %s. Avg price gap on losses: %.1f%%.')
+                % (total, win_rate,
+                   ', '.join('%s (%d)' % kv for kv in top) or '-',
+                   avg_gap))
+        self.message_post(body=body)
+        return {
+            'type': 'ir.actions.client',
+            'tag': 'display_notification',
+            'params': {'title': _('Win/Loss Analysis'),
+                       'message': body, 'type': 'success'},
+        }

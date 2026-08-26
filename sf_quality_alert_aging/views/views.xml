@@ -77,4 +77,12 @@
               web_icon="sf_quality_alert_aging,static/description/icon.png"/>
     <menuitem id="menu_sf_qalert_aging_main" name="Records"
               parent="menu_sf_qalert_aging_root" action="action_sf_qalert_aging" sequence="10"/>
+
+    <record id="wave2_qaging_sync" model="ir.actions.server">
+        <field name="name">Sync native quality alerts</field>
+        <field name="model_id" ref="model_sf_qalert_aging"/>
+        <field name="binding_model_id" ref="model_sf_qalert_aging"/>
+        <field name="state">code</field>
+        <field name="code">records.action_sync_alerts()</field>
+    </record>
 </odoo>

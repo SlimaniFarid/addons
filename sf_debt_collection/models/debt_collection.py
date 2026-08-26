@@ -374,3 +374,44 @@ class DebtDunningRun(models.Model):
 
     def action_done(self):
         self.write({'state': 'done'})
+
+
+# --- wave2 ---
+class _Wave2Debt(models.Model):
+    _inherit = 'sf.debt.collection.case'
+
+    def action_load_overdue_invoices(self):
+        """Fill the case with really overdue customer invoices using the
+        native detail-line schema (amount_due / date_maturity / overdue).
+        Totals are stored computes driven by the lines: no manual write."""
+        self.ensure_one()
+        Line = self.env['sf.debt.invoice.line']
+        Line.search([('case_id', '=', self.id)]).unlink()
+        today = fields.Date.context_today(self)
+        moves = self.env['account.move'].search([
+            ('move_type', '=', 'out_invoice'),
+            ('state', '=', 'posted'),
+            ('payment_state', 'in', ('not_paid', 'partial')),
+            ('partner_id', '=', self.partner_id.id),
+        ], order='invoice_date_due asc')
+        created, worst = 0, 0
+        for mv in moves:
+            if mv.invoice_date_due >= today or not mv.amount_residual:
+                continue
+            rec_line = mv.line_ids.filtered(
+                lambda l: l.account_type == 'asset_receivable')[:1]
+            Line.create({
+                'case_id': self.id,
+                'invoice_id': mv.id,
+                'move_line_id': rec_line.id,
+                'invoice_number': mv.name or mv.ref,
+                'date_invoice': mv.invoice_date,
+                'date_maturity': mv.invoice_date_due,
+                'amount_due': mv.amount_residual,
+                'overdue': True,
+            })
+            created += 1
+            worst = max(worst, (today - mv.invoice_date_due).days)
+        self.message_post(body=_('Loaded %s overdue invoice(s); '
+                                 'worst ageing %s days.') % (created, worst))
+        return True

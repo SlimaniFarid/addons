@@ -287,4 +287,12 @@
             </search>
         </field>
     </record>
+
+    <record id="wave2_debt_load" model="ir.actions.server">
+        <field name="name">Load overdue invoices</field>
+        <field name="model_id" ref="model_sf_debt_collection_case"/>
+        <field name="binding_model_id" ref="model_sf_debt_collection_case"/>
+        <field name="state">code</field>
+        <field name="code">records.action_load_overdue_invoices()</field>
+    </record>
 </odoo>

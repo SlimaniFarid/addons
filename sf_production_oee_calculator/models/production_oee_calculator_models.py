@@ -19,7 +19,8 @@ class SfProduction_oee_calculator(models.Model):
     ideal_cycle = fields.Float(string='Ideal Cycle (s)')
     total_count = fields.Integer(string='Total Count')
     good_count = fields.Integer(string='Good Count')
-    oee_percent = fields.Float(string='OEE %')
+    oee_percent = fields.Float(string='OEE %', store=True,
+                               compute='_compute_oee')
     currency_id = fields.Many2one(related='company_id.currency_id')
     state = fields.Selection([
         ('draft', 'Draft'),
@@ -58,3 +59,26 @@ class _Boost(models.Model):
                 rec.message_post(body=', '.join('%s: %s' % kv for kv in vals.items()))
         return res
 
+
+# --- wave2 ---
+class _Wave2OEE(models.Model):
+    _inherit = 'sf.production_oee_calculator'
+
+    @api.depends('planned_time', 'downtime', 'ideal_cycle',
+                 'total_count', 'good_count')
+    def _compute_oee(self):
+        for rec in self:
+            planned = rec.planned_time or 0.0
+            down = rec.downtime or 0.0
+            run_time = max(planned - down, 0.0)
+            availability = run_time / planned if planned else 0.0
+            performance = ((rec.total_count or 0) *
+                           (rec.ideal_cycle or 0.0)) / run_time \
+                if run_time else 0.0
+            performance = min(performance, 1.5)
+            quality = (rec.good_count / rec.total_count) \
+                if rec.total_count else 0.0
+            rec.oee_percent = availability * performance * quality * 100.0
+
+    oee_percent = fields.Float(string='OEE %', store=True,
+                               compute='_compute_oee')
