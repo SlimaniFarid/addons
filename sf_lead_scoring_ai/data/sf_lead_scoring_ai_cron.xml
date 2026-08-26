@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="cron_lead_scoring" model="ir.cron">
+        <field name="name">Lead Scoring: score open leads</field>
+        <field name="model_id" ref="model_sf_lead_scoring_ai_lead_score"/>
+        <field name="state">code</field>
+        <field name="code">model.action_score_all_leads()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False"/>
+    </record>
+</odoo>

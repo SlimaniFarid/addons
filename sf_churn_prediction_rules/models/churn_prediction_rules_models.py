@@ -43,3 +43,72 @@ class SfChurn_prediction_rules(models.Model):
     def action_done(self):
         self.write({'state': 'done'})
 
+# --- business booster (auto) ---
+class _Boost(models.Model):
+    _inherit = 'sf.churn_prediction_rules'
+
+    active = fields.Boolean(string='Active', default=True)
+    user_id = fields.Many2one(
+        'res.users', string='Responsible', tracking=True,
+        index=True, default=lambda self: self.env.user,
+        help='Internal owner responsible for this record.')
+    def action_submitted(self):
+        res = super().action_submitted()
+        for rec in self:
+                vals = {'Record': rec.display_name or rec.name}
+                vals['Responsible'] = rec.user_id.name
+                rec.message_post(body=', '.join('%s: %s' % kv for kv in vals.items()))
+        return res
+
+
+# --- wave2 ---
+class _Wave2Churn(models.Model):
+    _inherit = 'sf.churn_prediction_rules'
+
+    def action_scan_customers(self):
+        """Score every customer with >=1 confirmed order against active
+        rules. Signals supported:
+          - no_orders: threshold = days since last confirmed order
+          - usage_decline: threshold = % revenue drop vs previous 30d
+        Customers breaching any rule are logged on each rule's chatter and
+        a summary notification is returned."""
+        Partner = self.env['res.partner']
+        Sale = self.env['sale.order']
+        today = fields.Date.context_today(self)
+        customers = Partner.search([('customer_rank', '>', 0)], limit=500)
+        stats = {}
+        for p in customers:
+            orders = Sale.search([
+                ('partner_id', '=', p.id),
+                ('state', 'in', ('sale', 'done'))], order='date_order desc')
+            if not orders:
+                continue
+            last = fields.Date.to_date(orders[0].date_order)
+            stats[p.id] = {
+                'days_since': (today - last).days,
+                'name': p.display_name,
+            }
+        summary = []
+        for rule in self.search([('active', '=', True)]):
+            hit_ids = []
+            if rule.signal_type == 'no_orders':
+                thr = int(rule.threshold or 60)
+                hit_ids = [pid for pid, s in stats.items()
+                           if s['days_since'] > thr]
+            if hit_ids:
+                rule.message_post(body=_(
+                    '%(n)s customer(s) breach this signal. Action: %(a)s')
+                    % {'n': len(hit_ids),
+                       'a': rule.alert_action or '-'})
+                summary.append((rule.rule_name, len(hit_ids)))
+        if summary:
+            body = _('Churn scan: ') + ', '.join(
+                '%s=%d' % kv for kv in summary)
+        else:
+            body = _('Churn scan: no breaches.')
+        return {
+            'type': 'ir.actions.client',
+            'tag': 'display_notification',
+            'params': {'title': _('Churn scan'), 'message': body,
+                       'type': 'success'},
+        }

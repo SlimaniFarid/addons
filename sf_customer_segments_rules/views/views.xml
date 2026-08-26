@@ -76,4 +76,12 @@
               web_icon="sf_customer_segments_rules,static/description/icon.png"/>
     <menuitem id="menu_sf_customer_segments_rules_main" name="Records"
               parent="menu_sf_customer_segments_rules_root" action="action_sf_customer_segments_rules" sequence="10"/>
+
+    <record id="wave2_segments_refresh" model="ir.actions.server">
+        <field name="name">Refresh RFM Members</field>
+        <field name="model_id" ref="model_sf_customer_segments_rules"/>
+        <field name="binding_model_id" ref="model_sf_customer_segments_rules"/>
+        <field name="state">code</field>
+        <field name="code">records.action_refresh_members()</field>
+    </record>
 </odoo>

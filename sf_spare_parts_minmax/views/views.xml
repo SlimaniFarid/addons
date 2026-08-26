@@ -77,4 +77,12 @@
               web_icon="sf_spare_parts_minmax,static/description/icon.png"/>
     <menuitem id="menu_sf_spare_part_main" name="Records"
               parent="menu_sf_spare_part_root" action="action_sf_spare_part" sequence="10"/>
+
+    <record id="wave_final_sf_spare_parts_minmax" model="ir.actions.server">
+        <field name="name">Refresh Business Data</field>
+        <field name="model_id" ref="model_sf_spare_part"/>
+        <field name="binding_model_id" ref="model_sf_spare_part"/>
+        <field name="state">code</field>
+        <field name="code">records.action_refresh_business()</field>
+    </record>
 </odoo>

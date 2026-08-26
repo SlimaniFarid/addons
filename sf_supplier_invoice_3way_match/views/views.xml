@@ -77,4 +77,12 @@
               web_icon="sf_supplier_invoice_3way_match,static/description/icon.png"/>
     <menuitem id="menu_sf_supplier_invoice_3way_match_main" name="Records"
               parent="menu_sf_supplier_invoice_3way_match_root" action="action_sf_supplier_invoice_3way_match" sequence="10"/>
+
+    <record id="wave_final_sf_supplier_invoice_3way_match" model="ir.actions.server">
+        <field name="name">Refresh Business Data</field>
+        <field name="model_id" ref="model_sf_supplier_invoice_3way_match"/>
+        <field name="binding_model_id" ref="model_sf_supplier_invoice_3way_match"/>
+        <field name="state">code</field>
+        <field name="code">records.action_refresh_business()</field>
+    </record>
 </odoo>

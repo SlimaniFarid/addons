@@ -43,3 +43,38 @@ class SfProduction_waste_tracker(models.Model):
     def action_done(self):
         self.write({'state': 'done'})
 
+# --- business booster (auto) ---
+class _Boost(models.Model):
+    _inherit = 'sf.production_waste_tracker'
+
+    active = fields.Boolean(string='Active', default=True)
+    user_id = fields.Many2one(
+        'res.users', string='Responsible', tracking=True,
+        index=True, default=lambda self: self.env.user,
+        help='Internal owner responsible for this record.')
+    def action_submitted(self):
+        res = super().action_submitted()
+        for rec in self:
+                vals = {'Record': rec.display_name or rec.name}
+                vals['Responsible'] = rec.user_id.name
+                rec.message_post(body=', '.join('%s: %s' % kv for kv in vals.items()))
+        return res
+
+
+# --- wave_final ---
+class _RefreshBusiness(models.Model):
+    _inherit = 'sf.production_waste_tracker'
+
+    def action_refresh_business(self):
+        """Pull active MO count and average yield."""
+        Mos = self.env['mrp.production']
+        active = Mos.search([('state', 'in', ('confirmed', 'progress'))])
+        done = Mos.search([('state', '=', 'done')], limit=50)
+        yields = [(mo.qty_produced / mo.product_qty * 100)
+                  for mo in done if mo.product_qty]
+        avg_yield = sum(yields) / len(yields) if yields else 0.0
+        for rec in self:
+            rec.message_post(body=_(
+                '{a} active MO(s), avg yield {y:.1f}% on last {d} done.')
+                .format(a=len(active), y=avg_yield, d=len(done)))
+        return True

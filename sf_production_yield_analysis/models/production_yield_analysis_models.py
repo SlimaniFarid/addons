@@ -39,3 +39,43 @@ class SfProduction_yield_analysis(models.Model):
     def action_done(self):
         self.write({'state': 'done'})
 
+# --- business booster (auto) ---
+class _Boost(models.Model):
+    _inherit = 'sf.production_yield_analysis'
+
+    active = fields.Boolean(string='Active', default=True)
+    user_id = fields.Many2one(
+        'res.users', string='Responsible', tracking=True,
+        index=True, default=lambda self: self.env.user,
+        help='Internal owner responsible for this record.')
+    def action_submitted(self):
+        res = super().action_submitted()
+        for rec in self:
+                vals = {'Record': rec.display_name or rec.name}
+                vals['Responsible'] = rec.user_id.name
+                rec.message_post(body=', '.join('%s: %s' % kv for kv in vals.items()))
+        return res
+
+
+# --- wave2 ---
+class _Wave2Yield(models.Model):
+    _inherit = 'sf.production_yield_analysis'
+
+    def action_pull_from_mo(self):
+        """Pull real quantities from the linked manufacturing order."""
+        self.ensure_one()
+        mo = self.production_id
+        if not mo:
+            return True
+        self.write({
+            'planned_qty': mo.product_qty,
+            'actual_qty': mo.qty_produced,
+            'scrap_qty': mo.scrap_count or 0.0,
+        })
+        self.action_recompute_yield()
+        return True
+
+    def action_recompute_yield(self):
+        for rec in self:
+            if rec.planned_qty:
+                rec.yield_percent = (rec.actual_qty / rec.planned_qty) * 100.0

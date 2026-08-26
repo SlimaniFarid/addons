@@ -76,4 +76,12 @@
               web_icon="sf_quality_inspection_mobile2,static/description/icon.png"/>
     <menuitem id="menu_sf_quality_inspection_mobile2_main" name="Records"
               parent="menu_sf_quality_inspection_mobile2_root" action="action_sf_quality_inspection_mobile2" sequence="10"/>
+
+    <record id="wave_final_sf_quality_inspection_mobile2" model="ir.actions.server">
+        <field name="name">Refresh Business Data</field>
+        <field name="model_id" ref="model_sf_quality_inspection_mobile2"/>
+        <field name="binding_model_id" ref="model_sf_quality_inspection_mobile2"/>
+        <field name="state">code</field>
+        <field name="code">records.action_refresh_business()</field>
+    </record>
 </odoo>

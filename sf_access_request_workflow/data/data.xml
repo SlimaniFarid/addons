@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="seq_sf_access_request_workflow" model="ir.sequence">
+        <field name="name">Access Request Workflow</field>
+        <field name="code">sf.access_request_workflow</field>
+        <field name="prefix">ACC/</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+</odoo>

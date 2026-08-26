@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 """Customer Segmentation Rules models"""
+from dateutil.relativedelta import relativedelta
 from odoo import api, fields, models, _
 from odoo.exceptions import UserError
 
@@ -38,3 +39,49 @@ class SfCustomer_segments_rules(models.Model):
     def action_done(self):
         self.write({'state': 'done'})
 
+# --- business booster (auto) ---
+class _Boost(models.Model):
+    _inherit = 'sf.customer_segments_rules'
+
+    active = fields.Boolean(string='Active', default=True)
+    user_id = fields.Many2one(
+        'res.users', string='Responsible', tracking=True,
+        index=True, default=lambda self: self.env.user,
+        help='Internal owner responsible for this record.')
+    def action_submitted(self):
+        res = super().action_submitted()
+        for rec in self:
+                vals = {'Record': rec.display_name or rec.name}
+                vals['Responsible'] = rec.user_id.name
+                rec.message_post(body=', '.join('%s: %s' % kv for kv in vals.items()))
+        return res
+
+
+# --- wave2 ---
+class _Wave2(models.Model):
+    _inherit = 'sf.customer_segments_rules'
+
+    def action_refresh_members(self):
+        """Real RFM: members matching recency/frequency/monetary filters,
+        computed from confirmed customer orders."""
+        Sale = self.env['sale.order']
+        self.ensure_one()
+        domain = [('state', 'in', ('sale', 'done')),
+                  ('company_id', '=', self.company_id.id)]
+        if self.recency_max_days:
+            limit = fields.Date.context_today(self) - relativedelta(
+                days=self.recency_max_days)
+            domain.append(('date_order', '>=', limit))
+        groups = Sale._read_group(
+            domain, ['partner_id'], aggregates=['id:count', 'amount_total:sum'])
+        count = 0
+        for partner, order_count, total in groups:
+            if order_count >= (self.frequency_min or 0)                     and total >= (self.monetary_min or 0.0):
+                count += 1
+        self.member_count = count
+        self.message_post(body=_(
+            'RFM refresh: %(c)s member(s) match '
+            '(recency<=%(r)s d, orders>=%(f)s, revenue>=%(m)s).') % {
+                'c': count, 'r': self.recency_max_days or '∞',
+                'f': self.frequency_min or 0, 'm': self.monetary_min or 0})
+        return True

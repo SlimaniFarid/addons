@@ -1,13 +1,13 @@
 {
-    'name': 'Customer Escalation Management',
+    'name': 'Customer Care Escalation Tracker',
     'version': '19.0.1.0.0',
     'category': 'Sales/Sales',
-    'summary': 'Manage customer escalations: tier, reason, resolution and post-resolution follow-up.',
+    'summary': 'Track customer escalations: tier, reason, resolution time and satisfaction after resolution.',
     'description': """
-Customer Escalation Management
-==============================
+Customer Care Escalation Tracker
+================================
 
-Manage customer escalations: tier, reason, resolution and post-resolution follow-up.
+Track customer escalations: tier, reason, resolution time and satisfaction after resolution.
 
 Features:
 ---------
@@ -22,7 +22,7 @@ Standard Odoo modules only. Multi-company ready. Full audit trail.
     'author': 'Ethan Miller',
     'support': 'tech5262@gmail.com',
     'license': 'OPL-1',
-    'price': 62.25,
+    'price': 57.25,
     'currency': 'EUR',
     'depends': ['base', 'sale', 'mail'],
     'data': [
@@ -34,5 +34,4 @@ Standard Odoo modules only. Multi-company ready. Full audit trail.
     'installable': True,
     'application': True,
     'auto_install': False,
-    'images': ['static/description/banner.png'],
 }

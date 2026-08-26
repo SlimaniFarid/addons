@@ -78,4 +78,12 @@
               web_icon="sf_contract_compliance_audit,static/description/icon.png"/>
     <menuitem id="menu_sf_contract_compliance_main" name="Records"
               parent="menu_sf_contract_compliance_root" action="action_sf_contract_compliance" sequence="10"/>
+
+    <record id="wave_final_sf_contract_compliance_audit" model="ir.actions.server">
+        <field name="name">Refresh Business Data</field>
+        <field name="model_id" ref="model_sf_contract_compliance"/>
+        <field name="binding_model_id" ref="model_sf_contract_compliance"/>
+        <field name="state">code</field>
+        <field name="code">records.action_refresh_business()</field>
+    </record>
 </odoo>

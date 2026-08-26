@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-"""Customer Escalation Management models"""
+"""Customer Care Escalation Tracker models"""
 from odoo import api, fields, models, _
 from odoo.exceptions import UserError
 
 
 class SfCustomer_care_escalation(models.Model):
     _name = 'sf.customer_care_escalation'
-    _description = 'Customer Escalation Management'
+    _description = 'Customer Care Escalation Tracker'
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _order = 'create_date desc, id desc'
 
@@ -14,20 +14,19 @@ class SfCustomer_care_escalation(models.Model):
     company_id = fields.Many2one('res.company', string='Company', required=True, default=lambda s: s.env.company, tracking=True)
     partner_id = fields.Many2one('res.partner', string='Customer', required=True)
     escalation_reason = fields.Selection([
-        ('quality', 'Quality'),
-        ('delivery', 'Delivery'),
-        ('service', 'Service'),
-        ('billing', 'Billing'),
-        ('other', 'Other'),
+        ('quality', 'Quality Issue'),
+        ('delivery', 'Delivery Delay'),
+        ('service', 'Service Issue'),
+        ('pricing', 'Pricing Dispute'),
         ], string='Reason', required=True)
-    tier = fields.Integer(string='Tier', default=1)
-    resolution = fields.Text(string='Resolution')
+    tier = fields.Integer(string='Escalation Tier', default=1)
     resolved_at = fields.Datetime(string='Resolved At')
+    resolution_hours = fields.Float(string='Resolution (h)')
     satisfaction = fields.Selection([
         ('satisfied', 'Satisfied'),
         ('neutral', 'Neutral'),
         ('dissatisfied', 'Dissatisfied'),
-        ], string='Satisfaction')
+        ], string='Post-Resolution')
     currency_id = fields.Many2one(related='company_id.currency_id')
     state = fields.Selection([
         ('draft', 'Draft'),
@@ -49,3 +48,39 @@ class SfCustomer_care_escalation(models.Model):
     def action_done(self):
         self.write({'state': 'done'})
 
+# --- business booster (auto) ---
+class _Boost(models.Model):
+    _inherit = 'sf.customer_care_escalation'
+
+    active = fields.Boolean(string='Active', default=True)
+    user_id = fields.Many2one(
+        'res.users', string='Responsible', tracking=True,
+        index=True, default=lambda self: self.env.user,
+        help='Internal owner responsible for this record.')
+    def action_submitted(self):
+        res = super().action_submitted()
+        for rec in self:
+                vals = {'Record': rec.display_name or rec.name}
+                vals['Responsible'] = rec.user_id.name
+                rec.message_post(body=', '.join('%s: %s' % kv for kv in vals.items()))
+        return res
+
+
+# --- wave_final ---
+class _RefreshBusiness(models.Model):
+    _inherit = 'sf.customer_care_escalation'
+
+    def action_refresh_business(self):
+        """Pull live sale stats for linked partner."""
+        for rec in self:
+            partner = getattr(rec, 'partner_id', False)
+            if not partner:
+                continue
+            orders = self.env['sale.order'].search([
+                ('partner_id', '=', partner.id),
+                ('state', 'in', ('sale', 'done'))])
+            msg = _('{n} confirmed order(s), total {t:.2f}.').format(
+                n=len(orders),
+                t=sum(orders.mapped('amount_total')))
+            rec.message_post(body=msg)
+        return True

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="seq_sf_quality_pareto_analyzer" model="ir.sequence">
+        <field name="name">Quality Pareto Analyzer</field>
+        <field name="code">sf.quality_pareto_analyzer</field>
+        <field name="prefix">QUA/</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+</odoo>

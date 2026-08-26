@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 """Min/Max Parameter Review models"""
+from dateutil.relativedelta import relativedelta
 from odoo import api, fields, models, _
 from odoo.exceptions import UserError
 
@@ -44,3 +45,51 @@ class SfMinmaxReview(models.Model):
     def action_rejected(self):
         self.write({'state': 'rejected'})
 
+# --- business booster (auto) ---
+class _Boost(models.Model):
+    _inherit = 'sf.minmax.review'
+
+    active = fields.Boolean(string='Active', default=True)
+    user_id = fields.Many2one(
+        'res.users', string='Responsible', tracking=True,
+        index=True, default=lambda self: self.env.user,
+        help='Internal owner responsible for this record.')
+
+
+# --- wave2 ---
+class _Wave2MinMax(models.Model):
+    _inherit = 'sf.minmax.review'
+
+    def action_propose_from_usage(self):
+        """Proposed min/max from real outbound usage:
+        min = avg daily usage over 7d x cover_days_min
+        max = avg daily usage over 28d x cover_days_max."""
+        self.ensure_one()
+        if not self.product_id:
+            return True
+        StockMove = self.env['stock.move']
+
+        def avg_daily(days_back):
+            frm = fields.Date.context_today(self) - relativedelta(
+                days=days_back)
+            moves = StockMove.search([
+                ('product_id', '=', self.product_id.id),
+                ('state', '=', 'done'),
+                ('location_dest_id.usage', '=', 'customer'),
+                ('date', '>=', frm),
+            ])
+            qty = sum(m.product_uom.qty for m in moves)
+            return qty / days_back
+
+        d7, d28 = avg_daily(7), avg_daily(28)
+        pmin = round(d7 * (self.cover_days_min or 7), 2)
+        pmax = round(max(d28, d7) * (self.cover_days_max or 30), 2)
+        self.write({
+            'proposed_min': pmin,
+            'proposed_max': pmax,
+            'evidence': (_('Usage 7d/day=%.2f ; 28d/day=%.2f ; '
+                           'cover=%sd/%sd') % (d7, d28,
+                                               self.cover_days_min,
+                                               self.cover_days_max)),
+        })
+        return True

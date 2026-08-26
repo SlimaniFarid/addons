@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Portal users may see/create their own onboarding files -->
+    <record id="rule_vendor_onboarding_portal" model="ir.rule">
+        <field name="name">Vendor Onboarding: portal own records</field>
+        <field name="model_id"
+               ref="model_sf_vendor_onboarding_portal_vendor_onboarding"/>
+        <field name="domain_force">[('partner_id', 'child_of', user.partner_id.id)]</field>
+        <field name="groups" eval="[(4, ref('base.group_portal'))]"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="False"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+</odoo>

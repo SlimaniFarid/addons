@@ -79,4 +79,12 @@
               web_icon="sf_payroll_deadline_tracker,static/description/icon.png"/>
     <menuitem id="menu_sf_payroll_deadline_main" name="Records"
               parent="menu_sf_payroll_deadline_root" action="action_sf_payroll_deadline" sequence="10"/>
+
+    <record id="wave_final_sf_payroll_deadline_tracker" model="ir.actions.server">
+        <field name="name">Refresh Business Data</field>
+        <field name="model_id" ref="model_sf_payroll_deadline"/>
+        <field name="binding_model_id" ref="model_sf_payroll_deadline"/>
+        <field name="state">code</field>
+        <field name="code">records.action_refresh_business()</field>
+    </record>
 </odoo>

@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sf_employee_engagement_action_user,sf.employee_engagement_action.user,model_sf_employee_engagement_action,group_employee_engagement_action_user,1,1,1,0
+access_sf_employee_engagement_action_manager,sf.employee_engagement_action.manager,model_sf_employee_engagement_action,group_employee_engagement_action_manager,1,1,1,1

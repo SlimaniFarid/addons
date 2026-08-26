@@ -24,7 +24,7 @@ Standard Odoo modules only. Multi-company ready. Full audit trail.
     'license': 'OPL-1',
     'price': 44.75,
     'currency': 'EUR',
-    'depends': ['base', 'sale', 'mail'],
+    'depends': ['base', 'sale', 'mail', 'hr'],
     'data': [
         'security/ir.model.access.csv',
         'security/security.xml',
@@ -34,5 +34,4 @@ Standard Odoo modules only. Multi-company ready. Full audit trail.
     'installable': True,
     'application': True,
     'auto_install': False,
-    'images': ['static/description/banner.png'],
 }

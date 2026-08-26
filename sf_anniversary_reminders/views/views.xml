@@ -75,4 +75,12 @@
               web_icon="sf_anniversary_reminders,static/description/icon.png"/>
     <menuitem id="menu_sf_anniversary_main" name="Records"
               parent="menu_sf_anniversary_root" action="action_sf_anniversary" sequence="10"/>
+
+    <record id="wave2_anniv_scan" model="ir.actions.server">
+        <field name="name">Scan anniversaries</field>
+        <field name="model_id" ref="model_sf_anniversary"/>
+        <field name="binding_model_id" ref="model_sf_anniversary"/>
+        <field name="state">code</field>
+        <field name="code">records.cron_scan_anniversaries()</field>
+    </record>
 </odoo>

@@ -88,3 +88,13 @@ class SfFacilityBooking(models.Model):
                     'Room %s is already booked from %s to %s (%s).')
                     % (rec.room_id.name, conflict.start, conflict.end,
                        conflict.name))
+
+# --- business booster (auto) ---
+class _Boost(models.Model):
+    _inherit = 'sf.facility.site'
+
+    active = fields.Boolean(string='Active', default=True)
+    user_id = fields.Many2one(
+        'res.users', string='Responsible', tracking=True,
+        index=True, default=lambda self: self.env.user,
+        help='Internal owner responsible for this record.')

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_sf_inventory_accuracy_rate" model="ir.actions.act_window">
+        <field name="name">Inventory Accuracy KPI</field>
+        <field name="res_model">sf.inventory_accuracy_rate</field>
+        <field name="view_mode">list,form,kanban</field>
+    </record>
+    <record id="view_sf_inventory_accuracy_rate_form" model="ir.ui.view">
+        <field name="name">sf.inventory_accuracy_rate.form</field>
+        <field name="model">sf.inventory_accuracy_rate</field>
+        <field name="arch" type="xml">
+            <form string="Inventory Accuracy KPI">
+                <header>
+                    <button name="action_submitted" type="object" string="Submitted"
+                            class="btn-primary"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,submitted,done"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="zone"/>
+                            <field name="period"/>
+                            <field name="lines_counted"/>
+                            <field name="lines_matched"/>
+                            <field name="ira_percent"/>
+                            <field name="action_plan"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="view_sf_inventory_accuracy_rate_list" model="ir.ui.view">
+        <field name="name">sf.inventory_accuracy_rate.list</field>
+        <field name="model">sf.inventory_accuracy_rate</field>
+        <field name="arch" type="xml">
+            <list string="Inventory Accuracy KPI" sample="1">
+                <field name="zone"/>
+                <field name="period"/>
+                <field name="lines_counted"/>
+                <field name="lines_matched"/>
+                <field name="ira_percent"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'done'"
+                       decoration-info="state in ('submitted','approved')"/>
+            </list>
+        </field>
+    </record>
+    <record id="view_sf_inventory_accuracy_rate_kanban" model="ir.ui.view">
+        <field name="name">sf.inventory_accuracy_rate.kanban</field>
+        <field name="model">sf.inventory_accuracy_rate</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_view" group_by="state">
+                <field name="name"/>
+                <field name="state"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <strong><field name="name"/></strong>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+    <menuitem id="menu_sf_inventory_accuracy_rate_root" name="Inventory Accuracy KPI" sequence="7"
+              web_icon="sf_inventory_accuracy_rate,static/description/icon.png"/>
+    <menuitem id="menu_sf_inventory_accuracy_rate_main" name="Records"
+              parent="menu_sf_inventory_accuracy_rate_root" action="action_sf_inventory_accuracy_rate" sequence="10"/>
+
+    <record id="wave_final_sf_inventory_accuracy_rate" model="ir.actions.server">
+        <field name="name">Refresh Business Data</field>
+        <field name="model_id" ref="model_sf_inventory_accuracy_rate"/>
+        <field name="binding_model_id" ref="model_sf_inventory_accuracy_rate"/>
+        <field name="state">code</field>
+        <field name="code">records.action_refresh_business()</field>
+    </record>
+</odoo>

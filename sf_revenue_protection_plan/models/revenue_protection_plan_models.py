@@ -43,3 +43,34 @@ class SfRevenue_protection_plan(models.Model):
     def action_done(self):
         self.write({'state': 'done'})
 
+# --- business booster (auto) ---
+class _Boost(models.Model):
+    _inherit = 'sf.revenue_protection_plan'
+
+    active = fields.Boolean(string='Active', default=True)
+    def action_submitted(self):
+        res = super().action_submitted()
+        for rec in self:
+                vals = {'Record': rec.display_name or rec.name}
+                rec.message_post(body=', '.join('%s: %s' % kv for kv in vals.items()))
+        return res
+
+
+# --- wave_final ---
+class _RefreshBusiness(models.Model):
+    _inherit = 'sf.revenue_protection_plan'
+
+    def action_refresh_business(self):
+        """Pull live sale stats for linked partner."""
+        for rec in self:
+            partner = getattr(rec, 'partner_id', False)
+            if not partner:
+                continue
+            orders = self.env['sale.order'].search([
+                ('partner_id', '=', partner.id),
+                ('state', 'in', ('sale', 'done'))])
+            msg = _('{n} confirmed order(s), total {t:.2f}.').format(
+                n=len(orders),
+                t=sum(orders.mapped('amount_total')))
+            rec.message_post(body=msg)
+        return True

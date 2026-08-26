@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <record id="seq_sf_customer_care_escalation" model="ir.sequence">
-        <field name="name">Customer Escalation Management</field>
+        <field name="name">Customer Care Escalation Tracker</field>
         <field name="code">sf.customer_care_escalation</field>
         <field name="prefix">CUS/</field>
         <field name="padding">5</field>

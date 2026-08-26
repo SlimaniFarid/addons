@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- /my home link -->
+    <template id="portal_my_home_vendor_onboarding"
+              name="Portal My Home : Vendor Onboarding"
+              inherit_id="portal.portal_my_home" priority="25">
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+            <t t-call="portal.portal_docs_entry">
+                <t t-set="title">Vendor Onboarding</t>
+                <t t-set="url" t-value="'/my/vendor-onboarding'"/>
+                <t t-set="placeholder_icon">'/sf_vendor_onboarding_portal/static/description/icon.png'</t>
+            </t>
+        </xpath>
+    </template>
+
+    <template id="portal_vendor_onboarding_list" name="Vendor Onboarding List">
+        <t t-call="website.layout">
+            <div id="wrap" class="container mt-4">
+                <h3 class="mb-4">My Vendor Onboarding Files</h3>
+                <a href="/my/vendor-onboarding/new" class="btn btn-primary mb-3">
+                    <i class="fa fa-plus"/> New Onboarding File
+                </a>
+                <table class="table table-striped o_portal_table" t-if="records">
+                    <thead>
+                        <tr><th>Reference</th><th>Status</th><th>Last Update</th><th/></tr>
+                    </thead>
+                    <tbody>
+                        <tr t-foreach="records" t-as="rec">
+                            <td t-out="rec.name"/>
+                            <td><span class="badge bg-secondary"
+                                      t-out="dict(rec._fields['state'].selection).get(rec.state)"/></td>
+                            <td t-field="rec.write_date"/>
+                            <td>
+                                <a class="btn btn-sm btn-outline-primary"
+                                   t-attf-href="/my/vendor-onboarding/{{ rec.id }}">View</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="alert alert-info" t-if="not records">
+                    No onboarding file yet. Create one to start the approval process.
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="portal_vendor_onboarding_form" name="Vendor Onboarding Form">
+        <t t-call="website.layout">
+            <div id="wrap" class="container mt-4" style="max-width: 720px;">
+                <h3 class="mb-4">New Vendor Onboarding</h3>
+                <form action="/my/vendor-onboarding/submit" method="post" enctype="multipart/form-data">
+                    <input type="hidden" name="csrf_token"
+                           t-att-value="request.csrf_token()"/>
+                    <div class="mb-3">
+                        <label class="form-label">Tax ID / VAT</label>
+                        <input type="text" class="form-control" name="tax_id"/>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Bank Account (IBAN)</label>
+                        <input type="text" class="form-control" name="bank_account"/>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit for review</button>
+                    <a href="/my/vendor-onboarding" class="btn btn-link">Cancel</a>
+                </form>
+            </div>
+        </t>
+    </template>
+
+    <template id="portal_vendor_onboarding_detail" name="Vendor Onboarding Detail">
+        <t t-call="website.layout">
+            <div id="wrap" class="container mt-4" style="max-width: 720px;">
+                <h3 t-out="record.name"/>
+                <span class="badge bg-secondary mb-3"
+                      t-out="dict(record._fields['state'].selection).get(record.state)"/>
+                <div class="card">
+                    <div class="card-body">
+                        <p><strong>Tax ID:</strong> <t t-out="record.tax_id or '-'"/></p>
+                        <p><strong>Bank Account:</strong> <t t-out="record.bank_account or '-'"/></p>
+                        <p><strong>Reviewer:</strong> <t t-out="record.reviewer_id.name or 'Pending assignment'"/></p>
+                        <p><strong>Certificates:</strong>
+                            <t t-foreach="record.cert_documents" t-as="att">
+                                <a t-attf-href="/web/content/{{ att.id }}"
+                                   target="_blank" class="d-block">
+                                    <i class="fa fa-paperclip"/> <t t-out="att.name"/>
+                                </a>
+                            </t>
+                            <span t-if="not record.cert_documents">None uploaded.</span>
+                        </p>
+                    </div>
+                </div>
+                <a href="/my/vendor-onboarding" class="btn btn-secondary mt-3">Back</a>
+            </div>
+        </t>
+    </template>
+
+</odoo>

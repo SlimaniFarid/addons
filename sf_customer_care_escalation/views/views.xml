@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <record id="action_sf_customer_care_escalation" model="ir.actions.act_window">
-        <field name="name">Customer Escalation Management</field>
+        <field name="name">Customer Care Escalation Tracker</field>
         <field name="res_model">sf.customer_care_escalation</field>
         <field name="view_mode">list,form,kanban</field>
     </record>
@@ -9,7 +9,7 @@
         <field name="name">sf.customer_care_escalation.form</field>
         <field name="model">sf.customer_care_escalation</field>
         <field name="arch" type="xml">
-            <form string="Customer Escalation Management">
+            <form string="Customer Care Escalation Tracker">
                 <header>
                     <button name="action_submitted" type="object" string="Submitted"
                             class="btn-primary"/>
@@ -24,8 +24,8 @@
                             <field name="partner_id"/>
                             <field name="escalation_reason"/>
                             <field name="tier"/>
-                            <field name="resolution"/>
                             <field name="resolved_at"/>
+                            <field name="resolution_hours"/>
                             <field name="satisfaction"/>
                         </group>
                     </group>
@@ -42,12 +42,12 @@
         <field name="name">sf.customer_care_escalation.list</field>
         <field name="model">sf.customer_care_escalation</field>
         <field name="arch" type="xml">
-            <list string="Customer Escalation Management" sample="1">
+            <list string="Customer Care Escalation Tracker" sample="1">
                 <field name="partner_id"/>
                 <field name="escalation_reason"/>
                 <field name="tier"/>
-                <field name="resolution"/>
                 <field name="resolved_at"/>
+                <field name="resolution_hours"/>
                 <field name="state" widget="badge"
                        decoration-success="state == 'done'"
                        decoration-info="state in ('submitted','approved')"/>
@@ -73,8 +73,16 @@
             </kanban>
         </field>
     </record>
-    <menuitem id="menu_sf_customer_care_escalation_root" name="Customer Escalation Management" sequence="12"
+    <menuitem id="menu_sf_customer_care_escalation_root" name="Customer Care Escalation Tracker" sequence="9"
               web_icon="sf_customer_care_escalation,static/description/icon.png"/>
     <menuitem id="menu_sf_customer_care_escalation_main" name="Records"
               parent="menu_sf_customer_care_escalation_root" action="action_sf_customer_care_escalation" sequence="10"/>
+
+    <record id="wave_final_sf_customer_care_escalation" model="ir.actions.server">
+        <field name="name">Refresh Business Data</field>
+        <field name="model_id" ref="model_sf_customer_care_escalation"/>
+        <field name="binding_model_id" ref="model_sf_customer_care_escalation"/>
+        <field name="state">code</field>
+        <field name="code">records.action_refresh_business()</field>
+    </record>
 </odoo>

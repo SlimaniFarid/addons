@@ -5,7 +5,7 @@ from odoo.exceptions import UserError
 
 
 class SfEnergyReading(models.Model):
-    _name = 'sf.energy.reading'
+    _name = 'sf.energy.meter.reading'
     _description = 'Meter Reading'
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _order = 'create_date desc, id desc'
@@ -29,9 +29,36 @@ class SfEnergyReading(models.Model):
         for vals in vals_list:
             if vals.get('name', 'New') == 'New':
                 vals['name'] = self.env['ir.sequence'].next_by_code(
-                    'sf.energy.reading') or 'NEW'
+                    'sf.energy.meter.reading') or 'NEW'
         return super().create(vals_list)
 
     def action_validated(self):
         self.write({'state': 'validated'})
 
+# --- business booster (auto) ---
+class _Boost(models.Model):
+    _inherit = 'sf.energy.meter.reading'
+
+    active = fields.Boolean(string='Active', default=True)
+    user_id = fields.Many2one(
+        'res.users', string='Responsible', tracking=True,
+        index=True, default=lambda self: self.env.user,
+        help='Internal owner responsible for this record.')
+
+
+# --- wave_final ---
+class _RefreshBusiness(models.Model):
+    _inherit = 'sf.energy.meter.reading'
+
+    def action_refresh_business(self):
+        """Post a status summary to chatter (generic)."""
+        for rec in self:
+            parts = []
+            for fname in ('state', 'user_id', 'company_id'):
+                val = getattr(rec, fname, False)
+                if val:
+                    parts.append('{0}: {1}'.format(
+                        fname, val.display_name if hasattr(val, 'display_name')
+                        else val))
+            rec.message_post(body=' | '.join(parts) or 'No data.')
+        return True

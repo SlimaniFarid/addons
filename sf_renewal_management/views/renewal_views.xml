@@ -74,8 +74,7 @@
         <field name="name">sf.renewal.contract.list</field>
         <field name="model">sf.renewal.contract</field>
         <field name="arch" type="xml">
-            <list string="Renewal Contracts" sample="1"
-                  decoration-danger="state == 'expiring' and days_to_expiry &lt; 30">
+            <list string="Renewal Contracts" sample="1" decoration-danger="state == 'expiring' and days_to_expiry &lt; 30">
                 <field name="name"/>
                 <field name="partner_id"/>
                 <field name="contract_type"/>
@@ -122,4 +121,12 @@
     <menuitem id="menu_sf_renewal_contracts" name="Renewal Contracts"
               parent="menu_sf_renewal_root" action="action_sf_renewal_contract"
               sequence="10"/>
+
+    <record id="wave_final_sf_renewal_management" model="ir.actions.server">
+        <field name="name">Refresh Business Data</field>
+        <field name="model_id" ref="model_sf_renewal_contract"/>
+        <field name="binding_model_id" ref="model_sf_renewal_contract"/>
+        <field name="state">code</field>
+        <field name="code">records.action_refresh_business()</field>
+    </record>
 </odoo>

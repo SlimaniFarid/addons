@@ -81,4 +81,12 @@
               web_icon="sf_quality_document_control,static/description/icon.png"/>
     <menuitem id="menu_sf_quality_document_control_main" name="Records"
               parent="menu_sf_quality_document_control_root" action="action_sf_quality_document_control" sequence="10"/>
+
+    <record id="wave_final_sf_quality_document_control" model="ir.actions.server">
+        <field name="name">Refresh Business Data</field>
+        <field name="model_id" ref="model_sf_quality_document_control"/>
+        <field name="binding_model_id" ref="model_sf_quality_document_control"/>
+        <field name="state">code</field>
+        <field name="code">records.action_refresh_business()</field>
+    </record>
 </odoo>

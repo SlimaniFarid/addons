@@ -58,8 +58,7 @@
         <field name="name">sf.customer.health.list</field>
         <field name="model">sf.customer.health</field>
         <field name="arch" type="xml">
-            <list string="Customer Health" sample="1"
-                  decoration-danger="risk in ('at_risk','churn')">
+            <list string="Customer Health" sample="1" decoration-danger="risk in ('at_risk','churn')">
                 <field name="partner_id"/>
                 <field name="owner_id"/>
                 <field name="revenue_12m"/>
@@ -102,4 +101,12 @@
     <menuitem id="menu_sf_ch_health" name="Health Dashboard"
               parent="menu_sf_ch_root" action="action_sf_customer_health"
               sequence="10"/>
+
+    <record id="wave_final_sf_customer_health" model="ir.actions.server">
+        <field name="name">Refresh Business Data</field>
+        <field name="model_id" ref="model_sf_customer_health"/>
+        <field name="binding_model_id" ref="model_sf_customer_health"/>
+        <field name="state">code</field>
+        <field name="code">records.action_refresh_business()</field>
+    </record>
 </odoo>

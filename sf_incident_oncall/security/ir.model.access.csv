@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sf_incident_oncall_user,sf.incident_oncall.user,model_sf_incident_oncall,group_incident_oncall_user,1,1,1,0
+access_sf_incident_oncall_manager,sf.incident_oncall.manager,model_sf_incident_oncall,group_incident_oncall_manager,1,1,1,1

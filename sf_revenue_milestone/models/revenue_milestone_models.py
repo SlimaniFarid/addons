@@ -1,0 +1,90 @@
+# -*- coding: utf-8 -*-
+"""Revenue Milestone Tracker models"""
+from odoo import api, fields, models, _
+from odoo.exceptions import UserError
+
+
+class SfRevenue_milestone(models.Model):
+    _name = 'sf.revenue_milestone'
+    _description = 'Revenue Milestone Tracker'
+    _inherit = ['mail.thread', 'mail.activity.mixin']
+    _order = 'create_date desc, id desc'
+
+    name = fields.Char(string='Reference', required=True, copy=False, readonly=True, default='New')
+    company_id = fields.Many2one('res.company', string='Company', required=True, default=lambda s: s.env.company, tracking=True)
+    contract_ref = fields.Char(string='Contract', required=True)
+    partner_id = fields.Many2one('res.partner', string='Customer', required=True)
+    total_value = fields.Monetary(string='Contract Value')
+    milestone_percent = fields.Float(string='% Complete')
+    recognized_to_date = fields.Monetary(string='Recognized to Date')
+    currency_id = fields.Many2one(related='company_id.currency_id')
+    state = fields.Selection([
+        ('draft', 'Draft'),
+        ('in_progress', 'In Progress'),
+        ('review', 'Review'),
+        ('done', 'Done'),
+        ], string='Status', default='draft', tracking=True, copy=False)
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            if vals.get('name', 'New') == 'New':
+                vals['name'] = self.env['ir.sequence'].next_by_code(
+                    'sf.revenue_milestone') or 'NEW'
+        return super().create(vals_list)
+
+    def action_in_progress(self):
+        self.write({'state': 'in_progress'})
+
+    def action_review(self):
+        self.write({'state': 'review'})
+
+    def action_done(self):
+        self.write({'state': 'done'})
+
+# --- business booster (auto) ---
+class _Boost(models.Model):
+    _inherit = 'sf.revenue_milestone'
+
+    active = fields.Boolean(string='Active', default=True)
+    user_id = fields.Many2one(
+        'res.users', string='Responsible', tracking=True,
+        index=True, default=lambda self: self.env.user,
+        help='Internal owner responsible for this record.')
+    def action_done(self):
+        res = super().action_done()
+        for rec in self:
+                vals = {'Record': rec.display_name or rec.name}
+                vals['Responsible'] = rec.user_id.name
+                rec.message_post(body=', '.join('%s: %s' % kv for kv in vals.items()))
+        return res
+
+
+# --- wave_final ---
+class _RefreshBusiness(models.Model):
+    _inherit = 'sf.revenue_milestone'
+
+    def action_refresh_business(self):
+        """Pull open / overdue amounts for linked partner."""
+        for rec in self:
+            partner = getattr(rec, 'partner_id', False)
+            if not partner:
+                continue
+            moves = self.env['account.move'].search([
+                ('move_type', '=', 'out_invoice'),
+                ('state', '=', 'posted'),
+                ('partner_id', '=', partner.id)])
+            open_amt = sum(moves.filtered(
+                lambda m: m.payment_state in ('not_paid', 'partial')
+            ).mapped('amount_residual'))
+            today = fields.Date.context_today(rec)
+            overdue = sum(moves.filtered(
+                lambda m: m.payment_state in ('not_paid', 'partial')
+                and m.invoice_date_due
+                and m.invoice_date_due < today
+            ).mapped('amount_residual'))
+            rec.message_post(body=_(
+                'Open: {o:.2f}, Overdue: {d:.2f} '
+                '({c} posted invoice(s)).').format(
+                o=open_amt, d=overdue, c=len(moves)))
+        return True

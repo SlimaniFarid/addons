@@ -77,4 +77,12 @@
               web_icon="sf_win_loss_analysis,static/description/icon.png"/>
     <menuitem id="menu_sf_win_loss_main" name="Records"
               parent="menu_sf_win_loss_root" action="action_sf_win_loss" sequence="10"/>
+
+    <record id="wave2_winloss_analyze" model="ir.actions.server">
+        <field name="name">Analyze Win/Loss KPIs</field>
+        <field name="model_id" ref="model_sf_win_loss"/>
+        <field name="binding_model_id" ref="model_sf_win_loss"/>
+        <field name="state">code</field>
+        <field name="code">records.action_analyze()</field>
+    </record>
 </odoo>

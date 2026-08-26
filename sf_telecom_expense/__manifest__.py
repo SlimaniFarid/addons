@@ -22,7 +22,7 @@ Features:
     'license': 'OPL-1',
     'price': 57.25,
     'currency': 'EUR',
-    'depends': ['base', 'mail'],
+    'depends': ['base', 'mail', 'hr'],
     'data': [
         'security/ir.model.access.csv',
         'security/tel_security.xml',

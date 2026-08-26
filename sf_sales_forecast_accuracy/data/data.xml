@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="seq_sf_sales_forecast_accuracy" model="ir.sequence">
+        <field name="name">Sales Forecast Accuracy Tracker</field>
+        <field name="code">sf.sales_forecast_accuracy</field>
+        <field name="prefix">SAL/</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+</odoo>

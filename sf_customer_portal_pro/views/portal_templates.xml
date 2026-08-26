@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ============================== /my home entries -->
+    <template id="portal_my_home_cpp" name="Portal My Home : Customer Portal Pro"
+              inherit_id="portal.portal_my_home" priority="20">
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+            <t t-call="portal.portal_docs_entry">
+                <t t-set="title">Dashboard</t>
+                <t t-set="url" t-value="'/my/dashboard'"/>
+            </t>
+            <t t-call="portal.portal_docs_entry">
+                <t t-set="title">Support Tickets</t>
+                <t t-set="url" t-value="'/my/tickets'"/>
+            </t>
+            <t t-call="portal.portal_docs_entry">
+                <t t-set="title">Documents</t>
+                <t t-set="url" t-value="'/my/documents'"/>
+            </t>
+            <t t-call="portal.portal_docs_entry">
+                <t t-set="title">Subscriptions</t>
+                <t t-set="url" t-value="'/my/subscriptions'"/>
+            </t>
+        </xpath>
+    </template>
+
+    <!-- ============================== dashboard -->
+    <template id="portal_dashboard" name="Customer Portal Dashboard">
+        <t t-call="website.layout">
+            <div id="wrap" class="container mt-4">
+                <h3 class="mb-4">My Account Dashboard</h3>
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <div class="card text-bg-primary h-100">
+                            <div class="card-body">
+                                <h6>Open invoices</h6>
+                                <div class="fs-2" t-out="len(open_invoices)"/>
+                                <small t-out="'%.2f' % open_total"
+                                       style="font-size:1rem;"/> outstanding
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card text-bg-info h-100">
+                            <div class="card-body">
+                                <h6>Active subscriptions</h6>
+                                <div class="fs-2" t-out="len(active_subscriptions)"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card text-bg-secondary h-100">
+                            <div class="card-body">
+                                <h6>Open tickets / documents</h6>
+                                <div class="fs-2"
+                                     t-out="'%s / %s' % (len(open_tickets), documents_count)"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h5 class="mt-5">Latest tickets</h5>
+                <ul class="list-group mb-4">
+                    <li class="list-group-item d-flex justify-content-between"
+                        t-foreach="open_tickets[:5]" t-as="t">
+                        <a t-attf-href="/my/tickets/{{ t.id }}" t-out="t.name"/>
+                        <span class="badge bg-light text-dark" t-out="t.state"/>
+                    </li>
+                    <li class="list-group-item text-muted" t-if="not open_tickets">
+                        No open ticket.
+                    </li>
+                </ul>
+
+                <a href="/my/invoices" class="btn btn-outline-primary me-2">Invoices</a>
+                <a href="/my/tickets/new" class="btn btn-outline-primary me-2">New ticket</a>
+                <a href="/my/documents" class="btn btn-outline-primary">Documents</a>
+            </div>
+        </t>
+    </template>
+
+    <!-- ============================== invoices -->
+    <template id="portal_invoices" name="Portal Invoices">
+        <t t-call="website.layout">
+            <div id="wrap" class="container mt-4">
+                <h3 class="mb-4">My Invoices</h3>
+                <table class="table table-striped" t-if="records">
+                    <thead><tr><th>Number</th><th>Date</th><th>Due</th>
+                              <th class="text-end">Total</th>
+                              <th class="text-end">Residual</th><th/></tr></thead>
+                    <tbody>
+                        <tr t-foreach="records" t-as="inv">
+                            <td t-out="inv.name or inv.ref or '/'"/>
+                            <td t-field="inv.invoice_date"/>
+                            <td t-field="inv.invoice_date_due"/>
+                            <td class="text-end" t-field="inv.amount_total"/>
+                            <td class="text-end fw-bold" t-field="inv.amount_residual"/>
+                            <td class="text-end">
+                                <a t-if="inv.payment_state in ('not_paid','partial')"
+                                   class="btn btn-sm btn-success"
+                                   t-attf-href="/my/invoices/{{ inv.id }}/pay">Pay now</a>
+                                <span t-else="" class="badge bg-success"
+                                      t-out="inv.payment_state"/>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p t-if="not records" class="text-muted">No invoice found.</p>
+            </div>
+        </t>
+    </template>
+
+    <!-- ============================== tickets -->
+    <template id="portal_tickets" name="Portal Tickets">
+        <t t-call="website.layout">
+            <div id="wrap" class="container mt-4">
+                <h3 class="mb-4">Support Tickets</h3>
+                <a href="/my/tickets/new" class="btn btn-primary mb-3"><i class="fa fa-plus"/> New ticket</a>
+                <table class="table table-striped" t-if="records">
+                    <thead><tr><th>Subject</th><th>Category</th>
+                              <th>Priority</th><th>Status</th><th/></tr></thead>
+                    <tbody>
+                        <tr t-foreach="records" t-as="rec">
+                            <td t-out="rec.name"/>
+                            <td t-out="dict(rec._fields['category'].selection).get(rec.category)"/>
+                            <td t-out="rec.priority"/>
+                            <td><span class="badge bg-secondary" t-out="rec.state"/></td>
+                            <td><a class="btn btn-sm btn-outline-primary"
+                                   t-attf-href="/my/tickets/{{ rec.id }}">Open</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p t-if="not records" class="text-muted">No ticket yet.</p>
+            </div>
+        </t>
+    </template>
+
+    <template id="portal_ticket_form" name="New Ticket">
+        <t t-call="website.layout">
+            <div id="wrap" class="container mt-4" style="max-width:720px;">
+                <h3 class="mb-4">New support ticket</h3>
+                <div class="alert alert-danger" t-if="error == 'subject'">
+                    Subject is required.
+                </div>
+                <form action="/my/tickets/submit" method="post">
+                    <input type="hidden" name="csrf_token"
+                           t-att-value="request.csrf_token()"/>
+                    <div class="mb-3">
+                        <label class="form-label">Subject *</label>
+                        <input type="text" class="form-control" name="subject"
+                               required="required"/>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label class="form-label">Category</label>
+                            <select class="form-select" name="category">
+                                <option t-foreach="categories" t-as="cat"
+                                        t-att-value="cat[0]" t-out="cat[1]"/>
+                            </select>
+                        </div>
+                        <div class="col">
+                            <label class="form-label">Priority</label>
+                            <select class="form-select" name="priority">
+                                <option value="0">Low</option>
+                                <option value="1" selected="selected">Normal</option>
+                                <option value="2">High</option>
+                                <option value="3">Urgent</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Description</label>
+                        <textarea class="form-control" name="description" rows="6"/>
+                    </div>
+                    <button class="btn btn-primary" type="submit">Submit</button>
+                    <a href="/my/tickets" class="btn btn-link">Cancel</a>
+                </form>
+            </div>
+        </t>
+    </template>
+
+    <template id="portal_ticket_detail" name="Ticket Detail">
+        <t t-call="website.layout">
+            <div id="wrap" class="container mt-4" style="max-width:860px;">
+                <h3 t-out="record.name"/>
+                <span class="badge bg-secondary mb-3" t-out="record.state"/>
+                <div class="card mb-3"><div class="card-body">
+                    <t t-out="record.description or 'No description.'"/>
+                </div></div>
+
+                <h5>Conversation</h5>
+                <t t-foreach="messages" t-as="msg">
+                    <div class="border rounded p-2 mb-2">
+                        <small class="text-muted">
+                            <strong t-out="msg.author_id.name"/>
+                        — <small t-field="msg.date"/></small>
+                    </div>
+                    <div t-out="msg.body"/>
+                </t>
+                <p t-if="not messages" class="text-muted">No message yet.</p>
+
+                <form t-attf-action="/my/tickets/{{ record.id }}/comment" method="post" class="mt-3" t-if="record.state not in ('closed',)">
+                    <input type="hidden" name="csrf_token"
+                           t-att-value="request.csrf_token()"/>
+                    <textarea class="form-control" name="message" rows="3"
+                              placeholder="Write a reply…"/>
+                    <button class="btn btn-primary mt-2" type="submit">Send</button>
+                </form>
+                <a href="/my/tickets" class="btn btn-secondary mt-3">Back</a>
+            </div>
+        </t>
+    </template>
+
+    <!-- ============================== documents -->
+    <template id="portal_documents" name="Portal Documents">
+        <t t-call="website.layout">
+            <div id="wrap" class="container mt-4">
+                <h3 class="mb-4">My Documents</h3>
+                <table class="table table-striped" t-if="records">
+                    <thead><tr><th>Name</th><th>Category</th><th>Date</th><th/></tr></thead>
+                    <tbody>
+                        <tr t-foreach="records" t-as="doc">
+                            <td t-out="doc.name"/>
+                            <td t-out="getattr(doc, 'category_id', '').display_name or '-'"/>
+                            <td t-field="doc.create_date"/>
+                            <td>
+                                <a t-if="doc.attachment_id"
+                                   class="btn btn-sm btn-outline-primary"
+                                   t-attf-href="/web/content/{{ doc.attachment_id.id }}?download=1">
+                                    <i class="fa fa-download"/> Download
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p t-if="not records" class="text-muted">No document available.</p>
+            </div>
+        </t>
+    </template>
+
+    <!-- ============================== subscriptions -->
+    <template id="portal_subscriptions" name="Portal Subscriptions">
+        <t t-call="website.layout">
+            <div id="wrap" class="container mt-4">
+                <h3 class="mb-4">My Subscriptions</h3>
+                <div class="card mb-3" t-foreach="records" t-as="sub">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <h5><t t-out="sub.product_id.display_name"/>
+                                × <t t-out="sub.quantity"/></h5>
+                            <span class="badge bg-primary" t-out="sub.state"/>
+                        </div>
+                        <p class="mb-1">
+                            Monthly: <strong t-out="'%.2f' % sub.recurring_monthly_amount"/>
+                            — Next invoice: <t t-field="sub.next_invoice_date"/>
+                        </p>
+                        <div class="d-flex gap-2 flex-wrap">
+                            <form t-if="sub.state == 'active'" class="d-flex gap-2 align-items-center" t-attf-action="/my/subscriptions/{{ sub.id }}/qty" method="post">
+                                <input type="hidden" name="csrf_token"
+                                       t-att-value="request.csrf_token()"/>
+                                <input type="number" step="1" min="1"
+                                       class="form-control" name="quantity"
+                                       t-att-value="int(sub.quantity)"
+                                       style="max-width:110px;"/>
+                                <button class="btn btn-sm btn-outline-primary">
+                                    Change quantity
+                                </button>
+                            </form>
+                            <form t-if="sub.state == 'active' and sub.allow_pause" t-attf-action="/my/subscriptions/{{ sub.id }}/pause" method="post">
+                                <input type="hidden" name="csrf_token"
+                                       t-att-value="request.csrf_token()"/>
+                                <button class="btn btn-sm btn-warning">Pause</button>
+                            </form>
+                            <form t-if="sub.state == 'paused'" t-attf-action="/my/subscriptions/{{ sub.id }}/resume" method="post">
+                                <input type="hidden" name="csrf_token"
+                                       t-att-value="request.csrf_token()"/>
+                                <button class="btn btn-sm btn-success">Resume</button>
+                            </form>
+                            <form t-if="sub.state in ('draft','active') and sub.allow_cancel" t-attf-action="/my/subscriptions/{{ sub.id }}/cancel" method="post">
+                                <input type="hidden" name="csrf_token"
+                                       t-att-value="request.csrf_token()"/>
+                                <button class="btn btn-sm btn-outline-danger">Cancel</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <p t-if="not records" class="text-muted">No subscription.</p>
+            </div>
+        </t>
+    </template>
+
+    <template id="portal_error" name="Portal Error">
+        <t t-call="website.layout">
+            <div id="wrap" class="container mt-5" style="max-width:600px;">
+                <div class="alert alert-danger" role="alert">
+                    <h4 class="alert-heading">Action failed</h4>
+                    <p t-out="message"/>
+                </div>
+                <a href="/my/dashboard" class="btn btn-secondary">Back to dashboard</a>
+            </div>
+        </t>
+    </template>
+
+</odoo>
