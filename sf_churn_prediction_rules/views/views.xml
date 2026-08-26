@@ -76,4 +76,12 @@
               web_icon="sf_churn_prediction_rules,static/description/icon.png"/>
     <menuitem id="menu_sf_churn_prediction_rules_main" name="Records"
               parent="menu_sf_churn_prediction_rules_root" action="action_sf_churn_prediction_rules" sequence="10"/>
+
+    <record id="wave2_churn_scan" model="ir.actions.server">
+        <field name="name">Scan customers for churn signals</field>
+        <field name="model_id" ref="model_sf_churn_prediction_rules"/>
+        <field name="binding_model_id" ref="model_sf_churn_prediction_rules"/>
+        <field name="state">code</field>
+        <field name="code">records.action_scan_customers()</field>
+    </record>
 </odoo>

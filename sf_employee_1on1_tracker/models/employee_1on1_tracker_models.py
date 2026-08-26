@@ -55,3 +55,41 @@ class _Boost(models.Model):
                 rec.message_post(body=', '.join('%s: %s' % kv for kv in vals.items()))
         return res
 
+
+# --- wave2 ---
+class _Wave21on1(models.Model):
+    _inherit = 'sf.employee_1on1_tracker'
+
+    @api.model
+    def cron_scan_overdue(self):
+        """Create a draft 1:1 for every active employee whose manager has
+        no record within the cadence (default 30 days)."""
+        Employee = self.env['hr.employee']
+        cadence_days = 30
+        cutoff = fields.Date.context_today(self) - relativedelta(
+            days=cadence_days)
+        employees = Employee.search([('active', '=', True)])
+        created = 0
+        for emp in employees:
+            if not emp.parent_id:
+                continue
+            recent = self.search([
+                ('employee_id', '=', emp.id),
+                ('manager_id', '=', emp.parent_id.id),
+                ('meeting_date', '>=', cutoff)], limit=1)
+            if recent:
+                continue
+            self.create({
+                'employee_id': emp.id,
+                'manager_id': emp.parent_id.id,
+                'meeting_date': fields.Date.context_today(self),
+                'topics': _('Periodic check-in auto-created by scanner.'),
+            })
+            created += 1
+        return {
+            'type': 'ir.actions.client',
+            'tag': 'display_notification',
+            'params': {'title': _('1:1 scanner'),
+                       'message': _('%s overdue 1:1 drafted.') % created,
+                       'type': 'success'},
+        }

@@ -79,4 +79,12 @@
               web_icon="sf_customer_revenue_trend,static/description/icon.png"/>
     <menuitem id="menu_sf_revenue_trend_main" name="Records"
               parent="menu_sf_revenue_trend_root" action="action_sf_revenue_trend" sequence="10"/>
+
+    <record id="wave2_trend_refresh" model="ir.actions.server">
+        <field name="name">Refresh trend vs last month</field>
+        <field name="model_id" ref="model_sf_revenue_trend"/>
+        <field name="binding_model_id" ref="model_sf_revenue_trend"/>
+        <field name="state">code</field>
+        <field name="code">records.action_refresh()</field>
+    </record>
 </odoo>

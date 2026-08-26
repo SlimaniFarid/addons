@@ -448,4 +448,11 @@
         <field name="view_mode">tree,form</field>
     </record>
 
+    <record id="wave2_cert_scan" model="ir.actions.server">
+        <field name="name">Scan expiring certifications</field>
+        <field name="model_id" ref="model_sf_employee_certification"/>
+        <field name="binding_model_id" ref="model_sf_employee_certification"/>
+        <field name="state">code</field>
+        <field name="code">model.action_scan_expirations()</field>
+    </record>
 </odoo>

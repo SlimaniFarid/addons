@@ -55,3 +55,34 @@ class _Boost(models.Model):
         'res.users', string='Responsible', tracking=True,
         index=True, default=lambda self: self.env.user,
         help='Internal owner responsible for this record.')
+
+
+# --- wave2 ---
+class _Wave2ScrapImport(models.Model):
+    _inherit = 'sf.scrap.reason'
+
+    def action_import_from_stock(self):
+        """One analytics row per native stock.scrap not yet imported
+        (match on origin/product/qty)."""
+        Scrap = self.env['stock.scrap']
+        existing_keys = {
+            (r.product_id.id, round(r.quantity, 2))
+            for r in self.search([])}
+        created = 0
+        for sc in Scrap.search([], order='create_date desc', limit=200):
+            key = (sc.product_id.id, round(sc.scrap_qty, 2))
+            if key in existing_keys:
+                continue
+            reason = getattr(sc, 'scrap_reason_id', False)
+            code = reason.name if reason else 'unspecified'
+            self.create({
+                'product_id': sc.product_id.id,
+                'production_id': sc.production_id.id if hasattr(
+                    sc, 'production_id') and sc.production_id else False,
+                'quantity': sc.scrap_qty,
+                'action_ref': sc.name,
+            })
+            existing_keys.add(key)
+            created += 1
+        self.message_post(body=_('Imported %s scrap record(s).') % created)
+        return True

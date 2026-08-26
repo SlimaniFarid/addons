@@ -126,3 +126,43 @@ class _Boost(models.Model):
                 rec.message_post(body=', '.join('%s: %s' % kv for kv in vals.items()))
         return res
 
+
+# --- wave2 ---
+class _Wave2CertScan(models.Model):
+    _inherit = 'sf.employee.certification'
+
+    @api.model
+    def action_scan_expirations(self):
+        """Flip state to expiring/expired per company alert window and
+        notify the employee's manager via chatter on the certification."""
+        icp = self.env['ir.config_parameter'].sudo()
+        alert_days = int(icp.get_param(
+            'sf_training_certifications.alert_days',
+            str(self.env.company.sf_cert_alert_days or 30)))
+        today = fields.Date.context_today(self)
+        from dateutil.relativedelta import relativedelta as rd
+        soon = today + rd(days=alert_days)
+        expired = self.search([
+            ('expiration_date', '!=', False),
+            ('expiration_date', '<', today),
+            ('state', 'in', ('draft', 'active', 'expiring'))])
+        expiring = self.search([
+            ('expiration_date', '>=', today),
+            ('expiration_date', '<=', soon),
+            ('state', 'in', ('draft', 'active'))])
+        expired.write({'state': 'expired'})
+        expiring.write({'state': 'expiring'})
+        for cert in expiring:
+            mgr = cert.employee_id.parent_id.user_id
+            cert.message_post(body=_(
+                'Certification expires on %s (%s days). Manager notified: %s')
+                % (cert.expiration_date, alert_days,
+                   mgr.name if mgr else '-'))
+        return {
+            'type': 'ir.actions.client',
+            'tag': 'display_notification',
+            'params': {'title': _('Certifications'),
+                       'message': _('%d expired, %d expiring soon.')
+                       % (len(expired), len(expiring)),
+                       'type': 'success'},
+        }

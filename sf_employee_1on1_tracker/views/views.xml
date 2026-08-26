@@ -77,4 +77,12 @@
               web_icon="sf_employee_1on1_tracker,static/description/icon.png"/>
     <menuitem id="menu_sf_employee_1on1_tracker_main" name="Records"
               parent="menu_sf_employee_1on1_tracker_root" action="action_sf_employee_1on1_tracker" sequence="10"/>
+
+    <record id="wave2_onon_scan" model="ir.actions.server">
+        <field name="name">Draft overdue 1:1s</field>
+        <field name="model_id" ref="model_sf_employee_1on1_tracker"/>
+        <field name="binding_model_id" ref="model_sf_employee_1on1_tracker"/>
+        <field name="state">code</field>
+        <field name="code">records.cron_scan_overdue()</field>
+    </record>
 </odoo>
