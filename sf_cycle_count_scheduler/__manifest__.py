@@ -9,28 +9,33 @@ Cycle Count Scheduler
 
 Schedule and run cycle counts per zone/ABC class with variance tracking and adjustment approval.
 
-Features:
----------
-* Workflow with status tracking
-* Chatter and activities
-* Multi-company isolation
-* Configurable sequences
-* Role-based security groups
+**Why you need this**
 
-Standard Odoo modules only. Multi-company ready. Full audit trail.
+Stop losing time on spreadsheets and manual tracking.
+This module gives your team a dedicated tool inside Odoo,
+fully integrated with your existing data.
+
+**Key features**
+
+* One-click workflow from draft to done
+* Kanban view for instant visual overview
+* Smart filters (My records, To-do) to save time daily
+* Overdue detection highlights urgent items automatically
+* Responsible user assignment with full tracking
+
+**Getting started**
+
+Install and start creating records immediately.
+No configuration needed.
+
 """,
     'author': 'Ethan Miller',
     'support': 'tech5262@gmail.com',
     'license': 'OPL-1',
-    'price': 57.25,
+    'price': 11.95,
     'currency': 'EUR',
     'depends': ['base', 'stock', 'mail'],
-    'data': [
-        'security/ir.model.access.csv',
-        'security/security.xml',
-        'data/data.xml',
-        'views/views.xml',
-    ],
+    'data': ['security/ir.model.access.csv', 'security/security.xml', 'data/data.xml', 'views/views.xml'],
     'installable': True,
     'application': True,
     'auto_install': False,

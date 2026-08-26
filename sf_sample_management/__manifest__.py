@@ -4,34 +4,38 @@
     'category': 'Sales/Sales',
     'summary': 'Sample requests to prospects/customers: approval, shipment, feedback and conversion tracking with full cost visibility',
     'description': """
-Sample and Free Goods Management
-================================
+Sample Management
+=================
 
-Stop losing track of samples and measure what they actually win.
+Sample requests to prospects/customers: approval, shipment, feedback and conversion tracking with full cost visibility
 
-Features:
----------
-* Sample requests: prospect/customer, purpose (evaluation, trade show,
-  lab test, press), lines with quantities
-* Approval workflow with cost computed from product cost + shipping
-* Shipment tracking (picking reference) and follow-up dates
-* Feedback records per request: rating, comments, outcome
-* Conversion tracking: link to the resulting sale order, won/lost,
-  cost per won deal KPI
-* Multi-company, chatter audit trail
+**Why you need this**
+
+Stop losing time on spreadsheets and manual tracking.
+This module gives your team a dedicated tool inside Odoo,
+fully integrated with your existing data.
+
+**Key features**
+
+* One-click workflow from draft to done
+* Kanban view for instant visual overview
+* Smart filters (My records, To-do) to save time daily
+* Overdue detection highlights urgent items automatically
+* Responsible user assignment with full tracking
+
+**Getting started**
+
+Install and start creating records immediately.
+No configuration needed.
+
 """,
     'author': 'Ethan Miller',
     'support': 'tech5262@gmail.com',
     'license': 'OPL-1',
-    'price': 49.75,
+    'price': 11.95,
     'currency': 'EUR',
     'depends': ['base', 'sale_management', 'stock', 'product', 'mail'],
-    'data': [
-        'security/ir.model.access.csv',
-        'security/sample_security.xml',
-        'data/sample_data.xml',
-        'views/sample_views.xml',
-    ],
+    'data': ['security/ir.model.access.csv', 'security/sample_security.xml', 'data/sample_data.xml', 'views/sample_views.xml'],
     'installable': True,
     'application': True,
     'auto_install': False,

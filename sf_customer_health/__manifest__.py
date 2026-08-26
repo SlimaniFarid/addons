@@ -4,33 +4,38 @@
     'category': 'Sales/Sales',
     'summary': 'Post-sale health scoring per customer: revenue recency, trend and overdue signals with churn risk rating',
     'description': """
-Customer Health and Churn Risk
-==============================
+Customer Health
+===============
 
-See which customers are slipping away before they leave.
+Post-sale health scoring per customer: revenue recency, trend and overdue signals with churn risk rating
 
-Features:
----------
-* Health refresh per customer: revenue last 12 months, last order
-  date and recency, revenue trend vs previous 12 months, overdue
-  receivable signal
-* Health score 0-100 computed from weighted signals
-* Risk rating: healthy, watch, at-risk, churn
-* Next action follow-up, owner assignment
-* Multi-company, chatter
+**Why you need this**
+
+Stop losing time on spreadsheets and manual tracking.
+This module gives your team a dedicated tool inside Odoo,
+fully integrated with your existing data.
+
+**Key features**
+
+* One-click workflow from draft to done
+* Kanban view for instant visual overview
+* Smart filters (My records, To-do) to save time daily
+* Overdue detection highlights urgent items automatically
+* Responsible user assignment with full tracking
+
+**Getting started**
+
+Install and start creating records immediately.
+No configuration needed.
+
 """,
     'author': 'Ethan Miller',
     'support': 'tech5262@gmail.com',
     'license': 'OPL-1',
-    'price': 62.25,
+    'price': 11.95,
     'currency': 'EUR',
     'depends': ['base', 'sale', 'account', 'mail'],
-    'data': [
-        'security/ir.model.access.csv',
-        'security/ch_security.xml',
-        'data/ch_data.xml',
-        'views/ch_views.xml',
-    ],
+    'data': ['security/ir.model.access.csv', 'security/ch_security.xml', 'data/ch_data.xml', 'views/ch_views.xml'],
     'installable': True,
     'application': True,
     'auto_install': False,

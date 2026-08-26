@@ -4,32 +4,38 @@
     'category': 'Sales/Sales',
     'summary': 'Allocate scarce stock to open backorders by configurable priority rules (customer segment, value, promised date)',
     'description': """
-Backorder Allocation and Priority
-=================================
+Backorder Priority
+==================
 
-Decide who gets the stock when there is not enough for everyone.
+Allocate scarce stock to open backorders by configurable priority rules (customer segment, value, promised date)
 
-Features:
----------
-* Allocation rules: score open backorders by customer priority,
-  order value, days late and promised date
-* Allocation runs per product: available stock allocated to
-  highest-scored deliveries
-* Allocation lines with score breakdown and reserved quantity
-* Multi-company, chatter
+**Why you need this**
+
+Stop losing time on spreadsheets and manual tracking.
+This module gives your team a dedicated tool inside Odoo,
+fully integrated with your existing data.
+
+**Key features**
+
+* One-click workflow from draft to done
+* Kanban view for instant visual overview
+* Smart filters (My records, To-do) to save time daily
+* Overdue detection highlights urgent items automatically
+* Responsible user assignment with full tracking
+
+**Getting started**
+
+Install and start creating records immediately.
+No configuration needed.
+
 """,
     'author': 'Ethan Miller',
     'support': 'tech5262@gmail.com',
     'license': 'OPL-1',
-    'price': 57.25,
+    'price': 11.95,
     'currency': 'EUR',
     'depends': ['base', 'sale', 'stock', 'mail'],
-    'data': [
-        'security/ir.model.access.csv',
-        'security/bo_security.xml',
-        'data/bo_data.xml',
-        'views/bo_views.xml',
-    ],
+    'data': ['security/ir.model.access.csv', 'security/bo_security.xml', 'data/bo_data.xml', 'views/bo_views.xml'],
     'installable': True,
     'application': True,
     'auto_install': False,

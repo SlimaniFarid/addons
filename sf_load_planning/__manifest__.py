@@ -4,31 +4,38 @@
     'category': 'Inventory/Inventory',
     'summary': 'Build truck loads from pickings with capacity checks (weight, volume, pallets), route stops and load manifest',
     'description': """
-Load and Pallet Planning
-========================
+Load Planning
+=============
 
-Group deliveries into compliant truck loads before they hit the dock.
+Build truck loads from pickings with capacity checks (weight, volume, pallets), route stops and load manifest
 
-Features:
----------
-* Load plans: carrier, vehicle, departure date, route stops sequence
-* Assign pickings to a load; weight, volume and pallet counts computed
-* Capacity limits per load with overload warnings
-* Route stops with planned arrival times
-* Load manifest printing, multi-company, chatter audit trail
+**Why you need this**
+
+Stop losing time on spreadsheets and manual tracking.
+This module gives your team a dedicated tool inside Odoo,
+fully integrated with your existing data.
+
+**Key features**
+
+* One-click workflow from draft to done
+* Kanban view for instant visual overview
+* Smart filters (My records, To-do) to save time daily
+* Overdue detection highlights urgent items automatically
+* Responsible user assignment with full tracking
+
+**Getting started**
+
+Install and start creating records immediately.
+No configuration needed.
+
 """,
     'author': 'Ethan Miller',
     'support': 'tech5262@gmail.com',
     'license': 'OPL-1',
-    'price': 57.25,
+    'price': 11.95,
     'currency': 'EUR',
     'depends': ['base', 'stock', 'mail'],
-    'data': [
-        'security/ir.model.access.csv',
-        'security/load_security.xml',
-        'data/load_data.xml',
-        'views/load_views.xml',
-    ],
+    'data': ['security/ir.model.access.csv', 'security/load_security.xml', 'data/load_data.xml', 'views/load_views.xml'],
     'installable': True,
     'application': True,
     'auto_install': False,

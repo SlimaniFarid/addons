@@ -4,31 +4,38 @@
     'category': 'Administration/Administrators',
     'summary': 'Periodic user access reviews: campaign per scope, per-user group review with keep/revoke decisions and evidence',
     'description': """
-Access Recertification
-======================
+Access Review
+=============
 
-Prove that access rights stay legitimate.
+Periodic user access reviews: campaign per scope, per-user group review with keep/revoke decisions and evidence
 
-Features:
----------
-* Campaigns: scope (all users / admins only), due date
-* Review lines auto-generated per user: groups summary, reviewer
-  decision (keep / revoke), comments
-* Evidence trail for auditors: campaign, decisions, dates
-* Multi-company, chatter
+**Why you need this**
+
+Stop losing time on spreadsheets and manual tracking.
+This module gives your team a dedicated tool inside Odoo,
+fully integrated with your existing data.
+
+**Key features**
+
+* One-click workflow from draft to done
+* Kanban view for instant visual overview
+* Smart filters (My records, To-do) to save time daily
+* Overdue detection highlights urgent items automatically
+* Responsible user assignment with full tracking
+
+**Getting started**
+
+Install and start creating records immediately.
+No configuration needed.
+
 """,
     'author': 'Ethan Miller',
     'support': 'tech5262@gmail.com',
     'license': 'OPL-1',
-    'price': 57.25,
+    'price': 6.95,
     'currency': 'EUR',
     'depends': ['base', 'mail'],
-    'data': [
-        'security/ir.model.access.csv',
-        'security/ar_security.xml',
-        'data/ar_data.xml',
-        'views/ar_views.xml',
-    ],
+    'data': ['security/ir.model.access.csv', 'security/ar_security.xml', 'data/ar_data.xml', 'views/ar_views.xml'],
     'installable': True,
     'application': True,
     'auto_install': False,

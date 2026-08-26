@@ -4,32 +4,38 @@
     'category': 'Operations/Operations',
     'summary': 'Operational incident reviews: severity, timeline, root cause, corrective actions and lessons library',
     'description': """
-Incident Post-Mortem
-====================
+Incident Postmortem
+===================
 
-Every incident makes you stronger - if you capture it.
+Operational incident reviews: severity, timeline, root cause, corrective actions and lessons library
 
-Features:
----------
-* Incidents with severity (S1-S4), detection/resolution timestamps,
-  computed duration and business impact
-* Root cause analysis (5 Whys / Fishbone summary)
-* Corrective and preventive actions with owners and due dates
-* Lessons learned library searchable across incidents
-* Multi-company, chatter
+**Why you need this**
+
+Stop losing time on spreadsheets and manual tracking.
+This module gives your team a dedicated tool inside Odoo,
+fully integrated with your existing data.
+
+**Key features**
+
+* One-click workflow from draft to done
+* Kanban view for instant visual overview
+* Smart filters (My records, To-do) to save time daily
+* Overdue detection highlights urgent items automatically
+* Responsible user assignment with full tracking
+
+**Getting started**
+
+Install and start creating records immediately.
+No configuration needed.
+
 """,
     'author': 'Ethan Miller',
     'support': 'tech5262@gmail.com',
     'license': 'OPL-1',
-    'price': 49.75,
+    'price': 6.95,
     'currency': 'EUR',
     'depends': ['base', 'mail'],
-    'data': [
-        'security/ir.model.access.csv',
-        'security/inc_security.xml',
-        'data/inc_data.xml',
-        'views/inc_views.xml',
-    ],
+    'data': ['security/ir.model.access.csv', 'security/inc_security.xml', 'data/inc_data.xml', 'views/inc_views.xml'],
     'installable': True,
     'application': True,
     'auto_install': False,
