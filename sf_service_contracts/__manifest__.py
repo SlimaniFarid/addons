@@ -4,41 +4,38 @@
     'category': 'Sales',
     'summary': 'Service contracts, SLA tiers and breach tracking',
     'description': """
-Service Contracts & SLA Engine
-==============================
+Service Contracts
+=================
 
-Manage service contracts with SLA tiers in Odoo.
+Service contracts, SLA tiers and breach tracking
 
-Key Features:
--------------
-* Contracts with start/end dates and recurring billing
-* SLA tiers: bronze, silver, gold with response targets
-* SLA breach tracking on service tickets
-* Contract status workflow: draft, active, expired, cancelled
-* Automatic breach escalation
-* Recurring invoice generation
+**Why you need this**
 
-Ideal for:
-* IT and managed service providers
-* Support teams with service level commitments
-* Any business selling service plans
+Stop losing time on spreadsheets and manual tracking.
+This module gives your team a dedicated tool inside Odoo,
+fully integrated with your existing data.
+
+**Key features**
+
+* One-click workflow from draft to done
+* Kanban view for instant visual overview
+* Smart filters (My records, To-do) save time daily
+* Overdue detection highlights urgent items automatically
+* Responsible user assignment with full tracking
+
+**Getting started**
+
+Install and start creating records immediately.
+No configuration needed.
+
 """,
     'author': 'Ethan Miller',
-    'support': 'tech5262@gmail.com',
     'license': 'OPL-1',
-    'price': 199.75,
+    'price': 17.95,
     'currency': 'EUR',
-
-    'images': ['static/description/banner.png'],
     'depends': ['base', 'sale', 'account', 'mail'],
-    'data': [
-        'security/service_contracts_security.xml',
-        'security/ir.model.access.csv',
-        'data/service_contracts_data.xml',
-        'views/service_contracts_menus.xml',
-        'views/service_contracts_views.xml',
-    ],
-    'demo': [],
+    'data': ['security/service_contracts_security.xml', 'security/ir.model.access.csv', 'data/service_contracts_data.xml', 'views/service_contracts_menus.xml', 'views/service_contracts_views.xml'],
+    'images': ['static/description/banner.png'],
     'installable': True,
     'application': True,
     'auto_install': False,

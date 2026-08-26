@@ -7,30 +7,36 @@
 Customer Onboarding
 ===================
 
-Turn new customers into active customers without forgetting a step.
+Structured customer onboarding: document checklist, setup tasks, progress tracking and first-order follow-up
 
-Features:
----------
-* Onboarding templates with ordered steps (documents, contract,
-  account setup, training)
-* Onboarding cases per customer with progress % and due dates
-* Task workflow with responsible and completion dates
-* Multi-company, chatter
+**Why you need this**
+
+Stop losing time on spreadsheets and manual tracking.
+This module gives your team a dedicated tool inside Odoo,
+fully integrated with your existing data.
+
+**Key features**
+
+* One-click workflow from draft to done
+* Kanban view for instant visual overview
+* Smart filters (My records, To-do) save time daily
+* Overdue detection highlights urgent items automatically
+* Responsible user assignment with full tracking
+
+**Getting started**
+
+Install and start creating records immediately.
+No configuration needed.
+
 """,
     'author': 'Ethan Miller',
-    'support': 'tech5262@gmail.com',
     'license': 'OPL-1',
-    'price': 49.75,
+    'price': 11.95,
     'currency': 'EUR',
     'depends': ['base', 'sale', 'mail'],
-    'data': [
-        'security/ir.model.access.csv',
-        'security/cob_security.xml',
-        'data/cob_data.xml',
-        'views/cob_views.xml',
-    ],
+    'data': ['security/ir.model.access.csv', 'security/cob_security.xml', 'data/cob_data.xml', 'views/cob_views.xml'],
+    'images': ['static/description/banner.png'],
     'installable': True,
     'application': True,
     'auto_install': False,
-    'images': ['static/description/banner.png'],
 }

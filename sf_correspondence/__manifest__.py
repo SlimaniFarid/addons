@@ -1,30 +1,42 @@
-# -*- coding: utf-8 -*-
 {
     'name': 'Business Mail & Correspondence Register',
     'version': '18.0.1.0',
     'category': 'Operations',
     'summary': 'Incoming and outgoing correspondence register with routing, response deadlines and registered mail tracking',
-    'description': 'Business mail and correspondence register for administrative and legal departments: record inbound and outbound correspondence (direction, date, correspondent, subject, reference, type, registered mail), route it to an internal department and a responsible person, track its status (open, in progress, responded, archived), follow response deadlines with automatic reminders, track registered mail acknowledgments, attach scanned documents, and print PDF reports (correspondence register and correspondence sheet).',
+    'description': """
+Correspondence
+==============
+
+Incoming and outgoing correspondence register with routing, response deadlines and registered mail tracking
+
+**Why you need this**
+
+Stop losing time on spreadsheets and manual tracking.
+This module gives your team a dedicated tool inside Odoo,
+fully integrated with your existing data.
+
+**Key features**
+
+* One-click workflow from draft to done
+* Kanban view for instant visual overview
+* Smart filters (My records, To-do) save time daily
+* Overdue detection highlights urgent items automatically
+* Responsible user assignment with full tracking
+
+**Getting started**
+
+Install and start creating records immediately.
+No configuration needed.
+
+""",
     'author': 'Ethan Miller',
-    'support': 'tech5262@gmail.com',
     'website': 'https://www.smartersaas.com',
     'license': 'OPL-1',
-    'price': 62.50,
+    'price': 17.95,
     'currency': 'EUR',
-    'application': True,
-    'installable': True,
-    'images': ['static/description/banner.png'],
     'depends': ['base', 'mail', 'contacts'],
-    'data': [
-        'security/sf_correspondence_security.xml',
-        'security/ir.model.access.csv',
-        'data/sf_correspondence_sequence.xml',
-        'data/sf_correspondence_cron.xml',
-        'data/sf_correspondence_report.xml',
-        'views/sf_correspondence_views.xml',
-        'views/sf_correspondence_department_views.xml',
-        'views/sf_correspondence_menus.xml',
-        'views/report_correspondence_register.xml',
-        'views/report_correspondence_sheet.xml',
-    ],
+    'data': ['security/sf_correspondence_security.xml', 'security/ir.model.access.csv', 'data/sf_correspondence_sequence.xml', 'data/sf_correspondence_cron.xml', 'data/sf_correspondence_report.xml', 'views/sf_correspondence_views.xml', 'views/sf_correspondence_department_views.xml', 'views/sf_correspondence_menus.xml', 'views/report_correspondence_register.xml', 'views/report_correspondence_sheet.xml'],
+    'images': ['static/description/banner.png'],
+    'installable': True,
+    'application': True,
 }

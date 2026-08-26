@@ -1,55 +1,41 @@
-# -*- coding: utf-8 -*-
 {
     'name': 'Grants & Public Funding Management',
     'version': '18.0.1.0',
     'category': 'Operations',
     'summary': 'Grant programs, calls for projects, application workflow, justified expenses and financial reports',
     'description': """
-Grants & Public Funding Management
-==================================
+Grants
+======
 
-Manage subsidies and public funding: reference of programs and
-calls for projects (eligibility, deadlines), application files with
-a full workflow (draft → submitted → approved → paid → closed or
-rejected), justified expenses attached to each application with a
-budget control on the granted amount, deadline alerts via cron and
-auditable financial reports per program.
+Grant programs, calls for projects, application workflow, justified expenses and financial reports
 
-Key Features:
--------------
-* Programs and calls for projects (funder, budget, deadlines)
-* Application workflow with manager-only approvals
-* Justified expenses with budget control (granted amount)
-* Daily cron deadline and reporting alerts (activity dedup)
-* Financial report per program (PDF)
-* Aid register (PDF) auditable
-* Dashboard of applications by funder type
-* Multi-company record rules and permission groups
+**Why you need this**
 
-Ideal for:
-* Subsidy / grants officers
-* Finance departments (DAF)
-* R&D and project teams
-* Direction and fund management
+Stop losing time on spreadsheets and manual tracking.
+This module gives your team a dedicated tool inside Odoo,
+fully integrated with your existing data.
+
+**Key features**
+
+* One-click workflow from draft to done
+* Kanban view for instant visual overview
+* Smart filters (My records, To-do) save time daily
+* Overdue detection highlights urgent items automatically
+* Responsible user assignment with full tracking
+
+**Getting started**
+
+Install and start creating records immediately.
+No configuration needed.
+
 """,
     'author': 'Ethan Miller',
-    'support': 'tech5262@gmail.com',
     'license': 'OPL-1',
-    'price': 62.50,
+    'price': 11.95,
     'currency': 'EUR',
-
-    'images': ['static/description/banner.png'],
     'depends': ['base', 'mail', 'contacts'],
-    'data': [
-        'security/grant_security.xml',
-        'security/ir.model.access.csv',
-        'views/grant_views.xml',
-        'views/grant_reports.xml',
-        'views/res_config_settings_views.xml',
-        'views/grant_menus.xml',
-        'data/grant_data.xml',
-    ],
-    'demo': [],
+    'data': ['security/grant_security.xml', 'security/ir.model.access.csv', 'views/grant_views.xml', 'views/grant_reports.xml', 'views/res_config_settings_views.xml', 'views/grant_menus.xml', 'data/grant_data.xml'],
+    'images': ['static/description/banner.png'],
     'installable': True,
     'application': True,
     'auto_install': False,

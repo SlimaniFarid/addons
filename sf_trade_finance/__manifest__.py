@@ -1,51 +1,41 @@
-# -*- coding: utf-8 -*-
 {
     'name': 'Trade Finance — LC & Bank Guarantees',
     'version': '18.0.1.0',
     'category': 'Finance',
     'summary': 'Letters of credit, bank guarantees and documentary collections with key dates and documents',
     'description': """
-Trade Finance — LC & Bank Guarantees
-====================================
+Trade Finance
+=============
 
-Manage international documentary payment instruments:
-letters of credit (import/export), bank guarantees and
-documentary collections. Track key dates (application, issue,
-expiry, payment) with alerts, required documents and their
-status, links to purchase orders and invoices, and a register of
-bank fees.
+Letters of credit, bank guarantees and documentary collections with key dates and documents
 
-Key Features:
--------------
-* Import/export letters of credit, guarantees, collections
-* Key dates tracking with expiry alerts (daily cron)
-* Required documents with submit / accept / reject workflow
-* Bank fees register per instrument
-* Links to purchase orders and invoices
-* Dashboard of outstanding amounts and expiring instruments
+**Why you need this**
 
-Ideal for:
-* Treasury and finance teams
-* International buyers and export sales teams
-* Financial controllers
+Stop losing time on spreadsheets and manual tracking.
+This module gives your team a dedicated tool inside Odoo,
+fully integrated with your existing data.
+
+**Key features**
+
+* One-click workflow from draft to done
+* Kanban view for instant visual overview
+* Smart filters (My records, To-do) save time daily
+* Overdue detection highlights urgent items automatically
+* Responsible user assignment with full tracking
+
+**Getting started**
+
+Install and start creating records immediately.
+No configuration needed.
+
 """,
     'author': 'Ethan Miller',
-    'support': 'tech5262@gmail.com',
     'license': 'OPL-1',
-    'price': 52.50,
+    'price': 17.95,
     'currency': 'EUR',
-
-    'images': ['static/description/banner.png'],
     'depends': ['base', 'sale', 'purchase', 'account', 'mail'],
-    'data': [
-        'security/trade_security.xml',
-        'security/ir.model.access.csv',
-        'views/trade_views.xml',
-        'views/res_config_settings_views.xml',
-        'views/trade_menus.xml',
-        'data/trade_data.xml',
-    ],
-    'demo': [],
+    'data': ['security/trade_security.xml', 'security/ir.model.access.csv', 'views/trade_views.xml', 'views/res_config_settings_views.xml', 'views/trade_menus.xml', 'data/trade_data.xml'],
+    'images': ['static/description/banner.png'],
     'installable': True,
     'application': True,
     'auto_install': False,

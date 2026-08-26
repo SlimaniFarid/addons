@@ -4,36 +4,39 @@
     'category': 'Accounting/Finance',
     'summary': 'Match open intercompany balances across entities, compute net positions per company pair and generate settlement entries',
     'description': """
-Intercompany Reconciliation and Netting
-=======================================
+Ic Netting
+==========
 
-Close the month without the intercompany spreadsheet marathon.
+Match open intercompany balances across entities, compute net positions per company pair and generate settlement entries
 
-Features:
----------
-* Netting sessions per period across selected entities
-* Automatic scan of posted receivable/payable journal items whose
-  partner is another group company (matched via company partner record)
-* Net position per company pair: receivables minus payables, with
-  invoice counts and unmatched item drill-down
-* Dispute tracking on individual items with resolution notes
-* Settlement entries generated for net amounts (due to / due from)
-* Multi-currency, multi-company, chatter audit trail
+**Why you need this**
+
+Stop losing time on spreadsheets and manual tracking.
+This module gives your team a dedicated tool inside Odoo,
+fully integrated with your existing data.
+
+**Key features**
+
+* One-click workflow from draft to done
+* Kanban view for instant visual overview
+* Smart filters (My records, To-do) save time daily
+* Overdue detection highlights urgent items automatically
+* Responsible user assignment with full tracking
+
+**Getting started**
+
+Install and start creating records immediately.
+No configuration needed.
+
 """,
     'author': 'Ethan Miller',
-    'support': 'tech5262@gmail.com',
     'license': 'OPL-1',
-    'price': 74.75,
+    'price': 11.95,
     'currency': 'EUR',
     'depends': ['base', 'account', 'mail'],
-    'data': [
-        'security/ir.model.access.csv',
-        'security/ic_security.xml',
-        'data/ic_data.xml',
-        'views/ic_views.xml',
-    ],
+    'data': ['security/ir.model.access.csv', 'security/ic_security.xml', 'data/ic_data.xml', 'views/ic_views.xml'],
+    'images': ['static/description/banner.png'],
     'installable': True,
     'application': True,
     'auto_install': False,
-    'images': ['static/description/banner.png'],
 }

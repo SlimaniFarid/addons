@@ -4,33 +4,39 @@
     'category': 'Human Resources/Employees',
     'summary': 'Time-boxed policy waivers with risk assessment, compensating controls and approval workflow',
     'description': """
-Policy Exception and Waiver Management
-======================================
+Policy Waivers
+==============
 
-Exceptions with expiry dates, not open doors.
+Time-boxed policy waivers with risk assessment, compensating controls and approval workflow
 
-Features:
----------
-* Waiver requests per policy: reason, risk assessment,
-  compensating controls, validity window
-* Approval workflow with approver and decision date
-* Automatic expiry flag; renewal requires a new request
-* Multi-company, chatter audit trail
+**Why you need this**
+
+Stop losing time on spreadsheets and manual tracking.
+This module gives your team a dedicated tool inside Odoo,
+fully integrated with your existing data.
+
+**Key features**
+
+* One-click workflow from draft to done
+* Kanban view for instant visual overview
+* Smart filters (My records, To-do) save time daily
+* Overdue detection highlights urgent items automatically
+* Responsible user assignment with full tracking
+
+**Getting started**
+
+Install and start creating records immediately.
+No configuration needed.
+
 """,
     'author': 'Ethan Miller',
-    'support': 'tech5262@gmail.com',
     'license': 'OPL-1',
-    'price': 44.75,
+    'price': 11.95,
     'currency': 'EUR',
     'depends': ['base', 'mail'],
-    'data': [
-        'security/ir.model.access.csv',
-        'security/pw_security.xml',
-        'data/pw_data.xml',
-        'views/pw_views.xml',
-    ],
+    'data': ['security/ir.model.access.csv', 'security/pw_security.xml', 'data/pw_data.xml', 'views/pw_views.xml'],
+    'images': ['static/description/banner.png'],
     'installable': True,
     'application': True,
     'auto_install': False,
-    'images': ['static/description/banner.png'],
 }

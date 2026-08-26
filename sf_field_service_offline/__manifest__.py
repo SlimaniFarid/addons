@@ -3,44 +3,40 @@
     'version': '18.0.1.0',
     'category': 'Services',
     'summary': 'True offline-first mobile app for field technicians with background sync',
-    'description': """Field Service Offline-First Mobile
-=================================
+    'description': """
+Field Service Offline
+=====================
 
-Real offline capability for field technicians - no more paper fallback.
+True offline-first mobile app for field technicians with background sync
 
-Features:
-- SQLite local database on device (Capacitor/Ionic PWA or native wrapper)
-- Full work order management offline: tasks, checklists, signatures, photos
-- Background sync with conflict resolution (last-write-wins + manual merge)
-- GPS location capture, barcode scanning, time tracking offline
-- Equipment history, spare parts lookup, manuals cached locally
-- Automatic sync when connectivity restored (Wi-Fi preferred)
-- Admin dashboard: sync status, conflicts, pending uploads per technician
-- Secure: encrypted local storage, token-based auth, remote wipe
+**Why you need this**
 
-Architecture:
-- Odoo backend module (this) provides REST API + sync endpoints
-- Mobile app built separately (Capacitor/React or Flutter) - API spec included
-- Sync protocol: delta sync with vector clocks for conflict detection
+Stop losing time on spreadsheets and manual tracking.
+This module gives your team a dedicated tool inside Odoo,
+fully integrated with your existing data.
 
-Note: This module provides the Odoo backend API. Mobile app template available separately.""",
+**Key features**
+
+* One-click workflow from draft to done
+* Kanban view for instant visual overview
+* Smart filters (My records, To-do) save time daily
+* Overdue detection highlights urgent items automatically
+* Responsible user assignment with full tracking
+
+**Getting started**
+
+Install and start creating records immediately.
+No configuration needed.
+
+""",
     'author': 'Ethan Miller',
-    'support': 'tech5262@gmail.com',
     'license': 'OPL-1',
-    'price': 112.25,
+    'price': 25.95,
     'currency': 'EUR',
     'depends': ['base', 'industry_fsm', 'stock', 'mail'],
-    'data': [
-        'security/ir.model.access.csv',
-        'views/fsoffline_menus.xml',
-
-        'data/fsoffline_data.xml',
-    ],
+    'data': ['security/ir.model.access.csv', 'views/fsoffline_menus.xml', 'data/fsoffline_data.xml'],
+    'images': ['static/description/banner.png'],
     'installable': True,
     'application': True,
     'auto_install': False,
-    'images': ['static/description/banner.png'],
 }
-
-
-

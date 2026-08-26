@@ -4,33 +4,39 @@
     'category': 'Accounting/Finance',
     'summary': 'Board-ready monthly pack: revenue, costs, margin KPIs vs previous month with commentary',
     'description': """
-Monthly Management Reporting
-============================
+Management Reporting
+====================
 
-From ledger to boardroom in one click.
+Board-ready monthly pack: revenue, costs, margin KPIs vs previous month with commentary
 
-Features:
----------
-* Monthly report per entity: revenue, COGS/vendor costs, gross margin
-  computed from posted invoices and bills
-* KPI lines vs previous month with delta %
-* Commentary section per report
-* Finalize workflow, multi-company
+**Why you need this**
+
+Stop losing time on spreadsheets and manual tracking.
+This module gives your team a dedicated tool inside Odoo,
+fully integrated with your existing data.
+
+**Key features**
+
+* One-click workflow from draft to done
+* Kanban view for instant visual overview
+* Smart filters (My records, To-do) save time daily
+* Overdue detection highlights urgent items automatically
+* Responsible user assignment with full tracking
+
+**Getting started**
+
+Install and start creating records immediately.
+No configuration needed.
+
 """,
     'author': 'Ethan Miller',
-    'support': 'tech5262@gmail.com',
     'license': 'OPL-1',
-    'price': 62.25,
+    'price': 17.95,
     'currency': 'EUR',
     'depends': ['base', 'account', 'sale', 'purchase', 'mail'],
-    'data': [
-        'security/ir.model.access.csv',
-        'security/mr_security.xml',
-        'data/mr_data.xml',
-        'views/mr_views.xml',
-    ],
+    'data': ['security/ir.model.access.csv', 'security/mr_security.xml', 'data/mr_data.xml', 'views/mr_views.xml'],
+    'images': ['static/description/banner.png'],
     'installable': True,
     'application': True,
     'auto_install': False,
-    'images': ['static/description/banner.png'],
 }

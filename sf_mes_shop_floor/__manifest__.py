@@ -4,40 +4,38 @@
     'category': 'Manufacturing/Manufacturing',
     'summary': 'Track work orders, stations, downtime and quality on the floor',
     'description': """
-Shop Floor Execution (MES)
-==========================
+Mes Shop Floor
+==============
 
-Bring live execution to the shop floor.
+Track work orders, stations, downtime and quality on the floor
 
-Key Features:
--------------
-* Station registry with workcenters
-* Shop floor work orders with lifecycle
-* Operator assignment and logging
-* Downtime tracking with reasons
-* Inline quality checks per order
-* Real-time production progress
+**Why you need this**
 
-Ideal for:
-* Manufacturers and assemblers
-* Machine shops and jobbing
-* Teams running Odoo Manufacturing
+Stop losing time on spreadsheets and manual tracking.
+This module gives your team a dedicated tool inside Odoo,
+fully integrated with your existing data.
+
+**Key features**
+
+* One-click workflow from draft to done
+* Kanban view for instant visual overview
+* Smart filters (My records, To-do) save time daily
+* Overdue detection highlights urgent items automatically
+* Responsible user assignment with full tracking
+
+**Getting started**
+
+Install and start creating records immediately.
+No configuration needed.
+
 """,
     'author': 'Ethan Miller',
-    'support': 'tech5262@gmail.com',
     'license': 'OPL-1',
-    'price': 199.75,
+    'price': 25.95,
     'currency': 'EUR',
-
-    'images': ['static/description/banner.png'],
     'depends': ['base', 'mrp', 'stock', 'quality'],
-    'data': [
-        'security/mes_shop_floor_security.xml',
-        'security/ir.model.access.csv',
-        'views/mes_shop_floor_menus.xml',
-        'views/mes_shop_floor_views.xml',
-    ],
-    'demo': [],
+    'data': ['security/mes_shop_floor_security.xml', 'security/ir.model.access.csv', 'views/mes_shop_floor_menus.xml', 'views/mes_shop_floor_views.xml'],
+    'images': ['static/description/banner.png'],
     'installable': True,
     'application': True,
     'auto_install': False,

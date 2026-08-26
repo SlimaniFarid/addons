@@ -3,40 +3,40 @@
     'version': '18.0.1.0',
     'category': 'Inventory',
     'summary': 'ML-powered demand forecasting for inventory optimization',
-    'description': """AI Demand Forecasting
-======================
+    'description': """
+Ai Demand Forecast
+==================
 
-Replace static min/max rules with machine learning predictions.
+ML-powered demand forecasting for inventory optimization
 
-Features:
-- Automatic model training on historical sales, stock moves, promotions, seasonality
-- Per-warehouse, per-product forecasts with confidence intervals
-- Weather & holiday integration (optional)
-- Replenishment recommendations with service level targets
-- Model performance dashboard (MAE, MAPE, bias)
-- No data science expertise required - fully automated
+**Why you need this**
 
-Technical:
-- Uses scikit-learn (included) for Gradient Boosting / Random Forest
-- Incremental retraining via cron
-- Stores predictions in dedicated tables for reporting
-- Compatible with Odoo's native procurement (orderpoint)""",
+Stop losing time on spreadsheets and manual tracking.
+This module gives your team a dedicated tool inside Odoo,
+fully integrated with your existing data.
+
+**Key features**
+
+* One-click workflow from draft to done
+* Kanban view for instant visual overview
+* Smart filters (My records, To-do) save time daily
+* Overdue detection highlights urgent items automatically
+* Responsible user assignment with full tracking
+
+**Getting started**
+
+Install and start creating records immediately.
+No configuration needed.
+
+""",
     'author': 'Ethan Miller',
-    'support': 'tech5262@gmail.com',
     'license': 'OPL-1',
-    'price': 74.75,
+    'price': 25.95,
     'currency': 'EUR',
     'depends': ['base', 'stock', 'sale'],
-    'depends_optional': ['purchase', 'mrp'],
-    'data': [
-        'security/ir.model.access.csv',
-        'views/forecast_menus.xml',
-        'data/forecast_data.xml',
-    ],
+    'data': ['security/ir.model.access.csv', 'views/forecast_menus.xml', 'data/forecast_data.xml'],
+    'images': ['static/description/banner.png'],
     'installable': True,
     'application': True,
     'auto_install': False,
-    'images': ['static/description/banner.png'],
 }
-
-

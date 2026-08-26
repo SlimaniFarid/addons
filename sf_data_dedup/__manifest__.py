@@ -4,32 +4,39 @@
     'category': 'Tools',
     'summary': 'Detect duplicate partners (name, email, VAT) with similarity scoring, review groups and track merges',
     'description': """
-Duplicate Records Audit
-=======================
+Data Dedup
+==========
 
-Clean master data, one scan at a time.
+Detect duplicate partners (name, email, VAT) with similarity scoring, review groups and track merges
 
-Features:
----------
-* Scan strategies: exact name, name + city, same VAT, same email
-* Duplicate groups with similarity scoring and member records
-* Review workflow: open, merged (via native merge), ignored
-* Multi-company safe, chatter on scans
+**Why you need this**
+
+Stop losing time on spreadsheets and manual tracking.
+This module gives your team a dedicated tool inside Odoo,
+fully integrated with your existing data.
+
+**Key features**
+
+* One-click workflow from draft to done
+* Kanban view for instant visual overview
+* Smart filters (My records, To-do) save time daily
+* Overdue detection highlights urgent items automatically
+* Responsible user assignment with full tracking
+
+**Getting started**
+
+Install and start creating records immediately.
+No configuration needed.
+
 """,
     'author': 'Ethan Miller',
-    'support': 'tech5262@gmail.com',
     'license': 'OPL-1',
-    'price': 44.75,
+    'price': 11.95,
     'currency': 'EUR',
     'depends': ['base', 'mail'],
-    'data': [
-        'security/ir.model.access.csv',
-        'security/dedup_security.xml',
-        'data/dedup_data.xml',
-        'views/dedup_views.xml',
-    ],
+    'data': ['security/ir.model.access.csv', 'security/dedup_security.xml', 'data/dedup_data.xml', 'views/dedup_views.xml'],
+    'images': ['static/description/banner.png'],
     'installable': True,
     'application': True,
     'auto_install': False,
-    'images': ['static/description/banner.png'],
 }

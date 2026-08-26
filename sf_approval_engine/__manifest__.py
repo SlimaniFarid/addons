@@ -4,48 +4,38 @@
     'category': 'Operations',
     'summary': 'Reusable multi-step approval workflows for any document (PO, expenses, leave, etc.)',
     'description': """
-Universal Approval Engine
-=========================
+Approval Engine
+===============
 
-A reusable, document-agnostic approval workflow. Define approval policies
-once and apply them to purchase orders, expenses, leave requests, vendor
-bills or any other Odoo document.
+Reusable multi-step approval workflows for any document (PO, expenses, leave, etc.)
 
-Key Features:
--------------
-* Approval templates with multiple ordered steps
-* Automatic step assignment: single approver, manager of creator, or any group
-* Per-step rules by amount threshold, company, department or model
-* Silent auto-approve steps when conditions are not met
-* Rejection with comment, return to draft, edit and re-submit
-* Full audit trail: who approved, when, and in which step
-* Inbox of pending approvals per user
-* Can be attached to native documents (purchase.order, hr.expense, etc.)
-* Escalation: remind approvers after a configurable delay
+**Why you need this**
 
-Perfect for:
-* Companies formalizing internal control and segregation of duties
-* Managers wanting visibility over spends before they happen
-* Any team that needs a "sign-off" step on records
+Stop losing time on spreadsheets and manual tracking.
+This module gives your team a dedicated tool inside Odoo,
+fully integrated with your existing data.
 
-Install once, define templates from the UI, attach to any model.
+**Key features**
+
+* One-click workflow from draft to done
+* Kanban view for instant visual overview
+* Smart filters (My records, To-do) save time daily
+* Overdue detection highlights urgent items automatically
+* Responsible user assignment with full tracking
+
+**Getting started**
+
+Install and start creating records immediately.
+No configuration needed.
+
 """,
     'author': 'Ethan Miller',
-    'support': 'tech5262@gmail.com',
     'license': 'OPL-1',
-    'price': 199.75,
+    'price': 11.95,
     'currency': 'EUR',
-
-    'images': ['static/description/banner.png'],
     'depends': ['base', 'mail'],
-    'data': [
-        'security/approval_security.xml',
-        'security/ir.model.access.csv',
-        'data/approval_data.xml',
-        'views/approval_menus.xml',
-        'views/approval_views.xml',
-    ],
-    'demo': [],
+    'data': ['security/approval_security.xml', 'security/ir.model.access.csv', 'data/approval_data.xml', 'views/approval_menus.xml', 'views/approval_views.xml'],
+    'images': ['static/description/banner.png'],
     'installable': True,
     'application': True,
     'auto_install': False,

@@ -4,42 +4,38 @@
     'category': 'Manufacturing/Manufacturing',
     'summary': 'Real-time Andon alerts, escalation and response tracking for shop floor',
     'description': """
-Andon & Alert System
-====================
+Mes Andons
+==========
 
-Real-time visual management for manufacturing shop floor.
+Real-time Andon alerts, escalation and response tracking for shop floor
 
-Key Features:
--------------
-* Andon calls (quality, maintenance, material, safety)
-* Multi-level escalation with SLA
-* Visual boards (tower lights, screens, mobile)
-* Response tracking and acknowledgment
-* Downtime reason categorization
-* Analytics: MTTR, alert frequency, response times
-* Integration with MES work orders and maintenance
+**Why you need this**
 
-Ideal for:
-* Lean manufacturing environments
-* Automotive, electronics, discrete manufacturing
-* Plants using Andon cords/buttons/towers
+Stop losing time on spreadsheets and manual tracking.
+This module gives your team a dedicated tool inside Odoo,
+fully integrated with your existing data.
+
+**Key features**
+
+* One-click workflow from draft to done
+* Kanban view for instant visual overview
+* Smart filters (My records, To-do) save time daily
+* Overdue detection highlights urgent items automatically
+* Responsible user assignment with full tracking
+
+**Getting started**
+
+Install and start creating records immediately.
+No configuration needed.
+
 """,
     'author': 'Ethan Miller',
-    'support': 'tech5262@gmail.com',
     'license': 'OPL-1',
-    'price': 149.75,
+    'price': 25.95,
     'currency': 'EUR',
-
-    'images': ['static/description/banner.png'],
     'depends': ['base', 'mrp', 'stock', 'maintenance', 'mail'],
-    'data': [
-        'security/mes_andons_security.xml',
-        'security/ir.model.access.csv',
-        'data/mes_andons_data.xml',
-        'views/mes_andons_menus.xml',
-        'views/mes_andons_views.xml',
-    ],
-    'demo': [],
+    'data': ['security/mes_andons_security.xml', 'security/ir.model.access.csv', 'data/mes_andons_data.xml', 'views/mes_andons_menus.xml', 'views/mes_andons_views.xml'],
+    'images': ['static/description/banner.png'],
     'installable': True,
     'application': True,
     'auto_install': False,

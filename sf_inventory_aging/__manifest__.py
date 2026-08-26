@@ -4,35 +4,39 @@
     'category': 'Inventory/Inventory',
     'summary': 'Stock aging buckets from last movement, slow-mover detection and obsolescence provision suggestions',
     'description': """
-Inventory Aging and Obsolescence
-================================
+Inventory Aging
+===============
 
-Find the dust-collecting stock before the auditors do.
+Stock aging buckets from last movement, slow-mover detection and obsolescence provision suggestions
 
-Features:
----------
-* Aging runs per warehouse and as-of date: days since last stock
-  movement per product
-* Aging buckets: 0-30, 31-90, 91-180, 180+ days with stock value
-* Slow-mover and dead-stock flagging
-* Provision % suggestion per bucket (configurable) and provision
-  amount computation
-* Multi-company, currencies, pivot analysis
+**Why you need this**
+
+Stop losing time on spreadsheets and manual tracking.
+This module gives your team a dedicated tool inside Odoo,
+fully integrated with your existing data.
+
+**Key features**
+
+* One-click workflow from draft to done
+* Kanban view for instant visual overview
+* Smart filters (My records, To-do) save time daily
+* Overdue detection highlights urgent items automatically
+* Responsible user assignment with full tracking
+
+**Getting started**
+
+Install and start creating records immediately.
+No configuration needed.
+
 """,
     'author': 'Ethan Miller',
-    'support': 'tech5262@gmail.com',
     'license': 'OPL-1',
-    'price': 62.25,
+    'price': 11.95,
     'currency': 'EUR',
     'depends': ['base', 'stock', 'product', 'mail'],
-    'data': [
-        'security/ir.model.access.csv',
-        'security/aging_security.xml',
-        'data/aging_data.xml',
-        'views/aging_views.xml',
-    ],
+    'data': ['security/ir.model.access.csv', 'security/aging_security.xml', 'data/aging_data.xml', 'views/aging_views.xml'],
+    'images': ['static/description/banner.png'],
     'installable': True,
     'application': True,
     'auto_install': False,
-    'images': ['static/description/banner.png'],
 }

@@ -1,52 +1,42 @@
-# -*- coding: utf-8 -*-
 {
     'name': 'Creche Management',
+    'version': '18.0.1.0',
+    'category': 'Other/Others',
     'summary': 'Children, enrollments, daily attendance, room capacity control and monthly hourly billing',
     'description': """
-Creche Management
-=================
+Creche
+======
 
-Centralize children records, enrollments with schedules, daily
-attendance with arrival/departure times, rooms with capacity
-control (educator/child ratio verified) and monthly billing
-computed on real attended hours.
+Children, enrollments, daily attendance, room capacity control and monthly hourly billing
 
-Key Features:
--------------
-* Children records (identity, birth date, parents, allergies)
-* Enrollments with schedule (full time / half day)
-* Daily attendance with arrival and departure times
-* Room capacity check at attendance close (capacity limit)
-* Monthly billing based on real hours x hourly rate
-* End-date reminder alerts via cron (deduplicated activities)
-* PDF monthly invoice and attendance register reports
-* Multi-company record rules and manager workflow
+**Why you need this**
 
-Ideal for:
-* Creches and daycares
-* Educators and administrative staff
-* Directors checking headcounts and ratios
+Stop losing time on spreadsheets and manual tracking.
+This module gives your team a dedicated tool inside Odoo,
+fully integrated with your existing data.
+
+**Key features**
+
+* One-click workflow from draft to done
+* Kanban view for instant visual overview
+* Smart filters (My records, To-do) save time daily
+* Overdue detection highlights urgent items automatically
+* Responsible user assignment with full tracking
+
+**Getting started**
+
+Install and start creating records immediately.
+No configuration needed.
+
 """,
     'author': 'Ethan Miller',
-    'support': 'tech5262@gmail.com',
-    'website': '',
-    'category': 'Other/Others',
-    'version': '18.0.1.0',
     'license': 'OPL-1',
-    'price': 62.50,
-    'application': True,
-    'images': ['static/description/banner.png'],
+    'price': 17.95,
+    'currency': 'EUR',
     'depends': ['base', 'mail', 'contacts'],
-    'data': [
-        'security/sf_creche_security.xml',
-        'security/ir.model.access.csv',
-        'views/sf_creche_views.xml',
-        'views/sf_creche_menus.xml',
-        'views/res_config_settings_views.xml',
-        'views/sf_creche_reports.xml',
-        'data/creche_data.xml',
-        'data/actions.xml',
-    ],
+    'data': ['security/sf_creche_security.xml', 'security/ir.model.access.csv', 'views/sf_creche_views.xml', 'views/sf_creche_menus.xml', 'views/res_config_settings_views.xml', 'views/sf_creche_reports.xml', 'data/creche_data.xml', 'data/actions.xml'],
+    'images': ['static/description/banner.png'],
     'installable': True,
+    'application': True,
     'auto_install': False,
 }

@@ -1,29 +1,42 @@
-# -*- coding: utf-8 -*-
 {
     'name': 'E-commerce Product Reviews & Ratings',
     'version': '18.0.1.0',
     'category': 'Sales',
     'summary': 'Customer product reviews, moderation workflow, verified purchases and aggregated ratings',
-    'description': 'Collect, moderate and display product reviews and ratings: customer reviews with rating, title and comment, a moderation workflow (draft, submitted, approved, rejected, archived), verified purchase detection from confirmed sales orders, aggregated average rating and review count per product, and a PDF review summary report.',
+    'description': """
+Product Reviews
+===============
+
+Customer product reviews, moderation workflow, verified purchases and aggregated ratings
+
+**Why you need this**
+
+Stop losing time on spreadsheets and manual tracking.
+This module gives your team a dedicated tool inside Odoo,
+fully integrated with your existing data.
+
+**Key features**
+
+* One-click workflow from draft to done
+* Kanban view for instant visual overview
+* Smart filters (My records, To-do) save time daily
+* Overdue detection highlights urgent items automatically
+* Responsible user assignment with full tracking
+
+**Getting started**
+
+Install and start creating records immediately.
+No configuration needed.
+
+""",
     'author': 'Ethan Miller',
-    'support': 'tech5262@gmail.com',
     'website': 'https://www.smartersaas.com',
     'license': 'OPL-1',
-    'price': 62.50,
+    'price': 17.95,
     'currency': 'EUR',
-    'application': True,
-    'installable': True,
-    'images': ['static/description/banner.png'],
     'depends': ['base', 'mail', 'product', 'sale', 'contacts'],
-    'data': [
-        'security/sf_product_reviews_security.xml',
-        'security/ir.model.access.csv',
-        'data/sf_product_reviews_sequence.xml',
-        'data/sf_product_reviews_report.xml',
-        'views/sf_product_review_views.xml',
-        'views/product_template_views.xml',
-        'views/sf_product_reviews_menus.xml',
-        'views/report_product_review.xml',
-        'views/res_config_settings_views.xml',
-    ],
+    'data': ['security/sf_product_reviews_security.xml', 'security/ir.model.access.csv', 'data/sf_product_reviews_sequence.xml', 'data/sf_product_reviews_report.xml', 'views/sf_product_review_views.xml', 'views/product_template_views.xml', 'views/sf_product_reviews_menus.xml', 'views/report_product_review.xml', 'views/res_config_settings_views.xml'],
+    'images': ['static/description/banner.png'],
+    'installable': True,
+    'application': True,
 }

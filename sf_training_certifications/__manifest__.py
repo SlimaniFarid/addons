@@ -4,43 +4,38 @@
     'category': 'Human Resources',
     'summary': 'Track employee trainings, sessions, registrations and certifications with expiry alerts',
     'description': """
-Training & Certification Tracking
-=================================
+Training Certifications
+=======================
 
-Centralize employee trainings and certifications with expiry
-tracking, renewal alerts and a compliance matrix.
+Track employee trainings, sessions, registrations and certifications with expiry alerts
 
-Key Features:
--------------
-* Training catalog with categories and mandatory flags
-* Session planning and registration management
-* Certification issuance with expiration dates
-* Expiry and renewal alerts (activities)
-* Compliance matrix per employee / training
-* Certification and compliance reports
+**Why you need this**
 
-Ideal for:
-* HR teams managing training programs
-* QHSE teams tracking mandatory certifications
-* Auditors preparing ISO / regulatory audits
+Stop losing time on spreadsheets and manual tracking.
+This module gives your team a dedicated tool inside Odoo,
+fully integrated with your existing data.
+
+**Key features**
+
+* One-click workflow from draft to done
+* Kanban view for instant visual overview
+* Smart filters (My records, To-do) save time daily
+* Overdue detection highlights urgent items automatically
+* Responsible user assignment with full tracking
+
+**Getting started**
+
+Install and start creating records immediately.
+No configuration needed.
+
 """,
     'author': 'Ethan Miller',
-    'support': 'tech5262@gmail.com',
     'license': 'OPL-1',
-    'price': 45.00,
+    'price': 29.95,
     'currency': 'EUR',
-
-    'images': ['static/description/banner.png'],
     'depends': ['base', 'hr', 'mail'],
-    'data': [
-        'data/training_data.xml',
-        'data/training_cron.xml',
-        'security/training_security.xml',
-        'security/ir.model.access.csv',
-        'views/training_menus.xml',
-        'views/training_views.xml',
-    ],
-    'demo': [],
+    'data': ['data/training_data.xml', 'data/training_cron.xml', 'security/training_security.xml', 'security/ir.model.access.csv', 'views/training_menus.xml', 'views/training_views.xml'],
+    'images': ['static/description/banner.png'],
     'installable': True,
     'application': True,
     'auto_install': False,
