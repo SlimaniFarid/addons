@@ -77,4 +77,12 @@
               web_icon="sf_treasury_week_board,static/description/icon.png"/>
     <menuitem id="menu_sf_treasury_week_main" name="Records"
               parent="menu_sf_treasury_week_root" action="action_sf_treasury_week" sequence="10"/>
+
+    <record id="wave_final_sf_treasury_week_board" model="ir.actions.server">
+        <field name="name">Refresh Business Data</field>
+        <field name="model_id" ref="model_sf_treasury_week"/>
+        <field name="binding_model_id" ref="model_sf_treasury_week"/>
+        <field name="state">code</field>
+        <field name="code">records.action_refresh_business()</field>
+    </record>
 </odoo>

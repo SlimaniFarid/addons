@@ -98,4 +98,12 @@
             </search>
         </field>
     </record>
+
+    <record id="wave_final_sf_preventive_maintenance_pro" model="ir.actions.server">
+        <field name="name">Refresh Business Data</field>
+        <field name="model_id" ref="model_sf_preventive_maintenance_pro_pm_plan"/>
+        <field name="binding_model_id" ref="model_sf_preventive_maintenance_pro_pm_plan"/>
+        <field name="state">code</field>
+        <field name="code">records.action_refresh_business()</field>
+    </record>
 </odoo>

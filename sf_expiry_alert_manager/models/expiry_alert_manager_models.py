@@ -2,6 +2,7 @@
 """Expiry & FEFO Alert Manager models"""
 from odoo import api, fields, models, _
 from odoo.exceptions import UserError
+from dateutil.relativedelta import relativedelta
 
 
 class SfExpiryAlert(models.Model):
@@ -77,3 +78,26 @@ class _Boost(models.Model):
                     val = None
             rec.is_overdue = bool(val) and not terminal and val < today
 
+
+# --- wave_final ---
+class _WaveFinalStock(models.Model):
+    _inherit = 'sf.expiry.alert'
+
+    def action_refresh_business(self):
+        """Pull on-hand qty and 30-day outbound usage for linked product."""
+        for rec in self:
+            product = getattr(rec, 'product_id', False)
+            if not product:
+                continue
+            on_hand = product.qty_available
+            frm = fields.Date.context_today(rec) - relativedelta(days=30)
+            moves = self.env['stock.move'].search([
+                ('product_id', '=', product.id),
+                ('state', '=', 'done'),
+                ('location_dest_id.usage', '=', 'customer'),
+                ('date', '>=', frm)])
+            usage = sum(m.product_uom.qty for m in moves)
+            rec.message_post(body=_(
+                'On hand: {h:.2f}; 30-day outbound: {u:.2f} '
+                '({m} move(s)).').format(h=on_hand, u=usage, m=len(moves)))
+        return True

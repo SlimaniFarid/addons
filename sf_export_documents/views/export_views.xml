@@ -216,4 +216,12 @@
         <field name="view_ids" eval="[(5, 0), (0, 0, {'view_mode': 'graph', 'view_id': ref('view_export_dashboard_graph')}), (0, 0, {'view_mode': 'pivot', 'view_id': ref('view_export_dashboard_pivot')})]"/>
     </record>
 
+
+    <record id="wave_final_sf_export_documents" model="ir.actions.server">
+        <field name="name">Refresh Business Data</field>
+        <field name="model_id" ref="model_sf_export_incoterm"/>
+        <field name="binding_model_id" ref="model_sf_export_incoterm"/>
+        <field name="state">code</field>
+        <field name="code">records.action_refresh_business()</field>
+    </record>
 </odoo>

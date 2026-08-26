@@ -79,4 +79,12 @@
               web_icon="sf_customer_feedback_actions,static/description/icon.png"/>
     <menuitem id="menu_sf_feedback_action_main" name="Records"
               parent="menu_sf_feedback_action_root" action="action_sf_feedback_action" sequence="10"/>
+
+    <record id="wave_final_sf_customer_feedback_actions" model="ir.actions.server">
+        <field name="name">Refresh Business Data</field>
+        <field name="model_id" ref="model_sf_feedback_action"/>
+        <field name="binding_model_id" ref="model_sf_feedback_action"/>
+        <field name="state">code</field>
+        <field name="code">records.action_refresh_business()</field>
+    </record>
 </odoo>

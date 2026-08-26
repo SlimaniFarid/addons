@@ -221,4 +221,12 @@
     <menuitem id="menu_sf_bank_import_templates" name="Templates"
               parent="menu_sf_bank_import_root"
               action="action_sf_bank_stmt_template" sequence="20"/>
+
+    <record id="wave_final_sf_bank_stmt_import_pro" model="ir.actions.server">
+        <field name="name">Refresh Business Data</field>
+        <field name="model_id" ref="model_sf_bank_stmt_run"/>
+        <field name="binding_model_id" ref="model_sf_bank_stmt_run"/>
+        <field name="state">code</field>
+        <field name="code">records.action_refresh_business()</field>
+    </record>
 </odoo>

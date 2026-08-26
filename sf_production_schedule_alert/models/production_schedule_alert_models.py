@@ -60,3 +60,21 @@ class _Boost(models.Model):
                 rec.message_post(body=', '.join('%s: %s' % kv for kv in vals.items()))
         return res
 
+
+# --- wave_final ---
+class _RefreshBusiness(models.Model):
+    _inherit = 'sf.production_schedule_alert'
+
+    def action_refresh_business(self):
+        """Pull active MO count and average yield."""
+        Mos = self.env['mrp.production']
+        active = Mos.search([('state', 'in', ('confirmed', 'progress'))])
+        done = Mos.search([('state', '=', 'done')], limit=50)
+        yields = [(mo.qty_produced / mo.product_qty * 100)
+                  for mo in done if mo.product_qty]
+        avg_yield = sum(yields) / len(yields) if yields else 0.0
+        for rec in self:
+            rec.message_post(body=_(
+                '{a} active MO(s), avg yield {y:.1f}% on last {d} done.')
+                .format(a=len(active), y=avg_yield, d=len(done)))
+        return True

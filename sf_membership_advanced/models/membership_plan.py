@@ -1,6 +1,6 @@
 from datetime import timedelta
 from dateutil.relativedelta import relativedelta
-from odoo import api, fields, models
+from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
 
 
@@ -265,3 +265,22 @@ class _Boost(models.Model):
                 rec.message_post(body=', '.join('%s: %s' % kv for kv in vals.items()))
         return res
 
+
+# --- wave_final ---
+class _RefreshBusiness(models.Model):
+    _inherit = 'membership.plan'
+
+    def action_refresh_business(self):
+        """Pull live sale stats for linked partner."""
+        for rec in self:
+            partner = getattr(rec, 'partner_id', False)
+            if not partner:
+                continue
+            orders = self.env['sale.order'].search([
+                ('partner_id', '=', partner.id),
+                ('state', 'in', ('sale', 'done'))])
+            msg = _('{n} confirmed order(s), total {t:.2f}.').format(
+                n=len(orders),
+                t=sum(orders.mapped('amount_total')))
+            rec.message_post(body=msg)
+        return True

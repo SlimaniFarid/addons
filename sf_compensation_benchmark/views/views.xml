@@ -78,4 +78,12 @@
               web_icon="sf_compensation_benchmark,static/description/icon.png"/>
     <menuitem id="menu_sf_compensation_benchmark_main" name="Records"
               parent="menu_sf_compensation_benchmark_root" action="action_sf_compensation_benchmark" sequence="10"/>
+
+    <record id="wave_final_sf_compensation_benchmark" model="ir.actions.server">
+        <field name="name">Refresh Business Data</field>
+        <field name="model_id" ref="model_sf_compensation_benchmark"/>
+        <field name="binding_model_id" ref="model_sf_compensation_benchmark"/>
+        <field name="state">code</field>
+        <field name="code">records.action_refresh_business()</field>
+    </record>
 </odoo>

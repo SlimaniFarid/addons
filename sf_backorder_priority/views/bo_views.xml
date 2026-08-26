@@ -120,4 +120,12 @@
             </search>
         </field>
     </record>
+
+    <record id="wave_final_sf_backorder_priority" model="ir.actions.server">
+        <field name="name">Refresh Business Data</field>
+        <field name="model_id" ref="model_sf_bo_allocation"/>
+        <field name="binding_model_id" ref="model_sf_bo_allocation"/>
+        <field name="state">code</field>
+        <field name="code">records.action_refresh_business()</field>
+    </record>
 </odoo>

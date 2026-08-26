@@ -72,3 +72,22 @@ class _Boost(models.Model):
                     val = None
             rec.is_overdue = bool(val) and not terminal and val < today
 
+
+# --- wave_final ---
+class _RefreshBusiness(models.Model):
+    _inherit = 'sf.supplier.review'
+
+    def action_refresh_business(self):
+        """Pull PO count and total for linked vendor."""
+        for rec in self:
+            vendor = getattr(rec, 'vendor_id',
+                             getattr(rec, 'partner_id', False))
+            if not vendor:
+                continue
+            pos = self.env['purchase.order'].search([
+                ('partner_id', '=', vendor.id),
+                ('state', 'in', ('purchase', 'done'))])
+            rec.message_post(body=_(
+                '{n} confirmed PO(s), total {t:.2f}.').format(
+                n=len(pos), t=sum(pos.mapped('amount_total'))))
+        return True

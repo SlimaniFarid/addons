@@ -79,4 +79,12 @@
               web_icon="sf_sales_order_acknowledgment,static/description/icon.png"/>
     <menuitem id="menu_sf_order_ack_main" name="Records"
               parent="menu_sf_order_ack_root" action="action_sf_order_ack" sequence="10"/>
+
+    <record id="wave_final_sf_sales_order_acknowledgment" model="ir.actions.server">
+        <field name="name">Refresh Business Data</field>
+        <field name="model_id" ref="model_sf_order_ack"/>
+        <field name="binding_model_id" ref="model_sf_order_ack"/>
+        <field name="state">code</field>
+        <field name="code">records.action_refresh_business()</field>
+    </record>
 </odoo>

@@ -76,4 +76,12 @@
               web_icon="sf_supplier_risk_mitigation,static/description/icon.png"/>
     <menuitem id="menu_sf_supplier_risk_mitigation_main" name="Records"
               parent="menu_sf_supplier_risk_mitigation_root" action="action_sf_supplier_risk_mitigation" sequence="10"/>
+
+    <record id="wave_final_sf_supplier_risk_mitigation" model="ir.actions.server">
+        <field name="name">Refresh Business Data</field>
+        <field name="model_id" ref="model_sf_supplier_risk_mitigation"/>
+        <field name="binding_model_id" ref="model_sf_supplier_risk_mitigation"/>
+        <field name="state">code</field>
+        <field name="code">records.action_refresh_business()</field>
+    </record>
 </odoo>

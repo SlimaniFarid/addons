@@ -76,4 +76,12 @@
               web_icon="sf_production_order_priority,static/description/icon.png"/>
     <menuitem id="menu_sf_production_order_priority_main" name="Records"
               parent="menu_sf_production_order_priority_root" action="action_sf_production_order_priority" sequence="10"/>
+
+    <record id="wave_final_sf_production_order_priority" model="ir.actions.server">
+        <field name="name">Refresh Business Data</field>
+        <field name="model_id" ref="model_sf_production_order_priority"/>
+        <field name="binding_model_id" ref="model_sf_production_order_priority"/>
+        <field name="state">code</field>
+        <field name="code">records.action_refresh_business()</field>
+    </record>
 </odoo>

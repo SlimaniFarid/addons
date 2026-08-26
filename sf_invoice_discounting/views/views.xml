@@ -78,4 +78,12 @@
               web_icon="sf_invoice_discounting,static/description/icon.png"/>
     <menuitem id="menu_sf_discounted_invoice_main" name="Records"
               parent="menu_sf_discounted_invoice_root" action="action_sf_discounted_invoice" sequence="10"/>
+
+    <record id="wave_final_sf_invoice_discounting" model="ir.actions.server">
+        <field name="name">Refresh Business Data</field>
+        <field name="model_id" ref="model_sf_discounted_invoice"/>
+        <field name="binding_model_id" ref="model_sf_discounted_invoice"/>
+        <field name="state">code</field>
+        <field name="code">records.action_refresh_business()</field>
+    </record>
 </odoo>

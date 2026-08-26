@@ -76,4 +76,12 @@
               web_icon="sf_third_party_risk,static/description/icon.png"/>
     <menuitem id="menu_sf_third_party_risk_main" name="Records"
               parent="menu_sf_third_party_risk_root" action="action_sf_third_party_risk" sequence="10"/>
+
+    <record id="wave_final_sf_third_party_risk" model="ir.actions.server">
+        <field name="name">Refresh Business Data</field>
+        <field name="model_id" ref="model_sf_third_party_risk"/>
+        <field name="binding_model_id" ref="model_sf_third_party_risk"/>
+        <field name="state">code</field>
+        <field name="code">records.action_refresh_business()</field>
+    </record>
 </odoo>

@@ -77,4 +77,12 @@
               web_icon="sf_sales_huddle_notes,static/description/icon.png"/>
     <menuitem id="menu_sf_sales_huddle_notes_main" name="Records"
               parent="menu_sf_sales_huddle_notes_root" action="action_sf_sales_huddle_notes" sequence="10"/>
+
+    <record id="wave_final_sf_sales_huddle_notes" model="ir.actions.server">
+        <field name="name">Refresh Business Data</field>
+        <field name="model_id" ref="model_sf_sales_huddle_notes"/>
+        <field name="binding_model_id" ref="model_sf_sales_huddle_notes"/>
+        <field name="state">code</field>
+        <field name="code">records.action_refresh_business()</field>
+    </record>
 </odoo>

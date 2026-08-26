@@ -52,4 +52,12 @@
         <field name="res_model">sf.shop.floor.terminal.shop.floor.entry</field>
         <field name="view_mode">list,form</field>
     </record>
+
+    <record id="wave_final_sf_shop_floor_terminal" model="ir.actions.server">
+        <field name="name">Refresh Business Data</field>
+        <field name="model_id" ref="model_sf_shop_floor_terminal_shop_floor_entry"/>
+        <field name="binding_model_id" ref="model_sf_shop_floor_terminal_shop_floor_entry"/>
+        <field name="state">code</field>
+        <field name="code">records.action_refresh_business()</field>
+    </record>
 </odoo>

@@ -77,4 +77,12 @@
               web_icon="sf_ooo_calendar,static/description/icon.png"/>
     <menuitem id="menu_sf_ooo_period_main" name="Records"
               parent="menu_sf_ooo_period_root" action="action_sf_ooo_period" sequence="10"/>
+
+    <record id="wave_final_sf_ooo_calendar" model="ir.actions.server">
+        <field name="name">Refresh Business Data</field>
+        <field name="model_id" ref="model_sf_ooo_period"/>
+        <field name="binding_model_id" ref="model_sf_ooo_period"/>
+        <field name="state">code</field>
+        <field name="code">records.action_refresh_business()</field>
+    </record>
 </odoo>

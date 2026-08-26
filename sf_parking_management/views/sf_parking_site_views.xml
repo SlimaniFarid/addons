@@ -124,4 +124,12 @@
             </search>
         </field>
     </record>
+
+    <record id="wave_final_sf_parking_management" model="ir.actions.server">
+        <field name="name">Refresh Business Data</field>
+        <field name="model_id" ref="model_sf_parking_activity_mixin"/>
+        <field name="binding_model_id" ref="model_sf_parking_activity_mixin"/>
+        <field name="state">code</field>
+        <field name="code">records.action_refresh_business()</field>
+    </record>
 </odoo>

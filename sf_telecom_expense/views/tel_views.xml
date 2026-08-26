@@ -133,4 +133,12 @@
     <menuitem id="menu_sf_tel_audits" name="Invoice Audits"
               parent="menu_sf_tel_root" action="action_sf_telecom_audit"
               sequence="20"/>
+
+    <record id="wave_final_sf_telecom_expense" model="ir.actions.server">
+        <field name="name">Refresh Business Data</field>
+        <field name="model_id" ref="model_sf_telecom_line"/>
+        <field name="binding_model_id" ref="model_sf_telecom_line"/>
+        <field name="state">code</field>
+        <field name="code">records.action_refresh_business()</field>
+    </record>
 </odoo>

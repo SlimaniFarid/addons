@@ -312,4 +312,12 @@
             </search>
         </field>
     </record>
+
+    <record id="wave_final_sf_construction_boq" model="ir.actions.server">
+        <field name="name">Refresh Business Data</field>
+        <field name="model_id" ref="model_construction_boq"/>
+        <field name="binding_model_id" ref="model_construction_boq"/>
+        <field name="state">code</field>
+        <field name="code">records.action_refresh_business()</field>
+    </record>
 </odoo>

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from odoo import fields, models, api
+from odoo import _, fields, models, api
 
 
 class OnboardingResCompany(models.Model):
@@ -38,3 +38,26 @@ class _Boost(models.Model):
                     val = None
             rec.is_overdue = bool(val) and not terminal and val < today
 
+
+# --- wave_final ---
+class _RefreshBusiness(models.Model):
+    _inherit = 'sf.onboarding.template'
+
+    def action_refresh_business(self):
+        """Pull employee tenure and status."""
+        for rec in self:
+            emp = getattr(rec, 'employee_id', False)
+            if not emp:
+                continue
+            hire = emp.first_contract_date or False
+            years = ''
+            if hire:
+                delta = (fields.Date.context_today(rec) - hire).days
+                years = ', tenure {:.1f}y'.format(delta / 365.25)
+            rec.message_post(body=_('{name} ({dept}){tenure}, '
+                                    'active={act}.').format(
+                name=emp.name,
+                dept=emp.department_id.name or '-',
+                tenure=years,
+                act=emp.active))
+        return True

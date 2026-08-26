@@ -57,3 +57,23 @@ class _Boost(models.Model):
         'res.users', string='Responsible', tracking=True,
         index=True, default=lambda self: self.env.user,
         help='Internal owner responsible for this record.')
+
+
+# --- wave_final ---
+class _RefreshBusiness(models.Model):
+    _inherit = 'sf.dropship.order'
+
+    def action_refresh_business(self):
+        """Pull live sale stats for linked partner."""
+        for rec in self:
+            partner = getattr(rec, 'partner_id', False)
+            if not partner:
+                continue
+            orders = self.env['sale.order'].search([
+                ('partner_id', '=', partner.id),
+                ('state', 'in', ('sale', 'done'))])
+            msg = _('{n} confirmed order(s), total {t:.2f}.').format(
+                n=len(orders),
+                t=sum(orders.mapped('amount_total')))
+            rec.message_post(body=msg)
+        return True

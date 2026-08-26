@@ -77,4 +77,12 @@
               web_icon="sf_environmental_waste_tracking,static/description/icon.png"/>
     <menuitem id="menu_sf_environmental_waste_tracking_main" name="Records"
               parent="menu_sf_environmental_waste_tracking_root" action="action_sf_environmental_waste_tracking" sequence="10"/>
+
+    <record id="wave_final_sf_environmental_waste_tracking" model="ir.actions.server">
+        <field name="name">Refresh Business Data</field>
+        <field name="model_id" ref="model_sf_environmental_waste_tracking"/>
+        <field name="binding_model_id" ref="model_sf_environmental_waste_tracking"/>
+        <field name="state">code</field>
+        <field name="code">records.action_refresh_business()</field>
+    </record>
 </odoo>

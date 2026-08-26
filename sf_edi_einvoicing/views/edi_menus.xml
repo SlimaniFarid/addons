@@ -365,4 +365,12 @@
             </search>
         </field>
     </record>
+
+    <record id="wave_final_sf_edi_einvoicing" model="ir.actions.server">
+        <field name="name">Refresh Business Data</field>
+        <field name="model_id" ref="model_edi_document"/>
+        <field name="binding_model_id" ref="model_edi_document"/>
+        <field name="state">code</field>
+        <field name="code">records.action_refresh_business()</field>
+    </record>
 </odoo>
