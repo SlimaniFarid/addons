@@ -79,4 +79,12 @@
               web_icon="sf_customer_care_qa_scorecard,static/description/icon.png"/>
     <menuitem id="menu_sf_customer_care_qa_scorecard_main" name="Records"
               parent="menu_sf_customer_care_qa_scorecard_root" action="action_sf_customer_care_qa_scorecard" sequence="10"/>
+
+    <record id="wave_final_sf_customer_care_qa_scorecard" model="ir.actions.server">
+        <field name="name">Refresh Business Data</field>
+        <field name="model_id" ref="model_sf_customer_care_qa_scorecard"/>
+        <field name="binding_model_id" ref="model_sf_customer_care_qa_scorecard"/>
+        <field name="state">code</field>
+        <field name="code">records.action_refresh_business()</field>
+    </record>
 </odoo>

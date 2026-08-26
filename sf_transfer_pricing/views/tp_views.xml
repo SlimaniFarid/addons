@@ -3,7 +3,7 @@
     <record id="action_sf_tp_policy" model="ir.actions.act_window">
         <field name="name">TP Policies</field>
         <field name="res_model">sf.tp.policy</field>
-        <field name="view_mode">list,form</field>
+        <field name="view_mode">kanban,list,form</field>
     </record>
     <record id="action_sf_tp_transaction" model="ir.actions.act_window">
         <field name="name">Transaction Analysis</field>
@@ -70,7 +70,7 @@
         <field name="name">sf.tp.policy.list</field>
         <field name="model">sf.tp.policy</field>
         <field name="arch" type="xml">
-            <list string="TP Policies" sample="1">
+            <list decoration-danger="is_overdue" string="TP Policies" sample="1">
                 <field name="name"/>
                 <field name="company_id"/>
                 <field name="counterpart_company_id"/>
@@ -88,8 +88,7 @@
         <field name="name">sf.tp.transaction.list</field>
         <field name="model">sf.tp.transaction</field>
         <field name="arch" type="xml">
-            <list string="TP Transaction Analysis" sample="1"
-                  decoration-danger="review_required and state == 'computed'">
+            <list string="TP Transaction Analysis" sample="1" decoration-danger="review_required and state == 'computed'">
                 <field name="invoice_date"/>
                 <field name="policy_id"/>
                 <field name="product_id"/>
@@ -173,4 +172,57 @@
     <menuitem id="menu_sf_tp_docs" name="Documentation"
               parent="menu_sf_tp_root" action="action_sf_tp_documentation"
               sequence="30"/>
+
+    <record id="view_sf_transfer_pricing_boost_kanban" model="ir.ui.view">
+        <field name="name">sf_transfer_pricing.boost.kanban</field>
+        <field name="model">sf.tp.policy</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state" t-att-color="state">
+                <field name="name"/>
+                <field name="state"/>
+                <field name="review_date"/>
+                <field name="is_overdue" invisible="1"/>
+
+                <field name="state"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_card oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <strong class="o_kanban_record_title">
+                                    <field name="name"/></strong>
+                                <div class="o_kanban_record_subtitle">
+                                    <field name="user_id" widget="many2one_avatar_user"/>
+                                    <field name="review_date"/></div>
+                            </div>
+                            <div class="oe_kanban_bottom_right">
+                                <field name="state" widget="badge"
+                                       t-attf-options="{'classes_map': {'draft': 'info', 'done': 'success', 'cancelled': 'danger'}, 'domain': []}"/>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="view_sf_transfer_pricing_boost_search" model="ir.ui.view">
+        <field name="name">sf_transfer_pricing.boost.search</field>
+        <field name="model">sf.tp.policy</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+<separator/>
+                <filter string="To Do" name="todo" domain="[('state', 'not in', ('done', 'cancelled', 'closed'))]"/>
+                <group expand="0" string="Group By"><filter string="Status" name="gb_state" context="{'group_by': 'state'}"/></group>
+            </search>
+        </field>
+    </record>
+
+    <record id="wave_final_sf_transfer_pricing" model="ir.actions.server">
+        <field name="name">Refresh Business Data</field>
+        <field name="model_id" ref="model_sf_tp_policy"/>
+        <field name="binding_model_id" ref="model_sf_tp_policy"/>
+        <field name="state">code</field>
+        <field name="code">records.action_refresh_business()</field>
+    </record>
 </odoo>

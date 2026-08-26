@@ -79,4 +79,12 @@
               web_icon="sf_peak_season_planning,static/description/icon.png"/>
     <menuitem id="menu_sf_peak_plan_main" name="Records"
               parent="menu_sf_peak_plan_root" action="action_sf_peak_plan" sequence="10"/>
+
+    <record id="wave_final_sf_peak_season_planning" model="ir.actions.server">
+        <field name="name">Refresh Business Data</field>
+        <field name="model_id" ref="model_sf_peak_plan"/>
+        <field name="binding_model_id" ref="model_sf_peak_plan"/>
+        <field name="state">code</field>
+        <field name="code">records.action_refresh_business()</field>
+    </record>
 </odoo>

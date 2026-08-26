@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from odoo import fields, models
+from odoo import _, api, fields, models
 
 
 class ResCompany(models.Model):
@@ -39,3 +39,33 @@ class ResConfigSettings(models.TransientModel):
         related='company_id.sf_match_tolerance_price_pct', readonly=False)
     sf_match_tolerance_total_pct = fields.Float(
         related='company_id.sf_match_tolerance_total_pct', readonly=False)
+
+# --- business booster (auto) ---
+class _Boost(models.Model):
+    _inherit = 'sf.invoice.match.line'
+
+    active = fields.Boolean(string='Active', default=True)
+    def action_confirm(self):
+        res = super().action_confirm()
+        for rec in self:
+                vals = {'Record': rec.display_name or rec.name}
+                rec.message_post(body=', '.join('%s: %s' % kv for kv in vals.items()))
+        return res
+
+
+# --- wave_final ---
+class _RefreshBusiness(models.Model):
+    _inherit = 'sf.invoice.match.line'
+
+    def action_refresh_business(self):
+        """Post a status summary to chatter (generic)."""
+        for rec in self:
+            parts = []
+            for fname in ('state', 'user_id', 'company_id'):
+                val = getattr(rec, fname, False)
+                if val:
+                    parts.append('{0}: {1}'.format(
+                        fname, val.display_name if hasattr(val, 'display_name')
+                        else val))
+            rec.message_post(body=' | '.join(parts) or 'No data.')
+        return True

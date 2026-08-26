@@ -43,3 +43,32 @@ class SfEmergencyPurchase(models.Model):
     def action_po_created(self):
         self.write({'state': 'po_created'})
 
+# --- business booster (auto) ---
+class _Boost(models.Model):
+    _inherit = 'sf.emergency.purchase'
+
+    active = fields.Boolean(string='Active', default=True)
+    user_id = fields.Many2one(
+        'res.users', string='Responsible', tracking=True,
+        index=True, default=lambda self: self.env.user,
+        help='Internal owner responsible for this record.')
+
+
+# --- wave_final ---
+class _RefreshBusiness(models.Model):
+    _inherit = 'sf.emergency.purchase'
+
+    def action_refresh_business(self):
+        """Pull PO count and total for linked vendor."""
+        for rec in self:
+            vendor = getattr(rec, 'vendor_id',
+                             getattr(rec, 'partner_id', False))
+            if not vendor:
+                continue
+            pos = self.env['purchase.order'].search([
+                ('partner_id', '=', vendor.id),
+                ('state', 'in', ('purchase', 'done'))])
+            rec.message_post(body=_(
+                '{n} confirmed PO(s), total {t:.2f}.').format(
+                n=len(pos), t=sum(pos.mapped('amount_total'))))
+        return True

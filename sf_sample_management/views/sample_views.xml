@@ -125,4 +125,12 @@
     <menuitem id="menu_sf_sample_requests" name="Sample Requests"
               parent="menu_sf_sample_root" action="action_sf_sample_request"
               sequence="10"/>
+
+    <record id="wave_final_sf_sample_management" model="ir.actions.server">
+        <field name="name">Refresh Business Data</field>
+        <field name="model_id" ref="model_sf_sample_request"/>
+        <field name="binding_model_id" ref="model_sf_sample_request"/>
+        <field name="state">code</field>
+        <field name="code">records.action_refresh_business()</field>
+    </record>
 </odoo>

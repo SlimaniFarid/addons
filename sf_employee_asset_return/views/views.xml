@@ -77,4 +77,12 @@
               web_icon="sf_employee_asset_return,static/description/icon.png"/>
     <menuitem id="menu_sf_asset_return_main" name="Records"
               parent="menu_sf_asset_return_root" action="action_sf_asset_return" sequence="10"/>
+
+    <record id="wave_final_sf_employee_asset_return" model="ir.actions.server">
+        <field name="name">Refresh Business Data</field>
+        <field name="model_id" ref="model_sf_asset_return"/>
+        <field name="binding_model_id" ref="model_sf_asset_return"/>
+        <field name="state">code</field>
+        <field name="code">records.action_refresh_business()</field>
+    </record>
 </odoo>

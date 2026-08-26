@@ -180,7 +180,7 @@ class RevRecSchedule(models.Model):
                         'credit': 0.0,
                     }),
                     (0, 0, {
-                        'account_id': self.env['account.account'].search([('code', '=', '411000')], limit=1).id,
+                        'account_id': sched.obligation_id.contract_id.deferred_account_id.id or False,
                         'debit': 0.0,
                         'credit': sched.planned_amount,
                     }),

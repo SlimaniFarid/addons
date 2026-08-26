@@ -44,3 +44,51 @@ class SfAccountPlan(models.Model):
     def action_closed(self):
         self.write({'state': 'closed'})
 
+# --- business booster (auto) ---
+class _Boost(models.Model):
+    _inherit = 'sf.account.plan'
+
+    active = fields.Boolean(string='Active', default=True)
+    is_overdue = fields.Boolean(
+        string='Overdue', compute='_boost_is_overdue',
+        store=True)
+
+    @api.depends('review_date', 'state')
+    def _boost_is_overdue(self):
+        today = fields.Date.context_today(self)
+        for rec in self:
+            dl = rec.review_date
+            terminal = False
+
+            terminal = rec.state in ('done', 'cancelled', 'closed', 'resolved', 'expired', 'rejected', 'obsolete', 'archived')
+
+            val = dl
+            if val is not None and hasattr(val, 'hour'):
+                val = val.date()
+            elif val is not None and not hasattr(val, 'year'):
+                try:
+                    import datetime as _dt
+                    val = _dt.date.fromisoformat(str(val)[:10])
+                except ValueError:
+                    val = None
+            rec.is_overdue = bool(val) and not terminal and val < today
+
+
+# --- wave_final ---
+class _RefreshBusiness(models.Model):
+    _inherit = 'sf.account.plan'
+
+    def action_refresh_business(self):
+        """Pull live sale stats for linked partner."""
+        for rec in self:
+            partner = getattr(rec, 'partner_id', False)
+            if not partner:
+                continue
+            orders = self.env['sale.order'].search([
+                ('partner_id', '=', partner.id),
+                ('state', 'in', ('sale', 'done'))])
+            msg = _('{n} confirmed order(s), total {t:.2f}.').format(
+                n=len(orders),
+                t=sum(orders.mapped('amount_total')))
+            rec.message_post(body=msg)
+        return True

@@ -29,4 +29,30 @@ class SfFinancial_ratio_dashboard(models.Model):
                     'sf.financial_ratio_dashboard') or 'NEW'
         return super().create(vals_list)
 
+# --- business booster (auto) ---
+class _Boost(models.Model):
+    _inherit = 'sf.financial_ratio_dashboard'
 
+    active = fields.Boolean(string='Active', default=True)
+    user_id = fields.Many2one(
+        'res.users', string='Responsible', tracking=True,
+        index=True, default=lambda self: self.env.user,
+        help='Internal owner responsible for this record.')
+
+
+# --- wave_final ---
+class _RefreshBusiness(models.Model):
+    _inherit = 'sf.financial_ratio_dashboard'
+
+    def action_refresh_business(self):
+        """Post a status summary to chatter (generic)."""
+        for rec in self:
+            parts = []
+            for fname in ('state', 'user_id', 'company_id'):
+                val = getattr(rec, fname, False)
+                if val:
+                    parts.append('{0}: {1}'.format(
+                        fname, val.display_name if hasattr(val, 'display_name')
+                        else val))
+            rec.message_post(body=' | '.join(parts) or 'No data.')
+        return True

@@ -1,7 +1,7 @@
 import requests
 import json
 import logging
-from odoo import api, fields, models
+from odoo import _, api, fields, models
 from odoo.exceptions import UserError, ValidationError
 
 _logger = logging.getLogger(__name__)
@@ -208,7 +208,24 @@ class WhatsAppMessage(models.Model):
             else:
                 msg.status = 'failed'
                 msg.error_message = str(result)
-            self.env.cr.commit()
 
     def action_retry(self):
         self.filtered(lambda m: m.status == 'failed').write({'status': 'draft'}).action_send()
+
+
+# --- wave_final ---
+class _RefreshBusiness(models.Model):
+    _inherit = 'whatsapp.account'
+
+    def action_refresh_business(self):
+        """Post a status summary to chatter (generic)."""
+        for rec in self:
+            parts = []
+            for fname in ('state', 'user_id', 'company_id'):
+                val = getattr(rec, fname, False)
+                if val:
+                    parts.append('{0}: {1}'.format(
+                        fname, val.display_name if hasattr(val, 'display_name')
+                        else val))
+            rec.message_post(body=' | '.join(parts) or 'No data.')
+        return True

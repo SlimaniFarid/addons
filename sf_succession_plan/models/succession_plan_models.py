@@ -19,7 +19,7 @@ class SfSuccession_plan(models.Model):
         ('1_year', 'Ready in 1 Year'),
         ('2_years', 'Ready in 2 Years'),
         ('3_years', '3+ Years'),
-        ], string='Readiness', default=2_years)
+        ], string='Readiness', default='ready_now')
     development_actions = fields.Html(string='Development Actions')
     currency_id = fields.Many2one(related='company_id.currency_id')
     state = fields.Selection([
@@ -42,3 +42,37 @@ class SfSuccession_plan(models.Model):
     def action_done(self):
         self.write({'state': 'done'})
 
+# --- business booster (auto) ---
+class _Boost(models.Model):
+    _inherit = 'sf.succession_plan'
+
+    active = fields.Boolean(string='Active', default=True)
+    user_id = fields.Many2one(
+        'res.users', string='Responsible', tracking=True,
+        index=True, default=lambda self: self.env.user,
+        help='Internal owner responsible for this record.')
+    def action_submitted(self):
+        res = super().action_submitted()
+        for rec in self:
+                vals = {'Record': rec.display_name or rec.name}
+                vals['Responsible'] = rec.user_id.name
+                rec.message_post(body=', '.join('%s: %s' % kv for kv in vals.items()))
+        return res
+
+
+# --- wave_final ---
+class _RefreshBusiness(models.Model):
+    _inherit = 'sf.succession_plan'
+
+    def action_refresh_business(self):
+        """Post a status summary to chatter (generic)."""
+        for rec in self:
+            parts = []
+            for fname in ('state', 'user_id', 'company_id'):
+                val = getattr(rec, fname, False)
+                if val:
+                    parts.append('{0}: {1}'.format(
+                        fname, val.display_name if hasattr(val, 'display_name')
+                        else val))
+            rec.message_post(body=' | '.join(parts) or 'No data.')
+        return True

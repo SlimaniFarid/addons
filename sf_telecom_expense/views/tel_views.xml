@@ -54,8 +54,7 @@
         <field name="name">sf.telecom.line.list</field>
         <field name="model">sf.telecom.line</field>
         <field name="arch" type="xml">
-            <list string="Telecom Lines" sample="1"
-                  decoration-warning="contract_ending_soon">
+            <list string="Telecom Lines" sample="1" decoration-warning="contract_ending_soon">
                 <field name="name"/>
                 <field name="employee_id"/>
                 <field name="provider"/>

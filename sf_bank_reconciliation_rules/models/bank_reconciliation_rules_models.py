@@ -40,3 +40,42 @@ class SfBrecRule(models.Model):
     def action_archived(self):
         self.write({'state': 'archived'})
 
+# --- business booster (auto) ---
+class _Boost(models.Model):
+    _inherit = 'sf.brec.rule'
+
+    active = fields.Boolean(string='Active', default=True)
+    user_id = fields.Many2one(
+        'res.users', string='Responsible', tracking=True,
+        index=True, default=lambda self: self.env.user,
+        help='Internal owner responsible for this record.')
+
+
+# --- wave_final ---
+class _RefreshBusiness(models.Model):
+    _inherit = 'sf.brec.rule'
+
+    def action_refresh_business(self):
+        """Pull open / overdue amounts for linked partner."""
+        for rec in self:
+            partner = getattr(rec, 'partner_id', False)
+            if not partner:
+                continue
+            moves = self.env['account.move'].search([
+                ('move_type', '=', 'out_invoice'),
+                ('state', '=', 'posted'),
+                ('partner_id', '=', partner.id)])
+            open_amt = sum(moves.filtered(
+                lambda m: m.payment_state in ('not_paid', 'partial')
+            ).mapped('amount_residual'))
+            today = fields.Date.context_today(rec)
+            overdue = sum(moves.filtered(
+                lambda m: m.payment_state in ('not_paid', 'partial')
+                and m.invoice_date_due
+                and m.invoice_date_due < today
+            ).mapped('amount_residual'))
+            rec.message_post(body=_(
+                'Open: {o:.2f}, Overdue: {d:.2f} '
+                '({c} posted invoice(s)).').format(
+                o=open_amt, d=overdue, c=len(moves)))
+        return True

@@ -49,6 +49,49 @@
     <record id="action_dispatch_ticket" model="ir.actions.act_window">
         <field name="name">Dispatch.Ticket</field>
         <field name="res_model">sf.field.dispatch.board.dispatch.ticket</field>
-        <field name="view_mode">list,form</field>
+        <field name="view_mode">kanban,list,form</field>
+    </record>
+
+    <record id="view_sf_field_dispatch_board_boost_kanban" model="ir.ui.view">
+        <field name="name">sf_field_dispatch_board.boost.kanban</field>
+        <field name="model">sf.field.dispatch.board.dispatch.ticket</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="">
+                <field name="name"/>
+                <field name="user_id"/>
+
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_card oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <strong><field name="name"/></strong>
+                                <div><field name="user_id"
+                                            widget="many2one_avatar_user"/></div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="view_sf_field_dispatch_board_boost_search" model="ir.ui.view">
+        <field name="name">sf_field_dispatch_board.boost.search</field>
+        <field name="model">sf.field.dispatch.board.dispatch.ticket</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+<separator/>
+                <filter string="My records" name="my_records" domain="[('user_id', '=', uid)]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="wave_final_sf_field_dispatch_board" model="ir.actions.server">
+        <field name="name">Refresh Business Data</field>
+        <field name="model_id" ref="model_sf_field_dispatch_board_dispatch_ticket"/>
+        <field name="binding_model_id" ref="model_sf_field_dispatch_board_dispatch_ticket"/>
+        <field name="state">code</field>
+        <field name="code">records.action_refresh_business()</field>
     </record>
 </odoo>

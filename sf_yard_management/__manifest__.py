@@ -42,9 +42,10 @@ timestamped.
     'data': [
         'security/sf_yard_management_security.xml',
         'security/ir.model.access.csv',
-                'data/sf_yard_cron.xml',
+        'data/sf_yard_sequence.xml',
+                
         'models/res_partner.py',
-                        'views/sf_yard_trailer_views.xml',
-                                        'views/sf_yard_menus.xml',        'report/sf_yard_reports.xml',
+                        'views/sf_yard_views.xml',
+                                        'views/sf_yard_menus.xml',        
     ],
 }

@@ -80,4 +80,12 @@
               web_icon="sf_business_requirement,static/description/icon.png"/>
     <menuitem id="menu_sf_business_requirement_main" name="Records"
               parent="menu_sf_business_requirement_root" action="action_sf_business_requirement" sequence="10"/>
+
+    <record id="wave_final_sf_business_requirement" model="ir.actions.server">
+        <field name="name">Refresh Business Data</field>
+        <field name="model_id" ref="model_sf_business_requirement"/>
+        <field name="binding_model_id" ref="model_sf_business_requirement"/>
+        <field name="state">code</field>
+        <field name="code">records.action_refresh_business()</field>
+    </record>
 </odoo>

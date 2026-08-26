@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from odoo import api, fields, models, _
+from odoo.exceptions import UserError
 
 
 class PurchaseOrder(models.Model):
@@ -23,8 +24,15 @@ class PurchaseOrder(models.Model):
         import secrets
         return secrets.token_urlsafe(12)
 
+    def _portal_action_guard(self):
+        if self.state not in ('sent',):
+            raise UserError(_(
+                'This document is not awaiting a vendor response.'))
+
     def action_vendor_accept(self):
         """Called from the vendor portal when the vendor accepts the RFQ."""
+        self._portal_action_guard()
+
         self.ensure_one()
         self.write({
             'vendor_response': 'accepted',
@@ -35,6 +43,8 @@ class PurchaseOrder(models.Model):
 
     def action_vendor_decline(self, comment=False):
         """Called from the vendor portal when the vendor declines the RFQ."""
+        self._portal_action_guard()
+
         self.ensure_one()
         self.write({
             'vendor_response': 'declined',
@@ -46,6 +56,8 @@ class PurchaseOrder(models.Model):
 
     def action_vendor_counter(self, amount):
         """Called from the vendor portal when the vendor proposes a price."""
+        self._portal_action_guard()
+
         self.ensure_one()
         self.write({
             'vendor_response': 'counter',

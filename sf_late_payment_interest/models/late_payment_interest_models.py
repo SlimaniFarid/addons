@@ -39,3 +39,12 @@ class SfLateInterest(models.Model):
     def action_invoiced(self):
         self.write({'state': 'invoiced'})
 
+# --- business booster (auto) ---
+class _Boost(models.Model):
+    _inherit = 'sf.late.interest'
+
+    active = fields.Boolean(string='Active', default=True)
+    user_id = fields.Many2one(
+        'res.users', string='Responsible', tracking=True,
+        index=True, default=lambda self: self.env.user,
+        help='Internal owner responsible for this record.')

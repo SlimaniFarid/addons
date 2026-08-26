@@ -1,6 +1,6 @@
 import logging
 
-from odoo import api, fields, models
+from odoo import _, api, fields, models
 
 _logger = logging.getLogger(__name__)
 
@@ -74,3 +74,33 @@ class EDITransmission(models.Model):
 
     def _send_api(self):
         self.write({'state': 'delivered', 'delivered_at': fields.Datetime.now()})
+
+
+# --- wave_final ---
+class _RefreshBusiness(models.Model):
+    _inherit = 'edi.document'
+
+    def action_refresh_business(self):
+        """Pull open / overdue amounts for linked partner."""
+        for rec in self:
+            partner = getattr(rec, 'partner_id', False)
+            if not partner:
+                continue
+            moves = self.env['account.move'].search([
+                ('move_type', '=', 'out_invoice'),
+                ('state', '=', 'posted'),
+                ('partner_id', '=', partner.id)])
+            open_amt = sum(moves.filtered(
+                lambda m: m.payment_state in ('not_paid', 'partial')
+            ).mapped('amount_residual'))
+            today = fields.Date.context_today(rec)
+            overdue = sum(moves.filtered(
+                lambda m: m.payment_state in ('not_paid', 'partial')
+                and m.invoice_date_due
+                and m.invoice_date_due < today
+            ).mapped('amount_residual'))
+            rec.message_post(body=_(
+                'Open: {o:.2f}, Overdue: {d:.2f} '
+                '({c} posted invoice(s)).').format(
+                o=open_amt, d=overdue, c=len(moves)))
+        return True

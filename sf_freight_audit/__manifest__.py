@@ -47,8 +47,6 @@ Recover the 3-10% of freight spend you are losing today.
         'views/sf_freight_contract_views.xml',
         'views/sf_freight_invoice_views.xml',
         'views/sf_freight_rule_views.xml',
-        'views/sf_freight_finding_views.xml',
-        'views/sf_freight_dispute_views.xml',
                 'views/sf_freight_audit_menus.xml',
                 'report/sf_freight_audit_reports.xml',
     ],

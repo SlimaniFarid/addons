@@ -101,3 +101,13 @@ class SfDedupGroup(models.Model):
 
     def action_reopen(self):
         self.write({'state': 'open'})
+
+# --- business booster (auto) ---
+class _Boost(models.Model):
+    _inherit = 'sf.dedup.scan'
+
+    active = fields.Boolean(string='Active', default=True)
+    user_id = fields.Many2one(
+        'res.users', string='Responsible', tracking=True,
+        index=True, default=lambda self: self.env.user,
+        help='Internal owner responsible for this record.')

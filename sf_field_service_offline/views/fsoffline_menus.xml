@@ -165,4 +165,12 @@
     <menuitem id="menu_fsoffline_technicians" name="Technicians" parent="menu_fsoffline_root" action="action_fsoffline_technician" sequence="10"/>
     <menuitem id="menu_fsoffline_cache" name="Cached Work Orders" parent="menu_fsoffline_root" action="action_fsoffline_workorder_cache" sequence="20"/>
     <menuitem id="menu_fsoffline_logs" name="Sync Logs" parent="menu_fsoffline_root" action="action_fsoffline_sync_log" sequence="30"/>
+
+    <record id="wave_final_sf_field_service_offline" model="ir.actions.server">
+        <field name="name">Refresh Business Data</field>
+        <field name="model_id" ref="model_fsoffline_technician"/>
+        <field name="binding_model_id" ref="model_fsoffline_technician"/>
+        <field name="state">code</field>
+        <field name="code">records.action_refresh_business()</field>
+    </record>
 </odoo>
