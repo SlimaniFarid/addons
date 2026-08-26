@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_sf_dock_appointments_root"
+              name="Dock Appointments"
+              sequence="27"
+              groups="sf_dock_appointments.group_sf_dock_appointments_user"
+              web_icon="sf_dock_appointments,static/description/icon.png"/>
+    <menuitem id="menu_sf_dock_appointments"
+              name="Appointments"
+              parent="menu_sf_dock_appointments_root"
+              groups="sf_dock_appointments.group_sf_dock_appointments_user"
+              action="action_sf_dock_appointment"
+              sequence="10"/>
+    <menuitem id="menu_sf_docks"
+              name="Docks"
+              parent="menu_sf_dock_appointments_root"
+              groups="sf_dock_appointments.group_sf_dock_appointments_user"
+              action="action_sf_dock"
+              sequence="20"/>
+</odoo>

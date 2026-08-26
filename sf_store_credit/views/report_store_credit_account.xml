@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_store_credit_account">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-set="company" t-value="o.company_id or res_company"/>
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2>Customer Balances</h2>
+                        <table class="table table-sm">
+                            <tr><th>Account</th><td><span t-field="o.name"/></td></tr>
+                            <tr><th>Customer</th><td><span t-field="o.partner_id"/></td></tr>
+                            <tr><th>Available Balance</th><td><span t-field="o.balance"/></td></tr>
+                            <tr><th>Number of Credits</th><td><span t-field="o.credit_ids"/></td></tr>
+                        </table>
+                        <h3>Credits</h3>
+                        <table class="table table-sm">
+                            <tr><th>Credit</th><th>Amount</th><th>Used</th><th>Remaining</th><th>Expiration</th><th>Status</th></tr>
+                            <tr t-foreach="o.credit_ids" t-as="c">
+                                <td><span t-field="c.name"/></td>
+                                <td><span t-field="c.amount"/></td>
+                                <td><span t-field="c.used_amount"/></td>
+                                <td><span t-field="c.remaining"/></td>
+                                <td><span t-field="c.expiration_date"/></td>
+                                <td><span t-field="c.state"/></td>
+                            </tr>
+                        </table>
+                        <h3>Upcoming Expirations</h3>
+                        <table class="table table-sm">
+                            <tr><th>Credit</th><th>Remaining</th><th>Expiration</th></tr>
+                            <tr t-foreach="o.credit_ids.filtered(lambda c: c.expiration_date)" t-as="c">
+                                <td><span t-field="c.name"/></td>
+                                <td><span t-field="c.remaining"/></td>
+                                <td><span t-field="c.expiration_date"/></td>
+                            </tr>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

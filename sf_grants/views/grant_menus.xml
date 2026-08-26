@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem id="menu_grants_root" name="Grants" sequence="88" web_icon="sf_grants,static/description/icon.png" groups="sf_grants.group_grant_user"/>
+
+    <menuitem id="menu_grants_programs" name="Programs"
+              parent="menu_grants_root"
+              action="action_grant_program"
+              sequence="10"/>
+
+    <menuitem id="menu_grants_calls" name="Calls"
+              parent="menu_grants_root"
+              action="action_grant_call"
+              sequence="20"/>
+
+    <menuitem id="menu_grants_applications" name="Applications"
+              parent="menu_grants_root"
+              action="action_grant_application"
+              sequence="30"/>
+
+    <menuitem id="menu_grants_expenses" name="Expenses"
+              parent="menu_grants_root"
+              action="action_grant_expense"
+              sequence="40"/>
+
+    <menuitem id="menu_grants_dashboard" name="Dashboard"
+              parent="menu_grants_root"
+              action="action_grant_dashboard"
+              sequence="50"/>
+
+</odoo>

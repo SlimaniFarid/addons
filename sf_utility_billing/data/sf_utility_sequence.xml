@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="seq_sf_utility_meter" model="ir.sequence">
+            <field name="name">Utility Meter</field>
+            <field name="code">sf.utility.meter</field>
+            <field name="prefix">CTR-</field>
+            <field name="padding">6</field>
+        </record>
+        <record id="seq_sf_utility_reading" model="ir.sequence">
+            <field name="name">Utility Reading</field>
+            <field name="code">sf.utility.meter.reading</field>
+            <field name="prefix">REL-</field>
+            <field name="padding">6</field>
+        </record>
+        <record id="seq_sf_utility_campaign" model="ir.sequence">
+            <field name="name">Utility Campaign</field>
+            <field name="code">sf.utility.campaign</field>
+            <field name="prefix">CMP-</field>
+            <field name="padding">5</field>
+        </record>
+        <record id="seq_sf_utility_tariff" model="ir.sequence">
+            <field name="name">Utility Tariff</field>
+            <field name="code">sf.utility.tariff</field>
+            <field name="prefix">TRF-</field>
+            <field name="padding">4</field>
+        </record>
+        <record id="seq_sf_utility_invoice" model="ir.sequence">
+            <field name="name">Utility Invoice</field>
+            <field name="code">sf.utility.invoice</field>
+            <field name="prefix">FAC-</field>
+            <field name="padding">6</field>
+        </record>
+    </data>
+</odoo>

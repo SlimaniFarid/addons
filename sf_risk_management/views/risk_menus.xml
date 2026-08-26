@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem id="menu_risk_root" name="GRC &amp; Risks" sequence="94"/>
+
+    <menuitem id="menu_risk_register" name="Risk Register"
+              parent="menu_risk_root"
+              action="action_risk"
+              sequence="10"/>
+
+    <menuitem id="menu_risk_heatmap" name="Heatmap"
+              parent="menu_risk_root"
+              action="action_risk_heatmap"
+              sequence="20"/>
+
+    <menuitem id="menu_risk_actions" name="Treatment Actions"
+              parent="menu_risk_root"
+              action="action_risk_action"
+              sequence="30"/>
+
+    <menuitem id="menu_risk_controls" name="Controls"
+              parent="menu_risk_root"
+              action="action_risk_control"
+              sequence="40"/>
+
+    <menuitem id="menu_risk_requirements" name="Regulatory Requirements"
+              parent="menu_risk_root"
+              action="action_risk_requirement"
+              sequence="50"/>
+
+</odoo>

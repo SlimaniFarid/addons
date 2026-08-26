@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_production_scheduling_root"
+              name="Production Scheduling Advanced"
+              sequence="30"
+              groups="sf_production_scheduling.group_production_scheduling_user"
+              web_icon="sf_production_scheduling,static/description/icon.png"/>
+    <menuitem id="menu_schedule_plan" name="Schedule.Plan"
+              parent="menu_production_scheduling_root"
+              action="action_schedule_plan"
+              sequence="10"
+              groups="sf_production_scheduling.group_production_scheduling_user"/>
+    <menuitem id="menu_schedule_slot" name="Schedule.Slot"
+              parent="menu_production_scheduling_root"
+              action="action_schedule_slot"
+              sequence="20"
+              groups="sf_production_scheduling.group_production_scheduling_user"/>
+</odoo>

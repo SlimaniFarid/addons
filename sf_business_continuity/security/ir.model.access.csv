@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_bcp_process_user,sf.bcp.process.user,model_sf_bcp_process,group_bcp_user,1,1,1,0
+access_bcp_process_manager,sf.bcp.process.manager,model_sf_bcp_process,group_bcp_manager,1,1,1,1
+access_bcp_strategy_user,sf.bcp.strategy.user,model_sf_bcp_strategy,group_bcp_user,1,1,1,0
+access_bcp_strategy_manager,sf.bcp.strategy.manager,model_sf_bcp_strategy,group_bcp_manager,1,1,1,1
+access_bcp_plan_user,sf.bcp.plan.user,model_sf_bcp_plan,group_bcp_user,1,1,1,0
+access_bcp_plan_manager,sf.bcp.plan.manager,model_sf_bcp_plan,group_bcp_manager,1,1,1,1
+access_bcp_exercise_user,sf.bcp.exercise.user,model_sf_bcp_exercise,group_bcp_user,1,1,1,0
+access_bcp_exercise_manager,sf.bcp.exercise.manager,model_sf_bcp_exercise,group_bcp_manager,1,1,1,1

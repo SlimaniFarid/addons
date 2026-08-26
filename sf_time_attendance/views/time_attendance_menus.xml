@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem id="menu_time_attendance_root"
+              name="Time &amp; Attendance"
+              parent="hr.menu_hr_root"
+              sequence="120"/>
+
+    <menuitem id="menu_time_attendance_shifts"
+              name="Shifts"
+              parent="menu_time_attendance_root"
+              action="action_time_attendance_shift"
+              sequence="10"/>
+
+    <menuitem id="menu_time_attendance_monthly"
+              name="Monthly Summaries"
+              parent="menu_time_attendance_root"
+              action="action_time_attendance_monthly"
+              sequence="20"/>
+
+    <menuitem id="menu_time_attendance_overview"
+              name="Attendance Overview"
+              parent="menu_time_attendance_root"
+              action="action_attendance_overview"
+              sequence="30"/>
+
+</odoo>

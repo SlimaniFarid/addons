@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_purchase_requisition_root"
+              name="Purchase Requisition Workflow"
+              sequence="30"
+              groups="sf_purchase_requisition.group_purchase_requisition_user"
+              web_icon="sf_purchase_requisition,static/description/icon.png"/>
+    <menuitem id="menu_purchase_requisition_sf" name="Purchase.Requisition.Sf"
+              parent="menu_purchase_requisition_root"
+              action="action_purchase_requisition_sf"
+              sequence="10"
+              groups="sf_purchase_requisition.group_purchase_requisition_user"/>
+    <menuitem id="menu_requisition_line" name="Requisition.Line"
+              parent="menu_purchase_requisition_root"
+              action="action_requisition_line"
+              sequence="20"
+              groups="sf_purchase_requisition.group_purchase_requisition_user"/>
+</odoo>

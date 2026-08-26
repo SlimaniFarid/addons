@@ -1,0 +1,11 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_trade_instrument_user,sf.trade.instrument.user,model_sf_trade_instrument,group_trade_user,1,1,0,0
+access_trade_instrument_manager,sf.trade.instrument.manager,model_sf_trade_instrument,group_trade_manager,1,1,1,1
+access_trade_document_user,sf.trade.instrument.document.user,model_sf_trade_instrument_document,group_trade_user,1,1,0,0
+access_trade_document_manager,sf.trade.instrument.document.manager,model_sf_trade_instrument_document,group_trade_manager,1,1,1,1
+access_trade_fee_user,sf.trade.instrument.fee.user,model_sf_trade_instrument_fee,group_trade_user,1,1,0,0
+access_trade_fee_manager,sf.trade.instrument.fee.manager,model_sf_trade_instrument_fee,group_trade_manager,1,1,1,1
+access_trade_bank_user,sf.trade.bank.user,model_sf_trade_bank,group_trade_user,1,0,0,0
+access_trade_bank_manager,sf.trade.bank.manager,model_sf_trade_bank,group_trade_manager,1,1,1,1
+access_trade_cancel_wizard_user,sf.trade.instrument.cancel.wizard.user,model_sf_trade_instrument_cancel_wizard,group_trade_user,1,1,1,0
+access_trade_cancel_wizard_manager,sf.trade.instrument.cancel.wizard.manager,model_sf_trade_instrument_cancel_wizard,group_trade_manager,1,1,1,1

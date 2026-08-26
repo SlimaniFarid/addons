@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="action_report_customer_card" model="ir.actions.report">
+            <field name="name">Customer Card</field>
+            <field name="model">sf.salon.appointment</field>
+            <field name="report_type">qweb-html</field>
+            <field name="report_name">sf_salon_beauty.report_customer_card</field>
+            <field name="report_file">sf_salon_beauty.report_customer_card</field>
+            <field name="binding_model_id" ref="model_sf_salon_appointment"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <record id="action_report_commissions" model="ir.actions.report">
+            <field name="name">Commissions Report</field>
+            <field name="model">sf.salon.commission</field>
+            <field name="report_type">qweb-html</field>
+            <field name="report_name">sf_salon_beauty.report_commissions</field>
+            <field name="report_file">sf_salon_beauty.report_commissions</field>
+            <field name="binding_model_id" ref="model_sf_salon_commission"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <record id="action_report_activity" model="ir.actions.report">
+            <field name="name">Salon Activity Report</field>
+            <field name="model">sf.salon.appointment</field>
+            <field name="report_type">qweb-html</field>
+            <field name="report_name">sf_salon_beauty.report_activity</field>
+            <field name="report_file">sf_salon_beauty.report_activity</field>
+            <field name="binding_model_id" ref="model_sf_salon_appointment"/>
+            <field name="binding_type">report</field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="module_category_hse" model="ir.module.category">
+        <field name="name">HSE</field>
+        <field name="sequence">95</field>
+    </record>
+
+    <record id="group_hse_user" model="res.groups">
+        <field name="name">HSE User</field>
+        <field name="category_id" ref="module_category_hse"/>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+
+    <record id="group_hse_manager" model="res.groups">
+        <field name="name">HSE Manager</field>
+        <field name="category_id" ref="module_category_hse"/>
+        <field name="implied_ids" eval="[(4, ref('group_hse_user'))]"/>
+    </record>
+
+    <record id="rule_hse_incident_user_company" model="ir.rule">
+        <field name="name">HSE Incident: user sees own company</field>
+        <field name="model_id" ref="model_sf_hse_incident"/>
+        <field name="global" eval="True"/>
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+        <field name="groups" eval="[(4, ref('group_hse_user'))]"/>
+    </record>
+
+    <record id="rule_hse_inspection_user_company" model="ir.rule">
+        <field name="name">HSE Inspection: user sees own company</field>
+        <field name="model_id" ref="model_sf_hse_inspection"/>
+        <field name="global" eval="True"/>
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+        <field name="groups" eval="[(4, ref('group_hse_user'))]"/>
+    </record>
+
+    <record id="rule_hse_risk_user_company" model="ir.rule">
+        <field name="name">HSE Risk: user sees own company</field>
+        <field name="model_id" ref="model_sf_hse_risk"/>
+        <field name="global" eval="True"/>
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+        <field name="groups" eval="[(4, ref('group_hse_user'))]"/>
+    </record>
+
+    <record id="rule_hse_permit_user_company" model="ir.rule">
+        <field name="name">HSE Permit: user sees own company</field>
+        <field name="model_id" ref="model_sf_hse_permit"/>
+        <field name="global" eval="True"/>
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+        <field name="groups" eval="[(4, ref('group_hse_user'))]"/>
+    </record>
+
+    <record id="rule_hse_ppe_user_company" model="ir.rule">
+        <field name="name">HSE PPE: user sees own company</field>
+        <field name="model_id" ref="model_sf_hse_ppe"/>
+        <field name="global" eval="True"/>
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+        <field name="groups" eval="[(4, ref('group_hse_user'))]"/>
+    </record>
+</odoo>

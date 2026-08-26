@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_mps_user,sf.mps.user,model_sf_mps,group_production_user,1,1,1,0
+access_mps_manager,sf.mps.manager,model_sf_mps,group_production_manager,1,1,1,1
+access_mps_line_user,sf.mps.line.user,model_sf_mps_line,group_production_user,1,1,1,0
+access_mps_line_manager,sf.mps.line.manager,model_sf_mps_line,group_production_manager,1,1,1,1
+access_mps_load_wizard_user,sf.mps.load.wizard.user,model_sf_mps_load_wizard,group_production_user,1,1,1,0
+access_mps_load_wizard_manager,sf.mps.load.wizard.manager,model_sf_mps_load_wizard,group_production_manager,1,1,1,1

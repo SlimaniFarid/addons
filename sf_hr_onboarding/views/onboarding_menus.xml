@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem id="menu_onboarding_root" name="Onboarding"
+              parent="hr.menu_human_resources"
+              sequence="96"/>
+
+    <menuitem id="menu_onboarding_programs" name="Programs"
+              parent="menu_onboarding_root"
+              action="action_onboarding_program"
+              sequence="10"/>
+
+    <menuitem id="menu_onboarding_tasks" name="Tasks"
+              parent="menu_onboarding_root"
+              action="action_onboarding_task"
+              sequence="20"/>
+
+    <menuitem id="menu_onboarding_templates" name="Templates"
+              parent="menu_onboarding_root"
+              action="action_onboarding_template"
+              sequence="30"/>
+
+    <menuitem id="menu_onboarding_generate" name="Generate Program"
+              parent="menu_onboarding_root"
+              action="action_onboarding_generate"
+              sequence="40"/>
+
+</odoo>

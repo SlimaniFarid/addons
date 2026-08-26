@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_sf_rework_management_root"
+              name="Rework Management"
+              sequence="32"
+              groups="sf_rework_management.group_sf_rework_management_user"
+              web_icon="sf_rework_management,static/description/icon.png"/>
+    <menuitem id="menu_sf_rework_orders"
+              name="Rework Orders"
+              parent="menu_sf_rework_management_root"
+              groups="sf_rework_management.group_sf_rework_management_user"
+              action="action_sf_rework_order"
+              sequence="10"/>
+</odoo>

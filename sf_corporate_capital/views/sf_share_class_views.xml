@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="sf_share_class_view_list" model="ir.ui.view">
+        <field name="name">sf.share.class.list</field>
+        <field name="model">sf.share.class</field>
+        <field name="arch" type="xml">
+            <list string="Share Classes">
+                <field name="name"/>
+                <field name="nominal_value"/>
+                <field name="authorized_shares"/>
+                <field name="issued_shares"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="sf_share_class_view_form" model="ir.ui.view">
+        <field name="name">sf.share.class.form</field>
+        <field name="model">sf.share.class</field>
+        <field name="arch" type="xml">
+            <form string="Share Class">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="nominal_value"/>
+                            <field name="authorized_shares"/>
+                            <field name="issued_shares"/>
+                        </group>
+                        <group>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Capital Movements">
+                            <field name="capital_movement_ids">
+                                <list string="Capital Movements">
+                                    <field name="name"/>
+                                    <field name="shareholder_id"/>
+                                    <field name="from_shareholder_id"/>
+                                    <field name="to_shareholder_id"/>
+                                    <field name="movement_type"/>
+                                    <field name="quantity"/>
+                                    <field name="unit_price"/>
+                                    <field name="amount"/>
+                                    <field name="date"/>
+                                    <field name="state" widget="badge"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="sf_share_class_view_search" model="ir.ui.view">
+        <field name="name">sf.share.class.search</field>
+        <field name="model">sf.share.class</field>
+        <field name="arch" type="xml">
+            <search string="Share Classes">
+                <field name="name"/>
+                <group>
+                    <filter name="group_share_class_company" string="Company" context="{'group_by': 'company_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_sf_share_class" model="ir.actions.act_window">
+        <field name="name">Share Classes</field>
+        <field name="res_model">sf.share.class</field>
+        <field name="view_mode">kanban,list,form</field>
+        <field name="search_view_id" ref="sf_share_class_view_search"/>
+    </record>
+
+    <record id="view_sf_corporate_capital_boost_kanban" model="ir.ui.view">
+        <field name="name">sf_corporate_capital.boost.kanban</field>
+        <field name="model">sf.capital.activity.mixin</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state" t-att-color="state">
+                <field name="name"/>
+                <field name="state"/>
+                <field name="user_id"/>
+
+                <field name="state"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_card oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <strong class="o_kanban_record_title">
+                                    <field name="name"/></strong>
+                                <div class="o_kanban_record_subtitle">
+                                    <field name="user_id" widget="many2one_avatar_user"/>
+                                    <field name="create_date"/></div>
+                            </div>
+                            <div class="oe_kanban_bottom_right">
+                                <field name="state" widget="badge"
+                                       t-attf-options="{'classes_map': {'draft': 'info', 'done': 'success', 'cancelled': 'danger'}, 'domain': []}"/>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="view_sf_corporate_capital_boost_search" model="ir.ui.view">
+        <field name="name">sf_corporate_capital.boost.search</field>
+        <field name="model">sf.capital.activity.mixin</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+<separator/>
+                <filter string="My records" name="my_records" domain="[('user_id', '=', uid)]"/>
+                <filter string="To Do" name="todo" domain="[('state', 'not in', ('done', 'cancelled', 'closed'))]"/>
+                <group expand="0" string="Group By"><filter string="Status" name="gb_state" context="{'group_by': 'state'}"/></group>
+            </search>
+        </field>
+    </record>
+</odoo>

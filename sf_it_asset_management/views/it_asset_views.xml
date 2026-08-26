@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Asset form -->
+    <record id="it_asset_view_form" model="ir.ui.view">
+        <field name="name">sf.it.asset.form</field>
+        <field name="model">sf.it.asset</field>
+        <field name="arch" type="xml">
+            <form string="IT Asset">
+                <header>
+                    <button name="action_to_stock" type="object"
+                            string="Mark In Stock" invisible="[('state', 'not in', ('draft',))]"/>
+                    <button name="action_assign" type="object"
+                            string="Assign" class="btn-primary"
+                            invisible="[('state', 'not in', ('in_stock',))]"/>
+                    <button name="action_unassign" type="object"
+                            string="Unassign" invisible="[('state', 'not in', ('assigned',))]"/>
+                    <button name="action_to_maintenance" type="object"
+                            string="To Maintenance"
+                            invisible="[('state', 'not in', ('assigned',))]"/>
+                    <button name="action_from_maintenance" type="object"
+                            string="Back In Stock"
+                            invisible="[('state', 'not in', ('maintenance',))]"/>
+                    <button name="action_retire" type="object"
+                            string="Retire" invisible="[('state', 'not in', ('in_stock', 'maintenance'))]"/>
+                    <button name="action_report_lost" type="object"
+                            string="Report Lost"
+                            invisible="[('state', 'not in', ('in_stock', 'assigned', 'maintenance'))]"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="asset_tag"/>
+                            <field name="category_id"/>
+                            <field name="serial_number"/>
+                            <field name="partner_vendor_id"/>
+                        </group>
+                        <group>
+                            <field name="purchase_date"/>
+                            <field name="warranty_expiration"/>
+                            <field name="purchase_value"/>
+                            <field name="currency_id" groups="base.group_multi_currency"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <group string="Assignment" invisible="[('state', '!=', 'assigned')]">
+                        <group>
+                            <field name="assignee_id"/>
+                            <field name="assignment_date"/>
+                        </group>
+                        <group>
+                            <field name="active_assignment_id"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Notes">
+                            <field name="notes"/>
+                        </page>
+                        <page string="Messages">
+                            <field name="message_ids"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Asset tree -->
+    <record id="it_asset_view_tree" model="ir.ui.view">
+        <field name="name">sf.it.asset.tree</field>
+        <field name="model">sf.it.asset</field>
+        <field name="arch" type="xml">
+            <tree string="IT Assets">
+                <field name="asset_tag"/>
+                <field name="name"/>
+                <field name="category_id"/>
+                <field name="assignee_id"/>
+                <field name="purchase_value"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Asset kanban -->
+    <record id="it_asset_view_kanban" model="ir.ui.view">
+        <field name="name">sf.it.asset.kanban</field>
+        <field name="model">sf.it.asset</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_mobile">
+                <field name="name"/>
+                <field name="category_id"/>
+                <field name="state"/>
+                <templates>
+                    <t t-name="card">
+                        <div class="oe_kanban_global_click">
+                            <div class="o_kanban_record_title">
+                                <span class="o_kanban_record_headings">
+                                    <strong><field name="name"/></strong>
+                                </span>
+                            </div>
+                            <div class="o_kanban_record_body">
+                                <field name="category_id"/>
+                                <field name="state" widget="badge"/>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- Asset search -->
+    <record id="it_asset_view_search" model="ir.ui.view">
+        <field name="name">sf.it.asset.search</field>
+        <field name="model">sf.it.asset</field>
+        <field name="arch" type="xml">
+            <search string="IT Assets">
+                <field name="name"/>
+                <field name="asset_tag"/>
+                <field name="category_id"/>
+                <field name="assignee_id"/>
+                <field name="state"/>
+                <filter name="assigned" string="Assigned"
+                        domain="[('state', '=', 'assigned')]"/>
+                <filter name="in_stock" string="In Stock"
+                        domain="[('state', '=', 'in_stock')]"/>
+                <filter name="warranty_soon" string="Warranty expiring"
+                        domain="[('warranty_expiration', '!=', False), ('warranty_expiration', '&lt;=', 'relative', 30)]"/>
+                <group>
+                    <filter name="group_state" string="Status"
+                            context="{'group_by': 'state'}"/>
+                    <filter name="group_category" string="Category"
+                            context="{'group_by': 'category_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Category form -->
+    <record id="it_asset_category_view_form" model="ir.ui.view">
+        <field name="name">sf.it.asset.category.form</field>
+        <field name="model">sf.it.asset.category</field>
+        <field name="arch" type="xml">
+            <form string="Category">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="code"/>
+                        <field name="parent_id"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="it_asset_category_view_tree" model="ir.ui.view">
+        <field name="name">sf.it.asset.category.tree</field>
+        <field name="model">sf.it.asset.category</field>
+        <field name="arch" type="xml">
+            <tree string="Categories">
+                <field name="name"/>
+                <field name="code"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- License form -->
+    <record id="it_license_view_form" model="ir.ui.view">
+        <field name="name">sf.it.license.form</field>
+        <field name="model">sf.it.license</field>
+        <field name="arch" type="xml">
+            <form string="License">
+                <header>
+                    <button name="action_activate" type="object"
+                            string="Activate" class="btn-primary"
+                            invisible="[('state', 'not in', ('draft',))]"/>
+                    <button name="action_renew" type="object"
+                            string="Renew" invisible="[('state', 'not in', ('active', 'expiring'))]"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="vendor_id"/>
+                            <field name="expiration_date"/>
+                            <field name="license_key"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                        <group>
+                            <field name="seats"/>
+                            <field name="unlimited"/>
+                            <field name="used_seats"/>
+                            <field name="available_seats"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Assignments">
+                            <field name="assignments">
+                                <tree string="Seat Assignments">
+                                    <field name="employee_id"/>
+                                    <field name="asset_id"/>
+                                    <field name="date_from"/>
+                                    <field name="date_to"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Notes">
+                            <field name="notes"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="it_license_view_tree" model="ir.ui.view">
+        <field name="name">sf.it.license.tree</field>
+        <field name="model">sf.it.license</field>
+        <field name="arch" type="xml">
+            <tree string="Licenses">
+                <field name="name"/>
+                <field name="vendor_id"/>
+                <field name="seats"/>
+                <field name="used_seats"/>
+                <field name="expiration_date"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="it_license_view_search" model="ir.ui.view">
+        <field name="name">sf.it.license.search</field>
+        <field name="model">sf.it.license</field>
+        <field name="arch" type="xml">
+            <search string="Licenses">
+                <field name="name"/>
+                <field name="vendor_id"/>
+                <field name="state"/>
+                <filter name="expired" string="Expired"
+                        domain="[('state', '=', 'expired')]"/>
+                <filter name="expiring" string="Expiring"
+                        domain="[('state', '=', 'expiring')]"/>
+            </search>
+        </field>
+    </record>
+
+    <!-- Assignment wizard form -->
+    <record id="it_asset_assignment_wizard_form" model="ir.ui.view">
+        <field name="name">sf.it.assignment.wizard.form</field>
+        <field name="model">sf.it.assignment.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Assign Asset">
+                <group>
+                    <field name="asset_id"/>
+                    <field name="employee_id"/>
+                    <field name="date_from"/>
+                    <field name="notes"/>
+                </group>
+                <footer>
+                    <button name="action_assign" type="object"
+                            string="Assign" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary"
+                            special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!-- License renew wizard form -->
+    <record id="it_license_renew_wizard_form" model="ir.ui.view">
+        <field name="name">sf.it.license.renew.wizard.form</field>
+        <field name="model">sf.it.license.renew.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Renew License">
+                <group>
+                    <field name="license_id"/>
+                    <field name="new_expiration"/>
+                </group>
+                <footer>
+                    <button name="action_renew" type="object"
+                            string="Renew" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary"
+                            special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!-- Inherited hr.employee form -->
+    <record id="it_asset_hr_employee_form" model="ir.ui.view">
+        <field name="name">hr.employee.form.it_asset</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="inside">
+                <notebook position="inside">
+                    <page string="IT Assets" name="it_assets">
+                        <field name="sf_it_asset_ids" readonly="1">
+                            <tree string="Assets">
+                                <field name="name"/>
+                                <field name="category_id"/>
+                                <field name="asset_tag"/>
+                                <field name="state"/>
+                            </tree>
+                        </field>
+                    </page>
+                </notebook>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Actions -->
+    <record id="action_it_asset" model="ir.actions.act_window">
+        <field name="name">IT Equipment</field>
+        <field name="res_model">sf.it.asset</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="search_view_id" ref="it_asset_view_search"/>
+    </record>
+
+    <record id="action_it_license" model="ir.actions.act_window">
+        <field name="name">Software Licenses</field>
+        <field name="res_model">sf.it.license</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="it_license_view_search"/>
+    </record>
+
+    <record id="action_it_asset_category" model="ir.actions.act_window">
+        <field name="name">Categories</field>
+        <field name="res_model">sf.it.asset.category</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <record id="wave_final_sf_it_asset_management" model="ir.actions.server">
+        <field name="name">Refresh Business Data</field>
+        <field name="model_id" ref="model_sf_it_asset"/>
+        <field name="binding_model_id" ref="model_sf_it_asset"/>
+        <field name="state">code</field>
+        <field name="code">records.action_refresh_business()</field>
+    </record>
+</odoo>

@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_sf_spa_equipment_list" model="ir.ui.view">
+            <field name="name">sf.spa.equipment.list</field>
+            <field name="model">sf.spa.equipment</field>
+            <field name="arch" type="xml">
+                <list decoration-danger="is_overdue" string="Equipment" multi_edit="1">
+                    <field name="name"/>
+                    <field name="equipment_type"/>
+                    <field name="quantity_total"/>
+                    <field name="quantity_available"/>
+                    <field name="maintenance_date"/>
+                    <field name="company_id" groups="base.group_multi_company"/>
+                    <field name="active"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="view_sf_spa_equipment_form" model="ir.ui.view">
+            <field name="name">sf.spa.equipment.form</field>
+            <field name="model">sf.spa.equipment</field>
+            <field name="arch" type="xml">
+                <form string="Equipment">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="equipment_type"/>
+                                <field name="quantity_total"/>
+                                <field name="quantity_available"/>
+                            </group>
+                            <group>
+                                <field name="maintenance_date"/>
+                                <field name="company_id" groups="base.group_multi_company" options="{'no_create': True}"/>
+                                <field name="active"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Resources" name="resources">
+                                <field name="resource_ids">
+                                    <list>
+                                        <field name="name"/>
+                                        <field name="resource_type"/>
+                                        <field name="location"/>
+                                    </list>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_sf_spa_equipment_search" model="ir.ui.view">
+            <field name="name">sf.spa.equipment.search</field>
+            <field name="model">sf.spa.equipment</field>
+            <field name="arch" type="xml">
+                <search string="Search Equipment">
+                    <field name="name"/>
+                    <field name="equipment_type"/>
+                    <filter string="Tables" name="filter_table" domain="[('equipment_type', '=', 'table')]"/>
+                    <filter string="Stones" name="filter_stones" domain="[('equipment_type', '=', 'stones')]"/>
+                    <filter string="Towels" name="filter_towels" domain="[('equipment_type', '=', 'towels')]"/>
+                    <filter string="Oils" name="filter_oils" domain="[('equipment_type', '=', 'oils')]"/>
+                    <filter string="Devices" name="filter_device" domain="[('equipment_type', '=', 'device')]"/>
+                    <filter string="Consumables" name="filter_consumable" domain="[('equipment_type', '=', 'consumable')]"/>
+                    <group string="Group By">
+                        <filter string="Type" name="group_by_type" context="{'group_by': 'equipment_type'}"/>
+                        <filter string="Company" name="group_by_company" context="{'group_by': 'company_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_sf_spa_equipment" model="ir.actions.act_window">
+            <field name="name">Equipment</field>
+            <field name="res_model">sf.spa.equipment</field>
+            <field name="view_mode">kanban,list,form</field>
+            <field name="search_view_id" ref="view_sf_spa_equipment_search"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">Create your first equipment item</p>
+            </field>
+        </record>
+    </data>
+
+    <record id="view_sf_spa_wellness_boost_kanban" model="ir.ui.view">
+        <field name="name">sf_spa_wellness.boost.kanban</field>
+        <field name="model">sf_spa_wellness.activity.mixin</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state" t-att-color="state">
+                <field name="name"/>
+                <field name="state"/>
+                <field name="expiry_date"/>
+                <field name="is_overdue" invisible="1"/>
+
+                <field name="state"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_card oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <strong class="o_kanban_record_title">
+                                    <field name="name"/></strong>
+                                <div class="o_kanban_record_subtitle">
+                                    <field name="user_id" widget="many2one_avatar_user"/>
+                                    <field name="expiry_date"/></div>
+                            </div>
+                            <div class="oe_kanban_bottom_right">
+                                <field name="state" widget="badge"
+                                       t-attf-options="{'classes_map': {'draft': 'info', 'done': 'success', 'cancelled': 'danger'}, 'domain': []}"/>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="view_sf_spa_wellness_boost_search" model="ir.ui.view">
+        <field name="name">sf_spa_wellness.boost.search</field>
+        <field name="model">sf_spa_wellness.activity.mixin</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+<separator/>
+                <filter string="To Do" name="todo" domain="[('state', 'not in', ('done', 'cancelled', 'closed'))]"/>
+                <group expand="0" string="Group By"><filter string="Status" name="gb_state" context="{'group_by': 'state'}"/></group>
+            </search>
+        </field>
+    </record>
+
+    <record id="wave_final_sf_spa_wellness" model="ir.actions.server">
+        <field name="name">Refresh Business Data</field>
+        <field name="model_id" ref="model_sf_spa_wellness_activity_mixin"/>
+        <field name="binding_model_id" ref="model_sf_spa_wellness_activity_mixin"/>
+        <field name="state">code</field>
+        <field name="code">records.action_refresh_business()</field>
+    </record>
+</odoo>

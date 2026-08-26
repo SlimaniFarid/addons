@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem id="menu_workshop_root" name="Workshop &amp; Vehicle Maintenance" sequence="88"/>
+
+    <menuitem id="menu_workshop_vehicles" name="Vehicles"
+              parent="menu_workshop_root"
+              action="action_workshop_vehicle"
+              sequence="10"/>
+
+    <menuitem id="menu_workshop_requests" name="Requests"
+              parent="menu_workshop_root"
+              action="action_workshop_request"
+              sequence="20"/>
+
+    <menuitem id="menu_workshop_orders" name="Repair Orders"
+              parent="menu_workshop_root"
+              action="action_workshop_order"
+              sequence="30"/>
+
+    <menuitem id="menu_workshop_operations" name="Operations"
+              parent="menu_workshop_root"
+              action="action_workshop_operation"
+              sequence="40"/>
+
+    <menuitem id="menu_workshop_parts" name="Parts"
+              parent="menu_workshop_root"
+              action="action_workshop_part"
+              sequence="50"/>
+
+</odoo>

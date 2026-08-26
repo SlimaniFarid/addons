@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Group -->
+    <record id="consolidation_group_view_form" model="ir.ui.view">
+        <field name="name">sf.consolidation.group.form</field>
+        <field name="model">sf.consolidation.group</field>
+        <field name="arch" type="xml">
+            <form string="Consolidation Group">
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="code"/>
+                            <field name="currency_id"/>
+                            <field name="active"/>
+                        </group>
+                        <group>
+                            <field name="company_ids" widget="many2many_tags"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Periods">
+                            <field name="period_ids">
+                                <tree string="Periods">
+                                    <field name="name"/>
+                                    <field name="date_from"/>
+                                    <field name="date_to"/>
+                                    <field name="state"/>
+                                    <field name="total_balance"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="consolidation_group_view_tree" model="ir.ui.view">
+        <field name="name">sf.consolidation.group.tree</field>
+        <field name="model">sf.consolidation.group</field>
+        <field name="arch" type="xml">
+            <tree string="Consolidation Groups">
+                <field name="name"/>
+                <field name="code"/>
+                <field name="company_ids" widget="many2many_tags"/>
+                <field name="currency_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Period -->
+    <record id="consolidation_period_view_form" model="ir.ui.view">
+        <field name="name">sf.consolidation.period.form</field>
+        <field name="model">sf.consolidation.period</field>
+        <field name="arch" type="xml">
+            <form string="Consolidation Period">
+                <header>
+                    <button name="action_generate_from_moves" type="object"
+                            string="Generate from Moves" class="btn-primary"
+                            invisible="[('state', 'not in', ('draft',))]"/>
+                    <button name="action_done" type="object"
+                            string="Done" class="btn-secondary"
+                            invisible="[('state', 'not in', ('draft',))]"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="group_id"/>
+                        </group>
+                        <group>
+                            <field name="date_from"/>
+                            <field name="date_to"/>
+                            <field name="total_balance"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Lines">
+                            <field name="line_ids">
+                                <tree string="Consolidation Lines"
+                                      editable="bottom">
+                                    <field name="company_id"/>
+                                    <field name="account_id"/>
+                                    <field name="amount"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="consolidation_period_view_tree" model="ir.ui.view">
+        <field name="name">sf.consolidation.period.tree</field>
+        <field name="model">sf.consolidation.period</field>
+        <field name="arch" type="xml">
+            <tree string="Consolidation Periods">
+                <field name="name"/>
+                <field name="group_id"/>
+                <field name="date_from"/>
+                <field name="date_to"/>
+                <field name="state"/>
+                <field name="total_balance"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Actions -->
+    <record id="action_consolidation_group" model="ir.actions.act_window">
+        <field name="name">Consolidation Groups</field>
+        <field name="res_model">sf.consolidation.group</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="action_consolidation_period" model="ir.actions.act_window">
+        <field name="name">Consolidation Periods</field>
+        <field name="res_model">sf.consolidation.period</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

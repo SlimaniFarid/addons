@@ -1,0 +1,852 @@
+<odoo>
+    <record id="action_qms_document" model="ir.actions.act_window">
+        <field name="name">QMS Documents</field>
+        <field name="res_model">qms.document</field>
+        <field name="view_mode">kanban,list,form</field>
+        <field name="context">{'search_default_group_by_category': 1}</field>
+    </record>
+    <record id="action_qms_nc" model="ir.actions.act_window">
+        <field name="name">Non-Conformities</field>
+        <field name="res_model">qms.nc</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{'search_default_group_by_state': 1}</field>
+    </record>
+    <record id="action_qms_capa" model="ir.actions.act_window">
+        <field name="name">CAPAs</field>
+        <field name="res_model">qms.capa</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{'search_default_group_by_state': 1}</field>
+    </record>
+    <record id="action_qms_audit" model="ir.actions.act_window">
+        <field name="name">Audits</field>
+        <field name="res_model">qms.audit</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{'search_default_group_by_state': 1}</field>
+    </record>
+    <record id="action_qms_fmea" model="ir.actions.act_window">
+        <field name="name">FMEA</field>
+        <field name="res_model">qms.fmea</field>
+        <field name="view_mode">list,form</field>
+    </record>
+    <record id="action_qms_training" model="ir.actions.act_window">
+        <field name="name">Training &amp; Competence</field>
+        <field name="res_model">qms.training</field>
+        <field name="view_mode">list,form</field>
+    </record>
+    <record id="action_qms_calibration" model="ir.actions.act_window">
+        <field name="name">Calibration</field>
+        <field name="res_model">qms.calibration</field>
+        <field name="view_mode">list,form</field>
+    </record>
+    <record id="action_qms_review" model="ir.actions.act_window">
+        <field name="name">Management Reviews</field>
+        <field name="res_model">qms.review</field>
+        <field name="view_mode">list,form</field>
+    </record>
+    <record id="action_qms_document_type" model="ir.actions.act_window">
+        <field name="name">Document Types</field>
+        <field name="res_model">qms.document.type</field>
+        <field name="view_mode">list,form</field>
+    </record>
+    <record id="action_qms_competence" model="ir.actions.act_window">
+        <field name="name">Competences</field>
+        <field name="res_model">qms.competence</field>
+        <field name="view_mode">list,form</field>
+    </record>
+    <record id="action_qms_certification" model="ir.actions.act_window">
+        <field name="name">Certifications</field>
+        <field name="res_model">qms.certification</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <record id="view_qms_document_form" model="ir.ui.view">
+        <field name="name">qms.document.form</field>
+        <field name="model">qms.document</field>
+        <field name="arch" type="xml">
+            <form string="QMS Document">
+                <header>
+                    <button name="action_submit_review" type="object" string="Submit for Review" class="btn-primary" invisible="state != 'draft'"/>
+                    <button name="action_approve" type="object" string="Approve" class="btn-secondary" invisible="state != 'under_review'"/>
+                    <button name="action_publish" type="object" string="Publish" class="btn-secondary" invisible="state != 'approved'"/>
+                    <button name="action_obsolete" type="object" string="Mark Obsolete" class="btn-secondary" invisible="state == 'obsolete'"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,under_review,approved,published,obsolete"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="code"/>
+                            <field name="category"/>
+                            <field name="version"/>
+                            <field name="company_id"/>
+                            <field name="iso_clause"/>
+                        </group>
+                        <group>
+                            <field name="author_id"/>
+                            <field name="reviewer_id"/>
+                            <field name="approver_id" readonly="1"/>
+                            <field name="owner_id"/>
+                            <field name="effective_date"/>
+                            <field name="review_date"/>
+                        </group>
+                    </group>
+                    <group string="Versions">
+                        <field name="previous_version_id"/>
+                        <field name="next_version_id" readonly="1"/>
+                    </group>
+                    <group string="Content">
+                        <field name="content"/>
+                        <field name="attachment_id"/>
+                    </group>
+                    <notebook>
+                        <page string="Distribution" name="distribution">
+                            <field name="distribution_ids">
+                                <list decoration-danger="is_overdue" editable="bottom">
+                                    <field name="user_id"/>
+                                    <field name="department_id"/>
+                                    <field name="role"/>
+                                    <field name="acknowledged" widget="boolean"/>
+                                    <field name="acknowledged_date" readonly="1"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="view_qms_document_list" model="ir.ui.view">
+        <field name="name">qms.document.list</field>
+        <field name="model">qms.document</field>
+        <field name="arch" type="xml">
+            <list string="QMS Documents">
+                <field name="code"/>
+                <field name="name"/>
+                <field name="category"/>
+                <field name="version"/>
+                <field name="owner_id"/>
+                <field name="review_date"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_qms_nc_form" model="ir.ui.view">
+        <field name="name">qms.nc.form</field>
+        <field name="model">qms.nc</field>
+        <field name="arch" type="xml">
+            <form string="Non-Conformity">
+                <header>
+                    <button name="action_containment" type="object" string="Containment" class="btn-primary" invisible="state != 'open'"/>
+                    <button name="action_analysis" type="object" string="Root Cause Analysis" class="btn-secondary" invisible="state != 'containment'"/>
+                    <button name="action_create_capa" type="object" string="Open CAPA" class="btn-secondary" invisible="state != 'analysis'"/>
+                    <button name="action_verify_effectiveness" type="object" string="Verify Effectiveness" class="btn-secondary" invisible="state != 'implementation'"/>
+                    <button name="action_close" type="object" string="Close NC" class="btn-primary" invisible="state not in ('verification','capa')"/>
+                    <field name="state" widget="statusbar" statusbar_visible="open,containment,analysis,capa,implementation,verification,closed"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="source"/>
+                            <field name="detected_by_id"/>
+                            <field name="detected_date"/>
+                            <field name="iso_clause"/>
+                            <field name="severity"/>
+                        </group>
+                        <group>
+                            <field name="location_id"/>
+                            <field name="product_id"/>
+                            <field name="lot_id"/>
+                            <field name="requirement"/>
+                        </group>
+                    </group>
+                    <group string="Description">
+                        <field name="description"/>
+                    </group>
+                    <notebook>
+                        <page string="Containment" name="containment" invisible="state in ('open','closed')">
+                            <group>
+                                <field name="containment_action"/>
+                                <field name="containment_by_id"/>
+                                <field name="containment_date"/>
+                                <field name="containment_verified" widget="boolean"/>
+                            </group>
+                        </page>
+                        <page string="Root Cause" name="root_cause" invisible="state in ('open','containment','closed')">
+                            <group>
+                                <field name="root_cause"/>
+                                <field name="root_cause_method"/>
+                                <field name="root_cause_by_id"/>
+                                <field name="root_cause_date"/>
+                            </group>
+                        </page>
+                        <page string="Closure" name="closure" invisible="state not in ('capa_created','closed')">
+                            <group>
+                                <field name="capa_id"/>
+                                <field name="closure_notes"/>
+                                <field name="closed_by_id" readonly="1"/>
+                                <field name="closed_date" readonly="1"/>
+                            </group>
+                        </page>
+                        <page string="Attachments" name="attachments">
+                            <field name="attachment_ids" widget="many2many_tags"/>
+                        </page>
+                    </notebook>
+                    <group invisible="1">
+                        <field name="company_id"/>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="view_qms_nc_list" model="ir.ui.view">
+        <field name="name">qms.nc.list</field>
+        <field name="model">qms.nc</field>
+        <field name="arch" type="xml">
+            <list string="Non-Conformities">
+                <field name="name"/>
+                <field name="source"/>
+                <field name="severity"/>
+                <field name="detected_by_id"/>
+                <field name="detected_date"/>
+                <field name="capa_id"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_qms_capa_form" model="ir.ui.view">
+        <field name="name">qms.capa.form</field>
+        <field name="model">qms.capa</field>
+        <field name="arch" type="xml">
+            <form string="CAPA">
+                <header>
+                    <button name="action_plan" type="object" string="Plan" class="btn-primary" invisible="state != 'draft'"/>
+                    <button name="action_implement" type="object" string="Implement" class="btn-secondary" invisible="state != 'planned'"/>
+                    <button name="action_verify" type="object" string="Verify Effectiveness" class="btn-secondary" invisible="state != 'implementation'"/>
+                    <button name="action_close" type="object" string="Close" class="btn-primary" invisible="state not in ('verification','implementation')"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,planned,implementation,verification,closed"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="title"/>
+                            <field name="capa_type"/>
+                            <field name="nc_id"/>
+                            <field name="owner_id"/>
+                            <field name="target_date"/>
+                            <field name="completion_date" readonly="1"/>
+                        </group>
+                        <group string="Team">
+                            <field name="team_ids" widget="many2many_tags"/>
+                        </group>
+                    </group>
+                    <group string="Description">
+                        <field name="description"/>
+                    </group>
+                    <group string="Root Cause Summary">
+                        <field name="root_cause"/>
+                    </group>
+                    <notebook>
+                        <page string="Actions" name="actions">
+                            <field name="action_ids">
+                                <list editable="bottom">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="description"/>
+                                    <field name="action_type"/>
+                                    <field name="responsible_id"/>
+                                    <field name="due_date"/>
+                                    <field name="completion_date"/>
+                                    <field name="state"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Effectiveness" name="effectiveness" invisible="state not in ('verification','closed')">
+                            <group>
+                                <field name="effectiveness_method"/>
+                                <field name="effectiveness_criteria"/>
+                                <field name="effectiveness_result"/>
+                                <field name="verification_date"/>
+                                <field name="verified_by_id"/>
+                            </group>
+                        </page>
+                    </notebook>
+                    <group invisible="1">
+                        <field name="company_id"/>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="view_qms_capa_list" model="ir.ui.view">
+        <field name="name">qms.capa.list</field>
+        <field name="model">qms.capa</field>
+        <field name="arch" type="xml">
+            <list string="CAPAs">
+                <field name="name"/>
+                <field name="title"/>
+                <field name="capa_type"/>
+                <field name="nc_id"/>
+                <field name="owner_id"/>
+                <field name="target_date"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_qms_audit_form" model="ir.ui.view">
+        <field name="name">qms.audit.form</field>
+        <field name="model">qms.audit</field>
+        <field name="arch" type="xml">
+            <form string="Audit">
+                <header>
+                    <field name="state" widget="statusbar" statusbar_visible="planned,in_progress,reported,closed"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="audit_type"/>
+                            <field name="standard"/>
+                            <field name="name_scope"/>
+                            <field name="lead_auditor_id"/>
+                        </group>
+                        <group>
+                            <field name="planned_date"/>
+                            <field name="planned_end_date"/>
+                            <field name="actual_date"/>
+                            <field name="actual_end_date"/>
+                        </group>
+                    </group>
+                    <group string="Scope">
+                        <field name="departments" widget="many2many_tags"/>
+                        <field name="processes" widget="many2many_tags"/>
+                        <field name="clauses" widget="many2many_tags"/>
+                        <field name="auditor_ids" widget="many2many_tags"/>
+                        <field name="auditee_ids" widget="many2many_tags"/>
+                    </group>
+                    <group string="Findings">
+                        <field name="finding_ids">
+                            <list editable="bottom">
+                                <field name="sequence" widget="handle"/>
+                                <field name="type"/>
+                                <field name="clause"/>
+                                <field name="description"/>
+                                <field name="responsible_id"/>
+                                <field name="due_date"/>
+                            </list>
+                        </field>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="nc_count" readonly="1"/>
+                            <field name="obs_count" readonly="1"/>
+                            <field name="opp_count" readonly="1"/>
+                        </group>
+                        <group string="Report">
+                            <field name="report"/>
+                            <field name="report_date"/>
+                            <field name="report_approved" widget="boolean"/>
+                        </group>
+                    </group>
+                    <group invisible="1">
+                        <field name="company_id"/>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="view_qms_audit_list" model="ir.ui.view">
+        <field name="name">qms.audit.list</field>
+        <field name="model">qms.audit</field>
+        <field name="arch" type="xml">
+            <list string="Audits">
+                <field name="name"/>
+                <field name="audit_type"/>
+                <field name="standard"/>
+                <field name="lead_auditor_id"/>
+                <field name="planned_date"/>
+                <field name="nc_count" optional="hide"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_qms_fmea_form" model="ir.ui.view">
+        <field name="name">qms.fmea.form</field>
+        <field name="model">qms.fmea</field>
+        <field name="arch" type="xml">
+            <form string="FMEA">
+                <header>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,analyzing,reviewed,approved"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="fmea_type"/>
+                            <field name="product_id"/>
+                            <field name="process_id"/>
+                            <field name="team_leader_id"/>
+                        </group>
+                        <group>
+                            <field name="team_member_ids" widget="many2many_tags"/>
+                            <field name="approved_by_id" readonly="1"/>
+                            <field name="approved_date" readonly="1"/>
+                        </group>
+                    </group>
+                    <group string="Scope">
+                        <field name="scope"/>
+                    </group>
+                    <group string="Boundary">
+                        <field name="boundary"/>
+                    </group>
+                    <group string="Items">
+                        <field name="item_ids">
+                            <list editable="bottom">
+                                <field name="sequence" widget="handle"/>
+                                <field name="function"/>
+                                <field name="failure_mode"/>
+                                <field name="severity"/>
+                                <field name="occurrence"/>
+                                <field name="detection"/>
+                                <field name="rpn" readonly="1"/>
+                                <field name="recommended_action"/>
+                                <field name="new_rpn" readonly="1"/>
+                            </list>
+                        </field>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="view_qms_fmea_list" model="ir.ui.view">
+        <field name="name">qms.fmea.list</field>
+        <field name="model">qms.fmea</field>
+        <field name="arch" type="xml">
+            <list string="FMEA">
+                <field name="name"/>
+                <field name="fmea_type"/>
+                <field name="team_leader_id"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_qms_training_form" model="ir.ui.view">
+        <field name="name">qms.training.form</field>
+        <field name="model">qms.training</field>
+        <field name="arch" type="xml">
+            <form string="Training Program">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="code"/>
+                            <field name="category"/>
+                            <field name="duration_hours"/>
+                            <field name="delivery_method"/>
+                        </group>
+                        <group>
+                            <field name="trainer_id"/>
+                            <field name="external_provider"/>
+                            <field name="has_exam"/>
+                            <field name="passing_score" invisible="not has_exam"/>
+                        </group>
+                    </group>
+                    <group string="Competences Developed">
+                        <field name="competence_ids" widget="many2many_tags"/>
+                    </group>
+                    <group string="Prerequisites">
+                        <field name="prerequisite_ids" widget="many2many_tags"/>
+                    </group>
+                    <group string="Description">
+                        <field name="description"/>
+                    </group>
+                    <group string="Objectives">
+                        <field name="objectives"/>
+                    </group>
+                    <notebook>
+                        <page string="Training Records" name="records">
+                            <field name="record_ids">
+                                <list editable="bottom">
+                                    <field name="employee_id"/>
+                                    <field name="training_date"/>
+                                    <field name="expiry_date"/>
+                                    <field name="status"/>
+                                    <field name="score"/>
+                                    <field name="passed" widget="boolean"/>
+                                    <field name="certificate_number"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="view_qms_training_list" model="ir.ui.view">
+        <field name="name">qms.training.list</field>
+        <field name="model">qms.training</field>
+        <field name="arch" type="xml">
+            <list string="Training Programs">
+                <field name="code"/>
+                <field name="name"/>
+                <field name="category"/>
+                <field name="duration_hours"/>
+                <field name="trainer_id"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_qms_calibration_form" model="ir.ui.view">
+        <field name="name">qms.calibration.form</field>
+        <field name="model">qms.calibration</field>
+        <field name="arch" type="xml">
+            <form string="Calibration Equipment">
+                <sheet>
+                    <div class="oe_button_box">
+                        <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-power-off">
+                            <field name="active" widget="boolean_toggle" options="{'terminology': {'on': 'Active', 'off': 'Inactive'}}"/>
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="code"/>
+                            <field name="category"/>
+                            <field name="manufacturer"/>
+                            <field name="model"/>
+                            <field name="serial_number"/>
+                            <field name="asset_number"/>
+                        </group>
+                        <group>
+                            <field name="location_id"/>
+                            <field name="department_id"/>
+                            <field name="calibration_frequency_months"/>
+                            <field name="last_calibration_date"/>
+                            <field name="next_due_date" readonly="1"/>
+                            <field name="calibration_due_soon" readonly="1"/>
+                            <field name="calibration_provider"/>
+                            <field name="external_lab_id"/>
+                        </group>
+                    </group>
+                    <group string="Specifications">
+                        <field name="accuracy_class"/>
+                        <field name="measurement_range"/>
+                        <field name="tolerance"/>
+                        <field name="calibration_method" widget="text"/>
+                    </group>
+                    <notebook>
+                        <page string="Calibration Records" name="records">
+                            <field name="record_ids">
+                                <list editable="bottom">
+                                    <field name="calibration_date"/>
+                                    <field name="result"/>
+                                    <field name="next_due_date"/>
+                                    <field name="certificate_number"/>
+                                    <field name="performed_by_id"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                    <group invisible="1">
+                        <field name="company_id"/>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="view_qms_calibration_list" model="ir.ui.view">
+        <field name="name">qms.calibration.list</field>
+        <field name="model">qms.calibration</field>
+        <field name="arch" type="xml">
+            <list string="Calibration Equipment">
+                <field name="code"/>
+                <field name="name"/>
+                <field name="category"/>
+                <field name="manufacturer"/>
+                <field name="serial_number"/>
+                <field name="last_calibration_date"/>
+                <field name="next_due_date"/>
+                <field name="calibration_due_soon" widget="boolean"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_qms_review_form" model="ir.ui.view">
+        <field name="name">qms.review.form</field>
+        <field name="model">qms.review</field>
+        <field name="arch" type="xml">
+            <form string="Management Review">
+                <header>
+                    <field name="state" widget="statusbar" statusbar_visible="planned,held,closed"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="review_date"/>
+                            <field name="review_period_start"/>
+                            <field name="review_period_end"/>
+                            <field name="chair_id"/>
+                        </group>
+                        <group>
+                            <field name="participant_ids" widget="many2many_tags"/>
+                            <field name="minutes_approved" widget="boolean"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Agenda" name="agenda">
+                            <field name="agenda_items">
+                                <list editable="bottom">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="topic"/>
+                                    <field name="iso_clause"/>
+                                    <field name="presenter_id"/>
+                                    <field name="duration_minutes"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Inputs" name="inputs">
+                            <field name="inputs">
+                                <list editable="bottom">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="category"/>
+                                    <field name="description"/>
+                                    <field name="presenter_id"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Outputs" name="outputs">
+                            <field name="output_ids">
+                                <list editable="bottom">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="category"/>
+                                    <field name="action"/>
+                                    <field name="responsible_id"/>
+                                    <field name="target_date"/>
+                                    <field name="status"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Minutes" name="minutes">
+                            <field name="minutes"/>
+                        </page>
+                    </notebook>
+                    <group invisible="1">
+                        <field name="company_id"/>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="view_qms_review_list" model="ir.ui.view">
+        <field name="name">qms.review.list</field>
+        <field name="model">qms.review</field>
+        <field name="arch" type="xml">
+            <list string="Management Reviews">
+                <field name="name"/>
+                <field name="review_date"/>
+                <field name="review_period_start"/>
+                <field name="review_period_end"/>
+                <field name="chair_id"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_qms_document_type_form" model="ir.ui.view">
+        <field name="name">qms.document.type.form</field>
+        <field name="model">qms.document.type</field>
+        <field name="arch" type="xml">
+            <form string="QMS Document Type">
+                <group>
+                    <field name="name"/>
+                    <field name="code_prefix"/>
+                    <field name="requires_approval"/>
+                    <field name="requires_review"/>
+                    <field name="review_frequency_months"/>
+                </group>
+            </form>
+        </field>
+    </record>
+    <record id="view_qms_document_type_list" model="ir.ui.view">
+        <field name="name">qms.document.type.list</field>
+        <field name="model">qms.document.type</field>
+        <field name="arch" type="xml">
+            <list string="QMS Document Types">
+                <field name="name"/>
+                <field name="code_prefix"/>
+                <field name="requires_approval" widget="boolean"/>
+                <field name="review_frequency_months"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_qms_competence_form" model="ir.ui.view">
+        <field name="name">qms.competence.form</field>
+        <field name="model">qms.competence</field>
+        <field name="arch" type="xml">
+            <form string="Competence">
+                <group>
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="required_education"/>
+                    <field name="required_experience_years"/>
+                    <field name="required_certifications" widget="many2many_tags"/>
+                    <field name="training_ids" widget="many2many_tags"/>
+                </group>
+                <group string="Description">
+                    <field name="description"/>
+                </group>
+                <group string="Evaluation">
+                    <field name="evaluation_criteria"/>
+                </group>
+            </form>
+        </field>
+    </record>
+    <record id="view_qms_competence_list" model="ir.ui.view">
+        <field name="name">qms.competence.list</field>
+        <field name="model">qms.competence</field>
+        <field name="arch" type="xml">
+            <list string="Competences">
+                <field name="code"/>
+                <field name="name"/>
+                <field name="required_education"/>
+                <field name="required_experience_years"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_qms_certification_form" model="ir.ui.view">
+        <field name="name">qms.certification.form</field>
+        <field name="model">qms.certification</field>
+        <field name="arch" type="xml">
+            <form string="Certification">
+                <group>
+                    <field name="name"/>
+                </group>
+            </form>
+        </field>
+    </record>
+    <record id="view_qms_certification_list" model="ir.ui.view">
+        <field name="name">qms.certification.list</field>
+        <field name="model">qms.certification</field>
+        <field name="arch" type="xml">
+            <list string="Certifications">
+                <field name="name"/>
+            </list>
+        </field>
+    </record>
+
+    <menuitem id="menu_qms_root" name="QMS ISO 9001" sequence="48" web_icon="sf_qms_iso9001,static/description/icon.png"/>
+    <menuitem id="menu_qms_documents" name="Document Control" parent="menu_qms_root" action="action_qms_document" sequence="10"/>
+    <menuitem id="menu_qms_nc" name="Non-Conformities" parent="menu_qms_root" action="action_qms_nc" sequence="20"/>
+    <menuitem id="menu_qms_capa" name="CAPA" parent="menu_qms_root" action="action_qms_capa" sequence="30"/>
+    <menuitem id="menu_qms_audits" name="Audits" parent="menu_qms_root" action="action_qms_audit" sequence="40"/>
+    <menuitem id="menu_qms_reviews" name="Management Reviews" parent="menu_qms_root" action="action_qms_review" sequence="50"/>
+    <menuitem id="menu_qms_fmea" name="FMEA" parent="menu_qms_root" action="action_qms_fmea" sequence="60"/>
+    <menuitem id="menu_qms_training" name="Training &amp; Competence" parent="menu_qms_root" action="action_qms_training" sequence="70"/>
+    <menuitem id="menu_qms_calibration" name="Calibration" parent="menu_qms_root" action="action_qms_calibration" sequence="80"/>
+    <menuitem id="menu_qms_config" name="Configuration" parent="menu_qms_root" sequence="90">
+        <menuitem id="menu_qms_doc_types" name="Document Types" parent="menu_qms_config" action="action_qms_document_type" sequence="10"/>
+        <menuitem id="menu_qms_competences" name="Competences" parent="menu_qms_config" action="action_qms_competence" sequence="20"/>
+        <menuitem id="menu_qms_certifications" name="Certifications" parent="menu_qms_config" action="action_qms_certification" sequence="30"/>
+    </menuitem>
+
+    <record id="view_sf_qms_iso9001_boost_kanban" model="ir.ui.view">
+        <field name="name">sf_qms_iso9001.boost.kanban</field>
+        <field name="model">qms.audit</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state" t-att-color="state">
+                <field name="name"/>
+                <field name="state"/>
+                <field name="planned_end_date"/>
+                <field name="is_overdue" invisible="1"/>
+
+                <field name="state"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_card oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <strong class="o_kanban_record_title">
+                                    <field name="name"/></strong>
+                                <div class="o_kanban_record_subtitle">
+                                    <field name="user_id" widget="many2one_avatar_user"/>
+                                    <field name="planned_end_date"/></div>
+                            </div>
+                            <div class="oe_kanban_bottom_right">
+                                <field name="state" widget="badge"
+                                       t-attf-options="{'classes_map': {'draft': 'info', 'done': 'success', 'cancelled': 'danger'}, 'domain': []}"/>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="view_sf_qms_iso9001_boost_search" model="ir.ui.view">
+        <field name="name">sf_qms_iso9001.boost.search</field>
+        <field name="model">qms.audit</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+<separator/>
+                <filter string="To Do" name="todo" domain="[('state', 'not in', ('done', 'cancelled', 'closed'))]"/>
+                <group expand="0" string="Group By"><filter string="Status" name="gb_state" context="{'group_by': 'state'}"/></group>
+            </search>
+        </field>
+    </record>
+
+    <record id="wave_final_sf_qms_iso9001" model="ir.actions.server">
+        <field name="name">Refresh Business Data</field>
+        <field name="model_id" ref="model_qms_audit"/>
+        <field name="binding_model_id" ref="model_qms_audit"/>
+        <field name="state">code</field>
+        <field name="code">records.action_refresh_business()</field>
+    </record>
+</odoo>

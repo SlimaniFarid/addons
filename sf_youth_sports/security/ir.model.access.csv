@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sf_youth_sports_activity_mixin_user,sf_youth_sports.activity.mixin.user,model_sf_youth_sports_activity_mixin,group_sf_youth_sports_user,1,1,0,0

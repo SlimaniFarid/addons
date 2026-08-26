@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_cap_table">
+        <t t-call="web.html_container">
+            <t t-set="company" t-value="res_company"/>
+            <t t-call="web.external_layout">
+                <div class="page">
+                    <h2>Cap Table</h2>
+                    <t t-foreach="docs" t-as="shareholder">
+                        <t t-set="holder_moves" t-value="shareholder.capital_movement_ids.filtered(lambda m: m.state == 'posted')"/>
+                        <t t-set="holder_from_moves" t-value="shareholder.from_movement_ids.filtered(lambda m: m.state == 'posted')"/>
+                        <t t-set="holder_to_moves" t-value="shareholder.to_movement_ids.filtered(lambda m: m.state == 'posted')"/>
+                        <t t-set="share_classes" t-value="(holder_moves.mapped('share_class_id') | holder_from_moves.mapped('share_class_id') | holder_to_moves.mapped('share_class_id')).sorted(key=lambda r: r.name)"/>
+                        <t t-if="share_classes">
+                            <h3><span t-field="shareholder.name"/> <small>(<span t-field="shareholder.shareholder_type"/>)</small></h3>
+                            <table class="table table-sm table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Share Class</th>
+                                        <th>Nominal Value</th>
+                                        <th>Quantity</th>
+                                        <th>%</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="share_classes" t-as="sc">
+                                        <t t-set="class_moves" t-value="holder_moves.filtered(lambda m: m.share_class_id == sc)"/>
+                                        <t t-set="class_from_moves" t-value="holder_from_moves.filtered(lambda m: m.share_class_id == sc)"/>
+                                        <t t-set="class_to_moves" t-value="holder_to_moves.filtered(lambda m: m.share_class_id == sc)"/>
+                                        <t t-set="qty" t-value="sum(class_moves.filtered(lambda m: m.movement_type == 'issue').mapped('quantity')) - sum(class_moves.filtered(lambda m: m.movement_type == 'buyback').mapped('quantity')) - sum(class_from_moves.filtered(lambda m: m.movement_type == 'transfer').mapped('quantity')) + sum(class_to_moves.filtered(lambda m: m.movement_type == 'transfer').mapped('quantity'))"/>
+                                        <t t-set="pct" t-value="sc.issued_shares and (qty / sc.issued_shares * 100) or 0"/>
+                                        <tr>
+                                            <td><span t-field="sc.name"/></td>
+                                            <td><span t-field="sc.nominal_value"/></td>
+                                            <td><span t-field="qty"/></td>
+                                            <td><span t-esc="'%.2f' % pct"/>%</td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </t>
+                    </t>
+                    <h3>Totals by Share Class</h3>
+                    <table class="table table-sm table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Share Class</th>
+                                <th>Nominal Value</th>
+                                <th>Authorized</th>
+                                <th>Issued</th>
+                                <th>Remaining</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="docs[0].env['sf.share.class'].search([('company_id', '=', res_company.id)])" t-as="sc">
+                                <tr>
+                                    <td><span t-field="sc.name"/></td>
+                                    <td><span t-field="sc.nominal_value"/></td>
+                                    <td><span t-field="sc.authorized_shares"/></td>
+                                    <td><span t-field="sc.issued_shares"/></td>
+                                    <td><span t-esc="sc.authorized_shares - sc.issued_shares"/></td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

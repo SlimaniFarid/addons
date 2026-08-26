@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_credit_limit_rule_list" model="ir.ui.view">
+        <field name="name">sf.customer.credit.limits.credit.limit.rule.list</field>
+        <field name="model">sf.customer.credit.limits.credit.limit.rule</field>
+        <field name="arch" type="xml">
+            <list string="Credit.Limit.Rule">
+                <field name="partner_id"/>
+                <field name="limit_amount"/>
+                <field name="warning_pct"/>
+                <field name="block_over_limit"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_credit_limit_rule_form" model="ir.ui.view">
+        <field name="name">sf.customer.credit.limits.credit.limit.rule.form</field>
+        <field name="model">sf.customer.credit.limits.credit.limit.rule</field>
+        <field name="arch" type="xml">
+            <form string="Credit.Limit.Rule">
+                <header>
+                </header>
+                <sheet>
+                    <div class="oe_title"><h1><field name="name" placeholder="Name"/></h1></div>
+                    <group><group>
+                            <field name="partner_id"/>
+                            <field name="limit_amount"/>
+                            <field name="warning_pct"/>
+                            <field name="block_over_limit"/>
+                    </group>
+                    <group>
+                        <field name="currency_id" invisible="1"/>
+                        <field name="company_id" groups="base.group_multi_company"/>
+                    </group>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_credit_limit_rule" model="ir.actions.act_window">
+        <field name="name">Credit.Limit.Rule</field>
+        <field name="res_model">sf.customer.credit.limits.credit.limit.rule</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

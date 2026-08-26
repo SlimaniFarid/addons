@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_medical_patient_tree" model="ir.ui.view">
+        <field name="name">sf.medical.patient.tree</field>
+        <field name="model">sf.medical.patient</field>
+        <field name="arch" type="xml">
+            <tree string="Patients">
+                <field name="name"/>
+                <field name="full_name"/>
+                <field name="gender"/>
+                <field name="phone"/>
+                <field name="email"/>
+                <field name="blood_type"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_medical_patient_form" model="ir.ui.view">
+        <field name="name">sf.medical.patient.form</field>
+        <field name="model">sf.medical.patient</field>
+        <field name="arch" type="xml">
+            <form string="Patient">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="full_name" placeholder="Full name"/>
+                        </h1>
+                        <h3>
+                            <field name="name"/>
+                        </h3>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="firstname"/>
+                            <field name="lastname"/>
+                            <field name="dob"/>
+                            <field name="gender"/>
+                        </group>
+                        <group>
+                            <field name="phone"/>
+                            <field name="email"/>
+                            <field name="blood_type"/>
+                            <field name="insurance"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                            <field name="active"/>
+                        </group>
+                    </group>
+                    <field name="allergies"/>
+                    <notebook>
+                        <page string="Appointments">
+                            <field name="appointment_ids" readonly="1">
+                                <tree string="Appointments">
+                                    <field name="name"/>
+                                    <field name="date"/>
+                                    <field name="start_time"/>
+                                    <field name="duration"/>
+                                    <field name="practitioner_id"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Consultations">
+                            <field name="consultation_ids" readonly="1">
+                                <tree string="Consultations">
+                                    <field name="name"/>
+                                    <field name="date"/>
+                                    <field name="practitioner_id"/>
+                                    <field name="diagnosis"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_medical_patient" model="ir.actions.act_window">
+        <field name="name">Patients</field>
+        <field name="res_model">sf.medical.patient</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="view_medical_appointment_tree" model="ir.ui.view">
+        <field name="name">sf.medical.appointment.tree</field>
+        <field name="model">sf.medical.appointment</field>
+        <field name="arch" type="xml">
+            <tree string="Appointments">
+                <field name="name"/>
+                <field name="patient_id"/>
+                <field name="practitioner_id"/>
+                <field name="date"/>
+                <field name="start_time"/>
+                <field name="duration"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_medical_appointment_form" model="ir.ui.view">
+        <field name="name">sf.medical.appointment.form</field>
+        <field name="model">sf.medical.appointment</field>
+        <field name="arch" type="xml">
+            <form string="Appointment">
+                <header>
+                    <button name="action_schedule" type="object"
+                            string="Schedule" class="btn-primary"
+                            invisible="state != 'draft'"/>
+                    <button name="action_confirm" type="object"
+                            string="Confirm" class="btn-primary"
+                            invisible="state not in ('draft', 'scheduled')"/>
+                    <button name="action_done" type="object"
+                            string="Mark as Done" class="btn-success"
+                            invisible="state != 'confirmed'"/>
+                    <button name="action_cancel" type="object"
+                            string="Cancel" class="btn-danger"
+                            invisible="state in ('done', 'cancelled')"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="patient_id"/>
+                            <field name="reason"/>
+                        </group>
+                        <group>
+                            <field name="practitioner_id"/>
+                            <field name="date"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="start_time"/>
+                        </group>
+                        <group>
+                            <field name="duration"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_medical_appointment" model="ir.actions.act_window">
+        <field name="name">Appointments</field>
+        <field name="res_model">sf.medical.appointment</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="view_medical_consultation_tree" model="ir.ui.view">
+        <field name="name">sf.medical.consultation.tree</field>
+        <field name="model">sf.medical.consultation</field>
+        <field name="arch" type="xml">
+            <tree string="Consultations">
+                <field name="name"/>
+                <field name="patient_id"/>
+                <field name="practitioner_id"/>
+                <field name="date"/>
+                <field name="diagnosis"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_medical_consultation_form" model="ir.ui.view">
+        <field name="name">sf.medical.consultation.form</field>
+        <field name="model">sf.medical.consultation</field>
+        <field name="arch" type="xml">
+            <form string="Consultation">
+                <header>
+                    <button name="action_done" type="object"
+                            string="Validate" class="btn-primary"
+                            invisible="state != 'draft'"/>
+                    <button name="action_close" type="object"
+                            string="Close" class="btn-success"
+                            invisible="state != 'done'"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="patient_id"/>
+                            <field name="date"/>
+                        </group>
+                        <group>
+                            <field name="practitioner_id"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <field name="diagnosis"/>
+                    <field name="notes"/>
+                    <notebook>
+                        <page string="Prescriptions">
+                            <field name="prescription_ids">
+                                <tree string="Prescriptions" editable="bottom">
+                                    <field name="name"/>
+                                    <field name="medication"/>
+                                    <field name="dosage"/>
+                                    <field name="duration_days"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_medical_consultation" model="ir.actions.act_window">
+        <field name="name">Consultations</field>
+        <field name="res_model">sf.medical.consultation</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="view_medical_prescription_tree" model="ir.ui.view">
+        <field name="name">sf.medical.prescription.tree</field>
+        <field name="model">sf.medical.prescription</field>
+        <field name="arch" type="xml">
+            <tree string="Prescriptions">
+                <field name="name"/>
+                <field name="patient_id"/>
+                <field name="consultation_id"/>
+                <field name="medication"/>
+                <field name="dosage"/>
+                <field name="duration_days"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_medical_prescription_form" model="ir.ui.view">
+        <field name="name">sf.medical.prescription.form</field>
+        <field name="model">sf.medical.prescription</field>
+        <field name="arch" type="xml">
+            <form string="Prescription">
+                <header>
+                    <button name="action_issue" type="object"
+                            string="Issue" class="btn-primary"
+                            invisible="state != 'draft'"/>
+                    <button name="action_close" type="object"
+                            string="Close" class="btn-success"
+                            invisible="state != 'issued'"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="consultation_id"/>
+                            <field name="patient_id" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="medication"/>
+                            <field name="dosage"/>
+                        </group>
+                        <group>
+                            <field name="duration_days"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_medical_prescription" model="ir.actions.act_window">
+        <field name="name">Prescriptions</field>
+        <field name="res_model">sf.medical.prescription</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="view_medical_vital_tree" model="ir.ui.view">
+        <field name="name">sf.medical.vital.tree</field>
+        <field name="model">sf.medical.vital</field>
+        <field name="arch" type="xml">
+            <tree string="Vital Signs">
+                <field name="name"/>
+                <field name="patient_id"/>
+                <field name="date"/>
+                <field name="weight"/>
+                <field name="height"/>
+                <field name="bmi"/>
+                <field name="blood_pressure"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_medical_vital_form" model="ir.ui.view">
+        <field name="name">sf.medical.vital.form</field>
+        <field name="model">sf.medical.vital</field>
+        <field name="arch" type="xml">
+            <form string="Vital Signs">
+                <header>
+                    <button name="action_done" type="object"
+                            string="Validate" class="btn-primary"
+                            invisible="state != 'draft'"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="patient_id"/>
+                            <field name="date"/>
+                        </group>
+                        <group>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="weight"/>
+                            <field name="height"/>
+                            <field name="bmi"/>
+                        </group>
+                        <group>
+                            <field name="blood_pressure"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_medical_vital" model="ir.actions.act_window">
+        <field name="name">Vital Signs</field>
+        <field name="res_model">sf.medical.vital</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

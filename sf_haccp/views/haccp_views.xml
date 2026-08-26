@@ -1,0 +1,563 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ============ SITE ============ -->
+    <record id="view_haccp_site_tree" model="ir.ui.view">
+        <field name="name">sf.haccp.site.tree</field>
+        <field name="model">sf.haccp.site</field>
+        <field name="arch" type="xml">
+            <tree string="HACCP Sites">
+                <field name="name"/>
+                <field name="address"/>
+                <field name="manager_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_haccp_site_form" model="ir.ui.view">
+        <field name="name">sf.haccp.site.form</field>
+        <field name="model">sf.haccp.site</field>
+        <field name="arch" type="xml">
+            <form string="HACCP Site">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="address"/>
+                        </group>
+                        <group>
+                            <field name="manager_id"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                            <field name="active"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Plans">
+                            <field name="plan_ids" readonly="1">
+                                <tree string="Plans">
+                                    <field name="name"/>
+                                    <field name="process"/>
+                                    <field name="version"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Prerequisites">
+                            <field name="prerequisite_ids" readonly="1">
+                                <tree string="Prerequisites">
+                                    <field name="name"/>
+                                    <field name="category"/>
+                                    <field name="status"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Checks">
+                            <field name="check_ids" readonly="1">
+                                <tree string="Checks">
+                                    <field name="name"/>
+                                    <field name="check_type"/>
+                                    <field name="result"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Nonconformities">
+                            <field name="nonconformity_ids" readonly="1">
+                                <tree string="Nonconformities">
+                                    <field name="name"/>
+                                    <field name="severity"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_haccp_site_search" model="ir.ui.view">
+        <field name="name">sf.haccp.site.search</field>
+        <field name="model">sf.haccp.site</field>
+        <field name="arch" type="xml">
+            <search string="HACCP Sites">
+                <field name="name"/>
+                <field name="address"/>
+                <field name="manager_id"/>
+                <group>
+                    <filter string="Company" name="company_group"
+                            context="{'group_by': 'company_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_haccp_site" model="ir.actions.act_window">
+        <field name="name">Sites</field>
+        <field name="res_model">sf.haccp.site</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_haccp_site_search"/>
+    </record>
+
+    <!-- ============ PLAN ============ -->
+    <record id="view_haccp_plan_tree" model="ir.ui.view">
+        <field name="name">sf.haccp.plan.tree</field>
+        <field name="model">sf.haccp.plan</field>
+        <field name="arch" type="xml">
+            <tree string="HACCP Plans">
+                <field name="name"/>
+                <field name="site_id"/>
+                <field name="process"/>
+                <field name="version"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_haccp_plan_form" model="ir.ui.view">
+        <field name="name">sf.haccp.plan.form</field>
+        <field name="model">sf.haccp.plan</field>
+        <field name="arch" type="xml">
+            <form string="HACCP Plan">
+                <header>
+                    <button name="action_activate" type="object"
+                            string="Activate" class="btn-primary"
+                            invisible="state not in ('draft', 'archived')"/>
+                    <button name="action_archive" type="object"
+                            string="Archive" invisible="state != 'active'"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="site_id"/>
+                            <field name="process"/>
+                        </group>
+                        <group>
+                            <field name="version"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <field name="scope"/>
+                    <notebook>
+                        <page string="Steps">
+                            <field name="step_ids">
+                                <tree string="Steps" editable="bottom">
+                                    <field name="sequence"/>
+                                    <field name="name"/>
+                                    <field name="hazard"/>
+                                    <field name="is_ccp"/>
+                                    <field name="critical_limit"/>
+                                    <field name="monitoring"/>
+                                    <field name="corrective"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_haccp_plan_search" model="ir.ui.view">
+        <field name="name">sf.haccp.plan.search</field>
+        <field name="model">sf.haccp.plan</field>
+        <field name="arch" type="xml">
+            <search string="HACCP Plans">
+                <field name="name"/>
+                <field name="site_id"/>
+                <field name="process"/>
+                <filter string="Active" name="active_filter"
+                        domain="[('state', '=', 'active')]"/>
+                <group>
+                    <filter string="Site" name="site_group"
+                            context="{'group_by': 'site_id'}"/>
+                    <filter string="Status" name="state_group"
+                            context="{'group_by': 'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_haccp_plan" model="ir.actions.act_window">
+        <field name="name">HACCP Plans</field>
+        <field name="res_model">sf.haccp.plan</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_haccp_plan_search"/>
+    </record>
+
+    <!-- ============ STEP ============ -->
+    <record id="view_haccp_step_tree" model="ir.ui.view">
+        <field name="name">sf.haccp.step.tree</field>
+        <field name="model">sf.haccp.step</field>
+        <field name="arch" type="xml">
+            <tree string="HACCP Steps">
+                <field name="plan_id"/>
+                <field name="sequence"/>
+                <field name="name"/>
+                <field name="hazard"/>
+                <field name="is_ccp"/>
+                <field name="critical_limit"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_haccp_step_form" model="ir.ui.view">
+        <field name="name">sf.haccp.step.form</field>
+        <field name="model">sf.haccp.step</field>
+        <field name="arch" type="xml">
+            <form string="HACCP Step">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="plan_id"/>
+                            <field name="sequence"/>
+                            <field name="name"/>
+                        </group>
+                        <group>
+                            <field name="hazard"/>
+                            <field name="is_ccp"/>
+                            <field name="critical_limit"/>
+                        </group>
+                    </group>
+                    <field name="description"/>
+                    <group>
+                        <field name="monitoring"/>
+                        <field name="corrective"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_haccp_step" model="ir.actions.act_window">
+        <field name="name">HACCP Steps</field>
+        <field name="res_model">sf.haccp.step</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- ============ PREREQUISITE ============ -->
+    <record id="view_haccp_prerequisite_tree" model="ir.ui.view">
+        <field name="name">sf.haccp.prerequisite.tree</field>
+        <field name="model">sf.haccp.prerequisite</field>
+        <field name="arch" type="xml">
+            <tree string="Prerequisites">
+                <field name="name"/>
+                <field name="site_id"/>
+                <field name="category"/>
+                <field name="status"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_haccp_prerequisite_form" model="ir.ui.view">
+        <field name="name">sf.haccp.prerequisite.form</field>
+        <field name="model">sf.haccp.prerequisite</field>
+        <field name="arch" type="xml">
+            <form string="Prerequisite">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="site_id"/>
+                            <field name="category"/>
+                        </group>
+                        <group>
+                            <field name="status"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <field name="description"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_haccp_prerequisite_search" model="ir.ui.view">
+        <field name="name">sf.haccp.prerequisite.search</field>
+        <field name="model">sf.haccp.prerequisite</field>
+        <field name="arch" type="xml">
+            <search string="Prerequisites">
+                <field name="site_id"/>
+                <field name="category"/>
+                <group>
+                    <filter string="Category" name="category_group"
+                            context="{'group_by': 'category'}"/>
+                    <filter string="Status" name="status_group"
+                            context="{'group_by': 'status'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_haccp_prerequisite" model="ir.actions.act_window">
+        <field name="name">Prerequisites</field>
+        <field name="res_model">sf.haccp.prerequisite</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_haccp_prerequisite_search"/>
+    </record>
+
+    <!-- ============ CHECK ============ -->
+    <record id="view_haccp_check_tree" model="ir.ui.view">
+        <field name="name">sf.haccp.check.tree</field>
+        <field name="model">sf.haccp.check</field>
+        <field name="arch" type="xml">
+            <tree string="HACCP Checks">
+                <field name="name"/>
+                <field name="site_id"/>
+                <field name="check_type"/>
+                <field name="result"/>
+                <field name="unit"/>
+                <field name="state"/>
+                <field name="control_date"/>
+                <field name="operator_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_haccp_check_form" model="ir.ui.view">
+        <field name="name">sf.haccp.check.form</field>
+        <field name="model">sf.haccp.check</field>
+        <field name="arch" type="xml">
+            <form string="HACCP Check">
+                <header>
+                    <button name="action_validate" type="object"
+                            string="Validate" class="btn-primary"
+                            invisible="state != 'scheduled'"/>
+                    <button name="action_resolve" type="object"
+                            string="Resolve" class="btn-success"
+                            invisible="state != 'deviated'"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="site_id"/>
+                            <field name="plan_id"/>
+                            <field name="check_type"/>
+                        </group>
+                        <group>
+                            <field name="control_date"/>
+                            <field name="operator_id"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="target_min"/>
+                            <field name="target_max"/>
+                            <field name="unit"/>
+                        </group>
+                        <group>
+                            <field name="result"/>
+                            <field name="deviation_detail"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Nonconformities">
+                            <field name="nonconformity_ids" readonly="1">
+                                <tree string="Nonconformities">
+                                    <field name="name"/>
+                                    <field name="severity"/>
+                                    <field name="state"/>
+                                    <field name="due_date"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_haccp_check_search" model="ir.ui.view">
+        <field name="name">sf.haccp.check.search</field>
+        <field name="model">sf.haccp.check</field>
+        <field name="arch" type="xml">
+            <search string="HACCP Checks">
+                <field name="name"/>
+                <field name="site_id"/>
+                <field name="plan_id"/>
+                <field name="operator_id"/>
+                <filter string="Deviated" name="deviated_filter"
+                        domain="[('state', '=', 'deviated')]"/>
+                <filter string="Scheduled" name="scheduled_filter"
+                        domain="[('state', '=', 'scheduled')]"/>
+                <group>
+                    <filter string="Site" name="site_group"
+                            context="{'group_by': 'site_id'}"/>
+                    <filter string="Type" name="type_group"
+                            context="{'group_by': 'check_type'}"/>
+                    <filter string="Status" name="state_group"
+                            context="{'group_by': 'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_haccp_check_kanban" model="ir.ui.view">
+        <field name="name">sf.haccp.check.kanban</field>
+        <field name="model">sf.haccp.check</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state">
+                <field name="name"/>
+                <field name="site_id"/>
+                <field name="check_type"/>
+                <field name="result"/>
+                <templates>
+                    <t t-name="card">
+                        <div class="oe_kanban_global_click">
+                            <div class="o_kanban_record_title">
+                                <field name="name"/>
+                            </div>
+                            <div class="o_kanban_record_subtitle">
+                                <field name="check_type"/>
+                                <field name="site_id"/>
+                            </div>
+                            <div class="o_kanban_record_bottom">
+                                Result: <field name="result"/>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="action_haccp_check" model="ir.actions.act_window">
+        <field name="name">Checks</field>
+        <field name="res_model">sf.haccp.check</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="search_view_id" ref="view_haccp_check_search"/>
+    </record>
+
+    <!-- ============ NONCONFORMITY ============ -->
+    <record id="view_haccp_nonconformity_tree" model="ir.ui.view">
+        <field name="name">sf.haccp.nonconformity.tree</field>
+        <field name="model">sf.haccp.nonconformity</field>
+        <field name="arch" type="xml">
+            <tree string="Nonconformities">
+                <field name="name"/>
+                <field name="site_id"/>
+                <field name="check_id"/>
+                <field name="severity"/>
+                <field name="state"/>
+                <field name="due_date"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_haccp_nonconformity_form" model="ir.ui.view">
+        <field name="name">sf.haccp.nonconformity.form</field>
+        <field name="model">sf.haccp.nonconformity</field>
+        <field name="arch" type="xml">
+            <form string="Nonconformity">
+                <header>
+                    <button name="action_open" type="object"
+                            string="Open" class="btn-primary"
+                            invisible="state != 'draft'"/>
+                    <button name="action_start_corrective" type="object"
+                            string="Start Corrective Action"
+                            invisible="state != 'open'"/>
+                    <button name="action_close" type="object"
+                            string="Close" class="btn-success"
+                            invisible="state not in ('open', 'corrective_action')"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="check_id"/>
+                            <field name="site_id"/>
+                        </group>
+                        <group>
+                            <field name="severity"/>
+                            <field name="due_date"/>
+                            <field name="closed_date"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <field name="description"/>
+                    <group>
+                        <field name="corrective_action"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_haccp_nonconformity_search" model="ir.ui.view">
+        <field name="name">sf.haccp.nonconformity.search</field>
+        <field name="model">sf.haccp.nonconformity</field>
+        <field name="arch" type="xml">
+            <search string="Nonconformities">
+                <field name="name"/>
+                <field name="site_id"/>
+                <field name="check_id"/>
+                <filter string="Open" name="open_filter"
+                        domain="[('state', 'in', ('open', 'corrective_action'))]"/>
+                <filter string="Closed" name="closed_filter"
+                        domain="[('state', '=', 'closed')]"/>
+                <group>
+                    <filter string="Site" name="site_group"
+                            context="{'group_by': 'site_id'}"/>
+                    <filter string="Severity" name="severity_group"
+                            context="{'group_by': 'severity'}"/>
+                    <filter string="Status" name="state_group"
+                            context="{'group_by': 'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_haccp_nonconformity" model="ir.actions.act_window">
+        <field name="name">Nonconformities</field>
+        <field name="res_model">sf.haccp.nonconformity</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_haccp_nonconformity_search"/>
+    </record>
+
+    <!-- ============ DASHBOARD ============ -->
+    <record id="view_haccp_dashboard_graph" model="ir.ui.view">
+        <field name="name">sf.haccp.check.dashboard.graph</field>
+        <field name="model">sf.haccp.check</field>
+        <field name="arch" type="xml">
+            <graph string="Checks by Type and Status">
+                <field name="check_type"/>
+                <field name="state"/>
+                <field name="id" type="measure" string="Checks"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="view_haccp_dashboard_pivot" model="ir.ui.view">
+        <field name="name">sf.haccp.check.dashboard.pivot</field>
+        <field name="model">sf.haccp.check</field>
+        <field name="arch" type="xml">
+            <pivot string="Deviations by Site and Type">
+                <field name="site_id" type="row"/>
+                <field name="check_type" type="col"/>
+                <field name="id" type="measure" string="Checks"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="action_haccp_dashboard" model="ir.actions.act_window">
+        <field name="name">Dashboard</field>
+        <field name="res_model">sf.haccp.check</field>
+        <field name="view_mode">graph,pivot</field>
+        <field name="view_ids" eval="[(5, 0), (0, 0, {'view_mode': 'graph', 'view_id': ref('view_haccp_dashboard_graph')}), (0, 0, {'view_mode': 'pivot', 'view_id': ref('view_haccp_dashboard_pivot')})]"/>
+    </record>
+
+
+    <record id="wave_final_sf_haccp" model="ir.actions.server">
+        <field name="name">Refresh Business Data</field>
+        <field name="model_id" ref="model_sf_haccp_site"/>
+        <field name="binding_model_id" ref="model_sf_haccp_site"/>
+        <field name="state">code</field>
+        <field name="code">records.action_refresh_business()</field>
+    </record>
+</odoo>

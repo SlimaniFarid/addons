@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="report_sf_veterinary_vaccination_card" model="ir.actions.report">
+        <field name="name">Vaccination Card</field>
+        <field name="model">sf.veterinary.patient</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">sf_veterinary.sf_veterinary_vaccination_card_template</field>
+        <field name="report_file">sf_veterinary.sf_veterinary_vaccination_card_template</field>
+        <field name="binding_model_id" ref="model_sf_veterinary_patient"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="sf_veterinary_vaccination_card_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2>Vaccination Card</h2>
+                        <table class="table table-sm">
+                            <tr><td><strong>Patient</strong></td><td><t t-esc="o.name"/></td></tr>
+                            <tr><td><strong>Species</strong></td><td><t t-esc="o.species"/></td></tr>
+                            <tr><td><strong>Breed</strong></td><td><t t-esc="o.breed or ''"/></td></tr>
+                            <tr><td><strong>Gender</strong></td><td><t t-esc="o.gender or ''"/></td></tr>
+                            <tr><td><strong>Age (months)</strong></td><td><t t-esc="o.age_months"/></td></tr>
+                            <tr><td><strong>Owner</strong></td><td><t t-esc="o.owner_id.name or ''"/></td></tr>
+                            <tr><td><strong>Up to date</strong></td><td><t t-esc="o.vaccinations_ok or ''"/></td></tr>
+                        </table>
+                        <h4>Vaccinations</h4>
+                        <table class="table table-sm">
+                            <thead>
+                                <tr>
+                                    <th>Number</th>
+                                    <th>Vaccine</th>
+                                    <th>Dose</th>
+                                    <th>Administered</th>
+                                    <th>Next due</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <t t-foreach="o.vaccination_ids" t-as="vaccination">
+                                <tr>
+                                    <td><t t-esc="vaccination.name"/></td>
+                                    <td><t t-esc="vaccination.vaccine_name"/></td>
+                                    <td><t t-esc="vaccination.dose_number"/></td>
+                                    <td><t t-esc="vaccination.administered_date or ''"/></td>
+                                    <td><t t-esc="vaccination.next_due_date or ''"/></td>
+                                    <td><t t-esc="vaccination.state"/></td>
+                                </tr>
+                            </t>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <record id="report_sf_veterinary_hospitalization" model="ir.actions.report">
+        <field name="name">Hospitalization Report</field>
+        <field name="model">sf.veterinary.hospitalization</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">sf_veterinary.sf_veterinary_hospitalization_template</field>
+        <field name="report_file">sf_veterinary.sf_veterinary_hospitalization_template</field>
+        <field name="binding_model_id" ref="model_sf_veterinary_hospitalization"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="sf_veterinary_hospitalization_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2>Hospitalization Report</h2>
+                        <table class="table table-sm">
+                            <tr><td><strong>Number</strong></td><td><t t-esc="o.name"/></td></tr>
+                            <tr><td><strong>Patient</strong></td><td><t t-esc="o.patient_id.name"/></td></tr>
+                            <tr><td><strong>Admission</strong></td><td><t t-esc="o.admission_date or ''"/></td></tr>
+                            <tr><td><strong>Discharge</strong></td><td><t t-esc="o.discharge_date or ''"/></td></tr>
+                            <tr><td><strong>Cage/Box</strong></td><td><t t-esc="o.cage or ''"/></td></tr>
+                            <tr><td><strong>Veterinarian</strong></td><td><t t-esc="o.veterinarian_id.name or ''"/></td></tr>
+                            <tr><td><strong>Status</strong></td><td><t t-esc="o.state"/></td></tr>
+                        </table>
+                        <h4>Reason</h4>
+                        <p><t t-esc="o.reason or ''"/></p>
+                        <h4>Notes</h4>
+                        <p><t t-esc="o.notes or ''"/></p>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

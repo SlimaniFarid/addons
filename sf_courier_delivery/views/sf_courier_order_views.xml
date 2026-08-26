@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="sf_courier_order_view_list" model="ir.ui.view">
+        <field name="name">sf.courier.order.list</field>
+        <field name="model">sf.courier.order</field>
+        <field name="arch" type="xml">
+            <list string="Courier Requests">
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="type"/>
+                <field name="scheduled_from"/>
+                <field name="scheduled_to"/>
+                <field name="delivery_count"/>
+                <field name="state" widget="badge"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="sf_courier_order_view_form" model="ir.ui.view">
+        <field name="name">sf.courier.order.form</field>
+        <field name="model">sf.courier.order</field>
+        <field name="arch" type="xml">
+            <form string="Courier Request">
+                <header>
+                    <button name="action_confirm" string="Confirm" type="object" class="btn-primary" invisible="[('state', '!=', 'draft')]"/>
+                    <button name="action_done" string="Mark Done" type="object" class="btn-primary" invisible="[('state', '!=', 'confirmed')]"/>
+                    <button name="action_invoice" string="Invoice Deliveries" type="object" class="btn-primary" invisible="[('state', 'not in', ('confirmed', 'done'))]"/>
+                    <button name="action_cancel" string="Cancel Request" type="object" invisible="[('state', 'in', ('done', 'cancelled'))]"/>
+                    <field name="state" widget="statusbar" readonly="1"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="partner_id"/>
+                            <field name="type"/>
+                        </group>
+                        <group>
+                            <field name="scheduled_from"/>
+                            <field name="scheduled_to"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <group string="Addresses">
+                        <field name="pickup_address"/>
+                        <field name="delivery_address"/>
+                    </group>
+                    <group string="Deliveries">
+                        <field name="delivery_ids">
+                            <list string="Deliveries">
+                                <field name="name"/>
+                                <field name="courier_id"/>
+                                <field name="route_id"/>
+                                <field name="state" widget="badge"/>
+                                <field name="price"/>
+                            </list>
+                        </field>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="sf_courier_order_view_kanban" model="ir.ui.view">
+        <field name="name">sf.courier.order.kanban</field>
+        <field name="model">sf.courier.order</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state">
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="scheduled_from"/>
+                <field name="state"/>
+                <templates>
+                    <t t-name="card">
+                        <div class="oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <strong><field name="name"/></strong>
+                                <div><field name="partner_id"/></div>
+                                <div>Scheduled: <field name="scheduled_from"/></div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="sf_courier_order_view_search" model="ir.ui.view">
+        <field name="name">sf.courier.order.search</field>
+        <field name="model">sf.courier.order</field>
+        <field name="arch" type="xml">
+            <search string="Courier Requests">
+                <field name="name"/>
+                <field name="partner_id"/>
+                <filter name="request_confirmed" string="Confirmed" domain="[('state', '=', 'confirmed')]"/>
+                <filter name="request_done" string="Done" domain="[('state', '=', 'done')]"/>
+                <group>
+                    <filter name="group_request_state" string="Status" context="{'group_by': 'state'}"/>
+                    <filter name="group_request_customer" string="Customer" context="{'group_by': 'partner_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_sf_courier_order" model="ir.actions.act_window">
+        <field name="name">Courier Requests</field>
+        <field name="res_model">sf.courier.order</field>
+        <field name="view_mode">kanban,list,form</field>
+        <field name="search_view_id" ref="sf_courier_order_view_search"/>
+    </record>
+</odoo>

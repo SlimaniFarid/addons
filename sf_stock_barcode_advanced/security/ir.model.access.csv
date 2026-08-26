@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_barcode_config_user,barcode.config.user,model_barcode_config,base.group_user,1,0,0,0
+access_barcode_config_mgr,barcode.config.mgr,model_barcode_config,base.group_system,1,1,1,1
+access_barcode_scan_user,barcode.scan.user,model_barcode_scan,base.group_user,1,0,0,0
+access_barcode_scan_mgr,barcode.scan.mgr,model_barcode_scan,base.group_system,1,1,1,1
+access_barcode_log_user,barcode.log.user,model_barcode_log,base.group_user,1,0,0,0
+access_barcode_log_mgr,barcode.log.mgr,model_barcode_log,base.group_system,1,1,1,1

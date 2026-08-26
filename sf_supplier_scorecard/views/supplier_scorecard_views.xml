@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Scorecard form -->
+    <record id="supplier_scorecard_view_form" model="ir.ui.view">
+        <field name="name">sf.supplier.scorecard.form</field>
+        <field name="model">sf.supplier.scorecard</field>
+        <field name="arch" type="xml">
+            <form string="Supplier Scorecard">
+                <header>
+                    <button name="action_publish" type="object"
+                            string="Publish" class="btn-primary"
+                            invisible="[('state', 'not in', ('draft',))]"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="partner_id"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="period"/>
+                            <field name="date_from"/>
+                            <field name="date_to"/>
+                        </group>
+                        <group>
+                            <field name="overall_score"/>
+                            <field name="rating"/>
+                        </group>
+                    </group>
+                    <group string="Performance">
+                        <group>
+                            <field name="on_time_pct"/>
+                            <field name="defect_rate"/>
+                        </group>
+                        <group>
+                            <field name="quality_score"/>
+                            <field name="compliance_score"/>
+                        </group>
+                    </group>
+                    <group string="Weights">
+                        <group>
+                            <field name="on_time_weight"/>
+                            <field name="defect_weight"/>
+                        </group>
+                        <group>
+                            <field name="quality_weight"/>
+                            <field name="compliance_weight"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="notes"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="supplier_scorecard_view_tree" model="ir.ui.view">
+        <field name="name">sf.supplier.scorecard.tree</field>
+        <field name="model">sf.supplier.scorecard</field>
+        <field name="arch" type="xml">
+            <tree string="Supplier Scorecards">
+                <field name="partner_id"/>
+                <field name="period"/>
+                <field name="date_from"/>
+                <field name="on_time_pct"/>
+                <field name="defect_rate"/>
+                <field name="overall_score"/>
+                <field name="rating"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Issue -->
+    <record id="supplier_issue_view_form" model="ir.ui.view">
+        <field name="name">sf.supplier.issue.form</field>
+        <field name="model">sf.supplier.issue</field>
+        <field name="arch" type="xml">
+            <form string="Supplier Issue">
+                <header>
+                    <button name="action_resolve" type="object"
+                            string="Mark Resolved" class="btn-primary"
+                            invisible="[('resolved', '=', True)]"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="partner_id"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="date"/>
+                            <field name="issue_type"/>
+                        </group>
+                        <group>
+                            <field name="severity"/>
+                            <field name="resolved"/>
+                            <field name="scorecard_id"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="description"/>
+                        <field name="resolution"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="supplier_issue_view_tree" model="ir.ui.view">
+        <field name="name">sf.supplier.issue.tree</field>
+        <field name="model">sf.supplier.issue</field>
+        <field name="arch" type="xml">
+            <tree string="Supplier Issues">
+                <field name="date"/>
+                <field name="partner_id"/>
+                <field name="issue_type"/>
+                <field name="severity"/>
+                <field name="resolved"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Inherited partner form -->
+    <record id="supplier_scorecard_partner_form_ext" model="ir.ui.view">
+        <field name="name">res.partner.form.sf</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet/group" position="inside">
+                <group string="Supplier Scorecards" colspan="2">
+                    <field name="sf_scorecard_ids">
+                        <tree string="Scorecards">
+                            <field name="period"/>
+                            <field name="date_from"/>
+                            <field name="overall_score"/>
+                            <field name="rating"/>
+                        </tree>
+                    </field>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Actions -->
+    <record id="action_supplier_scorecard" model="ir.actions.act_window">
+        <field name="name">Supplier Scorecards</field>
+        <field name="res_model">sf.supplier.scorecard</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="action_supplier_issue" model="ir.actions.act_window">
+        <field name="name">Quality Issues</field>
+        <field name="res_model">sf.supplier.issue</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="wave2_score_compute" model="ir.actions.server">
+        <field name="name">Compute scorecard</field>
+        <field name="model_id" ref="model_sf_supplier_scorecard"/>
+        <field name="binding_model_id" ref="model_sf_supplier_scorecard"/>
+        <field name="state">code</field>
+        <field name="code">records.action_compute()</field>
+    </record>
+</odoo>

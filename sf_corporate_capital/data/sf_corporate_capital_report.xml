@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="action_report_cap_table" model="ir.actions.report">
+            <field name="name">Cap Table</field>
+            <field name="model">sf.shareholder</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">sf_corporate_capital.report_cap_table</field>
+            <field name="report_file">sf_corporate_capital.report_cap_table</field>
+            <field name="binding_model_id" ref="model_sf_shareholder"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <record id="action_report_share_certificate" model="ir.actions.report">
+            <field name="name">Share Certificate</field>
+            <field name="model">sf.shareholder</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">sf_corporate_capital.report_share_certificate</field>
+            <field name="report_file">sf_corporate_capital.report_share_certificate</field>
+            <field name="binding_model_id" ref="model_sf_shareholder"/>
+            <field name="binding_type">report</field>
+        </record>
+    </data>
+</odoo>

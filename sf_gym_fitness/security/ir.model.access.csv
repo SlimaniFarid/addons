@@ -1,0 +1,15 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sf_gym_member_user,sf.gym.member.user,model_sf_gym_member,group_sf_gym_user,1,1,1,0
+access_sf_gym_member_manager,sf.gym.member.manager,model_sf_gym_member,group_sf_gym_manager,1,1,1,1
+access_sf_gym_plan_user,sf.gym.plan.user,model_sf_gym_plan,group_sf_gym_user,1,1,1,0
+access_sf_gym_plan_manager,sf.gym.plan.manager,model_sf_gym_plan,group_sf_gym_manager,1,1,1,1
+access_sf_gym_lesson_user,sf.gym.lesson.user,model_sf_gym_lesson,group_sf_gym_user,1,1,1,0
+access_sf_gym_lesson_manager,sf.gym.lesson.manager,model_sf_gym_lesson,group_sf_gym_manager,1,1,1,1
+access_sf_gym_subscription_user,sf.gym.subscription.user,model_sf_gym_subscription,group_sf_gym_user,1,1,1,0
+access_sf_gym_subscription_manager,sf.gym.subscription.manager,model_sf_gym_subscription,group_sf_gym_manager,1,1,1,1
+access_sf_gym_session_user,sf.gym.session.user,model_sf_gym_session,group_sf_gym_user,1,1,1,0
+access_sf_gym_session_manager,sf.gym.session.manager,model_sf_gym_session,group_sf_gym_manager,1,1,1,1
+access_sf_gym_attendance_user,sf.gym.attendance.user,model_sf_gym_attendance,group_sf_gym_user,1,1,1,0
+access_sf_gym_attendance_manager,sf.gym.attendance.manager,model_sf_gym_attendance,group_sf_gym_manager,1,1,1,1
+access_sf_gym_payment_user,sf.gym.payment.user,model_sf_gym_payment,group_sf_gym_user,1,1,1,0
+access_sf_gym_payment_manager,sf.gym.payment.manager,model_sf_gym_payment,group_sf_gym_manager,1,1,1,1

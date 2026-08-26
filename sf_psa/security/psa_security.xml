@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="module_category_psa" model="ir.module.category">
+        <field name="name">Professional Services</field>
+        <field name="sequence">91</field>
+    </record>
+
+    <record id="group_psa_user" model="res.groups">
+        <field name="name">PSA User</field>
+        <field name="category_id" ref="module_category_psa"/>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+
+    <record id="group_psa_manager" model="res.groups">
+        <field name="name">PSA Manager</field>
+        <field name="category_id" ref="module_category_psa"/>
+        <field name="implied_ids" eval="[(4, ref('group_psa_user'))]"/>
+    </record>
+</odoo>

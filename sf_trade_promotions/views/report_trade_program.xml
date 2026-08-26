@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_trade_program">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-set="company" t-value="o.company_id or res_company"/>
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2>Trade Promotion Program</h2>
+                        <table class="table table-sm">
+                            <tr><th>Program</th><td><span t-field="o.name"/></td></tr>
+                            <tr><th>Promotion Type</th><td><span t-field="o.promotion_type"/></td></tr>
+                            <tr><th>Period</th><td>
+                                <span t-field="o.start_date"/> - <span t-field="o.end_date"/>
+                            </td></tr>
+                            <tr><th>Eligible Customers</th>
+                                <td><span t-field="o.partner_ids"/></td></tr>
+                            <tr><th>Budget</th><td><span t-field="o.budget"/></td></tr>
+                            <tr><th>Total Claimed</th><td><span t-field="o.total_claimed"/></td></tr>
+                            <tr><th>Remaining Budget</th><td><span t-field="o.remaining_budget"/></td></tr>
+                            <tr><th>ROI (%)</th><td><span t-field="o.roi"/></td></tr>
+                            <tr><th>Status</th><td><span t-field="o.state"/></td></tr>
+                        </table>
+                        <h3>Claims</h3>
+                        <table class="table table-sm">
+                            <tr><th>Claim</th><th>Customer</th><th>Date</th><th>Amount</th><th>Status</th></tr>
+                            <tr t-foreach="o.claim_ids" t-as="c">
+                                <td><span t-field="c.name"/></td>
+                                <td><span t-field="c.partner_id"/></td>
+                                <td><span t-field="c.claim_date"/></td>
+                                <td><span t-field="c.amount"/></td>
+                                <td><span t-field="c.state"/></td>
+                            </tr>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

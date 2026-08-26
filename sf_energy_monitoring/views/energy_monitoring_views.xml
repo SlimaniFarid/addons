@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Site form -->
+    <record id="energy_site_view_form" model="ir.ui.view">
+        <field name="name">sf.energy.site.form</field>
+        <field name="model">sf.energy.site</field>
+        <field name="arch" type="xml">
+            <form string="Energy Site">
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                        <group>
+                            <field name="address"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Meters">
+                            <field name="meter_ids">
+                                <tree string="Meters">
+                                    <field name="name"/>
+                                    <field name="utility_type"/>
+                                    <field name="last_index"/>
+                                    <field name="last_reading_date"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Notes">
+                            <field name="notes"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="energy_site_view_tree" model="ir.ui.view">
+        <field name="name">sf.energy.site.tree</field>
+        <field name="model">sf.energy.site</field>
+        <field name="arch" type="xml">
+            <tree string="Sites">
+                <field name="name"/>
+                <field name="address"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Meter form -->
+    <record id="energy_meter_view_form" model="ir.ui.view">
+        <field name="name">sf.energy.meter.form</field>
+        <field name="model">sf.energy.meter</field>
+        <field name="arch" type="xml">
+            <form string="Meter">
+                <header>
+                    <button name="action_activate" type="object"
+                            string="Activate" invisible="[('state', 'not in', ('inactive',))]"/>
+                    <button name="action_deactivate" type="object"
+                            string="Deactivate" invisible="[('state', 'not in', ('active',))]"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="site_id"/>
+                            <field name="utility_type"/>
+                            <field name="unit"/>
+                        </group>
+                        <group>
+                            <field name="price_unit"/>
+                            <field name="currency_id" groups="base.group_multi_currency"/>
+                            <field name="last_index"/>
+                            <field name="last_reading_date"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Readings">
+                            <field name="reading_ids">
+                                <tree string="Readings" editable="bottom">
+                                    <field name="date"/>
+                                    <field name="index_value"/>
+                                    <field name="meter_reset"/>
+                                    <field name="consumption"/>
+                                    <field name="cost"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Notes">
+                            <field name="notes"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="energy_meter_view_tree" model="ir.ui.view">
+        <field name="name">sf.energy.meter.tree</field>
+        <field name="model">sf.energy.meter</field>
+        <field name="arch" type="xml">
+            <tree string="Meters">
+                <field name="name"/>
+                <field name="site_id"/>
+                <field name="utility_type"/>
+                <field name="unit"/>
+                <field name="last_index"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="energy_meter_view_search" model="ir.ui.view">
+        <field name="name">sf.energy.meter.search</field>
+        <field name="model">sf.energy.meter</field>
+        <field name="arch" type="xml">
+            <search string="Meters">
+                <field name="name"/>
+                <field name="site_id"/>
+                <field name="utility_type"/>
+                <group>
+                    <filter name="group_site" string="Site"
+                            context="{'group_by': 'site_id'}"/>
+                    <filter name="group_utility" string="Utility"
+                            context="{'group_by': 'utility_type'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Reading global tree -->
+    <record id="energy_reading_view_global_tree" model="ir.ui.view">
+        <field name="name">sf.energy.reading.global.tree</field>
+        <field name="model">sf.energy.reading</field>
+        <field name="arch" type="xml">
+            <tree string="Readings">
+                <field name="date"/>
+                <field name="meter_id"/>
+                <field name="utility_type"/>
+                <field name="index_value"/>
+                <field name="consumption"/>
+                <field name="cost"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="energy_reading_view_search" model="ir.ui.view">
+        <field name="name">sf.energy.reading.search</field>
+        <field name="model">sf.energy.reading</field>
+        <field name="arch" type="xml">
+            <search string="Readings">
+                <field name="meter_id"/>
+                <field name="state"/>
+                <filter name="draft" string="Draft"
+                        domain="[('state', '=', 'draft')]"/>
+                <filter name="confirmed" string="Confirmed"
+                        domain="[('state', '=', 'confirmed')]"/>
+            </search>
+        </field>
+    </record>
+
+    <!-- Objective form -->
+    <record id="energy_objective_view_form" model="ir.ui.view">
+        <field name="name">sf.energy.objective.form</field>
+        <field name="model">sf.energy.objective</field>
+        <field name="arch" type="xml">
+            <form string="Objective">
+                <header>
+                    <button name="action_close" type="object"
+                            string="Mark Expired" invisible="[('state', 'not in', ('active', 'achieved'))]"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="site_id"/>
+                            <field name="utility_type"/>
+                            <field name="year"/>
+                        </group>
+                        <group>
+                            <field name="period"/>
+                            <field name="target_amount"/>
+                            <field name="achieved_date"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="notes"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="energy_objective_view_tree" model="ir.ui.view">
+        <field name="name">sf.energy.objective.tree</field>
+        <field name="model">sf.energy.objective</field>
+        <field name="arch" type="xml">
+            <tree string="Objectives">
+                <field name="site_id"/>
+                <field name="utility_type"/>
+                <field name="year"/>
+                <field name="period"/>
+                <field name="target_amount"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Graph view for dashboard -->
+    <record id="energy_reading_view_graph" model="ir.ui.view">
+        <field name="name">sf.energy.reading.graph</field>
+        <field name="model">sf.energy.reading</field>
+        <field name="arch" type="xml">
+            <graph string="Consumption">
+                <field name="date" interval="month"/>
+                <field name="consumption" type="bar"/>
+            </graph>
+        </field>
+    </record>
+
+    <!-- Pivot view -->
+    <record id="energy_reading_view_pivot" model="ir.ui.view">
+        <field name="name">sf.energy.reading.pivot</field>
+        <field name="model">sf.energy.reading</field>
+        <field name="arch" type="xml">
+            <pivot string="Consumption">
+                <field name="meter_id" type="row"/>
+                <field name="utility_type" type="row"/>
+                <field name="consumption" type="measure"/>
+                <field name="cost" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <!-- Actions -->
+    <record id="action_energy_site" model="ir.actions.act_window">
+        <field name="name">Sites</field>
+        <field name="res_model">sf.energy.site</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="action_energy_meter" model="ir.actions.act_window">
+        <field name="name">Meters</field>
+        <field name="res_model">sf.energy.meter</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="energy_meter_view_search"/>
+    </record>
+
+    <record id="action_energy_reading" model="ir.actions.act_window">
+        <field name="name">Readings</field>
+        <field name="res_model">sf.energy.reading</field>
+        <field name="view_mode">tree,pivot,graph</field>
+        <field name="view_id" ref="energy_reading_view_global_tree"/>
+        <field name="search_view_id" ref="energy_reading_view_search"/>
+    </record>
+
+    <record id="action_energy_objective" model="ir.actions.act_window">
+        <field name="name">Objectives</field>
+        <field name="res_model">sf.energy.objective</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

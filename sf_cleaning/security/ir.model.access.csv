@@ -1,0 +1,13 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sf_cleaning_contract_user,sf.cleaning.contract.user,model_sf_cleaning_contract,group_sf_cleaning_user,1,1,1,0
+access_sf_cleaning_contract_manager,sf.cleaning.contract.manager,model_sf_cleaning_contract,group_sf_cleaning_manager,1,1,1,1
+access_sf_cleaning_contract_line_user,sf.cleaning.contract.line.user,model_sf_cleaning_contract_line,group_sf_cleaning_user,1,1,1,0
+access_sf_cleaning_contract_line_manager,sf.cleaning.contract.line.manager,model_sf_cleaning_contract_line,group_sf_cleaning_manager,1,1,1,1
+access_sf_cleaning_site_user,sf.cleaning.site.user,model_sf_cleaning_site,group_sf_cleaning_user,1,1,1,0
+access_sf_cleaning_site_manager,sf.cleaning.site.manager,model_sf_cleaning_site,group_sf_cleaning_manager,1,1,1,1
+access_sf_cleaning_schedule_user,sf.cleaning.schedule.user,model_sf_cleaning_schedule,group_sf_cleaning_user,1,1,1,0
+access_sf_cleaning_schedule_manager,sf.cleaning.schedule.manager,model_sf_cleaning_schedule,group_sf_cleaning_manager,1,1,1,1
+access_sf_cleaning_schedule_line_user,sf.cleaning.schedule.line.user,model_sf_cleaning_schedule_line,group_sf_cleaning_user,1,1,1,0
+access_sf_cleaning_schedule_line_manager,sf.cleaning.schedule.line.manager,model_sf_cleaning_schedule_line,group_sf_cleaning_manager,1,1,1,1
+access_sf_cleaning_quality_check_user,sf.cleaning.quality.check.user,model_sf_cleaning_quality_check,group_sf_cleaning_user,1,1,1,0
+access_sf_cleaning_quality_check_manager,sf.cleaning.quality.check.manager,model_sf_cleaning_quality_check,group_sf_cleaning_manager,1,1,1,1

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_nps_feedback_root"
+              name="NPS &amp; Customer Feedback"
+              sequence="30"
+              groups="sf_nps_feedback.group_nps_feedback_user"
+              web_icon="sf_nps_feedback,static/description/icon.png"/>
+    <menuitem id="menu_nps_campaign" name="Nps.Campaign"
+              parent="menu_nps_feedback_root"
+              action="action_nps_campaign"
+              sequence="10"
+              groups="sf_nps_feedback.group_nps_feedback_user"/>
+    <menuitem id="menu_nps_response" name="Nps.Response"
+              parent="menu_nps_feedback_root"
+              action="action_nps_response"
+              sequence="20"
+              groups="sf_nps_feedback.group_nps_feedback_user"/>
+</odoo>

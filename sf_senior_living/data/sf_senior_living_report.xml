@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<odoo>
+    <record id="action_report_resident_invoice" model="ir.actions.report">
+        <field name="name">Resident Invoice</field>
+        <field name="model">sf.senior.resident</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">sf_senior_living.report_resident_invoice</field>
+        <field name="report_file">sf_senior_living.report_resident_invoice</field>
+        <field name="binding_model_id" ref="model_sf_senior_living_resident"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

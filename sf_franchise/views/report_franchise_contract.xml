@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_franchise_contract">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-set="company" t-value="o.company_id or res_company"/>
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2>Franchise Contract</h2>
+                        <table class="table table-sm">
+                            <tr><th>Contract</th><td><span t-field="o.name"/></td></tr>
+                            <tr><th>Franchisee</th><td><span t-field="o.partner_id"/></td></tr>
+                            <tr><th>Territory</th><td><span t-field="o.territory"/></td></tr>
+                            <tr><th>Royalty Type</th><td><span t-field="o.royalty_type"/></td></tr>
+                            <tr t-if="o.royalty_type == 'percentage'"><th>Royalty %</th><td><span t-field="o.royalty_percent"/> %</td></tr>
+                            <tr t-if="o.royalty_type == 'fixed'"><th>Fixed Amount</th><td><span t-field="o.fixed_amount"/></td></tr>
+                            <tr><th>Start Date</th><td><span t-field="o.start_date"/></td></tr>
+                            <tr><th>End Date</th><td><span t-field="o.end_date"/></td></tr>
+                            <tr><th>Status</th><td><span t-field="o.state"/></td></tr>
+                        </table>
+                        <h3>Sales Declarations</h3>
+                        <table class="table table-sm">
+                            <tr><th>Declaration</th><th>Period</th><th>Declared Sales</th><th>Royalty</th><th>Status</th></tr>
+                            <tr t-foreach="o.declaration_ids" t-as="d">
+                                <td><span t-field="d.name"/></td>
+                                <td><span t-field="d.period_start"/> to <span t-field="d.period_end"/></td>
+                                <td><span t-field="d.declared_sales"/></td>
+                                <td><span t-field="d.royalty_amount"/></td>
+                                <td><span t-field="d.state"/></td>
+                            </tr>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

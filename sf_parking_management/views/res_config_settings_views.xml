@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form_parking" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.parking</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="inside">
+                <app data-string="Parking" string="Parking" name="sf_parking_management">
+                    <block title="Parking Settings">
+                        <setting string="Default Hourly Rate">
+                            <field name="sf_parking_default_hourly_rate"/>
+                        </setting>
+                        <setting string="Default Daily Rate">
+                            <field name="sf_parking_default_daily_rate"/>
+                        </setting>
+                        <setting string="Revenue Account">
+                            <field name="sf_parking_revenue_account_id"/>
+                        </setting>
+                    </block>
+                </app>
+            </xpath>
+        </field>
+    </record>
+</odoo>

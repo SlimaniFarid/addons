@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem id="menu_traceability_root"
+              name="Traceability"
+              parent="stock.menu_stock_root"
+              sequence="95"/>
+
+    <menuitem id="menu_traceability_recalls"
+              name="Recalls"
+              parent="menu_traceability_root"
+              action="action_traceability_recall"
+              sequence="10"/>
+
+    <menuitem id="menu_traceability_lots"
+              name="Batches &amp; Serial Numbers"
+              parent="menu_traceability_root"
+              action="action_traceability_lot"
+              sequence="20"/>
+
+</odoo>

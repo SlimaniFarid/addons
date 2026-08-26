@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="seq_sf_parking_site" model="ir.sequence">
+            <field name="name">Parking Site</field>
+            <field name="code">sf.parking.site</field>
+            <field name="prefix">SIT-</field>
+            <field name="padding">4</field>
+        </record>
+        <record id="seq_sf_parking_zone" model="ir.sequence">
+            <field name="name">Parking Zone</field>
+            <field name="code">sf.parking.zone</field>
+            <field name="prefix">ZON-</field>
+            <field name="padding">4</field>
+        </record>
+        <record id="seq_sf_parking_place" model="ir.sequence">
+            <field name="name">Parking Place</field>
+            <field name="code">sf.parking.place</field>
+            <field name="prefix">PLC-</field>
+            <field name="padding">5</field>
+        </record>
+        <record id="seq_sf_parking_ticket" model="ir.sequence">
+            <field name="name">Parking Ticket</field>
+            <field name="code">sf.parking.ticket</field>
+            <field name="prefix">TKT-</field>
+            <field name="padding">6</field>
+        </record>
+        <record id="seq_sf_parking_subscription" model="ir.sequence">
+            <field name="name">Parking Subscription</field>
+            <field name="code">sf.parking.subscription</field>
+            <field name="prefix">SUB-</field>
+            <field name="padding">5</field>
+        </record>
+    </data>
+</odoo>

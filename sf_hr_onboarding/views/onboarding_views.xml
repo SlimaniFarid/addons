@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Program form -->
+    <record id="onboarding_program_view_form" model="ir.ui.view">
+        <field name="name">sf.onboarding.program.form</field>
+        <field name="model">sf.onboarding.program</field>
+        <field name="arch" type="xml">
+            <form string="Onboarding Program">
+                <header>
+                    <button name="action_start" type="object"
+                            string="Start" class="btn-primary"
+                            invisible="[('state', 'not in', ('draft',))]"/>
+                    <button name="action_complete" type="object"
+                            string="Complete" class="btn-primary"
+                            invisible="[('state', 'not in', ('in_progress',))]"/>
+                    <button name="action_close" type="object"
+                            string="Close" invisible="[('state', 'not in', ('completed',))]"/>
+                    <button name="action_cancel" type="object"
+                            string="Cancel" invisible="[('state', 'not in', ('draft', 'in_progress'))]"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="employee_id"/>
+                            <field name="program_type"/>
+                            <field name="template_id"/>
+                        </group>
+                        <group>
+                            <field name="key_date"/>
+                            <field name="progress" widget="progressbar"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Tasks">
+                            <field name="task_ids" context="{'tree_view_ref': 'onboarding_task_view_tree'}">
+                                <tree string="Tasks" editable="bottom">
+                                    <field name="sequence"/>
+                                    <field name="name"/>
+                                    <field name="category"/>
+                                    <field name="responsible_id"/>
+                                    <field name="due_date"/>
+                                    <field name="state"/>
+                                    <field name="required"/>
+                                    <field name="material_prepared"/>
+                                    <field name="material_returned"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Messages">
+                            <field name="message_ids"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Program kanban -->
+    <record id="onboarding_program_view_kanban" model="ir.ui.view">
+        <field name="name">sf.onboarding.program.kanban</field>
+        <field name="model">sf.onboarding.program</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state" class="o_kanban_mobile">
+                <field name="name"/>
+                <field name="employee_id"/>
+                <field name="program_type"/>
+                <field name="key_date"/>
+                <field name="progress"/>
+                <templates>
+                    <t t-name="card">
+                        <div class="oe_kanban_global_click">
+                            <div class="o_kanban_record_title">
+                                <field name="employee_id"/>
+                            </div>
+                            <div class="oe_kanban_details">
+                                <div><field name="program_type"/></div>
+                                <div>Key date: <field name="key_date"/></div>
+                                <div>
+                                    <span>Progress: </span>
+                                    <field name="progress" widget="progressbar"/>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- Program tree -->
+    <record id="onboarding_program_view_tree" model="ir.ui.view">
+        <field name="name">sf.onboarding.program.tree</field>
+        <field name="model">sf.onboarding.program</field>
+        <field name="arch" type="xml">
+            <tree string="Programs">
+                <field name="name"/>
+                <field name="employee_id"/>
+                <field name="program_type"/>
+                <field name="key_date"/>
+                <field name="progress"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Program search -->
+    <record id="onboarding_program_view_search" model="ir.ui.view">
+        <field name="name">sf.onboarding.program.search</field>
+        <field name="model">sf.onboarding.program</field>
+        <field name="arch" type="xml">
+            <search string="Programs">
+                <field name="employee_id"/>
+                <field name="state"/>
+                <field name="program_type"/>
+                <filter name="in_progress" string="In Progress"
+                        domain="[('state', '=', 'in_progress')]"/>
+                <filter name="onboarding" string="Onboarding"
+                        domain="[('program_type', '=', 'onboarding')]"/>
+                <filter name="offboarding" string="Offboarding"
+                        domain="[('program_type', '=', 'offboarding')]"/>
+                <group>
+                    <filter name="group_state" string="Status"
+                            context="{'group_by': 'state'}"/>
+                    <filter name="group_type" string="Type"
+                            context="{'group_by': 'program_type'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Task tree -->
+    <record id="onboarding_task_view_tree" model="ir.ui.view">
+        <field name="name">sf.onboarding.task.tree</field>
+        <field name="model">sf.onboarding.task</field>
+        <field name="arch" type="xml">
+            <tree string="Onboarding Tasks">
+                <field name="name"/>
+                <field name="program_id"/>
+                <field name="category"/>
+                <field name="responsible_id"/>
+                <field name="due_date"/>
+                <field name="state"/>
+                <field name="required"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Task form -->
+    <record id="onboarding_task_view_form" model="ir.ui.view">
+        <field name="name">sf.onboarding.task.form</field>
+        <field name="model">sf.onboarding.task</field>
+        <field name="arch" type="xml">
+            <form string="Onboarding Task">
+                <header>
+                    <button name="action_start_task" type="object"
+                            string="Start" class="btn-primary"
+                            invisible="[('state', 'not in', ('open',))]"/>
+                    <button name="action_mark_done" type="object"
+                            string="Done" class="btn-primary"
+                            invisible="[('state', 'not in', ('open', 'in_progress'))]"/>
+                    <button name="action_skip" type="object"
+                            string="Skip" invisible="[('state', 'not in', ('open',))]"/>
+                    <button name="action_mark_prepared" type="object"
+                            string="Mark Prepared" invisible="[('state', 'not in', ('open', 'in_progress'))]"/>
+                    <button name="action_mark_returned" type="object"
+                            string="Mark Returned" invisible="[('state', 'not in', ('open', 'in_progress'))]"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="program_id"/>
+                            <field name="category"/>
+                        </group>
+                        <group>
+                            <field name="responsible_id"/>
+                            <field name="due_date"/>
+                            <field name="state"/>
+                            <field name="required"/>
+                        </group>
+                    </group>
+                    <group string="Material">
+                        <group>
+                            <field name="material_prepared"/>
+                            <field name="material_returned"/>
+                        </group>
+                        <group>
+                            <field name="completed_date"/>
+                        </group>
+                    </group>
+                    <group string="Comments">
+                        <field name="comments" colspan="2"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Task search -->
+    <record id="onboarding_task_view_search" model="ir.ui.view">
+        <field name="name">sf.onboarding.task.search</field>
+        <field name="model">sf.onboarding.task</field>
+        <field name="arch" type="xml">
+            <search string="Onboarding Tasks">
+                <field name="name"/>
+                <field name="responsible_id"/>
+                <field name="state"/>
+                <filter name="open" string="Open"
+                        domain="[('state', '=', 'open')]"/>
+                <filter name="late" string="Late"
+                        domain="[('due_date', '&lt;', context_today().strftime('%Y-%m-%d')), ('state', 'in', ('open', 'in_progress'))]"/>
+                <group>
+                    <filter name="group_state" string="Status"
+                            context="{'group_by': 'state'}"/>
+                    <filter name="group_responsible" string="Responsible"
+                            context="{'group_by': 'responsible_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Template form -->
+    <record id="onboarding_template_view_form" model="ir.ui.view">
+        <field name="name">sf.onboarding.template.form</field>
+        <field name="model">sf.onboarding.template</field>
+        <field name="arch" type="xml">
+            <form string="Onboarding Template">
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="program_type"/>
+                            <field name="active"/>
+                        </group>
+                        <group>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <group string="Description">
+                        <field name="description" colspan="2"/>
+                    </group>
+                    <field name="task_ids" context="{'tree_view_ref': 'onboarding_template_task_view_tree'}">
+                        <tree string="Template Tasks" editable="bottom">
+                            <field name="sequence"/>
+                            <field name="name"/>
+                            <field name="responsible_type"/>
+                            <field name="offset_days"/>
+                            <field name="required"/>
+                            <field name="category"/>
+                        </tree>
+                    </field>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Template task tree -->
+    <record id="onboarding_template_task_view_tree" model="ir.ui.view">
+        <field name="name">sf.onboarding.template.task.tree</field>
+        <field name="model">sf.onboarding.template.task</field>
+        <field name="arch" type="xml">
+            <tree string="Template Tasks">
+                <field name="sequence"/>
+                <field name="name"/>
+                <field name="responsible_type"/>
+                <field name="offset_days"/>
+                <field name="required"/>
+                <field name="category"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Template tree -->
+    <record id="onboarding_template_view_tree" model="ir.ui.view">
+        <field name="name">sf.onboarding.template.tree</field>
+        <field name="model">sf.onboarding.template</field>
+        <field name="arch" type="xml">
+            <tree string="Onboarding Templates">
+                <field name="name"/>
+                <field name="program_type"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Generate wizard form -->
+    <record id="onboarding_generate_view_form" model="ir.ui.view">
+        <field name="name">sf.onboarding.generate.wizard.form</field>
+        <field name="model">sf.onboarding.generate.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Generate Program">
+                <group>
+                    <group>
+                        <field name="employee_id"/>
+                        <field name="program_type"/>
+                    </group>
+                    <group>
+                        <field name="template_id"/>
+                        <field name="key_date"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="action_generate" type="object"
+                            string="Generate" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary"
+                            special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!-- Inherited hr.employee form -->
+    <record id="onboarding_hr_employee_form" model="ir.ui.view">
+        <field name="name">hr.employee.form.onboarding</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="inside">
+                <notebook position="inside">
+                    <page string="Onboarding" name="onboarding">
+                        <field name="sf_onboarding_program_ids" context="{'tree_view_ref': 'onboarding_program_view_tree'}">
+                            <tree string="Programs">
+                                <field name="name"/>
+                                <field name="program_type"/>
+                                <field name="key_date"/>
+                                <field name="progress"/>
+                                <field name="state"/>
+                            </tree>
+                        </field>
+                    </page>
+                </notebook>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Actions -->
+    <record id="action_onboarding_program" model="ir.actions.act_window">
+        <field name="name">Onboarding Programs</field>
+        <field name="res_model">sf.onboarding.program</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="search_view_id" ref="onboarding_program_view_search"/>
+    </record>
+
+    <record id="action_onboarding_task" model="ir.actions.act_window">
+        <field name="name">Onboarding Tasks</field>
+        <field name="res_model">sf.onboarding.task</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="onboarding_task_view_search"/>
+    </record>
+
+    <record id="action_onboarding_template" model="ir.actions.act_window">
+        <field name="name">Onboarding Templates</field>
+        <field name="res_model">sf.onboarding.template</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="action_onboarding_generate" model="ir.actions.act_window">
+        <field name="name">Generate Program</field>
+        <field name="res_model">sf.onboarding.generate.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+
+    <record id="wave_final_sf_hr_onboarding" model="ir.actions.server">
+        <field name="name">Refresh Business Data</field>
+        <field name="model_id" ref="model_sf_onboarding_template"/>
+        <field name="binding_model_id" ref="model_sf_onboarding_template"/>
+        <field name="state">code</field>
+        <field name="code">records.action_refresh_business()</field>
+    </record>
+</odoo>

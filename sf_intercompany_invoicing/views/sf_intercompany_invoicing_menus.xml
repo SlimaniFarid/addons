@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_intercompany_invoicing_root"
+              name="Intercompany Invoicing Automation"
+              sequence="30"
+              groups="sf_intercompany_invoicing.group_intercompany_invoicing_user"
+              web_icon="sf_intercompany_invoicing,static/description/icon.png"/>
+    <menuitem id="menu_ic_sale" name="Ic.Sale"
+              parent="menu_intercompany_invoicing_root"
+              action="action_ic_sale"
+              sequence="10"
+              groups="sf_intercompany_invoicing.group_intercompany_invoicing_user"/>
+</odoo>

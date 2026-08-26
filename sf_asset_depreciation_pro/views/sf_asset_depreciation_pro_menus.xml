@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_asset_depreciation_pro_root"
+              name="Advanced Asset Depreciation"
+              sequence="30"
+              groups="sf_asset_depreciation_pro.group_asset_depreciation_pro_user"
+              web_icon="sf_asset_depreciation_pro,static/description/icon.png"/>
+    <menuitem id="menu_asset_schedule_line" name="Asset.Schedule.Line"
+              parent="menu_asset_depreciation_pro_root"
+              action="action_asset_schedule_line"
+              sequence="10"
+              groups="sf_asset_depreciation_pro.group_asset_depreciation_pro_user"/>
+    <menuitem id="menu_asset_revaluation" name="Asset.Revaluation"
+              parent="menu_asset_depreciation_pro_root"
+              action="action_asset_revaluation"
+              sequence="20"
+              groups="sf_asset_depreciation_pro.group_asset_depreciation_pro_user"/>
+</odoo>

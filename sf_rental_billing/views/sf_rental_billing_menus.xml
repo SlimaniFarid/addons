@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_rental_billing_root"
+              name="Rental Billing &amp; Contracts"
+              sequence="30"
+              groups="sf_rental_billing.group_rental_billing_user"
+              web_icon="sf_rental_billing,static/description/icon.png"/>
+    <menuitem id="menu_rental_contract" name="Rental.Contract"
+              parent="menu_rental_billing_root"
+              action="action_rental_contract"
+              sequence="10"
+              groups="sf_rental_billing.group_rental_billing_user"/>
+    <menuitem id="menu_rental_invoice_line" name="Rental.Invoice.Line"
+              parent="menu_rental_billing_root"
+              action="action_rental_invoice_line"
+              sequence="20"
+              groups="sf_rental_billing.group_rental_billing_user"/>
+</odoo>

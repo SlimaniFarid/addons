@@ -1,0 +1,11 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sf_library_item_user,sf.library.item.user,model_sf_library_item,group_sf_library_user,1,1,1,0
+access_sf_library_item_manager,sf.library.item.manager,model_sf_library_item,group_sf_library_manager,1,1,1,1
+access_sf_library_category_user,sf.library.category.user,model_sf_library_category,group_sf_library_user,1,1,1,0
+access_sf_library_category_manager,sf.library.category.manager,model_sf_library_category,group_sf_library_manager,1,1,1,1
+access_sf_library_member_user,sf.library.member.user,model_sf_library_member,group_sf_library_user,1,1,1,0
+access_sf_library_member_manager,sf.library.member.manager,model_sf_library_member,group_sf_library_manager,1,1,1,1
+access_sf_library_loan_user,sf.library.loan.user,model_sf_library_loan,group_sf_library_user,1,1,1,0
+access_sf_library_loan_manager,sf.library.loan.manager,model_sf_library_loan,group_sf_library_manager,1,1,1,1
+access_sf_library_reservation_user,sf.library.reservation.user,model_sf_library_reservation,group_sf_library_user,1,1,1,0
+access_sf_library_reservation_manager,sf.library.reservation.manager,model_sf_library_reservation,group_sf_library_manager,1,1,1,1

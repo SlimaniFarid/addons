@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="sf_staffing_mission_view_tree" model="ir.ui.view">
+        <field name="name">sf.staffing.mission.list</field>
+        <field name="model">sf.staffing.mission</field>
+        <field name="arch" type="xml">
+            <list string="Missions">
+                <field name="name"/>
+                <field name="client_id"/>
+                <field name="candidate_id"/>
+                <field name="start_date"/>
+                <field name="end_date"/>
+                <field name="hourly_rate" currency_field="currency_id"/>
+                <field name="total_billable" currency_field="currency_id" sum="Total"/>
+                <field name="state" widget="badge"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="sf_staffing_mission_view_form" model="ir.ui.view">
+        <field name="name">sf.staffing.mission.form</field>
+        <field name="model">sf.staffing.mission</field>
+        <field name="arch" type="xml">
+            <form string="Mission">
+                <header>
+                    <button name="action_confirm" type="object" string="Confirm" invisible="[('state', 'not in', ('draft',))]" class="btn-primary"/>
+                    <button name="action_start" type="object" string="Start Mission" invisible="[('state', 'not in', ('confirmed',))]"/>
+                    <button name="action_done" type="object" string="Mark As Done" invisible="[('state', 'not in', ('confirmed', 'in_progress'))]"/>
+                    <button name="action_cancel" type="object" string="Cancel Mission" invisible="[('state', 'not in', ('draft', 'confirmed', 'in_progress'))]"/>
+                    <button name="action_create_invoice" type="object" string="Create Invoice" invisible="[('state', 'not in', ('confirmed', 'in_progress', 'done'))]"/>
+                    <button name="action_validate_invoices" type="object" string="Validate Invoices" invisible="[('state', 'not in', ('confirmed', 'in_progress', 'done'))]"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,in_progress,done,cancelled"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="client_id"/>
+                            <field name="candidate_id"/>
+                            <field name="need_id"/>
+                            <field name="contract_id"/>
+                        </group>
+                        <group>
+                            <field name="start_date"/>
+                            <field name="end_date"/>
+                            <field name="hourly_rate" currency_field="currency_id"/>
+                            <field name="currency_id" invisible="1"/>
+                            <field name="total_billable" readonly="1" currency_field="currency_id"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Timesheets">
+                            <field name="timesheet_ids">
+                                <list string="Timesheets">
+                                    <field name="name"/>
+                                    <field name="date"/>
+                                    <field name="hours"/>
+                                    <field name="hourly_rate" currency_field="currency_id"/>
+                                    <field name="amount" currency_field="currency_id" sum="Total"/>
+                                    <field name="state" widget="badge"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Invoices">
+                            <field name="invoice_ids">
+                                <list string="Invoices">
+                                    <field name="name"/>
+                                    <field name="partner_id"/>
+                                    <field name="invoice_date"/>
+                                    <field name="amount_total" currency_field="currency_id"/>
+                                    <field name="state" widget="badge"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="sf_staffing_mission_view_kanban" model="ir.ui.view">
+        <field name="name">sf.staffing.mission.kanban</field>
+        <field name="model">sf.staffing.mission</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="client_id">
+                <field name="name"/>
+                <field name="client_id"/>
+                <field name="candidate_id"/>
+                <field name="state"/>
+                <field name="total_billable"/>
+                <templates>
+                    <t t-name="card">
+                        <div class="oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <strong><field name="name"/></strong>
+                                <div>Candidate: <field name="candidate_id"/></div>
+                                <div>Billable: <field name="total_billable"/></div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="sf_staffing_mission_view_pivot" model="ir.ui.view">
+        <field name="name">sf.staffing.mission.pivot</field>
+        <field name="model">sf.staffing.mission</field>
+        <field name="arch" type="xml">
+            <pivot string="Revenue by Client and Period">
+                <field name="client_id" type="row"/>
+                <field name="start_date" type="col" interval="month"/>
+                <field name="total_billable" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="sf_staffing_mission_view_search" model="ir.ui.view">
+        <field name="name">sf.staffing.mission.search</field>
+        <field name="model">sf.staffing.mission</field>
+        <field name="arch" type="xml">
+            <search string="Missions">
+                <field name="name"/>
+                <field name="client_id"/>
+                <field name="candidate_id"/>
+                <field name="need_id"/>
+                <filter name="mission_draft" string="Draft" domain="[('state', '=', 'draft')]"/>
+                <filter name="mission_confirmed" string="Confirmed" domain="[('state', '=', 'confirmed')]"/>
+                <filter name="mission_in_progress" string="In Progress" domain="[('state', '=', 'in_progress')]"/>
+                <filter name="mission_done" string="Done" domain="[('state', '=', 'done')]"/>
+                <group>
+                    <filter name="group_mission_state" string="Status" context="{'group_by': 'state'}"/>
+                    <filter name="group_mission_client" string="Client" context="{'group_by': 'client_id'}"/>
+                    <filter name="group_mission_company" string="Company" context="{'group_by': 'company_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_sf_staffing_mission" model="ir.actions.act_window">
+        <field name="name">Missions</field>
+        <field name="res_model">sf.staffing.mission</field>
+        <field name="view_mode">list,kanban,form,pivot</field>
+        <field name="search_view_id" ref="sf_staffing_mission_view_search"/>
+    </record>
+</odoo>

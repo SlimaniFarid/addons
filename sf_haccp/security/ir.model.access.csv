@@ -1,0 +1,13 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_haccp_site_user,sf.haccp.site.user,model_sf_haccp_site,group_haccp_user,1,1,1,0
+access_haccp_site_manager,sf.haccp.site.manager,model_sf_haccp_site,group_haccp_manager,1,1,1,1
+access_haccp_plan_user,sf.haccp.plan.user,model_sf_haccp_plan,group_haccp_user,1,1,1,0
+access_haccp_plan_manager,sf.haccp.plan.manager,model_sf_haccp_plan,group_haccp_manager,1,1,1,1
+access_haccp_step_user,sf.haccp.step.user,model_sf_haccp_step,group_haccp_user,1,1,1,0
+access_haccp_step_manager,sf.haccp.step.manager,model_sf_haccp_step,group_haccp_manager,1,1,1,1
+access_haccp_prerequisite_user,sf.haccp.prerequisite.user,model_sf_haccp_prerequisite,group_haccp_user,1,1,1,0
+access_haccp_prerequisite_manager,sf.haccp.prerequisite.manager,model_sf_haccp_prerequisite,group_haccp_manager,1,1,1,1
+access_haccp_check_user,sf.haccp.check.user,model_sf_haccp_check,group_haccp_user,1,1,1,0
+access_haccp_check_manager,sf.haccp.check.manager,model_sf_haccp_check,group_haccp_manager,1,1,1,1
+access_haccp_nonconformity_user,sf.haccp.nonconformity.user,model_sf_haccp_nonconformity,group_haccp_user,1,1,1,0
+access_haccp_nonconformity_manager,sf.haccp.nonconformity.manager,model_sf_haccp_nonconformity,group_haccp_manager,1,1,1,1

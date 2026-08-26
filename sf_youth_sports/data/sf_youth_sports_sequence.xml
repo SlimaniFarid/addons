@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<odoo>
+    <record id="seq_sf_youth_sports_club" model="ir.sequence">
+        <field name="name">Club</field>
+        <field name="code">sf.ys.club</field>
+        <field name="prefix">CLB-</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+    <record id="seq_sf_youth_sports_team" model="ir.sequence">
+        <field name="name">Team</field>
+        <field name="code">sf.ys.team</field>
+        <field name="prefix">TEM-</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+    <record id="seq_sf_youth_sports_player" model="ir.sequence">
+        <field name="name">Player</field>
+        <field name="code">sf.ys.player</field>
+        <field name="prefix">PLR-</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+    <record id="seq_sf_youth_sports_match" model="ir.sequence">
+        <field name="name">Match</field>
+        <field name="code">sf.ys.match</field>
+        <field name="prefix">MCH-</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+</odoo>

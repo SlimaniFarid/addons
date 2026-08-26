@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_waste_bsd_user,sf.waste.bsd.user,model_sf_waste_bsd,group_waste_user,1,1,1,0
+access_waste_bsd_manager,sf.waste.bsd.manager,model_sf_waste_bsd,group_waste_manager,1,1,1,1
+access_waste_site_user,sf.waste.site.user,model_sf_waste_site,group_waste_user,1,1,1,0
+access_waste_site_manager,sf.waste.site.manager,model_sf_waste_site,group_waste_manager,1,1,1,1
+access_waste_code_user,sf.waste.code.user,model_sf_waste_code,group_waste_user,1,0,0,0
+access_waste_code_manager,sf.waste.code.manager,model_sf_waste_code,group_waste_manager,1,1,1,1

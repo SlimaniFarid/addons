@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id=""""""report_weekly_menu_template"">
+            <div class=""""""page"">
+                <div class=""""""page-header"">
+                    <div class=""""""row"">
+                        <div class=""""""col-6"">
+                            <h2><t t-esc=""""""doc.residence_id.name""/></h2>
+                        </div>
+                        <div class=""""""col-6 text-end"">
+                            <h3>MENU HEBDOMADAIRE</h3>
+                            <p><strong>Semaine du:</strong> <t t-esc=""""""doc.date""/></p>
+                        </div>
+                    </div>
+                    <hr/>
+                </div>
+
+                <div class=""""""page-content"">
+                    <t t-set=""""""week_start"" t-value=""""""doc.date""/>
+                    <t t-set=""""""week_end"" t-value=""""""doc.date + timedelta(days=6)""/>
+                    
+                    <t t-set=""""""menus"" t-value=""""""doc.env[&apos;sf.senior.menu&apos;].search([(&apos;residence_id&apos;, &apos;=&apos;, doc.residence_id.id), (&apos;date&apos;, &apos;>=&apos;, week_start), (&apos;date&apos;, &apos;<=&apos;, week_end)], order=&apos;date, meal_type&apos;)""/>
+                    
+                    <t t-foreach=""""""[&apos;Monday&apos;, &apos;Tuesday&apos;, &apos;Wednesday&apos;, &apos;Thursday&apos;, &apos;Friday&apos;, &apos;Saturday&apos;, &apos;Sunday&apos;]"" t-as=""""""day_name"">
+                        <t t-set=""""""day_date"" t-value=""""""week_start + timedelta(days=loop.index0)""/>
+                        <h4><t t-esc=""""""day_name""/> <t t-esc=""""""day_date.strftime(&apos;%d/%m&apos;)""/></h4>
+                        <t t-set=""""""day_menus"" t-value=""""""menus.filtered(lambda m: m.date == day_date)""/>
+                        <table class=""""""table table-bordered table-sm"" t-if=""""""day_menus"">
+                            <thead>
+                                <tr><th>Repas</th><th>Plats</th><th>Variantes Régimes</th></tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach=""""""day_menus"" t-as=""""""menu"">
+                                    <tr>
+                                        <td><strong><t t-esc=""""""dict(menu._fields[&apos;meal_type&apos;].selection).get(menu.meal_type)""/></strong></td>
+                                        <td><t t-out=""""""menu.dishes or &apos;&apos;""/></td>
+                                        <td>
+                                            <t t-if=""""""menu.regime_variants"">
+                                                <ul class=""""""mb-0 small"">
+                                                    <t t-foreach=""""""menu.regime_variants.items()"" t-as=""""""variant"">
+                                                        <li><strong><t t-esc=""""""variant[0]""/>:</strong> <t t-esc=""""""variant[1]""/></li>
+                                                    </t>
+                                                </ul>
+                                            </t>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                        <p t-if=""""""not day_menus"" class=""""""text-muted"">Aucun menu programmé</p>
+                    </t>
+                </div>
+
+                <div class=""""""page-footer"">
+                    <hr/>
+                    <p class=""""""text-center text-muted small"">
+                        <t t-esc=""""""doc.residence_id.name""/> - Généré le <t t-esc=""""""fields.Date.today()""/>
+                    </p>
+                </div>
+            </div>
+        </template>
+    </data>
+</odoo>

@@ -1,0 +1,224 @@
+<odoo>
+    <record id="action_report_template" model="ir.actions.act_window">
+        <field name="name">Report Templates</field>
+        <field name="res_model">report.template</field>
+        <field name="view_mode">kanban,list,form</field>
+    </record>
+    <record id="action_report_block" model="ir.actions.act_window">
+        <field name="name">Blocks</field>
+        <field name="res_model">report.block</field>
+        <field name="view_mode">list,form</field>
+    </record>
+    <record id="action_report_assignment" model="ir.actions.act_window">
+        <field name="name">Assignments</field>
+        <field name="res_model">report.assignment</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem id="menu_report_root" name="PDF Report Builder" web_icon="sf_custom_report_builder,static/description/icon.png"/>
+    <menuitem id="menu_report_templates" name="Templates" parent="menu_report_root" action="action_report_template" sequence="10"/>
+    <menuitem id="menu_report_blocks" name="Blocks" parent="menu_report_root" action="action_report_block" sequence="20"/>
+    <menuitem id="menu_report_assignments" name="Assignments" parent="menu_report_root" action="action_report_assignment" sequence="30"/>
+
+    <record id="view_report_template_form" model="ir.ui.view">
+        <field name="name">report.template.form</field>
+        <field name="model">report.template</field>
+        <field name="arch" type="xml">
+            <form string="Report Template">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="model_id" options="{'no_create': True}"/>
+                        <field name="report_name"/>
+                        <field name="sequence"/>
+                        <field name="active"/>
+                    </group>
+                    <group string="Page Setup">
+                        <field name="paper_format_id" options="{'no_create': True}"/>
+                        <field name="orientation"/>
+                        <field name="margin_top"/>
+                        <field name="margin_bottom"/>
+                        <field name="margin_left"/>
+                        <field name="margin_right"/>
+                    </group>
+                    <group string="Header / Footer">
+                        <field name="header_html"/>
+                        <field name="footer_html"/>
+                        <field name="show_page_numbers"/>
+                    </group>
+                    <notebook>
+                        <page string="Blocks">
+                            <field name="block_ids">
+                                <list editable="bottom">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="block_type"/>
+                                    <field name="name"/>
+                                    <field name="active" widget="boolean"/>
+                                    <field name="condition"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Assignments">
+                            <field name="assignment_ids">
+                                <list editable="bottom">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="company_id"/>
+                                    <field name="report_action_id"/>
+                                    <field name="condition"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <footer>
+                    <button name="action_preview" string="Preview PDF" type="object" class="btn-primary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_report_template_list" model="ir.ui.view">
+        <field name="name">report.template.list</field>
+        <field name="model">report.template</field>
+        <field name="arch" type="xml">
+            <list string="Report Templates">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="model_id"/>
+                <field name="report_name"/>
+                <field name="active" widget="boolean"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_report_block_form" model="ir.ui.view">
+        <field name="name">report.block.form</field>
+        <field name="model">report.block</field>
+        <field name="arch" type="xml">
+            <form string="Report Block">
+                <sheet>
+                    <group>
+                        <field name="template_id" options="{'no_create': True}"/>
+                        <field name="sequence"/>
+                        <field name="block_type"/>
+                        <field name="name"/>
+                        <field name="active"/>
+                        <field name="css_class"/>
+                        <field name="style"/>
+                        <field name="condition"/>
+                    </group>
+                    <group string="Text / Field" invisible="block_type not in ('text','field')">
+                        <field name="text_content" invisible="block_type != 'text'"/>
+                        <field name="field_name" invisible="block_type != 'field'"/>
+                        <field name="field_label" invisible="block_type != 'field'"/>
+                        <field name="field_format" invisible="block_type != 'field'"/>
+                    </group>
+                    <group string="Table" invisible="block_type != 'table'">
+                        <field name="table_model"/>
+                        <field name="table_fields" widget="text"/>
+                        <field name="table_header_color"/>
+                    </group>
+                    <group string="Signature" invisible="block_type != 'signature'">
+                        <field name="signature_field"/>
+                        <field name="signature_label"/>
+                    </group>
+                    <group string="Image" invisible="block_type != 'image'">
+                        <field name="image_field"/>
+                        <field name="image_width"/>
+                        <field name="image_height"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_report_block_list" model="ir.ui.view">
+        <field name="name">report.block.list</field>
+        <field name="model">report.block</field>
+        <field name="arch" type="xml">
+            <list string="Report Blocks">
+                <field name="sequence" widget="handle"/>
+                <field name="template_id"/>
+                <field name="block_type"/>
+                <field name="name"/>
+                <field name="active" widget="boolean"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_report_assignment_form" model="ir.ui.view">
+        <field name="name">report.assignment.form</field>
+        <field name="model">report.assignment</field>
+        <field name="arch" type="xml">
+            <form string="Report Assignment">
+                <sheet>
+                    <group>
+                        <field name="template_id" options="{'no_create': True}"/>
+                        <field name="sequence"/>
+                        <field name="active"/>
+                        <field name="company_id" options="{'no_create': True}"/>
+                        <field name="report_action_id" options="{'no_create': True}"/>
+                        <field name="condition"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_report_assignment_list" model="ir.ui.view">
+        <field name="name">report.assignment.list</field>
+        <field name="model">report.assignment</field>
+        <field name="arch" type="xml">
+            <list string="Report Assignments">
+                <field name="sequence" widget="handle"/>
+                <field name="template_id"/>
+                <field name="company_id"/>
+                <field name="report_action_id"/>
+                <field name="active" widget="boolean"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_sf_custom_report_builder_boost_kanban" model="ir.ui.view">
+        <field name="name">sf_custom_report_builder.boost.kanban</field>
+        <field name="model">report.template</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="">
+                <field name="name"/>
+                <field name="user_id"/>
+
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_card oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <strong><field name="name"/></strong>
+                                <div><field name="user_id"
+                                            widget="many2one_avatar_user"/></div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="view_sf_custom_report_builder_boost_search" model="ir.ui.view">
+        <field name="name">sf_custom_report_builder.boost.search</field>
+        <field name="model">report.template</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+<separator/>
+                <filter string="My records" name="my_records" domain="[('user_id', '=', uid)]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="wave_final_sf_custom_report_builder" model="ir.actions.server">
+        <field name="name">Refresh Business Data</field>
+        <field name="model_id" ref="model_report_template"/>
+        <field name="binding_model_id" ref="model_report_template"/>
+        <field name="state">code</field>
+        <field name="code">records.action_refresh_business()</field>
+    </record>
+</odoo>

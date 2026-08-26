@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="sf_salon_appointment_view_list" model="ir.ui.view">
+        <field name="name">sf.salon.appointment.list</field>
+        <field name="model">sf.salon.appointment</field>
+        <field name="arch" type="xml">
+            <list string="Appointments">
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="staff_id"/>
+                <field name="service_id"/>
+                <field name="start_datetime"/>
+                <field name="state" widget="badge"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="sf_salon_appointment_view_form" model="ir.ui.view">
+        <field name="name">sf.salon.appointment.form</field>
+        <field name="model">sf.salon.appointment</field>
+        <field name="arch" type="xml">
+            <form string="Appointment">
+                <header>
+                    <button name="action_confirm" string="Confirm" type="object" class="btn-primary" invisible="[('state', '!=', 'draft')]"/>
+                    <button name="action_start" string="Start" type="object" class="btn-primary" invisible="[('state', '!=', 'confirmed')]"/>
+                    <button name="action_done" string="Complete" type="object" class="btn-primary" invisible="[('state', '!=', 'in_progress')]"/>
+                    <button name="action_no_show" string="No Show" type="object" invisible="[('state', 'not in', ('confirmed', 'in_progress'))]"/>
+                    <button name="action_cancel" string="Cancel" type="object" invisible="[('state', 'in', ('done', 'cancelled', 'no_show'))]"/>
+                    <field name="state" widget="statusbar" readonly="1"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="partner_id" attrs="{'readonly': [('state', 'in', ('done', 'cancelled', 'no_show'))]}"/>
+                            <field name="staff_id" attrs="{'readonly': [('state', 'in', ('done', 'cancelled', 'no_show'))]}"/>
+                            <field name="service_id" attrs="{'readonly': [('state', 'in', ('done', 'cancelled', 'no_show'))]}"/>
+                        </group>
+                        <group>
+                            <field name="start_datetime" attrs="{'readonly': [('state', 'in', ('done', 'cancelled', 'no_show'))]}"/>
+                            <field name="duration"/>
+                            <field name="end_datetime"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <group string="Package &amp; Invoicing">
+                        <field name="package_id" attrs="{'readonly': [('state', 'in', ('done', 'cancelled', 'no_show'))]}"/>
+                        <field name="invoice_id"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="sf_salon_appointment_view_kanban" model="ir.ui.view">
+        <field name="name">sf.salon.appointment.kanban</field>
+        <field name="model">sf.salon.appointment</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="staff_id">
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="service_id"/>
+                <field name="start_datetime"/>
+                <field name="state"/>
+                <templates>
+                    <t t-name="card">
+                        <div class="oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <strong><field name="partner_id"/></strong>
+                                <div><field name="service_id"/></div>
+                                <div><field name="start_datetime"/></div>
+                                <div><field name="state"/></div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="sf_salon_appointment_view_search" model="ir.ui.view">
+        <field name="name">sf.salon.appointment.search</field>
+        <field name="model">sf.salon.appointment</field>
+        <field name="arch" type="xml">
+            <search string="Appointments">
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="staff_id"/>
+                <filter name="appointment_confirmed" string="Confirmed" domain="[('state', '=', 'confirmed')]"/>
+                <filter name="appointment_done" string="Done" domain="[('state', '=', 'done')]"/>
+                <group>
+                    <filter name="group_appointment_state" string="Status" context="{'group_by': 'state'}"/>
+                    <filter name="group_appointment_staff" string="Staff" context="{'group_by': 'staff_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_sf_salon_appointment" model="ir.actions.act_window">
+        <field name="name">Appointments</field>
+        <field name="res_model">sf.salon.appointment</field>
+        <field name="view_mode">kanban,list,form</field>
+        <field name="search_view_id" ref="sf_salon_appointment_view_search"/>
+    </record>
+
+    <record id="wave_final_sf_salon_beauty" model="ir.actions.server">
+        <field name="name">Refresh Business Data</field>
+        <field name="model_id" ref="model_sf_salon_activity_mixin"/>
+        <field name="binding_model_id" ref="model_sf_salon_activity_mixin"/>
+        <field name="state">code</field>
+        <field name="code">records.action_refresh_business()</field>
+    </record>
+</odoo>

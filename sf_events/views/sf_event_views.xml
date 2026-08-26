@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="sf_event_view_list" model="ir.ui.view">
+        <field name="name">sf.event.list</field>
+        <field name="model">sf.event</field>
+        <field name="arch" type="xml">
+            <list string="Events">
+                <field name="name"/>
+                <field name="event_type"/>
+                <field name="start_date"/>
+                <field name="end_date"/>
+                <field name="location"/>
+                <field name="capacity"/>
+                <field name="balance" string="Balance"/>
+                <field name="state" widget="badge"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="sf_event_view_form" model="ir.ui.view">
+        <field name="name">sf.event.form</field>
+        <field name="model">sf.event</field>
+        <field name="arch" type="xml">
+            <form string="Event">
+                <header>
+                    <button name="action_confirm" string="Confirm" type="object" class="btn-primary" invisible="[('state', '!=', 'draft')]"/>
+                    <button name="action_start" string="Start Event" type="object" class="btn-primary" invisible="[('state', '!=', 'confirmed')]"/>
+                    <button name="action_done" string="Mark Done" type="object" class="btn-primary" invisible="[('state', 'not in', ('confirmed', 'in_progress'))]"/>
+                    <button name="action_cancel" string="Cancel Event" type="object" invisible="[('state', 'not in', ('draft', 'confirmed', 'in_progress'))]"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="event_type"/>
+                            <field name="location"/>
+                            <field name="capacity"/>
+                            <field name="budget"/>
+                        </group>
+                        <group>
+                            <field name="start_date"/>
+                            <field name="end_date"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <group string="Financials">
+                        <field name="revenue"/>
+                        <field name="expenses_total"/>
+                        <field name="balance"/>
+                    </group>
+                    <notebook>
+                        <page string="Sessions">
+                            <field name="session_ids">
+                                <list>
+                                    <field name="name"/>
+                                    <field name="start_datetime"/>
+                                    <field name="end_datetime"/>
+                                    <field name="room"/>
+                                    <field name="state" widget="badge"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Registrations">
+                            <field name="registration_ids">
+                                <list>
+                                    <field name="name"/>
+                                    <field name="attendee_name"/>
+                                    <field name="ticket_type"/>
+                                    <field name="price_unit"/>
+                                    <field name="state" widget="badge"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Expenses">
+                            <field name="expense_ids">
+                                <list>
+                                    <field name="name"/>
+                                    <field name="category"/>
+                                    <field name="amount"/>
+                                    <field name="expense_date"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="sf_event_view_kanban" model="ir.ui.view">
+        <field name="name">sf.event.kanban</field>
+        <field name="model">sf.event</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state">
+                <field name="name"/>
+                <field name="event_type"/>
+                <field name="start_date"/>
+                <field name="balance"/>
+                <field name="state"/>
+                <templates>
+                    <t t-name="card">
+                        <div class="oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <strong><field name="name"/></strong>
+                                <div><field name="event_type"/> - <field name="start_date"/></div>
+                                <div>Balance: <field name="balance"/></div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="sf_event_view_search" model="ir.ui.view">
+        <field name="name">sf.event.search</field>
+        <field name="model">sf.event</field>
+        <field name="arch" type="xml">
+            <search string="Events">
+                <field name="name"/>
+                <field name="event_type"/>
+                <field name="location"/>
+                <filter name="event_confirmed" string="Confirmed" domain="[('state', '=', 'confirmed')]"/>
+                <filter name="event_in_progress" string="In Progress" domain="[('state', '=', 'in_progress')]"/>
+                <group>
+                    <filter name="group_event_state" string="Status" context="{'group_by': 'state'}"/>
+                    <filter name="group_event_type" string="Type" context="{'group_by': 'event_type'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_sf_event" model="ir.actions.act_window">
+        <field name="name">Events</field>
+        <field name="res_model">sf.event</field>
+        <field name="view_mode">kanban,list,form</field>
+        <field name="search_view_id" ref="sf_event_view_search"/>
+    </record>
+</odoo>

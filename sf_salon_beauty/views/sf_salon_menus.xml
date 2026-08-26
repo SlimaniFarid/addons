@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_sf_salon_root"
+              name="Salon"
+              sequence="22"
+              web_icon="sf_salon_beauty,static/description/icon.png"/>
+    <menuitem id="menu_sf_salon_appointments"
+              name="Appointments"
+              parent="menu_sf_salon_root"
+              groups="sf_salon_beauty.group_sf_salon_user"
+              action="action_sf_salon_appointment"
+              sequence="10"/>
+    <menuitem id="menu_sf_salon_staff"
+              name="Staff"
+              parent="menu_sf_salon_root"
+              groups="sf_salon_beauty.group_sf_salon_user"
+              action="action_sf_salon_staff"
+              sequence="20"/>
+    <menuitem id="menu_sf_salon_packages"
+              name="Packages"
+              parent="menu_sf_salon_root"
+              groups="sf_salon_beauty.group_sf_salon_user"
+              action="action_sf_salon_package"
+              sequence="30"/>
+    <menuitem id="menu_sf_salon_services"
+              name="Services"
+              parent="menu_sf_salon_root"
+              groups="sf_salon_beauty.group_sf_salon_user"
+              action="action_sf_salon_service"
+              sequence="40"/>
+    <menuitem id="menu_sf_salon_commissions"
+              name="Commissions"
+              parent="menu_sf_salon_root"
+              groups="sf_salon_beauty.group_sf_salon_user"
+              action="action_sf_salon_commission"
+              sequence="50"/>
+</odoo>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem id="menu_energy_root"
+              name="Energy Monitoring"
+              sequence="111"/>
+
+    <menuitem id="menu_energy_sites"
+              name="Sites"
+              parent="menu_energy_root"
+              action="action_energy_site"
+              sequence="10"/>
+
+    <menuitem id="menu_energy_meters"
+              name="Meters"
+              parent="menu_energy_root"
+              action="action_energy_meter"
+              sequence="20"/>
+
+    <menuitem id="menu_energy_readings"
+              name="Readings"
+              parent="menu_energy_root"
+              action="action_energy_reading"
+              sequence="30"/>
+
+    <menuitem id="menu_energy_objectives"
+              name="Objectives"
+              parent="menu_energy_root"
+              action="action_energy_objective"
+              sequence="40"/>
+
+</odoo>

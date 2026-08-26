@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="action_report_store_credit_account" model="ir.actions.report">
+            <field name="name">Customer Balances</field>
+            <field name="model">sf.store.credit.account</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">sf_store_credit.report_store_credit_account</field>
+            <field name="report_file">sf_store_credit.report_store_credit_account</field>
+            <field name="binding_model_id" ref="model_sf_store_credit_account"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <record id="action_report_store_credit" model="ir.actions.report">
+            <field name="name">Store Credits</field>
+            <field name="model">sf.store.credit</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">sf_store_credit.report_store_credit</field>
+            <field name="report_file">sf_store_credit.report_store_credit</field>
+            <field name="binding_model_id" ref="model_sf_store_credit"/>
+            <field name="binding_type">report</field>
+        </record>
+    </data>
+</odoo>

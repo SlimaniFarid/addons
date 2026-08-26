@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="seq_export_dossier" model="ir.sequence">
+            <field name="name">Export Dossier</field>
+            <field name="code">sf.export.dossier</field>
+            <field name="prefix"></field>
+            <field name="padding">4</field>
+            <field name="number_next">1</field>
+            <field name="number_increment">1</field>
+        </record>
+
+        <record id="incoterm_exw" model="sf.export.incoterm">
+            <field name="code">EXW</field>
+            <field name="name">Ex Works</field>
+        </record>
+        <record id="incoterm_fca" model="sf.export.incoterm">
+            <field name="code">FCA</field>
+            <field name="name">Free Carrier</field>
+        </record>
+        <record id="incoterm_fob" model="sf.export.incoterm">
+            <field name="code">FOB</field>
+            <field name="name">Free On Board</field>
+        </record>
+        <record id="incoterm_cfr" model="sf.export.incoterm">
+            <field name="code">CFR</field>
+            <field name="name">Cost and Freight</field>
+        </record>
+        <record id="incoterm_cif" model="sf.export.incoterm">
+            <field name="code">CIF</field>
+            <field name="name">Cost, Insurance and Freight</field>
+        </record>
+        <record id="incoterm_dap" model="sf.export.incoterm">
+            <field name="code">DAP</field>
+            <field name="name">Delivered At Place</field>
+        </record>
+        <record id="incoterm_ddp" model="sf.export.incoterm">
+            <field name="code">DDP</field>
+            <field name="name">Delivered Duty Paid</field>
+        </record>
+
+        <record id="cron_export_overdue" model="ir.cron">
+            <field name="name">Export Documents: Overdue Preparation</field>
+            <field name="model_id" ref="model_sf_export_dossier"/>
+            <field name="state">code</field>
+            <field name="code">model._check_in_preparation_overdue()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="active">True</field>
+        </record>
+    </data>
+</odoo>

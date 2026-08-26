@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id=""""""report_activity_planning_template"">
+            <div class=""""""page"">
+                <div class=""""""page-header"">
+                    <div class=""""""row"">
+                        <div class=""""""col-6"">
+                            <h2><t t-esc=""""""doc.residence_id.name""/></h2>
+                        </div>
+                        <div class=""""""col-6 text-end"">
+                            <h3>PLANNING HEBDOMADAIRE DES ACTIVITÉS</h3>
+                            <p><strong>Semaine du:</strong> <t t-esc=""""""doc.planned_date""/></p>
+                        </div>
+                    </div>
+                    <hr/>
+                </div>
+
+                <div class=""""""page-content"">
+                    <t t-set=""""""week_start"" t-value=""""""doc.planned_date""/>
+                    <t t-set=""""""week_end"" t-value=""""""doc.planned_date + timedelta(days=6)""/>
+                    
+                    <t t-set=""""""activities"" t-value=""""""doc.env[&apos;sf.senior.activity&apos;].search([(&apos;residence_id&apos;, &apos;=&apos;, doc.residence_id.id), (&apos;planned_date&apos;, &apos;>=&apos;, week_start), (&apos;planned_date&apos;, &apos;<=&apos;, week_end)], order=&apos;planned_date&apos;)""/>
+                    
+                    <t t-foreach=""""""[&apos;Monday&apos;, &apos;Tuesday&apos;, &apos;Wednesday&apos;, &apos;Thursday&apos;, &apos;Friday&apos;, &apos;Saturday&apos;, &apos;Sunday&apos;]"" t-as=""""""day_name"">
+                        <t t-set=""""""day_date"" t-value=""""""week_start + timedelta(days=loop.index0)""/>
+                        <h4><t t-esc=""""""day_name""/> <t t-esc=""""""day_date.strftime(&apos;%d/%m&apos;)""/></h4>
+                        <t t-set=""""""day_activities"" t-value=""""""activities.filtered(lambda a: a.planned_date.date() == day_date)""/>
+                        <table class=""""""table table-bordered table-sm"" t-if=""""""day_activities"">
+                            <thead>
+                                <tr><th>Heure</th><th>Activité</th><th>Type</th><th>Lieu</th><th>Animateur</th><th>Participants</th><th>État</th></tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach=""""""day_activities"" t-as=""""""act"">
+                                    <tr>
+                                        <td><t t-esc=""""""act.planned_date.strftime(&apos;%H:%M&apos;)""/></td>
+                                        <td><t t-esc=""""""act.name""/></td>
+                                        <td><t t-esc=""""""dict(act._fields[&apos;activity_type&apos;].selection).get(act.activity_type)""/></td>
+                                        <td><t t-esc=""""""act.location_id.name""/></td>
+                                        <td><t t-esc=""""""act.animator_id.name""/></td>
+                                        <td><t t-esc=""""""len(act.participant_ids)""/> / <t t-esc=""""""act.capacity_max""/></td>
+                                        <td><span class=""""""badge"" t-att-class=""""""{&apos;bg-secondary&apos;: act.state==&apos;planned&apos;, &apos;bg-info&apos;: act.state==&apos;open_registration&apos;, &apos;bg-primary&apos;: act.state==&apos;in_progress&apos;, &apos;bg-success&apos;: act.state==&apos;done&apos;, &apos;bg-danger&apos;: act.state==&apos;cancelled&apos;}""><t t-esc=""""""dict(act._fields[&apos;state&apos;].selection).get(act.state)""/></span></td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                        <p t-if=""""""not day_activities"" class=""""""text-muted"">Aucune activité programmée</p>
+                    </t>
+                </div>
+
+                <div class=""""""page-footer"">
+                    <hr/>
+                    <p class=""""""text-center text-muted small"">
+                        <t t-esc=""""""doc.residence_id.name""/> - Généré le <t t-esc=""""""fields.Date.today()""/>
+                    </p>
+                </div>
+            </div>
+        </template>
+    </data>
+</odoo>

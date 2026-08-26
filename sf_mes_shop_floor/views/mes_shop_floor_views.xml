@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Station -->
+    <record id="mes_station_view_form" model="ir.ui.view">
+        <field name="name">sf.mes.station.form</field>
+        <field name="model">sf.mes.station</field>
+        <field name="arch" type="xml">
+            <form string="Station">
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="code"/>
+                            <field name="workcenter_id"/>
+                        </group>
+                        <group>
+                            <field name="location"/>
+                            <field name="operator_id"/>
+                            <field name="active"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Work Orders">
+                            <field name="work_order_ids">
+                                <tree string="Work Orders">
+                                    <field name="name"/>
+                                    <field name="product_id"/>
+                                    <field name="quantity"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="mes_station_view_tree" model="ir.ui.view">
+        <field name="name">sf.mes.station.tree</field>
+        <field name="model">sf.mes.station</field>
+        <field name="arch" type="xml">
+            <tree string="Stations">
+                <field name="name"/>
+                <field name="code"/>
+                <field name="workcenter_id"/>
+                <field name="operator_id"/>
+                <field name="location"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Work order -->
+    <record id="mes_work_order_view_form" model="ir.ui.view">
+        <field name="name">sf.mes.work.order.form</field>
+        <field name="model">sf.mes.work.order</field>
+        <field name="arch" type="xml">
+            <form string="Work Order">
+                <header>
+                    <button name="action_start" type="object"
+                            string="Start" class="btn-primary"
+                            invisible="[('state', 'not in', ('pending',))]"/>
+                    <button name="action_pause" type="object"
+                            string="Pause" class="btn-secondary"
+                            invisible="[('state', 'not in', ('running',))]"/>
+                    <button name="action_resume" type="object"
+                            string="Resume" class="btn-secondary"
+                            invisible="[('state', 'not in', ('paused',))]"/>
+                    <button name="action_done" type="object"
+                            string="Finish" class="btn-primary"
+                            invisible="[('state', 'not in', ('running', 'paused'))]"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="mo_id"/>
+                            <field name="product_id"/>
+                            <field name="quantity"/>
+                        </group>
+                        <group>
+                            <field name="station_id"/>
+                            <field name="operator_id"/>
+                            <field name="units_produced"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="started_at"/>
+                            <field name="finished_at"/>
+                        </group>
+                        <group>
+                            <field name="duration_minutes"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Quality Checks">
+                            <field name="quality_check_ids">
+                                <tree string="Quality Checks" editable="bottom">
+                                    <field name="date"/>
+                                    <field name="check_type"/>
+                                    <field name="result"/>
+                                    <field name="quantity"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Downtime">
+                            <field name="downtime_ids">
+                                <tree string="Downtime Logs" editable="bottom">
+                                    <field name="start"/>
+                                    <field name="end"/>
+                                    <field name="reason"/>
+                                    <field name="minutes"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="mes_work_order_view_tree" model="ir.ui.view">
+        <field name="name">sf.mes.work.order.tree</field>
+        <field name="model">sf.mes.work.order</field>
+        <field name="arch" type="xml">
+            <tree string="Work Orders">
+                <field name="name"/>
+                <field name="product_id"/>
+                <field name="quantity"/>
+                <field name="station_id"/>
+                <field name="state"/>
+                <field name="operator_id"/>
+                <field name="units_produced"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Downtime -->
+    <record id="mes_downtime_view_form" model="ir.ui.view">
+        <field name="name">sf.mes.downtime.form</field>
+        <field name="model">sf.mes.downtime</field>
+        <field name="arch" type="xml">
+            <form string="Downtime">
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="reason"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="work_order_id"/>
+                            <field name="station_id"/>
+                        </group>
+                        <group>
+                            <field name="start"/>
+                            <field name="end"/>
+                            <field name="minutes"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="mes_downtime_view_tree" model="ir.ui.view">
+        <field name="name">sf.mes.downtime.tree</field>
+        <field name="model">sf.mes.downtime</field>
+        <field name="arch" type="xml">
+            <tree string="Downtime Logs">
+                <field name="start"/>
+                <field name="end"/>
+                <field name="station_id"/>
+                <field name="reason"/>
+                <field name="minutes"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Quality check -->
+    <record id="mes_quality_check_view_form" model="ir.ui.view">
+        <field name="name">sf.mes.quality.check.form</field>
+        <field name="model">sf.mes.quality.check</field>
+        <field name="arch" type="xml">
+            <form string="Quality Check">
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="product_id"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="work_order_id"/>
+                            <field name="check_type"/>
+                        </group>
+                        <group>
+                            <field name="date"/>
+                            <field name="result"/>
+                            <field name="quantity"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="note"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="mes_quality_check_view_tree" model="ir.ui.view">
+        <field name="name">sf.mes.quality.check.tree</field>
+        <field name="model">sf.mes.quality.check</field>
+        <field name="arch" type="xml">
+            <tree string="Quality Checks">
+                <field name="date"/>
+                <field name="work_order_id"/>
+                <field name="check_type"/>
+                <field name="result"/>
+                <field name="quantity"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Actions -->
+    <record id="action_mes_station" model="ir.actions.act_window">
+        <field name="name">Stations</field>
+        <field name="res_model">sf.mes.station</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="action_mes_work_order" model="ir.actions.act_window">
+        <field name="name">Work Orders</field>
+        <field name="res_model">sf.mes.work.order</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="action_mes_downtime" model="ir.actions.act_window">
+        <field name="name">Downtime Logs</field>
+        <field name="res_model">sf.mes.downtime</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="action_mes_quality_check" model="ir.actions.act_window">
+        <field name="name">Quality Checks</field>
+        <field name="res_model">sf.mes.quality.check</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem id="menu_haccp_root" name="HACCP Food Safety" sequence="86"
+              web_icon="sf_haccp,static/description/icon.png"
+              groups="sf_haccp.group_haccp_user"/>
+
+    <menuitem id="menu_haccp_sites" name="Sites"
+              parent="menu_haccp_root"
+              action="action_haccp_site"
+              sequence="10"/>
+
+    <menuitem id="menu_haccp_plans" name="HACCP Plans"
+              parent="menu_haccp_root"
+              action="action_haccp_plan"
+              sequence="20"/>
+
+    <menuitem id="menu_haccp_prerequisites" name="Prerequisites"
+              parent="menu_haccp_root"
+              action="action_haccp_prerequisite"
+              sequence="30"/>
+
+    <menuitem id="menu_haccp_checks" name="Checks"
+              parent="menu_haccp_root"
+              action="action_haccp_check"
+              sequence="40"/>
+
+    <menuitem id="menu_haccp_nonconformities" name="Nonconformities"
+              parent="menu_haccp_root"
+              action="action_haccp_nonconformity"
+              sequence="50"/>
+
+    <menuitem id="menu_haccp_dashboard" name="Dashboard"
+              parent="menu_haccp_root"
+              action="action_haccp_dashboard"
+              sequence="60"/>
+
+</odoo>

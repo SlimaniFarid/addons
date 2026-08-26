@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_field_dispatch_board_root"
+              name="Field Dispatch Board"
+              sequence="30"
+              groups="sf_field_dispatch_board.group_field_dispatch_board_user"
+              web_icon="sf_field_dispatch_board,static/description/icon.png"/>
+    <menuitem id="menu_dispatch_ticket" name="Dispatch.Ticket"
+              parent="menu_field_dispatch_board_root"
+              action="action_dispatch_ticket"
+              sequence="10"
+              groups="sf_field_dispatch_board.group_field_dispatch_board_user"/>
+</odoo>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_sf_utility_root"
+              name="Utilities"
+              sequence="25"
+              groups="sf_utility_billing.group_sf_utility_user"
+              web_icon="sf_utility_billing,static/description/icon.png"/>
+    <menuitem id="menu_sf_utility_meters"
+              name="Meters"
+              parent="menu_sf_utility_root"
+              groups="sf_utility_billing.group_sf_utility_user"
+              action="action_sf_utility_meter"
+              sequence="10"/>
+    <menuitem id="menu_sf_utility_campaigns"
+              name="Campaigns"
+              parent="menu_sf_utility_root"
+              groups="sf_utility_billing.group_sf_utility_user"
+              action="action_sf_utility_campaign"
+              sequence="20"/>
+    <menuitem id="menu_sf_utility_readings"
+              name="Readings"
+              parent="menu_sf_utility_root"
+              groups="sf_utility_billing.group_sf_utility_user"
+              action="action_sf_utility_reading"
+              sequence="30"/>
+    <menuitem id="menu_sf_utility_import"
+              name="Import Readings"
+              parent="menu_sf_utility_readings"
+              groups="sf_utility_billing.group_sf_utility_user"
+              action="action_sf_utility_import"
+              sequence="35"/>
+    <menuitem id="menu_sf_utility_tariffs"
+              name="Tariffs"
+              parent="menu_sf_utility_root"
+              groups="sf_utility_billing.group_sf_utility_user"
+              action="action_sf_utility_tariff"
+              sequence="40"/>
+    <menuitem id="menu_sf_utility_invoices"
+              name="Invoices"
+              parent="menu_sf_utility_root"
+              groups="sf_utility_billing.group_sf_utility_user"
+              action="action_sf_utility_invoice"
+              sequence="50"/>
+</odoo>

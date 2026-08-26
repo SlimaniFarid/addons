@@ -1,0 +1,404 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_sf_library_category_tree" model="ir.ui.view">
+        <field name="name">sf.library.category.tree</field>
+        <field name="model">sf.library.category</field>
+        <field name="arch" type="xml">
+            <tree string="Library Categories">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_sf_library_category_form" model="ir.ui.view">
+        <field name="name">sf.library.category.form</field>
+        <field name="model">sf.library.category</field>
+        <field name="arch" type="xml">
+            <form string="Library Category">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                        <group>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Items">
+                            <field name="item_ids" readonly="1">
+                                <tree string="Items">
+                                    <field name="reference"/>
+                                    <field name="name"/>
+                                    <field name="author"/>
+                                    <field name="media_type"/>
+                                    <field name="available_copies"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_sf_library_category_search" model="ir.ui.view">
+        <field name="name">sf.library.category.search</field>
+        <field name="model">sf.library.category</field>
+        <field name="arch" type="xml">
+            <search string="Library Categories">
+                <field name="name"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_sf_library_category" model="ir.actions.act_window">
+        <field name="name">Categories</field>
+        <field name="res_model">sf.library.category</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_sf_library_category_search"/>
+    </record>
+
+    <record id="view_sf_library_item_tree" model="ir.ui.view">
+        <field name="name">sf.library.item.tree</field>
+        <field name="model">sf.library.item</field>
+        <field name="arch" type="xml">
+            <tree string="Library Items">
+                <field name="reference"/>
+                <field name="name"/>
+                <field name="author"/>
+                <field name="media_type"/>
+                <field name="category_id"/>
+                <field name="total_copies"/>
+                <field name="available_copies"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_sf_library_item_form" model="ir.ui.view">
+        <field name="name">sf.library.item.form</field>
+        <field name="model">sf.library.item</field>
+        <field name="arch" type="xml">
+            <form string="Library Item">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="reference"/>
+                            <field name="name"/>
+                            <field name="author"/>
+                            <field name="media_type"/>
+                            <field name="category_id"/>
+                        </group>
+                        <group>
+                            <field name="isbn"/>
+                            <field name="language"/>
+                            <field name="total_copies"/>
+                            <field name="available_copies" readonly="1"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Loans">
+                            <field name="loan_ids" readonly="1">
+                                <tree string="Loans">
+                                    <field name="name"/>
+                                    <field name="member_id"/>
+                                    <field name="loan_date"/>
+                                    <field name="due_date"/>
+                                    <field name="return_date"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_sf_library_item_search" model="ir.ui.view">
+        <field name="name">sf.library.item.search</field>
+        <field name="model">sf.library.item</field>
+        <field name="arch" type="xml">
+            <search string="Library Items">
+                <field name="name"/>
+                <field name="author"/>
+                <field name="reference"/>
+                <field name="category_id"/>
+                <group>
+                    <filter string="Media type" name="media_type_group"
+                            context="{'group_by': 'media_type'}"/>
+                    <filter string="Category" name="category_group"
+                            context="{'group_by': 'category_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_sf_library_item" model="ir.actions.act_window">
+        <field name="name">Catalogue</field>
+        <field name="res_model">sf.library.item</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_sf_library_item_search"/>
+    </record>
+
+    <record id="view_sf_library_member_tree" model="ir.ui.view">
+        <field name="name">sf.library.member.tree</field>
+        <field name="model">sf.library.member</field>
+        <field name="arch" type="xml">
+            <tree string="Library Members">
+                <field name="name"/>
+                <field name="email"/>
+                <field name="phone"/>
+                <field name="registration_date"/>
+                <field name="status"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_sf_library_member_form" model="ir.ui.view">
+        <field name="name">sf.library.member.form</field>
+        <field name="model">sf.library.member</field>
+        <field name="arch" type="xml">
+            <form string="Library Member">
+                <header>
+                    <button name="action_activate" type="object"
+                            string="Activate" class="btn-primary"
+                            invisible="status != 'draft'"/>
+                    <button name="action_block" type="object"
+                            string="Block" class="btn-danger"
+                            invisible="status not in ('draft', 'active')"
+                            groups="sf_library.group_sf_library_manager"/>
+                    <field name="status" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="partner_id"/>
+                            <field name="email"/>
+                            <field name="phone"/>
+                        </group>
+                        <group>
+                            <field name="registration_date"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Loans">
+                            <field name="loan_ids" readonly="1">
+                                <tree string="Loans">
+                                    <field name="name"/>
+                                    <field name="item_id"/>
+                                    <field name="loan_date"/>
+                                    <field name="due_date"/>
+                                    <field name="return_date"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_sf_library_member_search" model="ir.ui.view">
+        <field name="name">sf.library.member.search</field>
+        <field name="model">sf.library.member</field>
+        <field name="arch" type="xml">
+            <search string="Library Members">
+                <field name="name"/>
+                <field name="email"/>
+                <field name="phone"/>
+                <filter string="Active" name="active_member"
+                        domain="[('status', '=', 'active')]"/>
+                <filter string="Blocked" name="blocked_member"
+                        domain="[('status', '=', 'blocked')]"/>
+                <group>
+                    <filter string="Status" name="status_group"
+                            context="{'group_by': 'status'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_sf_library_member" model="ir.actions.act_window">
+        <field name="name">Members</field>
+        <field name="res_model">sf.library.member</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_sf_library_member_search"/>
+    </record>
+
+    <record id="view_sf_library_loan_tree" model="ir.ui.view">
+        <field name="name">sf.library.loan.tree</field>
+        <field name="model">sf.library.loan</field>
+        <field name="arch" type="xml">
+            <tree string="Library Loans">
+                <field name="name"/>
+                <field name="item_id"/>
+                <field name="member_id"/>
+                <field name="loan_date"/>
+                <field name="due_date"/>
+                <field name="return_date"/>
+                <field name="late_days"/>
+                <field name="late_fee"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_sf_library_loan_form" model="ir.ui.view">
+        <field name="name">sf.library.loan.form</field>
+        <field name="model">sf.library.loan</field>
+        <field name="arch" type="xml">
+            <form string="Library Loan">
+                <header>
+                    <button name="action_confirm" type="object"
+                            string="Confirm Loan" class="btn-primary"
+                            invisible="state != 'draft'"/>
+                    <button name="action_return" type="object"
+                            string="Return" class="btn-success"
+                            invisible="state != 'on_loan'"
+                            groups="sf_library.group_sf_library_manager"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="item_id"/>
+                            <field name="member_id"/>
+                        </group>
+                        <group>
+                            <field name="loan_date"/>
+                            <field name="due_date"/>
+                            <field name="return_date"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="late_days" readonly="1"/>
+                            <field name="late_fee" readonly="1"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_sf_library_loan_search" model="ir.ui.view">
+        <field name="name">sf.library.loan.search</field>
+        <field name="model">sf.library.loan</field>
+        <field name="arch" type="xml">
+            <search string="Library Loans">
+                <field name="name"/>
+                <field name="item_id"/>
+                <field name="member_id"/>
+                <filter string="On Loan" name="on_loan"
+                        domain="[('state', '=', 'on_loan')]"/>
+                <filter string="Returned" name="returned_loan"
+                        domain="[('state', '=', 'returned')]"/>
+                <filter string="Late" name="late_loan"
+                        domain="[('late_days', '>', 0)]"/>
+                <group>
+                    <filter string="Status" name="state_group"
+                            context="{'group_by': 'state'}"/>
+                    <filter string="Item" name="item_group"
+                            context="{'group_by': 'item_id'}"/>
+                    <filter string="Member" name="member_group"
+                            context="{'group_by': 'member_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_sf_library_loan" model="ir.actions.act_window">
+        <field name="name">Loans</field>
+        <field name="res_model">sf.library.loan</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_sf_library_loan_search"/>
+    </record>
+
+    <record id="view_sf_library_reservation_tree" model="ir.ui.view">
+        <field name="name">sf.library.reservation.tree</field>
+        <field name="model">sf.library.reservation</field>
+        <field name="arch" type="xml">
+            <tree string="Library Reservations">
+                <field name="name"/>
+                <field name="item_id"/>
+                <field name="member_id"/>
+                <field name="reservation_date"/>
+                <field name="expiry_date"/>
+                <field name="status"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_sf_library_reservation_form" model="ir.ui.view">
+        <field name="name">sf.library.reservation.form</field>
+        <field name="model">sf.library.reservation</field>
+        <field name="arch" type="xml">
+            <form string="Library Reservation">
+                <header>
+                    <button name="action_check_availability" type="object"
+                            string="Check Availability" class="btn-secondary"
+                            invisible="status != 'waiting'"/>
+                    <button name="action_fulfil" type="object"
+                            string="Fulfil" class="btn-primary"
+                            invisible="status != 'ready'"
+                            groups="sf_library.group_sf_library_manager"/>
+                    <button name="action_cancel" type="object"
+                            string="Cancel" class="btn-danger"
+                            invisible="status not in ('waiting', 'ready')"
+                            groups="sf_library.group_sf_library_manager"/>
+                    <field name="status" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="item_id"/>
+                            <field name="member_id"/>
+                        </group>
+                        <group>
+                            <field name="reservation_date"/>
+                            <field name="expiry_date"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_sf_library_reservation_search" model="ir.ui.view">
+        <field name="name">sf.library.reservation.search</field>
+        <field name="model">sf.library.reservation</field>
+        <field name="arch" type="xml">
+            <search string="Library Reservations">
+                <field name="name"/>
+                <field name="item_id"/>
+                <field name="member_id"/>
+                <filter string="Waiting" name="waiting_reservation"
+                        domain="[('status', '=', 'waiting')]"/>
+                <filter string="Ready" name="ready_reservation"
+                        domain="[('status', '=', 'ready')]"/>
+                <group>
+                    <filter string="Status" name="status_group"
+                            context="{'group_by': 'status'}"/>
+                    <filter string="Item" name="item_group"
+                            context="{'group_by': 'item_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_sf_library_reservation" model="ir.actions.act_window">
+        <field name="name">Reservations</field>
+        <field name="res_model">sf.library.reservation</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_sf_library_reservation_search"/>
+    </record>
+</odoo>

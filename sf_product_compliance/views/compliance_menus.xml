@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem id="menu_compliance_root" name="Product Compliance" sequence="88" web_icon="sf_product_compliance,static/description/icon.png"/>
+
+    <menuitem id="menu_compliance_regulations" name="Regulations"
+              parent="menu_compliance_root"
+              action="action_compliance_regulation"
+              sequence="10"/>
+
+    <menuitem id="menu_compliance_requirements" name="Requirements"
+              parent="menu_compliance_root"
+              action="action_compliance_requirement"
+              sequence="20"/>
+
+    <menuitem id="menu_compliance_dossiers" name="Dossiers"
+              parent="menu_compliance_root"
+              action="action_compliance_dossier"
+              sequence="30"/>
+
+    <menuitem id="menu_compliance_certificates" name="Certificates"
+              parent="menu_compliance_root"
+              action="action_compliance_certificate"
+              sequence="40"/>
+
+    <menuitem id="menu_compliance_dashboard" name="Dashboard"
+              parent="menu_compliance_root"
+              action="action_compliance_dashboard"
+              sequence="50"/>
+
+</odoo>

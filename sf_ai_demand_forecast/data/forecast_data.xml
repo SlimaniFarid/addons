@@ -1,0 +1,14 @@
+<odoo>
+    <record id="seq_ai_demand_forecast_model" model="ir.sequence">
+        <field name="name">Forecast Model</field>
+        <field name="code">forecast.model</field>
+        <field name="prefix">FM-</field>
+        <field name="padding">5</field>
+    </record>
+    <record id="seq_ai_demand_forecast_log" model="ir.sequence">
+        <field name="name">Forecast Training Log</field>
+        <field name="code">forecast.training.log</field>
+        <field name="prefix">FTL-</field>
+        <field name="padding">5</field>
+    </record>
+</odoo>

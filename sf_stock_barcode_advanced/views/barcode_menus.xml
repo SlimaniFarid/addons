@@ -1,0 +1,179 @@
+<odoo>
+    <record id="action_barcode_config" model="ir.actions.act_window">
+        <field name="name">Barcode Configurations</field>
+        <field name="res_model">barcode.config</field>
+        <field name="view_mode">kanban,list,form</field>
+    </record>
+    <record id="action_barcode_scan" model="ir.actions.act_window">
+        <field name="name">Scan Barcode</field>
+        <field name="res_model">barcode.scan</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+    <record id="action_barcode_log" model="ir.actions.act_window">
+        <field name="name">Scan Logs</field>
+        <field name="res_model">barcode.log</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem id="menu_barcode_root" name="Barcode &amp; Warehouse" web_icon="sf_stock_barcode_advanced,static/description/icon.png"/>
+    <menuitem id="menu_barcode_scan" name="Scan Barcode" parent="menu_barcode_root" action="action_barcode_scan" sequence="10"/>
+    <menuitem id="menu_barcode_config" name="Configurations" parent="menu_barcode_root" action="action_barcode_config" sequence="20"/>
+    <menuitem id="menu_barcode_logs" name="Scan Logs" parent="menu_barcode_root" action="action_barcode_log" sequence="30"/>
+
+    <record id="view_barcode_config_form" model="ir.ui.view">
+        <field name="name">barcode.config.form</field>
+        <field name="model">barcode.config</field>
+        <field name="arch" type="xml">
+            <form string="Barcode Configuration">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="sequence"/>
+                        <field name="active"/>
+                        <field name="company_id" options="{'no_create': True}"/>
+                    </group>
+                    <group string="Regex Patterns">
+                        <field name="pattern_product"/>
+                        <field name="pattern_lot"/>
+                        <field name="pattern_package"/>
+                        <field name="pattern_location"/>
+                        <field name="pattern_gs1"/>
+                    </group>
+                    <group string="Behavior">
+                        <field name="auto_create_lot"/>
+                        <field name="auto_create_package"/>
+                        <field name="default_location_id" options="{'no_create': True}"/>
+                        <field name="allowed_operation_types" widget="many2many_tags" options="{'no_create': True}"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_barcode_config_list" model="ir.ui.view">
+        <field name="name">barcode.config.list</field>
+        <field name="model">barcode.config</field>
+        <field name="arch" type="xml">
+            <list string="Barcode Configurations">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="active" widget="boolean"/>
+                <field name="company_id"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_barcode_scan_form" model="ir.ui.view">
+        <field name="name">barcode.scan.form</field>
+        <field name="model">barcode.scan</field>
+        <field name="arch" type="xml">
+            <form string="Scan Barcode">
+                <group>
+                    <field name="config_id" options="{'no_create': True}"/>
+                    <field name="picking_id" options="{'no_create': True}"/>
+                    <field name="barcode" placeholder="Scan or type barcode here"/>
+                    <field name="action" readonly="1"/>
+                    <field name="parsed_data" widget="text" readonly="1"/>
+                </group>
+                <group string="Parsed Data" invisible="not action">
+                    <field name="product_id" readonly="1" options="{'no_create': True}"/>
+                    <field name="lot_id" readonly="1" options="{'no_create': True}"/>
+                    <field name="package_id" readonly="1" options="{'no_create': True}"/>
+                    <field name="location_id" readonly="1" options="{'no_create': True}"/>
+                    <field name="quantity"/>
+                </group>
+                <footer>
+                    <button name="action_scan" string="Scan" type="object" class="btn-primary" invisible="action"/>
+                    <button name="action_done" string="Done" type="object" class="btn-secondary" invisible="not action"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_barcode_log_form" model="ir.ui.view">
+        <field name="name">barcode.log.form</field>
+        <field name="model">barcode.log</field>
+        <field name="arch" type="xml">
+            <form string="Scan Log" create="false">
+                <sheet>
+                    <group>
+                        <field name="user_id" readonly="1"/>
+                        <field name="picking_id" readonly="1"/>
+                        <field name="barcode" readonly="1"/>
+                        <field name="parsed_type" readonly="1"/>
+                        <field name="action" readonly="1"/>
+                        <field name="success" readonly="1" widget="boolean"/>
+                    </group>
+                    <group string="Details" invisible="not (product_id or lot_id or package_id or location_id)">
+                        <field name="product_id" readonly="1"/>
+                        <field name="lot_id" readonly="1"/>
+                        <field name="package_id" readonly="1"/>
+                        <field name="location_id" readonly="1"/>
+                        <field name="quantity" readonly="1"/>
+                    </group>
+                    <group string="Error" invisible="success">
+                        <field name="error_message" widget="text" readonly="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_barcode_log_list" model="ir.ui.view">
+        <field name="name">barcode.log.list</field>
+        <field name="model">barcode.log</field>
+        <field name="arch" type="xml">
+            <list string="Scan Logs">
+                <field name="create_date"/>
+                <field name="user_id"/>
+                <field name="picking_id"/>
+                <field name="barcode"/>
+                <field name="parsed_type"/>
+                <field name="action"/>
+                <field name="success" widget="boolean"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_sf_stock_barcode_advanced_boost_kanban" model="ir.ui.view">
+        <field name="name">sf_stock_barcode_advanced.boost.kanban</field>
+        <field name="model">barcode.config</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="">
+                <field name="name"/>
+
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_card oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <strong><field name="name"/></strong>
+                                <div><field name="user_id"
+                                            widget="many2one_avatar_user"/></div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="view_sf_stock_barcode_advanced_boost_search" model="ir.ui.view">
+        <field name="name">sf_stock_barcode_advanced.boost.search</field>
+        <field name="model">barcode.config</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+
+            </search>
+        </field>
+    </record>
+
+    <record id="wave_final_sf_stock_barcode_advanced" model="ir.actions.server">
+        <field name="name">Refresh Business Data</field>
+        <field name="model_id" ref="model_barcode_config"/>
+        <field name="binding_model_id" ref="model_barcode_config"/>
+        <field name="state">code</field>
+        <field name="code">records.action_refresh_business()</field>
+    </record>
+</odoo>

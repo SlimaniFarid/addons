@@ -1,0 +1,11 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sf_store_credit_account_user,sf.store.credit.account.user,model_sf_store_credit_account,sf_store_credit.group_sf_store_credit_user,1,1,1,0
+access_sf_store_credit_user,sf.store.credit.user,model_sf_store_credit,sf_store_credit.group_sf_store_credit_user,1,1,1,0
+access_sf_store_credit_move_user,sf.store.credit.move.user,model_sf_store_credit_move,sf_store_credit.group_sf_store_credit_user,1,1,1,0
+access_sf_store_credit_adjust_wizard_user,sf.store.credit.adjust.wizard.user,model_sf_store_credit_adjust_wizard,sf_store_credit.group_sf_store_credit_user,1,1,1,0
+access_sf_store_credit_account_manager,sf.store.credit.account.manager,model_sf_store_credit_account,sf_store_credit.group_sf_store_credit_manager,1,1,1,1
+access_sf_store_credit_manager,sf.store.credit.manager,model_sf_store_credit,sf_store_credit.group_sf_store_credit_manager,1,1,1,1
+access_sf_store_credit_move_manager,sf.store.credit.move.manager,model_sf_store_credit_move,sf_store_credit.group_sf_store_credit_manager,1,1,1,1
+access_sf_store_credit_adjust_wizard_manager,sf.store.credit.adjust.wizard.manager,model_sf_store_credit_adjust_wizard,sf_store_credit.group_sf_store_credit_manager,1,1,1,1
+access_sf_store_credit_mail_activity,sf.store.credit.mail.activity.user,mail.activity,sf_store_credit.group_sf_store_credit_user,1,1,1,0
+access_sf_store_credit_activity_mixin,sf.store.credit.activity.mixin.user,model_sf_store_credit_activity_mixin,sf_store_credit.group_sf_store_credit_user,1,1,1,0

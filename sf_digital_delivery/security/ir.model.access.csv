@@ -1,0 +1,11 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sf_digital_product_user,sf.digital.product.user,model_sf_digital_product,sf_digital_delivery.group_sf_digital_delivery_user,1,1,1,0
+access_sf_digital_key_user,sf.digital.key.user,model_sf_digital_key,sf_digital_delivery.group_sf_digital_delivery_user,1,1,1,0
+access_sf_digital_delivery_user,sf.digital.delivery.user,model_sf_digital_delivery,sf_digital_delivery.group_sf_digital_delivery_user,1,1,1,0
+access_sf_digital_delivery_line_user,sf.digital.delivery.line.user,model_sf_digital_delivery_line,sf_digital_delivery.group_sf_digital_delivery_user,1,1,1,0
+access_sf_digital_product_manager,sf.digital.product.manager,model_sf_digital_product,sf_digital_delivery.group_sf_digital_delivery_manager,1,1,1,1
+access_sf_digital_key_manager,sf.digital.key.manager,model_sf_digital_key,sf_digital_delivery.group_sf_digital_delivery_manager,1,1,1,1
+access_sf_digital_delivery_manager,sf.digital.delivery.manager,model_sf_digital_delivery,sf_digital_delivery.group_sf_digital_delivery_manager,1,1,1,1
+access_sf_digital_delivery_line_manager,sf.digital.delivery.line.manager,model_sf_digital_delivery_line,sf_digital_delivery.group_sf_digital_delivery_manager,1,1,1,1
+access_sf_digital_mail_activity,sf.digital.mail.activity.user,mail.activity,sf_digital_delivery.group_sf_digital_delivery_user,1,1,1,0
+access_sf_digital_activity_mixin,sf.digital.activity.mixin.user,model_sf_digital_activity_mixin,sf_digital_delivery.group_sf_digital_delivery_user,1,1,1,0

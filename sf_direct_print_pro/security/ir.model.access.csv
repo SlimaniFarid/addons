@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_print_printer_user,print.printer.user,model_print_printer,base.group_user,1,0,0,0
+access_print_printer_mgr,print.printer.mgr,model_print_printer,base.group_system,1,1,1,1
+access_print_profile_user,print.profile.user,model_print_profile,base.group_user,1,0,0,0
+access_print_profile_mgr,print.profile.mgr,model_print_profile,base.group_system,1,1,1,1
+access_print_job_user,print.job.user,model_print_job,base.group_user,1,0,0,0
+access_print_job_mgr,print.job.mgr,model_print_job,base.group_system,1,1,1,1

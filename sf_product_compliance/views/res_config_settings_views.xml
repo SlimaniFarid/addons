@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form_compliance" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.compliance</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="50"/>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="inside">
+                <app data-string="Product Compliance" string="Product Compliance" name="product_compliance">
+                    <block title="Certificates" id="compliance_certificates">
+                        <setting id="compliance_alert_days" help="Number of days before a certificate expiry date to raise a reminder activity.">
+                            <field name="sf_compliance_alert_days"/>
+                        </setting>
+                    </block>
+                </app>
+            </xpath>
+        </field>
+    </record>
+</odoo>

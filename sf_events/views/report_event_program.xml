@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_event_program">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-set="company" t-value="o.company_id or res_company"/>
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2>Event Program</h2>
+                        <table class="table table-sm">
+                            <tr><th>Event</th><td><span t-field="o.name"/></td></tr>
+                            <tr><th>Type</th><td><span t-field="o.event_type"/></td></tr>
+                            <tr><th>Dates</th><td><span t-field="o.start_date"/> - <span t-field="o.end_date"/></td></tr>
+                            <tr><th>Location</th><td><span t-field="o.location"/></td></tr>
+                        </table>
+                        <h3>Sessions</h3>
+                        <table class="table table-sm">
+                            <tr><th>Session</th><th>Start</th><th>End</th><th>Room</th><th>Speakers</th></tr>
+                            <tr t-foreach="o.session_ids" t-as="session">
+                                <td><span t-field="session.name"/></td>
+                                <td><span t-field="session.start_datetime"/></td>
+                                <td><span t-field="session.end_datetime"/></td>
+                                <td><span t-field="session.room"/></td>
+                                <td><span t-field="session.speaker_ids"/></td>
+                            </tr>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

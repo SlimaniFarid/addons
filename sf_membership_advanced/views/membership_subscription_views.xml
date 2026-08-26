@@ -1,0 +1,66 @@
+<odoo>
+    <record id="view_membership_subscription_form" model="ir.ui.view">
+        <field name="name">membership.subscription.form</field>
+        <field name="model">membership.subscription</field>
+        <field name="arch" type="xml">
+            <form string="Subscription">
+                <header>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,pending,trial,active,expired,cancelled"/>
+                    <button name="action_activate" string="Activate" type="object" class="btn-primary" invisible="state not in ('draft','pending')"/>
+                    <button name="action_renew" string="Renew Now" type="object" class="btn-secondary" invisible="state!='active'"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="member_id" options="{'no_create': True}"/>
+                        <field name="plan_id" options="{'no_create': True}"/>
+                        <field name="name"/>
+                        <field name="state"/>
+                    </group>
+                    <group string="Dates">
+                        <field name="start_date"/>
+                        <field name="end_date"/>
+                        <field name="auto_renew"/>
+                    </group>
+                    <group string="Financial">
+                        <field name="amount"/>
+                        <field name="currency_id"/>
+                    </group>
+                    <group string="Invoice">
+                        <field name="invoice_id"/>
+                        <field name="renewal_count"/>
+                    </group>
+                    <notebook>
+                        <page string="Payments">
+                            <field name="payment_ids">
+                                <list editable="bottom">
+                                    <field name="name"/>
+                                    <field name="date"/>
+                                    <field name="amount"/>
+                                    <field name="state" widget="badge" decoration-success="state=='paid'" decoration-danger="state in ('failed','refunded')"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_membership_subscription_list" model="ir.ui.view">
+        <field name="name">membership.subscription.list</field>
+        <field name="model">membership.subscription</field>
+        <field name="arch" type="xml">
+            <list string="Subscriptions">
+                <field name="name"/>
+                <field name="member_id"/>
+                <field name="plan_id"/>
+                <field name="state" widget="badge" decoration-success="state=='active'" decoration-info="state=='trial'" decoration-danger="state in ('expired','cancelled')" decoration-muted="state in ('draft','pending')"/>
+                <field name="start_date"/>
+                <field name="end_date"/>
+                <field name="amount"/>
+                <field name="currency_id"/>
+                <field name="auto_renew"/>
+            </list>
+        </field>
+    </record>
+</odoo>

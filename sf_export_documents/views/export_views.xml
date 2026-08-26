@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ============ DOSSIER ============ -->
+    <record id="view_export_dossier_tree" model="ir.ui.view">
+        <field name="name">sf.export.dossier.tree</field>
+        <field name="model">sf.export.dossier</field>
+        <field name="arch" type="xml">
+            <tree string="Export Dossiers">
+                <field name="name"/>
+                <field name="sale_order_id"/>
+                <field name="partner_id"/>
+                <field name="destination_country_id"/>
+                <field name="incoterm_id"/>
+                <field name="completeness"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_export_dossier_form" model="ir.ui.view">
+        <field name="name">sf.export.dossier.form</field>
+        <field name="model">sf.export.dossier</field>
+        <field name="arch" type="xml">
+            <form string="Export Dossier">
+                <header>
+                    <button name="action_start_preparation" type="object"
+                            string="Start Preparation" class="btn-primary"
+                            invisible="state != 'draft'"/>
+                    <button name="action_mark_ready" type="object"
+                            string="Mark Ready" class="btn-success"
+                            invisible="state != 'in_preparation'"/>
+                    <button name="action_mark_shipped" type="object"
+                            string="Mark Shipped"
+                            invisible="state != 'ready'"/>
+                    <button name="action_archive" type="object"
+                            string="Archive"
+                            invisible="state != 'shipped'"/>
+                    <button name="action_cancel" type="object"
+                            string="Cancel"
+                            invisible="state not in ('draft', 'in_preparation')"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="sale_order_id"/>
+                            <field name="partner_id"/>
+                        </group>
+                        <group>
+                            <field name="destination_country_id"/>
+                            <field name="origin_country_id"/>
+                            <field name="incoterm_id"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="port_loading"/>
+                            <field name="port_discharge"/>
+                            <field name="transport_mode"/>
+                        </group>
+                        <group>
+                            <field name="shipment_date"/>
+                            <field name="shipped_date"/>
+                            <field name="completeness"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Documents">
+                            <group>
+                                <group>
+                                    <field name="doc_invoice_ok"/>
+                                    <field name="doc_packing_ok"/>
+                                </group>
+                                <group>
+                                    <field name="doc_origin_ok"/>
+                                    <field name="doc_eur_ok"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                    <field name="notes"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_export_dossier_search" model="ir.ui.view">
+        <field name="name">sf.export.dossier.search</field>
+        <field name="model">sf.export.dossier</field>
+        <field name="arch" type="xml">
+            <search string="Export Dossiers">
+                <field name="partner_id"/>
+                <field name="destination_country_id"/>
+                <field name="sale_order_id"/>
+                <filter string="Ready" name="ready"
+                        domain="[('state', '=', 'ready')]"/>
+                <filter string="In Preparation" name="in_preparation"
+                        domain="[('state', '=', 'in_preparation')]"/>
+                <filter string="Complete" name="complete"
+                        domain="[('completeness', '=', 4)]"/>
+                <group>
+                    <filter string="Status" name="state_group"
+                            context="{'group_by': 'state'}"/>
+                    <filter string="Destination" name="destination_group"
+                            context="{'group_by': 'destination_country_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_export_dossier_kanban" model="ir.ui.view">
+        <field name="name">sf.export.dossier.kanban</field>
+        <field name="model">sf.export.dossier</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state">
+                <field name="partner_id"/>
+                <field name="destination_country_id"/>
+                <field name="incoterm_id"/>
+                <field name="completeness"/>
+                <templates>
+                    <t t-name="card">
+                        <div class="oe_kanban_global_click">
+                            <div class="o_kanban_record_title">
+                                <field name="name"/>
+                            </div>
+                            <div class="o_kanban_record_subtitle">
+                                <field name="partner_id"/> (<field name="destination_country_id"/>)
+                            </div>
+                            <div class="o_kanban_record_bottom">
+                                Docs: <field name="completeness"/> / 4
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="action_export_dossier" model="ir.actions.act_window">
+        <field name="name">Export Dossiers</field>
+        <field name="res_model">sf.export.dossier</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="search_view_id" ref="view_export_dossier_search"/>
+    </record>
+
+    <!-- ============ INCOTERM ============ -->
+    <record id="view_export_incoterm_tree" model="ir.ui.view">
+        <field name="name">sf.export.incoterm.tree</field>
+        <field name="model">sf.export.incoterm</field>
+        <field name="arch" type="xml">
+            <tree string="Incoterms">
+                <field name="code"/>
+                <field name="name"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_export_incoterm_form" model="ir.ui.view">
+        <field name="name">sf.export.incoterm.form</field>
+        <field name="model">sf.export.incoterm</field>
+        <field name="arch" type="xml">
+            <form string="Incoterm">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="code"/>
+                            <field name="name"/>
+                        </group>
+                        <group>
+                            <field name="active"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_export_incoterm" model="ir.actions.act_window">
+        <field name="name">Incoterms</field>
+        <field name="res_model">sf.export.incoterm</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- ============ DASHBOARD ============ -->
+    <record id="view_export_dashboard_graph" model="ir.ui.view">
+        <field name="name">sf.export.dossier.dashboard.graph</field>
+        <field name="model">sf.export.dossier</field>
+        <field name="arch" type="xml">
+            <graph string="Dossiers by Destination">
+                <field name="destination_country_id"/>
+                <field name="id" type="measure" string="Dossiers"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="view_export_dashboard_pivot" model="ir.ui.view">
+        <field name="name">sf.export.dossier.dashboard.pivot</field>
+        <field name="model">sf.export.dossier</field>
+        <field name="arch" type="xml">
+            <pivot string="Dossiers by Destination and Incoterm">
+                <field name="destination_country_id" type="row"/>
+                <field name="incoterm_id" type="col"/>
+                <field name="id" type="measure" string="Dossiers"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="action_export_dashboard" model="ir.actions.act_window">
+        <field name="name">Export Dashboard</field>
+        <field name="res_model">sf.export.dossier</field>
+        <field name="view_mode">graph,pivot</field>
+        <field name="view_ids" eval="[(5, 0), (0, 0, {'view_mode': 'graph', 'view_id': ref('view_export_dashboard_graph')}), (0, 0, {'view_mode': 'pivot', 'view_id': ref('view_export_dashboard_pivot')})]"/>
+    </record>
+
+
+    <record id="wave_final_sf_export_documents" model="ir.actions.server">
+        <field name="name">Refresh Business Data</field>
+        <field name="model_id" ref="model_sf_export_incoterm"/>
+        <field name="binding_model_id" ref="model_sf_export_incoterm"/>
+        <field name="state">code</field>
+        <field name="code">records.action_refresh_business()</field>
+    </record>
+</odoo>

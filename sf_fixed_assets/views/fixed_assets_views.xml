@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Category form -->
+    <record id="asset_category_view_form" model="ir.ui.view">
+        <field name="name">sf.fixed.asset.category.form</field>
+        <field name="model">sf.fixed.asset.category</field>
+        <field name="arch" type="xml">
+            <form string="Asset Category">
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="code"/>
+                            <field name="active"/>
+                        </group>
+                        <group>
+                            <field name="useful_life_months"/>
+                            <field name="depreciation_method"/>
+                            <field name="account_id"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="asset_category_view_tree" model="ir.ui.view">
+        <field name="name">sf.fixed.asset.category.tree</field>
+        <field name="model">sf.fixed.asset.category</field>
+        <field name="arch" type="xml">
+            <tree string="Asset Categories">
+                <field name="name"/>
+                <field name="code"/>
+                <field name="useful_life_months"/>
+                <field name="depreciation_method"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Asset form -->
+    <record id="asset_view_form" model="ir.ui.view">
+        <field name="name">sf.fixed.asset.form</field>
+        <field name="model">sf.fixed.asset</field>
+        <field name="arch" type="xml">
+            <form string="Fixed Asset">
+                <header>
+                    <button name="action_generate_depreciation"
+                            string="Generate Depreciation Plan" type="object"
+                            invisible="[('state', 'not in', ('draft', 'in_use'))]"/>
+                    <button name="action_in_use" string="In Use" type="object"
+                            invisible="[('state', 'not in', ('draft',))]"/>
+                    <button name="action_dispose" string="Dispose" type="object"
+                            invisible="[('state', 'not in', ('in_use',))]"/>
+                    <button name="action_sold" string="Mark Sold" type="object"
+                            invisible="[('state', 'not in', ('in_use',))]"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name"/></h1>
+                        <field name="state" widget="statusbar"/>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="code"/>
+                            <field name="category_id"/>
+                            <field name="location"/>
+                            <field name="owner_id"/>
+                            <field name="company_id"/>
+                        </group>
+                        <group>
+                            <field name="purchase_date"/>
+                            <field name="purchase_value"/>
+                            <field name="residual_value"/>
+                            <field name="currency_id"/>
+                        </group>
+                    </group>
+                    <group string="Depreciation">
+                        <group>
+                            <field name="useful_life_months"/>
+                            <field name="depreciation_method"/>
+                            <field name="monthly_depreciation"/>
+                        </group>
+                        <group>
+                            <field name="accumulated_depreciation"/>
+                            <field name="book_value"/>
+                        </group>
+                    </group>
+                    <field name="note" placeholder="Note..."/>
+                    <notebook>
+                        <page string="Depreciation Plan">
+                            <field name="depreciation_ids">
+                                <tree string="Depreciation Lines">
+                                    <field name="period"/>
+                                    <field name="amount"/>
+                                    <field name="date"/>
+                                    <field name="posted"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="asset_view_tree" model="ir.ui.view">
+        <field name="name">sf.fixed.asset.tree</field>
+        <field name="model">sf.fixed.asset</field>
+        <field name="arch" type="xml">
+            <tree string="Fixed Assets">
+                <field name="name"/>
+                <field name="category_id"/>
+                <field name="location"/>
+                <field name="purchase_date"/>
+                <field name="purchase_value"/>
+                <field name="book_value"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="asset_view_search" model="ir.ui.view">
+        <field name="name">sf.fixed.asset.search</field>
+        <field name="model">sf.fixed.asset</field>
+        <field name="arch" type="xml">
+            <search string="Fixed Assets">
+                <field name="name"/>
+                <field name="category_id"/>
+                <field name="location"/>
+                <filter string="In Use" name="in_use"
+                        domain="[('state','=','in_use')]"/>
+                <filter string="Fully Depreciated" name="fully"
+                        domain="[('book_value','&lt;=','residual_value')]"/>
+                <group>
+                    <filter string="Category" name="category"
+                            context="{'group_by':'category_id'}"/>
+                    <filter string="Status" name="state"
+                            context="{'group_by':'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Actions -->
+    <record id="action_asset" model="ir.actions.act_window">
+        <field name="name">Fixed Assets</field>
+        <field name="res_model">sf.fixed.asset</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="asset_view_search"/>
+    </record>
+
+    <record id="action_asset_category" model="ir.actions.act_window">
+        <field name="name">Asset Categories</field>
+        <field name="res_model">sf.fixed.asset.category</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

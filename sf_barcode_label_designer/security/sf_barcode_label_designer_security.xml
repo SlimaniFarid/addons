@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="module_category_sf_barcode_label_designer" model="ir.module.category">
+        <field name="name">Barcode Label Designer</field>
+        <field name="description">Barcode Label Designer</field>
+        <field name="sequence">10</field>
+    </record>
+    <record id="group_barcode_label_designer_user" model="res.groups">
+        <field name="name">Barcode Label Designer / User</field>
+        <field name="category_id" ref="module_category_sf_barcode_label_designer"/>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+    <record id="group_barcode_label_designer_manager" model="res.groups">
+        <field name="name">Barcode Label Designer / Manager</field>
+        <field name="category_id" ref="module_category_sf_barcode_label_designer"/>
+        <field name="implied_ids" eval="[(4, ref('sf_barcode_label_designer.group_barcode_label_designer_user'))]"/>
+    </record>
+</odoo>

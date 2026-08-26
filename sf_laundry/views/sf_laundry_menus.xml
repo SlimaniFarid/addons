@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_sf_laundry_root"
+              name="Laundry"
+              sequence="20"
+              web_icon="sf_laundry,static/description/icon.png"/>
+    <menuitem id="menu_sf_laundry_orders"
+              name="Orders"
+              parent="menu_sf_laundry_root"
+              action="action_sf_laundry_order"
+              sequence="10"/>
+    <menuitem id="menu_sf_laundry_items"
+              name="Items"
+              parent="menu_sf_laundry_root"
+              action="action_sf_laundry_item"
+              sequence="20"/>
+    <menuitem id="menu_sf_laundry_item_types"
+              name="Item Types"
+              parent="menu_sf_laundry_root"
+              action="action_sf_laundry_item_type"
+              sequence="30"/>
+</odoo>

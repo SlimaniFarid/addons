@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="report_reservation_confirmation" model="ir.actions.report">
+        <field name="name">Reservation Confirmation</field>
+        <field name="model">sf.hotel.reservation</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">sf_hotel_pms.report_reservation_confirmation_template</field>
+        <field name="report_file">sf_hotel_pms.report_reservation_confirmation_template</field>
+        <field name="binding_model_id" ref="model_sf_hotel_reservation"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="report_reservation_confirmation_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2>Reservation Confirmation</h2>
+                        <table class="table table-sm">
+                            <tr><td><strong>Reservation</strong></td><td><t t-esc="o.name"/></td></tr>
+                            <tr><td><strong>Customer</strong></td><td><t t-esc="o.guest_name or (o.guest_id.name if o.guest_id else '')"/></td></tr>
+                            <tr><td><strong>Arrival</strong></td><td><t t-esc="o.check_in or ''"/></td></tr>
+                            <tr><td><strong>Departure</strong></td><td><t t-esc="o.check_out or ''"/></td></tr>
+                            <tr><td><strong>Nights</strong></td><td><t t-esc="o.nights"/></td></tr>
+                            <tr><td><strong>Rooms</strong></td><td><t t-esc="', '.join(o.room_ids.mapped('name'))"/></td></tr>
+                            <tr><td><strong>Total</strong></td><td><t t-esc="o.total"/></td></tr>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <record id="report_occupation_housekeeping" model="ir.actions.report">
+        <field name="name">Occupation / Housekeeping</field>
+        <field name="model">sf.hotel.room</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">sf_hotel_pms.report_occupation_housekeeping_template</field>
+        <field name="report_file">sf_hotel_pms.report_occupation_housekeeping_template</field>
+        <field name="binding_model_id" ref="model_sf_hotel_room"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="report_occupation_housekeeping_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2>Occupation / Housekeeping</h2>
+                        <table class="table table-sm">
+                            <tr><td><strong>Room</strong></td><td><t t-esc="o.name"/></td></tr>
+                            <tr><td><strong>Type</strong></td><td><t t-esc="o.room_type"/></td></tr>
+                            <tr><td><strong>Status</strong></td><td><t t-esc="o.status"/></td></tr>
+                            <tr><td><strong>Rate</strong></td><td><t t-esc="o.base_price"/></td></tr>
+                        </table>
+                        <t t-if="o.housekeeping_ids">
+                            <h4>Housekeeping</h4>
+                            <table class="table table-sm">
+                                <tr>
+                                    <td><strong>Date</strong></td>
+                                    <td><strong>Type</strong></td>
+                                    <td><strong>Assigned To</strong></td>
+                                    <td><strong>Status</strong></td>
+                                </tr>
+                                <t t-foreach="o.housekeeping_ids" t-as="task">
+                                    <tr>
+                                        <td><t t-esc="task.date"/></td>
+                                        <td><t t-esc="task.task_type"/></td>
+                                        <td><t t-esc="task.assigned_to.name if task.assigned_to else ''"/></td>
+                                        <td><t t-esc="task.state"/></td>
+                                    </tr>
+                                </t>
+                            </table>
+                        </t>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+</odoo>

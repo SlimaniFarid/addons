@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem id="menu_freight_costing_root"
+              name="Freight &amp; Costing"
+              parent="stock.menu_stock_root"
+              sequence="99"/>
+
+    <menuitem id="menu_freight_carriers"
+              name="Carriers"
+              parent="menu_freight_costing_root"
+              action="action_freight_carrier"
+              sequence="10"/>
+
+    <menuitem id="menu_freight_costs"
+              name="Freight Costs"
+              parent="menu_freight_costing_root"
+              action="action_freight_cost"
+              sequence="20"/>
+
+</odoo>

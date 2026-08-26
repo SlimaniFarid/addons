@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Process Routing -->
+    <record id="process_routing_view_form" model="ir.ui.view">
+        <field name="name">sf.process.routing.form</field>
+        <field name="model">sf.process.routing</field>
+        <field name="arch" type="xml">
+            <form string="Process Routing">
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="product_id"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="code"/>
+                            <field name="sequence"/>
+                            <field name="is_default"/>
+                            <field name="active"/>
+                        </group>
+                        <group>
+                            <field name="active_version_id" readonly="1"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="description"/>
+                    </group>
+                    <notebook>
+                        <page string="Versions">
+                            <field name="version_ids">
+                                <tree string="Versions" editable="bottom">
+                                    <field name="version"/>
+                                    <field name="effective_date"/>
+                                    <field name="expiry_date"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="process_routing_view_tree" model="ir.ui.view">
+        <field name="name">sf.process.routing.tree</field>
+        <field name="model">sf.process.routing</field>
+        <field name="arch" type="xml">
+            <tree string="Process Routings">
+                <field name="product_id"/>
+                <field name="code"/>
+                <field name="is_default"/>
+                <field name="active_version_id"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Routing Version -->
+    <record id="routing_version_view_form" model="ir.ui.view">
+        <field name="name">sf.process.routing.version.form</field>
+        <field name="model">sf.process.routing.version</field>
+        <field name="arch" type="xml">
+            <form string="Routing Version">
+                <header>
+                    <button name="action_activate" type="object" string="Activate" class="btn-primary" invisible="[('state', 'not in', ('draft',))]"/>
+                    <button name="action_obsolete" type="object" string="Obsolete" class="btn-secondary" invisible="[('state', 'not in', ('active',))]"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="routing_id"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="version"/>
+                            <field name="effective_date"/>
+                            <field name="expiry_date"/>
+                        </group>
+                        <group>
+                            <field name="state"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="notes"/>
+                    </group>
+                    <notebook>
+                        <page string="Routes">
+                            <field name="route_ids">
+                                <tree string="Routes" editable="bottom">
+                                    <field name="sequence"/>
+                                    <field name="name"/>
+                                    <field name="bom_id"/>
+                                    <field name="estimated_time"/>
+                                    <field name="estimated_cost"/>
+                                    <field name="active"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Conditions">
+                            <field name="condition_ids">
+                                <tree string="Conditions" editable="bottom">
+                                    <field name="sequence"/>
+                                    <field name="condition_type"/>
+                                    <field name="operator"/>
+                                    <field name="threshold"/>
+                                    <field name="weight"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="routing_version_view_tree" model="ir.ui.view">
+        <field name="name">sf.process.routing.version.tree</field>
+        <field name="model">sf.process.routing.version</field>
+        <field name="arch" type="xml">
+            <tree string="Routing Versions">
+                <field name="routing_id"/>
+                <field name="version"/>
+                <field name="effective_date"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Process Route -->
+    <record id="process_route_view_form" model="ir.ui.view">
+        <field name="name">sf.process.route.form</field>
+        <field name="model">sf.process.route</field>
+        <field name="arch" type="xml">
+            <form string="Process Route">
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="version_id"/>
+                            <field name="sequence"/>
+                            <field name="priority"/>
+                            <field name="active"/>
+                        </group>
+                        <group>
+                            <field name="bom_id"/>
+                            <field name="estimated_time"/>
+                            <field name="estimated_cost"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="workcenter_ids" widget="many2many_tags"/>
+                    </group>
+                    <group>
+                        <field name="description"/>
+                    </group>
+                    <notebook>
+                        <page string="Conditions">
+                            <field name="condition_ids">
+                                <tree string="Route Conditions" editable="bottom">
+                                    <field name="condition_type"/>
+                                    <field name="operator"/>
+                                    <field name="threshold"/>
+                                    <field name="weight"/>
+                                    <field name="workcenter_id"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="process_route_view_tree" model="ir.ui.view">
+        <field name="name">sf.process.route.tree</field>
+        <field name="model">sf.process.route</field>
+        <field name="arch" type="xml">
+            <tree string="Process Routes">
+                <field name="version_id"/>
+                <field name="name"/>
+                <field name="bom_id"/>
+                <field name="estimated_time"/>
+                <field name="estimated_cost"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Routing Condition -->
+    <record id="routing_condition_view_form" model="ir.ui.view">
+        <field name="name">sf.process.routing.condition.form</field>
+        <field name="model">sf.process.routing.condition</field>
+        <field name="arch" type="xml">
+            <form string="Routing Condition">
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="version_id"/>
+                            <field name="route_id"/>
+                            <field name="sequence"/>
+                        </group>
+                        <group>
+                            <field name="condition_type"/>
+                            <field name="operator"/>
+                            <field name="threshold"/>
+                            <field name="weight"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="workcenter_id" invisible="[('condition_type', 'not in', ['workcenter_load','workcenter_availability','quality_score','capacity'])]"/>
+                    </group>
+                    <group string="Custom Expression" invisible="[('condition_type', '!=', 'custom')]">
+                        <field name="python_code" widget="code" options="{'mode': 'python'}"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="routing_condition_view_tree" model="ir.ui.view">
+        <field name="name">sf.process.routing.condition.tree</field>
+        <field name="model">sf.process.routing.condition</field>
+        <field name="arch" type="xml">
+            <tree string="Routing Conditions">
+                <field name="version_id"/>
+                <field name="route_id"/>
+                <field name="condition_type"/>
+                <field name="operator"/>
+                <field name="threshold"/>
+                <field name="weight"/>
+                <field name="workcenter_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Selection Log -->
+    <record id="selection_log_view_tree" model="ir.ui.view">
+        <field name="name">sf.process.routing.selection.log.tree</field>
+        <field name="model">sf.process.routing.selection.log</field>
+        <field name="arch" type="xml">
+            <tree string="Routing Selection Logs">
+                <field name="create_date"/>
+                <field name="mo_id"/>
+                <field name="routing_id"/>
+                <field name="route_id"/>
+                <field name="selection_method"/>
+                <field name="score"/>
+                <field name="user_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Actions -->
+    <record id="action_process_routing" model="ir.actions.act_window">
+        <field name="name">Process Routings</field>
+        <field name="res_model">sf.process.routing</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="action_process_route" model="ir.actions.act_window">
+        <field name="name">Process Routes</field>
+        <field name="res_model">sf.process.route</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="action_routing_condition" model="ir.actions.act_window">
+        <field name="name">Conditions</field>
+        <field name="res_model">sf.process.routing.condition</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="action_routing_selection_log" model="ir.actions.act_window">
+        <field name="name">Selection Logs</field>
+        <field name="res_model">sf.process.routing.selection.log</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

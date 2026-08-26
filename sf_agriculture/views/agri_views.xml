@@ -1,0 +1,877 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ============ FARM ============ -->
+    <record id="view_agri_farm_tree" model="ir.ui.view">
+        <field name="name">sf.agri.farm.tree</field>
+        <field name="model">sf.agri.farm</field>
+        <field name="arch" type="xml">
+            <tree string="Farms">
+                <field name="name"/>
+                <field name="address"/>
+                <field name="manager_id"/>
+                <field name="phone"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_agri_farm_form" model="ir.ui.view">
+        <field name="name">sf.agri.farm.form</field>
+        <field name="model">sf.agri.farm</field>
+        <field name="arch" type="xml">
+            <form string="Farm">
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="address"/>
+                            <field name="manager_id"/>
+                            <field name="phone"/>
+                        </group>
+                        <group>
+                            <field name="active"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Plots">
+                            <field name="plot_ids">
+                                <tree string="Plots" editable="bottom">
+                                    <field name="name"/>
+                                    <field name="area_ha"/>
+                                    <field name="soil_type"/>
+                                    <field name="irrigation"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Campaigns">
+                            <field name="campaign_ids">
+                                <tree string="Campaigns">
+                                    <field name="name"/>
+                                    <field name="year"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_agri_farm_search" model="ir.ui.view">
+        <field name="name">sf.agri.farm.search</field>
+        <field name="model">sf.agri.farm</field>
+        <field name="arch" type="xml">
+            <search string="Farms">
+                <field name="name"/>
+                <field name="address"/>
+                <field name="manager_id"/>
+                <filter string="Archived" name="archived"
+                        domain="[('active', '=', False)]"/>
+                <group>
+                    <filter string="Manager" name="manager_group"
+                            context="{'group_by': 'manager_id'}"/>
+                    <filter string="Company" name="company_group"
+                            context="{'group_by': 'company_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_agri_farm_kanban" model="ir.ui.view">
+        <field name="name">sf.agri.farm.kanban</field>
+        <field name="model">sf.agri.farm</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <field name="name"/>
+                <field name="address"/>
+                <field name="manager_id"/>
+                <templates>
+                    <t t-name="card">
+                        <div class="oe_kanban_global_click">
+                            <div class="o_kanban_record_title">
+                                <field name="name"/>
+                            </div>
+                            <div class="o_kanban_record_subtitle">
+                                <field name="address"/>
+                                <field name="manager_id"/>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="action_agri_farm" model="ir.actions.act_window">
+        <field name="name">Farms</field>
+        <field name="res_model">sf.agri.farm</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="search_view_id" ref="view_agri_farm_search"/>
+    </record>
+
+    <!-- ============ PLOT ============ -->
+    <record id="view_agri_plot_tree" model="ir.ui.view">
+        <field name="name">sf.agri.plot.tree</field>
+        <field name="model">sf.agri.plot</field>
+        <field name="arch" type="xml">
+            <tree string="Plots">
+                <field name="name"/>
+                <field name="farm_id"/>
+                <field name="area_ha"/>
+                <field name="soil_type"/>
+                <field name="irrigation"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_agri_plot_form" model="ir.ui.view">
+        <field name="name">sf.agri.plot.form</field>
+        <field name="model">sf.agri.plot</field>
+        <field name="arch" type="xml">
+            <form string="Plot">
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="farm_id"/>
+                            <field name="area_ha"/>
+                            <field name="soil_type"/>
+                        </group>
+                        <group>
+                            <field name="irrigation"/>
+                            <field name="active"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Cultures">
+                            <field name="culture_ids">
+                                <tree string="Cultures">
+                                    <field name="name"/>
+                                    <field name="campaign_id"/>
+                                    <field name="crop"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_agri_plot_search" model="ir.ui.view">
+        <field name="name">sf.agri.plot.search</field>
+        <field name="model">sf.agri.plot</field>
+        <field name="arch" type="xml">
+            <search string="Plots">
+                <field name="name"/>
+                <field name="farm_id"/>
+                <field name="soil_type"/>
+                <field name="irrigation"/>
+                <group>
+                    <filter string="Farm" name="farm_group"
+                            context="{'group_by': 'farm_id'}"/>
+                    <filter string="Soil Type" name="soil_group"
+                            context="{'group_by': 'soil_type'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_agri_plot_kanban" model="ir.ui.view">
+        <field name="name">sf.agri.plot.kanban</field>
+        <field name="model">sf.agri.plot</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <field name="name"/>
+                <field name="farm_id"/>
+                <field name="area_ha"/>
+                <field name="soil_type"/>
+                <templates>
+                    <t t-name="card">
+                        <div class="oe_kanban_global_click">
+                            <div class="o_kanban_record_title">
+                                <field name="name"/>
+                            </div>
+                            <div class="o_kanban_record_subtitle">
+                                <field name="farm_id"/>
+                            </div>
+                            <div class="o_kanban_record_bottom">
+                                <field name="area_ha"/> ha &#8212;
+                                <field name="soil_type"/>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="action_agri_plot" model="ir.actions.act_window">
+        <field name="name">Plots</field>
+        <field name="res_model">sf.agri.plot</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="search_view_id" ref="view_agri_plot_search"/>
+    </record>
+
+    <!-- ============ CAMPAIGN ============ -->
+    <record id="view_agri_campaign_tree" model="ir.ui.view">
+        <field name="name">sf.agri.campaign.tree</field>
+        <field name="model">sf.agri.campaign</field>
+        <field name="arch" type="xml">
+            <tree string="Campaigns">
+                <field name="name"/>
+                <field name="farm_id"/>
+                <field name="year"/>
+                <field name="start_date"/>
+                <field name="end_date"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_agri_campaign_form" model="ir.ui.view">
+        <field name="name">sf.agri.campaign.form</field>
+        <field name="model">sf.agri.campaign</field>
+        <field name="arch" type="xml">
+            <form string="Campaign">
+                <header>
+                    <button name="action_open" type="object"
+                            string="Open" class="btn-primary"
+                            invisible="state != 'draft'"/>
+                    <button name="action_close" type="object"
+                            string="Close" class="btn-success"
+                            invisible="state != 'open'"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="farm_id"/>
+                            <field name="year"/>
+                        </group>
+                        <group>
+                            <field name="start_date"/>
+                            <field name="end_date"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Cultures">
+                            <field name="culture_ids">
+                                <tree string="Cultures">
+                                    <field name="name"/>
+                                    <field name="plot_id"/>
+                                    <field name="crop"/>
+                                    <field name="variety"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_agri_campaign_search" model="ir.ui.view">
+        <field name="name">sf.agri.campaign.search</field>
+        <field name="model">sf.agri.campaign</field>
+        <field name="arch" type="xml">
+            <search string="Campaigns">
+                <field name="name"/>
+                <field name="farm_id"/>
+                <field name="year"/>
+                <filter string="Draft" name="draft"
+                        domain="[('state', '=', 'draft')]"/>
+                <filter string="Open" name="open"
+                        domain="[('state', '=', 'open')]"/>
+                <filter string="Closed" name="closed"
+                        domain="[('state', '=', 'closed')]"/>
+                <group>
+                    <filter string="Farm" name="farm_group"
+                            context="{'group_by': 'farm_id'}"/>
+                    <filter string="Year" name="year_group"
+                            context="{'group_by': 'year'}"/>
+                    <filter string="Status" name="state_group"
+                            context="{'group_by': 'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_agri_campaign_kanban" model="ir.ui.view">
+        <field name="name">sf.agri.campaign.kanban</field>
+        <field name="model">sf.agri.campaign</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state">
+                <field name="name"/>
+                <field name="farm_id"/>
+                <field name="year"/>
+                <field name="state"/>
+                <templates>
+                    <t t-name="card">
+                        <div class="oe_kanban_global_click">
+                            <div class="o_kanban_record_title">
+                                <field name="name"/>
+                            </div>
+                            <div class="o_kanban_record_subtitle">
+                                <field name="farm_id"/> &#8212;
+                                <field name="year"/>
+                            </div>
+                            <div class="o_kanban_record_bottom">
+                                <field name="state"/>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="action_agri_campaign" model="ir.actions.act_window">
+        <field name="name">Campaigns</field>
+        <field name="res_model">sf.agri.campaign</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="search_view_id" ref="view_agri_campaign_search"/>
+    </record>
+
+    <!-- ============ CULTURE ============ -->
+    <record id="view_agri_culture_tree" model="ir.ui.view">
+        <field name="name">sf.agri.culture.tree</field>
+        <field name="model">sf.agri.culture</field>
+        <field name="arch" type="xml">
+            <tree string="Cultures">
+                <field name="name"/>
+                <field name="campaign_id"/>
+                <field name="plot_id"/>
+                <field name="crop"/>
+                <field name="variety"/>
+                <field name="planted_date"/>
+                <field name="harvest_date"/>
+                <field name="expected_yield"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_agri_culture_form" model="ir.ui.view">
+        <field name="name">sf.agri.culture.form</field>
+        <field name="model">sf.agri.culture</field>
+        <field name="arch" type="xml">
+            <form string="Culture">
+                <header>
+                    <button name="action_start_growing" type="object"
+                            string="Start Growing" class="btn-primary"
+                            invisible="state != 'draft'"/>
+                    <button name="action_set_harvested" type="object"
+                            string="Set Harvested" class="btn-success"
+                            invisible="state != 'growing'"/>
+                    <button name="action_close" type="object"
+                            string="Close" class="btn-warning"
+                            invisible="state != 'harvested'"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="campaign_id"/>
+                            <field name="plot_id"/>
+                            <field name="crop"/>
+                            <field name="variety"/>
+                        </group>
+                        <group>
+                            <field name="planted_date"/>
+                            <field name="harvest_date"/>
+                            <field name="expected_yield"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Operations">
+                            <field name="operation_ids">
+                                <tree string="Operations" editable="bottom">
+                                    <field name="sequence"/>
+                                    <field name="name"/>
+                                    <field name="operation_type"/>
+                                    <field name="planned_date"/>
+                                    <field name="done_date"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Treatments">
+                            <field name="treatment_ids">
+                                <tree string="Treatments">
+                                    <field name="name"/>
+                                    <field name="treatment_type"/>
+                                    <field name="product"/>
+                                    <field name="quantity"/>
+                                    <field name="unit"/>
+                                    <field name="treatment_date"/>
+                                    <field name="withdrawal_days"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Harvests">
+                            <field name="harvest_ids">
+                                <tree string="Harvests">
+                                    <field name="name"/>
+                                    <field name="harvest_date"/>
+                                    <field name="quantity"/>
+                                    <field name="unit"/>
+                                    <field name="yield_t_ha"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_agri_culture_search" model="ir.ui.view">
+        <field name="name">sf.agri.culture.search</field>
+        <field name="model">sf.agri.culture</field>
+        <field name="arch" type="xml">
+            <search string="Cultures">
+                <field name="name"/>
+                <field name="campaign_id"/>
+                <field name="plot_id"/>
+                <field name="crop"/>
+                <field name="variety"/>
+                <filter string="Growing" name="growing"
+                        domain="[('state', '=', 'growing')]"/>
+                <filter string="Harvested" name="harvested"
+                        domain="[('state', '=', 'harvested')]"/>
+                <group>
+                    <filter string="Campaign" name="campaign_group"
+                            context="{'group_by': 'campaign_id'}"/>
+                    <filter string="Plot" name="plot_group"
+                            context="{'group_by': 'plot_id'}"/>
+                    <filter string="Crop" name="crop_group"
+                            context="{'group_by': 'crop'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_agri_culture_kanban" model="ir.ui.view">
+        <field name="name">sf.agri.culture.kanban</field>
+        <field name="model">sf.agri.culture</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state">
+                <field name="name"/>
+                <field name="campaign_id"/>
+                <field name="plot_id"/>
+                <field name="crop"/>
+                <field name="state"/>
+                <templates>
+                    <t t-name="card">
+                        <div class="oe_kanban_global_click">
+                            <div class="o_kanban_record_title">
+                                <field name="name"/>
+                            </div>
+                            <div class="o_kanban_record_subtitle">
+                                <field name="crop"/> &#8212;
+                                <field name="plot_id"/>
+                            </div>
+                            <div class="o_kanban_record_bottom">
+                                <field name="campaign_id"/>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="action_agri_culture" model="ir.actions.act_window">
+        <field name="name">Cultures</field>
+        <field name="res_model">sf.agri.culture</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="search_view_id" ref="view_agri_culture_search"/>
+    </record>
+
+    <!-- ============ OPERATION ============ -->
+    <record id="view_agri_operation_tree" model="ir.ui.view">
+        <field name="name">sf.agri.operation.tree</field>
+        <field name="model">sf.agri.operation</field>
+        <field name="arch" type="xml">
+            <tree string="Operations">
+                <field name="culture_id"/>
+                <field name="sequence"/>
+                <field name="name"/>
+                <field name="operation_type"/>
+                <field name="planned_date"/>
+                <field name="done_date"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_agri_operation_form" model="ir.ui.view">
+        <field name="name">sf.agri.operation.form</field>
+        <field name="model">sf.agri.operation</field>
+        <field name="arch" type="xml">
+            <form string="Operation">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="culture_id"/>
+                            <field name="sequence"/>
+                            <field name="name"/>
+                        </group>
+                        <group>
+                            <field name="operation_type"/>
+                            <field name="planned_date"/>
+                            <field name="done_date"/>
+                        </group>
+                    </group>
+                    <field name="notes"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_agri_operation_search" model="ir.ui.view">
+        <field name="name">sf.agri.operation.search</field>
+        <field name="model">sf.agri.operation</field>
+        <field name="arch" type="xml">
+            <search string="Operations">
+                <field name="culture_id"/>
+                <field name="name"/>
+                <field name="operation_type"/>
+                <group>
+                    <filter string="Culture" name="culture_group"
+                            context="{'group_by': 'culture_id'}"/>
+                    <filter string="Type" name="type_group"
+                            context="{'group_by': 'operation_type'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_agri_operation_kanban" model="ir.ui.view">
+        <field name="name">sf.agri.operation.kanban</field>
+        <field name="model">sf.agri.operation</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="operation_type">
+                <field name="culture_id"/>
+                <field name="name"/>
+                <field name="operation_type"/>
+                <field name="planned_date"/>
+                <templates>
+                    <t t-name="card">
+                        <div class="oe_kanban_global_click">
+                            <div class="o_kanban_record_title">
+                                <field name="name"/>
+                            </div>
+                            <div class="o_kanban_record_subtitle">
+                                <field name="culture_id"/> &#8212;
+                                <field name="operation_type"/>
+                            </div>
+                            <div class="o_kanban_record_bottom">
+                                <field name="planned_date"/>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="action_agri_operation" model="ir.actions.act_window">
+        <field name="name">Operations</field>
+        <field name="res_model">sf.agri.operation</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="search_view_id" ref="view_agri_operation_search"/>
+    </record>
+
+    <!-- ============ TREATMENT ============ -->
+    <record id="view_agri_treatment_tree" model="ir.ui.view">
+        <field name="name">sf.agri.treatment.tree</field>
+        <field name="model">sf.agri.treatment</field>
+        <field name="arch" type="xml">
+            <tree string="Treatments">
+                <field name="name"/>
+                <field name="culture_id"/>
+                <field name="treatment_type"/>
+                <field name="product"/>
+                <field name="quantity"/>
+                <field name="unit"/>
+                <field name="treatment_date"/>
+                <field name="withdrawal_days"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_agri_treatment_form" model="ir.ui.view">
+        <field name="name">sf.agri.treatment.form</field>
+        <field name="model">sf.agri.treatment</field>
+        <field name="arch" type="xml">
+            <form string="Treatment">
+                <header>
+                    <button name="action_plan" type="object"
+                            string="Plan" class="btn-primary"
+                            invisible="state != 'draft'"/>
+                    <button name="action_apply" type="object"
+                            string="Apply" class="btn-success"
+                            invisible="state != 'planned'"/>
+                    <button name="action_done" type="object"
+                            string="Done" class="btn-warning"
+                            invisible="state != 'applied'"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="culture_id"/>
+                            <field name="treatment_type"/>
+                            <field name="product"/>
+                        </group>
+                        <group>
+                            <field name="active_ingredient"/>
+                            <field name="quantity"/>
+                            <field name="unit"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="treatment_date"/>
+                            <field name="withdrawal_days"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_agri_treatment_search" model="ir.ui.view">
+        <field name="name">sf.agri.treatment.search</field>
+        <field name="model">sf.agri.treatment</field>
+        <field name="arch" type="xml">
+            <search string="Treatments">
+                <field name="name"/>
+                <field name="culture_id"/>
+                <field name="treatment_type"/>
+                <field name="product"/>
+                <filter string="Planned" name="planned"
+                        domain="[('state', '=', 'planned')]"/>
+                <filter string="Applied" name="applied"
+                        domain="[('state', '=', 'applied')]"/>
+                <group>
+                    <filter string="Culture" name="culture_group"
+                            context="{'group_by': 'culture_id'}"/>
+                    <filter string="Type" name="type_group"
+                            context="{'group_by': 'treatment_type'}"/>
+                    <filter string="Status" name="state_group"
+                            context="{'group_by': 'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_agri_treatment_kanban" model="ir.ui.view">
+        <field name="name">sf.agri.treatment.kanban</field>
+        <field name="model">sf.agri.treatment</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state">
+                <field name="name"/>
+                <field name="culture_id"/>
+                <field name="treatment_type"/>
+                <field name="product"/>
+                <field name="state"/>
+                <templates>
+                    <t t-name="card">
+                        <div class="oe_kanban_global_click">
+                            <div class="o_kanban_record_title">
+                                <field name="name"/>
+                            </div>
+                            <div class="o_kanban_record_subtitle">
+                                <field name="product"/> &#8212;
+                                <field name="treatment_type"/>
+                            </div>
+                            <div class="o_kanban_record_bottom">
+                                <field name="culture_id"/>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="action_agri_treatment" model="ir.actions.act_window">
+        <field name="name">Treatments</field>
+        <field name="res_model">sf.agri.treatment</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="search_view_id" ref="view_agri_treatment_search"/>
+    </record>
+
+    <!-- ============ HARVEST ============ -->
+    <record id="view_agri_harvest_tree" model="ir.ui.view">
+        <field name="name">sf.agri.harvest.tree</field>
+        <field name="model">sf.agri.harvest</field>
+        <field name="arch" type="xml">
+            <tree string="Harvests">
+                <field name="name"/>
+                <field name="culture_id"/>
+                <field name="plot_id"/>
+                <field name="harvest_date"/>
+                <field name="quantity"/>
+                <field name="unit"/>
+                <field name="quality"/>
+                <field name="yield_t_ha"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_agri_harvest_form" model="ir.ui.view">
+        <field name="name">sf.agri.harvest.form</field>
+        <field name="model">sf.agri.harvest</field>
+        <field name="arch" type="xml">
+            <form string="Harvest">
+                <header>
+                    <button name="action_record" type="object"
+                            string="Record" class="btn-primary"
+                            invisible="state != 'draft'"/>
+                    <button name="action_close" type="object"
+                            string="Close" class="btn-success"
+                            invisible="state != 'recorded'"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="culture_id"/>
+                            <field name="plot_id"/>
+                            <field name="harvest_date"/>
+                        </group>
+                        <group>
+                            <field name="quantity"/>
+                            <field name="unit"/>
+                            <field name="quality"/>
+                            <field name="yield_t_ha" readonly="1"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_agri_harvest_search" model="ir.ui.view">
+        <field name="name">sf.agri.harvest.search</field>
+        <field name="model">sf.agri.harvest</field>
+        <field name="arch" type="xml">
+            <search string="Harvests">
+                <field name="name"/>
+                <field name="culture_id"/>
+                <field name="plot_id"/>
+                <field name="quality"/>
+                <filter string="Recorded" name="recorded"
+                        domain="[('state', '=', 'recorded')]"/>
+                <group>
+                    <filter string="Culture" name="culture_group"
+                            context="{'group_by': 'culture_id'}"/>
+                    <filter string="Plot" name="plot_group"
+                            context="{'group_by': 'plot_id'}"/>
+                    <filter string="Status" name="state_group"
+                            context="{'group_by': 'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_agri_harvest_kanban" model="ir.ui.view">
+        <field name="name">sf.agri.harvest.kanban</field>
+        <field name="model">sf.agri.harvest</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state">
+                <field name="name"/>
+                <field name="culture_id"/>
+                <field name="plot_id"/>
+                <field name="yield_t_ha"/>
+                <field name="state"/>
+                <templates>
+                    <t t-name="card">
+                        <div class="oe_kanban_global_click">
+                            <div class="o_kanban_record_title">
+                                <field name="name"/>
+                            </div>
+                            <div class="o_kanban_record_subtitle">
+                                <field name="culture_id"/> &#8212;
+                                <field name="plot_id"/>
+                            </div>
+                            <div class="o_kanban_record_bottom">
+                                Yield: <field name="yield_t_ha"/> t/ha
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="action_agri_harvest" model="ir.actions.act_window">
+        <field name="name">Harvests</field>
+        <field name="res_model">sf.agri.harvest</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="search_view_id" ref="view_agri_harvest_search"/>
+    </record>
+
+    <!-- ============ DASHBOARD ============ -->
+    <record id="view_agri_dashboard_graph" model="ir.ui.view">
+        <field name="name">sf.agri.culture.dashboard.graph</field>
+        <field name="model">sf.agri.culture</field>
+        <field name="arch" type="xml">
+            <graph string="Yield by Crop (t/ha)">
+                <field name="crop"/>
+                <field name="yield_t_ha" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="view_agri_dashboard_pivot" model="ir.ui.view">
+        <field name="name">sf.agri.culture.dashboard.pivot</field>
+        <field name="model">sf.agri.culture</field>
+        <field name="arch" type="xml">
+            <pivot string="Yield by Crop and Campaign (t/ha)">
+                <field name="crop" type="row"/>
+                <field name="campaign_id" type="col"/>
+                <field name="yield_t_ha" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="action_agri_dashboard" model="ir.actions.act_window">
+        <field name="name">Agriculture Dashboard</field>
+        <field name="res_model">sf.agri.culture</field>
+        <field name="view_mode">graph,pivot</field>
+        <field name="view_ids" eval="[(5, 0), (0, 0, {'view_mode': 'graph', 'view_id': ref('view_agri_dashboard_graph')}), (0, 0, {'view_mode': 'pivot', 'view_id': ref('view_agri_dashboard_pivot')})]"/>
+    </record>
+
+</odoo>

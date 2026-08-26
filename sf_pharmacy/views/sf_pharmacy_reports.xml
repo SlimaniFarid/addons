@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="sf_pharmacy_action_report_inventory" model="ir.actions.report">
+        <field name="name">Batch inventory</field>
+        <field name="model">sf.pharmacy.batch</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">sf_pharmacy.sf_pharmacy_report_inventory</field>
+        <field name="report_file">sf_pharmacy.sf_pharmacy_report_inventory</field>
+        <field name="binding_model_id" ref="model_sf_pharmacy_batch"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <record id="sf_pharmacy_action_report_deliveries" model="ir.actions.report">
+        <field name="name">Dispensations</field>
+        <field name="model">sf.pharmacy.dispensation</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">sf_pharmacy.sf_pharmacy_report_deliveries</field>
+        <field name="report_file">sf_pharmacy.sf_pharmacy_report_deliveries</field>
+        <field name="binding_model_id" ref="model_sf_pharmacy_dispensation"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <record id="sf_pharmacy_action_report_stock_value" model="ir.actions.report">
+        <field name="name">Stock valuation</field>
+        <field name="model">sf.pharmacy.product</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">sf_pharmacy.sf_pharmacy_report_stock_value</field>
+        <field name="report_file">sf_pharmacy.sf_pharmacy_report_stock_value</field>
+        <field name="binding_model_id" ref="model_sf_pharmacy_product"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="sf_pharmacy_report_inventory">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <div class="page">
+                    <h2>Batch inventory</h2>
+                    <p t-esc="o.company_id.name or ''"/>
+                    <table class="table table-sm table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Batch</th>
+                                <th>Product</th>
+                                <th>Expiry</th>
+                                <th>Received</th>
+                                <th>Dispensed</th>
+                                <th>Reserved</th>
+                                <th>Withdrawn</th>
+                                <th>Available</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="docs" t-as="b">
+                                <tr>
+                                    <td t-esc="b.name"/>
+                                    <td t-esc="b.product_id.name"/>
+                                    <td t-esc="b.expiry_date"/>
+                                    <td t-esc="b.qty_received"/>
+                                    <td t-esc="b.qty_dispensed"/>
+                                    <td t-esc="b.qty_reserved"/>
+                                    <td t-esc="b.qty_withdrawn"/>
+                                    <td t-esc="b.qty_available"/>
+                                    <td t-esc="b.status"/>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <template id="sf_pharmacy_report_deliveries">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <div class="page">
+                    <h2>Dispensations report</h2>
+                    <p t-esc="o.company_id.name or ''"/>
+                    <table class="table table-sm table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Dispensation</th>
+                                <th>Prescription</th>
+                                <th>Patient</th>
+                                <th>Product</th>
+                                <th>Batch</th>
+                                <th>Quantity</th>
+                                <th>Posology</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="docs" t-as="d">
+                                <tr>
+                                    <td t-esc="d.name"/>
+                                    <td t-esc="d.prescription_id.name"/>
+                                    <td t-esc="d.prescription_id.patient_name"/>
+                                    <td t-esc="d.product_id.name"/>
+                                    <td t-esc="d.batch_id.name"/>
+                                    <td t-esc="d.qty"/>
+                                    <td t-esc="d.posology"/>
+                                    <td t-esc="d.dispensed_at"/>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <template id="sf_pharmacy_report_stock_value">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <div class="page">
+                    <h2>Stock valuation</h2>
+                    <p t-esc="o.company_id.name or ''"/>
+                    <table class="table table-sm table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Batch</th>
+                                <th>Available quantity</th>
+                                <th>Unit cost</th>
+                                <th>Value</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="o.batch_ids" t-as="b">
+                                <tr>
+                                    <td t-esc="o.name"/>
+                                    <td t-esc="b.name"/>
+                                    <td t-esc="b.qty_available"/>
+                                    <td t-esc="o.cost"/>
+                                    <td t-esc="b.qty_available * o.cost"/>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_complaint_8d_root"
+              name="8D Complaint Management"
+              sequence="30"
+              groups="sf_complaint_8d.group_complaint_8d_user"
+              web_icon="sf_complaint_8d,static/description/icon.png"/>
+    <menuitem id="menu_complaint_8d" name="Complaint 8D"
+              parent="menu_complaint_8d_root"
+              action="action_complaint_8d"
+              sequence="10"
+              groups="sf_complaint_8d.group_complaint_8d_user"/>
+</odoo>

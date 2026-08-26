@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sf_cashflow_forecast_user,sf.cashflow.forecast.user,model_sf_cashflow_forecast,sf_cash_flow_forecast.group_cashflow_user,1,1,1,0
+access_sf_cashflow_forecast_manager,sf.cashflow.forecast.manager,model_sf_cashflow_forecast,sf_cash_flow_forecast.group_cashflow_manager,1,1,1,1
+access_sf_cashflow_line_user,sf.cashflow.line.user,model_sf_cashflow_line,sf_cash_flow_forecast.group_cashflow_user,1,1,1,0
+access_sf_cashflow_line_manager,sf.cashflow.line.manager,model_sf_cashflow_line,sf_cash_flow_forecast.group_cashflow_manager,1,1,1,1
+access_sf_cashflow_alert_user,sf.cashflow.alert.user,model_sf_cashflow_alert,sf_cash_flow_forecast.group_cashflow_user,1,0,0,0
+access_sf_cashflow_alert_manager,sf.cashflow.alert.manager,model_sf_cashflow_alert,sf_cash_flow_forecast.group_cashflow_manager,1,1,1,1

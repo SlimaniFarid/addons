@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sf_shareholder_user,sf.shareholder.user,model_sf_shareholder,sf_corporate_capital.group_sf_capital_user,1,1,1,0
+access_sf_shareholder_manager,sf.shareholder.manager,model_sf_shareholder,sf_corporate_capital.group_sf_capital_manager,1,1,1,1
+access_sf_share_class_user,sf.share.class.user,model_sf_share_class,sf_corporate_capital.group_sf_capital_user,1,1,1,0
+access_sf_share_class_manager,sf.share.class.manager,model_sf_share_class,sf_corporate_capital.group_sf_capital_manager,1,1,1,1
+access_sf_capital_movement_user,sf.capital.movement.user,model_sf_capital_movement,sf_corporate_capital.group_sf_capital_user,1,1,1,0
+access_sf_capital_movement_manager,sf.capital.movement.manager,model_sf_capital_movement,sf_corporate_capital.group_sf_capital_manager,1,1,1,1
+access_sf_capital_movement_mail_activity,sf.capital.movement.mail.activity.user,mail.activity,sf_corporate_capital.group_sf_capital_user,1,1,1,0

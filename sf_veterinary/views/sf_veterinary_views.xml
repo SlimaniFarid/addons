@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_sf_veterinary_patient_tree" model="ir.ui.view">
+        <field name="name">sf.veterinary.patient.tree</field>
+        <field name="model">sf.veterinary.patient</field>
+        <field name="arch" type="xml">
+            <tree string="Patients">
+                <field name="name"/>
+                <field name="species"/>
+                <field name="breed"/>
+                <field name="gender"/>
+                <field name="age_months"/>
+                <field name="owner_id"/>
+                <field name="vaccinations_ok"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_sf_veterinary_patient_form" model="ir.ui.view">
+        <field name="name">sf.veterinary.patient.form</field>
+        <field name="model">sf.veterinary.patient</field>
+        <field name="arch" type="xml">
+            <form string="Patient">
+                <header>
+                    <button name="action_activate" type="object"
+                            string="Activate" class="btn-primary"
+                            invisible="state != 'draft'"/>
+                    <button name="action_archive_patient" type="object"
+                            string="Archive" class="btn-warning"
+                            invisible="state != 'active'"
+                            groups="sf_veterinary.group_sf_veterinary_manager"/>
+                    <button name="action_deceased" type="object"
+                            string="Mark Deceased" class="btn-danger"
+                            invisible="state != 'active'"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="species"/>
+                            <field name="breed"/>
+                            <field name="gender"/>
+                            <field name="birth_date"/>
+                            <field name="age_months"/>
+                        </group>
+                        <group>
+                            <field name="weight_kg"/>
+                            <field name="sterilized"/>
+                            <field name="owner_id"/>
+                            <field name="vaccinations_ok"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="allergies"/>
+                        </group>
+                        <group>
+                            <field name="notes"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Vaccinations">
+                            <field name="vaccination_ids" readonly="1">
+                                <tree string="Vaccinations">
+                                    <field name="name"/>
+                                    <field name="vaccine_name"/>
+                                    <field name="dose_number"/>
+                                    <field name="administered_date"/>
+                                    <field name="next_due_date"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_sf_veterinary_patient_search" model="ir.ui.view">
+        <field name="name">sf.veterinary.patient.search</field>
+        <field name="model">sf.veterinary.patient</field>
+        <field name="arch" type="xml">
+            <search string="Patients">
+                <field name="name"/>
+                <field name="owner_id"/>
+                <field name="breed"/>
+                <filter string="Active" name="active_patient"
+                        domain="[('state', '=', 'active')]"/>
+                <filter string="Vaccinations up to date"
+                        name="vaccinations_ok_patient"
+                        domain="[('vaccinations_ok', '=', True)]"/>
+                <group>
+                    <filter string="Species" name="species_group"
+                            context="{'group_by': 'species'}"/>
+                    <filter string="Status" name="state_group"
+                            context="{'group_by': 'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_sf_veterinary_patient_pivot" model="ir.ui.view">
+        <field name="name">sf.veterinary.patient.pivot</field>
+        <field name="model">sf.veterinary.patient</field>
+        <field name="arch" type="xml">
+            <pivot string="Patients by Species">
+                <field name="species" type="row"/>
+                <field name="age_months" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="action_sf_veterinary_patient" model="ir.actions.act_window">
+        <field name="name">Patients</field>
+        <field name="res_model">sf.veterinary.patient</field>
+        <field name="view_mode">tree,form,pivot</field>
+        <field name="search_view_id" ref="view_sf_veterinary_patient_search"/>
+    </record>
+
+    <record id="view_sf_veterinary_appointment_tree" model="ir.ui.view">
+        <field name="name">sf.veterinary.appointment.tree</field>
+        <field name="model">sf.veterinary.appointment</field>
+        <field name="arch" type="xml">
+            <tree string="Appointments">
+                <field name="name"/>
+                <field name="patient_id"/>
+                <field name="owner_id"/>
+                <field name="veterinarian_id"/>
+                <field name="start_datetime"/>
+                <field name="end_datetime"/>
+                <field name="motif"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_sf_veterinary_appointment_form" model="ir.ui.view">
+        <field name="name">sf.veterinary.appointment.form</field>
+        <field name="model">sf.veterinary.appointment</field>
+        <field name="arch" type="xml">
+            <form string="Appointment">
+                <header>
+                    <button name="action_confirm" type="object"
+                            string="Confirm" class="btn-primary"
+                            invisible="state != 'draft'"/>
+                    <button name="action_done" type="object"
+                            string="Mark Done" class="btn-success"
+                            invisible="state != 'confirm'"/>
+                    <button name="action_cancel" type="object"
+                            string="Cancel" class="btn-danger"
+                            invisible="state not in ('draft', 'confirm')"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="patient_id"/>
+                            <field name="owner_id" readonly="1"/>
+                            <field name="veterinarian_id"/>
+                        </group>
+                        <group>
+                            <field name="start_datetime"/>
+                            <field name="duration_minutes"/>
+                            <field name="end_datetime" readonly="1"/>
+                            <field name="motif"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="notes"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_sf_veterinary_appointment_search" model="ir.ui.view">
+        <field name="name">sf.veterinary.appointment.search</field>
+        <field name="model">sf.veterinary.appointment</field>
+        <field name="arch" type="xml">
+            <search string="Appointments">
+                <field name="name"/>
+                <field name="patient_id"/>
+                <field name="veterinarian_id"/>
+                <filter string="Confirmed" name="confirmed_appointment"
+                        domain="[('state', '=', 'confirm')]"/>
+                <filter string="Done" name="done_appointment"
+                        domain="[('state', '=', 'done')]"/>
+                <group>
+                    <filter string="Status" name="state_group"
+                            context="{'group_by': 'state'}"/>
+                    <filter string="Reason" name="motif_group"
+                            context="{'group_by': 'motif'}"/>
+                    <filter string="Veterinarian" name="vet_group"
+                            context="{'group_by': 'veterinarian_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_sf_veterinary_appointment_calendar" model="ir.ui.view">
+        <field name="name">sf.veterinary.appointment.calendar</field>
+        <field name="model">sf.veterinary.appointment</field>
+        <field name="arch" type="xml">
+            <calendar string="Appointments" date_start="start_datetime"
+                      date_stop="end_datetime" color="motif"
+                      event_limit="200">
+                <field name="name"/>
+                <field name="patient_id"/>
+                <field name="state"/>
+            </calendar>
+        </field>
+    </record>
+
+    <record id="action_sf_veterinary_appointment" model="ir.actions.act_window">
+        <field name="name">Appointments</field>
+        <field name="res_model">sf.veterinary.appointment</field>
+        <field name="view_mode">calendar,tree,form</field>
+        <field name="search_view_id" ref="view_sf_veterinary_appointment_search"/>
+    </record>
+
+    <record id="view_sf_veterinary_vaccination_tree" model="ir.ui.view">
+        <field name="name">sf.veterinary.vaccination.tree</field>
+        <field name="model">sf.veterinary.vaccination</field>
+        <field name="arch" type="xml">
+            <tree string="Vaccinations">
+                <field name="name"/>
+                <field name="patient_id"/>
+                <field name="vaccine_name"/>
+                <field name="dose_number"/>
+                <field name="administered_date"/>
+                <field name="next_due_date"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_sf_veterinary_vaccination_form" model="ir.ui.view">
+        <field name="name">sf.veterinary.vaccination.form</field>
+        <field name="model">sf.veterinary.vaccination</field>
+        <field name="arch" type="xml">
+            <form string="Vaccination">
+                <header>
+                    <button name="action_administer" type="object"
+                            string="Administer" class="btn-primary"
+                            invisible="state != 'draft'"/>
+                    <button name="action_cancel" type="object"
+                            string="Cancel" class="btn-danger"
+                            invisible="state not in ('draft', 'administered')"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="patient_id"/>
+                            <field name="vaccine_name"/>
+                            <field name="dose_number"/>
+                        </group>
+                        <group>
+                            <field name="administered_date"/>
+                            <field name="next_due_date" readonly="1"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_sf_veterinary_vaccination_search" model="ir.ui.view">
+        <field name="name">sf.veterinary.vaccination.search</field>
+        <field name="model">sf.veterinary.vaccination</field>
+        <field name="arch" type="xml">
+            <search string="Vaccinations">
+                <field name="name"/>
+                <field name="patient_id"/>
+                <field name="vaccine_name"/>
+                <filter string="Overdue" name="overdue_vaccination"
+                        domain="[('state', '=', 'overdue')]"/>
+                <filter string="Due soon" name="due_vaccination"
+                        domain="[('next_due_date', '&lt;=', context_today().add(days=30))]"/>
+                <group>
+                    <filter string="Status" name="state_group"
+                            context="{'group_by': 'state'}"/>
+                    <filter string="Patient" name="patient_group"
+                            context="{'group_by': 'patient_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_sf_veterinary_vaccination" model="ir.actions.act_window">
+        <field name="name">Vaccinations</field>
+        <field name="res_model">sf.veterinary.vaccination</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_sf_veterinary_vaccination_search"/>
+    </record>
+
+    <record id="view_sf_veterinary_hospitalization_tree" model="ir.ui.view">
+        <field name="name">sf.veterinary.hospitalization.tree</field>
+        <field name="model">sf.veterinary.hospitalization</field>
+        <field name="arch" type="xml">
+            <tree string="Hospitalizations">
+                <field name="name"/>
+                <field name="patient_id"/>
+                <field name="cage"/>
+                <field name="veterinarian_id"/>
+                <field name="admission_date"/>
+                <field name="discharge_date"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_sf_veterinary_hospitalization_form" model="ir.ui.view">
+        <field name="name">sf.veterinary.hospitalization.form</field>
+        <field name="model">sf.veterinary.hospitalization</field>
+        <field name="arch" type="xml">
+            <form string="Hospitalization">
+                <header>
+                    <button name="action_confirm" type="object"
+                            string="Start" class="btn-primary"
+                            invisible="state != 'admitted'"/>
+                    <button name="action_discharge" type="object"
+                            string="Discharge" class="btn-success"
+                            invisible="state != 'in_progress'"/>
+                    <button name="action_cancel" type="object"
+                            string="Cancel" class="btn-danger"
+                            invisible="state in ('discharged', 'cancelled')"
+                            groups="sf_veterinary.group_sf_veterinary_manager"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="patient_id"/>
+                            <field name="cage"/>
+                            <field name="veterinarian_id"/>
+                        </group>
+                        <group>
+                            <field name="admission_date"/>
+                            <field name="discharge_date"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="reason"/>
+                        </group>
+                        <group>
+                            <field name="notes"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_sf_veterinary_hospitalization_search" model="ir.ui.view">
+        <field name="name">sf.veterinary.hospitalization.search</field>
+        <field name="model">sf.veterinary.hospitalization</field>
+        <field name="arch" type="xml">
+            <search string="Hospitalizations">
+                <field name="name"/>
+                <field name="patient_id"/>
+                <field name="cage"/>
+                <filter string="In Progress" name="in_progress_hospitalization"
+                        domain="[('state', '=', 'in_progress')]"/>
+                <filter string="Discharged" name="discharged_hospitalization"
+                        domain="[('state', '=', 'discharged')]"/>
+                <group>
+                    <filter string="Status" name="state_group"
+                            context="{'group_by': 'state'}"/>
+                    <filter string="Patient" name="patient_group"
+                            context="{'group_by': 'patient_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_sf_veterinary_hospitalization" model="ir.actions.act_window">
+        <field name="name">Hospitalizations</field>
+        <field name="res_model">sf.veterinary.hospitalization</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_sf_veterinary_hospitalization_search"/>
+    </record>
+</odoo>

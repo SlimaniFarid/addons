@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="module_category_process_routing" model="ir.module.category">
+        <field name="name">Process Routing</field>
+        <field name="sequence">99</field>
+    </record>
+
+    <record id="group_process_routing_user" model="res.groups">
+        <field name="name">Process Routing User</field>
+        <field name="category_id" ref="module_category_process_routing"/>
+        <field name="implied_ids" eval="[(4, ref('mrp.group_mrp_user'))]"/>
+    </record>
+
+    <record id="group_process_routing_manager" model="res.groups">
+        <field name="name">Process Routing Manager</field>
+        <field name="category_id" ref="module_category_process_routing"/>
+        <field name="implied_ids" eval="[(4, ref('group_process_routing_user'))]"/>
+    </record>
+</odoo>

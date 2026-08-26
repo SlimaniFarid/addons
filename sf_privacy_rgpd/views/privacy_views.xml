@@ -1,0 +1,601 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ============ TREATMENT ============ -->
+    <record id="view_privacy_treatment_tree" model="ir.ui.view">
+        <field name="name">sf.privacy.treatment.tree</field>
+        <field name="model">sf.privacy.treatment</field>
+        <field name="arch" type="xml">
+            <tree string="Treatments">
+                <field name="name"/>
+                <field name="title"/>
+                <field name="controller_id"/>
+                <field name="legal_basis"/>
+                <field name="risk_level"/>
+                <field name="next_review_date"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_privacy_treatment_form" model="ir.ui.view">
+        <field name="name">sf.privacy.treatment.form</field>
+        <field name="model">sf.privacy.treatment</field>
+        <field name="arch" type="xml">
+            <form string="Treatment">
+                <header>
+                    <button name="action_activate" type="object"
+                            string="Activate" class="btn-primary"
+                            invisible="state != 'draft'"/>
+                    <button name="action_start_review" type="object"
+                            string="Start Review" class="btn-warning"
+                            invisible="state != 'active'"/>
+                    <button name="action_close" type="object"
+                            string="Close" class="btn-success"
+                            invisible="state not in ('active', 'under_review')"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="title"/>
+                            <field name="controller_id"/>
+                            <field name="responsible_id"/>
+                        </group>
+                        <group>
+                            <field name="legal_basis"/>
+                            <field name="risk_level"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <field name="lawful_basis_detail"/>
+                    <field name="purpose"/>
+                    <notebook>
+                        <page string="Data &amp; Retention">
+                            <group>
+                                <group>
+                                    <field name="data_categories"/>
+                                    <field name="retention_days"/>
+                                </group>
+                                <group>
+                                    <field name="recipients"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Review">
+                            <group>
+                                <group>
+                                    <field name="review_frequency"/>
+                                    <field name="last_review_date"/>
+                                </group>
+                                <group>
+                                    <field name="next_review_date" string="Next review" readonly="1"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                    <field name="notes"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_privacy_treatment_search" model="ir.ui.view">
+        <field name="name">sf.privacy.treatment.search</field>
+        <field name="model">sf.privacy.treatment</field>
+        <field name="arch" type="xml">
+            <search string="Treatments">
+                <field name="title"/>
+                <field name="controller_id"/>
+                <field name="responsible_id"/>
+                <filter string="Active" name="active_filter"
+                        domain="[('state', '!=', 'closed')]"/>
+                <filter string="Review due" name="review_due"
+                        domain="[('next_review_date', '!=', False), ('next_review_date', '&lt;=', context_today())]"/>
+                <group>
+                    <filter string="Status" name="state_group"
+                            context="{'group_by': 'state'}"/>
+                    <filter string="Legal Basis" name="legal_basis_group"
+                            context="{'group_by': 'legal_basis'}"/>
+                    <filter string="Risk Level" name="risk_group"
+                            context="{'group_by': 'risk_level'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_privacy_treatment_kanban" model="ir.ui.view">
+        <field name="name">sf.privacy.treatment.kanban</field>
+        <field name="model">sf.privacy.treatment</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state">
+                <field name="title"/>
+                <field name="controller_id"/>
+                <field name="legal_basis"/>
+                <field name="next_review_date"/>
+                <templates>
+                    <t t-name="card">
+                        <div class="oe_kanban_global_click">
+                            <div class="o_kanban_record_title">
+                                <field name="title"/>
+                            </div>
+                            <div class="o_kanban_record_subtitle">
+                                <field name="legal_basis"/>
+                                <field name="controller_id"/>
+                            </div>
+                            <div class="o_kanban_record_bottom">
+                                Next review: <field name="next_review_date"/>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="action_privacy_treatment" model="ir.actions.act_window">
+        <field name="name">Treatments</field>
+        <field name="res_model">sf.privacy.treatment</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="search_view_id" ref="view_privacy_treatment_search"/>
+    </record>
+
+    <!-- ============ PROCESSOR ============ -->
+    <record id="view_privacy_processor_tree" model="ir.ui.view">
+        <field name="name">sf.privacy.processor.tree</field>
+        <field name="model">sf.privacy.processor</field>
+        <field name="arch" type="xml">
+            <tree string="Processors">
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="contract_ref"/>
+                <field name="dpa_date"/>
+                <field name="country"/>
+                <field name="purpose"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_privacy_processor_form" model="ir.ui.view">
+        <field name="name">sf.privacy.processor.form</field>
+        <field name="model">sf.privacy.processor</field>
+        <field name="arch" type="xml">
+            <form string="Processor">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="partner_id"/>
+                            <field name="contract_ref"/>
+                        </group>
+                        <group>
+                            <field name="dpa_date"/>
+                            <field name="dpa_file"/>
+                            <field name="country"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <field name="purpose"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_privacy_processor_search" model="ir.ui.view">
+        <field name="name">sf.privacy.processor.search</field>
+        <field name="model">sf.privacy.processor</field>
+        <field name="arch" type="xml">
+            <search string="Processors">
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="contract_ref"/>
+                <group>
+                    <filter string="Country" name="country_group"
+                            context="{'group_by': 'country'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_privacy_processor_kanban" model="ir.ui.view">
+        <field name="name">sf.privacy.processor.kanban</field>
+        <field name="model">sf.privacy.processor</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="contract_ref"/>
+                <templates>
+                    <t t-name="card">
+                        <div class="oe_kanban_global_click">
+                            <div class="o_kanban_record_title">
+                                <field name="name"/>
+                            </div>
+                            <div class="o_kanban_record_subtitle">
+                                <field name="partner_id"/>
+                            </div>
+                            <div class="o_kanban_record_bottom">
+                                Contract: <field name="contract_ref"/>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="action_privacy_processor" model="ir.actions.act_window">
+        <field name="name">Processors</field>
+        <field name="res_model">sf.privacy.processor</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="search_view_id" ref="view_privacy_processor_search"/>
+    </record>
+
+    <!-- ============ IMPACT ASSESSMENT ============ -->
+    <record id="view_privacy_impact_assessment_tree" model="ir.ui.view">
+        <field name="name">sf.privacy.impact.assessment.tree</field>
+        <field name="model">sf.privacy.impact.assessment</field>
+        <field name="arch" type="xml">
+            <tree string="Impact Assessments">
+                <field name="name"/>
+                <field name="treatment_id"/>
+                <field name="likelihood"/>
+                <field name="severity"/>
+                <field name="risk_score"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_privacy_impact_assessment_form" model="ir.ui.view">
+        <field name="name">sf.privacy.impact.assessment.form</field>
+        <field name="model">sf.privacy.impact.assessment</field>
+        <field name="arch" type="xml">
+            <form string="Impact Assessment">
+                <header>
+                    <button name="action_submit" type="object"
+                            string="Submit" class="btn-primary"
+                            invisible="state != 'draft'"/>
+                    <button name="action_start_review" type="object"
+                            string="Start Review" class="btn-warning"
+                            invisible="state != 'submitted'"/>
+                    <button name="action_approve" type="object"
+                            string="Approve" class="btn-success"
+                            invisible="state != 'in_review'"/>
+                    <button name="action_reject" type="object"
+                            string="Reject" class="btn-danger"
+                            invisible="state != 'in_review'"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="treatment_id"/>
+                        </group>
+                        <group>
+                            <field name="likelihood"/>
+                            <field name="severity"/>
+<field name="risk_score" string="Risk score" readonly="1"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <field name="description"/>
+                    <field name="risks"/>
+                    <field name="measures"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_privacy_impact_assessment_search" model="ir.ui.view">
+        <field name="name">sf.privacy.impact.assessment.search</field>
+        <field name="model">sf.privacy.impact.assessment</field>
+        <field name="arch" type="xml">
+            <search string="Impact Assessments">
+                <field name="treatment_id"/>
+                <filter string="In Review" name="in_review_filter"
+                        domain="[('state', '=', 'in_review')]"/>
+                <filter string="Approved" name="approved_filter"
+                        domain="[('state', '=', 'approved')]"/>
+                <group>
+                    <filter string="Status" name="state_group"
+                            context="{'group_by': 'state'}"/>
+                    <filter string="Treatment" name="treatment_group"
+                            context="{'group_by': 'treatment_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_privacy_impact_assessment_kanban" model="ir.ui.view">
+        <field name="name">sf.privacy.impact.assessment.kanban</field>
+        <field name="model">sf.privacy.impact.assessment</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state">
+                <field name="treatment_id"/>
+                <field name="risk_score"/>
+                <field name="likelihood"/>
+                <field name="severity"/>
+                <templates>
+                    <t t-name="card">
+                        <div class="oe_kanban_global_click">
+                            <div class="o_kanban_record_title">
+                                <field name="name"/>
+                            </div>
+                            <div class="o_kanban_record_subtitle">
+                                <field name="treatment_id"/>
+                            </div>
+                            <div class="o_kanban_record_bottom">
+                                Risk score: <field name="risk_score"/>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="action_privacy_impact_assessment" model="ir.actions.act_window">
+        <field name="name">Impact Assessments</field>
+        <field name="res_model">sf.privacy.impact.assessment</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="search_view_id" ref="view_privacy_impact_assessment_search"/>
+    </record>
+
+    <!-- ============ BREACH ============ -->
+    <record id="view_privacy_breach_tree" model="ir.ui.view">
+        <field name="name">sf.privacy.breach.tree</field>
+        <field name="model">sf.privacy.breach</field>
+        <field name="arch" type="xml">
+            <tree string="Breaches">
+                <field name="name"/>
+                <field name="date_detected"/>
+                <field name="categories"/>
+                <field name="risk"/>
+                <field name="notification_status"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_privacy_breach_form" model="ir.ui.view">
+        <field name="name">sf.privacy.breach.form</field>
+        <field name="model">sf.privacy.breach</field>
+        <field name="arch" type="xml">
+            <form string="Breach">
+                <header>
+                    <button name="action_detect" type="object"
+                            string="Detect" class="btn-primary"
+                            invisible="state != 'draft'"/>
+                    <button name="action_declare" type="object"
+                            string="Declare" class="btn-warning"
+                            invisible="state != 'detected'"/>
+                    <button name="action_remediate" type="object"
+                            string="Remediate" class="btn-info"
+                            invisible="state != 'declared'"/>
+                    <button name="action_close" type="object"
+                            string="Close" class="btn-success"
+                            invisible="state != 'remediated'"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="date_detected"/>
+                            <field name="affected_people"/>
+                        </group>
+                        <group>
+                            <field name="categories"/>
+                            <field name="risk"/>
+                            <field name="notification_status"/>
+                            <field name="notification_date"/>
+                            <field name="regulator_notified"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <field name="description"/>
+                    <field name="measures"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_privacy_breach_search" model="ir.ui.view">
+        <field name="name">sf.privacy.breach.search</field>
+        <field name="model">sf.privacy.breach</field>
+        <field name="arch" type="xml">
+            <search string="Breaches">
+                <field name="categories"/>
+                <filter string="Not Reported" name="not_reported_filter"
+                        domain="[('notification_status', '!=', 'reported')]"/>
+                <filter string="Open" name="open_filter"
+                        domain="[('state', '!=', 'closed')]"/>
+                <group>
+                    <filter string="Status" name="state_group"
+                            context="{'group_by': 'state'}"/>
+                    <filter string="Risk" name="risk_group"
+                            context="{'group_by': 'risk'}"/>
+                    <filter string="Notification Status" name="notif_group"
+                            context="{'group_by': 'notification_status'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_privacy_breach_kanban" model="ir.ui.view">
+        <field name="name">sf.privacy.breach.kanban</field>
+        <field name="model">sf.privacy.breach</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state">
+                <field name="date_detected"/>
+                <field name="risk"/>
+                <field name="categories"/>
+                <templates>
+                    <t t-name="card">
+                        <div class="oe_kanban_global_click">
+                            <div class="o_kanban_record_title">
+                                <field name="name"/>
+                            </div>
+                            <div class="o_kanban_record_subtitle">
+                                <field name="risk"/>
+                                <field name="categories"/>
+                            </div>
+                            <div class="o_kanban_record_bottom">
+                                Detected: <field name="date_detected"/>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="action_privacy_breach" model="ir.actions.act_window">
+        <field name="name">Breaches</field>
+        <field name="res_model">sf.privacy.breach</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="search_view_id" ref="view_privacy_breach_search"/>
+    </record>
+
+    <!-- ============ REQUEST ============ -->
+    <record id="view_privacy_request_tree" model="ir.ui.view">
+        <field name="name">sf.privacy.request.tree</field>
+        <field name="model">sf.privacy.request</field>
+        <field name="arch" type="xml">
+            <tree string="Data Subject Requests">
+                <field name="name"/>
+                <field name="request_type"/>
+                <field name="person_name"/>
+                <field name="request_date"/>
+                <field name="deadline"/>
+                <field name="response_date"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_privacy_request_form" model="ir.ui.view">
+        <field name="name">sf.privacy.request.form</field>
+        <field name="model">sf.privacy.request</field>
+        <field name="arch" type="xml">
+            <form string="Data Subject Request">
+                <header>
+                    <button name="action_start" type="object"
+                            string="Start" class="btn-primary"
+                            invisible="state != 'draft'"/>
+                    <button name="action_done" type="object"
+                            string="Done" class="btn-success"
+                            invisible="state != 'in_progress'"/>
+                    <button name="action_close" type="object"
+                            string="Close" class="btn-secondary"
+                            invisible="state != 'done'"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="request_type"/>
+                            <field name="person_name"/>
+                            <field name="contact"/>
+                        </group>
+                        <group>
+                            <field name="treatment_id"/>
+                            <field name="request_date"/>
+                            <field name="deadline"/>
+                            <field name="response_date"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_privacy_request_search" model="ir.ui.view">
+        <field name="name">sf.privacy.request.search</field>
+        <field name="model">sf.privacy.request</field>
+        <field name="arch" type="xml">
+            <search string="Data Subject Requests">
+                <field name="person_name"/>
+                <field name="request_type"/>
+                <field name="treatment_id"/>
+                <group>
+                    <filter string="Status" name="state_group"
+                            context="{'group_by': 'state'}"/>
+                    <filter string="Request Type" name="type_group"
+                            context="{'group_by': 'request_type'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_privacy_request_kanban" model="ir.ui.view">
+        <field name="name">sf.privacy.request.kanban</field>
+        <field name="model">sf.privacy.request</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state">
+                <field name="person_name"/>
+                <field name="request_type"/>
+                <field name="deadline"/>
+                <templates>
+                    <t t-name="card">
+                        <div class="oe_kanban_global_click">
+                            <div class="o_kanban_record_title">
+                                <field name="person_name"/>
+                            </div>
+                            <div class="o_kanban_record_subtitle">
+                                <field name="request_type"/>
+                            </div>
+                            <div class="o_kanban_record_bottom">
+                                Deadline: <field name="deadline"/>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="action_privacy_request" model="ir.actions.act_window">
+        <field name="name">Data Subject Requests</field>
+        <field name="res_model">sf.privacy.request</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="search_view_id" ref="view_privacy_request_search"/>
+    </record>
+
+    <!-- ============ DASHBOARD ============ -->
+    <record id="view_privacy_dashboard_pivot" model="ir.ui.view">
+        <field name="name">sf.privacy.treatment.dashboard.pivot</field>
+        <field name="model">sf.privacy.treatment</field>
+        <field name="arch" type="xml">
+            <pivot string="Treatments by Legal Basis and Status">
+                <field name="legal_basis" type="row"/>
+                <field name="state" type="col"/>
+                <field name="id" type="measure" string="Treatments"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="view_privacy_dashboard_graph" model="ir.ui.view">
+        <field name="name">sf.privacy.treatment.dashboard.graph</field>
+        <field name="model">sf.privacy.treatment</field>
+        <field name="arch" type="xml">
+            <graph string="Treatments by Legal Basis">
+                <field name="legal_basis"/>
+                <field name="id" type="measure" string="Treatments"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="action_privacy_dashboard" model="ir.actions.act_window">
+        <field name="name">Privacy Dashboard</field>
+        <field name="res_model">sf.privacy.treatment</field>
+        <field name="view_mode">pivot,graph</field>
+        <field name="view_ids" eval="[(5, 0), (0, 0, {'view_mode': 'pivot', 'view_id': ref('view_privacy_dashboard_pivot')}), (0, 0, {'view_mode': 'graph', 'view_id': ref('view_privacy_dashboard_graph')})]"/>
+    </record>
+
+</odoo>

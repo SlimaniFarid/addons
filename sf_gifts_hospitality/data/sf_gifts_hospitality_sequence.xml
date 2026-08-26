@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="seq_sf_gift_hospitality" model="ir.sequence">
+            <field name="name">Gift &amp; Hospitality Declaration</field>
+            <field name="code">sf.gift.hospitality</field>
+            <field name="prefix">GFT-</field>
+            <field name="padding">6</field>
+        </record>
+    </data>
+</odoo>

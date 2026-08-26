@@ -1,0 +1,594 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ============ ORGAN ============ -->
+    <record id="view_corporate_org_tree" model="ir.ui.view">
+        <field name="name">sf.corporate.org.tree</field>
+        <field name="model">sf.corporate.org</field>
+        <field name="arch" type="xml">
+            <tree string="Organ Bodies">
+                <field name="name"/>
+                <field name="org_type"/>
+                <field name="chairperson_id"/>
+                <field name="notice_days"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_corporate_org_form" model="ir.ui.view">
+        <field name="name">sf.corporate.org.form</field>
+        <field name="model">sf.corporate.org</field>
+        <field name="arch" type="xml">
+            <form string="Corporate Organ">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="org_type"/>
+                            <field name="notice_days"/>
+                        </group>
+                        <group>
+                            <field name="chairperson_id"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                            <field name="active"/>
+                        </group>
+                    </group>
+                    <group string="Members">
+                        <field name="members" widget="many2many_tags"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_corporate_org_search" model="ir.ui.view">
+        <field name="name">sf.corporate.org.search</field>
+        <field name="model">sf.corporate.org</field>
+        <field name="arch" type="xml">
+            <search string="Organ Bodies">
+                <field name="name"/>
+                <field name="chairperson_id"/>
+                <filter string="Active" name="active" domain="[('active', '=', True)]"/>
+                <group>
+                    <filter string="Type" name="type_group"
+                            context="{'group_by': 'org_type'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_corporate_org_kanban" model="ir.ui.view">
+        <field name="name">sf.corporate.org.kanban</field>
+        <field name="model">sf.corporate.org</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="org_type">
+                <field name="name"/>
+                <field name="org_type"/>
+                <field name="chairperson_id"/>
+                <field name="notice_days"/>
+                <templates>
+                    <t t-name="card">
+                        <div class="oe_kanban_global_click">
+                            <div class="o_kanban_record_title">
+                                <field name="name"/>
+                            </div>
+                            <div class="o_kanban_record_subtitle">
+                                <field name="org_type"/>
+                            </div>
+                            <div class="o_kanban_record_bottom">
+                                Chairperson: <field name="chairperson_id"/>
+                                &#8212; Notice: <field name="notice_days"/> days
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="action_corporate_org" model="ir.actions.act_window">
+        <field name="name">Organ Bodies</field>
+        <field name="res_model">sf.corporate.org</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="search_view_id" ref="view_corporate_org_search"/>
+    </record>
+
+    <!-- ============ MEETING ============ -->
+    <record id="view_corporate_meeting_tree" model="ir.ui.view">
+        <field name="name">sf.corporate.meeting.tree</field>
+        <field name="model">sf.corporate.meeting</field>
+        <field name="arch" type="xml">
+            <tree string="Meetings">
+                <field name="name"/>
+                <field name="org_id"/>
+                <field name="scheduled_date"/>
+                <field name="notice_date"/>
+                <field name="notice_sent"/>
+                <field name="convocation_state"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_corporate_meeting_form" model="ir.ui.view">
+        <field name="name">sf.corporate.meeting.form</field>
+        <field name="model">sf.corporate.meeting</field>
+        <field name="arch" type="xml">
+            <form string="Corporate Meeting">
+                <header>
+                    <button name="action_start_meeting" type="object"
+                            string="Start Meeting" class="btn-primary"
+                            invisible="state != 'planned'"/>
+                    <button name="action_done" type="object"
+                            string="Mark Done" class="btn-success"
+                            invisible="state != 'in_progress'"/>
+                    <button name="action_archive_meeting" type="object"
+                            string="Archive" invisible="state != 'done'"/>
+                    <button name="action_send_convocation" type="object"
+                            string="Send Convocation"
+                            invisible="convocation_state != 'draft'"/>
+                    <button name="action_convocation_sent" type="object"
+                            string="Mark Sent"
+                            invisible="convocation_state != 'draft'"/>
+                    <button name="action_convocation_held" type="object"
+                            string="Mark Held"
+                            invisible="convocation_state != 'sent'"/>
+                    <button name="action_convocation_pv_done" type="object"
+                            string="Minutes Done"
+                            invisible="convocation_state != 'held'"/>
+                    <field name="state" widget="statusbar"/>
+                    <field name="convocation_state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="org_id"/>
+                            <field name="scheduled_date"/>
+                            <field name="location"/>
+                        </group>
+                        <group>
+                            <field name="notice_date"/>
+                            <field name="notice_sent"/>
+                            <field name="minutes_done_date"/>
+                            <field name="recorded_by"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Resolutions">
+                            <field name="resolution_ids">
+                                <tree string="Resolutions" editable="bottom">
+                                    <field name="number"/>
+                                    <field name="subject"/>
+                                    <field name="vote_for"/>
+                                    <field name="vote_against"/>
+                                    <field name="vote_abstain"/>
+                                    <field name="adopted"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Minutes (PV)">
+                            <field name="minutes"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_corporate_meeting_search" model="ir.ui.view">
+        <field name="name">sf.corporate.meeting.search</field>
+        <field name="model">sf.corporate.meeting</field>
+        <field name="arch" type="xml">
+            <search string="Meetings">
+                <field name="name"/>
+                <field name="org_id"/>
+                <filter string="Planned" name="planned"
+                        domain="[('state', '=', 'planned')]"/>
+                <filter string="In Progress" name="in_progress"
+                        domain="[('state', '=', 'in_progress')]"/>
+                <filter string="Done" name="done"
+                        domain="[('state', '=', 'done')]"/>
+                <group>
+                    <filter string="Status" name="state_group"
+                            context="{'group_by': 'state'}"/>
+                    <filter string="Convocation" name="convocation_group"
+                            context="{'group_by': 'convocation_state'}"/>
+                    <filter string="Organ" name="org_group"
+                            context="{'group_by': 'org_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_corporate_meeting_kanban" model="ir.ui.view">
+        <field name="name">sf.corporate.meeting.kanban</field>
+        <field name="model">sf.corporate.meeting</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state">
+                <field name="name"/>
+                <field name="org_id"/>
+                <field name="scheduled_date"/>
+                <field name="notice_date"/>
+                <field name="convocation_state"/>
+                <templates>
+                    <t t-name="card">
+                        <div class="oe_kanban_global_click">
+                            <div class="o_kanban_record_title">
+                                <field name="name"/>
+                            </div>
+                            <div class="o_kanban_record_subtitle">
+                                <field name="org_id"/>
+                                <field name="scheduled_date"/>
+                            </div>
+                            <div class="o_kanban_record_bottom">
+                                Convocation: <field name="convocation_state"/>
+                                &#8212; Notice: <field name="notice_date"/>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="action_corporate_meeting" model="ir.actions.act_window">
+        <field name="name">Meetings</field>
+        <field name="res_model">sf.corporate.meeting</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="search_view_id" ref="view_corporate_meeting_search"/>
+    </record>
+
+    <!-- ============ RESOLUTION ============ -->
+    <record id="view_corporate_resolution_tree" model="ir.ui.view">
+        <field name="name">sf.corporate.resolution.tree</field>
+        <field name="model">sf.corporate.resolution</field>
+        <field name="arch" type="xml">
+            <tree string="Resolutions">
+                <field name="name"/>
+                <field name="meeting_id"/>
+                <field name="number"/>
+                <field name="subject"/>
+                <field name="vote_for"/>
+                <field name="vote_against"/>
+                <field name="vote_abstain"/>
+                <field name="adopted"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_corporate_resolution_form" model="ir.ui.view">
+        <field name="name">sf.corporate.resolution.form</field>
+        <field name="model">sf.corporate.resolution</field>
+        <field name="arch" type="xml">
+            <form string="Corporate Resolution">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="meeting_id"/>
+                            <field name="number"/>
+                        </group>
+                        <group>
+                            <field name="adopted"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <field name="subject"/>
+                    <group>
+                        <group>
+                            <field name="vote_for"/>
+                        </group>
+                        <group>
+                            <field name="vote_against"/>
+                        </group>
+                        <group>
+                            <field name="vote_abstain"/>
+                        </group>
+                    </group>
+                    <field name="detail"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_corporate_resolution_search" model="ir.ui.view">
+        <field name="name">sf.corporate.resolution.search</field>
+        <field name="model">sf.corporate.resolution</field>
+        <field name="arch" type="xml">
+            <search string="Resolutions">
+                <field name="name"/>
+                <field name="meeting_id"/>
+                <field name="subject"/>
+                <filter string="Adopted" name="adopted"
+                        domain="[('adopted', '=', True)]"/>
+                <group>
+                    <filter string="Meeting" name="meeting_group"
+                            context="{'group_by': 'meeting_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_corporate_resolution_kanban" model="ir.ui.view">
+        <field name="name">sf.corporate.resolution.kanban</field>
+        <field name="model">sf.corporate.resolution</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="meeting_id">
+                <field name="name"/>
+                <field name="number"/>
+                <field name="subject"/>
+                <field name="adopted"/>
+                <templates>
+                    <t t-name="card">
+                        <div class="oe_kanban_global_click">
+                            <div class="o_kanban_record_title">
+                                No. <field name="number"/>
+                            </div>
+                            <div class="o_kanban_record_subtitle">
+                                <field name="subject"/>
+                            </div>
+                            <div class="o_kanban_record_bottom">
+                                Adopted: <field name="adopted"/>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="action_corporate_resolution" model="ir.actions.act_window">
+        <field name="name">Resolutions</field>
+        <field name="res_model">sf.corporate.resolution</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="search_view_id" ref="view_corporate_resolution_search"/>
+    </record>
+
+    <!-- ============ LEGAL DECISION ============ -->
+    <record id="view_corporate_decision_tree" model="ir.ui.view">
+        <field name="name">sf.corporate.legal.decision.tree</field>
+        <field name="model">sf.corporate.legal.decision</field>
+        <field name="arch" type="xml">
+            <tree string="Written Decisions">
+                <field name="name"/>
+                <field name="title"/>
+                <field name="decision_date"/>
+                <field name="signatory_id"/>
+                <field name="state"/>
+                <field name="filed_date"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_corporate_decision_form" model="ir.ui.view">
+        <field name="name">sf.corporate.legal.decision.form</field>
+        <field name="model">sf.corporate.legal.decision</field>
+        <field name="arch" type="xml">
+            <form string="Written Decision">
+                <header>
+                    <button name="action_sign" type="object"
+                            string="Sign" class="btn-primary"
+                            invisible="state != 'draft'"/>
+                    <button name="action_file" type="object"
+                            string="File" class="btn-success"
+                            invisible="state != 'signed'"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="title"/>
+                            <field name="decision_date"/>
+                        </group>
+                        <group>
+                            <field name="signatory_id"/>
+                            <field name="filed_date"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <field name="description"/>
+                    <group>
+                        <field name="attachment" filename="attachment_filename"/>
+                        <field name="attachment_filename" invisible="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_corporate_decision_search" model="ir.ui.view">
+        <field name="name">sf.corporate.legal.decision.search</field>
+        <field name="model">sf.corporate.legal.decision</field>
+        <field name="arch" type="xml">
+            <search string="Written Decisions">
+                <field name="name"/>
+                <field name="title"/>
+                <field name="signatory_id"/>
+                <filter string="Draft" name="draft"
+                        domain="[('state', '=', 'draft')]"/>
+                <filter string="Signed" name="signed"
+                        domain="[('state', '=', 'signed')]"/>
+                <filter string="Filed" name="filed"
+                        domain="[('state', '=', 'filed')]"/>
+                <group>
+                    <filter string="Status" name="state_group"
+                            context="{'group_by': 'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_corporate_decision_kanban" model="ir.ui.view">
+        <field name="name">sf.corporate.legal.decision.kanban</field>
+        <field name="model">sf.corporate.legal.decision</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state">
+                <field name="name"/>
+                <field name="title"/>
+                <field name="decision_date"/>
+                <field name="signatory_id"/>
+                <templates>
+                    <t t-name="card">
+                        <div class="oe_kanban_global_click">
+                            <div class="o_kanban_record_title">
+                                <field name="name"/>
+                            </div>
+                            <div class="o_kanban_record_subtitle">
+                                <field name="title"/>
+                            </div>
+                            <div class="o_kanban_record_bottom">
+                                Date: <field name="decision_date"/>
+                                &#8212; Signatory: <field name="signatory_id"/>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="action_corporate_legal_decision" model="ir.actions.act_window">
+        <field name="name">Written Decisions</field>
+        <field name="res_model">sf.corporate.legal.decision</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="search_view_id" ref="view_corporate_decision_search"/>
+    </record>
+
+    <!-- ============ FORMALITY ============ -->
+    <record id="view_corporate_formality_tree" model="ir.ui.view">
+        <field name="name">sf.corporate.formality.tree</field>
+        <field name="model">sf.corporate.formality</field>
+        <field name="arch" type="xml">
+            <tree string="Formalities">
+                <field name="name"/>
+                <field name="formality_type"/>
+                <field name="due_date"/>
+                <field name="reminder_days"/>
+                <field name="done"/>
+                <field name="done_date"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_corporate_formality_form" model="ir.ui.view">
+        <field name="name">sf.corporate.formality.form</field>
+        <field name="model">sf.corporate.formality</field>
+        <field name="arch" type="xml">
+            <form string="Regulatory Formality">
+                <header>
+                    <button name="action_mark_done" type="object"
+                            string="Mark Done" class="btn-success"
+                            invisible="done"/>
+                    <field name="done" widget="boolean_toggle"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="formality_type"/>
+                            <field name="due_date"/>
+                        </group>
+                        <group>
+                            <field name="reminder_days"/>
+                            <field name="done_date"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_corporate_formality_search" model="ir.ui.view">
+        <field name="name">sf.corporate.formality.search</field>
+        <field name="model">sf.corporate.formality</field>
+        <field name="arch" type="xml">
+            <search string="Formalities">
+                <field name="name"/>
+                <field name="formality_type"/>
+                <filter string="Open" name="open"
+                        domain="[('done', '=', False)]"/>
+                <filter string="Done" name="done"
+                        domain="[('done', '=', True)]"/>
+                <group>
+                    <filter string="Type" name="type_group"
+                            context="{'group_by': 'formality_type'}"/>
+                    <filter string="Due Date" name="due_group"
+                            context="{'group_by': 'due_date'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_corporate_formality_kanban" model="ir.ui.view">
+        <field name="name">sf.corporate.formality.kanban</field>
+        <field name="model">sf.corporate.formality</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="formality_type">
+                <field name="name"/>
+                <field name="formality_type"/>
+                <field name="due_date"/>
+                <field name="reminder_days"/>
+                <field name="done"/>
+                <templates>
+                    <t t-name="card">
+                        <div class="oe_kanban_global_click">
+                            <div class="o_kanban_record_title">
+                                <field name="name"/>
+                            </div>
+                            <div class="o_kanban_record_subtitle">
+                                <field name="formality_type"/>
+                            </div>
+                            <div class="o_kanban_record_bottom">
+                                Due: <field name="due_date"/>
+                                &#8212; Done: <field name="done"/>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="action_corporate_formality" model="ir.actions.act_window">
+        <field name="name">Formalities</field>
+        <field name="res_model">sf.corporate.formality</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="search_view_id" ref="view_corporate_formality_search"/>
+    </record>
+
+    <!-- ============ DASHBOARD ============ -->
+    <record id="view_corporate_dashboard_graph" model="ir.ui.view">
+        <field name="name">sf.corporate.meeting.dashboard.graph</field>
+        <field name="model">sf.corporate.meeting</field>
+        <field name="arch" type="xml">
+            <graph string="Meetings by Status">
+                <field name="state"/>
+                <field name="id" type="measure" string="Meetings"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="view_corporate_dashboard_pivot" model="ir.ui.view">
+        <field name="name">sf.corporate.meeting.dashboard.pivot</field>
+        <field name="model">sf.corporate.meeting</field>
+        <field name="arch" type="xml">
+            <pivot string="Meetings by Status and Organ">
+                <field name="state" type="row"/>
+                <field name="org_id" type="col"/>
+                <field name="id" type="measure" string="Meetings"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="action_corporate_dashboard" model="ir.actions.act_window">
+        <field name="name">Corporate Dashboard</field>
+        <field name="res_model">sf.corporate.meeting</field>
+        <field name="view_mode">graph,pivot</field>
+        <field name="view_ids" eval="[(5, 0), (0, 0, {'view_mode': 'graph', 'view_id': ref('view_corporate_dashboard_graph')}), (0, 0, {'view_mode': 'pivot', 'view_id': ref('view_corporate_dashboard_pivot')})]"/>
+    </record>
+
+</odoo>

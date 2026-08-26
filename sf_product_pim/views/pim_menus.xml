@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem id="menu_pim_root" name="PIM" sequence="92" web_icon="sf_product_pim,static/description/icon.png"/>
+
+    <menuitem id="menu_pim_products" name="Products"
+              parent="menu_pim_root"
+              action="action_pim_product"
+              sequence="10"/>
+
+    <menuitem id="menu_pim_families" name="Families"
+              parent="menu_pim_root"
+              action="action_pim_category"
+              sequence="20"/>
+
+    <menuitem id="menu_pim_attributes" name="Attributes"
+              parent="menu_pim_root"
+              action="action_pim_attribute"
+              sequence="30"/>
+
+    <menuitem id="menu_pim_channels" name="Publication Channels"
+              parent="menu_pim_root"
+              action="action_pim_channel"
+              sequence="40"/>
+
+    <menuitem id="menu_pim_publications" name="Publications"
+              parent="menu_pim_root"
+              action="action_pim_publication"
+              sequence="50"/>
+
+    <menuitem id="menu_pim_quality" name="Quality Dashboard"
+              parent="menu_pim_root"
+              action="action_pim_quality"
+              sequence="60"/>
+
+</odoo>

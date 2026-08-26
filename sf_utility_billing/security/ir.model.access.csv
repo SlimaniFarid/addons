@@ -1,0 +1,16 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sf_utility_meter_user,sf.utility.meter.user,model_sf_utility_meter,sf_utility_billing.group_sf_utility_user,1,1,1,0
+access_sf_utility_reading_user,sf.utility.reading.user,model_sf_utility_meter_reading,sf_utility_billing.group_sf_utility_user,1,1,1,0
+access_sf_utility_campaign_user,sf.utility.campaign.user,model_sf_utility_campaign,sf_utility_billing.group_sf_utility_user,1,1,1,0
+access_sf_utility_tariff_user,sf.utility.tariff.user,model_sf_utility_tariff,sf_utility_billing.group_sf_utility_user,1,1,0,0
+access_sf_utility_tariff_line_user,sf.utility.tariff.line.user,model_sf_utility_tariff_line,sf_utility_billing.group_sf_utility_user,1,0,0,0
+access_sf_utility_invoice_user,sf.utility.invoice.user,model_sf_utility_invoice,sf_utility_billing.group_sf_utility_user,1,1,1,0
+access_sf_utility_meter_manager,sf.utility.meter.manager,model_sf_utility_meter,sf_utility_billing.group_sf_utility_manager,1,1,1,1
+access_sf_utility_reading_manager,sf.utility.reading.manager,model_sf_utility_meter_reading,sf_utility_billing.group_sf_utility_manager,1,1,1,1
+access_sf_utility_campaign_manager,sf.utility.campaign.manager,model_sf_utility_campaign,sf_utility_billing.group_sf_utility_manager,1,1,1,1
+access_sf_utility_tariff_manager,sf.utility.tariff.manager,model_sf_utility_tariff,sf_utility_billing.group_sf_utility_manager,1,1,1,1
+access_sf_utility_tariff_line_manager,sf.utility.tariff.line.manager,model_sf_utility_tariff_line,sf_utility_billing.group_sf_utility_manager,1,1,1,1
+access_sf_utility_invoice_manager,sf.utility.invoice.manager,model_sf_utility_invoice,sf_utility_billing.group_sf_utility_manager,1,1,1,1
+access_sf_utility_mail_activity,sf.utility.mail.activity.user,mail.activity,sf_utility_billing.group_sf_utility_user,1,1,1,0
+access_sf_utility_activity_mixin,sf.utility.activity.mixin.user,model_sf_utility_activity_mixin,sf_utility_billing.group_sf_utility_user,1,1,1,0
+access_sf_utility_import_wizard_user,sf.utility.import.wizard.user,model_sf_utility_import_wizard,sf_utility_billing.group_sf_utility_user,1,1,1,0

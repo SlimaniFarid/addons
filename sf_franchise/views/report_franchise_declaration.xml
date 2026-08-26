@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_franchise_declaration">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-set="company" t-value="o.company_id or res_company"/>
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2>Royalty Statement</h2>
+                        <table class="table table-sm">
+                            <tr><th>Declaration</th><td><span t-field="o.name"/></td></tr>
+                            <tr><th>Contract</th><td><span t-field="o.contract_id"/></td></tr>
+                            <tr><th>Franchisee</th><td><span t-field="o.contract_id.partner_id"/></td></tr>
+                            <tr><th>Period</th><td><span t-field="o.period_start"/> to <span t-field="o.period_end"/></td></tr>
+                            <tr><th>Declared Sales</th><td><span t-field="o.declared_sales"/></td></tr>
+                            <tr><th>Royalty Amount</th><td><span t-field="o.royalty_amount"/></td></tr>
+                            <tr><th>Invoice</th><td><span t-field="o.invoice_id"/></td></tr>
+                            <tr><th>Status</th><td><span t-field="o.state"/></td></tr>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

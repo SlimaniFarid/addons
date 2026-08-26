@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ============ WARRANTY ============ -->
+    <record id="view_warranty_tree" model="ir.ui.view">
+        <field name="name">sf.warranty.tree</field>
+        <field name="model">sf.warranty</field>
+        <field name="arch" type="xml">
+            <tree string="Warranties">
+                <field name="name"/>
+                <field name="product_tmpl_id"/>
+                <field name="duration_months"/>
+                <field name="coverage"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_warranty_form" model="ir.ui.view">
+        <field name="name">sf.warranty.form</field>
+        <field name="model">sf.warranty</field>
+        <field name="arch" type="xml">
+            <form string="Warranty">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="product_tmpl_id"/>
+                        </group>
+                        <group>
+                            <field name="duration_months"/>
+                            <field name="coverage"/>
+                            <field name="active"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <field name="description"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_warranty_search" model="ir.ui.view">
+        <field name="name">sf.warranty.search</field>
+        <field name="model">sf.warranty</field>
+        <field name="arch" type="xml">
+            <search string="Warranties">
+                <field name="product_tmpl_id"/>
+                <group>
+                    <filter string="Coverage" name="coverage_group"
+                            context="{'group_by': 'coverage'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_warranty" model="ir.actions.act_window">
+        <field name="name">Product Warranties</field>
+        <field name="res_model">sf.warranty</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_warranty_search"/>
+    </record>
+
+    <!-- ============ CLAIM ============ -->
+    <record id="view_warranty_claim_tree" model="ir.ui.view">
+        <field name="name">sf.warranty.claim.tree</field>
+        <field name="model">sf.warranty.claim</field>
+        <field name="arch" type="xml">
+            <tree string="Claims">
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="product_id"/>
+                <field name="serial_number"/>
+                <field name="claim_type"/>
+                <field name="eligible"/>
+                <field name="state"/>
+                <field name="decision"/>
+                <field name="estimated_cost"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_warranty_claim_form" model="ir.ui.view">
+        <field name="name">sf.warranty.claim.form</field>
+        <field name="model">sf.warranty.claim</field>
+        <field name="arch" type="xml">
+            <form string="Warranty Claim">
+                <header>
+                    <button name="action_open" type="object"
+                            string="Open" class="btn-primary"
+                            invisible="state != 'draft'"/>
+                    <button name="action_check_eligibility" type="object"
+                            string="Check Eligibility"
+                            invisible="state not in ('draft', 'open')"/>
+                    <button name="action_open_decision_wizard" type="object"
+                            string="Decision" class="btn-success"
+                            invisible="state != 'open'"/>
+                    <button name="action_cancel" type="object"
+                            string="Cancel" invisible="state != 'draft'"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="partner_id"/>
+                            <field name="product_id"/>
+                            <field name="serial_number"/>
+                            <field name="claim_type"/>
+                        </group>
+                        <group>
+                            <field name="invoice_id"/>
+                            <field name="purchase_date"/>
+                            <field name="warranty_id"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="eligible"/>
+                        <field name="eligibility_detail"/>
+                    </group>
+                    <field name="failure_description"/>
+                    <notebook>
+                        <page string="Decision">
+                            <group>
+                                <group>
+                                    <field name="decision"/>
+                                    <field name="decision_date"/>
+                                </group>
+                                <group>
+                                    <field name="estimated_cost" currency_field="currency_id"/>
+                                    <field name="currency_id"/>
+                                </group>
+                            </group>
+                            <field name="decision_reason"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_warranty_claim_search" model="ir.ui.view">
+        <field name="name">sf.warranty.claim.search</field>
+        <field name="model">sf.warranty.claim</field>
+        <field name="arch" type="xml">
+            <search string="Claims">
+                <field name="partner_id"/>
+                <field name="product_id"/>
+                <field name="serial_number"/>
+                <filter string="Eligible" name="eligible"
+                        domain="[('eligible', '=', True)]"/>
+                <filter string="Not Eligible" name="not_eligible"
+                        domain="[('eligible', '=', False)]"/>
+                <filter string="Open" name="open"
+                        domain="[('state', '=', 'open')]"/>
+                <group>
+                    <filter string="Status" name="state_group"
+                            context="{'group_by': 'state'}"/>
+                    <filter string="Decision" name="decision_group"
+                            context="{'group_by': 'decision'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_warranty_claim_kanban" model="ir.ui.view">
+        <field name="name">sf.warranty.claim.kanban</field>
+        <field name="model">sf.warranty.claim</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state">
+                <field name="partner_id"/>
+                <field name="product_id"/>
+                <field name="serial_number"/>
+                <field name="eligible"/>
+                <templates>
+                    <t t-name="card">
+                        <div class="oe_kanban_global_click">
+                            <div class="o_kanban_record_title">
+                                <field name="name"/> - <field name="product_id"/>
+                            </div>
+                            <div class="o_kanban_record_subtitle">
+                                <field name="partner_id"/>
+                            </div>
+                            <div class="o_kanban_record_bottom">
+                                Eligible: <field name="eligible"/>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="action_warranty_claim" model="ir.actions.act_window">
+        <field name="name">Claims</field>
+        <field name="res_model">sf.warranty.claim</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="search_view_id" ref="view_warranty_claim_search"/>
+    </record>
+
+    <!-- ============ PRODUCT PAGE ============ -->
+    <record id="view_warranty_product_form" model="ir.ui.view">
+        <field name="name">sf.warranty.product.form</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='sales']" position="after">
+                <page string="Warranty">
+                    <field name="sf_warranty_ids">
+                        <tree string="Warranties">
+                            <field name="name"/>
+                            <field name="duration_months"/>
+                            <field name="coverage"/>
+                            <field name="active"/>
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- ============ DASHBOARD ============ -->
+    <record id="view_warranty_dashboard_graph" model="ir.ui.view">
+        <field name="name">sf.warranty.claim.dashboard.graph</field>
+        <field name="model">sf.warranty.claim</field>
+        <field name="arch" type="xml">
+            <graph string="Claims by Decision">
+                <field name="decision"/>
+                <field name="id" type="measure" string="Claims"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="view_warranty_dashboard_pivot" model="ir.ui.view">
+        <field name="name">sf.warranty.claim.dashboard.pivot</field>
+        <field name="model">sf.warranty.claim</field>
+        <field name="arch" type="xml">
+            <pivot string="Claims by Product and Decision">
+                <field name="product_id" type="row"/>
+                <field name="decision" type="col"/>
+                <field name="id" type="measure" string="Claims"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="action_warranty_dashboard" model="ir.actions.act_window">
+        <field name="name">Warranty Dashboard</field>
+        <field name="res_model">sf.warranty.claim</field>
+        <field name="view_mode">graph,pivot</field>
+        <field name="view_ids" eval="[(5, 0), (0, 0, {'view_mode': 'graph', 'view_id': ref('view_warranty_dashboard_graph')}), (0, 0, {'view_mode': 'pivot', 'view_id': ref('view_warranty_dashboard_pivot')})]"/>
+    </record>
+
+    <!-- ============ WIZARD ============ -->
+    <record id="view_warranty_claim_decision_wizard" model="ir.ui.view">
+        <field name="name">sf.warranty.claim.decision.wizard.form</field>
+        <field name="model">sf.warranty.claim.decision.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Claim Decision">
+                <group>
+                    <field name="claim_id" readonly="1"/>
+                    <field name="decision"/>
+                    <field name="reason" required="decision == 'rejected'"/>
+                    <field name="estimated_cost" currency_field="currency_id"
+                           invisible="decision == 'rejected'"/>
+                </group>
+                <footer>
+                    <button name="action_apply" type="object"
+                            string="Apply" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary"
+                            special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="wave_final_sf_warranty_management" model="ir.actions.server">
+        <field name="name">Refresh Business Data</field>
+        <field name="model_id" ref="model_sf_warranty"/>
+        <field name="binding_model_id" ref="model_sf_warranty"/>
+        <field name="state">code</field>
+        <field name="code">records.action_refresh_business()</field>
+    </record>
+</odoo>

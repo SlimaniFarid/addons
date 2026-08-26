@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_preventive_maintenance_pro_root"
+              name="Preventive Maintenance Pro"
+              sequence="30"
+              groups="sf_preventive_maintenance_pro.group_preventive_maintenance_pro_user"
+              web_icon="sf_preventive_maintenance_pro,static/description/icon.png"/>
+    <menuitem id="menu_pm_plan" name="Pm.Plan"
+              parent="menu_preventive_maintenance_pro_root"
+              action="action_pm_plan"
+              sequence="10"
+              groups="sf_preventive_maintenance_pro.group_preventive_maintenance_pro_user"/>
+    <menuitem id="menu_pm_work_order" name="Pm.Work.Order"
+              parent="menu_preventive_maintenance_pro_root"
+              action="action_pm_work_order"
+              sequence="20"
+              groups="sf_preventive_maintenance_pro.group_preventive_maintenance_pro_user"/>
+</odoo>

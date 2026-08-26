@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="sf_digital_delivery_delivery_view_list" model="ir.ui.view">
+        <field name="name">sf.digital.delivery.list</field>
+        <field name="model">sf.digital.delivery</field>
+        <field name="arch" type="xml">
+            <list decoration-danger="is_overdue" string="Digital Deliveries">
+                <field name="name"/>
+                <field name="order_id"/>
+                <field name="partner_id"/>
+                <field name="state" widget="badge"/>
+                <field name="delivery_date"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="sf_digital_delivery_delivery_view_form" model="ir.ui.view">
+        <field name="name">sf.digital.delivery.form</field>
+        <field name="model">sf.digital.delivery</field>
+        <field name="arch" type="xml">
+            <form string="Digital Delivery">
+                <header>
+                    <button name="action_generate_keys" string="Generate Keys / Links" type="object"
+                            class="btn-primary" invisible="[('state', '!=', 'draft')]"
+                            groups="sf_digital_delivery.group_sf_digital_delivery_manager"/>
+                    <button name="action_deliver" string="Deliver" type="object"
+                            class="btn-primary" invisible="[('state', '!=', 'generated')]"
+                            groups="sf_digital_delivery.group_sf_digital_delivery_manager"/>
+                    <button name="action_fail" string="Mark Failed" type="object"
+                            invisible="[('state', 'not in', ('draft', 'generated'))]"
+                            groups="sf_digital_delivery.group_sf_digital_delivery_manager"/>
+                    <button name="action_cancel" string="Cancel" type="object"
+                            invisible="[('state', 'in', ('delivered', 'cancelled'))]"/>
+                    <field name="state" widget="statusbar" readonly="1"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="order_id"/>
+                            <field name="partner_id"/>
+                        </group>
+                        <group>
+                            <field name="delivery_date"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Lines">
+                            <field name="line_ids" readonly="state in ('delivered', 'cancelled')">
+                                <list string="Delivery Lines">
+                                    <field name="name"/>
+                                    <field name="product_id"/>
+                                    <field name="digital_product_id"/>
+                                    <field name="quantity"/>
+                                    <field name="download_url"/>
+                                    <field name="download_expired"/>
+                                    <field name="company_id" groups="base.group_multi_company"/>
+                                </list>
+                                <form string="Delivery Line">
+                                    <group>
+                                        <group>
+                                            <field name="product_id"/>
+                                            <field name="digital_product_id"/>
+                                            <field name="quantity"/>
+                                        </group>
+                                        <group>
+                                            <field name="download_url"/>
+                                            <field name="download_expiry_date"/>
+                                            <field name="download_expired"/>
+                                            <field name="company_id" groups="base.group_multi_company"/>
+                                        </group>
+                                    </group>
+                                    <notebook>
+                                        <page string="Keys">
+                                            <field name="key_ids">
+                                                <list string="Keys">
+                                                    <field name="name"/>
+                                                    <field name="key"/>
+                                                    <field name="state"/>
+                                                    <field name="activation_count"/>
+                                                </list>
+                                            </field>
+                                        </page>
+                                    </notebook>
+                                </form>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="sf_digital_delivery_delivery_view_search" model="ir.ui.view">
+        <field name="name">sf.digital.delivery.search</field>
+        <field name="model">sf.digital.delivery</field>
+        <field name="arch" type="xml">
+            <search string="Digital Deliveries">
+                <field name="name"/>
+                <field name="order_id"/>
+                <field name="partner_id"/>
+                <filter name="delivery_draft" string="Draft" domain="[('state', '=', 'draft')]"/>
+                <filter name="delivery_generated" string="Generated" domain="[('state', '=', 'generated')]"/>
+                <filter name="delivery_delivered" string="Delivered" domain="[('state', '=', 'delivered')]"/>
+                <filter name="delivery_failed" string="Failed" domain="[('state', '=', 'failed')]"/>
+                <group>
+                    <filter name="group_delivery_state" string="Status" context="{'group_by': 'state'}"/>
+                    <filter name="group_delivery_partner" string="Customer" context="{'group_by': 'partner_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_sf_digital_delivery_delivery" model="ir.actions.act_window">
+        <field name="name">Digital Deliveries</field>
+        <field name="res_model">sf.digital.delivery</field>
+        <field name="view_mode">kanban,list,form</field>
+        <field name="search_view_id" ref="sf_digital_delivery_delivery_view_search"/>
+    </record>
+
+    <record id="view_sf_digital_delivery_boost_kanban" model="ir.ui.view">
+        <field name="name">sf_digital_delivery.boost.kanban</field>
+        <field name="model">sf.digital.delivery</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state" t-att-color="state">
+                <field name="name"/>
+                <field name="state"/>
+                <field name="user_id"/>
+                <field name="download_expiry_date"/>
+                <field name="is_overdue" invisible="1"/>
+
+                <field name="state"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_card oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <strong class="o_kanban_record_title">
+                                    <field name="name"/></strong>
+                                <div class="o_kanban_record_subtitle">
+                                    <field name="user_id" widget="many2one_avatar_user"/>
+                                    <field name="download_expiry_date"/></div>
+                            </div>
+                            <div class="oe_kanban_bottom_right">
+                                <field name="state" widget="badge"
+                                       t-attf-options="{'classes_map': {'draft': 'info', 'done': 'success', 'cancelled': 'danger'}, 'domain': []}"/>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="view_sf_digital_delivery_boost_search" model="ir.ui.view">
+        <field name="name">sf_digital_delivery.boost.search</field>
+        <field name="model">sf.digital.delivery</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+<separator/>
+                <filter string="My records" name="my_records" domain="[('user_id', '=', uid)]"/>
+                <filter string="To Do" name="todo" domain="[('state', 'not in', ('done', 'cancelled', 'closed'))]"/>
+                <group expand="0" string="Group By"><filter string="Status" name="gb_state" context="{'group_by': 'state'}"/></group>
+            </search>
+        </field>
+    </record>
+
+    <record id="wave_final_sf_digital_delivery" model="ir.actions.server">
+        <field name="name">Refresh Business Data</field>
+        <field name="model_id" ref="model_sf_digital_delivery"/>
+        <field name="binding_model_id" ref="model_sf_digital_delivery"/>
+        <field name="state">code</field>
+        <field name="code">records.action_refresh_business()</field>
+    </record>
+</odoo>

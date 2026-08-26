@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="action_report_reservation_confirmation" model="ir.actions.report">
+            <field name="name">Reservation Confirmation</field>
+            <field name="model">sf.travel.reservation</field>
+            <field name="report_type">qweb-html</field>
+            <field name="report_name">sf_travel_agency.report_reservation_confirmation</field>
+            <field name="report_file">sf_travel_agency.report_reservation_confirmation</field>
+            <field name="binding_model_id" ref="model_sf_travel_reservation"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <record id="action_report_package_itinerary" model="ir.actions.report">
+            <field name="name">Package Itinerary</field>
+            <field name="model">sf.travel.package</field>
+            <field name="report_type">qweb-html</field>
+            <field name="report_name">sf_travel_agency.report_package_itinerary</field>
+            <field name="report_file">sf_travel_agency.report_package_itinerary</field>
+            <field name="binding_model_id" ref="model_sf_travel_package"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <record id="action_report_reservation_invoice" model="ir.actions.report">
+            <field name="name">Reservation Invoice</field>
+            <field name="model">sf.travel.reservation</field>
+            <field name="report_type">qweb-html</field>
+            <field name="report_name">sf_travel_agency.report_reservation_invoice</field>
+            <field name="report_file">sf_travel_agency.report_reservation_invoice</field>
+            <field name="binding_model_id" ref="model_sf_travel_reservation"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <record id="action_report_margin_report" model="ir.actions.report">
+            <field name="name">Margin Report</field>
+            <field name="model">sf.travel.reservation</field>
+            <field name="report_type">qweb-html</field>
+            <field name="report_name">sf_travel_agency.report_margin_report</field>
+            <field name="report_file">sf_travel_agency.report_margin_report</field>
+            <field name="binding_model_id" ref="model_sf_travel_reservation"/>
+            <field name="binding_type">report</field>
+        </record>
+    </data>
+</odoo>

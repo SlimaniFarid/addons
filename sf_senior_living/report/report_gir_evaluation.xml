@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id=""""""report_gir_evaluation_template"">
+            <div class=""""""page"">
+                <div class=""""""page-header"">
+                    <div class=""""""row"">
+                        <div class=""""""col-6"">
+                            <h2><t t-esc=""""""doc.resident_id.residence_id.name""/></h2>
+                            <p>Évaluation GIR / AGGIR</p>
+                        </div>
+                        <div class=""""""col-6 text-end"">
+                            <h3>ÉVALUATION GIR</h3>
+                            <p><strong>Référence:</strong> <t t-esc=""""""doc.name""/></p>
+                            <p><strong>Date évaluation:</strong> <t t-esc=""""""doc.evaluation_date""/></p>
+                            <p><strong>Évaluateur:</strong> <t t-esc=""""""doc.evaluator_id.name""/></p>
+                        </div>
+                    </div>
+                    <hr/>
+                </div>
+
+                <div class=""""""page-content"">
+                    <h4>RÉSIDENT</h4>
+                    <table class=""""""table table-sm"">
+                        <tr><td><strong>Nom:</strong></td><td><t t-esc=""""""doc.resident_id.name""/></td><td><strong>Date naissance:</strong></td><td><t t-esc=""""""doc.resident_id.partner_id.birthdate""/></td></tr>
+                        <tr><td><strong>Chambre:</strong></td><td><t t-esc=""""""doc.resident_id.room_id.name""/></td><td><strong>GIR précédent:</strong></td><td><t t-esc=""""""dict(doc.resident_id._fields[&apos;gir_level&apos;].selection).get(doc.resident_id.gir_level)""/></td></tr>
+                    </table>
+
+                    <h4>RÉSULTAT</h4>
+                    <div class=""""""row mb-4"">
+                        <div class=""""""col-6"">
+                            <h5 class=""""""text-center"">NIVEAU GIR: <span class=""""""text-primary""><t t-esc=""""""dict(doc._fields[&apos;gir_level&apos;].selection).get(doc.gir_level)""/></span></h5>
+                        </div>
+                        <div class=""""""col-6"">
+                            <h5 class=""""""text-center"">SCORE TOTAL: <span class=""""""text-primary""><t t-esc=""""""doc.score_total""/></span> / 40</h5>
+                        </div>
+                    </div>
+
+                    <h4>GRILLE AGGIR (10 VARIABLES)</h4>
+                    <table class=""""""table table-bordered table-sm"">
+                        <thead>
+                            <tr><th>Variable</th><th>Score (0-4)</th><th>Description</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Cohérence</td><td class=""""""text-center""><t t-esc=""""""doc.coherence""/></td><td>Orientation temps/espace, compréhension</td></tr>
+                            <tr><td>Orientation</td><td class=""""""text-center""><t t-esc=""""""doc.orientation""/></td><td>Repérage lieu, temps, personnes</td></tr>
+                            <tr><td>Toilette</td><td class=""""""text-center""><t t-esc=""""""doc.toilette""/></td><td>Soins corporels, hygiène</td></tr>
+                            <tr><td>Habillage</td><td class=""""""text-center""><t t-esc=""""""doc.habillage""/></td><td>Mise/retrait vêtements, chaussures</td></tr>
+                            <tr><td>Alimentation</td><td class=""""""text-center""><t t-esc=""""""doc.alimentation""/></td><td>Prise repas, boisson, coupe aliment</td></tr>
+                            <tr><td>Élimination</td><td class=""""""text-center""><t t-esc=""""""doc.elimination""/></td><td>Contrôle sphincters, hygiène</td></tr>
+                            <tr><td>Transfert</td><td class=""""""text-center""><t t-esc=""""""doc.transfert""/></td><td>Couché/levé, fauteuil/lit, WC</td></tr>
+                            <tr><td>Déplacement Intérieur</td><td class=""""""text-center""><t t-esc=""""""doc.deplacement_int""/></td><td>Marche intérieur, fauteuil roulant</td></tr>
+                            <tr><td>Déplacement Extérieur</td><td class=""""""text-center""><t t-esc=""""""doc.deplacement_ext""/></td><td>Sortie, marche extérieur, transport</td></tr>
+                            <tr><td>Communication</td><td class=""""""text-center""><t t-esc=""""""doc.communication""/></td><td>Expression orale/écrite, téléphone</td></tr>
+                        </tbody>
+                        <tfoot>
+                            <tr class=""""""table-active""><td><strong>TOTAL</strong></td><td class=""""""text-center""><strong><t t-esc=""""""doc.score_total""/></strong></td><td></td></tr>
+                        </tfoot>
+                    </table>
+
+                    <h4>VALIDATION</h4>
+                    <table class=""""""table table-sm"">
+                        <tr>
+                            <td><strong>État:</strong></td>
+                            <td><span class=""""""badge"" t-att-class=""""""{&apos;bg-secondary&apos;: doc.state==&apos;scheduled&apos;, &apos;bg-info&apos;: doc.state==&apos;in_progress&apos;, &apos;bg-success&apos;: doc.state==&apos;validated&apos;, &apos;bg-dark&apos;: doc.state==&apos;locked&apos;}""><t t-esc=""""""dict(doc._fields[&apos;state&apos;].selection).get(doc.state)""/></span></td>
+                        </tr>
+                        <tr t-if=""""""doc.state in (&apos;validated&apos;, &apos;locked&apos;)"">
+                            <td><strong>Validé par:</strong></td><td><t t-esc=""""""doc.validated_by.name""/></td>
+                        </tr>
+                        <tr t-if=""""""doc.state in (&apos;validated&apos;, &apos;locked&apos;)"">
+                            <td><strong>Date validation:</strong></td><td><t t-esc=""""""doc.validated_date""/></td>
+                        </tr>
+                    </table>
+
+                    <h4>NOTES</h4>
+                    <p><t t-esc=""""""doc.notes or &apos;Aucune note&apos;""/></p>
+                </div>
+
+                <div class=""""""page-footer"">
+                    <hr/>
+                    <p class=""""""text-center text-muted small"">
+                        Évaluation conforme à la grille AGGIR - Générée le <t t-esc=""""""fields.Date.today()""/> - <t t-esc=""""""doc.resident_id.residence_id.name""/>
+                    </p>
+                </div>
+            </div>
+        </template>
+    </data>
+</odoo>

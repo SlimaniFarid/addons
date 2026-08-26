@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_correspondence_register">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-set="company" t-value="o.company_id or res_company"/>
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2>Correspondence Register</h2>
+                        <table class="table table-sm">
+                            <tr><th>Name</th><th>Direction</th><th>Date</th><th>Correspondent</th><th>Subject</th><th>Status</th></tr>
+                            <tr>
+                                <td><span t-field="o.name"/></td>
+                                <td><span t-field="o.direction"/></td>
+                                <td><span t-field="o.correspondence_date"/></td>
+                                <td><span t-field="o.partner_id"/></td>
+                                <td><span t-field="o.subject"/></td>
+                                <td><span t-field="o.state"/></td>
+                            </tr>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

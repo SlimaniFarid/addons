@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_price_matrix_category_user,sf.price.matrix.category.user,model_sf_price_matrix_category,group_price_matrix_user,1,1,0,0
+access_price_matrix_category_manager,sf.price.matrix.category.manager,model_sf_price_matrix_category,group_price_matrix_manager,1,1,1,1
+access_price_matrix_tier_user,sf.price.matrix.tier.user,model_sf_price_matrix_tier,group_price_matrix_user,1,1,0,0
+access_price_matrix_tier_manager,sf.price.matrix.tier.manager,model_sf_price_matrix_tier,group_price_matrix_manager,1,1,1,1
+access_price_matrix_rule_user,sf.price.matrix.rule.user,model_sf_price_matrix_rule,group_price_matrix_user,1,1,0,0
+access_price_matrix_rule_manager,sf.price.matrix.rule.manager,model_sf_price_matrix_rule,group_price_matrix_manager,1,1,1,1

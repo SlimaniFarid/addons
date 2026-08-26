@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_supplier_scorecard_user,sf.supplier.scorecard.user,model_sf_supplier_scorecard,group_supplier_scorecard_user,1,1,0,0
+access_supplier_scorecard_manager,sf.supplier.scorecard.manager,model_sf_supplier_scorecard,group_supplier_scorecard_manager,1,1,1,1
+access_supplier_issue_user,sf.supplier.issue.user,model_sf_supplier_issue,group_supplier_scorecard_user,1,1,1,0
+access_supplier_issue_manager,sf.supplier.issue.manager,model_sf_supplier_issue,group_supplier_scorecard_manager,1,1,1,1

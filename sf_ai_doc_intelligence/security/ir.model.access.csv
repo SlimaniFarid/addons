@@ -1,0 +1,11 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_docintel_provider_user,ai.doc.intelligence.docintel_provider.user,model_docintel_provider,base.group_user,1,0,0,0
+access_docintel_provider_mgr,ai.doc.intelligence.docintel_provider.mgr,model_docintel_provider,base.group_system,1,1,1,1
+access_docintel_document_user,ai.doc.intelligence.docintel_document.user,model_docintel_document,base.group_user,1,0,0,0
+access_docintel_document_mgr,ai.doc.intelligence.docintel_document.mgr,model_docintel_document,base.group_system,1,1,1,1
+access_docintel_queue_user,ai.doc.intelligence.docintel_queue.user,model_docintel_queue,base.group_user,1,0,0,0
+access_docintel_queue_mgr,ai.doc.intelligence.docintel_queue.mgr,model_docintel_queue,base.group_system,1,1,1,1
+access_docintel_extraction_user,ai.doc.intelligence.docintel_extraction.user,model_docintel_extraction,base.group_user,1,0,0,0
+access_docintel_extraction_mgr,ai.doc.intelligence.docintel_extraction.mgr,model_docintel_extraction,base.group_system,1,1,1,1
+access_access_docintel_provider_user_docintel_routing_rule_user,docintel.routing.rule.user,model_docintel_routing_rule,base.group_user,1,0,0,0
+access_access_docintel_provider_user_docintel_routing_rule_manager,docintel.routing.rule.manager,model_docintel_routing_rule,base.group_user,1,1,1,1
