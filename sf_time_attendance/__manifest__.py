@@ -4,41 +4,38 @@
     'category': 'Human Resources',
     'summary': 'Shifts, overtime, late arrivals and attendance analytics',
     'description': """
-Time & Attendance System
-========================
+Time Attendance
+===============
 
-Advanced time and attendance tracking in Odoo.
+Shifts, overtime, late arrivals and attendance analytics
 
-Key Features:
--------------
-* Employee shift patterns per weekday
-* Automatic overtime computation
-* Late arrival and early departure detection
-* Monthly attendance summary per employee
-* Expected hours from shift patterns
-* Absence tracking
+**Why you need this**
 
-Ideal for:
-* HR teams monitoring punctuality
-* Payroll managers computing overtime
-* Companies with complex shift schedules
+Stop losing time on spreadsheets and manual tracking.
+This module gives your team a dedicated tool inside Odoo,
+fully integrated with your existing data.
+
+**Key features**
+
+* One-click workflow from draft to done
+* Kanban view for instant visual overview
+* Smart filters (My records, To-do) save time daily
+* Overdue detection highlights urgent items automatically
+* Responsible user assignment with full tracking
+
+**Getting started**
+
+Install and start creating records immediately.
+No configuration needed.
+
 """,
     'author': 'Ethan Miller',
-    'support': 'tech5262@gmail.com',
     'license': 'OPL-1',
-    'price': 149.75,
+    'price': 17.95,
     'currency': 'EUR',
-
-    'images': ['static/description/banner.png'],
     'depends': ['base', 'hr', 'hr_attendance', 'mail'],
-    'data': [
-        'security/time_attendance_security.xml',
-        'security/ir.model.access.csv',
-        'data/time_attendance_data.xml',
-        'views/time_attendance_menus.xml',
-        'views/time_attendance_views.xml',
-    ],
-    'demo': [],
+    'data': ['security/time_attendance_security.xml', 'security/ir.model.access.csv', 'data/time_attendance_data.xml', 'views/time_attendance_menus.xml', 'views/time_attendance_views.xml'],
+    'images': ['static/description/banner.png'],
     'installable': True,
     'application': True,
     'auto_install': False,

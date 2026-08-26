@@ -4,40 +4,38 @@
     'category': 'Accounting/Accounting',
     'summary': 'Consolidate P&L data across companies and currencies',
     'description': """
-Multi-Company Consolidation
-===========================
+Consolidation
+=============
 
-Consolidate accounting data across several companies.
+Consolidate P&L data across companies and currencies
 
-Key Features:
--------------
-* Consolidation groups with multiple companies
-* Period-based consolidation runs
-* Account-level entries per company
-* Automatic revaluation to the group currency
-* Consolidated totals per account
-* Exports ready for reporting
+**Why you need this**
 
-Ideal for:
-* Holding structures
-* Multi-company groups
-* Group controllers and CFOs
+Stop losing time on spreadsheets and manual tracking.
+This module gives your team a dedicated tool inside Odoo,
+fully integrated with your existing data.
+
+**Key features**
+
+* One-click workflow from draft to done
+* Kanban view for instant visual overview
+* Smart filters (My records, To-do) save time daily
+* Overdue detection highlights urgent items automatically
+* Responsible user assignment with full tracking
+
+**Getting started**
+
+Install and start creating records immediately.
+No configuration needed.
+
 """,
     'author': 'Ethan Miller',
-    'support': 'tech5262@gmail.com',
     'license': 'OPL-1',
-    'price': 199.75,
+    'price': 17.95,
     'currency': 'EUR',
-
-    'images': ['static/description/banner.png'],
     'depends': ['base', 'account'],
-    'data': [
-        'security/consolidation_security.xml',
-        'security/ir.model.access.csv',
-        'views/consolidation_menus.xml',
-        'views/consolidation_views.xml',
-    ],
-    'demo': [],
+    'data': ['security/consolidation_security.xml', 'security/ir.model.access.csv', 'views/consolidation_menus.xml', 'views/consolidation_views.xml'],
+    'images': ['static/description/banner.png'],
     'installable': True,
     'application': True,
     'auto_install': False,

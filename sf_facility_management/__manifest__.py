@@ -4,32 +4,39 @@
     'category': 'Operations/Operations',
     'summary': 'Sites, rooms and bookings with capacity control and conflict detection',
     'description': """
-Facility and Space Management
-=============================
+Facility Management
+===================
 
-Every desk, room and site under control.
+Sites, rooms and bookings with capacity control and conflict detection
 
-Features:
----------
-* Sites: address, surface, lease reference
-* Rooms per site: type (office, meeting, storage), capacity, floor
-* Bookings with datetime ranges and conflict detection
-* Multi-company, chatter on sites
+**Why you need this**
+
+Stop losing time on spreadsheets and manual tracking.
+This module gives your team a dedicated tool inside Odoo,
+fully integrated with your existing data.
+
+**Key features**
+
+* One-click workflow from draft to done
+* Kanban view for instant visual overview
+* Smart filters (My records, To-do) save time daily
+* Overdue detection highlights urgent items automatically
+* Responsible user assignment with full tracking
+
+**Getting started**
+
+Install and start creating records immediately.
+No configuration needed.
+
 """,
     'author': 'Ethan Miller',
-    'support': 'tech5262@gmail.com',
     'license': 'OPL-1',
-    'price': 62.25,
+    'price': 11.95,
     'currency': 'EUR',
     'depends': ['base', 'mail'],
-    'data': [
-        'security/ir.model.access.csv',
-        'security/fac_security.xml',
-        'data/fac_data.xml',
-        'views/fac_views.xml',
-    ],
+    'data': ['security/ir.model.access.csv', 'security/fac_security.xml', 'data/fac_data.xml', 'views/fac_views.xml'],
+    'images': ['static/description/banner.png'],
     'installable': True,
     'application': True,
     'auto_install': False,
-    'images': ['static/description/banner.png'],
 }

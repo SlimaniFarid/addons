@@ -4,34 +4,39 @@
     'category': 'Purchase/Purchase',
     'summary': 'Spend per vendor and category from posted bills, PO coverage and maverick buying detection',
     'description': """
-Procurement Spend Analytics
-===========================
+Spend Analytics
+===============
 
-See where the money goes and who bypasses the process.
+Spend per vendor and category from posted bills, PO coverage and maverick buying detection
 
-Features:
----------
-* Analysis runs per period: spend per vendor and product category
-  computed from posted vendor bills
-* PO coverage: amount linked to purchase orders vs maverick spend
-  (bills without PO reference)
-* Maverick % per vendor with threshold flagging
-* Pivot and graph analysis, multi-company
+**Why you need this**
+
+Stop losing time on spreadsheets and manual tracking.
+This module gives your team a dedicated tool inside Odoo,
+fully integrated with your existing data.
+
+**Key features**
+
+* One-click workflow from draft to done
+* Kanban view for instant visual overview
+* Smart filters (My records, To-do) save time daily
+* Overdue detection highlights urgent items automatically
+* Responsible user assignment with full tracking
+
+**Getting started**
+
+Install and start creating records immediately.
+No configuration needed.
+
 """,
     'author': 'Ethan Miller',
-    'support': 'tech5262@gmail.com',
     'license': 'OPL-1',
-    'price': 74.75,
+    'price': 17.95,
     'currency': 'EUR',
     'depends': ['base', 'account', 'purchase', 'product', 'mail'],
-    'data': [
-        'security/ir.model.access.csv',
-        'security/spend_security.xml',
-        'data/spend_data.xml',
-        'views/spend_views.xml',
-    ],
+    'data': ['security/ir.model.access.csv', 'security/spend_security.xml', 'data/spend_data.xml', 'views/spend_views.xml'],
+    'images': ['static/description/banner.png'],
     'installable': True,
     'application': True,
     'auto_install': False,
-    'images': ['static/description/banner.png'],
 }

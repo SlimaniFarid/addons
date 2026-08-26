@@ -1,30 +1,42 @@
-# -*- coding: utf-8 -*-
 {
     'name': 'Corporate Business Travel Management',
     'version': '18.0.1.0',
     'category': 'Operations',
     'summary': 'Employee travel requests, approval workflow, itinerary lines, budget tracking and mission orders',
-    'description': 'Corporate business travel management for employers: employees submit travel requests (purpose, destination, dates, budget, justification), managers approve or reject them, an itinerary is detailed in lines (flight, train, hotel, car, other) with estimated costs, the estimated cost is compared to the budget, trips move through approved, in progress and completed states, departure reminders are raised automatically, and PDF reports (mission order and itinerary) can be printed.',
+    'description': """
+Business Travel
+===============
+
+Employee travel requests, approval workflow, itinerary lines, budget tracking and mission orders
+
+**Why you need this**
+
+Stop losing time on spreadsheets and manual tracking.
+This module gives your team a dedicated tool inside Odoo,
+fully integrated with your existing data.
+
+**Key features**
+
+* One-click workflow from draft to done
+* Kanban view for instant visual overview
+* Smart filters (My records, To-do) save time daily
+* Overdue detection highlights urgent items automatically
+* Responsible user assignment with full tracking
+
+**Getting started**
+
+Install and start creating records immediately.
+No configuration needed.
+
+""",
     'author': 'Ethan Miller',
-    'support': 'tech5262@gmail.com',
     'website': 'https://www.smartersaas.com',
     'license': 'OPL-1',
-    'price': 62.50,
+    'price': 17.95,
     'currency': 'EUR',
-    'application': True,
-    'installable': True,
-    'images': ['static/description/banner.png'],
     'depends': ['base', 'mail', 'contacts'],
-    'data': [
-        'security/sf_business_travel_security.xml',
-        'security/ir.model.access.csv',
-        'data/sf_business_travel_sequence.xml',
-        'data/sf_business_travel_cron.xml',
-        'data/sf_business_travel_report.xml',
-        'views/sf_business_travel_views.xml',
-        'views/sf_business_travel_menus.xml',
-        'views/report_travel_authorization.xml',
-        'views/report_travel_itinerary.xml',
-        'views/res_config_settings_views.xml',
-    ],
+    'data': ['security/sf_business_travel_security.xml', 'security/ir.model.access.csv', 'data/sf_business_travel_sequence.xml', 'data/sf_business_travel_cron.xml', 'data/sf_business_travel_report.xml', 'views/sf_business_travel_views.xml', 'views/sf_business_travel_menus.xml', 'views/report_travel_authorization.xml', 'views/report_travel_itinerary.xml', 'views/res_config_settings_views.xml'],
+    'images': ['static/description/banner.png'],
+    'installable': True,
+    'application': True,
 }

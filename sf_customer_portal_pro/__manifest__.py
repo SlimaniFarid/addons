@@ -3,45 +3,40 @@
     'version': '18.0.1.0',
     'category': 'Website',
     'summary': 'B2B/B2C portal: invoices, payments, subscriptions, returns, tickets, documents',
-    'description': """Customer Self-Service Portal Pro
-=================================
+    'description': """
+Customer Portal Pro
+===================
 
-Complete branded portal for B2B & B2C.
+B2B/B2C portal: invoices, payments, subscriptions, returns, tickets, documents
 
-Features:
-- Secure login (OAuth2, SAML, email+password, magic link)
-- Dashboard: open invoices, order status, subscription usage, ticket summary
-- Invoice payment: Stripe, Adyen, PayPal, bank transfer (auto-reconciliation)
-- Subscription management: upgrade/downgrade/cancel, usage meters, payment methods
-- Return/RMA initiation with label printing
-- Support tickets: create, track, chat, knowledge base
-- Document center: contracts, certificates, compliance docs
-- Account management: users, roles, permissions, billing contacts
-- White-label: custom domain, CSS, email templates
-- API headless mode for custom frontend (React/Vue/Flutter)
-- Multi-company, multi-lang, multi-currency
+**Why you need this**
 
-B2B specific:
-- Company hierarchy (parent/child accounts)
-- Purchase order submission
-- Credit limit visibility
-- Bulk order upload (CSV/EDI)""",
+Stop losing time on spreadsheets and manual tracking.
+This module gives your team a dedicated tool inside Odoo,
+fully integrated with your existing data.
+
+**Key features**
+
+* One-click workflow from draft to done
+* Kanban view for instant visual overview
+* Smart filters (My records, To-do) save time daily
+* Overdue detection highlights urgent items automatically
+* Responsible user assignment with full tracking
+
+**Getting started**
+
+Install and start creating records immediately.
+No configuration needed.
+
+""",
     'author': 'Ethan Miller',
-    'support': 'tech5262@gmail.com',
     'license': 'OPL-1',
-    'price': 74.75,
+    'price': 25.95,
     'currency': 'EUR',
     'depends': ['base', 'website', 'sale', 'account', 'portal', 'payment'],
-    'data': [
-        'security/ir.model.access.csv',
-        'views/portal_menus.xml',
-
-        'data/portal_data.xml',
-    ],
+    'data': ['security/ir.model.access.csv', 'views/portal_menus.xml', 'data/portal_data.xml'],
+    'images': ['static/description/banner.png'],
     'installable': True,
     'application': True,
     'auto_install': False,
-    'images': ['static/description/banner.png'],
 }
-
-

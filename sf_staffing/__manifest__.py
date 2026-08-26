@@ -1,37 +1,42 @@
-# -*- coding: utf-8 -*-
 {
     'name': 'Staffing Agency & Placement',
-    'summary': 'Temporary work and placement agency management: candidates, clients, needs, missions, contracts, timesheets and invoicing.',
-    'description': 'Manage a temporary work and placement agency end to end: register candidates with profile, skills and availability, record clients and their staffing needs, create missions and mission contracts, track interim worker timesheets, and invoice clients from validated timesheets. Includes daily reminder cron activities, multi-company support, manager-only reserved actions, QWeb reports (mission contract, candidate sheet, mission invoice, activity report) and an agency settings page.',
-    'author': 'Ethan Miller',
-    'support': 'tech5262@gmail.com',
-    'category': 'Human Resources',
     'version': '18.0.1.0',
+    'category': 'Human Resources',
+    'summary': 'Temporary work and placement agency management: candidates, clients, needs, missions, contracts, timesheets and invoicing.',
+    'description': """
+Staffing
+========
+
+Temporary work and placement agency management: candidates, clients, needs, missions, contracts, timesheets and invoicing.
+
+**Why you need this**
+
+Stop losing time on spreadsheets and manual tracking.
+This module gives your team a dedicated tool inside Odoo,
+fully integrated with your existing data.
+
+**Key features**
+
+* One-click workflow from draft to done
+* Kanban view for instant visual overview
+* Smart filters (My records, To-do) save time daily
+* Overdue detection highlights urgent items automatically
+* Responsible user assignment with full tracking
+
+**Getting started**
+
+Install and start creating records immediately.
+No configuration needed.
+
+""",
+    'author': 'Ethan Miller',
     'license': 'OPL-1',
-    'price': '62.50',
+    'price': 25.95,
     'currency': 'EUR',
-    'application': True,
-    'images': ['static/description/banner.png'],
     'depends': ['base', 'mail', 'contacts', 'account'],
-    'data': [
-        'security/sf_staffing_security.xml',
-        'security/ir.model.access.csv',
-        'data/sf_staffing_sequence.xml',
-        'data/sf_staffing_cron.xml',
-        'data/sf_staffing_report.xml',
-        'views/sf_staffing_candidate_views.xml',
-        'views/sf_staffing_client_views.xml',
-        'views/sf_staffing_need_views.xml',
-        'views/sf_staffing_mission_views.xml',
-        'views/sf_staffing_contract_views.xml',
-        'views/sf_staffing_timesheet_views.xml',
-        'views/sf_staffing_menus.xml',
-        'views/report_contract.xml',
-        'views/report_candidate.xml',
-        'views/report_mission_invoice.xml',
-        'views/report_activity.xml',
-        'views/res_config_settings_views.xml',
-    ],
+    'data': ['security/sf_staffing_security.xml', 'security/ir.model.access.csv', 'data/sf_staffing_sequence.xml', 'data/sf_staffing_cron.xml', 'data/sf_staffing_report.xml', 'views/sf_staffing_candidate_views.xml', 'views/sf_staffing_client_views.xml', 'views/sf_staffing_need_views.xml', 'views/sf_staffing_mission_views.xml', 'views/sf_staffing_contract_views.xml', 'views/sf_staffing_timesheet_views.xml', 'views/sf_staffing_menus.xml', 'views/report_contract.xml', 'views/report_candidate.xml', 'views/report_mission_invoice.xml', 'views/report_activity.xml', 'views/res_config_settings_views.xml'],
+    'images': ['static/description/banner.png'],
     'installable': True,
+    'application': True,
     'auto_install': False,
 }

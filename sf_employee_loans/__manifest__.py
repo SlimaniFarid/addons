@@ -4,42 +4,38 @@
     'category': 'Human Resources',
     'summary': 'Manage employee loans and salary advances with auto repayment schedules',
     'description': """
-Employee Loans & Advances Manager
-=================================
+Employee Loans
+==============
 
-Centralize employee loan and advance requests with approval
-workflows and automatic repayment schedules.
+Manage employee loans and salary advances with auto repayment schedules
 
-Key Features:
--------------
-* Loan and advance requests with full approval workflow
-* Automatic monthly repayment schedule generation
-* Interest rate support
-* Balance and paid amount tracking
-* Late payment detection
-* Per-company advance ceiling
-* Loan schedule report
+**Why you need this**
 
-Ideal for:
-* HR departments granting loans and advances
-* Payroll teams tracking monthly deductions
-* Finance teams controlling outstanding advances
+Stop losing time on spreadsheets and manual tracking.
+This module gives your team a dedicated tool inside Odoo,
+fully integrated with your existing data.
+
+**Key features**
+
+* One-click workflow from draft to done
+* Kanban view for instant visual overview
+* Smart filters (My records, To-do) save time daily
+* Overdue detection highlights urgent items automatically
+* Responsible user assignment with full tracking
+
+**Getting started**
+
+Install and start creating records immediately.
+No configuration needed.
+
 """,
     'author': 'Ethan Miller',
-    'support': 'tech5262@gmail.com',
     'license': 'OPL-1',
-    'price': 40.00,
+    'price': 17.95,
     'currency': 'EUR',
-
-    'images': ['static/description/banner.png'],
     'depends': ['base', 'hr'],
-    'data': [
-        'security/employee_loans_security.xml',
-        'security/ir.model.access.csv',
-        'views/employee_loans_menus.xml',
-        'views/employee_loans_views.xml',
-    ],
-    'demo': [],
+    'data': ['security/employee_loans_security.xml', 'security/ir.model.access.csv', 'views/employee_loans_menus.xml', 'views/employee_loans_views.xml'],
+    'images': ['static/description/banner.png'],
     'installable': True,
     'application': True,
     'auto_install': False,

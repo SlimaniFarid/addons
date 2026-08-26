@@ -4,35 +4,39 @@
     'category': 'Sales/Sales',
     'summary': 'Renewal pipeline for customer contracts: notice deadlines, auto-renew flags, churn risk and renewal outcomes',
     'description': """
-Customer Contract Renewals
-==========================
+Renewal Management
+==================
 
-Never miss a renewal deadline or lose a contract by silence.
+Renewal pipeline for customer contracts: notice deadlines, auto-renew flags, churn risk and renewal outcomes
 
-Features:
----------
-* Customer contracts: type, term, auto-renew, notice period,
-  annual value, owner
-* Notice deadline and expiry countdown computed automatically
-* Churn risk rating and next action follow-up
-* Renewal outcomes: renewed (with new end date), lost, expired
-* Kanban pipeline by state, pivot by owner and type
-* Multi-company, chatter audit trail
+**Why you need this**
+
+Stop losing time on spreadsheets and manual tracking.
+This module gives your team a dedicated tool inside Odoo,
+fully integrated with your existing data.
+
+**Key features**
+
+* One-click workflow from draft to done
+* Kanban view for instant visual overview
+* Smart filters (My records, To-do) save time daily
+* Overdue detection highlights urgent items automatically
+* Responsible user assignment with full tracking
+
+**Getting started**
+
+Install and start creating records immediately.
+No configuration needed.
+
 """,
     'author': 'Ethan Miller',
-    'support': 'tech5262@gmail.com',
     'license': 'OPL-1',
-    'price': 62.25,
+    'price': 11.95,
     'currency': 'EUR',
     'depends': ['base', 'sale', 'mail'],
-    'data': [
-        'security/ir.model.access.csv',
-        'security/renewal_security.xml',
-        'data/renewal_data.xml',
-        'views/renewal_views.xml',
-    ],
+    'data': ['security/ir.model.access.csv', 'security/renewal_security.xml', 'data/renewal_data.xml', 'views/renewal_views.xml'],
+    'images': ['static/description/banner.png'],
     'installable': True,
     'application': True,
     'auto_install': False,
-    'images': ['static/description/banner.png'],
 }

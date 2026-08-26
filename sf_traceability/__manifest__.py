@@ -4,41 +4,38 @@
     'category': 'Inventory',
     'summary': 'Full batch traceability, recall events and product history',
     'description': """
-Traceability & Batch Recall
-===========================
+Traceability
+============
 
-Full traceability for batches and serial numbers in Odoo.
+Full batch traceability, recall events and product history
 
-Key Features:
--------------
-* Batch recall events with severity levels
-* Affected customers computed from deliveries
-* Full product movement history per lot
-* Recall workflow: open, in progress, closed
-* Notifications to affected partners
-* Batch quality status tracking
+**Why you need this**
 
-Ideal for:
-* Food and beverage manufacturers
-* Pharmaceutical and cosmetics industries
-* Any business required to recall batches
+Stop losing time on spreadsheets and manual tracking.
+This module gives your team a dedicated tool inside Odoo,
+fully integrated with your existing data.
+
+**Key features**
+
+* One-click workflow from draft to done
+* Kanban view for instant visual overview
+* Smart filters (My records, To-do) save time daily
+* Overdue detection highlights urgent items automatically
+* Responsible user assignment with full tracking
+
+**Getting started**
+
+Install and start creating records immediately.
+No configuration needed.
+
 """,
     'author': 'Ethan Miller',
-    'support': 'tech5262@gmail.com',
     'license': 'OPL-1',
-    'price': 199.75,
+    'price': 17.95,
     'currency': 'EUR',
-
-    'images': ['static/description/banner.png'],
     'depends': ['base', 'stock', 'product', 'mail'],
-    'data': [
-        'security/traceability_security.xml',
-        'security/ir.model.access.csv',
-        'data/traceability_data.xml',
-        'views/traceability_menus.xml',
-        'views/traceability_views.xml',
-    ],
-    'demo': [],
+    'data': ['security/traceability_security.xml', 'security/ir.model.access.csv', 'data/traceability_data.xml', 'views/traceability_menus.xml', 'views/traceability_views.xml'],
+    'images': ['static/description/banner.png'],
     'installable': True,
     'application': True,
     'auto_install': False,

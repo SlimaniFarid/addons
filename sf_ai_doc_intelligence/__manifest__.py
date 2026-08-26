@@ -3,42 +3,40 @@
     'version': '18.0.1.0',
     'category': 'Productivity',
     'summary': 'Classify, extract & route documents (invoices, contracts, CVs, claims) with AI',
-    'description': """AI Document Intelligence Hub
-=============================
+    'description': """
+Ai Doc Intelligence
+===================
 
-Unified document processing: classify + extract + route.
+Classify, extract & route documents (invoices, contracts, CVs, claims) with AI
 
-Features:
-- Multi-provider AI (Mistral, Gemini, Claude, OpenAI) - BYOK
-- Document classification: invoice, contract, CV, claim, PO, expense, other
-- Structured extraction per type (vendor, amounts, dates, parties, clauses, skills)
-- Automatic routing: invoices → AP, contracts → legal, CVs → HR, claims → support
-- Human-in-the-loop review queue with confidence thresholds
-- Learning loop: corrections retrain classification/extraction
-- Batch processing from email, scanner, portal upload
-- Audit log with full traceability
+**Why you need this**
 
-Integrates with:
-- account.move (vendor bills)
-- hr.applicant (recruitment)
-- helpdesk.ticket (claims)
-- sale.order (customer POs)
-- custom models via extension""",
+Stop losing time on spreadsheets and manual tracking.
+This module gives your team a dedicated tool inside Odoo,
+fully integrated with your existing data.
+
+**Key features**
+
+* One-click workflow from draft to done
+* Kanban view for instant visual overview
+* Smart filters (My records, To-do) save time daily
+* Overdue detection highlights urgent items automatically
+* Responsible user assignment with full tracking
+
+**Getting started**
+
+Install and start creating records immediately.
+No configuration needed.
+
+""",
     'author': 'Ethan Miller',
-    'support': 'tech5262@gmail.com',
     'license': 'OPL-1',
-    'price': 87.25,
+    'price': 25.95,
     'currency': 'EUR',
     'depends': ['base', 'mail', 'account', 'hr', 'helpdesk'],
-    'data': [
-        'security/ir.model.access.csv',
-        'views/docintel_menus.xml',
-        'data/docintel_data.xml',
-    ],
+    'data': ['security/ir.model.access.csv', 'views/docintel_menus.xml', 'data/docintel_data.xml'],
+    'images': ['static/description/banner.png'],
     'installable': True,
     'application': True,
     'auto_install': False,
-    'images': ['static/description/banner.png'],
 }
-
-

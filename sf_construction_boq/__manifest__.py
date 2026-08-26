@@ -3,47 +3,39 @@
     'version': '18.0.1.0',
     'category': 'Operations/Project',
     'summary': 'Bill of Quantities, subcontract management and progress billing (IPC) for construction',
-    'description': """Construction BOQ & Subcontractor Billing
-====================================
+    'description': """
+Construction Boq
+================
 
-Complete construction project management for contractors and builders.
+Bill of Quantities, subcontract management and progress billing (IPC) for construction
 
-Key Features:
--------------
-* Bill of Quantities (BOQ): multi-discipline itemized estimate (earthwork, concrete, masonry, finishing, electrical, plumbing, HVAC, roofing, other)
-* BOQ Workflow: draft, confirmed, in progress, done, cancelled
-* Subcontract Management: contractor, contract amount, retention rate, advance, start/end dates
-* Subcontract Workflow: draft, confirmed, in progress, closed, cancelled
-* Progress Billing (IPC - Interim Payment Certificates): period-based certificates with cumulative quantities and previous certified amounts
-* Automatic Calculations: current amount, retention amount, net amount, amount to pay
-* Certificate Workflow: draft, confirmed, paid, cancelled
-* Mark subcontractor partners for easy filtering
-* Company / multi-company ready
+**Why you need this**
 
-Perfect for:
-* General contractors and main contractors
-* Subcontractors
-* Construction project managers
-* Building and renovation companies
+Stop losing time on spreadsheets and manual tracking.
+This module gives your team a dedicated tool inside Odoo,
+fully integrated with your existing data.
 
-Features per BOQ line: item code, discipline, description, product link, unit of measure, quantity, unit price.""",
+**Key features**
+
+* One-click workflow from draft to done
+* Kanban view for instant visual overview
+* Smart filters (My records, To-do) save time daily
+* Overdue detection highlights urgent items automatically
+* Responsible user assignment with full tracking
+
+**Getting started**
+
+Install and start creating records immediately.
+No configuration needed.
+
+""",
     'author': 'Ethan Miller',
-    'support': 'tech5262@gmail.com',
     'license': 'OPL-1',
-    'price': 199.75,
+    'price': 25.95,
     'currency': 'EUR',
-
-    'images': ['static/description/banner.png'],
     'depends': ['base', 'project', 'product', 'account', 'uom'],
-    'data': [
-        'security/construction_security.xml',
-        'security/ir.model.access.csv',
-        'data/construction_sequences.xml',
-        'views/construction_menus.xml',
-        'views/construction_views.xml',
-        'reports/certificate_report.xml',
-    ],
-    'demo': [],
+    'data': ['security/construction_security.xml', 'security/ir.model.access.csv', 'data/construction_sequences.xml', 'views/construction_menus.xml', 'views/construction_views.xml', 'reports/certificate_report.xml'],
+    'images': ['static/description/banner.png'],
     'installable': True,
     'application': True,
     'auto_install': False,

@@ -1,48 +1,41 @@
-# -*- coding: utf-8 -*-
 {
     'name': 'Field Sales Routes & Territory Management',
     'version': '18.0.1.0',
     'category': 'Sales',
     'summary': 'Plan field sales routes, track visits, territories and objectives',
     'description': """
-Field Sales Routes & Territory Management
-==========================================
+Sales Routes
+============
 
-Plan and track field sales activities: territories, routes,
-visits with check-in/check-out, orders and objectives.
+Plan field sales routes, track visits, territories and objectives
 
-Key Features:
--------------
-* Territory management with customer assignment
-* Route planning with ordered visits
-* Visit check-in / check-out with timestamps
-* Visit results (order, opportunity, information)
-* Order and opportunity creation from a visit
-* Objectives per territory and period
-* Performance dashboard for field sales
+**Why you need this**
 
-Ideal for:
-* Distribution and FMCG sales teams
-* Pharmacy and medical reps
-* Field service and door-to-door sales
-* Sales managers and commercial directors
+Stop losing time on spreadsheets and manual tracking.
+This module gives your team a dedicated tool inside Odoo,
+fully integrated with your existing data.
+
+**Key features**
+
+* One-click workflow from draft to done
+* Kanban view for instant visual overview
+* Smart filters (My records, To-do) save time daily
+* Overdue detection highlights urgent items automatically
+* Responsible user assignment with full tracking
+
+**Getting started**
+
+Install and start creating records immediately.
+No configuration needed.
+
 """,
     'author': 'Ethan Miller',
-    'support': 'tech5262@gmail.com',
     'license': 'OPL-1',
-    'price': 52.50,
+    'price': 17.95,
     'currency': 'EUR',
-
-    'images': ['static/description/banner.png'],
     'depends': ['base', 'sale', 'crm'],
-    'data': [
-        'security/routes_security.xml',
-        'security/ir.model.access.csv',
-        'views/routes_menus.xml',
-        'views/routes_views.xml',
-        'data/routes_cron.xml',
-    ],
-    'demo': [],
+    'data': ['security/routes_security.xml', 'security/ir.model.access.csv', 'views/routes_menus.xml', 'views/routes_views.xml', 'data/routes_cron.xml'],
+    'images': ['static/description/banner.png'],
     'installable': True,
     'application': True,
     'auto_install': False,

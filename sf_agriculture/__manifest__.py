@@ -1,52 +1,41 @@
-# -*- coding: utf-8 -*-
 {
     'name': 'Agriculture Management & Farm Operations',
     'version': '18.0.1.0',
     'category': 'Operations',
     'summary': 'Farms, plots, campaigns, cultures, treatments, harvests and inputs register for agriculture',
     'description': """
-Agriculture Management & Farm Operations
-========================================
+Agriculture
+===========
 
-Manage farms and cooperatives: farms and plots (surface, soil),
-agricultural campaigns, cultures and technical itineraries,
-treatments (crop protection, fertilizers) with withdrawal periods,
-harvests with yield computation, inputs register and campaign
-reports in PDF.
+Farms, plots, campaigns, cultures, treatments, harvests and inputs register for agriculture
 
-Key Features:
--------------
-* Farm and plot reference data (surface in hectares, soil, irrigation)
-* Agricultural campaigns with cultures assigned to plots
-* Technical itineraries (operations) per culture
-* Treatments with withdrawal periods and automated alerts
-* Harvests with yield calculation (t/ha)
-* Inputs register and campaign reports in PDF
-* Dashboard of yields by crop
+**Why you need this**
 
-Ideal for:
-* Farm managers and cooperatives
-* Agronomists and technical advisors
-* Quality and audit departments (PAC)
+Stop losing time on spreadsheets and manual tracking.
+This module gives your team a dedicated tool inside Odoo,
+fully integrated with your existing data.
+
+**Key features**
+
+* One-click workflow from draft to done
+* Kanban view for instant visual overview
+* Smart filters (My records, To-do) save time daily
+* Overdue detection highlights urgent items automatically
+* Responsible user assignment with full tracking
+
+**Getting started**
+
+Install and start creating records immediately.
+No configuration needed.
+
 """,
     'author': 'Ethan Miller',
-    'support': 'tech5262@gmail.com',
     'license': 'OPL-1',
-    'price': 62.50,
+    'price': 25.95,
     'currency': 'EUR',
-
-    'images': ['static/description/banner.png'],
     'depends': ['base', 'mail', 'contacts'],
-    'data': [
-        'security/agri_security.xml',
-        'security/ir.model.access.csv',
-        'views/agri_views.xml',
-        'views/agri_reports.xml',
-        'views/res_config_settings_views.xml',
-        'views/agri_menus.xml',
-        'data/agri_data.xml',
-    ],
-    'demo': [],
+    'data': ['security/agri_security.xml', 'security/ir.model.access.csv', 'views/agri_views.xml', 'views/agri_reports.xml', 'views/res_config_settings_views.xml', 'views/agri_menus.xml', 'data/agri_data.xml'],
+    'images': ['static/description/banner.png'],
     'installable': True,
     'application': True,
     'auto_install': False,

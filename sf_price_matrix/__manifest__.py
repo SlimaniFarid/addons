@@ -4,41 +4,38 @@
     'category': 'Sales',
     'summary': 'Tiered pricing and discount matrix per customer category',
     'description': """
-B2B Price & Discount Matrix
-===========================
+Price Matrix
+============
 
-Tiered B2B pricing and discount rules in Odoo.
+Tiered pricing and discount matrix per customer category
 
-Key Features:
--------------
-* Customer categories with discount levels
-* Tiered pricing by quantity
-* Automatic discount application on sale orders
-* Price lists built from the matrix
-* Override rules per customer
-* Margin safety checks
+**Why you need this**
 
-Ideal for:
-* Wholesale distributors
-* B2B manufacturers with volume pricing
-* Sales teams with category-based discounts
+Stop losing time on spreadsheets and manual tracking.
+This module gives your team a dedicated tool inside Odoo,
+fully integrated with your existing data.
+
+**Key features**
+
+* One-click workflow from draft to done
+* Kanban view for instant visual overview
+* Smart filters (My records, To-do) save time daily
+* Overdue detection highlights urgent items automatically
+* Responsible user assignment with full tracking
+
+**Getting started**
+
+Install and start creating records immediately.
+No configuration needed.
+
 """,
     'author': 'Ethan Miller',
-    'support': 'tech5262@gmail.com',
     'license': 'OPL-1',
-    'price': 199.75,
+    'price': 25.95,
     'currency': 'EUR',
-
-    'images': ['static/description/banner.png'],
     'depends': ['base', 'sale', 'product', 'account'],
-    'data': [
-        'security/price_matrix_security.xml',
-        'security/ir.model.access.csv',
-        'data/price_matrix_data.xml',
-        'views/price_matrix_menus.xml',
-        'views/price_matrix_views.xml',
-    ],
-    'demo': [],
+    'data': ['security/price_matrix_security.xml', 'security/ir.model.access.csv', 'data/price_matrix_data.xml', 'views/price_matrix_menus.xml', 'views/price_matrix_views.xml'],
+    'images': ['static/description/banner.png'],
     'installable': True,
     'application': True,
     'auto_install': False,

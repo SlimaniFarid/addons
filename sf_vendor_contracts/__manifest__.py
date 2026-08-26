@@ -4,44 +4,38 @@
     'category': 'Purchases',
     'summary': 'Manage supplier contracts, clauses, amounts, expirations and renewals with alerts',
     'description': """
-Supplier Contract & Agreement Manager
-=====================================
+Vendor Contracts
+================
 
-Centralize your supplier contracts with clauses, amounts,
-expiration dates and automatic renewal alerts.
+Manage supplier contracts, clauses, amounts, expirations and renewals with alerts
 
-Key Features:
--------------
-* Supplier contract register
-* Contract types, amounts and currencies
-* Clauses and product lines
-* Expiration and renewal alerts (activities)
-* Contract versions and renewal history
-* Expiring contracts report
-* Contract register report
+**Why you need this**
 
-Ideal for:
-* Procurement teams tracking supplier agreements
-* Legal teams checking clauses and renewals
-* Finance teams reviewing financial commitments
+Stop losing time on spreadsheets and manual tracking.
+This module gives your team a dedicated tool inside Odoo,
+fully integrated with your existing data.
+
+**Key features**
+
+* One-click workflow from draft to done
+* Kanban view for instant visual overview
+* Smart filters (My records, To-do) save time daily
+* Overdue detection highlights urgent items automatically
+* Responsible user assignment with full tracking
+
+**Getting started**
+
+Install and start creating records immediately.
+No configuration needed.
+
 """,
     'author': 'Ethan Miller',
-    'support': 'tech5262@gmail.com',
     'license': 'OPL-1',
-    'price': 47.50,
+    'price': 25.95,
     'currency': 'EUR',
-
-    'images': ['static/description/banner.png'],
     'depends': ['base', 'product', 'mail'],
-    'data': [
-        'data/vendor_contract_data.xml',
-        'data/vendor_contract_cron.xml',
-        'security/vendor_contract_security.xml',
-        'security/ir.model.access.csv',
-        'views/vendor_contract_menus.xml',
-        'views/vendor_contract_views.xml',
-    ],
-    'demo': [],
+    'data': ['data/vendor_contract_data.xml', 'data/vendor_contract_cron.xml', 'security/vendor_contract_security.xml', 'security/ir.model.access.csv', 'views/vendor_contract_menus.xml', 'views/vendor_contract_views.xml'],
+    'images': ['static/description/banner.png'],
     'installable': True,
     'application': True,
     'auto_install': False,

@@ -1,31 +1,42 @@
-# -*- coding: utf-8 -*-
 {
     'name': 'Shareholder Register & Capital Management (Cap Table)',
     'version': '18.0.1.0',
     'category': 'Accounting',
     'summary': 'Shareholders, share classes, capital movements (issue/transfer/buyback), issued shares, cap table and share certificates',
-    'description': 'Shareholder register and capital management: maintain a register of shareholders (individual/company) and share classes with nominal value and authorized shares, record capital movements (issue, transfer, buyback) with quantity and unit price, compute the amount of each movement, track issued shares per class and total holding per shareholder, validate movements against current holdings, post/cancel movements (manager only) to make them immutable, configure defaults via settings, and print PDF reports (cap table per class with percentages and share certificate attestation).',
+    'description': """
+Corporate Capital
+=================
+
+Shareholders, share classes, capital movements (issue/transfer/buyback), issued shares, cap table and share certificates
+
+**Why you need this**
+
+Stop losing time on spreadsheets and manual tracking.
+This module gives your team a dedicated tool inside Odoo,
+fully integrated with your existing data.
+
+**Key features**
+
+* One-click workflow from draft to done
+* Kanban view for instant visual overview
+* Smart filters (My records, To-do) save time daily
+* Overdue detection highlights urgent items automatically
+* Responsible user assignment with full tracking
+
+**Getting started**
+
+Install and start creating records immediately.
+No configuration needed.
+
+""",
     'author': 'Ethan Miller',
-    'support': 'tech5262@gmail.com',
     'website': 'https://www.smartersaas.com',
     'license': 'OPL-1',
-    'price': 62.50,
+    'price': 17.95,
     'currency': 'EUR',
-    'application': True,
-    'installable': True,
-    'images': ['static/description/banner.png'],
     'depends': ['base', 'mail', 'contacts'],
-    'data': [
-        'security/sf_corporate_capital_security.xml',
-        'security/ir.model.access.csv',
-        'data/sf_corporate_capital_sequence.xml',
-        'data/sf_corporate_capital_report.xml',
-        'views/sf_shareholder_views.xml',
-        'views/sf_share_class_views.xml',
-        'views/sf_capital_movement_views.xml',
-        'views/sf_corporate_capital_menus.xml',
-        'views/sf_corporate_capital_settings_views.xml',
-        'views/report_cap_table.xml',
-        'views/report_share_certificate.xml',
-    ],
+    'data': ['security/sf_corporate_capital_security.xml', 'security/ir.model.access.csv', 'data/sf_corporate_capital_sequence.xml', 'data/sf_corporate_capital_report.xml', 'views/sf_shareholder_views.xml', 'views/sf_share_class_views.xml', 'views/sf_capital_movement_views.xml', 'views/sf_corporate_capital_menus.xml', 'views/sf_corporate_capital_settings_views.xml', 'views/report_cap_table.xml', 'views/report_share_certificate.xml'],
+    'images': ['static/description/banner.png'],
+    'installable': True,
+    'application': True,
 }
