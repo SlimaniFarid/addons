@@ -32,7 +32,6 @@ No configuration needed.
     'author': 'Ethan Miller',
     'support': 'tech5262@gmail.com',
     'license': 'OPL-1',
-    'banner': 'static/description/banner.png',
     'price': 11.95,
     'currency': 'EUR',
     'depends': ['base', 'account', 'sale', 'mail'],

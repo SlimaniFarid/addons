@@ -35,5 +35,4 @@ Standard Odoo modules only. Multi-company ready. Full audit trail.
     'application': True,
     'auto_install': False,
     'images': ['static/description/banner.png'],
-    'banner': 'static/description/banner.png',
 }

@@ -40,5 +40,4 @@ No configuration needed.
     'installable': True,
     'application': True,
     'images': ['static/description/banner.png'],
-    'banner': 'static/description/banner.png',
 }

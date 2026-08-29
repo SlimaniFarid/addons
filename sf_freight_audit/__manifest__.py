@@ -41,5 +41,4 @@ No configuration needed.
     'application': True,
     'auto_install': False,
     'images': ['static/description/banner.png'],
-    'banner': 'static/description/banner.png',
 }
