@@ -36,6 +36,7 @@ No configuration needed.
     'depends': ['base', 'industry_fsm', 'stock', 'mail'],
     'data': ['security/ir.model.access.csv', 'views/fsoffline_menus.xml', 'data/fsoffline_data.xml'],
     'images': ['static/description/banner.png'],
+    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
     'auto_install': False,

@@ -37,6 +37,7 @@ No configuration needed.
     'depends': ['base', 'mail', 'contacts', 'sale'],
     'data': ['security/sf_store_credit_security.xml', 'security/ir.model.access.csv', 'data/sf_store_credit_sequence.xml', 'data/sf_store_credit_cron.xml', 'data/sf_store_credit_report.xml', 'views/sf_store_credit_account_views.xml', 'views/sf_store_credit_credit_views.xml', 'views/sf_store_credit_adjust_wizard_views.xml', 'views/sf_store_credit_menus.xml', 'views/report_store_credit_account.xml', 'views/report_store_credit.xml', 'views/res_config_settings_views.xml'],
     'images': ['static/description/banner.png'],
+    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
 }

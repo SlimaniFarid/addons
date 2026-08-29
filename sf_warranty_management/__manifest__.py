@@ -36,6 +36,7 @@ No configuration needed.
     'depends': ['base', 'mail', 'product', 'stock', 'sale', 'account'],
     'data': ['security/warranty_security.xml', 'security/ir.model.access.csv', 'views/warranty_views.xml', 'views/warranty_reports.xml', 'views/res_config_settings_views.xml', 'views/warranty_menus.xml', 'data/warranty_data.xml'],
     'images': ['static/description/banner.png'],
+    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
     'auto_install': False,

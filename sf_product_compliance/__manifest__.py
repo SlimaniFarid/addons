@@ -36,6 +36,7 @@ No configuration needed.
     'depends': ['base', 'mail', 'product', 'contacts'],
     'data': ['security/compliance_security.xml', 'security/ir.model.access.csv', 'views/compliance_views.xml', 'views/compliance_menus.xml', 'views/res_config_settings_views.xml', 'views/compliance_reports.xml', 'data/compliance_data.xml'],
     'images': ['static/description/banner.png'],
+    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
     'auto_install': False,

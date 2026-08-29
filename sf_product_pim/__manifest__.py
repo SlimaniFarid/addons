@@ -36,6 +36,7 @@ No configuration needed.
     'depends': ['base', 'product', 'mail'],
     'data': ['security/pim_security.xml', 'security/ir.model.access.csv', 'data/pim_data.xml', 'views/pim_views.xml', 'views/pim_product_views.xml', 'views/res_config_settings_views.xml', 'views/pim_menus.xml'],
     'images': ['static/description/banner.png'],
+    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
     'auto_install': False,

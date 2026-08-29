@@ -37,6 +37,7 @@ No configuration needed.
     'depends': ['base', 'mail', 'contacts'],
     'data': ['security/sf_corporate_capital_security.xml', 'security/ir.model.access.csv', 'data/sf_corporate_capital_sequence.xml', 'data/sf_corporate_capital_report.xml', 'views/sf_shareholder_views.xml', 'views/sf_share_class_views.xml', 'views/sf_capital_movement_views.xml', 'views/sf_corporate_capital_menus.xml', 'views/sf_corporate_capital_settings_views.xml', 'views/report_cap_table.xml', 'views/report_share_certificate.xml'],
     'images': ['static/description/banner.png'],
+    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
 }

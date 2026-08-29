@@ -36,6 +36,7 @@ No configuration needed.
     'depends': ['base', 'sale', 'purchase', 'account', 'mail'],
     'data': ['security/trade_security.xml', 'security/ir.model.access.csv', 'views/trade_views.xml', 'views/res_config_settings_views.xml', 'views/trade_menus.xml', 'data/trade_data.xml'],
     'images': ['static/description/banner.png'],
+    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
     'auto_install': False,

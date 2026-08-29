@@ -36,6 +36,7 @@ No configuration needed.
     'depends': ['base', 'mail', 'mrp'],
     'data': ['security/production_security.xml', 'security/ir.model.access.csv', 'views/production_views.xml', 'views/production_reports.xml', 'views/res_config_settings_views.xml', 'views/production_menus.xml', 'data/production_data.xml'],
     'images': ['static/description/banner.png'],
+    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
     'auto_install': False,

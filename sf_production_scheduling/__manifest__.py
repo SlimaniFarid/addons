@@ -37,6 +37,7 @@ No configuration needed.
     'depends': ['base', 'mail', 'account', 'stock'],
     'data': ['security/sf_production_scheduling_security.xml', 'security/ir.model.access.csv', 'data/sf_production_scheduling_sequence.xml', 'views/schedule_plan_views.xml', 'views/schedule_slot_views.xml', 'views/sf_production_scheduling_menus.xml'],
     'images': ['static/description/banner.png'],
+    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
 }

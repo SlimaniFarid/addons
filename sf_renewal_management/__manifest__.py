@@ -36,6 +36,7 @@ No configuration needed.
     'depends': ['base', 'sale', 'mail'],
     'data': ['security/ir.model.access.csv', 'security/renewal_security.xml', 'data/renewal_data.xml', 'views/renewal_views.xml'],
     'images': ['static/description/banner.png'],
+    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
     'auto_install': False,

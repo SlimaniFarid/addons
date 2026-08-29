@@ -36,6 +36,7 @@ No configuration needed.
     'depends': ['base', 'product', 'sale', 'stock', 'mail'],
     'data': ['security/ir.model.access.csv', 'security/eol_security.xml', 'data/eol_data.xml', 'views/eol_views.xml'],
     'images': ['static/description/banner.png'],
+    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
     'auto_install': False,

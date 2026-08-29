@@ -37,6 +37,7 @@ No configuration needed.
     'depends': ['base', 'mail', 'account', 'stock'],
     'data': ['security/sf_purchase_requisition_security.xml', 'security/ir.model.access.csv', 'data/sf_purchase_requisition_sequence.xml', 'views/purchase_requisition_sf_views.xml', 'views/requisition_line_views.xml', 'views/sf_purchase_requisition_menus.xml'],
     'images': ['static/description/banner.png'],
+    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
 }

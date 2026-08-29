@@ -37,6 +37,7 @@ No configuration needed.
     'depends': ['base', 'mail', 'contacts', 'account'],
     'data': ['security/sf_salon_security.xml', 'security/ir.model.access.csv', 'data/sf_salon_sequence.xml', 'data/sf_salon_cron.xml', 'data/sf_salon_report.xml', 'views/sf_salon_service_views.xml', 'views/sf_salon_staff_views.xml', 'views/sf_salon_appointment_views.xml', 'views/sf_salon_package_views.xml', 'views/sf_salon_commission_views.xml', 'views/sf_salon_menus.xml', 'views/report_customer_card.xml', 'views/report_commissions.xml', 'views/report_activity.xml', 'views/res_config_settings_views.xml'],
     'images': ['static/description/banner.png'],
+    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
 }

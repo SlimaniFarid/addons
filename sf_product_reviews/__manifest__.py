@@ -37,6 +37,7 @@ No configuration needed.
     'depends': ['base', 'mail', 'product', 'sale', 'contacts'],
     'data': ['security/sf_product_reviews_security.xml', 'security/ir.model.access.csv', 'data/sf_product_reviews_sequence.xml', 'data/sf_product_reviews_report.xml', 'views/sf_product_review_views.xml', 'views/product_template_views.xml', 'views/sf_product_reviews_menus.xml', 'views/report_product_review.xml', 'views/res_config_settings_views.xml'],
     'images': ['static/description/banner.png'],
+    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
 }

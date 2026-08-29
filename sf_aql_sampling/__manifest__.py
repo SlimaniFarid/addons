@@ -37,6 +37,7 @@ No configuration needed.
     'depends': ['base', 'mail', 'product', 'stock', 'contacts'],
     'data': ['security/sf_aql_sampling_security.xml', 'security/ir.model.access.csv', 'data/sf_aql_sampling_sequence.xml', 'data/sf_aql_sampling_report.xml', 'views/sf_aql_plan_views.xml', 'views/sf_aql_inspection_views.xml', 'views/sf_aql_sampling_menus.xml', 'views/report_aql_inspection.xml', 'views/res_config_settings_views.xml'],
     'images': ['static/description/banner.png'],
+    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
 }

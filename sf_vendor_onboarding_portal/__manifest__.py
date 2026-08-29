@@ -37,6 +37,7 @@ No configuration needed.
     'depends': ['base', 'mail', 'account', 'stock'],
     'data': ['security/sf_vendor_onboarding_portal_security.xml', 'security/ir.model.access.csv', 'data/sf_vendor_onboarding_portal_sequence.xml', 'views/vendor_onboarding_views.xml', 'views/sf_vendor_onboarding_portal_menus.xml'],
     'images': ['static/description/banner.png'],
+    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
 }

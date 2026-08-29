@@ -36,6 +36,7 @@ No configuration needed.
     'depends': ['base', 'stock', 'purchase', 'account', 'mail'],
     'data': ['security/ir.model.access.csv', 'security/rtv_security.xml', 'data/rtv_data.xml', 'views/rtv_views.xml'],
     'images': ['static/description/banner.png'],
+    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
     'auto_install': False,

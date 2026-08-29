@@ -36,6 +36,7 @@ No configuration needed.
     'depends': ['base', 'mail'],
     'data': ['data/energy_monitoring_data.xml', 'data/energy_monitoring_cron.xml', 'security/energy_monitoring_security.xml', 'security/ir.model.access.csv', 'views/energy_monitoring_menus.xml', 'views/energy_monitoring_views.xml'],
     'images': ['static/description/banner.png'],
+    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
     'auto_install': False,

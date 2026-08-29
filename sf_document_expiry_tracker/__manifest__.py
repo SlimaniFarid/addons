@@ -37,6 +37,7 @@ No configuration needed.
     'depends': ['base', 'mail', 'account', 'stock'],
     'data': ['security/sf_document_expiry_tracker_security.xml', 'security/ir.model.access.csv', 'data/sf_document_expiry_tracker_sequence.xml', 'views/employee_document_views.xml', 'views/sf_document_expiry_tracker_menus.xml'],
     'images': ['static/description/banner.png'],
+    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
 }

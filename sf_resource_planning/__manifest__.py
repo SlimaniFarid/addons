@@ -36,6 +36,7 @@ No configuration needed.
     'depends': ['base', 'project', 'hr', 'resource'],
     'data': ['security/resource_planning_security.xml', 'security/ir.model.access.csv', 'data/resource_planning_data.xml', 'views/resource_planning_menus.xml', 'views/resource_planning_views.xml'],
     'images': ['static/description/banner.png'],
+    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
     'auto_install': False,

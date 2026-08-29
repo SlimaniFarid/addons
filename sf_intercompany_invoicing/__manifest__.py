@@ -37,6 +37,7 @@ No configuration needed.
     'depends': ['base', 'mail', 'account', 'stock'],
     'data': ['security/sf_intercompany_invoicing_security.xml', 'security/ir.model.access.csv', 'data/sf_intercompany_invoicing_sequence.xml', 'views/ic_sale_views.xml', 'views/sf_intercompany_invoicing_menus.xml'],
     'images': ['static/description/banner.png'],
+    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
 }

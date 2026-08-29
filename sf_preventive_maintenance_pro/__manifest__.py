@@ -37,6 +37,7 @@ No configuration needed.
     'depends': ['base', 'mail', 'account', 'stock'],
     'data': ['security/sf_preventive_maintenance_pro_security.xml', 'security/ir.model.access.csv', 'data/sf_preventive_maintenance_pro_sequence.xml', 'views/pm_plan_views.xml', 'views/pm_work_order_views.xml', 'views/sf_preventive_maintenance_pro_menus.xml'],
     'images': ['static/description/banner.png'],
+    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
 }

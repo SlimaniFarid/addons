@@ -36,6 +36,7 @@ No configuration needed.
     'depends': ['base', 'quality', 'maintenance', 'mrp', 'stock', 'mail', 'product'],
     'data': ['security/ir.model.access.csv', 'security/iatf_security.xml', 'data/iatf_data.xml', 'views/iatf_menus.xml', 'views/fmea_views.xml', 'views/control_plan_views.xml', 'views/apqp_views.xml', 'views/ppap_views.xml', 'views/msa_views.xml', 'views/spc_views.xml'],
     'images': ['static/description/banner.png'],
+    'banner': 'static/description/banner.png',
     'demo': ['data/iatf_demo.xml'],
     'installable': True,
     'application': True,

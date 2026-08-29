@@ -36,6 +36,7 @@ No configuration needed.
     'depends': ['base', 'mail'],
     'data': ['security/ir.model.access.csv', 'security/kyc_security.xml', 'data/kyc_data.xml', 'views/kyc_views.xml'],
     'images': ['static/description/banner.png'],
+    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
     'auto_install': False,

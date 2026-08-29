@@ -37,6 +37,7 @@ No configuration needed.
     'depends': ['base', 'mail', 'account', 'stock'],
     'data': ['security/sf_warehouse_heatmap_security.xml', 'security/ir.model.access.csv', 'data/sf_warehouse_heatmap_sequence.xml', 'views/slotting_analysis_views.xml', 'views/slotting_result_views.xml', 'views/sf_warehouse_heatmap_menus.xml'],
     'images': ['static/description/banner.png'],
+    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
 }

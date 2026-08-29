@@ -36,6 +36,7 @@ No configuration needed.
     'depends': ['base', 'hr', 'hr_attendance', 'mail'],
     'data': ['security/time_attendance_security.xml', 'security/ir.model.access.csv', 'data/time_attendance_data.xml', 'views/time_attendance_menus.xml', 'views/time_attendance_views.xml'],
     'images': ['static/description/banner.png'],
+    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
     'auto_install': False,

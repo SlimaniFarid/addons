@@ -36,6 +36,7 @@ No configuration needed.
     'depends': ['base', 'mail', 'contacts'],
     'data': ['security/bcp_security.xml', 'security/ir.model.access.csv', 'views/bcp_views.xml', 'views/bcp_reports.xml', 'views/res_config_settings_views.xml', 'views/bcp_menus.xml', 'data/bcp_data.xml'],
     'images': ['static/description/banner.png'],
+    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
     'auto_install': False,

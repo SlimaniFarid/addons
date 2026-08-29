@@ -36,6 +36,7 @@ No configuration needed.
     'depends': ['base', 'hr'],
     'data': ['security/hse_security.xml', 'security/ir.model.access.csv', 'views/hse_menus.xml', 'views/hse_views.xml'],
     'images': ['static/description/banner.png'],
+    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
     'auto_install': False,

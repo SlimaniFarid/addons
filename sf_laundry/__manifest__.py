@@ -37,6 +37,7 @@ No configuration needed.
     'depends': ['base', 'mail', 'contacts', 'account'],
     'data': ['security/sf_laundry_security.xml', 'security/ir.model.access.csv', 'data/sf_laundry_sequence.xml', 'data/sf_laundry_cron.xml', 'data/sf_laundry_report.xml', 'views/sf_laundry_order_views.xml', 'views/sf_laundry_item_views.xml', 'views/sf_laundry_item_type_views.xml', 'views/sf_laundry_menus.xml', 'views/report_deposit_receipt.xml', 'views/report_delivery_ticket.xml', 'views/report_activity.xml', 'views/report_overdue_list.xml', 'views/res_config_settings_views.xml'],
     'images': ['static/description/banner.png'],
+    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
 }

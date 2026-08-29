@@ -36,6 +36,7 @@ No configuration needed.
     'depends': ['base', 'quality', 'mrp', 'stock', 'mail'],
     'data': ['security/fai_security.xml', 'security/ir.model.access.csv', 'data/fai_data.xml', 'views/fai_menus.xml', 'views/fai_views.xml'],
     'images': ['static/description/banner.png'],
+    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
     'auto_install': False,

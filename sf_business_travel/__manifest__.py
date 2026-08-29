@@ -37,6 +37,7 @@ No configuration needed.
     'depends': ['base', 'mail', 'contacts'],
     'data': ['security/sf_business_travel_security.xml', 'security/ir.model.access.csv', 'data/sf_business_travel_sequence.xml', 'data/sf_business_travel_cron.xml', 'data/sf_business_travel_report.xml', 'views/sf_business_travel_views.xml', 'views/sf_business_travel_menus.xml', 'views/report_travel_authorization.xml', 'views/report_travel_itinerary.xml', 'views/res_config_settings_views.xml'],
     'images': ['static/description/banner.png'],
+    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
 }

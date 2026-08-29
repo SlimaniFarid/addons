@@ -37,6 +37,7 @@ No configuration needed.
     'depends': ['base', 'mail', 'account', 'stock'],
     'data': ['security/sf_subscription_dunning_security.xml', 'security/ir.model.access.csv', 'data/sf_subscription_dunning_sequence.xml', 'views/dunning_level_views.xml', 'views/dunning_case_views.xml', 'views/sf_subscription_dunning_menus.xml'],
     'images': ['static/description/banner.png'],
+    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
 }

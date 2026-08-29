@@ -36,6 +36,7 @@ No configuration needed.
     'depends': ['base', 'stock', 'product', 'mail'],
     'data': ['security/ir.model.access.csv', 'security/aging_security.xml', 'data/aging_data.xml', 'views/aging_views.xml'],
     'images': ['static/description/banner.png'],
+    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
     'auto_install': False,

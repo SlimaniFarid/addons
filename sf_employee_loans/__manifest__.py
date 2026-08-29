@@ -36,6 +36,7 @@ No configuration needed.
     'depends': ['base', 'hr'],
     'data': ['security/employee_loans_security.xml', 'security/ir.model.access.csv', 'views/employee_loans_menus.xml', 'views/employee_loans_views.xml'],
     'images': ['static/description/banner.png'],
+    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
     'auto_install': False,

@@ -37,6 +37,7 @@ No configuration needed.
     'depends': ['base', 'mail', 'contacts', 'web'],
     'data': ['security/waste_groups.xml', 'security/ir.model.access.csv', 'data/waste_data.xml', 'views/waste_views.xml', 'views/waste_reports.xml', 'views/waste_menus.xml', 'views/res_config_settings_views.xml'],
     'images': ['static/description/banner.png'],
+    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
     'auto_install': False,

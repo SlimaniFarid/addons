@@ -37,6 +37,7 @@ No configuration needed.
     'depends': ['base', 'mail', 'contacts', 'account'],
     'data': ['security/sf_courier_security.xml', 'security/ir.model.access.csv', 'data/sf_courier_sequence.xml', 'data/sf_courier_cron.xml', 'data/sf_courier_report.xml', 'views/sf_courier_order_views.xml', 'views/sf_courier_delivery_views.xml', 'views/sf_courier_route_views.xml', 'views/sf_courier_menus.xml', 'views/report_delivery_ticket.xml', 'views/report_collection_note.xml', 'views/report_disputes_list.xml', 'views/report_activity.xml', 'views/res_config_settings_views.xml'],
     'images': ['static/description/banner.png'],
+    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
 }

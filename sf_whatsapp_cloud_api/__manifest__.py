@@ -36,6 +36,7 @@ No configuration needed.
     'depends': ['base', 'mail', 'sale', 'account', 'stock'],
     'data': ['security/ir.model.access.csv', 'views/whatsapp_menus.xml', 'data/whatsapp_data.xml'],
     'images': ['static/description/banner.png'],
+    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
     'auto_install': False,

@@ -36,6 +36,7 @@ No configuration needed.
     'depends': ['base', 'hr', 'mail'],
     'data': ['data/training_data.xml', 'data/training_cron.xml', 'security/training_security.xml', 'security/ir.model.access.csv', 'views/training_menus.xml', 'views/training_views.xml'],
     'images': ['static/description/banner.png'],
+    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
     'auto_install': False,

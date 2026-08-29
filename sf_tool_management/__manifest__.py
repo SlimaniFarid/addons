@@ -36,6 +36,7 @@ No configuration needed.
     'depends': ['base', 'mrp', 'stock', 'maintenance', 'quality'],
     'data': ['security/tool_management_security.xml', 'security/ir.model.access.csv', 'views/tool_management_menus.xml', 'views/tool_management_views.xml'],
     'images': ['static/description/banner.png'],
+    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
     'auto_install': False,

@@ -37,6 +37,7 @@ No configuration needed.
     'depends': ['base', 'mail', 'account', 'stock'],
     'data': ['security/sf_shop_floor_terminal_security.xml', 'security/ir.model.access.csv', 'data/sf_shop_floor_terminal_sequence.xml', 'views/shop_floor_entry_views.xml', 'views/sf_shop_floor_terminal_menus.xml'],
     'images': ['static/description/banner.png'],
+    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
 }

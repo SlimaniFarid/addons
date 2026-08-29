@@ -36,6 +36,7 @@ No configuration needed.
     'depends': ['base', 'stock', 'product', 'mail'],
     'data': ['security/traceability_security.xml', 'security/ir.model.access.csv', 'data/traceability_data.xml', 'views/traceability_menus.xml', 'views/traceability_views.xml'],
     'images': ['static/description/banner.png'],
+    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
     'auto_install': False,

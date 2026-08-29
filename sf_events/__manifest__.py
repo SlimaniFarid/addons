@@ -37,6 +37,7 @@ No configuration needed.
     'depends': ['base', 'mail', 'contacts', 'account'],
     'data': ['security/sf_events_security.xml', 'security/ir.model.access.csv', 'data/sf_events_sequence.xml', 'data/sf_events_cron.xml', 'data/sf_events_report.xml', 'views/sf_event_views.xml', 'views/sf_event_session_views.xml', 'views/sf_event_registration_views.xml', 'views/sf_event_expense_views.xml', 'views/sf_events_menus.xml', 'views/report_event_program.xml', 'views/report_registration_confirmation.xml', 'views/report_event_budget.xml', 'views/report_attendance.xml', 'views/res_config_settings_views.xml'],
     'images': ['static/description/banner.png'],
+    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
 }

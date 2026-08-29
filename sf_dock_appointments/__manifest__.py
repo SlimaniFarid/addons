@@ -37,6 +37,7 @@ No configuration needed.
     'depends': ['base', 'mail', 'contacts'],
     'data': ['security/sf_dock_appointments_security.xml', 'security/ir.model.access.csv', 'data/sf_dock_appointments_sequence.xml', 'data/sf_dock_appointments_cron.xml', 'data/sf_dock_appointments_report.xml', 'views/sf_dock_views.xml', 'views/sf_dock_appointment_views.xml', 'views/sf_dock_appointments_menus.xml', 'views/report_appointments.xml', 'views/res_config_settings_views.xml'],
     'images': ['static/description/banner.png'],
+    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
 }

@@ -37,6 +37,7 @@ No configuration needed.
     'depends': ['base', 'mail', 'contacts', 'account'],
     'data': ['security/sf_spa_wellness_security.xml', 'security/ir.model.access.csv', 'data/sf_spa_wellness_sequence.xml', 'data/sf_spa_wellness_cron.xml', 'data/sf_spa_wellness_report.xml'],
     'images': ['static/description/banner.png'],
+    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
 }
