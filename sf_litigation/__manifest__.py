@@ -36,7 +36,6 @@ No configuration needed.
     'depends': ['base', 'mail', 'contacts'],
     'data': ['security/litigation_security.xml', 'security/ir.model.access.csv', 'views/litigation_views.xml', 'views/litigation_reports.xml', 'views/res_config_settings_views.xml', 'views/litigation_menus.xml', 'data/litigation_data.xml'],
     'images': ['static/description/banner.png'],
-    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
     'auto_install': False,

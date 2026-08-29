@@ -36,7 +36,6 @@ No configuration needed.
     'depends': ['base', 'mrp', 'stock', 'maintenance', 'mail'],
     'data': ['security/mes_andons_security.xml', 'security/ir.model.access.csv', 'data/mes_andons_data.xml', 'views/mes_andons_menus.xml', 'views/mes_andons_views.xml'],
     'images': ['static/description/banner.png'],
-    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
     'auto_install': False,

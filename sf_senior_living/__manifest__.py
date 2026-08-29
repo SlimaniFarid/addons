@@ -37,7 +37,6 @@ No configuration needed.
     'depends': ['base', 'mail', 'contacts', 'account'],
     'data': ['security/sf_senior_living_security.xml', 'security/ir.model.access.csv', 'data/sf_senior_living_sequence.xml', 'views/sf_senior_residence_views.xml', 'views/sf_senior_menus.xml'],
     'images': ['static/description/banner.png'],
-    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
 }

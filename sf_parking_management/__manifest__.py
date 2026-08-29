@@ -37,7 +37,6 @@ No configuration needed.
     'depends': ['base', 'mail', 'contacts', 'account'],
     'data': ['security/sf_parking_security.xml', 'security/ir.model.access.csv', 'data/sf_parking_sequence.xml', 'data/sf_parking_cron.xml', 'data/sf_parking_report.xml', 'views/sf_parking_site_views.xml', 'views/sf_parking_ticket_views.xml', 'views/sf_parking_subscription_views.xml', 'views/sf_parking_report_wizard_views.xml', 'views/sf_parking_menus.xml', 'views/report_ticket.xml', 'views/report_subscription.xml', 'views/report_revenue.xml', 'views/report_occupancy.xml', 'views/res_config_settings_views.xml'],
     'images': ['static/description/banner.png'],
-    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
 }

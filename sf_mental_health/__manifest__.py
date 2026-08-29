@@ -37,7 +37,6 @@ No configuration needed.
     'depends': ['base', 'mail', 'contacts', 'account'],
     'data': ['security/sf_mental_health_security.xml', 'security/ir.model.access.csv', 'data/sf_mental_health_sequence.xml', 'data/sf_mental_health_cron.xml', 'data/sf_mental_health_report.xml'],
     'images': ['static/description/banner.png'],
-    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
 }

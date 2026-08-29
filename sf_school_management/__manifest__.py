@@ -36,7 +36,6 @@ No configuration needed.
     'depends': ['base', 'mail', 'contacts', 'hr'],
     'data': ['security/school_security.xml', 'security/ir.model.access.csv', 'views/school_views.xml', 'views/school_reports.xml', 'views/res_config_settings_views.xml', 'views/school_menus.xml', 'data/school_data.xml'],
     'images': ['static/description/banner.png'],
-    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
     'auto_install': False,

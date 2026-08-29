@@ -37,7 +37,6 @@ No configuration needed.
     'depends': ['base', 'mail', 'contacts', 'product', 'sale'],
     'data': ['security/sf_digital_delivery_security.xml', 'security/ir.model.access.csv', 'data/sf_digital_delivery_sequence.xml', 'data/sf_digital_delivery_cron.xml', 'data/sf_digital_delivery_report.xml', 'views/sf_digital_delivery_product_views.xml', 'views/sf_digital_delivery_key_views.xml', 'views/sf_digital_delivery_delivery_views.xml', 'views/sf_digital_delivery_menus.xml', 'views/report_digital_delivery.xml', 'views/report_license_key.xml', 'views/res_config_settings_views.xml'],
     'images': ['static/description/banner.png'],
-    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
 }

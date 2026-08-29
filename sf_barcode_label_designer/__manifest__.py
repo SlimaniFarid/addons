@@ -37,7 +37,6 @@ No configuration needed.
     'depends': ['base', 'mail', 'account', 'stock'],
     'data': ['security/sf_barcode_label_designer_security.xml', 'security/ir.model.access.csv', 'data/sf_barcode_label_designer_sequence.xml', 'views/label_template_views.xml', 'views/label_print_batch_views.xml', 'views/sf_barcode_label_designer_menus.xml'],
     'images': ['static/description/banner.png'],
-    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
 }

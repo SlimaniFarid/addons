@@ -36,7 +36,6 @@ No configuration needed.
     'depends': ['base', 'hr'],
     'data': ['security/risk_security.xml', 'security/ir.model.access.csv', 'views/risk_menus.xml', 'views/risk_views.xml'],
     'images': ['static/description/banner.png'],
-    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
     'auto_install': False,

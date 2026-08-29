@@ -36,7 +36,6 @@ No configuration needed.
     'depends': ['base', 'mail', 'contacts', 'account'],
     'data': ['security/sf_staffing_security.xml', 'security/ir.model.access.csv', 'data/sf_staffing_sequence.xml', 'data/sf_staffing_cron.xml', 'data/sf_staffing_report.xml', 'views/sf_staffing_candidate_views.xml', 'views/sf_staffing_client_views.xml', 'views/sf_staffing_need_views.xml', 'views/sf_staffing_mission_views.xml', 'views/sf_staffing_contract_views.xml', 'views/sf_staffing_timesheet_views.xml', 'views/sf_staffing_menus.xml', 'views/report_contract.xml', 'views/report_candidate.xml', 'views/report_mission_invoice.xml', 'views/report_activity.xml', 'views/res_config_settings_views.xml'],
     'images': ['static/description/banner.png'],
-    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
     'auto_install': False,

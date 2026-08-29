@@ -36,7 +36,6 @@ No configuration needed.
     'depends': ['base', 'purchase', 'stock', 'quality'],
     'data': ['security/supplier_scorecard_security.xml', 'security/ir.model.access.csv', 'views/supplier_scorecard_menus.xml', 'views/supplier_scorecard_views.xml'],
     'images': ['static/description/banner.png'],
-    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
     'auto_install': False,

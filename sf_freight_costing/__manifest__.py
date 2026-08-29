@@ -36,7 +36,6 @@ No configuration needed.
     'depends': ['base', 'stock', 'account'],
     'data': ['security/freight_costing_security.xml', 'security/ir.model.access.csv', 'views/freight_costing_menus.xml', 'views/freight_costing_views.xml'],
     'images': ['static/description/banner.png'],
-    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
     'auto_install': False,

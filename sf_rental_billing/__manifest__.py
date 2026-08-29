@@ -37,7 +37,6 @@ No configuration needed.
     'depends': ['base', 'mail', 'account', 'stock'],
     'data': ['security/sf_rental_billing_security.xml', 'security/ir.model.access.csv', 'data/sf_rental_billing_sequence.xml', 'views/rental_contract_views.xml', 'views/rental_invoice_line_views.xml', 'views/sf_rental_billing_menus.xml'],
     'images': ['static/description/banner.png'],
-    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
 }

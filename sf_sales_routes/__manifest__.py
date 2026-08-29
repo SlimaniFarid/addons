@@ -36,7 +36,6 @@ No configuration needed.
     'depends': ['base', 'sale', 'crm'],
     'data': ['security/routes_security.xml', 'security/ir.model.access.csv', 'views/routes_menus.xml', 'views/routes_views.xml', 'data/routes_cron.xml'],
     'images': ['static/description/banner.png'],
-    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
     'auto_install': False,

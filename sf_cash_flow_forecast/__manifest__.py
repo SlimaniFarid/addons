@@ -36,7 +36,6 @@ No configuration needed.
     'depends': ['base', 'account', 'purchase'],
     'data': ['security/cashflow_security.xml', 'security/ir.model.access.csv', 'data/cashflow_data.xml', 'views/cashflow_views.xml'],
     'images': ['static/description/banner.png'],
-    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
     'auto_install': False,

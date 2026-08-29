@@ -36,7 +36,6 @@ No configuration needed.
     'depends': ['base', 'account', 'mail'],
     'data': ['security/real_estate_security.xml', 'security/ir.model.access.csv', 'data/real_estate_data.xml', 'views/real_estate_menus.xml', 'views/real_estate_views.xml'],
     'images': ['static/description/banner.png'],
-    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
     'auto_install': False,

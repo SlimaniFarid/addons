@@ -37,7 +37,6 @@ No configuration needed.
     'depends': ['base', 'mail', 'account', 'stock'],
     'data': ['security/sf_complaint_8d_security.xml', 'security/ir.model.access.csv', 'data/sf_complaint_8d_sequence.xml', 'views/complaint_8d_views.xml', 'views/sf_complaint_8d_menus.xml'],
     'images': ['static/description/banner.png'],
-    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
 }

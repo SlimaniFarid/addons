@@ -36,7 +36,6 @@ No configuration needed.
     'depends': ['base', 'account', 'purchase', 'product', 'mail'],
     'data': ['security/ir.model.access.csv', 'security/rebate_security.xml', 'data/rebate_data.xml', 'views/rebate_views.xml'],
     'images': ['static/description/banner.png'],
-    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
     'auto_install': False,

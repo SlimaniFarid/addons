@@ -36,7 +36,6 @@ No configuration needed.
     'depends': ['base', 'account', 'mail'],
     'data': ['security/ir.model.access.csv', 'security/bank_security.xml', 'data/bank_data.xml', 'views/bank_views.xml'],
     'images': ['static/description/banner.png'],
-    'banner': 'static/description/banner.png',
     'demo': ['data/bank_demo.xml'],
     'installable': True,
     'application': True,

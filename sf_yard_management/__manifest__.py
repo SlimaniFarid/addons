@@ -37,7 +37,6 @@ No configuration needed.
     'depends': ['base', 'mail', 'account', 'stock'],
     'data': ['security/sf_yard_management_security.xml', 'security/ir.model.access.csv', 'data/sf_yard_sequence.xml', 'models/res_partner.py', 'views/sf_yard_views.xml', 'views/sf_yard_menus.xml'],
     'images': ['static/description/banner.png'],
-    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
     'auto_install': False,

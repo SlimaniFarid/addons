@@ -37,7 +37,6 @@ No configuration needed.
     'depends': ['base', 'mail', 'account', 'stock'],
     'data': ['security/sf_promotional_pricing_engine_security.xml', 'security/ir.model.access.csv', 'data/sf_promotional_pricing_engine_sequence.xml', 'views/promo_rule_views.xml', 'views/sf_promotional_pricing_engine_menus.xml'],
     'images': ['static/description/banner.png'],
-    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
 }

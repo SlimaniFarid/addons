@@ -36,7 +36,6 @@ No configuration needed.
     'depends': ['base', 'mail', 'contacts'],
     'data': ['security/fuel_security.xml', 'security/ir.model.access.csv', 'views/fuel_views.xml', 'views/fuel_reports.xml', 'views/res_config_settings_views.xml', 'views/fuel_menus.xml', 'data/fuel_data.xml'],
     'images': ['static/description/banner.png'],
-    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
     'auto_install': False,

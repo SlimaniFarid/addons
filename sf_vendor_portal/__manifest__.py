@@ -36,7 +36,6 @@ No configuration needed.
     'depends': ['base', 'purchase', 'portal', 'account', 'mail'],
     'data': ['security/vendor_portal_security.xml', 'security/ir.model.access.csv', 'data/vendor_portal_data.xml', 'views/vendor_portal_menus.xml', 'views/vendor_portal_views.xml', 'views/vendor_portal_templates.xml'],
     'images': ['static/description/banner.png'],
-    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
     'auto_install': False,

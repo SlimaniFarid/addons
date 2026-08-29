@@ -36,7 +36,6 @@ No configuration needed.
     'depends': ['base', 'mrp', 'stock', 'quality'],
     'data': ['security/mes_shop_floor_security.xml', 'security/ir.model.access.csv', 'views/mes_shop_floor_menus.xml', 'views/mes_shop_floor_views.xml'],
     'images': ['static/description/banner.png'],
-    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
     'auto_install': False,

@@ -37,7 +37,6 @@ No configuration needed.
     'depends': ['base', 'mail', 'contacts', 'product'],
     'data': ['security/sf_restaurant_security.xml', 'security/ir.model.access.csv', 'data/sf_restaurant_sequence.xml', 'data/sf_restaurant_cron.xml', 'data/sf_restaurant_report.xml', 'views/sf_restaurant_table_views.xml', 'views/sf_restaurant_zone_views.xml', 'views/sf_restaurant_reservation_views.xml', 'views/sf_restaurant_menu_category_views.xml', 'views/sf_restaurant_menu_item_views.xml', 'views/sf_restaurant_order_views.xml', 'views/sf_restaurant_menus.xml', 'views/report_kitchen_ticket.xml', 'views/report_table_bill.xml', 'views/report_daily_revenue.xml', 'views/res_config_settings_views.xml'],
     'images': ['static/description/banner.png'],
-    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
 }

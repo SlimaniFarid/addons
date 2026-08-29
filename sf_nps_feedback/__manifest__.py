@@ -37,7 +37,6 @@ No configuration needed.
     'depends': ['base', 'mail', 'account', 'stock'],
     'data': ['security/sf_nps_feedback_security.xml', 'security/ir.model.access.csv', 'data/sf_nps_feedback_sequence.xml', 'views/nps_campaign_views.xml', 'views/nps_response_views.xml', 'views/sf_nps_feedback_menus.xml'],
     'images': ['static/description/banner.png'],
-    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
 }

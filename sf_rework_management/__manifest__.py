@@ -37,7 +37,6 @@ No configuration needed.
     'depends': ['base', 'mail', 'product', 'stock', 'contacts'],
     'data': ['security/sf_rework_management_security.xml', 'security/ir.model.access.csv', 'data/sf_rework_management_sequence.xml', 'data/sf_rework_management_cron.xml', 'data/sf_rework_management_report.xml', 'views/sf_rework_order_views.xml', 'views/sf_rework_management_menus.xml', 'views/report_rework_order.xml', 'views/res_config_settings_views.xml'],
     'images': ['static/description/banner.png'],
-    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
 }

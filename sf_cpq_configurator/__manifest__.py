@@ -36,7 +36,6 @@ No configuration needed.
     'depends': ['base', 'sale', 'product', 'mail'],
     'data': ['security/cpq_security.xml', 'security/ir.model.access.csv', 'data/cpq_data.xml', 'views/cpq_menus.xml', 'views/cpq_views.xml'],
     'images': ['static/description/banner.png'],
-    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
     'auto_install': False,

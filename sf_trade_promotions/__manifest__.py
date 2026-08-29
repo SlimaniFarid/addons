@@ -37,7 +37,6 @@ No configuration needed.
     'depends': ['base', 'mail', 'contacts', 'account'],
     'data': ['security/sf_trade_promotions_security.xml', 'security/ir.model.access.csv', 'data/sf_trade_promotions_sequence.xml', 'data/sf_trade_promotions_cron.xml', 'data/sf_trade_promotions_report.xml', 'views/sf_trade_program_views.xml', 'views/sf_trade_claim_views.xml', 'views/sf_trade_promotions_menus.xml', 'views/report_trade_program.xml', 'views/report_trade_claim.xml', 'views/res_config_settings_views.xml'],
     'images': ['static/description/banner.png'],
-    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
 }

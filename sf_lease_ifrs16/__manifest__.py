@@ -36,7 +36,6 @@ No configuration needed.
     'depends': ['base', 'account', 'mail'],
     'data': ['security/ir.model.access.csv', 'security/lease_security.xml', 'data/lease_data.xml', 'views/lease_views.xml', 'views/lease_reports.xml'],
     'images': ['static/description/banner.png'],
-    'banner': 'static/description/banner.png',
     'demo': ['data/lease_demo.xml'],
     'installable': True,
     'application': True,

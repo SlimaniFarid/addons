@@ -36,7 +36,6 @@ No configuration needed.
     'depends': ['base', 'mrp', 'stock'],
     'data': ['security/process_routing_security.xml', 'security/ir.model.access.csv', 'views/process_routing_menus.xml', 'views/process_routing_views.xml'],
     'images': ['static/description/banner.png'],
-    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
     'auto_install': False,

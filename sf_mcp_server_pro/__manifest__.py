@@ -36,7 +36,6 @@ No configuration needed.
     'depends': ['base', 'mail', 'sale', 'stock', 'account'],
     'data': ['security/ir.model.access.csv', 'views/mcp_server_views.xml', 'views/mcp_token_views.xml', 'views/mcp_log_views.xml', 'data/ir_cron_data.xml'],
     'images': ['static/description/banner.png'],
-    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
     'auto_install': False,

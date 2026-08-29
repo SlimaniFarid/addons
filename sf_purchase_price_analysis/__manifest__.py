@@ -36,7 +36,6 @@ No configuration needed.
     'depends': ['base', 'account', 'purchase', 'product', 'mail'],
     'data': ['security/ir.model.access.csv', 'security/ppv_security.xml', 'data/ppv_data.xml', 'views/ppv_views.xml'],
     'images': ['static/description/banner.png'],
-    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
     'auto_install': False,

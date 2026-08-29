@@ -36,7 +36,6 @@ No configuration needed.
     'depends': ['base', 'mail', 'contacts'],
     'data': ['security/esg_security.xml', 'security/ir.model.access.csv', 'views/esg_views.xml', 'views/res_config_settings_views.xml', 'views/esg_reports.xml', 'views/esg_menus.xml', 'data/esg_data.xml'],
     'images': ['static/description/banner.png'],
-    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
     'auto_install': False,

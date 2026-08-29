@@ -37,7 +37,6 @@ No configuration needed.
     'depends': ['base', 'mail'],
     'data': ['security/sf_cold_chain_security.xml', 'security/ir.model.access.csv', 'data/sf_cold_chain_sequence.xml', 'data/sf_cold_chain_cron.xml', 'data/sf_cold_chain_report.xml', 'views/sf_cold_site_views.xml', 'views/sf_cold_trip_views.xml', 'views/sf_cold_reading_views.xml', 'views/sf_cold_excursion_views.xml', 'views/sf_cold_chain_menus.xml', 'views/report_cold_log.xml', 'views/res_config_settings_views.xml', 'views/sf_cold_chain_report_wizard_views.xml'],
     'images': ['static/description/banner.png'],
-    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
 }

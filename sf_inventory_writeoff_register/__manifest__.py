@@ -31,7 +31,6 @@ No configuration needed.
 """,
     'author': 'Ethan Miller',
     'license': 'OPL-1',
-    'banner': 'static/description/banner.png',
     'price': 17.95,
     'currency': 'EUR',
     'depends': ['base', 'stock', 'account', 'mail'],

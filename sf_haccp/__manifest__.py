@@ -36,7 +36,6 @@ No configuration needed.
     'depends': ['base', 'mail', 'contacts', 'hr'],
     'data': ['security/haccp_security.xml', 'security/ir.model.access.csv', 'views/haccp_views.xml', 'views/res_config_settings_views.xml', 'views/haccp_reports.xml', 'views/haccp_menus.xml', 'data/haccp_data.xml'],
     'images': ['static/description/banner.png'],
-    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
     'auto_install': False,

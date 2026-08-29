@@ -36,7 +36,6 @@ No configuration needed.
     'depends': ['base', 'stock', 'stock_picking_batch', 'mail'],
     'data': ['security/wave_picking_security.xml', 'security/ir.model.access.csv', 'views/wave_picking_menus.xml', 'views/wave_picking_views.xml'],
     'images': ['static/description/banner.png'],
-    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
     'auto_install': False,

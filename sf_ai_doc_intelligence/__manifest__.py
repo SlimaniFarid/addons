@@ -36,7 +36,6 @@ No configuration needed.
     'depends': ['base', 'mail', 'account', 'hr', 'helpdesk'],
     'data': ['security/ir.model.access.csv', 'views/docintel_menus.xml', 'data/docintel_data.xml'],
     'images': ['static/description/banner.png'],
-    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
     'auto_install': False,

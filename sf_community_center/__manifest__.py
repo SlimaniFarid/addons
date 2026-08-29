@@ -37,7 +37,6 @@ No configuration needed.
     'depends': ['base', 'mail', 'contacts', 'account'],
     'data': ['security/sf_community_center_security.xml', 'security/ir.model.access.csv', 'data/sf_community_center_sequence.xml', 'data/sf_community_center_cron.xml', 'data/sf_community_center_report.xml'],
     'images': ['static/description/banner.png'],
-    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
 }

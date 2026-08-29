@@ -36,7 +36,6 @@ No configuration needed.
     'depends': ['base', 'sale', 'stock', 'account', 'delivery'],
     'data': ['security/ir.model.access.csv', 'views/rma_menus.xml', 'data/rma_data.xml'],
     'images': ['static/description/banner.png'],
-    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
     'auto_install': False,

@@ -37,7 +37,6 @@ No configuration needed.
     'depends': ['base', 'mail', 'contacts'],
     'data': ['security/sf_gifts_hospitality_security.xml', 'security/ir.model.access.csv', 'data/sf_gifts_hospitality_sequence.xml', 'data/sf_gifts_hospitality_report.xml', 'views/sf_gifts_hospitality_views.xml', 'views/sf_gifts_hospitality_menus.xml', 'views/report_gift_register.xml', 'views/report_gift_declaration.xml', 'views/res_config_settings_views.xml'],
     'images': ['static/description/banner.png'],
-    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
 }

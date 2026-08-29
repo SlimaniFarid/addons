@@ -36,7 +36,6 @@ No configuration needed.
     'depends': ['base', 'hr', 'mail'],
     'data': ['security/oh_security.xml', 'security/ir.model.access.csv', 'views/oh_views.xml', 'views/hr_employee_views.xml', 'views/res_config_settings_views.xml', 'views/oh_menus.xml', 'data/oh_cron.xml'],
     'images': ['static/description/banner.png'],
-    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
     'auto_install': False,

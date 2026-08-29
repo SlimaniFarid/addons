@@ -36,7 +36,6 @@ No configuration needed.
     'depends': ['base', 'mail', 'contacts'],
     'data': ['security/sf_creche_security.xml', 'security/ir.model.access.csv', 'views/sf_creche_views.xml', 'views/sf_creche_menus.xml', 'views/res_config_settings_views.xml', 'views/sf_creche_reports.xml', 'data/creche_data.xml', 'data/actions.xml'],
     'images': ['static/description/banner.png'],
-    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
     'auto_install': False,

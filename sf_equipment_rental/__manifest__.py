@@ -37,7 +37,6 @@ No configuration needed.
     'depends': ['base', 'mail', 'contacts', 'account'],
     'data': ['security/sf_rental_security.xml', 'security/ir.model.access.csv', 'data/sf_rental_sequence.xml', 'data/sf_rental_report.xml', 'views/sf_rental_equipment_views.xml', 'views/sf_rental_contract_views.xml', 'views/sf_rental_inspection_views.xml', 'views/sf_rental_maintenance_views.xml', 'views/sf_rental_menus.xml', 'views/report_rental_contract.xml', 'views/report_out_in_ticket.xml', 'views/report_fleet.xml', 'views/res_config_settings_views.xml'],
     'images': ['static/description/banner.png'],
-    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
 }

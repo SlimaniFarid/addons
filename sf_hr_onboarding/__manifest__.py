@@ -36,7 +36,6 @@ No configuration needed.
     'depends': ['base', 'hr'],
     'data': ['security/onboarding_security.xml', 'security/ir.model.access.csv', 'views/onboarding_menus.xml', 'views/onboarding_views.xml', 'data/onboarding_cron.xml'],
     'images': ['static/description/banner.png'],
-    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
     'auto_install': False,

@@ -37,7 +37,6 @@ No configuration needed.
     'depends': ['base', 'mail', 'product', 'stock', 'contacts'],
     'data': ['security/sf_batch_records_security.xml', 'security/ir.model.access.csv', 'data/sf_batch_records_sequence.xml', 'data/sf_batch_records_report.xml', 'views/sf_batch_record_views.xml', 'views/sf_batch_records_menus.xml', 'views/report_batch_record.xml', 'views/res_config_settings_views.xml'],
     'images': ['static/description/banner.png'],
-    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
 }

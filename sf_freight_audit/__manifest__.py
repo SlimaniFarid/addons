@@ -37,7 +37,6 @@ No configuration needed.
     'depends': ['base', 'mail', 'account', 'stock'],
     'data': ['security/sf_freight_audit_security.xml', 'security/ir.model.access.csv', 'data/sf_freight_audit_sequence.xml', 'data/sf_freight_audit_cron.xml', 'views/sf_freight_contract_views.xml', 'views/sf_freight_invoice_views.xml', 'views/sf_freight_rule_views.xml', 'views/sf_freight_audit_menus.xml', 'report/sf_freight_audit_reports.xml'],
     'images': ['static/description/banner.png'],
-    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
     'auto_install': False,

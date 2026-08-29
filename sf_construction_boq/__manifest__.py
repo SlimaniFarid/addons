@@ -36,7 +36,6 @@ No configuration needed.
     'depends': ['base', 'project', 'product', 'account', 'uom'],
     'data': ['security/construction_security.xml', 'security/ir.model.access.csv', 'data/construction_sequences.xml', 'views/construction_menus.xml', 'views/construction_views.xml', 'reports/certificate_report.xml'],
     'images': ['static/description/banner.png'],
-    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
     'auto_install': False,

@@ -36,7 +36,6 @@ No configuration needed.
     'depends': ['base', 'sale', 'product', 'account'],
     'data': ['security/price_matrix_security.xml', 'security/ir.model.access.csv', 'data/price_matrix_data.xml', 'views/price_matrix_menus.xml', 'views/price_matrix_views.xml'],
     'images': ['static/description/banner.png'],
-    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
     'auto_install': False,

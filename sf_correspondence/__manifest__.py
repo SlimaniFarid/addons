@@ -37,7 +37,6 @@ No configuration needed.
     'depends': ['base', 'mail', 'contacts'],
     'data': ['security/sf_correspondence_security.xml', 'security/ir.model.access.csv', 'data/sf_correspondence_sequence.xml', 'data/sf_correspondence_cron.xml', 'data/sf_correspondence_report.xml', 'views/sf_correspondence_views.xml', 'views/sf_correspondence_department_views.xml', 'views/sf_correspondence_menus.xml', 'views/report_correspondence_register.xml', 'views/report_correspondence_sheet.xml'],
     'images': ['static/description/banner.png'],
-    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
 }

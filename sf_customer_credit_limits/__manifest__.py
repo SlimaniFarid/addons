@@ -37,7 +37,6 @@ No configuration needed.
     'depends': ['base', 'mail', 'account', 'stock'],
     'data': ['security/sf_customer_credit_limits_security.xml', 'security/ir.model.access.csv', 'data/sf_customer_credit_limits_sequence.xml', 'views/credit_limit_rule_views.xml', 'views/credit_exposure_views.xml', 'views/sf_customer_credit_limits_menus.xml'],
     'images': ['static/description/banner.png'],
-    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
 }

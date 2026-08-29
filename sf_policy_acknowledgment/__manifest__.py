@@ -37,7 +37,6 @@ No configuration needed.
     'depends': ['base', 'mail', 'contacts', 'hr'],
     'data': ['security/sf_policy_acknowledgment_security.xml', 'security/ir.model.access.csv', 'data/sf_policy_acknowledgment_sequence.xml', 'data/sf_policy_acknowledgment_cron.xml', 'data/sf_policy_acknowledgment_report.xml', 'views/sf_policy_views.xml', 'views/sf_policy_acknowledgment_views.xml', 'views/sf_policy_acknowledgment_menus.xml', 'views/report_policy.xml', 'views/report_policy_acknowledgment.xml', 'views/res_config_settings_views.xml'],
     'images': ['static/description/banner.png'],
-    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
 }

@@ -36,7 +36,6 @@ No configuration needed.
     'depends': ['base', 'website', 'sale', 'account', 'portal', 'payment'],
     'data': ['security/ir.model.access.csv', 'views/portal_menus.xml', 'data/portal_data.xml'],
     'images': ['static/description/banner.png'],
-    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
     'auto_install': False,

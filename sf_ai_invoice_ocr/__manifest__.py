@@ -36,7 +36,6 @@ No configuration needed.
     'depends': ['base', 'account', 'hr_expense'],
     'data': ['security/ir.model.access.csv', 'views/ai_ocr_menus.xml', 'data/ai_ocr_data.xml'],
     'images': ['static/description/banner.png'],
-    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
     'auto_install': False,

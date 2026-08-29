@@ -36,7 +36,6 @@ No configuration needed.
     'depends': ['base', 'project', 'sale', 'account'],
     'data': ['security/project_margin_security.xml', 'security/ir.model.access.csv', 'views/project_margin_menus.xml', 'views/project_margin_views.xml'],
     'images': ['static/description/banner.png'],
-    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
     'auto_install': False,

@@ -36,7 +36,6 @@ No configuration needed.
     'depends': ['base', 'sale', 'stock', 'account'],
     'data': ['security/ir.model.access.csv', 'views/tiktokshop_menus.xml', 'views/tiktokshop_product_views.xml', 'views/tiktokshop_order_views.xml', 'views/tiktokshop_sync_log_views.xml', 'data/tiktokshop_data.xml'],
     'images': ['static/description/banner.png'],
-    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
     'auto_install': False,

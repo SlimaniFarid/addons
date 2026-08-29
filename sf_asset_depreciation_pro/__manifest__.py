@@ -37,7 +37,6 @@ No configuration needed.
     'depends': ['base', 'mail', 'account', 'stock'],
     'data': ['security/sf_asset_depreciation_pro_security.xml', 'security/ir.model.access.csv', 'data/sf_asset_depreciation_pro_sequence.xml', 'views/asset_schedule_line_views.xml', 'views/asset_revaluation_views.xml', 'views/sf_asset_depreciation_pro_menus.xml'],
     'images': ['static/description/banner.png'],
-    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
 }

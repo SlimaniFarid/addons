@@ -36,7 +36,6 @@ No configuration needed.
     'depends': ['base', 'account', 'mail'],
     'data': ['security/debt_security.xml', 'security/ir.model.access.csv', 'data/debt_data.xml', 'views/debt_menus.xml', 'views/debt_views.xml'],
     'images': ['static/description/banner.png'],
-    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
     'auto_install': False,

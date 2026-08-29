@@ -37,7 +37,6 @@ No configuration needed.
     'depends': ['base', 'mail', 'account', 'stock'],
     'data': ['security/sf_quality_inspection_security.xml', 'security/ir.model.access.csv', 'data/sf_quality_inspection_sequence.xml', 'views/inspection_plan_views.xml', 'views/quality_inspection_views.xml', 'views/sf_quality_inspection_menus.xml'],
     'images': ['static/description/banner.png'],
-    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
 }

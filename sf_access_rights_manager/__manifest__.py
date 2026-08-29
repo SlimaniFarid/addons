@@ -36,7 +36,6 @@ No configuration needed.
     'depends': ['base', 'mail'],
     'data': ['security/ir.model.access.csv', 'views/access_menus.xml', 'data/access_data.xml'],
     'images': ['static/description/banner.png'],
-    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
     'auto_install': False,

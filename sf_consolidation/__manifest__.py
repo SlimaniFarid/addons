@@ -36,7 +36,6 @@ No configuration needed.
     'depends': ['base', 'account'],
     'data': ['security/consolidation_security.xml', 'security/ir.model.access.csv', 'views/consolidation_menus.xml', 'views/consolidation_views.xml'],
     'images': ['static/description/banner.png'],
-    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
     'auto_install': False,

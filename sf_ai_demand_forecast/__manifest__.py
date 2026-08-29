@@ -36,7 +36,6 @@ No configuration needed.
     'depends': ['base', 'stock', 'sale'],
     'data': ['security/ir.model.access.csv', 'views/forecast_menus.xml', 'data/forecast_data.xml'],
     'images': ['static/description/banner.png'],
-    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
     'auto_install': False,

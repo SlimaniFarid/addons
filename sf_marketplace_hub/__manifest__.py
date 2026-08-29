@@ -36,7 +36,6 @@ No configuration needed.
     'depends': ['base', 'sale', 'account', 'product'],
     'data': ['security/marketplace_security.xml', 'security/ir.model.access.csv', 'data/marketplace_data.xml', 'views/marketplace_menus.xml', 'views/marketplace_views.xml'],
     'images': ['static/description/banner.png'],
-    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
     'auto_install': False,

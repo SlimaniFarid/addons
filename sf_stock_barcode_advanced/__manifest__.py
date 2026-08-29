@@ -36,7 +36,6 @@ No configuration needed.
     'depends': ['base', 'stock', 'product'],
     'data': ['security/ir.model.access.csv', 'views/barcode_menus.xml', 'data/barcode_data.xml'],
     'images': ['static/description/banner.png'],
-    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
     'auto_install': False,

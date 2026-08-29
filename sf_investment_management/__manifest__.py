@@ -36,7 +36,6 @@ No configuration needed.
     'depends': ['base', 'mail', 'contacts'],
     'data': ['security/invest_security.xml', 'security/ir.model.access.csv', 'views/invest_views.xml', 'views/res_config_settings_views.xml', 'views/invest_menus.xml', 'views/invest_reports.xml', 'data/invest_data.xml'],
     'images': ['static/description/banner.png'],
-    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
     'auto_install': False,

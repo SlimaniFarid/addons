@@ -36,7 +36,6 @@ No configuration needed.
     'depends': ['base', 'hr'],
     'data': ['data/it_asset_data.xml', 'data/it_asset_cron.xml', 'security/it_asset_security.xml', 'security/ir.model.access.csv', 'views/it_asset_menus.xml', 'views/it_asset_views.xml'],
     'images': ['static/description/banner.png'],
-    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
     'auto_install': False,

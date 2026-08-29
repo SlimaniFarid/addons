@@ -36,7 +36,6 @@ No configuration needed.
     'depends': ['base', 'mail', 'sale', 'account', 'website'],
     'data': ['security/ir.model.access.csv', 'views/membership_menus.xml', 'views/membership_plan_views.xml', 'views/membership_member_views.xml', 'views/membership_subscription_views.xml', 'views/membership_payment_views.xml', 'data/membership_data.xml'],
     'images': ['static/description/banner.png'],
-    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
     'auto_install': False,

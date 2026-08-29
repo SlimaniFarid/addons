@@ -36,7 +36,6 @@ No configuration needed.
     'depends': ['base', 'mail', 'contacts'],
     'data': ['security/insurance_security.xml', 'security/ir.model.access.csv', 'views/insurance_views.xml', 'views/insurance_reports.xml', 'views/res_config_settings_views.xml', 'views/insurance_menus.xml', 'data/insurance_data.xml'],
     'images': ['static/description/banner.png'],
-    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
     'auto_install': False,

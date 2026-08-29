@@ -36,7 +36,6 @@ No configuration needed.
     'depends': ['base', 'account', 'sale', 'product', 'mail'],
     'data': ['security/ir.model.access.csv', 'security/crebate_security.xml', 'data/crebate_data.xml', 'views/crebate_views.xml'],
     'images': ['static/description/banner.png'],
-    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
     'auto_install': False,

@@ -36,7 +36,6 @@ No configuration needed.
     'depends': ['base', 'mail'],
     'data': ['security/approval_security.xml', 'security/ir.model.access.csv', 'data/approval_data.xml', 'views/approval_menus.xml', 'views/approval_views.xml'],
     'images': ['static/description/banner.png'],
-    'banner': 'static/description/banner.png',
     'installable': True,
     'application': True,
     'auto_install': False,
