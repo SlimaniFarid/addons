@@ -30,8 +30,8 @@ No configuration needed.
 
 """,
     'author': 'Ethan Miller',
-    'license': 'OPL-1',
-    'price': 17.95,
+    'license': 'LGPL-3',
+    'price': 0.0,
     'currency': 'EUR',
     'depends': ['base', 'account', 'purchase'],
     'data': ['security/cashflow_security.xml', 'security/ir.model.access.csv', 'data/cashflow_data.xml', 'views/cashflow_views.xml'],

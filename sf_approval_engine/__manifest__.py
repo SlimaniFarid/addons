@@ -30,8 +30,8 @@ No configuration needed.
 
 """,
     'author': 'Ethan Miller',
-    'license': 'OPL-1',
-    'price': 11.95,
+    'license': 'LGPL-3',
+    'price': 0.0,
     'currency': 'EUR',
     'depends': ['base', 'mail'],
     'data': ['security/approval_security.xml', 'security/ir.model.access.csv', 'data/approval_data.xml', 'views/approval_menus.xml', 'views/approval_views.xml'],

@@ -30,9 +30,9 @@ No configuration needed.
 
 """,
     'author': 'Ethan Miller',
-    'license': 'OPL-1',
+    'license': 'LGPL-3',
     'images': ['static/description/banner.png'],
-    'price': 11.95,
+    'price': 0.0,
     'currency': 'EUR',
     'depends': ['base', 'mail'],
     'data': ['security/ir.model.access.csv', 'security/security.xml', 'data/data.xml', 'views/views.xml'],
